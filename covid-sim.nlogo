@@ -114,7 +114,7 @@ proportion-young-yom
 proportion-young-yom
 0
 1
-0.1
+0.66
 0.01
 1
 NIL
@@ -154,7 +154,7 @@ mortality-rate-for-old-yom
 mortality-rate-for-old-yom
 0
 1
-0.1
+0.05
 0.01
 1
 NIL
@@ -169,7 +169,7 @@ recovery-rate-young-yom
 recovery-rate-young-yom
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -184,7 +184,7 @@ recovery-rate-old-yom
 recovery-rate-old-yom
 0
 1
-0.1
+0.05
 0.01
 1
 NIL
@@ -199,7 +199,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.1
+0.2
 0.01
 1
 NIL
