@@ -1,0 +1,73 @@
+people-own [age infection-status]
+to setup-person
+  ifelse age-model = "young-old"
+  [
+    ifelse random-float 1 < proportion-young-yom
+    [set age "young"]
+    [set age "old"]
+  ]
+  [error "not implemented!"]
+  
+  set color default-color
+  set infection-status "healthy"
+end
+
+to-report default-color
+  ifelse age-model = "young-old"
+  [
+    ifelse age = "young" [report green]
+    [report blue]
+  ]
+  [error "not implemented"]  
+end
+
+to update-people-display
+  set color default-color
+  if infection-status = "healthy"
+  [set color color + 2]
+  if infection-status = "infected"
+  [set color color ]
+  if infection-status = "dead"
+  [set color color - 2]
+  if infection-status = "immune"
+  [set color white]
+ 
+end
+
+to set-infection-status [infection]
+  set infection-status infection
+end
+
+to-report is-propagating?
+  if disease-model = "markovian" [report infection-status = "infected"]
+  error "not implemented"
+end
+
+to-report is-immune?
+  if disease-model = "markovian" [report infection-status = "immune"]
+  error "not implemented"
+end
+
+to update-within-disease-status
+  ifelse age-model = "young-old" and disease-model = "markovian" 
+  [
+    if infection-status = "infected"
+    [
+      let immune? false
+      let dead? false
+      
+      if age = "young" [
+        set immune? random-float 1 < recovery-rate-young-yom
+        set dead?  random-float 1 < morality-rate-for-young-yom
+      ]
+      
+      if age = "old" [
+        set immune? random-float 1 < recovery-rate-old-yom
+        set dead?  random-float 1 < mortality-rate-for-old-yom
+      ]
+      if immune? [set infection-status "immune"]
+      if dead? [set infection-status "dead"]
+    ]
+  ]
+  [error "not implemented"]
+end

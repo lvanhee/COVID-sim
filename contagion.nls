@@ -1,0 +1,16 @@
+to spread-contagion
+  spread-by-proximity
+end
+
+to spread-by-proximity
+  if propagation-by-coordinates-proximity? and disease-model = "markovian" 
+  [
+    ask people with [is-propagating?]
+    [ask people in-radius propagation-radius with [not is-immune?]
+      [
+        if random-float 1 < propagation-risk-yom[
+          set infection-status "infected"]
+      ]
+    ]
+  ]
+end
