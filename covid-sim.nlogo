@@ -1,7 +1,7 @@
-__includes ["people_management.nls" "contagion.nls" "activities.nls"]
+__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "activities.nls" "public_measures.nls"]
 breed [people person]
 
-globals [slice-of-the-day]
+globals [slice-of-the-day is-lockdown-active?]
 
 to setup
   clear-all
@@ -15,6 +15,8 @@ to setup
   update-display
 
   ask links[hide-link]
+
+  set is-lockdown-active? false
 end
 
 to go
@@ -102,7 +104,7 @@ BUTTON
 85
 go
 go\nif not any? people with [infection-status = \"infected\"]\n[stop]
-NIL
+T
 1
 T
 OBSERVER
@@ -226,7 +228,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.1
+0.2
 0.01
 1
 NIL
@@ -316,10 +318,10 @@ Proxemics model
 1
 
 INPUTBOX
-700
-687
-765
-747
+695
+686
+760
+746
 #schools
 3.0
 1
@@ -327,10 +329,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-775
-688
-856
-748
+790
+686
+871
+746
 #universities
 10.0
 1
@@ -338,10 +340,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-862
-688
-939
-748
+882
+686
+959
+746
 #workplaces
 20.0
 1
@@ -359,10 +361,10 @@ Number of units per activity type (sharing a unit incurs a transmission risk; du
 1
 
 INPUTBOX
-947
-688
-1033
-748
+970
+687
+1056
+747
 #public-leisure
 1.0
 1
@@ -370,9 +372,9 @@ INPUTBOX
 Number
 
 INPUTBOX
-1038
+1062
 688
-1122
+1146
 748
 #private-leisure
 100.0
@@ -385,16 +387,16 @@ TEXTBOX
 623
 1202
 678
-Proxemics is represented as \"meeting spaces\" people can move into and be infected or spread infection.\nAs simplifications: each person relates to a fix set of spaces over time (same school, bus, bar) and gets in contact with everyone sharing this space; no contamination due to left germs.
+Proxemics is represented as \"meeting spaces\" people can move into and be infected or spread infection.\nAs simplifications: each person relates to a fix set of spaces over time (same school, bus, bar) and gets in contact with everyone sharing this space; no contamination due to left germs.\nDensity factors model the relative proximity between individuals within an activity type
 9
 0.0
 1
 
 INPUTBOX
-1126
-688
-1179
-748
+1194
+690
+1247
+750
 #homes
 500.0
 1
@@ -496,6 +498,134 @@ activity-based-progagation?
 0
 1
 -1000
+
+SLIDER
+674
+755
+766
+788
+density-factor-schools
+density-factor-schools
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+774
+759
+866
+792
+density-factor-universities
+density-factor-universities
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+869
+758
+961
+791
+density-factor-workplaces
+density-factor-workplaces
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+971
+758
+1063
+791
+density-factor-public-leisure
+density-factor-public-leisure
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1061
+759
+1153
+792
+density-factor-private-leisure
+density-factor-private-leisure
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1201
+758
+1293
+791
+density-factor-homes
+density-factor-homes
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+1198
+450
+1348
+468
+Measures:
+11
+0.0
+1
+
+CHOOSER
+1208
+472
+1351
+517
+confinment-measures
+confinment-measures
+"none" "total-lockdown" "lockdown-10-5"
+2
+
+PLOT
+10
+615
+518
+765
+measures
+NIL
+NIL
+0.0
+1.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
 
 @#$#@#$#@
 ## WHAT IS IT?

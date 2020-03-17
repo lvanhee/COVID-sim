@@ -18,3 +18,31 @@ to-report probability-passing-out-mdm
     report mortality-rate-young
   ]
 end
+
+
+to-report is-immune?
+  if disease-model = "markovian" [report infection-status = "immune"]
+  error "not implemented"
+end
+
+to update-within-disease-status
+  ifelse disease-model = "markovian" 
+  [
+    if infection-status = "infected"
+    [
+      let immune? false
+      let dead? false
+      set immune?  random-float 1 < probability-recovering-mdm
+      set dead?  random-float 1 < probability-passing-out-mdm
+      
+      if immune? [set infection-status "immune"]
+      if dead? [set infection-status "dead"]
+    ]
+  ]
+  [error "not implemented"]
+end
+
+
+to-report is-infected?
+  report infection-status = "infected"
+end

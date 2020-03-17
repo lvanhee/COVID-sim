@@ -13,3 +13,13 @@ to setup-activities
   ]
 
 end
+
+to-report density-factor
+  if activity-type = "school"[report density-factor-schools]
+  if activity-type = "university"[report density-factor-universities]
+  if activity-type = "workplace"[report density-factor-workplaces]
+  if activity-type = "public-leisure"[report density-factor-public-leisure]
+  if activity-type = "private-leisure"[report density-factor-private-leisure]
+  if activity-type = "home"[report density-factor-homes]
+  error (word activity-type " not defined")
+end

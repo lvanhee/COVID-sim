@@ -5,7 +5,6 @@ to perform-activity
     
     if slice-of-the-day = "morning" or slice-of-the-day = "afternoon"
     [
-      
       if age = "young" [set target one-of link-neighbors with [activity-type = "school"]]
       if age = "student" [set target one-of link-neighbors with  [activity-type = "university"]]
       if age = "worker" [set target one-of link-neighbors with  [activity-type = "workplace"]]
@@ -16,8 +15,10 @@ to perform-activity
       if random-float 1 < 0.05 [set target one-of link-neighbors with [activity-type = "public-leisure"]]
       if target = nobody and random-float 1 < 0.3 [set target one-of link-neighbors with [activity-type = "private-leisure"]]
       if target = nobody [set target one-of link-neighbors with  [activity-type = "home"]]
-      move-to one-of [patches in-radius 3] of target
-      set heading towards target
+    ]
+    
+    if is-lockdown-enforced? [
+      set target one-of link-neighbors with  [activity-type = "home"]
     ]
     
     if target != current-activity[

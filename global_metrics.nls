@@ -1,0 +1,3 @@
+to-report ratio-infected
+  report count people with [is-infected?] / count people with [is-alive?]
+end

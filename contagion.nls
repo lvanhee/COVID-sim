@@ -11,7 +11,7 @@ to spread-by-coordinates-proximity
     ask people with [is-contagious?]
     [ask people in-radius propagation-radius with [not is-immune?]
       [
-        apply-risk-of-contamination
+        apply-risk-of-contamination 1
       ]
     ]
   ]
@@ -20,19 +20,24 @@ end
 to spread-by-activity-proximity
   ask people [
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
-    repeat number-contamination [ apply-risk-of-contamination ]
+    repeat number-contamination [ apply-risk-of-contamination [density-factor] of current-activity]
   ]
 end
 
-to apply-risk-of-contamination 
+to apply-risk-of-contamination [factor]
   if disease-model = "markovian" and infection-status = "healthy"
   [
-    if random-float 1 < propagation-risk-yom[
-      set infection-status "infected"]
+    if random-float 1 < factor * 
+    propagation-risk-yom
+    [set infection-status "infected"]
   ]
 end
 
 to-report is-contagious?
   if disease-model = "markovian" [report infection-status = "infected"]
   error "not implemented"
+end
+
+to-report is-alive?
+  report not (infection-status = "dead")
 end
