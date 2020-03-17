@@ -1,24 +1,31 @@
-people-own [age infection-status]
+__includes ["people_activity.nls" "people_age_model.nls" "disease_model.nls"]
+
+people-own [age infection-status current-activity]
+
 to setup-person
-  ifelse age-model = "young-old"
-  [
-    ifelse random-float 1 < proportion-young-yom
-    [set age "young"]
-    [set age "old"]
-  ]
-  [error "not implemented!"]
+  setup-person-age
   
   set color default-color
   set infection-status "healthy"
+  
+  relate-person-to-activities
 end
 
 to-report default-color
-  ifelse age-model = "young-old"
+  if age-model = "young-old"
   [
     ifelse age = "young" [report green]
     [report blue]
   ]
-  [error "not implemented"]  
+
+  if age-model = "young,student,worker,retired"
+  [
+    if age = "young" [report green]
+    if age = "student" [report orange]
+    if age = "worker" [report blue]
+    if age = "retired" [report red]
+  ]
+  error "not implemented"
 end
 
 to update-people-display
@@ -38,10 +45,7 @@ to set-infection-status [infection]
   set infection-status infection
 end
 
-to-report is-propagating?
-  if disease-model = "markovian" [report infection-status = "infected"]
-  error "not implemented"
-end
+
 
 to-report is-immune?
   if disease-model = "markovian" [report infection-status = "immune"]
@@ -49,25 +53,45 @@ to-report is-immune?
 end
 
 to update-within-disease-status
-  ifelse age-model = "young-old" and disease-model = "markovian" 
+  ifelse disease-model = "markovian" 
   [
     if infection-status = "infected"
     [
       let immune? false
       let dead? false
+      set immune?  random-float 1 < probability-recovering-mdm
+      set dead?  random-float 1 < probability-passing-out-mdm
       
-      if age = "young" [
-        set immune? random-float 1 < recovery-rate-young-yom
-        set dead?  random-float 1 < morality-rate-for-young-yom
-      ]
-      
-      if age = "old" [
-        set immune? random-float 1 < recovery-rate-old-yom
-        set dead?  random-float 1 < mortality-rate-for-old-yom
-      ]
       if immune? [set infection-status "immune"]
       if dead? [set infection-status "dead"]
     ]
+  ]
+  [error "not implemented"]
+end
+
+
+
+to create-all-people
+  if original-distribution = "one-person-per-patch"
+  [ask patches [sprout-people 1 [setup-person]]]
+  if original-distribution = "set-by-quotas"
+  [create-people #young + #students + #workers + #retired [setup-person]]
+  
+  ask people [ set current-activity one-of link-neighbors with  [activity-type = "home"]]
+  
+  
+end
+
+to relate-person-to-activities
+  create-link-to one-of activities with [activity-type = "home"]
+  ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
+  [
+  create-link-to one-of activities with [activity-type = "private-leisure"]
+  create-link-to one-of activities with [activity-type = "public-leisure"]
+  
+  if age = "young" [ create-link-to one-of activities with [activity-type = "school"]]
+  if age = "student" [ create-link-to one-of activities with [activity-type = "university"]]
+  if age = "worker" [ create-link-to one-of activities with [activity-type = "workplace"]]
   ]
   [error "not implemented"]
 end

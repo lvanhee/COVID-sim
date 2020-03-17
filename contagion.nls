@@ -1,16 +1,39 @@
 to spread-contagion
-  spread-by-proximity
+  if propagation-by-coordinates-proximity?[spread-by-coordinates-proximity]
+  
+  if activity-based-progagation?
+  [spread-by-activity-proximity]
 end
 
-to spread-by-proximity
-  if propagation-by-coordinates-proximity? and disease-model = "markovian" 
+to spread-by-coordinates-proximity
+  if propagation-by-coordinates-proximity?
   [
-    ask people with [is-propagating?]
+    ask people with [is-contagious?]
     [ask people in-radius propagation-radius with [not is-immune?]
       [
-        if random-float 1 < propagation-risk-yom[
-          set infection-status "infected"]
+        apply-risk-of-contamination
       ]
     ]
   ]
+end
+
+to spread-by-activity-proximity
+  ask people [
+    let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
+    if number-contamination > 0 [show  number-contamination]
+    repeat number-contamination [ apply-risk-of-contamination ]
+  ]
+end
+
+to apply-risk-of-contamination 
+  if disease-model = "markovian" and infection-status = "healthy"
+  [
+    if random-float 1 < propagation-risk-yom[
+      set infection-status "infected"]
+  ]
+end
+
+to-report is-contagious?
+  if disease-model = "markovian" [report infection-status = "infected"]
+  error "not implemented"
 end

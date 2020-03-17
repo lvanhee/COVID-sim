@@ -1,0 +1,30 @@
+to perform-activity
+  ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
+  [
+    let target nobody
+    
+    if slice-of-the-day = "morning" or slice-of-the-day = "afternoon"
+    [
+      
+      if age = "young" [set target one-of link-neighbors with [activity-type = "school"]]
+      if age = "student" [set target one-of link-neighbors with  [activity-type = "university"]]
+      if age = "worker" [set target one-of link-neighbors with  [activity-type = "workplace"]]
+      if age = "retired" [set target one-of link-neighbors with  [activity-type = "home"]]
+    ]
+    if slice-of-the-day = "evening"
+    [
+      if random-float 1 < 0.05 [set target one-of link-neighbors with [activity-type = "public-leisure"]]
+      if target = nobody and random-float 1 < 0.3 [set target one-of link-neighbors with [activity-type = "private-leisure"]]
+      if target = nobody [set target one-of link-neighbors with  [activity-type = "home"]]
+      move-to one-of [patches in-radius 3] of target
+      set heading towards target
+    ]
+    
+    if target != current-activity[
+      move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of target
+      set heading towards target
+    ]
+    set current-activity target
+  ]
+  [error "not implemented"]
+end

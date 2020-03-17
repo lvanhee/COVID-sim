@@ -1,0 +1,20 @@
+to-report probability-recovering-mdm
+  if age = "retired" or age = "old" [
+    report recovery-rate-old
+  ]
+  
+  if age = "young" or age = "student" or age = "worker" [
+    report recovery-rate-young
+  ]
+  
+end
+
+to-report probability-passing-out-mdm
+    if age = "retired" or age = "old" [
+    report mortality-rate-old
+  ]
+  
+   if age = "young" or age = "student" or age = "worker" [
+    report mortality-rate-young
+  ]
+end

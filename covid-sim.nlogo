@@ -1,27 +1,54 @@
-__includes ["people_management.nls" "contagion.nls"]
+__includes ["people_management.nls" "contagion.nls" "activities.nls"]
 breed [people person]
+
+globals [slice-of-the-day]
 
 to setup
   clear-all
   reset-ticks
-  ask patches [sprout-people 1 [setup-person]]
+  set slice-of-the-day "morning"
+
+  setup-activities
+  create-all-people
+
   ask one-of people [set-infection-status "infected"]
   update-display
+
+  ask links[hide-link]
 end
 
 to go
   tick
   spread-contagion
   update-within-agent-disease-status
+  perform-people-activities
   update-display
+
+  update-slice-of-the-day
 end
 
+to update-slice-of-the-day
+  if slice-of-the-day = "morning"
+  [set slice-of-the-day "afternoon" stop]
+
+  if slice-of-the-day = "afternoon"
+  [set slice-of-the-day "evening" stop]
+
+  if slice-of-the-day = "evening"
+  [set slice-of-the-day "morning" stop]
+end
 to update-display
   ask people [update-people-display]
 end
 
 to update-within-agent-disease-status
   ask people [update-within-disease-status]
+end
+
+to perform-people-activities
+  ask people [
+    perform-activity
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -41,10 +68,10 @@ GRAPHICS-WINDOW
 0
 0
 1
--16
-16
--16
-16
+0
+32
+0
+32
 1
 1
 1
@@ -86,24 +113,24 @@ NIL
 1
 
 CHOOSER
-534
-396
-705
-441
-initial-spatial-distribution
-initial-spatial-distribution
-"one-person-per-patch"
-0
+550
+393
+721
+438
+original-distribution
+original-distribution
+"one-person-per-patch" "set-by-quotas"
+1
 
 CHOOSER
-524
-12
-662
-57
+1267
+255
+1482
+300
 age-model
 age-model
-"none" "young-old"
-1
+"none" "young-old" "young,student,worker,retired"
+2
 
 SLIDER
 533
@@ -133,10 +160,10 @@ Young-old-model (yom) variables\nAssumed a pure markovian four-state disease mod
 SLIDER
 533
 222
-718
+726
 255
-morality-rate-for-young-yom
-morality-rate-for-young-yom
+mortality-rate-young
+mortality-rate-young
 0
 1
 0.02
@@ -150,8 +177,8 @@ SLIDER
 260
 718
 293
-mortality-rate-for-old-yom
-mortality-rate-for-old-yom
+mortality-rate-old
+mortality-rate-old
 0
 1
 0.05
@@ -165,8 +192,8 @@ SLIDER
 222
 901
 255
-recovery-rate-young-yom
-recovery-rate-young-yom
+recovery-rate-young
+recovery-rate-young
 0
 1
 0.1
@@ -180,8 +207,8 @@ SLIDER
 260
 900
 293
-recovery-rate-old-yom
-recovery-rate-old-yom
+recovery-rate-old
+recovery-rate-old
 0
 1
 0.05
@@ -199,38 +226,38 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.2
+1.0
 0.01
 1
 NIL
 HORIZONTAL
 
 CHOOSER
-676
-12
-814
-57
+1378
+11
+1516
+56
 disease-model
 disease-model
 "markovian"
 0
 
 SWITCH
-866
-61
-1137
-94
+645
+13
+916
+46
 propagation-by-coordinates-proximity?
 propagation-by-coordinates-proximity?
-0
+1
 1
 -1000
 
 INPUTBOX
-1142
-62
-1297
-122
+921
+14
+1076
+74
 propagation-radius
 2.0
 1
@@ -259,11 +286,11 @@ PENS
 "pen-3" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
 
 TEXTBOX
-867
-19
-1261
-61
-There are propagation-model variables (we will likelt have a set of switches)
+536
+25
+930
+67
+Propagation model
 11
 0.0
 1
@@ -273,10 +300,202 @@ TEXTBOX
 377
 686
 395
-Spatial model variables
+Setup-distribution
 11
 0.0
 1
+
+TEXTBOX
+594
+606
+744
+624
+Proxemics model
+11
+0.0
+1
+
+INPUTBOX
+700
+687
+765
+747
+#schools
+3.0
+1
+0
+Number
+
+INPUTBOX
+775
+688
+856
+748
+#universities
+10.0
+1
+0
+Number
+
+INPUTBOX
+862
+688
+939
+748
+#workplaces
+20.0
+1
+0
+Number
+
+TEXTBOX
+706
+668
+1155
+696
+Number of units per activity type (sharing a unit incurs a transmission risk; due to contact)
+11
+0.0
+1
+
+INPUTBOX
+947
+688
+1033
+748
+#public-leisure
+1.0
+1
+0
+Number
+
+INPUTBOX
+1038
+688
+1122
+748
+#private-leisure
+100.0
+1
+0
+Number
+
+TEXTBOX
+734
+623
+1202
+678
+Proxemics is represented as \"meeting spaces\" people can move into and be infected or spread infection.\nAs simplifications: each person relates to a fix set of spaces over time (same school, bus, bar) and gets in contact with everyone sharing this space; no contamination due to left germs.
+9
+0.0
+1
+
+INPUTBOX
+1126
+688
+1179
+748
+#homes
+500.0
+1
+0
+Number
+
+CHOOSER
+555
+517
+848
+562
+activity-model
+activity-model
+"public&private leisure, rest, age-based work"
+0
+
+TEXTBOX
+1251
+235
+1401
+253
+Age model
+11
+0.0
+1
+
+INPUTBOX
+1267
+314
+1320
+374
+#young
+300.0
+1
+0
+Number
+
+INPUTBOX
+1324
+314
+1390
+374
+#students
+300.0
+1
+0
+Number
+
+INPUTBOX
+1396
+314
+1451
+374
+#workers
+300.0
+1
+0
+Number
+
+INPUTBOX
+1455
+314
+1509
+374
+#retired
+300.0
+1
+0
+Number
+
+SWITCH
+597
+630
+728
+663
+activity-based-proxemics?
+activity-based-proxemics?
+0
+1
+-1000
+
+TEXTBOX
+1228
+324
+1378
+342
+Quotas
+9
+0.0
+1
+
+SWITCH
+644
+63
+855
+96
+activity-based-progagation?
+activity-based-progagation?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
