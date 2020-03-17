@@ -20,7 +20,6 @@ end
 to spread-by-activity-proximity
   ask people [
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
-    if number-contamination > 0 [show  number-contamination]
     repeat number-contamination [ apply-risk-of-contamination ]
   ]
 end

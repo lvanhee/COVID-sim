@@ -102,7 +102,7 @@ BUTTON
 85
 go
 go\nif not any? people with [infection-status = \"infected\"]\n[stop]
-T
+NIL
 1
 T
 OBSERVER
@@ -226,7 +226,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-1.0
+0.1
 0.01
 1
 NIL
