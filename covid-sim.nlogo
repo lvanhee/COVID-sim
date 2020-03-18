@@ -1,12 +1,17 @@
 __includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "gathering_points.nls" "public_measures.nls"]
 breed [people person]
 
-globals [slice-of-the-day is-lockdown-active?]
+globals [
+  slice-of-the-day
+  day-of-the-week
+  is-lockdown-active?
+]
 
 to setup
   clear-all
   reset-ticks
   set slice-of-the-day "morning"
+  set day-of-the-week "monday"
 
   setup-activities
   create-all-people
@@ -24,11 +29,14 @@ to go
   spread-contagion
   update-within-agent-disease-status
   perform-people-activities
-  update-slice-of-the-day
   update-display
+
+  update-time
+  if day-of-the-week = "monday" and slice-of-the-day = "morning"
+  [ask people [set has-done-shopping false]]
 end
 
-to update-slice-of-the-day
+to update-time
   if slice-of-the-day = "morning"
   [set slice-of-the-day "afternoon" stop]
 
@@ -36,7 +44,25 @@ to update-slice-of-the-day
   [set slice-of-the-day "evening" stop]
 
   if slice-of-the-day = "evening"
-  [set slice-of-the-day "morning" stop]
+  [set slice-of-the-day "morning"
+    if day-of-the-week = "monday"
+    [set day-of-the-week "tuesday" stop]
+    if day-of-the-week = "tuesday"
+    [set day-of-the-week "wednesday" stop]
+    if day-of-the-week = "wednesday"
+    [set day-of-the-week "thursday" stop]
+    if day-of-the-week = "thursday"
+    [set day-of-the-week "friday" stop]
+    if day-of-the-week = "friday"
+    [set day-of-the-week "saturday" stop]
+    if day-of-the-week = "saturday"
+    [set day-of-the-week "sunday" stop]
+    if day-of-the-week = "sunday"
+    [set day-of-the-week "monday" stop]
+  ]
+end
+to-report working-day
+  report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
 end
 to update-display
   ask people [update-people-display]
@@ -142,7 +168,7 @@ proportion-young-yom
 proportion-young-yom
 0
 1
-0.66
+0.53
 0.01
 1
 NIL
@@ -212,7 +238,7 @@ recovery-rate-old
 recovery-rate-old
 0
 1
-0.05
+0.07
 0.01
 1
 NIL
@@ -227,7 +253,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.2
+0.19
 0.01
 1
 NIL
@@ -278,13 +304,13 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -14439633 true "" "plot count people with [infection-status = \"healthy\"]"
-"pen-1" 1.0 0 -10873583 true "" "plot count people with [infection-status = \"dead\"]"
-"pen-2" 1.0 0 -11033397 true "" "plot count people with [infection-status = \"immune\"]"
-"pen-3" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
+"Healthy" 1.0 0 -14439633 true "" "plot count people with [infection-status = \"healthy\"]"
+"Dead" 1.0 0 -10873583 true "" "plot count people with [infection-status = \"dead\"]"
+"Immune" 1.0 0 -11033397 true "" "plot count people with [infection-status = \"immune\"]"
+"Infected" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
 
 TEXTBOX
 536
@@ -606,7 +632,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-2
+1
 
 PLOT
 10
@@ -625,6 +651,176 @@ false
 "" ""
 PENS
 "default" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
+
+MONITOR
+533
+300
+651
+345
+NIL
+day-of-the-week
+17
+1
+11
+
+MONITOR
+654
+300
+770
+345
+NIL
+slice-of-the-day
+17
+1
+11
+
+INPUTBOX
+1297
+689
+1393
+749
+#essential-shops
+5.0
+1
+0
+Number
+
+SLIDER
+1300
+758
+1392
+791
+density-factor-essential-shops
+density-factor-essential-shops
+0
+1
+0.71
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1400
+758
+1492
+791
+density-factor-non-essential-shops
+density-factor-non-essential-shops
+0
+1
+0.71
+0.01
+1
+NIL
+HORIZONTAL
+
+INPUTBOX
+1402
+690
+1491
+750
+#non-essential-shops
+10.0
+1
+0
+Number
+
+INPUTBOX
+582
+689
+669
+749
+#hospital
+1.0
+1
+0
+Number
+
+SLIDER
+578
+756
+670
+789
+density-factor-hospital
+density-factor-hospital
+0
+1
+0.8
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+831
+300
+1039
+333
+probability-hospital-personel
+probability-hospital-personel
+0
+1
+0.07
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+831
+335
+1039
+368
+probability-school-personel
+probability-school-personel
+0
+1
+0.04
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+831
+370
+1039
+403
+probability-university-personel
+probability-university-personel
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+832
+407
+1041
+440
+probability-shopkeeper
+probability-shopkeeper
+0
+1
+0.11
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+861
+78
+1046
+96
+Turtle means working from home\n
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -963,7 +1159,7 @@ Polygon -7500403 true true 2 194 13 197 30 191 38 193 38 205 20 226 20 257 27 26
 Polygon -7500403 true true -1 195 14 180 36 166 40 153 53 140 82 131 134 133 159 126 188 115 227 108 236 102 238 98 268 86 269 92 281 87 269 103 269 113
 
 x
-false
+true
 0
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
