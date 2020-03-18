@@ -20,7 +20,7 @@ end
 to spread-by-activity-proximity
   ask people [
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
-    repeat number-contamination [ apply-risk-of-contamination [density-factor] of current-activity]
+    repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity]
   ]
 end
 

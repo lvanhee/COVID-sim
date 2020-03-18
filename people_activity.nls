@@ -5,20 +5,21 @@ to perform-activity
     
     if slice-of-the-day = "morning" or slice-of-the-day = "afternoon"
     [
-      if age = "young" [set target one-of link-neighbors with [activity-type = "school"]]
-      if age = "student" [set target one-of link-neighbors with  [activity-type = "university"]]
-      if age = "worker" [set target one-of link-neighbors with  [activity-type = "workplace"]]
-      if age = "retired" [set target one-of link-neighbors with  [activity-type = "home"]]
+      if age = "young" [set target one-of link-neighbors with [gathering-type = "school"]]
+      if age = "student" [set target one-of link-neighbors with  [gathering-type = "university"]]
+      if age = "worker" [set target
+        [other-end] of one-of my-gathering-links with  [member? "contractual obligation" motives-for-joining]]
+      if age = "retired" [set target one-of link-neighbors with  [gathering-type = "home"]]
     ]
     if slice-of-the-day = "evening"
     [
-      if random-float 1 < 0.05 [set target one-of link-neighbors with [activity-type = "public-leisure"]]
-      if target = nobody and random-float 1 < 0.3 [set target one-of link-neighbors with [activity-type = "private-leisure"]]
-      if target = nobody [set target one-of link-neighbors with  [activity-type = "home"]]
+      if random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "public-leisure"]]
+      if target = nobody and random-float 1 < 0.3 [set target one-of link-neighbors with [gathering-type = "private-leisure"]]
+      if target = nobody [set target one-of link-neighbors with  [gathering-type = "home"]]
     ]
     
     if is-lockdown-enforced? [
-      set target one-of link-neighbors with  [activity-type = "home"]
+      set target one-of link-neighbors with  [gathering-type = "home"]
     ]
     
     if target != current-activity[

@@ -4,11 +4,9 @@ people-own [age infection-status current-activity]
 
 to setup-person
   setup-person-age
-  
-  set color default-color
-  set infection-status "healthy"
-  
   relate-person-to-activities
+  set color default-color
+  set infection-status "healthy"  
 end
 
 to-report default-color
@@ -55,21 +53,33 @@ to create-all-people
   if original-distribution = "set-by-quotas"
   [create-people #young + #students + #workers + #retired [setup-person]]
   
-  ask people [ set current-activity one-of link-neighbors with  [activity-type = "home"]]
-  
-  
+  ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
 end
 
 to relate-person-to-activities
-  create-link-to one-of activities with [activity-type = "home"]
+  create-gathering-link-to one-of gathering-points with [gathering-type = "home"] 
+  [
+    set commitment 1
+    set motives-for-joining (list "rest" "visit family") 
+  ]
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
-  create-link-to one-of activities with [activity-type = "private-leisure"]
-  create-link-to one-of activities with [activity-type = "public-leisure"]
-  
-  if age = "young" [ create-link-to one-of activities with [activity-type = "school"]]
-  if age = "student" [ create-link-to one-of activities with [activity-type = "university"]]
-  if age = "worker" [ create-link-to one-of activities with [activity-type = "workplace"]]
+    create-gathering-link-to one-of gathering-points with [gathering-type = "private-leisure"]
+    [ set commitment 1 set motives-for-joining (list "relaxing")]
+    create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
+    [ set commitment 1 set motives-for-joining (list "relaxing")]
+    
+    if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
+      [ set commitment 1
+        set motives-for-joining (list "mandatory")]
+    ]
+    
+    if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
+      [ set commitment 1 set motives-for-joining (list "learning")]]
+    
+    if age = "worker" [ create-gathering-link-to one-of gathering-points with [gathering-type = "workplace"]
+      [ set commitment 1 set motives-for-joining (list "getting money" "contractual obligation")]
+    ]
   ]
   [error "not implemented"]
 end

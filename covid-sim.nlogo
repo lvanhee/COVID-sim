@@ -1,4 +1,4 @@
-__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "activities.nls" "public_measures.nls"]
+__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "gathering_points.nls" "public_measures.nls"]
 breed [people person]
 
 globals [slice-of-the-day is-lockdown-active?]
@@ -24,9 +24,8 @@ to go
   spread-contagion
   update-within-agent-disease-status
   perform-people-activities
-  update-display
-
   update-slice-of-the-day
+  update-display
 end
 
 to update-slice-of-the-day
