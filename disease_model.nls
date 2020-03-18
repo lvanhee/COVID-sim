@@ -46,3 +46,9 @@ end
 to-report is-infected?
   report infection-status = "infected"
 end
+
+;simplification, with a more advanced model, these symptoms might be visible after a few days of incubation
+;might depend on age (e.g. more visible for the elderly, might be undetected for kids)
+to-report has-internally-visible-symptoms?
+  report is-infected?
+end

@@ -3,8 +3,13 @@ to execute-activity-effect
   [
     if [gathering-type] of current-activity = "essential-shop"
     [ set has-done-shopping true ]
-    if [gathering-type] of current-activity = "hospital"
-    [ set epistemic-status infection-status ]
+    ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
+    ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
+    
+    ;the epistemic infection status depends on whether the person has (had) visible symptoms, not on where it now gathers
+    ;though, gathering place might be to be recorded (i.e. a "maybe infected" state if public space has been visited and public space is believed to be contagious)
+    ;if [gathering-type] of current-activity = "hospital"
+    ;[ set epistemic-infection-status  infection-status ]
   ]
   [error "not implemented"]
 end
@@ -20,13 +25,13 @@ to perform-activity
       if age = "young" [set target one-of link-neighbors with [gathering-type = "school"]]
       if age = "student" [set target one-of link-neighbors with  [gathering-type = "university"]]
       if age = "worker" [set target
-        [other-end] of one-of my-gathering-links with  [member? "contractual obligation" motives-for-joining]]
+        [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]]
       if age = "retired" [set target one-of link-neighbors with  [gathering-type = "home"]]
     ]
     if slice-of-the-day = "evening" or not working-day
     [
       if not has-done-shopping and (day-of-the-week = "sunday" or random-float 1 < 0.15) [
-        set target [other-end] of one-of my-gathering-links with [member? "essential shopping" motives-for-joining]
+        set target [other-end] of one-of my-gathering-links with [member? "essential shopping" features]
       ]
       if target = nobody and random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "public-leisure"]]
       if target = nobody and random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "non-essential-shop"]]
@@ -34,7 +39,7 @@ to perform-activity
       if target = nobody [set target one-of link-neighbors with  [gathering-type = "home"]]
     ]
     if random-float 1 < 0.01 [
-      set target [other-end] of one-of my-gathering-links with  [member? "get-tested" motives-for-joining]
+      set target [other-end] of one-of my-gathering-links with  [member? "get-tested" features]
     ]
     
     if is-lockdown-enforced? [

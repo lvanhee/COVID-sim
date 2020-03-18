@@ -1,10 +1,11 @@
-__includes ["people_activity.nls" "people_age_model.nls" "disease_model.nls"]
+__includes ["people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls"]
 
 people-own [
   age 
   infection-status 
-  epistemic-status
+  epistemic-infection-status 
   current-activity
+  last-day-observed-symptoms
   has-done-shopping
 ]
 
@@ -13,8 +14,13 @@ to setup-person
   relate-person-to-activities
   set color default-color
   set infection-status "healthy"
-  set epistemic-status "unknown"
+  set epistemic-infection-status "healthy"
+  set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
   set has-done-shopping false 
+end
+
+to update-people-epistemic-status
+  ask people [update-epistemic-status]
 end
 
 to-report default-color
@@ -64,59 +70,59 @@ to relate-person-to-activities
   create-gathering-link-to one-of gathering-points with [gathering-type = "home"] 
   [
     set commitment 1
-    set motives-for-joining (list "rest" "visit family") 
+    set features (list "rest" "visit family") 
   ]
   create-gathering-link-to one-of gathering-points with [gathering-type = "hospital"]
   [
     set commitment 1
-    set motives-for-joining (list "get-tested" "get-treatment")
+    set features (list "get-tested" "get-treatment")
   ]
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
     create-gathering-link-to one-of gathering-points with [gathering-type = "private-leisure"]
-    [ set commitment 1 set motives-for-joining (list "relaxing")]
+    [ set commitment 1 set features (list "relaxing")]
     create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
-    [ set commitment 1 set motives-for-joining (list "relaxing")]
+    [ set commitment 1 set features (list "relaxing")]
     create-gathering-links-to n-of (ceiling #essential-shops * 0.2) gathering-points with [gathering-type = "essential-shop"]
-    [ set commitment 1 set motives-for-joining (list "essential shopping" "shopping")]
+    [ set commitment 1 set features (list "essential shopping" "shopping")]
     create-gathering-links-to n-of (ceiling #non-essential-shops * 0.4) gathering-points with [gathering-type = "non-essential-shop"]
-    [ set commitment 1 set motives-for-joining (list "relaxing" "shopping")]
+    [ set commitment 1 set features (list "relaxing" "shopping")]
     
     if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
       [ set commitment 1
-        set motives-for-joining (list "mandatory")]
+        set features (list "mandatory")]
     ]
     
     if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
-      [ set commitment 1 set motives-for-joining (list "learning")]]
+      [ set commitment 1 set features (list "learning")]]
     
     if age = "worker" [ 
       if random-float 1 < probability-hospital-personel [
         ask one-of my-out-gathering-links with [[gathering-type] of other-end = "hospital"] [
-          set motives-for-joining (lput "contractual obligation" (lput "getting money" motives-for-joining))
+          set features (lput "contractual obligation" (lput "getting money" features))
         ]
         stop
       ]
       if random-float 1 < probability-school-personel [ 
         create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
         [ set commitment 1
-          set motives-for-joining (list "getting money" "contractual obligation")
+          set features (list "getting money" "contractual obligation")
         ]
       ]
       if random-float 1 < probability-university-personel [
         create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
         [ set commitment 1
-          set motives-for-joining (list "getting money" "contractual obligation")
+          set features (list "getting money" "contractual obligation")
         ]
       ]
       if random-float 1 < probability-shopkeeper [ 
-        ask one-of my-out-gathering-links with [member? "shopping" motives-for-joining] [
-          set motives-for-joining (lput "contractual obligation" (lput "getting money" motives-for-joining))
+        ask one-of my-out-gathering-links with [member? "shopping" features] [
+          set features (lput "contractual obligation" (lput "getting money" features))
         ]
         stop
       ]
       create-gathering-link-to one-of gathering-points with [gathering-type = "workplace"]
-      [ set commitment 1 set motives-for-joining (list "getting money" "contractual obligation")]
+      [ set commitment 1 set features (list "getting money" "contractual obligation")]
     ]
   ]
   [error "not implemented"]

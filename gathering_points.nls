@@ -4,7 +4,7 @@ gathering-points-own [gathering-type]
 ;the head of the link are people and the tail are gathering points
 directed-link-breed [gathering-links gathering-link]
 gathering-links-own [commitment 
-  motives-for-joining ;stores whatever is useful for decision-making, useful for including factors appealing to e.g. needs and values
+  features ;stores whatever is useful for decision-making, useful for including factors appealing to e.g. needs and values
 ]
 
 to setup-activities

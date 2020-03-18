@@ -5,6 +5,7 @@ globals [
   slice-of-the-day
   day-of-the-week
   is-lockdown-active?
+  current-day
 ]
 
 to setup
@@ -12,6 +13,7 @@ to setup
   reset-ticks
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
+  set current-day 0
 
   setup-activities
   create-all-people
@@ -28,6 +30,7 @@ to go
   tick
   spread-contagion
   update-within-agent-disease-status
+  update-people-epistemic-status
   perform-people-activities
   update-display
 
@@ -44,7 +47,10 @@ to update-time
   [set slice-of-the-day "evening" stop]
 
   if slice-of-the-day = "evening"
-  [set slice-of-the-day "morning"
+  [
+    set slice-of-the-day "morning"
+    set current-day current-day + 1
+
     if day-of-the-week = "monday"
     [set day-of-the-week "tuesday" stop]
     if day-of-the-week = "tuesday"
@@ -76,6 +82,39 @@ to perform-people-activities
   ask people [
     perform-activity
   ]
+end
+
+to dump-to-file
+  let global_filename (word "description.txt")
+  if file-exists? global_filename[ file-delete global_filename]
+  file-open global_filename
+
+  file-print "{"
+
+  file-print "\"activities\":["
+  ask gathering-points [
+    file-print (word "{\"id_gathering_point\":\"" who "\", \"gathering_type\":\"" gathering-type "\"},")
+    ]
+  file-print "]"
+
+  file-print "\"people\":["
+  ask people [
+    file-print (word "{\"id\":\"" who "\", \"age\":\"" age "\"},")
+    ]
+  file-print "]"
+  file-print "}"
+file-close
+
+
+  let filename (word "snapshot_" ticks ".txt")
+  if file-exists? filename[ file-delete filename]
+  file-open filename
+
+  file-print "{ ["
+  ask people [file-print (word "{\"id\":\"" who "\", \"id_gathering_point\":\"" [who] of current-activity "\", \"infection_status\":\"" infection-status "\"},")
+    ]
+  file-print "]}"
+file-close
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -128,7 +167,7 @@ BUTTON
 75
 85
 go
-go\nif not any? people with [infection-status = \"infected\"]\n[stop]
+go\nprint count people with [epistemic-infection-status = \"immune\"]\nif not any? people with [infection-status = \"infected\"]\n[stop]
 T
 1
 T
@@ -311,6 +350,8 @@ PENS
 "Dead" 1.0 0 -10873583 true "" "plot count people with [infection-status = \"dead\"]"
 "Immune" 1.0 0 -11033397 true "" "plot count people with [infection-status = \"immune\"]"
 "Infected" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
+"EInfected" 1.0 0 -1604481 true "" "plot count people with [epistemic-infection-status = \"infected\"]"
+"EImmune" 1.0 0 -5516827 true "" "plot count people with [epistemic-infection-status = \"immune\"]"
 
 TEXTBOX
 536
@@ -632,7 +673,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -650,7 +691,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
+"lockdown" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
 
 MONITOR
 533
@@ -820,6 +861,23 @@ TEXTBOX
 Turtle means working from home\n
 11
 0.0
+1
+
+BUTTON
+1409
+143
+1507
+176
+dump-to-file
+dump-to-file
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
 1
 
 @#$#@#$#@
