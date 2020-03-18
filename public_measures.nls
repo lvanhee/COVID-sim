@@ -10,5 +10,6 @@ to-report is-lockdown-enforced?
     if ratio-infected <= 0.05 [ set is-lockdown-active? false]
     report false
   ]    
+  report false
 end
 

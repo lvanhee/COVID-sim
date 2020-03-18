@@ -1,9 +1,21 @@
+to execute-activity-effect
+  ifelse activity-model = "public&private leisure, rest, age-based work"
+  [
+    if [gathering-type] of current-activity = "essential-shop"
+    [ set has-done-shopping true ]
+    if [gathering-type] of current-activity = "hospital"
+    [ set epistemic-status infection-status ]
+  ]
+  [error "not implemented"]
+end
+
 to perform-activity
+  set shape "default"
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
     let target nobody
     
-    if slice-of-the-day = "morning" or slice-of-the-day = "afternoon"
+    if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day
     [
       if age = "young" [set target one-of link-neighbors with [gathering-type = "school"]]
       if age = "student" [set target one-of link-neighbors with  [gathering-type = "university"]]
@@ -11,15 +23,30 @@ to perform-activity
         [other-end] of one-of my-gathering-links with  [member? "contractual obligation" motives-for-joining]]
       if age = "retired" [set target one-of link-neighbors with  [gathering-type = "home"]]
     ]
-    if slice-of-the-day = "evening"
+    if slice-of-the-day = "evening" or not working-day
     [
-      if random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "public-leisure"]]
+      if not has-done-shopping and (day-of-the-week = "sunday" or random-float 1 < 0.15) [
+        set target [other-end] of one-of my-gathering-links with [member? "essential shopping" motives-for-joining]
+      ]
+      if target = nobody and random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "public-leisure"]]
+      if target = nobody and random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "non-essential-shop"]]
       if target = nobody and random-float 1 < 0.3 [set target one-of link-neighbors with [gathering-type = "private-leisure"]]
       if target = nobody [set target one-of link-neighbors with  [gathering-type = "home"]]
     ]
+    if random-float 1 < 0.01 [
+      set target [other-end] of one-of my-gathering-links with  [member? "get-tested" motives-for-joining]
+    ]
     
     if is-lockdown-enforced? [
-      set target one-of link-neighbors with  [gathering-type = "home"]
+      ifelse (not [practicable-at-home?] of target) [
+        if not member? [gathering-type] of target (list "hospital" "essential-shop") [
+          set target one-of link-neighbors with [gathering-type = "home"]
+        ]
+      ] [
+        if [gathering-type] of target != "home" [
+          set shape "turtle"
+        ]
+      ]
     ]
     
     if target != current-activity[
@@ -27,6 +54,7 @@ to perform-activity
       set heading towards target
     ]
     set current-activity target
+    execute-activity-effect
   ]
   [error "not implemented"]
 end

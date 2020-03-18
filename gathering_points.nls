@@ -10,28 +10,36 @@ gathering-links-own [commitment
 to setup-activities
   if activity-model = "public&private leisure, rest, age-based work"
   [
-    create-gathering-points #schools [set gathering-type "school" set shape "triangle" set xcor max-pxcor / 7 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
-    create-gathering-points #universities [set gathering-type "university" set shape "triangle 2" set xcor 2 * max-pxcor / 7 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
-    create-gathering-points #workplaces [set gathering-type "workplace" set shape "pentagon" set xcor 3 * max-pxcor / 7 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
-    create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set xcor 4 * max-pxcor / 7 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
-    create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set xcor 5 * max-pxcor / 7 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-    create-gathering-points #homes [set gathering-type "home" set shape "house" set xcor 6 * max-pxcor / 7 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1)]
+    create-gathering-points #schools [set gathering-type "school" set shape "triangle" set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
+    create-gathering-points #universities [set gathering-type "university" set shape "triangle 2" set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
+    create-gathering-points #workplaces [set gathering-type "workplace" set shape "pentagon" set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
+    create-gathering-points #essential-shops [set gathering-type "essential-shop" set shape "circle" set xcor 4 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "essential-shop"] / (#essential-shops + 1)]
+    create-gathering-points #non-essential-shops [set gathering-type "non-essential-shop" set shape "circle 2" set xcor 5 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "non-essential-shop"] / (#non-essential-shops + 1)]
+    create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
+    create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
+    create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
+    create-gathering-points #homes [set gathering-type "home" set shape "house" set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1)]
   ]
 
 end
 
 to-report proximity-factor
+  if gathering-type = "hospital" [report density-factor-hospital]
   if gathering-type = "school"[report density-factor-schools]
   if gathering-type = "university"[report density-factor-universities]
   if gathering-type = "workplace"[report density-factor-workplaces]
   if gathering-type = "public-leisure"[report density-factor-public-leisure]
   if gathering-type = "private-leisure"[report density-factor-private-leisure]
   if gathering-type = "home"[report density-factor-homes]
+  if gathering-type = "essential-shop" [report density-factor-essential-shops]
+  if gathering-type = "non-essential-shop" [report density-factor-non-essential-shops]
   error (word gathering-type " not defined")
 end
 
+; ToDo: Update this!
 to-report practicable-at-home?
-   if gathering-type = "school" or gathering-type = "university" or gathering-type = "workplace" or gathering-type = "home"
+  if gathering-type = "school" or gathering-type = "university" or gathering-type = "workplace" or gathering-type = "home"
   [report true]
-  if gathering-type = "public-leisure" or gathering-type = "private-leisure" [report false]
+  if gathering-type = "public-leisure" or gathering-type = "private-leisure" or gathering-type = "essential-shop" or gathering-type = "non-essential-shop" or gathering-type = "hospital" 
+  [report false]
 end

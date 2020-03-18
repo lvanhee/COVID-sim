@@ -1,0 +1,31 @@
+breed [activities activity]
+activities-own [activity-type]
+
+to setup-activities
+  if activity-model = "public&private leisure, rest, age-based work"
+  [
+    create-activities #schools [set activity-type "school" set shape "triangle" set xcor max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "school"] / (#schools + 1)]
+    create-activities #universities [set activity-type "university" set shape "triangle 2" set xcor 2 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "university"] / (#universities + 1)]
+    create-activities #workplaces [set activity-type "workplace" set shape "pentagon" set xcor 3 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "workplace"] / (#workplaces + 1)]
+    create-activities #public-leisure [set activity-type "public-leisure" set shape "square 2" set xcor 7 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "public-leisure"] / (#public-leisure + 1)]
+    create-activities #private-leisure [set activity-type "private-leisure" set shape "square" set xcor 8 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "private-leisure"] / (#private-leisure + 1)]
+    create-activities #homes [set activity-type "home" set shape "house" set xcor 9 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "home"] / (#homes + 1)]
+    create-activities #essential-shops [set activity-type "essential-shop" set shape "circle" set xcor 4 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "essential-shop"] / (#essential-shops + 1)]
+    create-activities #non-essential-shops [set activity-type "non-essential-shop" set shape "circle 2" set xcor 5 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "non-essential-shop"] / (#non-essential-shops + 1)]
+    create-activities #hospital [set activity-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count activities with [activity-type = "hospital"] / (#hospital + 1)]
+  ]
+
+end
+
+to-report density-factor
+  if activity-type = "hospital" [report density-factor-hospital]
+  if activity-type = "school"[report density-factor-schools]
+  if activity-type = "university"[report density-factor-universities]
+  if activity-type = "workplace"[report density-factor-workplaces]
+  if activity-type = "public-leisure"[report density-factor-public-leisure]
+  if activity-type = "private-leisure"[report density-factor-private-leisure]
+  if activity-type = "home"[report density-factor-homes]
+  if activity-type = "essential-shop" [report density-factor-essential-shops]
+  if activity-type = "non-essential-shop" [report density-factor-non-essential-shops]
+  error (word activity-type " not defined")
+end
