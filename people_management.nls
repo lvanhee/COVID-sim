@@ -5,6 +5,7 @@ people-own [
   infection-status 
   epistemic-infection-status 
   current-activity
+  current-motivation
   last-day-observed-symptoms
   has-done-shopping
 ]
