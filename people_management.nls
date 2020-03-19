@@ -8,6 +8,7 @@ people-own [
   current-motivation
   last-day-observed-symptoms
   has-done-shopping
+  purpose-of-the-current-gathering
 ]
 
 to setup-person
