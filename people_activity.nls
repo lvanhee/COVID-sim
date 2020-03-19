@@ -2,7 +2,7 @@ to execute-activity-effect
   ifelse activity-model = "public&private leisure, rest, age-based work"
   [
     if [gathering-type] of current-activity = "essential-shop"
-    [ set has-done-shopping true ]
+    [ ask min-one-of link-neighbors with [gathering-type = "home"] [available-food] [set available-food available-food + 7] ]
     ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
     ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
     
@@ -33,7 +33,7 @@ to perform-activity
     ]
     if slice-of-the-day = "evening" or not working-day
     [
-      if not has-done-shopping and (day-of-the-week = "sunday" or random-float 1 < 0.15) [
+      if needs-shopping [
         set target [other-end] of one-of my-gathering-links with [member? "essential shopping" features]
         set motivation "essential shopping"
       ]
@@ -63,4 +63,12 @@ to perform-activity
     execute-activity-effect
   ]
   [error "not implemented"]
+end
+
+to-report needs-shopping
+  let need false
+  ask min-one-of link-neighbors with [gathering-type = "home"] [available-food] [ 
+    set need available-food <= 1
+  ]
+  report need
 end

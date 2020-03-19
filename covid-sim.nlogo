@@ -35,8 +35,6 @@ to go
   update-display
 
   update-time
-  if day-of-the-week = "monday" and slice-of-the-day = "morning"
-  [ask people [set has-done-shopping false]]
 end
 
 to update-time
@@ -50,6 +48,11 @@ to update-time
   [
     set slice-of-the-day "morning"
     set current-day current-day + 1
+    ask gathering-points [
+      if available-food > 0 [
+        set available-food available-food - 1
+      ]
+    ]
 
     if day-of-the-week = "monday"
     [set day-of-the-week "tuesday" stop]

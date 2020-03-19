@@ -1,5 +1,7 @@
 breed [gathering-points gathering-point]
-gathering-points-own [gathering-type]
+gathering-points-own [gathering-type
+  available-food ; days of food that are available, this will be most useful for homes
+]
 
 ;the head of the link are people and the tail are gathering points
 directed-link-breed [gathering-links gathering-link]
@@ -18,7 +20,7 @@ to setup-activities
     create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
     create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
     create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-    create-gathering-points #homes [set gathering-type "home" set shape "house" set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1)]
+    create-gathering-points #homes [set gathering-type "home" set shape "house" set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food random 7 + 1]
   ]
 
 end
