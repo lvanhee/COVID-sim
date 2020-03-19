@@ -676,7 +676,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+2
 
 PLOT
 10
