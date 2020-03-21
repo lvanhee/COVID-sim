@@ -1,0 +1,105 @@
+
+;might be to be updated later on, as need satisfaction depends on the consequences of your action rather than on your intent
+;e.g. visiting a shop should not satisfy one's safety needs if this shop is empty
+to update-needs-for-playing [current-activity-descriptor]
+  decay-need-satisfaction
+  
+  
+  set belonging-need-satisfaction
+  belonging-need-satisfaction + my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played current-activity-descriptor
+  if belonging-need-satisfaction > 1 [set belonging-need-satisfaction 1]
+  
+  set safety-need-satisfaction safety-need-satisfaction +
+  my-expected-discounted-satisfaction-gain-for-security-after-having-played current-activity-descriptor
+  if safety-need-satisfaction > 1 [set safety-need-satisfaction 1]
+end
+
+
+;;this procedure is a simple representation of need decay
+;important features:
+;--need decay should decrease over time when not taken care of
+;--special situations can lead to special decay (e.g. breaking an army-enforced lock in should hurt badly the satisfaction of safety needs)
+;[the previous point might call for the introduction of the person's context later on]
+to decay-need-satisfaction
+  set belonging-need-satisfaction belonging-need-satisfaction - 0.02
+  if belonging-need-satisfaction < 0 [set belonging-need-satisfaction 0]
+  
+  set safety-need-satisfaction safety-need-satisfaction - 0.02
+  if safety-need-satisfaction < 0 [set safety-need-satisfaction 0]
+end
+
+;Future work: 
+;update these numbers based on how many people are actually met when moving
+;include networks and joint meetings
+to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playing [activity-descriptor]
+  let number [expected-number-of-other-participants] of first activity-descriptor
+  ;show (sentence "expected shift satisfaction community:"
+  ;   [gathering-type] of first activity-descriptor last activity-descriptor number)
+  if number = 0 [report 0]
+  if number < 5 [report 0.1]
+  if number < 20 [report 0.2]
+  report 0.5
+end
+
+;
+to-report expected-undiscounted-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
+  let gp first activity-descriptor
+  let motive last activity-descriptor
+  
+  let bonus-compliance-to-obligation 0
+  if [gathering-type] of gp = "home" and is-lockdown-enforced?
+  [
+  ;  show "lockdown bonus"
+    set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
+  ]
+  
+  if (motive = "contractual obligation") and is-I-have-contractual-obligations?
+  [
+;    show "do your work bonus"
+    set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
+  ]
+  
+  report bonus-compliance-to-obligation
+end
+
+to-report global-prevalence-of [activity-descriptor]
+  let total-satisfaction
+   my-current-expected-prevalence-of-belonging-needs activity-descriptor
+  +
+  my-current-prevalence-of-self-responsibility-needs activity-descriptor
+  ;should be expanded with new needs as they are added
+  
+;  show (sentence "Global prevalence of:" [gathering-type] of first activity-descriptor " " last activity-descriptor " " total-satisfaction)
+  report total-satisfaction
+end
+
+;simple direct linear translation; experience shows that sigmoid functions are good candidates
+to-report my-current-expected-prevalence-of-belonging-needs [activity-descriptor]
+  let result 
+  my-importance-for-belonging-needs * my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played activity-descriptor
+  
+  ;show (sentence "prevalence&shift of community:"
+;    [gathering-type] of first activity-descriptor last activity-descriptor result expected-shift)
+  report result
+end
+
+
+
+;simple direct linear translation; experience shows that sigmoid functions are good candidates
+;likewise, it can be based on recen experience from the agent (e.g. being reminded by a high-status figure to comply to a given rule)
+to-report my-current-prevalence-of-self-responsibility-needs [activity-descriptor]
+  report my-importance-for-safety-needs * (my-expected-discounted-satisfaction-gain-for-security-after-having-played activity-descriptor)
+end
+
+to-report my-expected-discounted-satisfaction-gain-for-security-after-having-played [activity-descriptor]
+  let expected-increase expected-undiscounted-safety-needs-satisfaction-increase-for-playing activity-descriptor
+  let discounted-increase expected-increase * (1 - safety-need-satisfaction)
+  report discounted-increase
+end
+
+to-report  my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played [activity-descriptor]
+  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing activity-descriptor
+  let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
+  report discounted-increase
+end
+

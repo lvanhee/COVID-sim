@@ -6,6 +6,7 @@ globals [
   day-of-the-week
   is-lockdown-active?
   current-day
+  #dead-people
 ]
 
 to setup
@@ -14,6 +15,7 @@ to setup
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
+  set #dead-people 0
 
   setup-activities
   create-all-people
@@ -170,7 +172,7 @@ BUTTON
 75
 85
 go
-go\nprint count people with [epistemic-infection-status = \"immune\"]\nif not any? people with [infection-status = \"infected\"]\n[stop]
+go\nif not any? people with [infection-status = \"infected\"]\n[stop]
 T
 1
 T
@@ -210,7 +212,7 @@ proportion-young-yom
 proportion-young-yom
 0
 1
-0.53
+0.33
 0.01
 1
 NIL
@@ -235,7 +237,7 @@ mortality-rate-young
 mortality-rate-young
 0
 1
-0.02
+0.03
 0.01
 1
 NIL
@@ -265,7 +267,7 @@ recovery-rate-young
 recovery-rate-young
 0
 1
-0.1
+0.15
 0.01
 1
 NIL
@@ -295,7 +297,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.19
+0.1
 0.01
 1
 NIL
@@ -344,13 +346,13 @@ NIL
 0.0
 10.0
 0.0
-10.0
+1.0
 true
 true
 "" ""
 PENS
 "Healthy" 1.0 0 -14439633 true "" "plot count people with [infection-status = \"healthy\"]"
-"Dead" 1.0 0 -10873583 true "" "plot count people with [infection-status = \"dead\"]"
+"Dead" 1.0 0 -10873583 true "" "plot #dead-people"
 "Immune" 1.0 0 -11033397 true "" "plot count people with [infection-status = \"immune\"]"
 "Infected" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
 "EInfected" 1.0 0 -1604481 true "" "plot count people with [epistemic-infection-status = \"infected\"]"
@@ -414,7 +416,7 @@ INPUTBOX
 959
 746
 #workplaces
-20.0
+1.0
 1
 0
 Number
@@ -446,7 +448,7 @@ INPUTBOX
 1146
 748
 #private-leisure
-100.0
+1.0
 1
 0
 Number
@@ -467,7 +469,7 @@ INPUTBOX
 1247
 750
 #homes
-500.0
+100.0
 1
 0
 Number
@@ -498,7 +500,7 @@ INPUTBOX
 1320
 374
 #young
-300.0
+100.0
 1
 0
 Number
@@ -509,7 +511,7 @@ INPUTBOX
 1390
 374
 #students
-300.0
+100.0
 1
 0
 Number
@@ -520,7 +522,7 @@ INPUTBOX
 1451
 374
 #workers
-300.0
+100.0
 1
 0
 Number
@@ -531,7 +533,7 @@ INPUTBOX
 1509
 374
 #retired
-300.0
+100.0
 1
 0
 Number
@@ -676,7 +678,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-2
+1
 
 PLOT
 10
@@ -695,6 +697,7 @@ false
 "" ""
 PENS
 "lockdown" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
+"infringement" 1.0 0 -7500403 true "" "plot count people with [not ([gathering-type] of current-activity = \"home\")] / count people"
 
 MONITOR
 533
@@ -881,6 +884,64 @@ NIL
 NIL
 NIL
 NIL
+1
+
+SWITCH
+1357
+505
+1519
+538
+closed-workplaces?
+closed-workplaces?
+1
+1
+-1000
+
+SWITCH
+1357
+538
+1518
+571
+closed-schools?
+closed-schools?
+1
+1
+-1000
+
+SWITCH
+1357
+472
+1520
+505
+closed-universities?
+closed-universities?
+1
+1
+-1000
+
+SLIDER
+1546
+259
+1724
+292
+ratio-safety-belonging
+ratio-safety-belonging
+0
+1
+0.8
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+1528
+235
+1678
+253
+Needs model
+11
+0.0
 1
 
 @#$#@#$#@

@@ -1,4 +1,4 @@
-__includes ["people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls"]
+__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls"]
 
 people-own [
   age 
@@ -9,6 +9,45 @@ people-own [
   last-day-observed-symptoms
   has-done-shopping
   purpose-of-the-current-gathering
+  
+  
+  ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
+  ;"needs" are a relevant concept for accounting for the reasons that can push an agent for violating guidelines, in spite of generally complying to them
+  ;"needs" can be seen as criteria that agents tend to satisfy.
+  ;As a criteria, each need can be related to a level of satisfaction
+  ;Each need is related to a prevalence, i.e. how much this need is "active" or is "bothering agent decision".
+  ;The less a need is currently satisfied, the more prevalent it becomes (comparatively to other times when the same need has been satisfied); i.e. prevalence is monotonous wrt need satisfaction
+  ;Each need is related to a specific prevalence measure: certain needs can become suddently very critical while the criticality of others is more smooth
+  ;Likewise, a relative ordering exists within needs/prevalence (e.g. a person both hungry and lonely is likely to eat alone whereas a mildly-fed lonely person is more likely to share).
+  
+  ;Agents tend to act towards satisfying the most pressing needs first;
+  ;satisfying needs tends to require active engagement and satisfied needs tend to be less cognitively important for the agent
+  
+  ;Various needs have a relative *prevalence* for the agent (e.g. eating is less relatively important than breathing), which then affect how much the agent will aim to satisfy this need when acting
+  ;Agents assign different priorities for their needs, this priority order is culturally-sensitive and can thus shape collective responses  
+  
+  ;For follow-up coders:
+  ;More needs can and should be added as one sees fit
+  ;Here, I rely on very simplified [0,1] variables for memorizing when was the need satisfied for the last time and making the maths easy.
+  ;Though, in principle, needs are shaped by the history of the agent rather than "regularly growing" and thus more advanced representations are advised --if needed.
+  ;For instance, a "food-security" need should be much more prevalent if the agent experienced forced hunger due to a shortage
+  
+  ;Currently, the need level and the prevalence are weighted and scaled within [0,1], where 1 means "the most prevalent ever" and "the least satisfied ever". 
+  ;Keeping the scale is very important for conceptual coherence.
+ 
+  ;Regarding assumptions/scale, my gut feeling (to be checked against theory) is that available plans and need prevalence should evolve over time when the agent faces new situations
+  ;Notably, new plans for satisfying should be learnable by agents (e.g. satisfying physical-activity needs might need some adaptation when locked in)
+  ;and traumatic events or long-term deprivation should affect the need structure (e.g. food deprivation should dramatically bump up the prevalence of food safety, thus causing rush to supermarkets for instance)
+  
+  ;;need-related aspects
+  ;note that these terminal variables could/should eventually end-up as functions based on more specific needs
+  ;here are two needs for the sake of illustration
+  ;checkout the list of universal human needs for more ideas
+  ;these are two needs from Maslow
+  belonging-need-satisfaction
+  my-importance-for-belonging-needs
+  safety-need-satisfaction
+  my-importance-for-safety-needs
 ]
 
 to setup-person
@@ -19,6 +58,14 @@ to setup-person
   set epistemic-infection-status "healthy"
   set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
   set has-done-shopping false 
+  
+  
+  
+  set belonging-need-satisfaction 0
+  set safety-need-satisfaction 0
+  ;the importance levels for each community need should add up to 1
+  set my-importance-for-belonging-needs ratio-safety-belonging
+  set my-importance-for-safety-needs 1 - ratio-safety-belonging
 end
 
 to update-people-epistemic-status

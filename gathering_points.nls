@@ -22,7 +22,6 @@ to setup-activities
     create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
     create-gathering-points #homes [set gathering-type "home" set shape "house" set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food random 7 + 1]
   ]
-
 end
 
 to-report proximity-factor
@@ -39,9 +38,28 @@ to-report proximity-factor
 end
 
 ; ToDo: Update this!
-to-report practicable-at-home?
+to-report is-practicable-at-home?
   if gathering-type = "school" or gathering-type = "university" or gathering-type = "workplace" or gathering-type = "home"
   [report true]
   if gathering-type = "public-leisure" or gathering-type = "private-leisure" or gathering-type = "essential-shop" or gathering-type = "non-essential-shop" or gathering-type = "hospital" 
   [report false]
+end
+
+
+;might be to be revised later as "to-be-expected-to-be-alone-at" based on whether people show(ed) up at the gathering point.
+to-report is-alone-at? [gp]
+  report any? other [in-gathering-link-neighbors] of gp
+end 
+
+;might be to be revised later, if the number of people expected to show up at the gathering point lowers
+to-report expected-number-of-other-participants
+ ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
+  report count other in-gathering-link-neighbors
+end
+
+to-report is-accessible?
+  if gathering-type = "workplace" and closed-workplaces? [report false]
+  if gathering-type = "school" and closed-schools? [report false]  
+  if gathering-type = "university" and closed-universities? [report false]  
+  report true
 end

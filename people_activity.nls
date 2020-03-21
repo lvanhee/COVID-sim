@@ -14,55 +14,21 @@ to execute-activity-effect
   [error "not implemented"]
 end
 
+;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
 to perform-activity
   set shape "default"
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
-    let target nobody
-    let motivation ""
+    select-activity
+    move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
+    set heading towards current-activity
     
-    if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day
-    [
-      if age = "young" [set target one-of link-neighbors with [gathering-type = "school"] set motivation "mandatory" ]
-      if age = "student" [set target one-of link-neighbors with  [gathering-type = "university"] set motivation "learning" ]
-      if age = "worker" [set target
-        [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
-        set motivation "contractual obligation"
-      ]
-      if age = "retired" [set target one-of link-neighbors with  [gathering-type = "home"] set motivation "rest"]
-    ]
-    if slice-of-the-day = "evening" or not working-day
-    [
-      if needs-shopping [
-        set target [other-end] of one-of my-gathering-links with [member? "essential shopping" features]
-        set motivation "essential shopping"
-      ]
-      if target = nobody and random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "public-leisure"] set motivation "relaxing" ]
-      if target = nobody and random-float 1 < 0.05 [set target one-of link-neighbors with [gathering-type = "non-essential-shop"] set motivation "shopping" ]
-      if target = nobody and random-float 1 < 0.3 [set target one-of link-neighbors with [gathering-type = "private-leisure"] set motivation "relaxing" ]
-      if target = nobody [set target one-of link-neighbors with  [gathering-type = "home"] set motivation "rest" ]
-    ]
-    if random-float 1 < 0.01 [
-      set target [other-end] of one-of my-gathering-links with  [member? "get-tested" features]
-      set motivation "get-tested"
-    ]
-    
-    if is-lockdown-enforced? [
-      if not [practicable-at-home?] of target [
-        set motivation "rest"
-      ]
-      set target one-of link-neighbors with [gathering-type = "home"]
-    ]
-    
-    if target != current-activity[
-      move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of target
-      set heading towards target
-    ]
-    set current-activity target
-    set current-motivation motivation
+
     execute-activity-effect
-  ]
-  [error "not implemented"]
+    
+    update-needs-for-playing (list current-activity current-motivation)
+    ]
+    [error "not implemented"]
 end
 
 to-report needs-shopping
@@ -71,4 +37,9 @@ to-report needs-shopping
     set need available-food <= 1
   ]
   report need
+end
+
+to-report is-I-have-contractual-obligations?
+  report age = "worker" and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon")
+  and not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
 end

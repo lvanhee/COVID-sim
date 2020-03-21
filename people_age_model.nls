@@ -13,9 +13,9 @@ to setup-person-age
     set is-defined-age? true
     set age nobody
     if count people with [age = "young"] < #young [set age "young"]
-    if count people with [age = "student"] < #young [set age "student"]
-    if count people with [age = "worker"] < #young [set age "worker"]
-    if count people with [age = "retired"] < #young [set age "retired"]
+    if count people with [age = "student"] < #students [set age "student"]
+    if count people with [age = "worker"] < #workers [set age "worker"]
+    if count people with [age = "retired"] < #retired [set age "retired"]
     if age = nobody [error "too many agents being created"]
   ]
   

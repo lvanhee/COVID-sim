@@ -1,0 +1,83 @@
+__includes ["need_management.nls"]
+
+
+to-report my-preferred-available-activity-descriptor ;reports a string, which can be related to a gathering point and a concrete activity
+  report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
+ ; [[my-need-satisfaction myself] of myself] 
+end
+
+to-report my-available-activity-descriptors
+  
+  let activities (list (list one-of link-neighbors with  [gathering-type = "home"] "rest"))
+  
+  
+  if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day
+    [
+      if age = "young" [
+        set activities (lput (list one-of link-neighbors with [gathering-type = "school"]  "mandatory") activities)
+          ]
+      if age = "student"
+      [
+        set activities (lput (list one-of link-neighbors with [gathering-type = "university"]  "learning") activities)
+      ]
+      
+      if age = "worker" [
+        if is-allowed-to-work-from-home? [
+          set activities (lput (list
+            one-of link-neighbors with  [gathering-type = "home"]
+            "contractual obligation")
+            activities)
+        ]
+        
+        set activities (lput (list
+          [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
+          "contractual obligation")
+          activities)
+      ]
+  ]
+  
+  if slice-of-the-day = "evening" or not working-day
+  [
+    if needs-shopping [
+      set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
+    ]
+    if random-float 1 < 0.05 [
+      set activities lput (list one-of link-neighbors with [gathering-type = "public-leisure"] "relaxing" ) activities
+    ]
+    if random-float 1 < 0.05 [
+      set activities lput (list one-of link-neighbors with [gathering-type = "non-essential-shop"] "shopping") activities]
+    if random-float 1 < 0.3 [set activities lput (list one-of link-neighbors with [gathering-type = "private-leisure"] "relaxing") activities]
+    
+  ]
+  if random-float 1 < 0.01 [
+    set activities lput (list [other-end] of one-of my-gathering-links with  [member? "get-tested" features] "get-tested") activities
+  ]
+ 
+  
+  
+  set activities filter [ i -> [is-accessible?] of first i] activities
+  
+  ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
+  
+  report activities
+end
+
+
+
+
+
+to select-activity
+  let c-a my-preferred-available-activity-descriptor 
+  set current-activity first c-a
+  set current-motivation last c-a
+  
+  
+  
+;  show (word "selected:" [gathering-type] of current-activity " " current-motivation)
+end
+
+
+to-report is-allowed-to-work-from-home?
+  report true
+  ;link-neighbors with [gathering-type = "workplace"]
+end
