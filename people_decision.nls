@@ -10,7 +10,6 @@ to-report my-available-activity-descriptors
   
   let activities (list (list one-of link-neighbors with  [gathering-type = "home"] "rest"))
   
-  
   if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day
     [
       if age = "young" [

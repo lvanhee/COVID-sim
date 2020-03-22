@@ -36,7 +36,10 @@ to update-within-disease-status
       set dead?  random-float 1 < probability-passing-out-mdm
       
       if immune? [set infection-status "immune"]
-      if dead? [set infection-status "dead" set #dead-people #dead-people + 1 die]
+      if dead? [set infection-status "dead" 
+        set #dead-people #dead-people + 1
+        if age = "retired" [ set #dead-retired #dead-retired + 1]
+        die]
     ]
   ]
   [error "not implemented"]

@@ -50,9 +50,52 @@ people-own [
   my-importance-for-safety-needs
 ]
 
+
+;;it may that at some point we turn homes as a special breed of turtle that (bidirectionally) relates to a gathering point
+to setup-person-home
+  
+  let h nobody
+  if household-composition = "balanced-mix"
+  [
+    set h min-one-of homes [count gatherers with [age = [age] of [myself] of myself]]
+  ]
+  if household-composition = "segregated-elderly"
+  [
+    let quota-of-homes-of-retired floor (#homes * #retired / #people )
+    let quota-of-homes-for-non-retired floor (#homes - quota-of-homes-of-retired)
+    ifelse age = "retired"
+    [
+      ifelse count houses-hosting-retired < quota-of-homes-of-retired 
+      [
+        set h one-of homes with [not any? gatherers]
+      ]
+      [
+        set h one-of houses-hosting-retired with-min [count gatherers]
+      ]
+    ]
+    [
+      let houses-for-non-retired homes with [not any? gatherers with [age = "retired"]]
+      ifelse count houses-for-non-retired < quota-of-homes-for-non-retired 
+      [set h one-of homes with [not any? gatherers]] 
+      [set h one-of houses-for-non-retired with-min [count gatherers]]
+    ]
+  ]
+  
+  
+  if h = nobody [error (word "unimplemented for: " age " " self)]
+  
+  create-gathering-link-to h
+  [
+    set commitment 1
+    set features (list "rest" "visit family") 
+  ]  
+end
+
 to setup-person
   setup-person-age
-  relate-person-to-activities
+  setup-person-home
+  
+  relate-person-to-gathering-points
   set color default-color
   set infection-status "healthy"
   set epistemic-infection-status "healthy"
@@ -115,12 +158,8 @@ to create-all-people
   ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
 end
 
-to relate-person-to-activities
-  create-gathering-link-to one-of gathering-points with [gathering-type = "home"] 
-  [
-    set commitment 1
-    set features (list "rest" "visit family") 
-  ]
+to relate-person-to-gathering-points
+  
   create-gathering-link-to one-of gathering-points with [gathering-type = "hospital"]
   [
     set commitment 1

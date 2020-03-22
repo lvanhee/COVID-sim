@@ -92,3 +92,15 @@ to-report is-accessible?
   if gathering-type = "university" and closed-universities? [report false]  
   report true
 end
+
+to-report homes
+  report gathering-points with [gathering-type = "home"]
+end
+
+to-report gatherers
+  report in-gathering-link-neighbors
+end
+
+to-report houses-hosting-retired
+  report homes with [any? gatherers with [age = "retired"]]
+end

@@ -7,6 +7,7 @@ globals [
   is-lockdown-active?
   current-day
   #dead-people
+  #dead-retired
 ]
 
 to setup
@@ -35,7 +36,6 @@ to go
   update-people-epistemic-status
   perform-people-activities
   update-display
-
   update-time
 end
 
@@ -171,10 +171,10 @@ ticks
 30.0
 
 BUTTON
-12
-16
-75
-49
+8
+358
+71
+391
 NIL
 setup
 NIL
@@ -188,10 +188,10 @@ NIL
 1
 
 BUTTON
-12
-52
-75
-85
+8
+394
+71
+427
 go
 go\nif not any? people with [infection-status = \"infected\"]\n[stop]
 T
@@ -258,7 +258,7 @@ mortality-rate-young
 mortality-rate-young
 0
 1
-0.03
+0.02
 0.01
 1
 NIL
@@ -273,7 +273,7 @@ mortality-rate-old
 mortality-rate-old
 0
 1
-0.05
+0.07
 0.01
 1
 NIL
@@ -288,7 +288,7 @@ recovery-rate-young
 recovery-rate-young
 0
 1
-0.15
+0.1
 0.01
 1
 NIL
@@ -303,7 +303,7 @@ recovery-rate-old
 recovery-rate-old
 0
 1
-0.07
+0.03
 0.01
 1
 NIL
@@ -378,6 +378,7 @@ PENS
 "Infected" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
 "EInfected" 1.0 0 -1604481 true "" "plot count people with [epistemic-infection-status = \"infected\"]"
 "EImmune" 1.0 0 -5516827 true "" "plot count people with [epistemic-infection-status = \"immune\"]"
+"Inf. Retired" 1.0 0 -10141563 true "" "plot count people with [age = \"retired\" and infection-status = \"infected\"]"
 
 TEXTBOX
 536
@@ -437,7 +438,7 @@ INPUTBOX
 959
 746
 #workplaces
-1.0
+10.0
 1
 0
 Number
@@ -469,7 +470,7 @@ INPUTBOX
 1146
 748
 #private-leisure
-1.0
+10.0
 1
 0
 Number
@@ -490,7 +491,7 @@ INPUTBOX
 1247
 750
 #homes
-100.0
+101.0
 1
 0
 Number
@@ -699,7 +700,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -829,7 +830,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.07
+0.0
 0.01
 1
 NIL
@@ -844,7 +845,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.04
+0.0
 0.01
 1
 NIL
@@ -859,7 +860,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.1
+0.0
 0.01
 1
 NIL
@@ -874,7 +875,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.11
+0.0
 0.01
 1
 NIL
@@ -972,9 +973,41 @@ SWITCH
 52
 animate?
 animate?
-0
+1
 1
 -1000
+
+CHOOSER
+972
+159
+1126
+204
+household-composition
+household-composition
+"segregated-elderly" "balanced-mix"
+1
+
+MONITOR
+10
+768
+102
+813
+NIL
+#dead-people
+17
+1
+11
+
+MONITOR
+106
+768
+198
+813
+NIL
+#dead-retired
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

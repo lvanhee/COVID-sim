@@ -41,3 +41,4 @@ end
 to-report is-alive?
   report not (infection-status = "dead")
 end
+
