@@ -20,9 +20,10 @@ to perform-activity
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
     select-activity
-    move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
-    set heading towards current-activity
-    
+    if not animate? [
+      move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
+      set heading towards current-activity
+    ]
 
     execute-activity-effect
     

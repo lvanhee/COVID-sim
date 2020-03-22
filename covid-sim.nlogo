@@ -87,6 +87,27 @@ to perform-people-activities
   ask people [
     perform-activity
   ]
+  if animate? [
+    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+    while [any? walkers] [
+      every 0.1 [
+        ask walkers [
+          face current-activity
+          while [not allowed-move?] [
+            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
+              [ right 10 ]
+              [ left 10 ]
+          ]
+          forward min (list 1 distance current-activity)
+        ]
+        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+      ]
+    ]
+  ]
+end
+
+to-report allowed-move?
+  report can-move? 1 and (not any? gathering-points-on patch-ahead 1 or member? current-activity gathering-points-on patch-ahead 1)
 end
 
 to dump-to-file
@@ -123,10 +144,10 @@ file-close
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-80
-10
-517
-448
+81
+12
+518
+450
 -1
 -1
 13.0
@@ -143,8 +164,8 @@ GRAPHICS-WINDOW
 32
 0
 32
-1
-1
+0
+0
 1
 ticks
 30.0
@@ -609,7 +630,7 @@ density-factor-workplaces
 density-factor-workplaces
 0
 1
-0.2
+0.21
 0.01
 1
 NIL
@@ -943,6 +964,17 @@ Needs model
 11
 0.0
 1
+
+SWITCH
+1088
+19
+1199
+52
+animate?
+animate?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
