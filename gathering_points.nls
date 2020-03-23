@@ -26,19 +26,30 @@ to setup-activities
       let placed turtle-set nobody
       while [any? to-place] [
         let focal one-of to-place
-        let placing up-to-n-of 4 to-place with [gathering-type = [gathering-type] of focal]
         let p-pxcor random-pxcor
         let p-pycor random-pycor
-        while [any? placed with [abs (p-pxcor - pxcor) <= 2  and abs (p-pycor - pycor) <= 2] or p-pxcor >= (max-pxcor - 1) or p-pxcor <= (min-pxcor + 1) or p-pycor >= (max-pycor - 1) or p-pycor <= (min-pycor + 1)] [
-          set p-pxcor random-pxcor
-          set p-pycor random-pycor
+        ifelse count to-place > 10 [ 
+          let placing up-to-n-of 4 to-place with [gathering-type = [gathering-type] of focal]
+          while [any? placed with [abs (p-pxcor - pxcor) <= 2  and abs (p-pycor - pycor) <= 2] or p-pxcor >= (max-pxcor - 1) or p-pxcor <= (min-pxcor + 1) or p-pycor >= (max-pycor - 1) or p-pycor <= (min-pycor + 1)] [
+           set p-pxcor random-pxcor
+           set p-pycor random-pycor
+          ]
+          ;show p-pxcor
+          ;show p-pycor
+          (foreach (up-to-n-of (count placing) (sort (([neighbors] of (patch p-pxcor p-pycor)) with [not member? self [neighbors4] of patch p-pxcor p-pycor]))) (sort placing) [ [ p g ] -> ask g [ move-to p ] ])
+          set placed (turtle-set placed placing)
+        ] [
+          while [any? placed with [abs (p-pxcor - pxcor) <= 1 and abs (p-pycor - pycor) <= 1] or p-pxcor = max-pxcor or p-pxcor = min-pxcor or p-pycor = max-pycor or p-pycor = min-pycor] [
+            set p-pxcor random-pxcor
+            set p-pycor random-pycor
+          ]
+          ask focal [
+            setxy p-pxcor p-pycor
+          ]
+          set placed (turtle-set placed focal)
         ]
-        show p-pxcor
-        show p-pycor
-        (foreach (up-to-n-of (count placing) (sort (([neighbors] of (patch p-pxcor p-pycor)) with [not member? self [neighbors4] of patch p-pxcor p-pycor]))) (sort placing) [ [ p g ] -> ask g [ move-to p ] ])
-        set placed (turtle-set placed placing)
         set to-place to-place with [not member? self placed]
-        show to-place
+        ;show to-place
       ]
 ;      ask gathering-points [
 ;        let possible-xcor random-pxcor
