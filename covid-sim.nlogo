@@ -11,9 +11,10 @@ globals [
 ]
 
 to setup
+  check-parameters
   clear-all
   reset-ticks
-  random-seed 47822
+  if debug?[  random-seed 47822 ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
@@ -26,12 +27,32 @@ to setup
   setup-activities
   create-all-people
 
-  ask one-of people [set-infection-status "infected"]
+  infect-one-random-person
+
   update-display
 
   ask links[hide-link]
 
   set is-lockdown-active? false
+end
+
+to check-parameters
+  if probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1
+  [
+    error "probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1"
+  ]
+
+  if probability-self-recovery-symptoms-old + probability-recorvery-if-treated-old + probability-unavoidable-death-old > 1
+  [
+    error "probability-self-recovery-symptoms-old + probability-recorvery-if-treated-old + probability-unavoidable-death-old > 1"
+  ]
+end
+
+to infect-one-random-person
+    ask n-of 3 people [
+    if disease-model = "markovian"[set-infection-status "infected"]
+    if disease-model = "advanced" [set-infection-status "infected-asymptomatic"  set duration-current-disease-status infection-to-asymptomatic-contagiousness]
+  ]
 end
 
 to go
@@ -44,12 +65,12 @@ to go
   update-time
 end
 to debug-show [object]
-  if debug [
+  if debug? [
     file-show object
   ]
 end
 to debug-print [object]
-  if debug [
+  if debug? [
     print object
   ]
 
@@ -126,7 +147,7 @@ to-report allowed-move?
   report can-move? 1 and (not any? gathering-points-on patch-ahead 1 or member? current-activity gathering-points-on patch-ahead 1)
 end
 
-to dump-to-file
+to dump-system-state-to-file
   let global_filename (word "description.txt")
   if file-exists? global_filename[ file-delete global_filename]
   file-open global_filename
@@ -209,7 +230,7 @@ BUTTON
 71
 427
 go
-go\nif not any? people with [infection-status = \"infected\"]\n[stop]
+go\nif not any? people with [is-contagious?]\n[stop]
 T
 1
 T
@@ -231,10 +252,10 @@ original-distribution
 1
 
 CHOOSER
-1267
-255
-1482
-300
+1262
+332
+1477
+377
 age-model
 age-model
 "none" "young-old" "young,student,worker,retired"
@@ -266,10 +287,10 @@ Young-old-model (yom) variables\nAssumed a pure markovian four-state disease mod
 1
 
 SLIDER
-533
-222
-726
-255
+1447
+29
+1594
+62
 mortality-rate-young
 mortality-rate-young
 0
@@ -281,10 +302,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-532
-260
-718
-293
+1447
+66
+1593
+99
 mortality-rate-old
 mortality-rate-old
 0
@@ -296,10 +317,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-725
-222
-901
-255
+1592
+29
+1737
+62
 recovery-rate-young
 recovery-rate-young
 0
@@ -311,10 +332,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-725
-260
-900
-293
+1592
+66
+1736
+99
 recovery-rate-old
 recovery-rate-old
 0
@@ -326,35 +347,35 @@ NIL
 HORIZONTAL
 
 SLIDER
-908
-222
-1095
-255
+1737
+29
+1886
+62
 propagation-risk-yom
 propagation-risk-yom
 0
 1
-1.0
+0.78
 0.01
 1
 NIL
 HORIZONTAL
 
 CHOOSER
-1378
-11
-1516
-56
+1300
+40
+1438
+85
 disease-model
 disease-model
-"markovian"
-0
+"markovian" "advanced"
+1
 
 SWITCH
-645
-13
-916
-46
+800
+64
+1071
+97
 propagation-by-coordinates-proximity?
 propagation-by-coordinates-proximity?
 1
@@ -362,10 +383,10 @@ propagation-by-coordinates-proximity?
 -1000
 
 INPUTBOX
-921
-14
 1076
-74
+65
+1231
+125
 propagation-radius
 2.0
 1
@@ -391,16 +412,16 @@ PENS
 "Healthy" 1.0 0 -14439633 true "" "plot count people with [infection-status = \"healthy\"]"
 "Dead" 1.0 0 -10873583 true "" "plot #dead-people"
 "Immune" 1.0 0 -11033397 true "" "plot count people with [infection-status = \"immune\"]"
-"Infected" 1.0 0 -2674135 true "" "plot count people with [infection-status = \"infected\"]"
+"Infected" 1.0 0 -2674135 true "" "plot count people with [is-infected?]"
 "EInfected" 1.0 0 -1604481 true "" "plot count people with [epistemic-infection-status = \"infected\"]"
 "EImmune" 1.0 0 -5516827 true "" "plot count people with [epistemic-infection-status = \"immune\"]"
 "Inf. Retired" 1.0 0 -10141563 true "" "plot count people with [age = \"retired\" and infection-status = \"infected\"]"
 
 TEXTBOX
-536
-25
-930
-67
+691
+76
+1085
+118
 Propagation model
 11
 0.0
@@ -523,31 +544,31 @@ activity-model
 0
 
 TEXTBOX
-1251
-235
-1401
-253
+1246
+312
+1396
+330
 Age model
 11
 0.0
 1
 
 INPUTBOX
-1267
-314
-1320
-374
+1262
+391
+1315
+451
 #young
-100.0
+0.0
 1
 0
 Number
 
 INPUTBOX
-1324
-314
-1390
-374
+1319
+391
+1385
+451
 #students
 100.0
 1
@@ -555,23 +576,23 @@ INPUTBOX
 Number
 
 INPUTBOX
-1396
-314
-1451
-374
+1391
+391
+1446
+451
 #workers
-100.0
+0.0
 1
 0
 Number
 
 INPUTBOX
-1455
-314
-1509
-374
+1450
+391
+1504
+451
 #retired
-100.0
+0.0
 1
 0
 Number
@@ -588,20 +609,20 @@ activity-based-proxemics?
 -1000
 
 TEXTBOX
-1228
-324
-1378
-342
+1223
+401
+1373
+419
 Quotas
 9
 0.0
 1
 
 SWITCH
-644
-63
-855
-96
+799
+114
+1010
+147
 activity-based-progagation?
 activity-based-progagation?
 0
@@ -897,33 +918,6 @@ probability-shopkeeper
 NIL
 HORIZONTAL
 
-TEXTBOX
-861
-78
-1046
-96
-Turtle means working from home\n
-11
-0.0
-1
-
-BUTTON
-1409
-143
-1507
-176
-dump-to-file
-dump-to-file
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
 SWITCH
 1357
 505
@@ -958,10 +952,10 @@ closed-universities?
 -1000
 
 SLIDER
-1546
-259
-1724
-292
+1541
+336
+1719
+369
 ratio-safety-belonging
 ratio-safety-belonging
 0
@@ -973,23 +967,23 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1528
-235
-1678
-253
+1523
+312
+1673
+330
 Needs model
 11
 0.0
 1
 
 SWITCH
-1088
-19
-1199
-52
+534
+24
+645
+57
 animate?
 animate?
-0
+1
 1
 -1000
 
@@ -1001,7 +995,7 @@ CHOOSER
 household-composition
 household-composition
 "segregated-elderly" "balanced-mix"
-1
+0
 
 MONITOR
 10
@@ -1043,15 +1037,210 @@ NIL
 1
 
 SWITCH
-1093
-69
-1196
-102
-debug
-debug
+643
+24
+746
+57
+debug?
+debug?
 1
 1
 -1000
+
+TEXTBOX
+1287
+23
+1437
+41
+Disease model
+11
+0.0
+1
+
+TEXTBOX
+1452
+13
+1602
+31
+Markovian & advanced parameters
+9
+0.0
+1
+
+TEXTBOX
+1449
+107
+1599
+125
+Advanced model parameters
+9
+0.0
+1
+
+INPUTBOX
+1391
+131
+1546
+191
+infection-to-asymptomatic-contagiousness
+2.0
+1
+0
+Number
+
+INPUTBOX
+1552
+131
+1707
+191
+asympomatic-contagiousness-to-symptomatic-contagiousness
+4.0
+1
+0
+Number
+
+INPUTBOX
+1712
+131
+1867
+191
+symptomatic-to-critical-or-heal
+7.0
+1
+0
+Number
+
+INPUTBOX
+1873
+131
+1976
+191
+critical-to-terminal
+2.0
+1
+0
+Number
+
+INPUTBOX
+1979
+131
+2075
+191
+terminal-to-death
+7.0
+1
+0
+Number
+
+SLIDER
+1928
+195
+2118
+228
+probability-unavoidable-death
+probability-unavoidable-death
+0
+1
+0.01
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1478
+196
+1724
+229
+probability-self-recovery-symptoms
+probability-self-recovery-symptoms
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1730
+196
+1925
+229
+probability-recorvery-if-treated
+probability-recorvery-if-treated
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1478
+236
+1708
+269
+probability-self-recovery-symptoms-old
+probability-self-recovery-symptoms-old
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1727
+236
+1922
+269
+probability-recorvery-if-treated-old
+probability-recorvery-if-treated-old
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1926
+236
+2118
+269
+probability-unavoidable-death-old
+probability-unavoidable-death-old
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+1314
+213
+1464
+255
+Probabilities should be <1\nExtra probability counts as \"recovery without symptoms\"
+11
+0.0
+1
+
+TEXTBOX
+538
+10
+688
+28
+Simulation management
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
