@@ -16,7 +16,7 @@ end
 
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
 to perform-activity
-  set shape "default"
+  
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
     select-activity

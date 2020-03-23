@@ -8,17 +8,26 @@ globals [
   current-day
   #dead-people
   #dead-retired
+
 ]
 
 to setup
   clear-all
   reset-ticks
+  set-default-shape people "circle"
+  random-seed 47822
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
   set #dead-people 0
 
+  file-close-all
+
+  file-open "debug.log"
+
+
   setup-activities
+
   create-all-people
 
   ask one-of people [set-infection-status "infected"]
@@ -30,6 +39,7 @@ to setup
 end
 
 to go
+
   tick
   spread-contagion
   update-within-agent-disease-status
@@ -37,6 +47,17 @@ to go
   perform-people-activities
   update-display
   update-time
+end
+to debug-show [object]
+  if debug [
+    file-show object
+  ]
+end
+to debug-print [object]
+  if debug [
+    print object
+  ]
+
 end
 
 to update-time
@@ -273,7 +294,7 @@ mortality-rate-old
 mortality-rate-old
 0
 1
-0.07
+0.14
 0.01
 1
 NIL
@@ -318,7 +339,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.1
+0.27
 0.01
 1
 NIL
@@ -860,7 +881,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.0
+1.0
 0.01
 1
 NIL
@@ -973,7 +994,7 @@ SWITCH
 52
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -1008,6 +1029,34 @@ NIL
 17
 1
 11
+
+BUTTON
+0
+313
+77
+346
+1 Week Run
+setup\nrepeat 21 [go]
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SWITCH
+1093
+69
+1196
+102
+debug
+debug
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

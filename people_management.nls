@@ -9,6 +9,7 @@ people-own [
   last-day-observed-symptoms
   has-done-shopping
   purpose-of-the-current-gathering
+  ;set-default-shape turtles "circle"
   
   
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
@@ -96,7 +97,9 @@ to setup-person
   setup-person-home
   
   relate-person-to-gathering-points
+  
   set color default-color
+  set size 0.5
   set infection-status "healthy"
   set epistemic-infection-status "healthy"
   set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
