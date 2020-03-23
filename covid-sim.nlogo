@@ -25,9 +25,7 @@ to setup
 
   file-open "debug.log"
 
-
   setup-activities
-
   create-all-people
 
   ask one-of people [set-infection-status "infected"]
@@ -294,7 +292,11 @@ mortality-rate-old
 mortality-rate-old
 0
 1
+
 0.14
+=======
+1.0
+
 0.01
 1
 NIL
@@ -340,6 +342,8 @@ propagation-risk-yom
 0
 1
 0.27
+=======
+1.0
 0.01
 1
 NIL
