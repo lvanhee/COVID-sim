@@ -25,17 +25,21 @@ to spread-by-activity-proximity
 end
 
 to apply-risk-of-contamination [factor]
-  if disease-model = "markovian" and infection-status = "healthy"
+  
+  if random-float 1 < factor * propagation-risk-yom and infection-status = "healthy"
   [
-    if random-float 1 < factor * 
-    propagation-risk-yom
+  if disease-model = "markovian" 
     [set infection-status "infected"]
+    if disease-model = "advanced"
+    [
+      set infection-status "asymptomatic noncontagious" 
+      set duration-current-disease-status infection-to-asymptomatic-contagiousness
+    ]
   ]
 end
 
 to-report is-contagious?
-  if disease-model = "markovian" [report infection-status = "infected"]
-  error "not implemented"
+  report not (infection-status = "healthy") and not (infection-status = "immune")
 end
 
 to-report is-alive?
