@@ -9,6 +9,7 @@ people-own [
   last-day-observed-symptoms
   has-done-shopping
   purpose-of-the-current-gathering
+  ;set-default-shape turtles "circle"
   
   ;;the disease profile records how the person will react to the disease
   disease-profile
@@ -111,7 +112,9 @@ to setup-person
   setup-person-home
   
   relate-person-to-gathering-points
+  
   set color default-color
+  set size 0.5
   set infection-status "healthy"
   set epistemic-infection-status "healthy"
   set last-day-observed-symptoms nobody ;should raise an error if used before being initialized

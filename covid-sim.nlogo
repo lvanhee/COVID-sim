@@ -8,12 +8,16 @@ globals [
   current-day
   #dead-people
   #dead-retired
+
 ]
 
 to setup
   check-parameters
   clear-all
   reset-ticks
+  set-default-shape people "circle"
+  random-seed 47822
+=======
   if debug?[  random-seed 47822 ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
@@ -56,6 +60,7 @@ to infect-one-random-person
 end
 
 to go
+
   tick
   spread-contagion
   update-within-agent-disease-status
@@ -310,7 +315,11 @@ mortality-rate-old
 mortality-rate-old
 0
 1
+
+0.14
+=======
 1.0
+
 0.01
 1
 NIL
@@ -355,6 +364,10 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
+0.27
+=======
+1.0
+=======
 0.78
 0.01
 1
