@@ -112,6 +112,30 @@ to-report gatherers
   report in-gathering-link-neighbors
 end
 
+to-report empty-houses
+  report homes with [not any? gatherers]
+end
+
 to-report houses-hosting-retired
   report homes with [any? gatherers with [age = "retired"]]
+end
+
+to-report houses-hosting-worker
+  report homes with [any? gatherers with [age = "worker"]]
+end
+
+to-report houses-hosting-retired-couple
+  report homes with [count gatherers with [age = "retired"] = 2 and count gatherers = 2]
+end
+
+to-report houses-hosting-adults
+  report homes with [any? gatherers with [age = "worker" or age = "student"] and not any? gatherers with [age = "young" or age = "retired"]]
+end
+
+to-report houses-hosting-family
+  report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and not any? gatherers with [age = "retired"]]
+end
+
+to-report houses-hosting-multiple-generations
+  report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and any? gatherers with [age = "retired"]]
 end

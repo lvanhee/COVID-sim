@@ -562,7 +562,7 @@ INPUTBOX
 1315
 451
 #young
-0.0
+100.0
 1
 0
 Number
@@ -584,7 +584,7 @@ INPUTBOX
 1446
 451
 #workers
-0.0
+100.0
 1
 0
 Number
@@ -595,7 +595,7 @@ INPUTBOX
 1504
 451
 #retired
-0.0
+100.0
 1
 0
 Number
@@ -986,7 +986,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -997,8 +997,8 @@ CHOOSER
 204
 household-composition
 household-composition
-"segregated-elderly" "balanced-mix"
-0
+"segregated-elderly" "balanced-mix" "different-kinds"
+2
 
 MONITOR
 10
@@ -1244,6 +1244,60 @@ Simulation management
 11
 0.0
 1
+
+TEXTBOX
+1623
+410
+1773
+428
+Households distribution
+11
+0.0
+1
+
+MONITOR
+1627
+434
+1774
+479
+Adults rooming together
+count houses-hosting-adults
+17
+1
+11
+
+MONITOR
+1780
+434
+1873
+479
+Retired couple
+count houses-hosting-retired-couple
+17
+1
+11
+
+MONITOR
+1627
+486
+1724
+531
+Family
+count houses-hosting-family
+17
+1
+11
+
+MONITOR
+1731
+486
+1874
+531
+Multi-generational living
+count houses-hosting-multiple-generations
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

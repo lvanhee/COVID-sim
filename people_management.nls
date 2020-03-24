@@ -90,6 +90,52 @@ to setup-person-home
       [set h one-of houses-for-non-retired with-min [count gatherers]]
     ]
   ]
+  if household-composition = "different-kinds"
+  [
+    if age = "worker"
+    [
+      ifelse count empty-houses > #students + #retired / 2
+      [
+        set h one-of empty-houses
+      ]
+      [
+        set h one-of homes
+      ]
+    ]
+    
+    if age = "young"
+    [
+      set h one-of houses-hosting-worker
+    ]
+    
+    if age = "student"
+    [
+      ifelse count empty-houses > #retired / 2
+      [
+        set h one-of empty-houses
+      ]
+      [
+        set h one-of homes
+      ]
+    ]
+    
+    if age = "retired"
+    [
+      ifelse count empty-houses > 0
+      [
+        set h one-of empty-houses
+      ]
+      [
+        ifelse count homes with [count gatherers with [age = "retired"] = 1 and count gatherers = 1] > 0
+        [
+          set h one-of homes with [count gatherers with [age = "retired"] = 1 and count gatherers = 1]
+        ]
+        [
+          set h one-of homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "student" or age = "young"]]
+        ]
+      ]
+    ]
+  ]
   
   
   if h = nobody [error (word "unimplemented for: " age " " self)]
@@ -109,7 +155,7 @@ to setup-person
   setup-disease-profile
   
   
-  setup-person-home
+  ;setup-person-home
   
   relate-person-to-gathering-points
   
@@ -173,6 +219,8 @@ to create-all-people
   if original-distribution = "set-by-quotas"
   [create-people #young + #students + #workers + #retired [setup-person]]
   
+  setup-people-homes
+  
   ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
 end
 
@@ -232,4 +280,30 @@ to relate-person-to-gathering-points
     ]
   ]
   [error "not implemented"]
+end
+
+to setup-people-homes
+  if household-composition = "balanced-mix" or household-composition = "segregated-elderly"
+  [
+    ask people [setup-person-home]
+  ]
+  if household-composition = "different-kinds"
+  [
+    ask people with [age = "worker"]
+    [
+      setup-person-home
+    ]
+    ask people with [age = "young"]
+    [
+      setup-person-home
+    ]
+    ask people with [age = "student"]
+    [
+      setup-person-home
+    ]
+    ask people with [age = "retired"]
+    [
+      setup-person-home
+    ]
+  ]
 end
