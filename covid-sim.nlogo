@@ -8,12 +8,14 @@ globals [
   current-day
   #dead-people
   #dead-retired
+
 ]
 
 to setup
   check-parameters
   clear-all
   reset-ticks
+  set-default-shape people "circle"
   if debug?[  random-seed 47822 ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
@@ -56,6 +58,7 @@ to infect-one-random-person
 end
 
 to go
+
   tick
   spread-contagion
   update-within-agent-disease-status
@@ -310,7 +313,7 @@ mortality-rate-old
 mortality-rate-old
 0
 1
-1.0
+0.14
 0.01
 1
 NIL
@@ -355,7 +358,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.78
+0.27
 0.01
 1
 NIL
@@ -1242,32 +1245,32 @@ Simulation management
 0.0
 1
 
-MONITOR
-1701
-430
-1837
-475
-Adults rooming together
-count houses-hosting-adults
-17
-1
-11
-
 TEXTBOX
-1702
-404
-1852
-422
+1623
+410
+1773
+428
 Households distribution
 11
 0.0
 1
 
 MONITOR
-1843
-430
-1936
-475
+1627
+434
+1774
+479
+Adults rooming together
+count houses-hosting-adults
+17
+1
+11
+
+MONITOR
+1780
+434
+1873
+479
 Retired couple
 count houses-hosting-retired-couple
 17
@@ -1275,10 +1278,10 @@ count houses-hosting-retired-couple
 11
 
 MONITOR
-1701
-480
-1787
-525
+1627
+486
+1724
+531
 Family
 count houses-hosting-family
 17
@@ -1286,10 +1289,10 @@ count houses-hosting-family
 11
 
 MONITOR
-1794
-480
-1937
-525
+1731
+486
+1874
+531
 Multi-generational living
 count houses-hosting-multiple-generations
 17
