@@ -1,4 +1,4 @@
-__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "gathering_points.nls" "public_measures.nls"]
+__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "gathering_points.nls" "public_measures.nls" "utils.nls"]
 breed [people person]
 
 globals [
@@ -22,10 +22,6 @@ to setup
   set day-of-the-week "monday"
   set current-day 0
   set #dead-people 0
-
-  file-close-all
-
-  file-open "debug.log"
 
   setup-activities
   create-all-people
@@ -67,17 +63,6 @@ to go
   perform-people-activities
   update-display
   update-time
-end
-to debug-show [object]
-  if debug? [
-    file-show object
-  ]
-end
-to debug-print [object]
-  if debug? [
-    print object
-  ]
-
 end
 
 to update-time
@@ -987,7 +972,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
