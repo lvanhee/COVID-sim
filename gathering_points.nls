@@ -20,7 +20,7 @@ to setup-activities
     create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
     create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
     create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-    create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food random 7 + 1]
+    create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food random 14 + 7]
     if animate? [
       let to-place gathering-points
       let placed turtle-set nobody
@@ -103,6 +103,7 @@ end
 ;might be to be revised later, if the number of people expected to show up at the gathering point lowers
 to-report expected-number-of-other-participants
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
+  if gathering-type = "hospital" [report random 5 + 2]
   report count other in-gathering-link-neighbors
 end
 
@@ -138,7 +139,7 @@ to-report houses-hosting-retired-couple
 end
 
 to-report houses-hosting-adults
-  report homes with [count gatherers = count gatherers with [age = "worker"] or count gatherers = count gatherers with [age = "student"]]
+  report homes with [any? gatherers with [age = "worker" or age = "student"] 
 end
 
 to-report houses-hosting-family

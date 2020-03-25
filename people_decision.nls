@@ -2,11 +2,22 @@ __includes ["need_management.nls"]
 
 
 to-report my-preferred-available-activity-descriptor ;reports a string, which can be related to a gathering point and a concrete activity
+  debug-file-print (sentence "Person " who " " age)
   report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
  ; [[my-need-satisfaction myself] of myself] 
 end
 
+to-report is-away?
+  report current-activity = away-gathering-point
+end
+
 to-report my-available-activity-descriptors
+  if migration? and is-away?
+  [
+    if (not (random-float 1 < probability-getting-back-when-abroad)) [
+      report (list (list away-gathering-point "undefined reason"))
+    ]
+  ]
   
   let activities (list (list one-of link-neighbors with  [gathering-type = "home"] "rest"))
   
@@ -23,7 +34,7 @@ to-report my-available-activity-descriptors
       if age = "worker" [
         if is-allowed-to-work-from-home? [
           set activities (lput (list
-            one-of link-neighbors with  [gathering-type = "home"]
+            one-of link-neighbors with [gathering-type = "home"]
             "contractual obligation")
             activities)
         ]
@@ -37,20 +48,17 @@ to-report my-available-activity-descriptors
   
   if slice-of-the-day = "evening" or not working-day
   [
-    if needs-shopping [
-      set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
-    ]
-    if random-float 1 < 0.05 [
-      set activities lput (list one-of link-neighbors with [gathering-type = "public-leisure"] "relaxing" ) activities
-    ]
-    if random-float 1 < 0.05 [
-      set activities lput (list one-of link-neighbors with [gathering-type = "non-essential-shop"] "shopping") activities]
-    if random-float 1 < 0.3 [set activities lput (list one-of link-neighbors with [gathering-type = "private-leisure"] "relaxing") activities]
+    set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
+    
+
+    set activities lput (list one-of link-neighbors with [gathering-type = "public-leisure"] "relaxing" ) activities
+    set activities lput (list one-of link-neighbors with [gathering-type = "non-essential-shop"] "shopping") activities
+    set activities lput (list one-of link-neighbors with [gathering-type = "private-leisure"] "relaxing") activities
     
   ]
-  if random-float 1 < 0.01 [
-    set activities lput (list [other-end] of one-of my-gathering-links with  [member? "get-tested" features] "get-tested") activities
-  ]
+
+  set activities lput (list [other-end] of one-of my-gathering-links with  [member? "get-tested" features] "get-tested") activities
+
  
   
   
@@ -66,7 +74,13 @@ end
 
 
 to select-activity
-  let c-a my-preferred-available-activity-descriptor 
+  let c-a my-preferred-available-activity-descriptor
+  
+  if migration? and random-float 1 < probability-going-abroad [
+    set c-a (list away-gathering-point "undefined reason")
+  ]
+  
+  set is-moving-outside-for-reaching-current-activity? current-activity != first c-a
   set current-activity first c-a
   set current-motivation last c-a
   
