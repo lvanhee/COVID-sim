@@ -1,4 +1,4 @@
-__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "gathering_points.nls" "public_measures.nls"]
+__includes ["people_management.nls" "global_metrics.nls" "contagion.nls" "gathering_points.nls" "public_measures.nls" "utils.nls"]
 breed [people person]
 
 globals [
@@ -15,7 +15,6 @@ globals [
 to setup
   check-parameters
   clear-all
-  reset-ticks
   set-default-shape people "circle"
   if debug?[  random-seed 47822 ]
   set slice-of-the-day "morning"
@@ -23,20 +22,17 @@ to setup
   set current-day 0
   set #dead-people 0
 
-  file-close-all
-
-  file-open "debug.log"
-
   setup-activities
   create-all-people
 
-  infect-one-random-person
+  if with-infected? [infect-one-random-person]
 
   update-display
 
   ask links[hide-link]
 
   set is-lockdown-active? false
+  reset-ticks
 end
 
 to check-parameters
@@ -68,17 +64,6 @@ to go
   update-display
   update-time
 end
-to debug-show [object]
-  if debug? [
-    file-show object
-  ]
-end
-to debug-print [object]
-  if debug? [
-    print object
-  ]
-
-end
 
 to update-time
   if slice-of-the-day = "morning"
@@ -88,13 +73,20 @@ to update-time
   [set slice-of-the-day "evening" stop]
 
   if slice-of-the-day = "evening"
-  [
+  [set slice-of-the-day "night" stop]
+
+  if slice-of-the-day = "night" [
     set slice-of-the-day "morning"
     set current-day current-day + 1
     ask gathering-points [
       if available-food > 0 [
         set available-food available-food - 1
       ]
+    ]
+    ask people [
+      set days-since-seen-relatives days-since-seen-relatives + 1
+      set days-since-seen-colleagues days-since-seen-colleagues + 1
+      set days-since-seen-friends days-since-seen-friends + 1
     ]
 
     if day-of-the-week = "monday"
@@ -359,7 +351,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.02
+0.27
 0.01
 1
 NIL
@@ -741,7 +733,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -804,7 +796,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.71
+1.0
 0.01
 1
 NIL
@@ -871,7 +863,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.0
+0.16
 0.01
 1
 NIL
@@ -886,7 +878,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.01
+0.36
 0.01
 1
 NIL
@@ -901,7 +893,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-1.0
+0.15
 0.01
 1
 NIL
@@ -916,7 +908,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.0
+0.18
 0.01
 1
 NIL
@@ -956,7 +948,7 @@ closed-universities?
 -1000
 
 SLIDER
-1541
+1542
 336
 1719
 369
@@ -964,7 +956,7 @@ ratio-safety-belonging
 ratio-safety-belonging
 0
 1
-0.8
+0.4
 0.01
 1
 NIL
@@ -987,7 +979,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -1002,10 +994,10 @@ household-composition
 2
 
 MONITOR
-10
-768
-102
+525
 813
+617
+858
 NIL
 #dead-people
 17
@@ -1013,10 +1005,10 @@ NIL
 11
 
 MONITOR
-106
-768
-198
+621
 813
+713
+858
 NIL
 #dead-retired
 17
@@ -1047,7 +1039,7 @@ SWITCH
 57
 debug?
 debug?
-1
+0
 1
 -1000
 
@@ -1247,20 +1239,20 @@ Simulation management
 1
 
 TEXTBOX
-1623
-410
-1773
-428
+1729
+334
+1879
+352
 Households distribution
 11
 0.0
 1
 
 MONITOR
-1627
-434
-1774
-479
+1733
+358
+1880
+403
 Adults rooming together
 count houses-hosting-adults
 17
@@ -1268,10 +1260,10 @@ count houses-hosting-adults
 11
 
 MONITOR
-1780
-434
-1873
-479
+1886
+358
+1979
+403
 Retired couple
 count houses-hosting-retired-couple
 17
@@ -1279,10 +1271,10 @@ count houses-hosting-retired-couple
 11
 
 MONITOR
-1627
-486
-1724
-531
+1733
+410
+1830
+455
 Family
 count houses-hosting-family
 17
@@ -1290,10 +1282,10 @@ count houses-hosting-family
 11
 
 MONITOR
-1731
-486
-1874
-531
+1837
+410
+1980
+455
 Multi-generational living
 count houses-hosting-multiple-generations
 17
@@ -1326,6 +1318,36 @@ NIL
 HORIZONTAL
 
 SLIDER
+1543
+371
+1719
+404
+importance-compliance
+importance-compliance
+0
+1
+0.9
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1542
+407
+1719
+440
+importance-survival
+importance-survival
+0
+1
+0.7
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
 1626
 598
 1812
@@ -1341,6 +1363,21 @@ NIL
 HORIZONTAL
 
 SLIDER
+1542
+477
+1719
+510
+importance-leisure
+importance-leisure
+0
+1
+0.3
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
 1812
 598
 1978
@@ -1350,6 +1387,21 @@ probability-getting-back-when-abroad
 0
 1
 0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1542
+442
+1719
+475
+importance-risk-avoidance
+importance-risk-avoidance
+0
+1
+0.6
 0.01
 1
 NIL
@@ -1391,6 +1443,173 @@ density-travelling-propagation
 1
 NIL
 HORIZONTAL
+
+MONITOR
+528
+873
+585
+918
+#home
+count people with [[gathering-type] of current-activity = \"home\"]
+17
+1
+11
+
+MONITOR
+587
+873
+650
+918
+#school
+count people with [[gathering-type] of current-activity = \"school\"]
+17
+1
+11
+
+MONITOR
+652
+873
+735
+918
+#workplace
+count people with [[gathering-type] of current-activity = \"workplace\"]
+17
+1
+11
+
+MONITOR
+737
+873
+819
+918
+#university
+count people with [[gathering-type] of current-activity = \"university\"]
+17
+1
+11
+
+MONITOR
+821
+873
+892
+918
+#hospital
+count people with [[gathering-type] of current-activity = \"hospital\"]
+17
+1
+11
+
+PLOT
+9
+768
+520
+918
+Average need satisfaction
+time
+need satisfaction
+0.0
+10.0
+0.0
+1.0
+true
+true
+"" ""
+PENS
+"belonging" 1.0 0 -16777216 true "" "plot mean [belonging-need-satisfaction] of people"
+"safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
+"autonomy" 1.0 0 -955883 true "" "plot mean [autonomy-need-satisfaction] of people"
+"relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
+
+SLIDER
+1542
+512
+1720
+545
+importance-autonomy
+importance-autonomy
+0
+1
+0.28
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+894
+873
+957
+918
+#leisure
+count people with [member? \"leisure\" [gathering-type] of current-activity]
+17
+1
+11
+
+MONITOR
+959
+874
+1072
+919
+#essential-shop
+count people with [[gathering-type] of current-activity = \"essential-shop\"]
+17
+1
+11
+
+MONITOR
+1074
+874
+1131
+919
+#shop
+count people with [[gathering-type] of current-activity = \"non-essential-shop\"]
+17
+1
+11
+
+PLOT
+8
+921
+520
+1071
+Average safety needs satisfaction
+time
+satisfaction
+0.0
+10.0
+0.0
+1.0
+true
+true
+"" ""
+PENS
+"safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
+"compliance" 1.0 0 -7500403 true "" "plot mean [compliance-need-satisfaction] of people"
+"risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
+"survival" 1.0 0 -955883 true "" "plot mean [survival-need-satisfaction] of people"
+
+SWITCH
+534
+61
+678
+94
+with-infected?
+with-infected?
+1
+1
+-1000
+
+MONITOR
+526
+922
+593
+967
+autonomy
+mean [autonomy-need-satisfaction] of people
+3
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

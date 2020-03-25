@@ -3,7 +3,14 @@ to-report my-relatives
 end
 
 to-report my-colleagues
-  report other [gatherers] of my-workplace
+  if my-workplace != nobody [
+    report other [gatherers] of my-workplace
+  ]
+  report (turtle-set nobody)
+end
+
+to-report my-friends
+  report other [gatherers] of my-private-leisure
 end
 
 to-report my-home
@@ -15,4 +22,8 @@ end
 ;or indicate that the place can be reached for work
 to-report my-workplace
   report one-of gathering-link-neighbors with [gathering-type = "university" or gathering-type = "school" or gathering-type = "workplace"]
+end
+
+to-report my-private-leisure
+  report one-of gathering-link-neighbors with [gathering-type = "private-leisure"]
 end
