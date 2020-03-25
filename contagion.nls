@@ -19,22 +19,47 @@ end
 
 to spread-by-activity-proximity
   ask people [
+    if is-away? [apply-risk-of-contamination-when-away]
+    if travelling-propagation? [apply-risk-of-contamination-when-travelling]
+    
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
     repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity]
   ]
 end
 
-to apply-risk-of-contamination [factor]
+to apply-risk-of-contamination-when-travelling
+  let travellers people with [is-moving-outside-for-reaching-current-activity?]
   
-  if random-float 1 < factor * propagation-risk-yom and infection-status = "healthy"
+  ;;could be fastened with a bit of math, like 1-(1-p)^k
+  repeat (count travellers with [is-contagious?]) [
+    apply-risk-of-contamination density-travelling-propagation]
+end
+
+to apply-risk-of-contamination-when-away
+  if random-float 1 < probability-infection-when-abroad and infection-status = "healthy"
   [
+    set-contaminated
+  ]
+end
+
+to set-contaminated
   if disease-model = "markovian" 
     [set infection-status "infected"]
-    if disease-model = "advanced"
-    [
-      set infection-status "asymptomatic noncontagious" 
-      set duration-current-disease-status infection-to-asymptomatic-contagiousness
-    ]
+  if disease-model = "advanced"
+  [
+    set infection-status "asymptomatic noncontagious" 
+    set duration-current-disease-status infection-to-asymptomatic-contagiousness
+  ]
+end
+
+to apply-risk-of-contamination [factor]
+  let contagion-occurs? false
+  if (not is-away? and random-float 1 < factor * propagation-risk-yom and infection-status = "healthy")
+  [set contagion-occurs? true]
+  
+  if contagion-occurs?
+  [
+    set-contaminated
   ]
 end
 

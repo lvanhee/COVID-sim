@@ -6,7 +6,17 @@ to-report my-preferred-available-activity-descriptor ;reports a string, which ca
  ; [[my-need-satisfaction myself] of myself] 
 end
 
+to-report is-away?
+  report current-activity = away-gathering-point
+end
+
 to-report my-available-activity-descriptors
+  if migration? and is-away?
+  [
+    if (not (random-float 1 < probability-getting-back-when-abroad)) [
+      report (list (list away-gathering-point "undefined reason"))
+    ]
+  ]
   
   let activities (list (list one-of link-neighbors with  [gathering-type = "home"] "rest"))
   
@@ -66,7 +76,13 @@ end
 
 
 to select-activity
-  let c-a my-preferred-available-activity-descriptor 
+  let c-a my-preferred-available-activity-descriptor
+  
+  if migration? and random-float 1 < probability-going-abroad [
+    set c-a (list away-gathering-point "undefined reason")
+  ]
+  
+  set is-moving-outside-for-reaching-current-activity? current-activity != first c-a
   set current-activity first c-a
   set current-motivation last c-a
   

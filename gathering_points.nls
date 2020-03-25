@@ -62,6 +62,15 @@ to setup-activities
 ;      ]
     ]
   ]
+  
+  if migration?
+  [
+    create-gathering-points 1
+    [
+      set away-gathering-point self
+      set shape "airplane"
+    ]
+  ]
 end
 
 to-report proximity-factor

@@ -1,10 +1,11 @@
-__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls"]
+__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls" "social_networks.nls"]
 
 people-own [
   age 
   infection-status 
   epistemic-infection-status 
   current-activity
+  is-moving-outside-for-reaching-current-activity?
   current-motivation
   last-day-observed-symptoms
   has-done-shopping
@@ -154,7 +155,7 @@ to setup-person
   
   setup-disease-profile
   
-  
+  set is-moving-outside-for-reaching-current-activity? false
   ;setup-person-home
   
   relate-person-to-gathering-points

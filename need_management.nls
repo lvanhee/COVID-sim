@@ -4,7 +4,6 @@
 to update-needs-for-playing [current-activity-descriptor]
   decay-need-satisfaction
   
-  
   set belonging-need-satisfaction
   belonging-need-satisfaction + my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played current-activity-descriptor
   if belonging-need-satisfaction > 1 [set belonging-need-satisfaction 1]
@@ -47,7 +46,7 @@ to-report expected-undiscounted-safety-needs-satisfaction-increase-for-playing [
   let motive last activity-descriptor
   
   let bonus-compliance-to-obligation 0
-  if [gathering-type] of gp = "home" and is-lockdown-enforced?
+  if gp = my-home and is-lockdown-enforced?
   [
   ;  show "lockdown bonus"
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
