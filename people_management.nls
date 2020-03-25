@@ -62,6 +62,10 @@ people-own [
   my-importance-for-relaxing-needs
   autonomy-need-satisfaction
   my-importance-for-autonomy-needs
+  ; Variables for belonging needs
+  days-since-seen-relatives
+  days-since-seen-colleagues
+  days-since-seen-friends
   ; Subneeds of safety
   compliance-need-satisfaction
   my-importance-for-compliance-needs
