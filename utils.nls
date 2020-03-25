@@ -4,6 +4,14 @@ to-report weighted-mean [values weights]
   report (sum (map [ [v w] -> v * w] values weights)) / sum weights
 end
 
+; Takes a reporter r and a list l, and returns the value of l for which the result of r is highest
+to-report arg-max [r l]
+  if empty? l [
+    report [nobody -1]
+  ]
+  report reduce [ [acc val] -> ifelse-value (item 1 acc >= item 1 val) [ acc ] [ val ]] (map [v -> (list v (runresult r v))] l)
+end
+
 to debug-file-show [object]
   if debug? [
     file-open "debug.log"

@@ -83,6 +83,11 @@ to update-time
         set available-food available-food - 1
       ]
     ]
+    ask people [
+      set days-since-seen-relatives days-since-seen-relatives + 1
+      set days-since-seen-colleagues days-since-seen-colleagues + 1
+      set days-since-seen-friends days-since-seen-friends + 1
+    ]
 
     if day-of-the-week = "monday"
     [set day-of-the-week "tuesday" stop]
@@ -346,7 +351,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.02
+0.27
 0.01
 1
 NIL
@@ -728,7 +733,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -943,7 +948,7 @@ closed-universities?
 -1000
 
 SLIDER
-1541
+1542
 336
 1719
 369
@@ -1321,14 +1326,14 @@ importance-compliance
 importance-compliance
 0
 1
-0.69
+0.9
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1546
+1542
 407
 1719
 440
@@ -1358,7 +1363,7 @@ NIL
 HORIZONTAL
 
 SLIDER
-1547
+1542
 477
 1719
 510
@@ -1388,7 +1393,7 @@ NIL
 HORIZONTAL
 
 SLIDER
-1547
+1542
 442
 1719
 475
@@ -1516,15 +1521,15 @@ PENS
 "relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
 
 SLIDER
-1551
-519
-1719
-552
+1542
+512
+1720
+545
 importance-autonomy
 importance-autonomy
 0
 1
-0.8
+0.28
 0.01
 1
 NIL
@@ -1591,9 +1596,20 @@ SWITCH
 94
 with-infected?
 with-infected?
-0
+1
 1
 -1000
+
+MONITOR
+526
+922
+593
+967
+autonomy
+mean [autonomy-need-satisfaction] of people
+3
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

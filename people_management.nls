@@ -182,7 +182,7 @@ to setup-person
   set compliance-need-satisfaction random-float 0.5 + 0.5
   set relaxing-need-satisfaction random-float 0.3 + 0.7
   set risk-avoidance-need-satisfaction random-float 0.5 + 0.5
-  set autonomy-need-satisfaction 0.99
+  set autonomy-need-satisfaction 0.95
   ;the importance levels for each community need should add up to 1
   set my-importance-for-belonging-needs ratio-safety-belonging
   set my-importance-for-safety-needs 1 - ratio-safety-belonging
