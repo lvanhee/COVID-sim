@@ -32,14 +32,6 @@ to perform-activity
     [error "not implemented"]
 end
 
-to-report needs-shopping
-  let need false
-  ask min-one-of link-neighbors with [gathering-type = "home"] [available-food] [ 
-    set need available-food <= 1
-  ]
-  report need
-end
-
 to-report is-I-have-contractual-obligations?
   report age = "worker" and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon")
   and not (day-of-the-week = "saturday" or day-of-the-week = "sunday")

@@ -1,0 +1,15 @@
+to-report safety-need-satisfaction
+  report weighted-mean (list 
+    compliance-need-satisfaction 
+    survival-need-satisfaction
+    risk-avoidance-need-satisfaction
+  ) (list my-importance-for-compliance-needs my-importance-for-survival-needs my-importance-for-risk-avoidance-needs)
+end
+
+to-report survival-need-satisfaction
+  let available-food-days [available-food] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food]
+  if available-food-days >= 28 [
+    report 1
+  ]
+  report available-food-days / 28
+end

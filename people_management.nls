@@ -1,9 +1,9 @@
-__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls" "social_networks.nls"]
+__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls" "social_networks.nls" "need_definition.nls"]
 
 people-own [
-  age 
-  infection-status 
-  epistemic-infection-status 
+  age
+  infection-status
+  epistemic-infection-status
   current-activity
   is-moving-outside-for-reaching-current-activity?
   current-motivation
@@ -11,16 +11,16 @@ people-own [
   has-done-shopping
   purpose-of-the-current-gathering
   ;set-default-shape turtles "circle"
-  
+
   ;;the disease profile records how the person will react to the disease
   disease-profile
   duration-current-disease-status
-  
+
   ;;this variable indicates whether the carrier can effectively be cured or whether he/she is too weak and will die anyway if sick
   ;;if data shows high difference, it might to be expanded at a later time for finer granularity (i.e. "can-be-cured-if-cured-early?" and "can-be-cured-if-cured-late?")
   can-be-cured?
-  
-  
+
+
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
   ;"needs" are a relevant concept for accounting for the reasons that can push an agent for violating guidelines, in spite of generally complying to them
   ;"needs" can be seen as criteria that agents tend to satisfy.
@@ -29,26 +29,26 @@ people-own [
   ;The less a need is currently satisfied, the more prevalent it becomes (comparatively to other times when the same need has been satisfied); i.e. prevalence is monotonous wrt need satisfaction
   ;Each need is related to a specific prevalence measure: certain needs can become suddently very critical while the criticality of others is more smooth
   ;Likewise, a relative ordering exists within needs/prevalence (e.g. a person both hungry and lonely is likely to eat alone whereas a mildly-fed lonely person is more likely to share).
-  
+
   ;Agents tend to act towards satisfying the most pressing needs first;
   ;satisfying needs tends to require active engagement and satisfied needs tend to be less cognitively important for the agent
-  
+
   ;Various needs have a relative *prevalence* for the agent (e.g. eating is less relatively important than breathing), which then affect how much the agent will aim to satisfy this need when acting
-  ;Agents assign different priorities for their needs, this priority order is culturally-sensitive and can thus shape collective responses  
-  
+  ;Agents assign different priorities for their needs, this priority order is culturally-sensitive and can thus shape collective responses
+
   ;For follow-up coders:
   ;More needs can and should be added as one sees fit
   ;Here, I rely on very simplified [0,1] variables for memorizing when was the need satisfied for the last time and making the maths easy.
   ;Though, in principle, needs are shaped by the history of the agent rather than "regularly growing" and thus more advanced representations are advised --if needed.
   ;For instance, a "food-security" need should be much more prevalent if the agent experienced forced hunger due to a shortage
-  
-  ;Currently, the need level and the prevalence are weighted and scaled within [0,1], where 1 means "the most prevalent ever" and "the least satisfied ever". 
+
+  ;Currently, the need level and the prevalence are weighted and scaled within [0,1], where 1 means "the most prevalent ever" and "the least satisfied ever".
   ;Keeping the scale is very important for conceptual coherence.
- 
+
   ;Regarding assumptions/scale, my gut feeling (to be checked against theory) is that available plans and need prevalence should evolve over time when the agent faces new situations
   ;Notably, new plans for satisfying should be learnable by agents (e.g. satisfying physical-activity needs might need some adaptation when locked in)
   ;and traumatic events or long-term deprivation should affect the need structure (e.g. food deprivation should dramatically bump up the prevalence of food safety, thus causing rush to supermarkets for instance)
-  
+
   ;;need-related aspects
   ;note that these terminal variables could/should eventually end-up as functions based on more specific needs
   ;here are two needs for the sake of illustration
@@ -56,14 +56,24 @@ people-own [
   ;these are two needs from Maslow
   belonging-need-satisfaction
   my-importance-for-belonging-needs
-  safety-need-satisfaction
+  ; safety-need-satisfaction is a reporter
   my-importance-for-safety-needs
+  relaxing-need-satisfaction
+  my-importance-for-relaxing-needs
+  autonomy-need-satisfaction
+  my-importance-for-autonomy-needs
+  ; Subneeds of safety
+  compliance-need-satisfaction
+  my-importance-for-compliance-needs
+  my-importance-for-survival-needs ; survival-need-satisfaction is a reporter
+  risk-avoidance-need-satisfaction
+  my-importance-for-risk-avoidance-needs
 ]
 
 
 ;;it may that at some point we turn homes as a special breed of turtle that (bidirectionally) relates to a gathering point
 to setup-person-home
-  
+
   let h nobody
   if household-composition = "balanced-mix"
   [
@@ -75,7 +85,7 @@ to setup-person-home
     let quota-of-homes-for-non-retired floor (#homes - quota-of-homes-of-retired)
     ifelse age = "retired"
     [
-      ifelse count houses-hosting-retired < quota-of-homes-of-retired 
+      ifelse count houses-hosting-retired < quota-of-homes-of-retired
       [
         set h one-of homes with [not any? gatherers]
       ]
@@ -85,8 +95,8 @@ to setup-person-home
     ]
     [
       let houses-for-non-retired homes with [not any? gatherers with [age = "retired"]]
-      ifelse count houses-for-non-retired < quota-of-homes-for-non-retired 
-      [set h one-of homes with [not any? gatherers]] 
+      ifelse count houses-for-non-retired < quota-of-homes-for-non-retired
+      [set h one-of homes with [not any? gatherers]]
       [set h one-of houses-for-non-retired with-min [count gatherers]]
     ]
   ]
@@ -102,12 +112,12 @@ to setup-person-home
         set h one-of homes
       ]
     ]
-    
+
     if age = "young"
     [
       set h one-of houses-hosting-worker
     ]
-    
+
     if age = "student"
     [
       ifelse count empty-houses > #retired / 2
@@ -118,7 +128,7 @@ to setup-person-home
         set h one-of homes
       ]
     ]
-    
+
     if age = "retired"
     [
       ifelse count empty-houses > 0
@@ -136,43 +146,51 @@ to setup-person-home
       ]
     ]
   ]
-  
-  
+
+
   if h = nobody [error (word "unimplemented for: " age " " self)]
-  
+
   create-gathering-link-to h
   [
     set commitment 1
-    set features (list "rest" "visit family") 
-  ]  
+    set features (list "rest" "visit family")
+  ]
 end
 
 
 
 to setup-person
   setup-person-age
-  
+
   setup-disease-profile
-  
+
   set is-moving-outside-for-reaching-current-activity? false
   ;setup-person-home
-  
+
   relate-person-to-gathering-points
-  
+
   set color default-color
   set size 0.5
   set infection-status "healthy"
   set epistemic-infection-status "healthy"
   set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
-  set has-done-shopping false 
-  
-  
-  
-  set belonging-need-satisfaction 0
-  set safety-need-satisfaction 0
+  set has-done-shopping false
+
+
+
+  set belonging-need-satisfaction random-float 0.5 + 0.5
+  set compliance-need-satisfaction random-float 0.5 + 0.5
+  set relaxing-need-satisfaction random-float 0.3 + 0.7
+  set risk-avoidance-need-satisfaction random-float 0.5 + 0.5
+  set autonomy-need-satisfaction 0.99
   ;the importance levels for each community need should add up to 1
   set my-importance-for-belonging-needs ratio-safety-belonging
   set my-importance-for-safety-needs 1 - ratio-safety-belonging
+  set my-importance-for-compliance-needs importance-compliance
+  set my-importance-for-survival-needs importance-survival
+  set my-importance-for-relaxing-needs importance-leisure
+  set my-importance-for-risk-avoidance-needs importance-risk-avoidance
+  set my-importance-for-autonomy-needs importance-autonomy
 end
 
 to update-people-epistemic-status
@@ -206,7 +224,7 @@ to update-people-display
   [set color color - 2]
   if infection-status = "immune"
   [set color white]
- 
+
 end
 
 to set-infection-status [infection]
@@ -218,14 +236,14 @@ to create-all-people
   [ask patches [sprout-people 1 [setup-person]]]
   if original-distribution = "set-by-quotas"
   [create-people #young + #students + #workers + #retired [setup-person]]
-  
+
   setup-people-homes
-  
+
   ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
 end
 
 to relate-person-to-gathering-points
-  
+
   create-gathering-link-to one-of gathering-points with [gathering-type = "hospital"]
   [
     set commitment 1
@@ -241,23 +259,23 @@ to relate-person-to-gathering-points
     [ set commitment 1 set features (list "essential shopping" "shopping")]
     create-gathering-links-to n-of (ceiling #non-essential-shops * 0.4) gathering-points with [gathering-type = "non-essential-shop"]
     [ set commitment 1 set features (list "relaxing" "shopping")]
-    
+
     if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
       [ set commitment 1
         set features (list "mandatory")]
     ]
-    
+
     if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
       [ set commitment 1 set features (list "learning")]]
-    
-    if age = "worker" [ 
+
+    if age = "worker" [
       if random-float 1 < probability-hospital-personel [
         ask one-of my-out-gathering-links with [[gathering-type] of other-end = "hospital"] [
           set features (lput "contractual obligation" (lput "getting money" features))
         ]
         stop
       ]
-      if random-float 1 < probability-school-personel [ 
+      if random-float 1 < probability-school-personel [
         create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
         [ set commitment 1
           set features (list "getting money" "contractual obligation")
@@ -269,7 +287,7 @@ to relate-person-to-gathering-points
           set features (list "getting money" "contractual obligation")
         ]
       ]
-      if random-float 1 < probability-shopkeeper [ 
+      if random-float 1 < probability-shopkeeper [
         ask one-of my-out-gathering-links with [member? "shopping" features] [
           set features (lput "contractual obligation" (lput "getting money" features))
         ]
