@@ -1,3 +1,5 @@
+directed-link-breed [dependable-adult-links dependable-adult-link]
+
 to-report my-relatives
   report other [gatherers] of my-home
 end
@@ -24,6 +26,21 @@ to-report my-workplace
   report one-of gathering-link-neighbors with [gathering-type = "university" or gathering-type = "school" or gathering-type = "workplace"]
 end
 
-to-report my-private-leisure
-  report one-of gathering-link-neighbors with [gathering-type = "private-leisure"]
+
+to-report people-that-depend-on-me
+  report in-dependable-adult-link-neighbors
+end
+
+
+
+to setup-social-networks
+  ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
+end
+
+to-report workers
+  report people with [is-worker?]
+end
+
+to-report is-child?
+  report age = "young"
 end

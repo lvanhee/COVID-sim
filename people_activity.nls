@@ -2,7 +2,7 @@ to execute-activity-effect
   ifelse activity-model = "public&private leisure, rest, age-based work"
   [
     if [gathering-type] of current-activity = "essential-shop"
-    [ ask min-one-of link-neighbors with [gathering-type = "home"] [available-food] [set available-food available-food + 7] ]
+    [ ask my-home [set available-food available-food + 7] ]
     ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
     ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
     
@@ -13,11 +13,24 @@ to execute-activity-effect
     let family-here count ([gatherers] of current-activity) with [member? self [my-relatives] of myself]
     if any? my-relatives and family-here / count my-relatives > 0.5 [ set days-since-seen-relatives 0 ]
     let colleagues-here count ([gatherers] of current-activity) with [member? self [my-colleagues] of myself]
-    if any? my-colleagues and colleagues-here / count my-colleagues > 0.5 [ set days-since-seen-colleagues 0 ]
+    
+    let mc my-colleagues
+    
+    if any? mc
+    [
+      if (colleagues-here / count mc > 0.5) [ set days-since-seen-colleagues 0 ]]
     let friends-here count ([gatherers] of current-activity) with [member? self [my-friends] of myself]
-    if friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
+    if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
   ]
   [error "not implemented"]
+end
+
+to-report is-working-at-work?
+  report is-working? and is-at-work?
+end
+
+to-report is-working?
+  report current-motivation = "contractual obligation"
 end
 
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
@@ -26,10 +39,15 @@ to perform-activity
   ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
   [
     select-activity
+    
+    ask children with [current-person-I-depend-on != nobody][set current-activity [current-activity] of current-person-I-depend-on]
+    
     if not animate? [
       move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
       set heading towards current-activity
     ]
+    
+    
 
     execute-activity-effect
     
@@ -41,4 +59,33 @@ end
 to-report is-I-have-contractual-obligations?
   report age = "worker" and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon")
   and not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
+end
+
+to-report is-rest-at-home-descriptor? [ad]
+  report first ad = my-home and item 1 ad = "rest"
+end
+
+to-report is-resting-at-home?
+  report is-resting?
+  and is-at-home?
+end
+
+to-report is-resting? 
+  report current-motivation = "rest"
+end
+
+to-report is-at-home?
+  report  current-activity = my-home
+end  
+
+to-report can-be-done-with-a-dependable-person? [ad]
+  if [is-home?] of first ad
+  [report true]
+  if [is-university?] of first ad
+  [report false]
+  if [is-hospital?] of first ad and last ad = "get-tested"
+  [report true]
+  if [is-hospital? or is-workplace? or is-shop? or is-school?] of first ad and last ad = "contractual obligation"
+  [report false]
+  error (sentence "unimplemented" [gathering-type] of first ad last ad)
 end

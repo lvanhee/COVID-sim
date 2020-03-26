@@ -29,6 +29,8 @@ people-own [
   ;;the disease profile records how the person will react to the disease
   disease-profile
   duration-current-disease-status
+  
+  current-person-I-depend-on
 
   ;;this variable indicates whether the carrier can effectively be cured or whether he/she is too weak and will die anyway if sick
   ;;if data shows high difference, it might to be expanded at a later time for finer granularity (i.e. "can-be-cured-if-cured-early?" and "can-be-cured-if-cured-late?")
@@ -101,21 +103,22 @@ to setup-person-home
   [
     let quota-of-homes-of-retired floor (#homes * #retired / #people )
     let quota-of-homes-for-non-retired floor (#homes - quota-of-homes-of-retired)
-    ifelse age = "retired"
+    
+    ifelse is-retired?
     [
       ifelse count houses-hosting-retired < quota-of-homes-of-retired
       [
         set h one-of homes with [not any? gatherers]
       ]
       [
-        set h one-of houses-hosting-retired with-min [count gatherers]
+        set h one-of houses-only-hosting-retired with-min [count gatherers]
       ]
     ]
     [
-      let houses-for-non-retired homes with [not any? gatherers with [age = "retired"]]
-      ifelse count houses-for-non-retired < quota-of-homes-for-non-retired
+      let filled-houses-for-non-retired homes with [any? gatherers and not any? gatherers with [is-retired?]]
+      ifelse count filled-houses-for-non-retired < quota-of-homes-for-non-retired
       [set h one-of homes with [not any? gatherers]]
-      [set h one-of houses-for-non-retired with-min [count gatherers]]
+      [set h one-of filled-houses-for-non-retired with-min [count gatherers]]
     ]
   ]
   if household-composition = "different-kinds"
@@ -265,6 +268,7 @@ to setup-person
 
   relate-person-to-gathering-points
 
+  set current-person-I-depend-on nobody
   set color default-color
   set size 0.5
   set infection-status "healthy"
@@ -532,6 +536,10 @@ to setup-people-homes
   ]
 end
 
+
 to-report homeless-people
   report people with [not any? out-link-neighbors with [gathering-type = "home"]]
+end
+to-report children
+  report people with [age = "young"]
 end

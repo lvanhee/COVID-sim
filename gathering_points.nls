@@ -100,6 +100,84 @@ to-report is-alone-at? [gp]
   report any? other [in-gathering-link-neighbors] of gp
 end 
 
+to-report is-working-at-home?
+  report is-working? and is-at-home?
+end
+
+to-report my-work
+  report [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
+end
+
+
+to-report is-at-work?
+  report current-activity = my-work
+end
+
+to-report is-home?
+  report gathering-type = "home"
+end
+
+to-report is-university?
+  report gathering-type = "university"
+end
+
+to-report is-hospital?
+  report gathering-type = "hospital"
+end
+
+to-report is-workplace?
+  report gathering-type = "workplace"
+end
+
+to-report is-school?
+  report gathering-type = "school"
+end
+
+to-report is-essential-shop?
+  report gathering-type = "essential-shop"
+end
+
+to-report is-non-essential-shop?
+  report gathering-type = "non-essential-shop"
+end
+
+to-report is-private-leisure?
+  report gathering-type = "private-leisure"
+end
+
+to-report is-public-leisure?
+  report gathering-type = "public-leisure"
+end
+
+to-report is-shop?
+  report is-essential-shop? or is-non-essential-shop?
+end
+
+to-report my-university
+  report one-of gathering-link-neighbors with [gathering-type = "university"]
+end
+
+
+to-report my-school
+  report one-of gathering-link-neighbors with [gathering-type = "school"]
+end
+
+to-report my-non-essential-shop
+  report one-of gathering-link-neighbors with [is-non-essential-shop?]
+end
+
+to-report my-essential-shop
+  report one-of gathering-link-neighbors with [is-essential-shop?]
+end
+
+to-report my-private-leisure
+  report one-of gathering-link-neighbors with [is-private-leisure?]
+end
+
+to-report my-public-leisure
+  report one-of gathering-link-neighbors with [is-public-leisure?]
+end
+
 ;might be to be revised later, if the number of people expected to show up at the gathering point lowers
 to-report expected-number-of-other-participants
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
@@ -108,6 +186,10 @@ to-report expected-number-of-other-participants
 end
 
 to-report is-accessible?
+  if is-lockdown-enforced? [
+    ; If the lockdown is enforced, all schools, universities, and workplaces automatically close
+    report gathering-type != "workplace" and gathering-type != "school" and gathering-type != "university"
+  ]
   if gathering-type = "workplace" and closed-workplaces? [report false]
   if gathering-type = "school" and closed-schools? [report false]  
   if gathering-type = "university" and closed-universities? [report false]  
@@ -122,12 +204,20 @@ to-report gatherers
   report in-gathering-link-neighbors
 end
 
+to-report current-gatherers
+  report in-gathering-link-neighbors with [current-activity = myself] 
+end
+
 to-report empty-houses
   report homes with [not any? gatherers]
 end
 
 to-report houses-hosting-retired
   report homes with [any? gatherers with [age = "retired"]]
+end
+
+to-report houses-only-hosting-retired
+  report homes with [any? gatherers and not any? gatherers with [not (age = "retired")]]
 end
 
 to-report houses-hosting-worker
@@ -148,4 +238,19 @@ end
 
 to-report houses-hosting-multiple-generations
   report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and any? gatherers with [age = "retired"]]
+end
+
+
+
+to-report closed-schools?
+  report is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick? 
+end
+
+;;might be to be refined if people have a reporting system, or with hospital care
+to-report  is-someone-officially-sick? 
+  report any? people with [is-believing-to-be-infected?]   
+end
+
+to-report schools
+  report gathering-points with [gathering-type = "school"]
 end
