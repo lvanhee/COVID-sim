@@ -121,6 +121,10 @@ to perform-people-activities
   ask people [
     perform-activity
   ]
+  ask people [
+    execute-activity-effect
+    update-needs-for-playing (list current-activity current-motivation)
+  ]
   if animate? [
     let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
     while [any? walkers] [
@@ -322,7 +326,7 @@ recovery-rate-young
 recovery-rate-young
 0
 1
-0.1
+0.09
 0.01
 1
 NIL
@@ -352,7 +356,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.02
+0.04
 0.01
 1
 NIL
@@ -578,7 +582,7 @@ INPUTBOX
 1446
 451
 #workers
-105.0
+99.0
 1
 0
 Number
@@ -589,7 +593,7 @@ INPUTBOX
 1504
 451
 #retired
-83.0
+96.0
 1
 0
 Number
@@ -882,7 +886,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.36
+0.35
 0.01
 1
 NIL
@@ -972,7 +976,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -1032,7 +1036,7 @@ SWITCH
 57
 debug?
 debug?
-1
+0
 1
 -1000
 
@@ -1257,6 +1261,7 @@ MONITOR
 445
 2122
 490
+
 Retired couple
 count houses-hosting-retired-couple
 17
@@ -1268,6 +1273,7 @@ MONITOR
 497
 1973
 542
+
 Family
 count houses-hosting-family
 17
@@ -1438,6 +1444,7 @@ NIL
 HORIZONTAL
 
 SWITCH
+
 1742
 329
 1931
@@ -1612,7 +1619,7 @@ SWITCH
 94
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 

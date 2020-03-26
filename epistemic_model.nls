@@ -14,5 +14,8 @@ to update-epistemic-status
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
   ]
-  
+end
+
+to-report is-believing-to-be-infected?
+  report epistemic-infection-status = "infected" 
 end

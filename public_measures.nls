@@ -1,5 +1,8 @@
 to-report is-lockdown-enforced?
-  if confinment-measures = "total-lockdown" [report true]
+  if confinment-measures = "total-lockdown" [
+    set is-lockdown-active? true
+    report true
+  ]
   if confinment-measures = "lockdown-10-5"
   [
     if(ratio-infected > 0.1 or (is-lockdown-active? and ratio-infected > 0.05))
@@ -13,4 +16,17 @@ to-report is-lockdown-enforced?
   report false
 end
 
+to-report closed-non-essential?
+  report ratio-infected > ratio-omniscious-infected-that-trigger-non-essential-closing-measure
+  or 
+  #days-trigger-non-essential-business-closing-measure <= current-day
+end
 
+
+to-report closed-schools?
+  report (is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick?)
+  or
+  ratio-infected > ratio-omniscious-infected-that-trigger-school-closing-measure
+  or
+  #days-trigger-school-closing-measure <= current-day  
+end

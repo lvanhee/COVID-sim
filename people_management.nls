@@ -452,12 +452,14 @@ to relate-person-to-gathering-points
         [ set commitment 1
           set features (list "getting money" "contractual obligation")
         ]
+        stop
       ]
       if random-float 1 < probability-university-personel [
         create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
         [ set commitment 1
           set features (list "getting money" "contractual obligation")
         ]
+        stop
       ]
       if random-float 1 < probability-shopkeeper [
         ask one-of my-out-gathering-links with [member? "shopping" features] [

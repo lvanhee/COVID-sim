@@ -1,0 +1,46 @@
+directed-link-breed [dependable-adult-links dependable-adult-link]
+
+to-report my-relatives
+  report other [gatherers] of my-home
+end
+
+to-report my-colleagues
+  if my-workplace != nobody [
+    report other [gatherers] of my-workplace
+  ]
+  report (turtle-set nobody)
+end
+
+to-report my-friends
+  report other [gatherers] of my-private-leisure
+end
+
+to-report my-home
+  report one-of gathering-link-neighbors with [gathering-type = "home"]
+end
+
+;;not done for hospital workers
+;the proper way consists in adding a new type of links, called "work links"
+;or indicate that the place can be reached for work
+to-report my-workplace
+  report one-of gathering-link-neighbors with [gathering-type = "university" or gathering-type = "school" or gathering-type = "workplace"]
+end
+
+
+to-report people-that-depend-on-me
+  report in-dependable-adult-link-neighbors
+end
+
+
+
+to setup-social-networks
+  ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
+end
+
+to-report workers
+  report people with [is-worker?]
+end
+
+to-report is-child?
+  report age = "young"
+end

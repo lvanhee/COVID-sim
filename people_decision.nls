@@ -1,29 +1,43 @@
-__includes ["need_management.nls"]
+__includes ["need_management.nls" ]
 
 
 to-report my-preferred-available-activity-descriptor ;reports a string, which can be related to a gathering point and a concrete activity
+  debug-file-print (sentence "Person " who " " age)
   report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
  ; [[my-need-satisfaction myself] of myself] 
 end
 
+to-report is-away?
+  report current-activity = away-gathering-point
+end
+
+
+;;here one should also include caring for children. 
+;;Now it's highjacking the decision process
 to-report my-available-activity-descriptors
+  if migration? and is-away?
+  [
+    if (not (random-float 1 < probability-getting-back-when-abroad)) [
+      report (list (list away-gathering-point "undefined reason"))
+    ]
+  ]
   
-  let activities (list (list one-of link-neighbors with  [gathering-type = "home"] "rest"))
+  let activities (list (list my-home "rest"))
   
   if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day
     [
-      if age = "young" [
-        set activities (lput (list one-of link-neighbors with [gathering-type = "school"]  "mandatory") activities)
+      if is-child? [
+        set activities (lput (list my-school  "mandatory") activities)
           ]
-      if age = "student"
+      if is-student?
       [
-        set activities (lput (list one-of link-neighbors with [gathering-type = "university"]  "learning") activities)
+        set activities (lput (list my-university  "learning") activities)
       ]
       
       if age = "worker" [
         if is-allowed-to-work-from-home? [
           set activities (lput (list
-            one-of link-neighbors with  [gathering-type = "home"]
+            my-home
             "contractual obligation")
             activities)
         ]
@@ -37,20 +51,17 @@ to-report my-available-activity-descriptors
   
   if slice-of-the-day = "evening" or not working-day
   [
-    if needs-shopping [
-      set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
-    ]
-    if random-float 1 < 0.05 [
-      set activities lput (list one-of link-neighbors with [gathering-type = "public-leisure"] "relaxing" ) activities
-    ]
-    if random-float 1 < 0.05 [
-      set activities lput (list one-of link-neighbors with [gathering-type = "non-essential-shop"] "shopping") activities]
-    if random-float 1 < 0.3 [set activities lput (list one-of link-neighbors with [gathering-type = "private-leisure"] "relaxing") activities]
+    set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
+    
+
+    set activities lput (list my-public-leisure "relaxing" ) activities
+    set activities lput (list my-non-essential-shop "shopping") activities
+    set activities lput (list my-private-leisure "relaxing") activities
     
   ]
-  if random-float 1 < 0.01 [
-    set activities lput (list [other-end] of one-of my-gathering-links with  [member? "get-tested" features] "get-tested") activities
-  ]
+
+  set activities lput (list [other-end] of one-of my-gathering-links with  [member? "get-tested" features] "get-tested") activities
+
  
   
   
@@ -58,25 +69,62 @@ to-report my-available-activity-descriptors
   
   ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
   
+  ;dirty hack, but it would involve too much of a needs-based machinery for it to work
+  if any? people-that-depend-on-me with [ current-person-I-depend-on = nobody and is-currently-depending-on-the-other?]
+  [
+    ask people-that-depend-on-me [ set current-person-I-depend-on myself]
+    set activities filter [ i -> can-be-done-with-a-dependable-person? i] activities
+  ]
+  
   report activities
 end
 
 
+to-report is-currently-depending-on-the-other?
+  report is-child? and closed-schools?
+end
 
 
 
 to select-activity
-  let c-a my-preferred-available-activity-descriptor 
+  let c-a my-preferred-available-activity-descriptor
+  
+  if migration? and random-float 1 < probability-going-abroad [
+    set c-a (list away-gathering-point "undefined reason")
+  ]
+  
+  set is-moving-outside-for-reaching-current-activity? current-activity != first c-a
   set current-activity first c-a
   set current-motivation last c-a
-  
-  
-  
+    
 ;  show (word "selected:" [gathering-type] of current-activity " " current-motivation)
 end
 
 
+
+
 to-report is-allowed-to-work-from-home?
-  report true
+  report member? [gathering-type] of my-work ["workplace" "university"]
   ;link-neighbors with [gathering-type = "workplace"]
+end
+
+
+to-report is-currently-watched-by-an-adult?
+  report any? [current-gatherers with [is-adult?]] of current-activity
+end
+
+to-report is-adult?
+  report is-student? or is-worker? or is-retired?
+end
+
+to-report is-student?
+  report age = "student"
+end
+
+to-report is-worker?
+  report age = "worker"
+end
+
+to-report is-retired?
+  report age = "retired"
 end
