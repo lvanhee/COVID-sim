@@ -198,8 +198,8 @@ GRAPHICS-WINDOW
 32
 0
 32
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -734,7 +734,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+2
 
 PLOT
 10
@@ -1304,7 +1304,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.1
+0.22
 0.01
 1
 NIL
@@ -1319,7 +1319,7 @@ importance-compliance
 importance-compliance
 0
 1
-0.9
+0.5
 0.01
 1
 NIL
@@ -1394,7 +1394,7 @@ importance-risk-avoidance
 importance-risk-avoidance
 0
 1
-0.6
+0.44
 0.01
 1
 NIL
