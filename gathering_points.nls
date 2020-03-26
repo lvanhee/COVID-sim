@@ -245,9 +245,9 @@ to-report houses-hosting-multiple-generations
   report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and any? gatherers with [age = "retired"]]
 end
 
-to-report closed-schools?
-  report is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick? 
-end
+;to-report closed-schools?
+;  report is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick? 
+;end
 
 
 ;;might be to be refined if people have a reporting system, or with hospital care

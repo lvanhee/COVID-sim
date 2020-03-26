@@ -11,7 +11,7 @@ to spread-by-coordinates-proximity
     ask people with [is-contagious?]
     [ask people in-radius propagation-radius with [not is-immune?]
       [
-        apply-risk-of-contamination 1
+        apply-risk-of-contamination 1 * ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]
       ]
     ]
   ]
@@ -23,7 +23,7 @@ to spread-by-activity-proximity
     if travelling-propagation? [apply-risk-of-contamination-when-travelling]
     
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
-    repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity]
+    repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity * ifelse-value is-young?  [factor-reduction-probability-transmission-young] [1]]
   ]
 end
 
@@ -32,11 +32,11 @@ to apply-risk-of-contamination-when-travelling
   
   ;;could be fastened with a bit of math, like 1-(1-p)^k
   repeat (count travellers with [is-contagious?]) [
-    apply-risk-of-contamination density-travelling-propagation]
+    apply-risk-of-contamination density-travelling-propagation * ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]]
 end
 
 to apply-risk-of-contamination-when-away
-  if random-float 1 < probability-infection-when-abroad and infection-status = "healthy"
+  if random-float 1 < probability-infection-when-abroad * (ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]) and infection-status = "healthy"
   [
     set-contaminated
   ]

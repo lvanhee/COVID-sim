@@ -543,5 +543,9 @@ to-report homeless-people
   report people with [not any? out-link-neighbors with [gathering-type = "home"]]
 end
 to-report children
-  report people with [age = "young"]
+  report people with [is-young?]
 end
+
+to-report is-young?
+  report age = "young"
+end 

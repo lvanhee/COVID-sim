@@ -271,7 +271,7 @@ proportion-young-yom
 proportion-young-yom
 0
 1
-0.33
+0.48
 0.01
 1
 NIL
@@ -731,10 +731,10 @@ Measures:
 1
 
 CHOOSER
-1218
-875
-1361
-920
+1199
+507
+1342
+552
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
@@ -923,10 +923,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1367
-908
-1529
-941
+1348
+540
+1510
+573
 closed-workplaces?
 closed-workplaces?
 1
@@ -934,10 +934,10 @@ closed-workplaces?
 -1000
 
 SWITCH
-1367
-875
-1530
-908
+1348
+507
+1511
+540
 closed-universities?
 closed-universities?
 1
@@ -945,10 +945,10 @@ closed-universities?
 -1000
 
 SLIDER
-1542
-336
-1719
-369
+1156
+828
+1333
+861
 ratio-safety-belonging
 ratio-safety-belonging
 0
@@ -960,10 +960,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1523
-312
-1673
-330
+1137
+804
+1287
+822
 Needs model
 11
 0.0
@@ -1261,7 +1261,6 @@ MONITOR
 445
 2122
 490
-
 Retired couple
 count houses-hosting-retired-couple
 17
@@ -1273,7 +1272,6 @@ MONITOR
 497
 1973
 542
-
 Family
 count houses-hosting-family
 17
@@ -1317,10 +1315,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1543
-371
-1719
-404
+1157
+863
+1333
+896
 importance-compliance
 importance-compliance
 0
@@ -1332,10 +1330,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1542
-407
-1719
-440
+1156
+899
+1333
+932
 importance-survival
 importance-survival
 0
@@ -1362,10 +1360,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1542
-477
-1719
-510
+1156
+969
+1333
+1002
 importance-leisure
 importance-leisure
 0
@@ -1392,10 +1390,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1542
-442
-1719
-475
+1156
+934
+1333
+967
 importance-risk-avoidance
 importance-risk-avoidance
 0
@@ -1444,7 +1442,6 @@ NIL
 HORIZONTAL
 
 SWITCH
-
 1742
 329
 1931
@@ -1544,10 +1541,10 @@ PENS
 "survival" 1.0 0 -2674135 true "" "plot mean [survival-need-satisfaction] of people"
 
 SLIDER
-1542
-512
-1720
-545
+1156
+1004
+1334
+1037
 importance-autonomy
 importance-autonomy
 0
@@ -1608,7 +1605,7 @@ true
 "" ""
 PENS
 "safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
-"compliance" 1.0 0 -7500403 true "" "plot mean [compliance-need-satisfaction] of people"
+"compliance" 1.0 0 -13840069 true "" "plot mean [compliance-need-satisfaction] of people"
 "risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
 "food-safety" 1.0 0 -5325092 true "" "plot mean [food-safety-need-satisfaction] of people"
 
@@ -1635,10 +1632,10 @@ mean [autonomy-need-satisfaction] of people
 11
 
 MONITOR
-1633
-976
-1731
-1021
+1865
+810
+1963
+855
 NIL
 closed-schools?
 17
@@ -1646,10 +1643,10 @@ closed-schools?
 11
 
 SWITCH
-1489
-833
-1794
-866
+1200
+462
+1505
+495
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1682,10 +1679,10 @@ Close schools
 1
 
 SLIDER
-1307
-985
-1448
-1018
+1539
+819
+1680
+852
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1697,10 +1694,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1467
-970
-1622
-1030
+1699
+804
+1854
+864
 #days-trigger-school-closing-measure
 0.0
 1
@@ -1738,10 +1735,10 @@ Non-essential workplaces
 1
 
 SLIDER
-1304
-1039
-1444
-1072
+1536
+873
+1676
+906
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
@@ -1753,10 +1750,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1467
-1030
-1622
-1090
+1699
+864
+1854
+924
 #days-trigger-non-essential-business-closing-measure
 0.0
 1
@@ -1764,10 +1761,10 @@ INPUTBOX
 Number
 
 MONITOR
-1633
-1038
-1765
-1083
+1865
+872
+1997
+917
 NIL
 closed-non-essential?
 17
@@ -1829,6 +1826,21 @@ ratio-adults-homes + ratio-retired-couple-homes + ratio-family-homes + ratio-mul
 17
 1
 11
+
+SLIDER
+1738
+66
+2106
+99
+factor-reduction-probability-transmission-young
+factor-reduction-probability-transmission-young
+0
+1
+0.57
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
