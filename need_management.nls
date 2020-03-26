@@ -5,7 +5,7 @@ to update-needs-for-playing [current-activity-descriptor]
   decay-need-satisfaction
   
   set belonging-need-satisfaction
-  belonging-need-satisfaction + my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played current-activity-descriptor
+  belonging-need-satisfaction + my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played current-activity-descriptor
   if belonging-need-satisfaction > 1 [set belonging-need-satisfaction 1]
   
   set compliance-need-satisfaction compliance-need-satisfaction +
@@ -87,6 +87,39 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
   report base * network-bonus
 end
 
+to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing [activity-descriptor]
+  let gp first activity-descriptor
+  let motive last activity-descriptor
+  
+  let number count people with [current-activity = gp]
+  let base 0
+  let network-bonus 1
+  ;show (sentence "expected shift satisfaction community:"
+  ;   [gathering-type] of first activity-descriptor last activity-descriptor number)
+  ifelse number = 0 
+  [set base 0]
+  [ifelse number < 5
+    [set base 0.05]
+    [ifelse number < 20
+      [set base 0.1]
+      [set base 0.25]
+    ]
+  ]
+  let family-present any? (([gatherers] of gp) with [member? self [my-relatives] of myself])
+  if family-present and days-since-seen-relatives > 0 [
+    set network-bonus network-bonus + min (list 0.5 (days-since-seen-relatives / 28))
+  ]
+  let colleagues-present any? (([gatherers] of gp) with [member? self [my-colleagues] of myself])
+  if colleagues-present and days-since-seen-colleagues > 0 [
+    set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
+  ]
+  let friends-present any? (([gatherers] of gp) with [member? self [my-friends] of myself])
+  if friends-present and days-since-seen-friends > 0 [
+    set network-bonus network-bonus + min (list 0.5 (days-since-seen-friends / 28))
+  ]
+  report base * network-bonus
+end
+
 to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing [activity-descriptor]
   let gp first activity-descriptor
   let motive last activity-descriptor
@@ -116,13 +149,22 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
   if (motive = "contractual obligation") and is-I-have-contractual-obligations?
   [
 ;    show "do your work bonus"
-    if not is-lockdown-enforced? and  gp != my-home
-    [set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1]
+    if not is-lockdown-enforced? and gp != my-home [
+      set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
+      if gp = current-activity [
+        set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
+      ]
+    ]
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
   ]
+  if is-I-have-contractual-obligations? and motive != "contractual obligation" [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
+  ]
   
-  if (motive = "mandatory") and not is-lockdown-enforced? [
+  ifelse (motive = "mandatory") and not is-lockdown-enforced? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
+  ] [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1
   ]
   
   if (motive = "learning") and not is-lockdown-enforced? [
@@ -196,7 +238,7 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
       ifelse motive = "contractual obligation" [
         ifelse gp != my-home
         [ report 0.2 ]
-        [ report 0.1 ]
+        [ report 0.05 ]
       ]
       [ report -0.1 ]
     ]
@@ -309,6 +351,12 @@ to-report my-expected-discounted-satisfaction-gain-for-survival-after-having-pla
 end
 
 to-report  my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played [activity-descriptor]
+  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing activity-descriptor
+  let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
+  report discounted-increase
+end
+
+to-report  my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played [activity-descriptor]
   let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing activity-descriptor
   let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
   report discounted-increase
