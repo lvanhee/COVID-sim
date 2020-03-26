@@ -29,6 +29,7 @@ to-report survival-need-satisfaction
   
   report 1
 end
+
 to-report expected-undiscounted-survival-needs-satisfaction-increase-for-playing [activity-descriptor]
   report rest-need-satisfaction activity-descriptor
 end

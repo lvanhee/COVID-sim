@@ -1,4 +1,4 @@
-__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls" "social_networks.nls" "need_definition.nls"]
+__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls" "social_networks.nls"]
 globals [
   #min-workers-in-adults-homes
   #min-students-in-adults-homes
@@ -343,7 +343,7 @@ to create-all-people
     
     let #adults-homes floor (#homes * %adults-homes / 100)
     let #retired-couple-homes floor (#homes * %retired-couple-homes / 100)
-    let #family-homes floor (#homes * %family-homes / 100)
+    let #family-homes floor (#homes * ratio-family-homes)
     let #multi-generational-homes #homes - (#adults-homes + #retired-couple-homes + #family-homes)
     
     let #min-people #adults-homes * 2 + #retired-couple-homes * 2 + #family-homes * 2 + #multi-generational-homes * 3

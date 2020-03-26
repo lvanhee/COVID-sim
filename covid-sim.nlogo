@@ -1471,17 +1471,6 @@ INPUTBOX
 Number
 
 INPUTBOX
-1782
-418
-1891
-478
-%family-homes
-25.0
-1
-0
-Number
-
-INPUTBOX
 1943
 353
 2067
@@ -1510,6 +1499,7 @@ MONITOR
 398
 % Check
 word (%adults-homes + %retired-couple-homes + %family-homes + %multi-generational-homes) \"%\"
+
 MONITOR
 528
 873
