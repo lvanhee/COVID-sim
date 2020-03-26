@@ -104,7 +104,7 @@ end
 
 
 to-report is-allowed-to-work-from-home?
-  report true
+  report member? [gathering-type] of my-work ["workplace" "university"]
   ;link-neighbors with [gathering-type = "workplace"]
 end
 

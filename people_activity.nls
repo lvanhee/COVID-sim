@@ -47,13 +47,8 @@ to perform-activity
       set heading towards current-activity
     ]
     
-    
-
-    execute-activity-effect
-    
-    update-needs-for-playing (list current-activity current-motivation)
-    ]
-    [error "not implemented"]
+  ]
+  [error "not implemented"]
 end
 
 to-report is-I-have-contractual-obligations?
