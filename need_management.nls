@@ -149,13 +149,22 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
   if (motive = "contractual obligation") and is-I-have-contractual-obligations?
   [
 ;    show "do your work bonus"
-    if not is-lockdown-enforced? and  gp != my-home
-    [set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1]
+    if not is-lockdown-enforced? and gp != my-home [
+      set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
+      if gp = current-activity [
+        set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
+      ]
+    ]
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
   ]
+  if is-I-have-contractual-obligations? and motive != "contractual obligation" [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
+  ]
   
-  if (motive = "mandatory") and not is-lockdown-enforced? [
+  ifelse (motive = "mandatory") and not is-lockdown-enforced? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
+  ] [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1
   ]
   
   if (motive = "learning") and not is-lockdown-enforced? [
@@ -229,7 +238,7 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
       ifelse motive = "contractual obligation" [
         ifelse gp != my-home
         [ report 0.2 ]
-        [ report 0.1 ]
+        [ report 0.05 ]
       ]
       [ report -0.1 ]
     ]
