@@ -20,7 +20,7 @@ to setup-activities
     create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
     create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
     create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-    create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food random 7 + 1]
+    create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food random 14 + 7]
     if animate? [
       let to-place gathering-points
       let placed turtle-set nobody
@@ -62,6 +62,15 @@ to setup-activities
 ;      ]
     ]
   ]
+  
+  if migration?
+  [
+    create-gathering-points 1
+    [
+      set away-gathering-point self
+      set shape "airplane"
+    ]
+  ]
 end
 
 to-report proximity-factor
@@ -91,13 +100,96 @@ to-report is-alone-at? [gp]
   report any? other [in-gathering-link-neighbors] of gp
 end 
 
+to-report is-working-at-home?
+  report is-working? and is-at-home?
+end
+
+to-report my-work
+  report [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
+end
+
+
+to-report is-at-work?
+  report current-activity = my-work
+end
+
+to-report is-home?
+  report gathering-type = "home"
+end
+
+to-report is-university?
+  report gathering-type = "university"
+end
+
+to-report is-hospital?
+  report gathering-type = "hospital"
+end
+
+to-report is-workplace?
+  report gathering-type = "workplace"
+end
+
+to-report is-school?
+  report gathering-type = "school"
+end
+
+to-report is-essential-shop?
+  report gathering-type = "essential-shop"
+end
+
+to-report is-non-essential-shop?
+  report gathering-type = "non-essential-shop"
+end
+
+to-report is-private-leisure?
+  report gathering-type = "private-leisure"
+end
+
+to-report is-public-leisure?
+  report gathering-type = "public-leisure"
+end
+
+to-report is-shop?
+  report is-essential-shop? or is-non-essential-shop?
+end
+
+to-report my-university
+  report one-of gathering-link-neighbors with [gathering-type = "university"]
+end
+
+
+to-report my-school
+  report one-of gathering-link-neighbors with [gathering-type = "school"]
+end
+
+to-report my-non-essential-shop
+  report one-of gathering-link-neighbors with [is-non-essential-shop?]
+end
+
+to-report my-essential-shop
+  report one-of gathering-link-neighbors with [is-essential-shop?]
+end
+
+to-report my-private-leisure
+  report one-of gathering-link-neighbors with [is-private-leisure?]
+end
+
+to-report my-public-leisure
+  report one-of gathering-link-neighbors with [is-public-leisure?]
+end
+
 ;might be to be revised later, if the number of people expected to show up at the gathering point lowers
 to-report expected-number-of-other-participants
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
+  if gathering-type = "hospital" [report random 5 + 2]
   report count other in-gathering-link-neighbors
 end
 
 to-report is-accessible?
+  if is-lockdown-enforced? [
+    ; If the lockdown is enforced, all schools, universities, and workplaces automatically close
+    report gathering-type != "workplace" and gathering-type != "school" and gathering-type != "university"
+  ]
   if gathering-type = "workplace" and closed-workplaces? [report false]
   if gathering-type = "school" and closed-schools? [report false]  
   if gathering-type = "university" and closed-universities? [report false]  
@@ -112,6 +204,57 @@ to-report gatherers
   report in-gathering-link-neighbors
 end
 
+to-report current-gatherers
+  report in-gathering-link-neighbors with [current-activity = myself] 
+end
+
+to-report empty-houses
+  report homes with [not any? gatherers]
+end
+
 to-report houses-hosting-retired
   report homes with [any? gatherers with [age = "retired"]]
+end
+
+to-report houses-only-hosting-retired
+  report homes with [any? gatherers and not any? gatherers with [not (age = "retired")]]
+end
+
+to-report houses-hosting-worker
+  report homes with [any? gatherers with [age = "worker"]]
+end
+
+to-report houses-hosting-retired-couple
+  report homes with [count gatherers with [age = "retired"] = 2 and count gatherers = 2]
+end
+
+to-report houses-hosting-adults
+  report homes with [any? gatherers with [is-adult?]]
+end
+
+to-report houses-hosting-adults2
+  report homes with [count gatherers = count gatherers with [age = "worker"] or count gatherers = count gatherers with [age = "student"]]
+end
+
+to-report houses-hosting-family
+  report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and not any? gatherers with [age = "retired"]]
+end
+
+to-report houses-hosting-multiple-generations
+  report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and any? gatherers with [age = "retired"]]
+end
+
+
+
+to-report closed-schools?
+  report is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick? 
+end
+
+;;might be to be refined if people have a reporting system, or with hospital care
+to-report  is-someone-officially-sick? 
+  report any? people with [is-believing-to-be-infected?]   
+end
+
+to-report schools
+  report gathering-points with [gathering-type = "school"]
 end
