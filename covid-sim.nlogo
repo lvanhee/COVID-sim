@@ -556,7 +556,7 @@ INPUTBOX
 1315
 451
 #young
-100.0
+43.0
 1
 0
 Number
@@ -567,7 +567,7 @@ INPUTBOX
 1385
 451
 #students
-65.0
+62.0
 1
 0
 Number
@@ -578,7 +578,7 @@ INPUTBOX
 1446
 451
 #workers
-100.0
+99.0
 1
 0
 Number
@@ -589,7 +589,7 @@ INPUTBOX
 1504
 451
 #retired
-100.0
+96.0
 1
 0
 Number
@@ -984,7 +984,7 @@ CHOOSER
 household-composition
 household-composition
 "segregated-elderly" "balanced-mix" "different-kinds"
-0
+2
 
 MONITOR
 525
@@ -1449,10 +1449,10 @@ households-distribution?
 -1000
 
 INPUTBOX
-1973
-287
-2066
-347
+1907
+527
+2000
+587
 #total-population
 300.0
 1
@@ -1460,10 +1460,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-1844
-353
-1936
-413
+2006
+526
+2098
+586
 %adults-homes
 25.0
 1
@@ -1471,10 +1471,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-1943
-353
-2067
-413
+1776
+520
+1900
+580
 %retired-couple-homes
 25.0
 1
@@ -1482,23 +1482,15 @@ INPUTBOX
 Number
 
 INPUTBOX
-1898
-418
-2067
-478
+1934
+470
+2103
+530
 %multi-generational-homes
 25.0
 1
 0
 Number
-
-MONITOR
-1782
-353
-1838
-398
-% Check
-word (%adults-homes + %retired-couple-homes + %family-homes + %multi-generational-homes) \"%\"
 
 MONITOR
 528
@@ -1689,6 +1681,21 @@ is-closing-school-when-any-reported-case-measure?
 1
 1
 -1000
+
+SLIDER
+1748
+480
+1920
+513
+ratio-family-homes
+ratio-family-homes
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -2027,7 +2034,7 @@ Polygon -7500403 true true 2 194 13 197 30 191 38 193 38 205 20 226 20 257 27 26
 Polygon -7500403 true true -1 195 14 180 36 166 40 153 53 140 82 131 134 133 159 126 188 115 227 108 236 102 238 98 268 86 269 92 281 87 269 103 269 113
 
 x
-true
+false
 0
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
