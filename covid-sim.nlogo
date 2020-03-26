@@ -582,7 +582,7 @@ INPUTBOX
 1446
 451
 #workers
-99.0
+105.0
 1
 0
 Number
@@ -593,7 +593,7 @@ INPUTBOX
 1504
 451
 #retired
-96.0
+83.0
 1
 0
 Number
@@ -731,10 +731,10 @@ Measures:
 1
 
 CHOOSER
-1199
-507
-1342
-552
+1169
+880
+1312
+925
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
@@ -923,10 +923,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1348
-540
-1510
-573
+1318
+913
+1480
+946
 closed-workplaces?
 closed-workplaces?
 1
@@ -934,10 +934,10 @@ closed-workplaces?
 -1000
 
 SWITCH
-1348
-507
-1511
-540
+1318
+880
+1481
+913
 closed-universities?
 closed-universities?
 1
@@ -945,10 +945,10 @@ closed-universities?
 -1000
 
 SLIDER
-1156
-828
-1333
-861
+1532
+318
+1709
+351
 ratio-safety-belonging
 ratio-safety-belonging
 0
@@ -960,10 +960,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1137
-804
-1287
-822
+1524
+297
+1674
+315
 Needs model
 11
 0.0
@@ -1315,10 +1315,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1157
-863
-1333
-896
+1533
+353
+1709
+386
 importance-compliance
 importance-compliance
 0
@@ -1330,10 +1330,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1156
-899
-1333
-932
+1532
+389
+1709
+422
 importance-survival
 importance-survival
 0
@@ -1360,10 +1360,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1156
-969
-1333
-1002
+1532
+459
+1709
+492
 importance-leisure
 importance-leisure
 0
@@ -1390,10 +1390,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1156
-934
-1333
-967
+1532
+424
+1709
+457
 importance-risk-avoidance
 importance-risk-avoidance
 0
@@ -1541,10 +1541,10 @@ PENS
 "survival" 1.0 0 -2674135 true "" "plot mean [survival-need-satisfaction] of people"
 
 SLIDER
-1156
-1004
-1334
-1037
+1532
+494
+1710
+527
 importance-autonomy
 importance-autonomy
 0
@@ -1632,10 +1632,10 @@ mean [autonomy-need-satisfaction] of people
 11
 
 MONITOR
-1865
-810
-1963
-855
+1834
+874
+1932
+919
 NIL
 closed-schools?
 17
@@ -1643,10 +1643,10 @@ closed-schools?
 11
 
 SWITCH
-1200
-462
-1505
-495
+1226
+1009
+1531
+1042
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1679,10 +1679,10 @@ Close schools
 1
 
 SLIDER
-1539
-819
-1680
-852
+1508
+883
+1649
+916
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1694,10 +1694,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1699
-804
-1854
-864
+1668
+868
+1823
+928
 #days-trigger-school-closing-measure
 0.0
 1
@@ -1735,10 +1735,10 @@ Non-essential workplaces
 1
 
 SLIDER
-1536
-873
-1676
-906
+1505
+937
+1645
+970
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
@@ -1750,10 +1750,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1699
-864
-1854
-924
+1668
+928
+1823
+988
 #days-trigger-non-essential-business-closing-measure
 0.0
 1
@@ -1761,10 +1761,10 @@ INPUTBOX
 Number
 
 MONITOR
-1865
-872
-1997
-917
+1834
+936
+1966
+981
 NIL
 closed-non-essential?
 17
