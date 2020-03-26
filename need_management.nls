@@ -40,13 +40,13 @@ to decay-need-satisfaction
   set belonging-need-satisfaction belonging-need-satisfaction - belonging-decay
   if belonging-need-satisfaction < 0 [set belonging-need-satisfaction 0]
   
-  set compliance-need-satisfaction compliance-need-satisfaction - 0.2
+  set compliance-need-satisfaction compliance-need-satisfaction * 0.8
   if compliance-need-satisfaction < 0 [set compliance-need-satisfaction 0]
   
-  set risk-avoidance-need-satisfaction risk-avoidance-need-satisfaction - 0.2
+  set risk-avoidance-need-satisfaction risk-avoidance-need-satisfaction * 0.8
   if risk-avoidance-need-satisfaction < 0 [set risk-avoidance-need-satisfaction 0]
   
-  set relaxing-need-satisfaction relaxing-need-satisfaction - 0.2
+  set relaxing-need-satisfaction relaxing-need-satisfaction * 0.8
   if relaxing-need-satisfaction < 0 [set relaxing-need-satisfaction 0]
   
 end
@@ -91,14 +91,15 @@ to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-p
   let gp first activity-descriptor
   let motive last activity-descriptor
   
-  if [gathering-type] of gp != "home" [
+  if gp != my-home [
     let number [expected-number-of-other-participants] of gp
     if number = 0 [report 0.2 ]
     if number < 5 [report 0.1 ]
     if number < 10 [report 0.05 ]
     if number < 20 [report 0]
+    report -0.1
   ]
-  report 0.3
+  report 0.15
 end
 
 to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playing [activity-descriptor]
@@ -115,7 +116,7 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
   if (motive = "contractual obligation") and is-I-have-contractual-obligations?
   [
 ;    show "do your work bonus"
-    if not is-lockdown-enforced? and [gathering-type] of gp != "home"
+    if not is-lockdown-enforced? and  gp != my-home
     [set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1]
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
   ]
@@ -128,10 +129,19 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
   
-  if is-lockdown-enforced? and [gathering-type] of gp != "home" [
+  if is-lockdown-enforced? and gp != my-home [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
   ]
   
+  if not is-lockdown-enforced? and member? motive ["relaxing" "shopping"] [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
+  ]
+  
+  ; A passive bonus for compliance in case there is no lockdown
+  if not is-lockdown-enforced? [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
+  ]  
+    
   report bonus-compliance-to-obligation
 end
 
@@ -175,20 +185,20 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
     if age = "young" [
       ifelse [gathering-type] of gp = "school" 
       [ report  0.2 ]
-      [ report -0.05 ]
+      [ report -0.1 ]
     ]
     if age = "student" [
       ifelse [gathering-type] of gp = "university" 
       [ report  0.2 ]
-      [ report -0.05 ]
+      [ report -0.1 ]
     ]
     if age = "worker" [
       ifelse motive = "contractual obligation" [
-        ifelse [gathering-type] of gp != "home"
+        ifelse gp != my-home
         [ report 0.2 ]
         [ report 0.1 ]
       ]
-      [ report -0.05 ]
+      [ report -0.1 ]
     ]
   ]
   if slice-of-the-day = "night" and [gathering-type] of gp = "home" and motive = "rest" 
@@ -198,7 +208,7 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
   report 0
 end
 
-to-report expected-undiscounted-safety-needs-compliance-increase-for-playing [activity-descriptor]
+to-report expected-undiscounted-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
   report weighted-mean (list 
     (expected-undiscounted-compliance-needs-satisfaction-increase-for-playing activity-descriptor) 
     (expected-undiscounted-survival-needs-satisfaction-increase-for-playing activity-descriptor)
@@ -261,8 +271,11 @@ to-report my-current-prevalence-of-autonomy-needs [activity-descriptor]
 end
 
 to-report my-expected-discounted-satisfaction-gain-for-safety-after-having-played [activity-descriptor]
+  ; Using min here the value is always zero (food can only go up when they go to the store, but that lowers compliance/risk avoidance). 
+  ; The actual solution is to fully recalculate what safety would be after doing the action based on the satisfaction-gains calculated, 
+  ;  pick the lowest one, and take the difference between that and current satisfaction
   report 
-  min (list 
+  max (list 
     (expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing activity-descriptor)
     (weighted-mean (list 
       (my-expected-discounted-satisfaction-gain-for-compliance-after-having-played activity-descriptor) 

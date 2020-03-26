@@ -186,6 +186,10 @@ to-report expected-number-of-other-participants
 end
 
 to-report is-accessible?
+  if is-lockdown-enforced? [
+    ; If the lockdown is enforced, all schools, universities, and workplaces automatically close
+    report gathering-type != "workplace" and gathering-type != "school" and gathering-type != "university"
+  ]
   if gathering-type = "workplace" and closed-workplaces? [report false]
   if gathering-type = "school" and closed-schools? [report false]  
   if gathering-type = "university" and closed-universities? [report false]  
