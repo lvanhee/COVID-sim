@@ -322,7 +322,7 @@ recovery-rate-young
 recovery-rate-young
 0
 1
-0.1
+0.09
 0.01
 1
 NIL
@@ -352,7 +352,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.02
+0.04
 0.01
 1
 NIL
@@ -1716,7 +1716,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.3
+0.15
 0.01
 1
 NIL
@@ -1728,7 +1728,7 @@ INPUTBOX
 1622
 1030
 #days-trigger-school-closing-measure
-0.0
+1000.0
 1
 0
 Number
@@ -1784,7 +1784,7 @@ INPUTBOX
 1622
 1090
 #days-trigger-non-essential-business-closing-measure
-0.0
+1000.0
 1
 0
 Number

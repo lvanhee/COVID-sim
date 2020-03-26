@@ -15,3 +15,18 @@ to-report is-lockdown-enforced?
   ]    
   report false
 end
+
+to-report closed-non-essential?
+  report ratio-infected > ratio-omniscious-infected-that-trigger-non-essential-closing-measure
+  or 
+  #days-trigger-non-essential-business-closing-measure <= current-day
+end
+
+
+to-report closed-schools?
+  report (is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick?)
+  or
+  ratio-infected > ratio-omniscious-infected-that-trigger-school-closing-measure
+  or
+  #days-trigger-school-closing-measure <= current-day  
+end
