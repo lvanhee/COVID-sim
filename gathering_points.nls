@@ -229,7 +229,7 @@ to-report houses-hosting-retired-couple
 end
 
 to-report houses-hosting-adults
-  report homes with [any? gatherers with [age = "worker" or age = "student"] and not any? gatherers with [age = "young" or age = "retired"]]
+  report homes with [any? gatherers with [age = "worker" or age = "student"] 
 end
 
 to-report houses-hosting-family
