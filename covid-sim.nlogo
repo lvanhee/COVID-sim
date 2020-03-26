@@ -8,7 +8,6 @@ globals [
   current-day
   #dead-people
   #dead-retired
-
   away-gathering-point
 ]
 
@@ -24,6 +23,8 @@ to setup
 
   setup-activities
   create-all-people
+
+  setup-social-networks
 
   if with-infected? [infect-one-random-person]
 
@@ -351,7 +352,7 @@ propagation-risk-yom
 propagation-risk-yom
 0
 1
-0.27
+0.02
 0.01
 1
 NIL
@@ -733,7 +734,7 @@ CHOOSER
 confinment-measures
 confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -748,11 +749,14 @@ NIL
 0.0
 1.0
 true
-false
+true
 "" ""
 PENS
 "lockdown" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
-"infringement" 1.0 0 -7500403 true "" "plot count people with [not ([gathering-type] of current-activity = \"home\")] / count people"
+"@home" 1.0 0 -7500403 true "" "plot count people with [is-at-home?] / count people"
+"watched-kids" 1.0 0 -955883 true "" "plot count children with [is-currently-watched-by-an-adult?] / count children"
+"workersWorking@work" 1.0 0 -6459832 true "" "plot count workers with [is-working-at-work?] / count workers"
+"working@home" 1.0 0 -1184463 true "" "plot count workers with [is-working-at-home?] / count workers"
 
 MONITOR
 533
@@ -927,17 +931,6 @@ closed-workplaces?
 
 SWITCH
 1357
-538
-1518
-571
-closed-schools?
-closed-schools?
-1
-1
--1000
-
-SWITCH
-1357
 472
 1520
 505
@@ -979,7 +972,7 @@ SWITCH
 57
 animate?
 animate?
-0
+1
 1
 -1000
 
@@ -991,7 +984,7 @@ CHOOSER
 household-composition
 household-composition
 "segregated-elderly" "balanced-mix" "different-kinds"
-2
+0
 
 MONITOR
 525
@@ -1039,7 +1032,7 @@ SWITCH
 57
 debug?
 debug?
-0
+1
 1
 -1000
 
@@ -1519,6 +1512,7 @@ PENS
 "safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
 "autonomy" 1.0 0 -955883 true "" "plot mean [autonomy-need-satisfaction] of people"
 "relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
+"survival" 1.0 0 -2674135 true "" "plot mean [survival-need-satisfaction] of people"
 
 SLIDER
 1542
@@ -1587,7 +1581,7 @@ PENS
 "safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
 "compliance" 1.0 0 -7500403 true "" "plot mean [compliance-need-satisfaction] of people"
 "risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
-"survival" 1.0 0 -955883 true "" "plot mean [survival-need-satisfaction] of people"
+"food-safety" 1.0 0 -5325092 true "" "plot mean [food-safety-need-satisfaction] of people"
 
 SWITCH
 534
@@ -1596,7 +1590,7 @@ SWITCH
 94
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1610,6 +1604,28 @@ mean [autonomy-need-satisfaction] of people
 3
 1
 11
+
+MONITOR
+1376
+598
+1474
+643
+NIL
+closed-schools?
+17
+1
+11
+
+SWITCH
+1214
+537
+1519
+570
+is-closing-school-when-any-reported-case-measure?
+is-closing-school-when-any-reported-case-measure?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

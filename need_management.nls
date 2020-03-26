@@ -1,4 +1,4 @@
-
+__includes ["need_definition.nls"]
 ;might be to be updated later on, as need satisfaction depends on the consequences of your action rather than on your intent
 ;e.g. visiting a shop should not satisfy one's safety needs if this shop is empty
 to update-needs-for-playing [current-activity-descriptor]
@@ -48,6 +48,7 @@ to decay-need-satisfaction
   
   set relaxing-need-satisfaction relaxing-need-satisfaction - 0.2
   if relaxing-need-satisfaction < 0 [set relaxing-need-satisfaction 0]
+  
 end
 
 ;Future work: 
@@ -135,7 +136,7 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
 end
 
 ; The agents expect to get food for seven days at a time
-to-report expected-undiscounted-survival-needs-satisfaction-increase-for-playing [activity-descriptor]
+to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
   let motive last activity-descriptor
   if motive = "essential shopping" [
     let available-food-days [available-food] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food]
@@ -210,11 +211,13 @@ to-report global-prevalence-of [activity-descriptor]
   let total-satisfaction
   my-current-expected-prevalence-of-belonging-needs activity-descriptor
   +
-  my-current-prevalence-of-self-responsibility-needs activity-descriptor
+  my-current-prevalence-of-safety-needs activity-descriptor
   +
   my-current-prevalence-of-relaxing-needs activity-descriptor
   +
   my-current-prevalence-of-autonomy-needs activity-descriptor
+  +
+  my-current-prevalence-of-survival-needs activity-descriptor
   ;should be expanded with new needs as they are added
   
   debug-file-print (sentence "Global prevalence of:" [gathering-type] of first activity-descriptor " " last activity-descriptor " " total-satisfaction)
@@ -235,8 +238,18 @@ end
 
 ;simple direct linear translation; experience shows that sigmoid functions are good candidates
 ;likewise, it can be based on recen experience from the agent (e.g. being reminded by a high-status figure to comply to a given rule)
-to-report my-current-prevalence-of-self-responsibility-needs [activity-descriptor]
-  report my-importance-for-safety-needs * (my-expected-discounted-satisfaction-gain-for-security-after-having-played activity-descriptor)
+to-report my-current-prevalence-of-safety-needs [activity-descriptor]
+  report my-importance-for-safety-needs * (my-expected-discounted-satisfaction-gain-for-safety-after-having-played activity-descriptor)
+end
+
+to-report my-current-prevalence-of-survival-needs [activity-descriptor]
+  report my-importance-for-survival-needs * (my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played activity-descriptor)
+end
+
+to-report my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played [activity-descriptor]
+  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing activity-descriptor
+  let discounted-increase expected-increase * (1 - survival-need-satisfaction)
+  report discounted-increase
 end
 
 to-report my-current-prevalence-of-relaxing-needs [activity-descriptor]
@@ -247,15 +260,20 @@ to-report my-current-prevalence-of-autonomy-needs [activity-descriptor]
   report my-importance-for-autonomy-needs * (my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played activity-descriptor)
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-security-after-having-played [activity-descriptor]
-  report weighted-mean (list 
-    (my-expected-discounted-satisfaction-gain-for-compliance-after-having-played activity-descriptor) 
-    (my-expected-discounted-satisfaction-gain-for-survival-after-having-played activity-descriptor)
-    (my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played activity-descriptor) 
-  ) 
-  (list my-importance-for-compliance-needs my-importance-for-survival-needs my-importance-for-risk-avoidance-needs)
-;  let expected-increase expected-undiscounted-compliance-needs-satisfaction-increase-for-playing activity-descriptor
-;  let discounted-increase expected-increase * (1 - compliance-need-satisfaction)
+to-report my-expected-discounted-satisfaction-gain-for-safety-after-having-played [activity-descriptor]
+  report 
+  min (list 
+    (expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing activity-descriptor)
+    (weighted-mean (list 
+      (my-expected-discounted-satisfaction-gain-for-compliance-after-having-played activity-descriptor) 
+      (my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played activity-descriptor) 
+      )
+      (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs)
+    )
+  )
+  
+  ;  let expected-increase expected-undiscounted-compliance-needs-satisfaction-increase-for-playing activity-descriptor
+  ;  let discounted-increase expected-increase * (1 - compliance-need-satisfaction)
 ;  report discounted-increase
 end
 

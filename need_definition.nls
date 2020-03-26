@@ -1,15 +1,51 @@
+;;See Maslow structure for further indication (the first lines are "strong" override while others are more fuzzy and culturally-sensitive)
+;;survival needs differ from safety in that they are related to the urgency of physiological risk where safety is rather a matter of general anxiety
+
+
+;;I set food safety need satisfaction with a "min" operator as it tends to override other needs
+;;risk avoidance might be a second option. Though, risk-compliance makes it for a poor proxy; as "safety = risk-avoidance"
+;;a more specific concept would be appropriate (e.g. "contagion-safety" for instance, I let you adapt depending on what you want to represent with this variable).
 to-report safety-need-satisfaction
-  report weighted-mean (list 
-    compliance-need-satisfaction 
-    survival-need-satisfaction
-    risk-avoidance-need-satisfaction
-  ) (list my-importance-for-compliance-needs my-importance-for-survival-needs my-importance-for-risk-avoidance-needs)
+  report 
+  min (list 
+    food-safety-need-satisfaction
+    weighted-mean (list 
+      compliance-need-satisfaction 
+      risk-avoidance-need-satisfaction
+    ) 
+    (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs))
 end
 
+;;to be updated later on:
+
 to-report survival-need-satisfaction
-  let available-food-days [available-food] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food]
-  if available-food-days >= 14 [
-    report 1
+  ;;constant value set to average
+  ;;survival needs often revolve around short-term temporality (e.g. stopping to breath)
+  if is-believing-to-be-infected?
+  [
+    ifelse is-resting-at-home?[report 0.3]
+    [report 0]
   ]
-  report available-food-days / 14
+  
+  report 1
+end
+to-report expected-undiscounted-survival-needs-satisfaction-increase-for-playing [activity-descriptor]
+  report rest-need-satisfaction activity-descriptor
+end
+
+;;here, food-safety is rather a subaspect of safety (more cognitive, worries about the future)
+;;TBU: should be dependent on the current plan, i.e. acquiring food should be expected to lower this need
+to-report food-safety-need-satisfaction
+  report min (list ([available-food] of my-home / 14) 1)
+end
+
+to-report rest-need-satisfaction [activity-descriptor]
+  if is-believing-to-be-infected?
+  [
+    ifelse is-rest-at-home-descriptor? activity-descriptor 
+    [report .3]
+    [report 0]
+  ]
+  ;;can be updated if agents start to be deprived from sleep, not needed at the moment
+  report 1
 end
