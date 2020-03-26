@@ -2,7 +2,7 @@ to execute-activity-effect
   ifelse activity-model = "public&private leisure, rest, age-based work"
   [
     if [gathering-type] of current-activity = "essential-shop"
-    [ ask my-home [set available-food-rations available-food-rations + 7 * count [gatherers] of my-home ] ]
+    [ ask my-home [set available-food-rations available-food-rations + 7 * count gatherers ] ]
     ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
     ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
     

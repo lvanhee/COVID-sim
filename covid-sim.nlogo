@@ -13,6 +13,7 @@ globals [
 
 to setup
   check-parameters
+  preset-parameters
   clear-all
   set-default-shape people "circle"
   if debug?[  random-seed 47822 ]
@@ -34,6 +35,31 @@ to setup
 
   set is-lockdown-active? false
   reset-ticks
+end
+
+to preset-parameters
+  if preset-profiles = "none"[stop]
+  if preset-profiles = "medirarrea"[
+    set ratio-adults-homes 0.3
+    set ratio-retired-couple-homes 0.42
+    set ratio-family-homes 0.26
+    set ratio-multi-generational-homes 0.02
+    set #total-population 250
+  ]
+  if preset-profiles = "scandinavia" [
+    set ratio-adults-homes 0.49
+    set ratio-retired-couple-homes 0.27
+    set ratio-family-homes 0.23
+    set ratio-multi-generational-homes 0.01
+    set #total-population 220
+  ]
+  if preset-profiles = "south-asia" [
+  set ratio-adults-homes 0.15
+    set ratio-retired-couple-homes 0.22
+    set ratio-family-homes 0.51
+    set ratio-multi-generational-homes 0.12
+    set #total-population 310
+  ]
 end
 
 to check-parameters
@@ -1841,6 +1867,16 @@ factor-reduction-probability-transmission-young
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+1322
+482
+1460
+527
+preset-profiles
+preset-profiles
+"none" "medirarrea" "scandinavia" "south-asia"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?
