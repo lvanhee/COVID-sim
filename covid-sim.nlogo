@@ -560,7 +560,7 @@ INPUTBOX
 1315
 451
 #young
-43.0
+47.0
 1
 0
 Number
@@ -571,7 +571,7 @@ INPUTBOX
 1385
 451
 #students
-62.0
+65.0
 1
 0
 Number
@@ -1236,31 +1236,32 @@ Simulation management
 1
 
 TEXTBOX
-1729
-334
-1879
-352
+1742
+311
+1892
+329
 Households distribution
 11
 0.0
 1
 
 MONITOR
-1733
-358
-1880
-403
+1876
+445
+2023
+490
 Adults rooming together
-count houses-hosting-adults
+count houses-hosting-adults2
 17
 1
 11
 
 MONITOR
-1886
-358
-1979
-403
+2029
+445
+2122
+490
+
 Retired couple
 count houses-hosting-retired-couple
 17
@@ -1268,10 +1269,11 @@ count houses-hosting-retired-couple
 11
 
 MONITOR
-1733
-410
-1830
-455
+1876
+497
+1973
+542
+
 Family
 count houses-hosting-family
 17
@@ -1279,10 +1281,10 @@ count houses-hosting-family
 11
 
 MONITOR
-1837
-410
 1980
-455
+497
+2123
+542
 Multi-generational living
 count houses-hosting-multiple-generations
 17
@@ -1442,10 +1444,11 @@ NIL
 HORIZONTAL
 
 SWITCH
-1782
-313
-1971
-346
+
+1742
+329
+1931
+362
 households-distribution?
 households-distribution?
 0
@@ -1453,45 +1456,12 @@ households-distribution?
 -1000
 
 INPUTBOX
-1907
-527
-2000
-587
+1937
+302
+2030
+362
 #total-population
 300.0
-1
-0
-Number
-
-INPUTBOX
-2006
-526
-2098
-586
-%adults-homes
-25.0
-1
-0
-Number
-
-INPUTBOX
-1776
-520
-1900
-580
-%retired-couple-homes
-25.0
-1
-0
-Number
-
-INPUTBOX
-1934
-470
-2103
-530
-%multi-generational-homes
-25.0
 1
 0
 Number
@@ -1687,15 +1657,15 @@ is-closing-school-when-any-reported-case-measure?
 -1000
 
 SLIDER
-1748
-480
-1920
-513
+1742
+405
+1914
+438
 ratio-family-homes
 ratio-family-homes
 0
 1
-0.1
+0.25
 0.01
 1
 NIL
@@ -1720,7 +1690,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.15
+0.3
 0.01
 1
 NIL
@@ -1732,7 +1702,7 @@ INPUTBOX
 1622
 1030
 #days-trigger-school-closing-measure
-1000.0
+0.0
 1
 0
 Number
@@ -1788,7 +1758,7 @@ INPUTBOX
 1622
 1090
 #days-trigger-non-essential-business-closing-measure
-1000.0
+0.0
 1
 0
 Number
@@ -1800,6 +1770,62 @@ MONITOR
 1083
 NIL
 closed-non-essential?
+17
+1
+11
+
+SLIDER
+1742
+367
+1914
+400
+ratio-adults-homes
+ratio-adults-homes
+0
+1
+0.25
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1919
+367
+2121
+400
+ratio-retired-couple-homes
+ratio-retired-couple-homes
+0
+1
+0.25
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1920
+405
+2121
+438
+ratio-multi-generational-homes
+ratio-multi-generational-homes
+0
+1
+0.25
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1742
+445
+1847
+490
+Checksum of ratios
+ratio-adults-homes + ratio-retired-couple-homes + ratio-family-homes + ratio-multi-generational-homes
 17
 1
 11

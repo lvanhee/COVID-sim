@@ -232,7 +232,10 @@ to-report houses-hosting-adults
   report homes with [any? gatherers with [is-adult?]]
 end
 
-
+;;should be renamed in "houses-hosting-non-retied-adults" for instance
+to-report houses-hosting-adults2
+  report homes with [count gatherers = count gatherers with [age = "worker"] or count gatherers = count gatherers with [age = "student"]]
+end
 
 to-report houses-hosting-family
   report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and not any? gatherers with [age = "retired"]]
@@ -241,6 +244,11 @@ end
 to-report houses-hosting-multiple-generations
   report homes with [any? gatherers with [age = "worker"] and any? gatherers with [age = "young" or age = "student"] and any? gatherers with [age = "retired"]]
 end
+
+to-report closed-schools?
+  report is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick? 
+end
+
 
 ;;might be to be refined if people have a reporting system, or with hospital care
 to-report  is-someone-officially-sick? 

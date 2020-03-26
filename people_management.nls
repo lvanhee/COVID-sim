@@ -341,8 +341,8 @@ to create-all-people
   [
     set household-composition "different-kinds"
     
-    let #adults-homes floor (#homes * %adults-homes / 100)
-    let #retired-couple-homes floor (#homes * %retired-couple-homes / 100)
+    let #adults-homes floor (#homes * ratio-adults-homes)
+    let #retired-couple-homes floor (#homes * ratio-retired-couple-homes)
     let #family-homes floor (#homes * ratio-family-homes)
     let #multi-generational-homes #homes - (#adults-homes + #retired-couple-homes + #family-homes)
     
