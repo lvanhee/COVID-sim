@@ -37,7 +37,7 @@ end
 ;;here, food-safety is rather a subaspect of safety (more cognitive, worries about the future)
 ;;TBU: should be dependent on the current plan, i.e. acquiring food should be expected to lower this need
 to-report food-safety-need-satisfaction
-  report min (list ([available-food] of my-home / 14) 1)
+  report min (list ([available-food-rations] of my-home / 14) 1)
 end
 
 to-report rest-need-satisfaction [activity-descriptor]

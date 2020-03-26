@@ -79,9 +79,9 @@ to update-time
   if slice-of-the-day = "night" [
     set slice-of-the-day "morning"
     set current-day current-day + 1
-    ask gathering-points [
-      if available-food > 0 [
-        set available-food available-food - 1
+    ask homes [
+      if available-food-rations > 0 [
+        set available-food-rations available-food-rations - count gatherers
       ]
     ]
     ask people [

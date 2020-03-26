@@ -191,7 +191,7 @@ end
 to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
   let motive last activity-descriptor
   if motive = "essential shopping" [
-    let available-food-days [available-food] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food]
+    let available-food-days [available-food-rations] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food-rations]
     if available-food-days >= 14 [
       report 0
     ]
