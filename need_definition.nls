@@ -6,14 +6,34 @@
 ;;risk avoidance might be a second option. Though, risk-compliance makes it for a poor proxy; as "safety = risk-avoidance"
 ;;a more specific concept would be appropriate (e.g. "contagion-safety" for instance, I let you adapt depending on what you want to represent with this variable).
 to-report safety-need-satisfaction
+  let physiological-needs (list food-safety-need-satisfaction)
+  let importances-physiological-needs (list my-importance-for-food-safety-needs)
+  
+  let psychological-needs (list compliance-need-satisfaction risk-avoidance-need-satisfaction)
+  let importances-psychological-needs (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs)
+  
+  if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
+    set physiological-needs fput financial-survival-need-satisfaction physiological-needs
+    set importances-physiological-needs fput my-importance-for-financial-survival-needs importances-physiological-needs
+    
+    set psychological-needs fput financial-safety-need-satisfaction psychological-needs
+    set importances-psychological-needs fput my-importance-for-financial-safety-needs importances-psychological-needs
+  ]
   report 
   min (list 
-    food-safety-need-satisfaction
-    weighted-mean (list 
-      compliance-need-satisfaction 
-      risk-avoidance-need-satisfaction
-    ) 
-    (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs))
+    min physiological-needs
+    weighted-mean psychological-needs importances-psychological-needs
+    )
+end
+
+to-report self-esteem-need-satisfaction
+  let needs (list relaxing-need-satisfaction)
+  let importances (list my-importance-for-relaxing-needs)
+  if age != "young" [
+    set needs fput luxury-need-satisfaction needs
+    set importances fput my-importance-for-luxury-needs importances
+  ]
+  report weighted-mean needs importances
 end
 
 ;;to be updated later on:
@@ -49,4 +69,12 @@ to-report rest-need-satisfaction [activity-descriptor]
   ]
   ;;can be updated if agents start to be deprived from sleep, not needed at the moment
   report 1
+end
+
+to-report financial-survival-need-satisfaction
+  report clamp 0 1 (my-amount-of-resources / price-of-rations * count my-relatives * 7)
+end
+
+to-report financial-safety-need-satisfaction
+  report ifelse-value my-previous-amount-of-resources > 0 [clamp 0 1 (my-amount-of-resources / my-previous-amount-of-resources)] [0]
 end

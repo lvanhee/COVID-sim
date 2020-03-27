@@ -23,7 +23,7 @@ to-report my-available-activity-descriptors
   
   let activities (list (list my-home "rest"))
   
-  if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day
+  if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
     [
       if is-child? [
         set activities (lput (list my-school  "mandatory") activities)
@@ -48,13 +48,16 @@ to-report my-available-activity-descriptors
       ]
   ]
   
-  if slice-of-the-day = "evening" or not working-day
+  if slice-of-the-day = "evening" or not working-day?
   [
-    set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
-    
+    if age != "young" [
+      set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
+    ]
 
     set activities lput (list my-public-leisure "relaxing" ) activities
-    set activities lput (list my-non-essential-shop "shopping") activities
+    if age != "young" [
+      set activities lput (list my-non-essential-shop "shopping") activities
+    ]
     set activities lput (list my-private-leisure "relaxing") activities
     
   ]

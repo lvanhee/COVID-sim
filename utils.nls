@@ -4,6 +4,17 @@ to-report weighted-mean [values weights]
   report (sum (map [ [v w] -> v * w] values weights)) / sum weights
 end
 
+; Clamps a number in between 0 and 1
+to-report clamp [low high number]
+  if number < low [
+    report low
+  ]
+  if number > high [
+    report high
+  ]
+  report number
+end
+
 to debug-file-show [object]
   if debug? [
     file-open "debug.log"

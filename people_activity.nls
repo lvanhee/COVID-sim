@@ -37,18 +37,16 @@ to update-resource-based-on-current-activity
   [
     let amount-earned 0
     
-    set my-amount-of-resources my-amount-of-resources + amount-earned
-    
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
       set amount-earned 10
-      ask my-essential-shop [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+      ask my-work [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
     ]
     [
       ifelse [gathering-type] of current-activity = "non-essential-shop"
       [
         set amount-earned 10
-        ask my-non-essential-shop [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+        ask my-work [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
       ]
       [
         ifelse [gathering-type] of current-activity = "home"
@@ -75,7 +73,14 @@ to update-resource-based-on-current-activity
                 ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
               ]
               [
-                error (sentence "not implemented" [gathering-type] of current-activity)
+                ifelse [gathering-type] of current-activity = "school"
+                [
+                  set amount-earned 10
+                  ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+                ]
+                [
+                  error (sentence "not implemented" [gathering-type] of current-activity)
+                ]
               ]
             ]
           ]
@@ -89,6 +94,8 @@ to update-resource-based-on-current-activity
     stop
   ]
   
+  if is-in-school? [stop]
+  
   if is-learning? [stop]
   
   if is-getting-tested? [stop]
@@ -99,7 +106,7 @@ to update-resource-based-on-current-activity
   
   if is-performing-essential-shopping?
   [
-    let amount-spent amount-of-rations-I-buy-when-going-to-essential-shops
+    let amount-spent amount-of-rations-I-buy-when-going-to-essential-shops * price-of-rations
     set my-amount-of-resources my-amount-of-resources - amount-spent
     set my-current-income my-current-income - amount-spent
     ask my-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent]
@@ -108,7 +115,7 @@ to update-resource-based-on-current-activity
   
   if is-performing-shopping?
   [
-    let amount-spent amount-of-rations-I-buy-when-going-to-shops
+    let amount-spent amount-of-rations-I-buy-when-going-to-shops * price-of-rations
     set my-amount-of-resources my-amount-of-resources - amount-spent
     set my-current-income my-current-income - amount-spent
     ask my-non-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent]
@@ -168,8 +175,12 @@ end
 
 to-report is-at-home?
   report  current-activity = my-home
-end  
+end
 
+to-report is-in-school?
+  report [gathering-type] of current-activity = "school" and current-motivation = "mandatory"
+end
+  
 to-report is-learning?
   report current-motivation = "learning"
 end
@@ -187,10 +198,13 @@ to-report is-performing-shopping?
 end
 
 to-report amount-of-rations-I-buy-when-going-to-essential-shops
-  report 7 * count [gatherers] of my-home
+  report min (list (7 * count [gatherers] of my-home) (floor (my-amount-of-resources / price-of-rations)))
 end
 
 to-report amount-of-rations-I-buy-when-going-to-shops
+  if (my-amount-of-resources / price-of-rations) < 7 [
+    report floor (my-amount-of-resources / price-of-rations)
+  ]
   report 7
 end
 
