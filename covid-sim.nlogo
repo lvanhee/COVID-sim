@@ -37,29 +37,29 @@ to setup
   reset-ticks
 end
 
-to preset-parameters		
-  if preset-profiles = "none"[stop]		
-  if preset-profiles = "medirarrea"[		
-    set ratio-adults-homes 0.3		
-    set ratio-retired-couple-homes 0.42		
-    set ratio-family-homes 0.26		
-    set ratio-multi-generational-homes 0.02		
-    set #total-population 250		
-  ]		
-  if preset-profiles = "scandinavia" [		
-    set ratio-adults-homes 0.49		
-    set ratio-retired-couple-homes 0.27		
-    set ratio-family-homes 0.23		
-    set ratio-multi-generational-homes 0.01		
-    set #total-population 220		
-  ]		
-  if preset-profiles = "south-asia" [		
-  set ratio-adults-homes 0.15		
-    set ratio-retired-couple-homes 0.22		
-    set ratio-family-homes 0.51		
-    set ratio-multi-generational-homes 0.12		
-    set #total-population 310		
-  ]		
+to preset-parameters
+  if preset-profiles = "none"[stop]
+  if preset-profiles = "medirarrea"[
+    set ratio-adults-homes 0.3
+    set ratio-retired-couple-homes 0.42
+    set ratio-family-homes 0.26
+    set ratio-multi-generational-homes 0.02
+    set #total-population 250
+  ]
+  if preset-profiles = "scandinavia" [
+    set ratio-adults-homes 0.49
+    set ratio-retired-couple-homes 0.27
+    set ratio-family-homes 0.23
+    set ratio-multi-generational-homes 0.01
+    set #total-population 220
+  ]
+  if preset-profiles = "south-asia" [
+  set ratio-adults-homes 0.15
+    set ratio-retired-couple-homes 0.22
+    set ratio-family-homes 0.51
+    set ratio-multi-generational-homes 0.12
+    set #total-population 310
+  ]
 end
 
 to check-parameters
@@ -83,6 +83,7 @@ end
 
 to go
   tick
+
   spread-contagion
   update-within-agent-disease-status
   update-people-epistemic-status
@@ -134,7 +135,7 @@ to update-time
     [set day-of-the-week "monday" stop]
   ]
 end
-to-report working-day
+to-report working-day?
   report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
 end
 to update-display
@@ -147,7 +148,13 @@ end
 
 to perform-people-activities
   ask gathering-points [set current-profit 0]
-  ask people [set my-current-income 0]
+  ask people [
+    if working-day? and member? slice-of-the-day ["afternoon" "evening"] [
+      set my-expected-income my-current-income
+    ]
+    set my-current-income 0
+    set my-previous-amount-of-resources my-amount-of-resources
+  ]
 
   ask people [
     perform-activity
@@ -361,8 +368,8 @@ GRAPHICS-WINDOW
 32
 0
 32
-1
-1
+0
+0
 1
 ticks
 30.0
@@ -419,7 +426,7 @@ CHOOSER
 age-model
 age-model
 "none" "young-old" "young,student,worker,retired"
-0
+2
 
 SLIDER
 533
@@ -430,7 +437,7 @@ proportion-young-yom
 proportion-young-yom
 0
 1
-0.48
+0.53
 0.01
 1
 NIL
@@ -608,10 +615,10 @@ Proxemics model
 1
 
 INPUTBOX
-695
 686
-760
-746
+695
+751
+755
 #schools
 3.0
 1
@@ -619,10 +626,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-790
-686
-871
-746
+781
+692
+862
+752
 #universities
 10.0
 1
@@ -630,10 +637,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-882
-686
-959
-746
+873
+692
+950
+752
 #workplaces
 10.0
 1
@@ -641,20 +648,20 @@ INPUTBOX
 Number
 
 TEXTBOX
+574
+678
+1077
 706
-668
-1155
-696
 Number of units per activity type (sharing a unit incurs a transmission risk; due to contact)
 11
 0.0
 1
 
 INPUTBOX
-970
-687
-1056
-747
+961
+693
+1047
+753
 #public-leisure
 1.0
 1
@@ -662,10 +669,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-1062
-688
-1146
-748
+1053
+694
+1137
+754
 #private-leisure
 10.0
 1
@@ -719,7 +726,7 @@ INPUTBOX
 1315
 451
 #young
-47.0
+17.0
 1
 0
 Number
@@ -741,7 +748,7 @@ INPUTBOX
 1446
 451
 #workers
-105.0
+81.0
 1
 0
 Number
@@ -752,7 +759,7 @@ INPUTBOX
 1504
 451
 #retired
-83.0
+57.0
 1
 0
 Number
@@ -790,10 +797,10 @@ activity-based-progagation?
 -1000
 
 SLIDER
-674
-755
-766
-788
+665
+764
+757
+797
 density-factor-schools
 density-factor-schools
 0
@@ -805,10 +812,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-774
-759
-866
-792
+765
+765
+857
+798
 density-factor-universities
 density-factor-universities
 0
@@ -820,10 +827,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-869
-758
-961
-791
+860
+764
+952
+797
 density-factor-workplaces
 density-factor-workplaces
 0
@@ -835,10 +842,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-971
-758
-1063
-791
+962
+764
+1054
+797
 density-factor-public-leisure
 density-factor-public-leisure
 0
@@ -850,10 +857,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1061
-759
-1153
-792
+1052
+765
+1144
+798
 density-factor-private-leisure
 density-factor-private-leisure
 0
@@ -996,10 +1003,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-582
-689
-669
-749
+573
+698
+660
+758
 #hospital
 1.0
 1
@@ -1007,10 +1014,10 @@ INPUTBOX
 Number
 
 SLIDER
-578
-756
-670
-789
+569
+765
+661
+798
 density-factor-hospital
 density-factor-hospital
 0
@@ -1045,7 +1052,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.35
+0.12
 0.01
 1
 NIL
@@ -1060,7 +1067,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.15
+0.11
 0.01
 1
 NIL
@@ -1075,7 +1082,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.18
+0.11
 0.01
 1
 NIL
@@ -1104,25 +1111,25 @@ closed-universities?
 -1000
 
 SLIDER
-1532
-318
-1709
-351
+1014
+500
+1191
+533
 ratio-safety-belonging
 ratio-safety-belonging
 0
 1
-0.4
+0.41
 0.01
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-1524
-297
-1674
-315
+1018
+478
+1168
+496
 Needs model
 11
 0.0
@@ -1135,7 +1142,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -1212,7 +1219,7 @@ Disease model
 TEXTBOX
 1452
 13
-1602
+1635
 31
 Markovian & advanced parameters
 9
@@ -1474,10 +1481,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1533
-353
-1709
-386
+1193
+501
+1369
+534
 importance-compliance
 importance-compliance
 0
@@ -1489,10 +1496,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1532
-389
-1709
-422
+1192
+537
+1369
+570
 importance-survival
 importance-survival
 0
@@ -1519,10 +1526,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1532
-459
-1709
-492
+1191
+574
+1368
+607
 importance-leisure
 importance-leisure
 0
@@ -1549,10 +1556,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1532
-424
-1709
-457
+1547
+501
+1724
+534
 importance-risk-avoidance
 importance-risk-avoidance
 0
@@ -1594,7 +1601,7 @@ density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.06
+0.11
 0.01
 1
 NIL
@@ -1617,7 +1624,7 @@ INPUTBOX
 2030
 362
 #total-population
-300.0
+220.0
 1
 0
 Number
@@ -1696,14 +1703,14 @@ PENS
 "belonging" 1.0 0 -16777216 true "" "plot mean [belonging-need-satisfaction] of people"
 "safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
 "autonomy" 1.0 0 -955883 true "" "plot mean [autonomy-need-satisfaction] of people"
-"relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
+"self-esteem" 1.0 0 -13840069 true "" "plot mean [self-esteem-need-satisfaction] of people"
 "survival" 1.0 0 -2674135 true "" "plot mean [survival-need-satisfaction] of people"
 
 SLIDER
-1532
-494
-1710
-527
+1011
+537
+1189
+570
 importance-autonomy
 importance-autonomy
 0
@@ -1767,6 +1774,8 @@ PENS
 "compliance" 1.0 0 -13840069 true "" "plot mean [compliance-need-satisfaction] of people"
 "risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
 "food-safety" 1.0 0 -5325092 true "" "plot mean [food-safety-need-satisfaction] of people"
+"financial-survival" 1.0 0 -5825686 true "" "plot mean [financial-survival-need-satisfaction] of people"
+"financial-safety" 1.0 0 -8990512 true "" "plot mean [financial-safety-need-satisfaction] of people"
 
 SWITCH
 534
@@ -1821,7 +1830,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.25
+0.23
 0.01
 1
 NIL
@@ -1858,7 +1867,7 @@ INPUTBOX
 1823
 928
 #days-trigger-school-closing-measure
-0.0
+10000.0
 1
 0
 Number
@@ -1939,7 +1948,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.25
+0.49
 0.01
 1
 NIL
@@ -1954,7 +1963,22 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.25
+0.27
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1104
+465
+1276
+498
+needs-std-dev
+needs-std-dev
+0
+1
+0.11
 0.01
 1
 NIL
@@ -1969,7 +1993,22 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.25
+0.01
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1372
+501
+1545
+534
+importance-financial-safety
+importance-financial-safety
+0
+1
+0.44
 0.01
 1
 NIL
@@ -2071,7 +2110,7 @@ ratio-amount-spent-by-essential-shops-on-supplies
 ratio-amount-spent-by-essential-shops-on-supplies
 0
 1
-0.6
+0.8
 0.01
 1
 NIL
@@ -2086,7 +2125,7 @@ ratio-amount-spent-by-non-essential-shops-on-supplies
 ratio-amount-spent-by-non-essential-shops-on-supplies
 0
 1
-0.2
+0.87
 0.01
 1
 NIL
@@ -2095,7 +2134,7 @@ HORIZONTAL
 TEXTBOX
 528
 1095
-712
+764
 1123
 Shops get supplies from workplaces
 11
@@ -2126,7 +2165,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.2
+0.19
 0.01
 1
 NIL
@@ -2141,7 +2180,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.2
+0.5
 0.01
 1
 NIL
@@ -2156,7 +2195,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.5
+0.4
 0.01
 1
 NIL
@@ -2221,7 +2260,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.3
+0.33
 0.01
 1
 NIL
@@ -2236,7 +2275,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.2
+0.37
 0.01
 1
 NIL
@@ -2251,21 +2290,21 @@ ratio-young-subsidy
 ratio-young-subsidy
 0
 1
-0.2
+0.0
 0.01
 1
 NIL
 HORIZONTAL
 
 CHOOSER
-892
-517
-1030
-562
+1597
+329
+1735
+374
 preset-profiles
 preset-profiles
 "none" "medirarrea" "scandinavia" "south-asia"
-0
+2
 
 SLIDER
 781
@@ -2313,6 +2352,71 @@ Testing
 11
 0.0
 1
+
+SLIDER
+869
+1114
+1041
+1147
+price-of-rations
+price-of-rations
+0.5
+10
+1.5
+0.5
+1
+NIL
+HORIZONTAL
+
+PLOT
+598
+924
+1008
+1074
+Average self-esteem needs satisfaction
+time
+satisfaction
+0.0
+10.0
+0.0
+1.0
+true
+true
+"" ""
+PENS
+"self esteem" 1.0 0 -16777216 true "" "plot mean [self-esteem-need-satisfaction] of people"
+"relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
+"luxury" 1.0 0 -955883 true "" "plot mean [luxury-need-satisfaction] of people"
+
+SLIDER
+1374
+576
+1546
+609
+importance-luxury
+importance-luxury
+0
+1
+0.15
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+982
+573
+1188
+606
+importance-self-esteem
+importance-self-esteem
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
