@@ -1,4 +1,4 @@
-__includes ["people_decision.nls" "people_activity.nls" "people_age_model.nls" "disease_model.nls" "epistemic_model.nls" "social_networks.nls"]
+__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls"]
 globals [
   #min-workers-in-adults-homes
   #min-students-in-adults-homes

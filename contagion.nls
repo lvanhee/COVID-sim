@@ -71,3 +71,10 @@ to-report is-alive?
   report not (infection-status = "dead")
 end
 
+to infect-one-random-person
+    ask n-of 3 people [
+    if disease-model = "markovian"[set-infection-status "infected"]
+    if disease-model = "advanced" [set-infection-status "infected-asymptomatic"  set duration-current-disease-status infection-to-asymptomatic-contagiousness]
+  ]
+end
+

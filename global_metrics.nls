@@ -5,3 +5,7 @@ end
 to-report #people
   report #young + #students + #workers + #retired
 end
+
+to-report total-amount-of-resources-available-in-the-system
+  report sum [my-amount-of-resources] of people + sum [amount-of-resources] of gathering-points
+end

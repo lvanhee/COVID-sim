@@ -163,3 +163,8 @@ to-report has-internally-visible-symptoms?
   ]
   if disease-model = "markovian" [report is-infected?]
 end
+
+
+to update-within-agent-disease-status
+  ask people [update-within-disease-status]
+end

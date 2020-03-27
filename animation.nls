@@ -1,0 +1,9 @@
+ 
+to update-display
+  ask people [update-people-display]
+end
+ 
+
+to-report allowed-move?
+  report can-move? 1 and (not any? gathering-points-on patch-ahead 1 or member? current-activity gathering-points-on patch-ahead 1)
+end
