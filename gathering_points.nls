@@ -4,6 +4,8 @@ gathering-points-own [gathering-type
   
   amount-of-resources
   current-profit
+  
+  stock-of-goods
 ]
 
 ;the head of the link are people and the tail are gathering points
@@ -26,9 +28,9 @@ to setup-activities
     create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
     
     ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
-    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200]
-    ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
-    ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200 set stock-of-goods 100]
+    ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100 set stock-of-goods 100]
+    ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100 set stock-of-goods 100]
     ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
     
     if animate? [
@@ -294,4 +296,16 @@ end
 
 to-report workplace-amount-of-resources
   report sum [amount-of-resources] of gathering-points with [gathering-type = "workplace"]
+end
+
+to-report essential-shop-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "essential-shop"]
+end
+
+to-report non-essential-shop-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "non-essential-shop"]
+end
+
+to-report workplace-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
 end

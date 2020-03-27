@@ -92,8 +92,8 @@ CHOOSER
 438
 original-distribution
 original-distribution
-"one-person-per-patch" "set-by-quotas" "set-by-people-quotas"
-2
+"one-person-per-patch" "set-by-quotas"
+1
 
 CHOOSER
 1262
@@ -403,7 +403,7 @@ INPUTBOX
 1315
 451
 #young
-1.0
+28.0
 1
 0
 Number
@@ -414,7 +414,7 @@ INPUTBOX
 1385
 451
 #students
-0.0
+53.0
 1
 0
 Number
@@ -425,7 +425,7 @@ INPUTBOX
 1446
 451
 #workers
-0.0
+78.0
 1
 0
 Number
@@ -436,7 +436,7 @@ INPUTBOX
 1504
 451
 #retired
-0.0
+91.0
 1
 0
 Number
@@ -832,7 +832,7 @@ CHOOSER
 household-composition
 household-composition
 "segregated-elderly" "balanced-mix" "different-kinds"
-1
+2
 
 MONITOR
 525
@@ -2096,15 +2096,55 @@ importance-self-esteem
 NIL
 HORIZONTAL
 
-CHOOSER
-795
-14
-1045
-59
-preset-scenario
-preset-scenario
-"none" "kidsland" "one-family" "scenario-1-always-open-scandinavia"
+PLOT
+9
+1403
+520
+1553
+Amount of goods in stock
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"essential-shop" 1.0 0 -16777216 true "" "plot essential-shop-amount-of-goods-in-stock"
+"non-essential-shop" 1.0 0 -13345367 true "" "plot non-essential-shop-amount-of-goods-in-stock"
+"workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-goods-in-stock"
+
+SLIDER
+527
+1424
+771
+1457
+goods-produced-by-work-performed
+goods-produced-by-work-performed
 1
+50
+30.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+527
+1462
+699
+1495
+unit-price-of-goods
+unit-price-of-goods
+0.1
+5
+1.0
+0.1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
