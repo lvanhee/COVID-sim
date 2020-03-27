@@ -92,8 +92,8 @@ CHOOSER
 438
 original-distribution
 original-distribution
-"one-person-per-patch" "set-by-quotas"
-1
+"one-person-per-patch" "set-by-quotas" "set-by-people-quotas"
+2
 
 CHOOSER
 1262
@@ -2095,6 +2095,16 @@ importance-self-esteem
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+795
+14
+1045
+59
+preset-scenario
+preset-scenario
+"none" "kidsland" "one-family" "scenario-1-always-open-scandinavia"
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
