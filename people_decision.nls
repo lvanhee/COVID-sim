@@ -63,17 +63,15 @@ to-report my-available-activity-descriptors
   ]
 
   set activities lput (list [other-end] of one-of my-gathering-links with  [member? "get-tested" features] "get-tested") activities
-
- 
-  
-  
   set activities filter [ i -> [is-accessible?] of first i] activities
   
   ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
   
-  ;dirty hack, but it would involve too much of a needs-based machinery for it to work
-  if any? people-that-depend-on-me with [ current-person-I-depend-on = nobody and is-currently-depending-on-the-other?]
+   
+  if any? people-that-depend-on-me with [ (current-person-I-depend-on = nobody or current-person-I-depend-on = myself) 
+    and is-currently-in-sitation-of-active-dependence?]
   [
+    
     ask people-that-depend-on-me [ set current-person-I-depend-on myself]
     set activities filter [ i -> can-be-done-with-a-dependable-person? i] activities
   ]
@@ -82,7 +80,7 @@ to-report my-available-activity-descriptors
 end
 
 
-to-report is-currently-depending-on-the-other?
+to-report is-currently-in-sitation-of-active-dependence?
   report is-child? and closed-schools?
 end
 
@@ -95,9 +93,9 @@ to select-activity
     set c-a (list away-gathering-point "undefined reason")
   ]
   
-  set is-moving-outside-for-reaching-current-activity? current-activity != first c-a
-  set current-activity first c-a
-  set current-motivation last c-a
+  set is-moving-outside-for-reaching-current-activity? current-activity != location-of c-a
+  set current-activity location-of c-a
+  set current-motivation motive-of c-a
 end
 
 

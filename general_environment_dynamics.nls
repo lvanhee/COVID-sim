@@ -41,4 +41,3 @@ end
 to-report working-day?
   report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
 end
-

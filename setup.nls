@@ -1,26 +1,27 @@
 __includes ["scenarios.nls"]
 to setup
+  clear-all
   check-parameters
   load-preset-parameters
-  clear-all
   set-default-shape people "circle"
-  if debug?[  random-seed 47822 ]
+  if debug? or static-seed?[  random-seed 47822 ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
   set #dead-people 0
-
+  
+  show "dead1"
   setup-activities
+  show "dead2"
   create-all-people
-
+  
   setup-social-networks
-
   if with-infected? [infect-one-random-person]
-
+  
   update-display
-
+  
   ask links[hide-link]
-
+  
   set is-lockdown-active? false
   reset-ticks
 end
@@ -31,7 +32,7 @@ to check-parameters
   [
     error "probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1"
   ]
-
+  
   if probability-self-recovery-symptoms-old + probability-recorvery-if-treated-old + probability-unavoidable-death-old > 1
   [
     error "probability-self-recovery-symptoms-old + probability-recorvery-if-treated-old + probability-unavoidable-death-old > 1"
@@ -50,52 +51,52 @@ to setup-people-homes
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-retirees-in-multi-generational-homes homeless-people with [age = "retired"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-workers-in-adults-homes homeless-people with [age = "worker"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-workers-in-multi-generational-homes homeless-people with [age = "worker"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-workers-in-family-homes homeless-people with [age = "worker"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-students-in-adults-homes homeless-people with [age = "student"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-students-in-multi-generational-homes homeless-people with [age = "student"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-students-in-family-homes homeless-people with [age = "student"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-young-in-family-homes homeless-people with [age = "young"]
     [
       setup-person-home
     ]
-
+    
     ask n-of #min-young-in-multi-generational-homes homeless-people with [age = "young"]
     [
       setup-person-home
     ]
-
+    
     ask homeless-people
     [
       setup-person-home
@@ -105,7 +106,7 @@ end
 
 ;;it may that at some point we turn homes as a special breed of turtle that (bidirectionally) relates to a gathering point
 to setup-person-home
-
+  
   let h nobody
   if household-composition = "balanced-mix"
   [
@@ -115,7 +116,7 @@ to setup-person-home
   [
     let quota-of-homes-of-retired floor (#homes * #retired / #people )
     let quota-of-homes-for-non-retired floor (#homes - quota-of-homes-of-retired)
-
+    
     ifelse is-retired?
     [
       ifelse count houses-hosting-retired < quota-of-homes-of-retired
@@ -146,14 +147,14 @@ to setup-person-home
         [
           set h one-of empty-houses
         ]
-
+        
         set #min-retirees-in-retired-couple-homes #min-retirees-in-retired-couple-homes - 1
       ]
       [
         ifelse #min-retirees-in-multi-generational-homes > 0
         [
           set h one-of empty-houses
-
+          
           set #min-retirees-in-multi-generational-homes #min-retirees-in-multi-generational-homes - 1
         ]
         [
@@ -162,7 +163,7 @@ to setup-person-home
         ]
       ]
     ]
-
+    
     if age = "worker"
     [
       ifelse #min-workers-in-adults-homes > 0
@@ -174,21 +175,21 @@ to setup-person-home
         [
           set h one-of empty-houses
         ]
-
+        
         set #min-workers-in-adults-homes #min-workers-in-adults-homes - 1
       ]
       [
         ifelse #min-workers-in-multi-generational-homes > 0
         [
           set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-
+          
           set #min-workers-in-multi-generational-homes #min-workers-in-multi-generational-homes - 1
         ]
         [
           ifelse #min-workers-in-family-homes > 0
           [
             set h one-of empty-houses
-
+            
             set #min-workers-in-family-homes #min-workers-in-family-homes - 1
           ]
           [
@@ -198,7 +199,7 @@ to setup-person-home
         ]
       ]
     ]
-
+    
     if age = "student"
     [
       ifelse #min-students-in-adults-homes > 0
@@ -210,21 +211,21 @@ to setup-person-home
         [
           set h one-of empty-houses
         ]
-
+        
         set #min-students-in-adults-homes #min-students-in-adults-homes - 1
       ]
       [
         ifelse #min-students-in-multi-generational-homes > 0
         [
           set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
-
+          
           set #min-students-in-multi-generational-homes #min-students-in-multi-generational-homes - 1
         ]
         [
           ifelse #min-students-in-family-homes > 0
           [
             set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-
+            
             set #min-students-in-family-homes #min-students-in-family-homes - 1
           ]
           [
@@ -234,20 +235,20 @@ to setup-person-home
         ]
       ]
     ]
-
+    
     if age = "young"
     [
       ifelse #min-young-in-family-homes > 0
       [
         set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-
+        
         set #min-young-in-family-homes #min-young-in-family-homes - 1
       ]
       [
         ifelse #min-young-in-multi-generational-homes > 0
         [
           set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
-
+          
           set #min-young-in-multi-generational-homes #min-young-in-multi-generational-homes - 1
         ]
         [
@@ -257,9 +258,9 @@ to setup-person-home
       ]
     ]
   ]
-
+  
   if h = nobody [error (word "unimplemented for: " age " " self)]
-
+  
   create-gathering-link-to h
   [
     set commitment 1
@@ -270,21 +271,21 @@ end
 to create-all-people
   if original-distribution = "set-by-household-quotas"
   [
-    set household-composition "different-kinds"
-
+    if not (household-composition = "different-kinds") [error "wrong initialization of household composition"]
+    
     let #adults-homes floor (#homes * ratio-adults-homes)
     let #retired-couple-homes floor (#homes * ratio-retired-couple-homes)
     let #family-homes floor (#homes * ratio-family-homes)
     let #multi-generational-homes #homes - (#adults-homes + #retired-couple-homes + #family-homes)
-
+    
     let #min-people #adults-homes * 2 + #retired-couple-homes * 2 + #family-homes * 2 + #multi-generational-homes * 3
-
+    
     ;initializing local variables
     let #extra-retirees 0
     let #extra-young 0
     let #extra-students 0
     let #extra-workers 0
-
+    
     ifelse #min-people <= #total-population
     [
       set #min-workers-in-adults-homes (floor (#adults-homes / 2)) * 2 ;to ensure that adults-homes have either 2 workers or 2 students (not both)
@@ -297,9 +298,9 @@ to create-all-people
       set #min-students-in-multi-generational-homes floor (#multi-generational-homes / 2)
       set #min-young-in-multi-generational-homes #multi-generational-homes - #min-students-in-multi-generational-homes
       set #min-retirees-in-multi-generational-homes #multi-generational-homes
-
+      
       let #extra-people #total-population - #min-people
-
+      
       if #extra-people > 0
       [
         ;#extra-retirees
@@ -307,13 +308,13 @@ to create-all-people
         [
           set #extra-retirees floor (#extra-people * 1 / 10)
         ]
-
+        
         ;#extra-young
         if #family-homes + #multi-generational-homes > 0
         [
           set #extra-young floor (#extra-people * 3 / 10)
         ]
-
+        
         ;#extra-students and #extra-workers
         ifelse #adults-homes + #family-homes + #multi-generational-homes > 0
         [
@@ -328,19 +329,103 @@ to create-all-people
     [
       error word "#total-population should be at least " #min-people
     ]
-
+    
     set #young #min-young-in-family-homes + #min-young-in-multi-generational-homes + #extra-young
     set #students #min-students-in-adults-homes + #min-students-in-family-homes + #min-students-in-multi-generational-homes + #extra-students
     set #workers #min-workers-in-adults-homes + #min-workers-in-family-homes + #min-workers-in-multi-generational-homes + #extra-workers
     set #retired #min-retirees-in-retired-couple-homes + #min-retirees-in-multi-generational-homes + #extra-retirees
   ]
-
+  
   if original-distribution = "one-person-per-patch"
   [ask patches [sprout-people 1 [setup-person]]]
-  if original-distribution = "set-by-people-quotas"
-  [create-people #young + #students + #workers + #retired [setup-person]]
+  ;if original-distribution = "set-by-people-quotas"
+  ;[
+  create-people #young + #students + #workers + #retired [setup-person]
+  ;]
   setup-people-homes
-
-
+  
+  
   ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
+end
+
+to setup-activities
+  if activity-model = "public&private leisure, rest, age-based work"
+  [
+    create-gathering-points #schools [set gathering-type "school" set shape "triangle" set color orange set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
+    create-gathering-points #universities [set gathering-type "university" set shape "triangle 2" set color magenta + 2 set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
+    create-gathering-points #workplaces [set gathering-type "workplace" set shape "pentagon" set color sky + 3 set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
+    create-gathering-points #essential-shops [set gathering-type "essential-shop" set shape "cow" set color yellow set xcor 4 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "essential-shop"] / (#essential-shops + 1)]
+    create-gathering-points #non-essential-shops [set gathering-type "non-essential-shop" set shape "face happy" set color violet + 2 set xcor 5 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "non-essential-shop"] / (#non-essential-shops + 1)]
+    create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
+    create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
+    create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
+    create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
+    
+    ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200]
+    ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
+    
+    
+    setup-activity-animate-positions
+  ]
+  if migration?
+  [
+    create-gathering-points 1
+    [
+      set away-gathering-point self
+      set shape "airplane"
+    ]
+  ]
+  
+end
+
+to setup-activity-animate-positions
+  if animate? [
+    let endless-loop 0
+    let to-place gathering-points
+    let placed turtle-set nobody
+    while [any? to-place] [ show "forever"
+      let focal one-of to-place
+      let p-pxcor random-pxcor
+      let p-pycor random-pycor
+      ifelse count to-place > 10 [
+        let placing up-to-n-of 4 to-place with [gathering-type = [gathering-type] of focal]
+        
+        while [any? placed with [abs (p-pxcor - pxcor) <= 2  and abs (p-pycor - pycor) <= 2] or p-pxcor >= (max-pxcor - 1) or p-pxcor <= (min-pxcor + 1) or p-pycor >= (max-pycor - 1) or p-pycor <= (min-pycor + 1)] [
+          set endless-loop endless-loop + 1 
+          if endless-loop > 10000 [error "cannot find a spot!"]
+          set p-pxcor random-pxcor
+          set p-pycor random-pycor
+        ]
+        ;show p-pxcor
+        ;show p-pycor
+        (foreach (up-to-n-of (count placing) (sort (([neighbors] of (patch p-pxcor p-pycor)) with [not member? self [neighbors4] of patch p-pxcor p-pycor]))) (sort placing) [ [ p g ] -> ask g [ move-to p ] ])
+        set placed (turtle-set placed placing)
+      ] [
+        while [any? placed with [abs (p-pxcor - pxcor) <= 1 and abs (p-pycor - pycor) <= 1] or p-pxcor = max-pxcor or p-pxcor = min-pxcor or p-pycor = max-pycor or p-pycor = min-pycor] [
+          set p-pxcor random-pxcor
+          set p-pycor random-pycor
+        ]
+        ask focal [
+          setxy p-pxcor p-pycor
+        ]
+        set placed (turtle-set placed focal)
+      ]
+      set to-place to-place with [not member? self placed]
+      ;show to-place
+    ]
+    ;      ask gathering-points [
+    ;        let possible-xcor random-pxcor
+    ;        let possible-ycor random-pycor
+    ;        while [any? gathering-points-on patch possible-xcor possible-ycor] [
+    ;          set possible-xcor random-pxcor
+    ;          set possible-ycor random-pycor
+    ;        ]
+    ;        setxy possible-xcor possible-ycor
+    ;      ]
+  ]
+  
+  
 end

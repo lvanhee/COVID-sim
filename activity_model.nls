@@ -24,14 +24,30 @@ to execute-activity-effect
   [error "not implemented"]
 end
 
+to-report activity-descriptor [gp mo]
+  report (list gp mo)
+end
+
+to-report is-forced-to-be-here?
+  report is-forced-motive? current-motivation
+end
+
+to-report is-forced-motive? [m]
+  report m = "mandatory"
+end
+
 to update-resources-based-on-current-activity
+
   ;if is-at-home? [stop]
   
+  if is-forced-to-be-in-school? or is-learning? or is-getting-tested? or is-resting? or is-relaxing? 
+  or (is-at-home? and is-forced-to-be-here?) [stop]
+
+  let amount-earned 0
   if is-working?
   [
     let amount-earned 0
     let contribution-to-stock goods-produced-by-work-performed
-    
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
       set amount-earned 10
@@ -89,15 +105,7 @@ to update-resources-based-on-current-activity
     stop
   ]
   
-  if is-in-school? [stop]
-  
-  if is-learning? [stop]
-  
-  if is-getting-tested? [stop]
-  
-  if is-resting? [stop]
-  
-  if is-relaxing? [stop]
+
   
   if is-performing-essential-shopping?
   [
@@ -118,7 +126,7 @@ to update-resources-based-on-current-activity
     stop
   ]
   
-  if is-performing-shopping?
+  if is-performing-non-essential-shopping?
   [
     let amount-spent amount-of-rations-I-buy-when-going-to-shops * price-of-rations
     let stock-decrease amount-of-rations-I-buy-when-going-to-shops
@@ -136,7 +144,11 @@ to-report is-working-at-work?
 end
 
 to-report is-working?
-  report current-motivation = "contractual obligation"
+  report is-working-motive? current-motivation
+end
+
+to-report is-working-motive? [m]
+  report m = "contractual obligation"
 end
 
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
@@ -146,7 +158,10 @@ to perform-activity
   [
     select-activity
     
-    ask children with [current-person-I-depend-on != nobody][set current-activity [current-activity] of current-person-I-depend-on]
+    ask children with [
+      is-currently-in-sitation-of-active-dependence? and 
+      current-person-I-depend-on != nobody]
+    [set current-activity [current-activity] of current-person-I-depend-on]
     
     if not animate? [
       move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
@@ -183,7 +198,7 @@ to-report is-at-home?
   report  current-activity = my-home
 end
 
-to-report is-in-school?
+to-report is-forced-to-be-in-school?
   report [gathering-type] of current-activity = "school" and current-motivation = "mandatory"
 end
   
@@ -196,11 +211,35 @@ to-report is-getting-tested?
 end
 
 to-report is-performing-essential-shopping?
-  report current-motivation = "essential shopping"
+  report is-essential-shop-gathering-point? current-motivation
 end
 
+to-report is-essential-shop-gathering-point? [gp]
+  report gp = "essential shopping"
+end
+  
+
 to-report is-performing-shopping?
-  report current-motivation = "shopping"
+  report is-a-shopping-motivation? current-motivation
+end
+
+
+to-report is-performing-non-essential-shopping?
+  report is-a-non-essential-shopping-motivation? current-motivation and
+  is-a-non-essential-gathering-point? current-activity
+end
+
+to-report is-a-non-essential-gathering-point? [gp]
+  report [gathering-type] of gp = "non-essential-shop"
+end
+
+to-report is-a-non-essential-shopping-motivation? [m]
+  report  m = "shopping"
+end
+
+to-report is-a-shopping-motivation? [m]
+  report is-essential-shop-gathering-point? m or
+  is-a-non-essential-shopping-motivation? m
 end
 
 to-report amount-of-rations-I-buy-when-going-to-essential-shops
@@ -214,18 +253,42 @@ to-report amount-of-rations-I-buy-when-going-to-shops
   report 7
 end
 
+to-report motive-of [ad]
+  report item 1 ad
+end
+
+to-report location-of [ad]
+  report item 0 ad
+end
+
+to-report is-a-leisure-motivation? [motive]
+  report motive = "relaxing"
+end
+
+to-report is-home-gathering-point? [location]
+  report [gathering-type] of location = "home"
+end
+
 to-report can-be-done-with-a-dependable-person? [ad]
-  if [is-home?] of first ad
+  if 
+  is-home-gathering-point? location-of ad
+  or ([is-hospital?] of first ad and last ad = "get-tested")
+  or (is-a-shopping-motivation? last ad)
+  or (is-a-leisure-motivation? motive-of ad)
   [report true]
-  if [is-university?] of first ad
+    
+  if 
+  ([is-university? or is-hospital? or is-workplace? or is-shop? or is-school?] of location-of ad) 
+  and 
+    is-contractual-obligation? motive-of ad
   [report false]
-  if [is-hospital?] of first ad and last ad = "get-tested"
-  [report true]
-  if [is-hospital? or is-workplace? or is-shop? or is-school?] of first ad and last ad = "contractual obligation"
-  [report false]
+
   error (sentence "unimplemented" [gathering-type] of first ad last ad)
 end
 
+to-report  is-contractual-obligation? [m]
+  report m = "contractual obligation"
+end
 
 to perform-people-activities
   ask gathering-points [set current-profit 0]
@@ -243,22 +306,6 @@ to perform-people-activities
   ask people [
     execute-activity-effect
     update-needs-for-playing (list current-activity current-motivation)
-  ]
-  if animate? [
-    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
-    while [any? walkers] [
-      every 0.1 [
-        ask walkers [
-          face current-activity
-          while [not allowed-move?] [
-            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
-              [ right 10 ]
-              [ left 10 ]
-          ]
-          forward min (list 1 distance current-activity)
-        ]
-        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
-      ]
-    ]
-  ]
+  ]  
+  animate-walk-to-goal
 end

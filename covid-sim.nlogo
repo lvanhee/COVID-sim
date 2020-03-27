@@ -1,4 +1,4 @@
-__includes ["people_management.nls" "global_metrics.nls" "utils.nls" "setup.nls" "environment_dynamics.nls" "economy_model.nls" "animation.nls"]
+__includes ["people_management.nls" "global_metrics.nls" "utils.nls" "setup.nls" "environment_dynamics.nls" "animation.nls"]
 breed [people person]
 
 globals [
@@ -25,13 +25,13 @@ to go
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-81
-12
-518
-450
+99
+19
+506
+427
 -1
 -1
-13.0
+7.824
 1
 10
 1
@@ -42,9 +42,9 @@ GRAPHICS-WINDOW
 0
 1
 0
-32
+50
 0
-32
+50
 0
 0
 1
@@ -88,11 +88,11 @@ NIL
 CHOOSER
 550
 393
-721
+738
 438
 original-distribution
 original-distribution
-"one-person-per-patch" "set-by-quotas"
+"one-person-per-patch" "set-by-household-quotas" "set-by-people-quotas"
 1
 
 CHOOSER
@@ -372,7 +372,7 @@ INPUTBOX
 1247
 750
 #homes
-101.0
+100.0
 1
 0
 Number
@@ -403,7 +403,7 @@ INPUTBOX
 1315
 451
 #young
-28.0
+18.0
 1
 0
 Number
@@ -414,7 +414,7 @@ INPUTBOX
 1385
 451
 #students
-53.0
+64.0
 1
 0
 Number
@@ -425,7 +425,7 @@ INPUTBOX
 1446
 451
 #workers
-78.0
+82.0
 1
 0
 Number
@@ -436,7 +436,7 @@ INPUTBOX
 1504
 451
 #retired
-91.0
+56.0
 1
 0
 Number
@@ -820,7 +820,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -1302,7 +1302,7 @@ INPUTBOX
 2030
 362
 #total-population
-250.0
+220.0
 1
 0
 Number
@@ -1508,7 +1508,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.26
+0.23
 0.01
 1
 NIL
@@ -1626,7 +1626,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.3
+0.49
 0.01
 1
 NIL
@@ -1641,7 +1641,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.42
+0.27
 0.01
 1
 NIL
@@ -1671,7 +1671,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.02
+0.01
 0.01
 1
 NIL
@@ -1982,7 +1982,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "medirarrea" "scandinavia" "south-asia"
-1
+2
 
 SLIDER
 781

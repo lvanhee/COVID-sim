@@ -59,9 +59,9 @@ end
 ;Future work: 
 ;update these numbers based on how many people are actually met when moving
 ;include networks and joint meetings
-to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   let number [expected-number-of-other-participants] of gp
   let base 0
@@ -92,9 +92,9 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
   report base * network-bonus
 end
 
-to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   let number count people with [current-activity = gp]
   let base 0
@@ -125,9 +125,9 @@ to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing 
   report base * network-bonus
 end
 
-to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   if gp != my-home [
     let number [expected-number-of-other-participants] of gp
@@ -140,9 +140,9 @@ to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-p
   report 0.15
 end
 
-to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   let bonus-compliance-to-obligation 0
   if gp = my-home and is-lockdown-enforced?
@@ -198,8 +198,8 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
 end
 
 ; The agents expect to get food for seven days at a time
-to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let motive last activity-descriptor
+to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing [ad]
+  let motive last ad
   if motive = "essential shopping" [
     let available-food-days [available-food-rations] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food-rations]
     if available-food-days >= 14 [
@@ -210,9 +210,9 @@ to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-play
   report 0
 end
 
-to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   if motive = "rest" [
     if slice-of-the-day = "night" [
@@ -229,9 +229,9 @@ to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing
   report 0
 end
 
-to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   if motive = "shopping" [
     report 0.2
@@ -239,9 +239,9 @@ to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [
   report 0
 end
 
-to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   
   if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
@@ -270,19 +270,19 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
   report 0
 end
 
-to-report expected-undiscounted-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
+to-report expected-undiscounted-safety-needs-satisfaction-increase-for-playing [ad]
   report weighted-mean (list 
-    (expected-undiscounted-compliance-needs-satisfaction-increase-for-playing activity-descriptor) 
-    (expected-undiscounted-survival-needs-satisfaction-increase-for-playing activity-descriptor)
-    (expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing activity-descriptor)
+    (expected-undiscounted-compliance-needs-satisfaction-increase-for-playing ad) 
+    (expected-undiscounted-survival-needs-satisfaction-increase-for-playing ad)
+    (expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing ad)
   ) 
   (list my-importance-for-compliance-needs my-importance-for-survival-needs my-importance-for-risk-avoidance-needs)
 end
 
-to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
-  let eating-costs price-of-rations * count my-relatives * 7
+to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
+  let eating-costs price-of-rations * (1 + count my-relatives * 7)
 
   if is-I-have-contractual-obligations? [
     if gp = my-work [
@@ -299,9 +299,9 @@ to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-f
   report 0
 end
 
-to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [activity-descriptor]
-  let gp first activity-descriptor
-  let motive last activity-descriptor
+to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
   let eating-costs price-of-rations * count my-relatives * 7
 
   if is-I-have-contractual-obligations? and gp = my-work [
@@ -322,28 +322,28 @@ to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for
 end
 
 
-to-report global-prevalence-of [activity-descriptor]
+to-report global-prevalence-of [ad]
   let total-satisfaction
-  my-current-expected-prevalence-of-belonging-needs activity-descriptor
+  my-current-expected-prevalence-of-belonging-needs ad
   +
-  my-current-prevalence-of-safety-needs activity-descriptor
+  my-current-prevalence-of-safety-needs ad
   +
-  my-current-prevalence-of-self-esteem-needs activity-descriptor
+  my-current-prevalence-of-self-esteem-needs ad
   +
-  my-current-prevalence-of-autonomy-needs activity-descriptor
+  my-current-prevalence-of-autonomy-needs ad
   +
-  my-current-prevalence-of-survival-needs activity-descriptor
+  my-current-prevalence-of-survival-needs ad
   
   ;should be expanded with new needs as they are added
   
-  debug-file-print (sentence "Global prevalence of:" [gathering-type] of first activity-descriptor " " last activity-descriptor " " total-satisfaction)
+  debug-file-print (sentence "Global prevalence of:" [gathering-type] of first ad " " last activity-descriptor " " total-satisfaction)
   report total-satisfaction
 end
 
 ;simple direct linear translation; experience shows that sigmoid functions are good candidates
-to-report my-current-expected-prevalence-of-belonging-needs [activity-descriptor]
+to-report my-current-expected-prevalence-of-belonging-needs [ad]
   let result 
-  my-importance-for-belonging-needs * my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played activity-descriptor
+  my-importance-for-belonging-needs * my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played ad
   report result
 end
 
@@ -351,60 +351,60 @@ end
 
 ;simple direct linear translation; experience shows that sigmoid functions are good candidates
 ;likewise, it can be based on recen experience from the agent (e.g. being reminded by a high-status figure to comply to a given rule)
-to-report my-current-prevalence-of-safety-needs [activity-descriptor]
-  report my-importance-for-safety-needs * (my-expected-discounted-satisfaction-gain-for-safety-after-having-played activity-descriptor)
+to-report my-current-prevalence-of-safety-needs [ad]
+  report my-importance-for-safety-needs * (my-expected-discounted-satisfaction-gain-for-safety-after-having-played ad)
 end
 
-to-report my-current-prevalence-of-survival-needs [activity-descriptor]
-  report my-importance-for-survival-needs * (my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played activity-descriptor)
+to-report my-current-prevalence-of-survival-needs [ad]
+  report my-importance-for-survival-needs * (my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played ad)
 end
 
-to-report my-current-prevalence-of-self-esteem-needs [activity-descriptor]
-  report my-importance-for-self-esteem-needs * (my-expected-discounted-satisfaction-gain-for-self-esteem-after-having-played activity-descriptor)
+to-report my-current-prevalence-of-self-esteem-needs [ad]
+  report my-importance-for-self-esteem-needs * (my-expected-discounted-satisfaction-gain-for-self-esteem-after-having-played ad)
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played [ad]
+  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - survival-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-current-prevalence-of-relaxing-needs [activity-descriptor]
-  report my-importance-for-relaxing-needs * (my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played activity-descriptor)
+to-report my-current-prevalence-of-relaxing-needs [ad]
+  report my-importance-for-relaxing-needs * (my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played ad)
 end
 
-to-report my-current-prevalence-of-autonomy-needs [activity-descriptor]
-  report my-importance-for-autonomy-needs * (my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played activity-descriptor)
+to-report my-current-prevalence-of-autonomy-needs [ad]
+  report my-importance-for-autonomy-needs * (my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played ad)
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-self-esteem-after-having-played [activity-descriptor]
-  let needs (list my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played activity-descriptor)
+to-report my-expected-discounted-satisfaction-gain-for-self-esteem-after-having-played [ad]
+  let needs (list my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played ad)
   let importances (list my-importance-for-relaxing-needs)
   if age != "young" [
-    set needs fput (my-expected-discounted-satisfaction-gain-for-luxury-after-having-played activity-descriptor) needs
+    set needs fput (my-expected-discounted-satisfaction-gain-for-luxury-after-having-played ad) needs
     set importances fput my-importance-for-luxury-needs importances
   ]
   report weighted-mean needs importances
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-safety-after-having-played [activity-descriptor]
+to-report my-expected-discounted-satisfaction-gain-for-safety-after-having-played [ad]
   ; Using min here the value is always zero (food can only go up when they go to the store, but that lowers compliance/risk avoidance). 
   ; The actual solution is to fully recalculate what safety would be after doing the action based on the satisfaction-gains calculated, 
   ;  pick the lowest one, and take the difference between that and current satisfaction
-  let physiological-needs (list my-expected-discounted-satisfaction-gain-for-food-safety-after-having-played activity-descriptor)
+  let physiological-needs (list my-expected-discounted-satisfaction-gain-for-food-safety-after-having-played ad)
   let importances-physiological-needs (list my-importance-for-food-safety-needs)
   
   let psychological-needs (list 
-    (my-expected-discounted-satisfaction-gain-for-compliance-after-having-played activity-descriptor) 
-    (my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played activity-descriptor)
+    (my-expected-discounted-satisfaction-gain-for-compliance-after-having-played ad) 
+    (my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played ad)
   )
   let importances-psychological-needs (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs)
   
   if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
-    set physiological-needs fput (my-expected-discounted-satisfaction-gain-for-financial-survival-after-having-played activity-descriptor) physiological-needs
+    set physiological-needs fput (my-expected-discounted-satisfaction-gain-for-financial-survival-after-having-played ad) physiological-needs
     set importances-physiological-needs fput my-importance-for-financial-survival-needs importances-physiological-needs
     
-    set psychological-needs fput (my-expected-discounted-satisfaction-gain-for-financial-safety-after-having-played activity-descriptor) psychological-needs
+    set psychological-needs fput (my-expected-discounted-satisfaction-gain-for-financial-safety-after-having-played ad) psychological-needs
     set importances-psychological-needs fput my-importance-for-financial-safety-needs importances-psychological-needs
   ]
   
@@ -419,69 +419,69 @@ to-report my-expected-discounted-satisfaction-gain-for-safety-after-having-playe
 ;  report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-compliance-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-compliance-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-compliance-after-having-played [ad]
+  let expected-increase expected-undiscounted-compliance-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - compliance-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played [ad]
+  let expected-increase expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - risk-avoidance-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-survival-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-survival-after-having-played [ad]
+  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - survival-need-satisfaction)
   report discounted-increase
 end
 
-to-report  my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing activity-descriptor
+to-report  my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played [ad]
+  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
   report discounted-increase
 end
 
-to-report  my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing activity-descriptor
+to-report  my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played [ad]
+  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played [ad]
+  let expected-increase expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - relaxing-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-luxury-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-luxury-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-luxury-after-having-played [ad]
+  let expected-increase expected-undiscounted-luxury-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - luxury-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played [ad]
+  let expected-increase expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase
   if expected-increase > 0 [ set discounted-increase expected-increase * (1 - autonomy-need-satisfaction) ]
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-food-safety-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-food-safety-after-having-played [ad]
+  let expected-increase expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - food-safety-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-financial-survival-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-financial-survival-after-having-played [ad]
+  let expected-increase expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - financial-survival-need-satisfaction)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-financial-safety-after-having-played [activity-descriptor]
-  let expected-increase expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing activity-descriptor
+to-report my-expected-discounted-satisfaction-gain-for-financial-safety-after-having-played [ad]
+  let expected-increase expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - financial-safety-need-satisfaction)
   report discounted-increase
 end
