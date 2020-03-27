@@ -302,18 +302,18 @@ to setup-person
   set autonomy-need-satisfaction 0.95
   ;set financial-safety-need-satisfaction 1
   ;the importance levels for each community need should add up to 1
-  set my-importance-for-belonging-needs clamp 0 1 random-normal ratio-safety-belonging needs-std-dev
+  set my-importance-for-belonging-needs clamp 0.01 1 random-normal ratio-safety-belonging needs-std-dev
   set my-importance-for-safety-needs 1 - my-importance-for-belonging-needs
-  set my-importance-for-self-esteem-needs clamp 0 1 random-normal importance-self-esteem needs-std-dev
-  set my-importance-for-compliance-needs clamp 0 1 random-normal importance-compliance needs-std-dev
-  set my-importance-for-survival-needs clamp 0 1 random-normal importance-survival needs-std-dev
-  set my-importance-for-relaxing-needs clamp 0 1 random-normal importance-leisure needs-std-dev
-  set my-importance-for-luxury-needs clamp 0 1 random-normal importance-luxury needs-std-dev
-  set my-importance-for-risk-avoidance-needs clamp 0 1 random-normal importance-risk-avoidance needs-std-dev
-  set my-importance-for-autonomy-needs clamp 0 1 random-normal importance-autonomy needs-std-dev
+  set my-importance-for-self-esteem-needs clamp 0.01 1 random-normal importance-self-esteem needs-std-dev
+  set my-importance-for-compliance-needs clamp 0.01 1 random-normal importance-compliance needs-std-dev
+  set my-importance-for-survival-needs clamp 0.01 1 random-normal importance-survival needs-std-dev
+  set my-importance-for-relaxing-needs clamp 0.01 1 random-normal importance-leisure needs-std-dev
+  set my-importance-for-luxury-needs clamp 0.01 1 random-normal importance-luxury needs-std-dev
+  set my-importance-for-risk-avoidance-needs clamp 0.01 1 random-normal importance-risk-avoidance needs-std-dev
+  set my-importance-for-autonomy-needs clamp 0.01 1 random-normal importance-autonomy needs-std-dev
   set my-importance-for-food-safety-needs 1
   set my-importance-for-financial-survival-needs 1
-  set my-importance-for-financial-safety-needs clamp 0 1 random-normal 1 needs-std-dev
+  set my-importance-for-financial-safety-needs clamp 0.01 1 random-normal 1 needs-std-dev
 end
 
 to update-people-epistemic-status

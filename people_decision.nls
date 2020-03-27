@@ -48,7 +48,7 @@ to-report my-available-activity-descriptors
       ]
   ]
   
-  if slice-of-the-day = "evening" or not working-day?
+  if slice-of-the-day = "evening" or not working-day? or age = "retired"
   [
     if age != "young" [
       set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities

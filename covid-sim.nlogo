@@ -23,7 +23,6 @@ to go
   update-time
   apply-active-measures
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 81
@@ -360,7 +359,7 @@ Number
 TEXTBOX
 734
 623
-1202
+1215
 678
 Proxemics is represented as \"meeting spaces\" people can move into and be infected or spread infection.\nAs simplifications: each person relates to a fix set of spaces over time (same school, bus, bar) and gets in contact with everyone sharing this space; no contamination due to left germs.\nDensity factors model the relative proximity between individuals within an activity type
 9
@@ -404,7 +403,7 @@ INPUTBOX
 1315
 451
 #young
-17.0
+28.0
 1
 0
 Number
@@ -415,7 +414,7 @@ INPUTBOX
 1385
 451
 #students
-65.0
+53.0
 1
 0
 Number
@@ -426,7 +425,7 @@ INPUTBOX
 1446
 451
 #workers
-81.0
+78.0
 1
 0
 Number
@@ -437,7 +436,7 @@ INPUTBOX
 1504
 451
 #retired
-57.0
+91.0
 1
 0
 Number
@@ -528,7 +527,7 @@ density-factor-public-leisure
 density-factor-public-leisure
 0
 1
-0.5
+0.51
 0.01
 1
 NIL
@@ -543,7 +542,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.2
+0.21
 0.01
 1
 NIL
@@ -760,7 +759,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.11
+0.13
 0.01
 1
 NIL
@@ -820,7 +819,7 @@ SWITCH
 57
 animate?
 animate?
-0
+1
 1
 -1000
 
@@ -862,7 +861,7 @@ BUTTON
 77
 346
 1 Week Run
-setup\nrepeat 21 [go]
+setup\ngo\nwhile [day-of-the-week != \"monday\" or slice-of-the-day != \"morning\"] [go]
 NIL
 1
 T
@@ -1302,7 +1301,7 @@ INPUTBOX
 2030
 362
 #total-population
-220.0
+250.0
 1
 0
 Number
@@ -1462,7 +1461,7 @@ SWITCH
 94
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1508,7 +1507,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.23
+0.26
 0.01
 1
 NIL
@@ -1626,7 +1625,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.49
+0.3
 0.01
 1
 NIL
@@ -1641,7 +1640,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.27
+0.42
 0.01
 1
 NIL
@@ -1671,7 +1670,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.02
 0.01
 1
 NIL
@@ -1788,7 +1787,7 @@ ratio-amount-spent-by-essential-shops-on-supplies
 ratio-amount-spent-by-essential-shops-on-supplies
 0
 1
-0.8
+0.79
 0.01
 1
 NIL
@@ -1828,7 +1827,7 @@ ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
 1
-0.5
+0.21
 0.01
 1
 NIL
@@ -1843,7 +1842,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.19
+0.4
 0.01
 1
 NIL
@@ -1858,7 +1857,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.5
+0.6
 0.01
 1
 NIL
@@ -1873,7 +1872,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.4
+0.43
 0.01
 1
 NIL
@@ -1908,7 +1907,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.2
+0.15
 0.01
 1
 NIL
@@ -1923,7 +1922,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.1
+0.15
 0.01
 1
 NIL
@@ -1938,7 +1937,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.33
+0.39
 0.01
 1
 NIL
@@ -1953,7 +1952,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.37
+0.3
 0.01
 1
 NIL
@@ -1982,7 +1981,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "medirarrea" "scandinavia" "south-asia"
-0
+1
 
 SLIDER
 781
@@ -2090,7 +2089,7 @@ importance-self-esteem
 importance-self-esteem
 0
 1
-0.6
+0.4
 0.01
 1
 NIL
