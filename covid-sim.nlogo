@@ -604,6 +604,7 @@ PENS
 "watched-kids" 1.0 0 -955883 true "" "plot count children with [is-currently-watched-by-an-adult?] / count children"
 "workersWorking@work" 1.0 0 -6459832 true "" "plot count workers with [is-working-at-work?] / count workers"
 "working@home" 1.0 0 -1184463 true "" "plot count workers with [is-working-at-home?] / count workers"
+"kids@home" 1.0 0 -10899396 true "" "plot count children with [is-at-home?] / count children"
 
 MONITOR
 533
