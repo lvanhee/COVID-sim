@@ -1,6 +1,8 @@
 breed [gathering-points gathering-point]
 gathering-points-own [gathering-type
   available-food-rations ; rations of food that are available, this will be most useful for homes
+  
+  amount-of-resources
 ]
 
 ;the head of the link are people and the tail are gathering points
@@ -21,6 +23,13 @@ to setup-activities
     create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
     create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
     create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
+    
+    ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
+    
     if animate? [
       let to-place gathering-points
       let placed turtle-set nobody
@@ -157,6 +166,9 @@ to-report my-university
   report one-of gathering-link-neighbors with [gathering-type = "university"]
 end
 
+to-report my-hospital
+  report one-of gathering-link-neighbors with [gathering-type = "hospital"]
+end
 
 to-report my-school
   report one-of gathering-link-neighbors with [gathering-type = "school"]
@@ -257,4 +269,28 @@ end
 
 to-report schools
   report gathering-points with [gathering-type = "school"]
+end
+
+to-report gathering-points-total-amount-of-resources
+  report sum [amount-of-resources] of gathering-points
+end
+
+to-report essential-shop-amount-of-resources
+  report sum [amount-of-resources] of gathering-points with [gathering-type = "essential-shop"]
+end
+
+to-report non-essential-shop-amount-of-resources
+  report sum [amount-of-resources] of gathering-points with [gathering-type = "non-essential-shop"]
+end
+
+to-report university-amount-of-resources
+  report sum [amount-of-resources] of gathering-points with [gathering-type = "university"]
+end
+
+to-report hospital-amount-of-resources
+  report sum [amount-of-resources] of gathering-points with [gathering-type = "hospital"]
+end
+
+to-report workplace-amount-of-resources
+  report sum [amount-of-resources] of gathering-points with [gathering-type = "workplace"]
 end
