@@ -26,7 +26,7 @@ to setup-activities
     create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
     
     ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
-    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 100]
+    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200]
     ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
     ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
     ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
