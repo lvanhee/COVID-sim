@@ -13,6 +13,7 @@ globals [
 
 to setup
   check-parameters
+  preset-parameters
   clear-all
   set-default-shape people "circle"
   if debug?[  random-seed 47822 ]
@@ -36,6 +37,31 @@ to setup
   reset-ticks
 end
 
+to preset-parameters		
+  if preset-profiles = "none"[stop]		
+  if preset-profiles = "medirarrea"[		
+    set ratio-adults-homes 0.3		
+    set ratio-retired-couple-homes 0.42		
+    set ratio-family-homes 0.26		
+    set ratio-multi-generational-homes 0.02		
+    set #total-population 250		
+  ]		
+  if preset-profiles = "scandinavia" [		
+    set ratio-adults-homes 0.49		
+    set ratio-retired-couple-homes 0.27		
+    set ratio-family-homes 0.23		
+    set ratio-multi-generational-homes 0.01		
+    set #total-population 220		
+  ]		
+  if preset-profiles = "south-asia" [		
+  set ratio-adults-homes 0.15		
+    set ratio-retired-couple-homes 0.22		
+    set ratio-family-homes 0.51		
+    set ratio-multi-generational-homes 0.12		
+    set #total-population 310		
+  ]		
+end
+
 to check-parameters
   if probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1
   [
@@ -56,7 +82,6 @@ to infect-one-random-person
 end
 
 to go
-
   tick
   spread-contagion
   update-within-agent-disease-status
@@ -66,6 +91,7 @@ to go
   perform-government-actions
   update-display
   update-time
+  apply-active-measures
 end
 
 to update-time
@@ -393,7 +419,7 @@ CHOOSER
 age-model
 age-model
 "none" "young-old" "young,student,worker,retired"
-2
+0
 
 SLIDER
 533
@@ -996,10 +1022,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-831
-300
-1039
-333
+729
+353
+937
+386
 probability-hospital-personel
 probability-hospital-personel
 0
@@ -1011,10 +1037,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-831
-335
-1039
-368
+729
+388
+937
+421
 probability-school-personel
 probability-school-personel
 0
@@ -1026,10 +1052,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-831
-370
-1039
-403
+729
+423
+937
+456
 probability-university-personel
 probability-university-personel
 0
@@ -1041,10 +1067,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-832
-407
-1041
-440
+730
+460
+939
+493
 probability-shopkeeper
 probability-shopkeeper
 0
@@ -1568,7 +1594,7 @@ density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.05
+0.06
 0.01
 1
 NIL
@@ -1820,7 +1846,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.3
+0.31
 0.01
 1
 NIL
@@ -2139,7 +2165,7 @@ HORIZONTAL
 TEXTBOX
 529
 1197
-706
+727
 1225
 Taxes charged by the government
 11
@@ -2149,7 +2175,7 @@ Taxes charged by the government
 TEXTBOX
 764
 1197
-941
+963
 1225
 Distribution of government subsidy
 11
@@ -2230,6 +2256,63 @@ ratio-young-subsidy
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+892
+517
+1030
+562
+preset-profiles
+preset-profiles
+"none" "medirarrea" "scandinavia" "south-asia"
+0
+
+SLIDER
+781
+241
+1086
+274
+ratio-population-randomly-tested-daily
+ratio-population-randomly-tested-daily
+0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+SWITCH
+781
+312
+1074
+345
+test-workplace-of-confirmed-people?
+test-workplace-of-confirmed-people?
+0
+1
+-1000
+
+SWITCH
+781
+277
+1046
+310
+test-home-of-confirmed-people?
+test-home-of-confirmed-people?
+0
+1
+-1000
+
+TEXTBOX
+782
+225
+932
+243
+Testing
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -543,6 +543,9 @@ to setup-people-homes
   ]
 end
 
+to-report has-a-work?		
+   report any? my-gathering-links with  [member? "contractual obligation" features]		
+ end
 
 to-report homeless-people
   report people with [not any? out-link-neighbors with [gathering-type = "home"]]
