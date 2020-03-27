@@ -88,6 +88,9 @@ people-own [
   my-importance-for-survival-needs ; survival-need-satisfaction is a reporter
   risk-avoidance-need-satisfaction
   my-importance-for-risk-avoidance-needs
+  
+  my-amount-of-resources
+  my-current-income
 ]
 
 
@@ -258,6 +261,8 @@ end
 
 
 to setup-person
+  set my-amount-of-resources 30
+  
   setup-person-age
 
   setup-disease-profile
@@ -538,10 +543,6 @@ to setup-people-homes
   ]
 end
 
-to-report has-a-work?
-  report any? my-gathering-links with  [member? "contractual obligation" features]
-end
-
 
 to-report homeless-people
   report people with [not any? out-link-neighbors with [gathering-type = "home"]]
@@ -553,3 +554,23 @@ end
 to-report is-young?
   report age = "young"
 end 
+
+to-report total-amount-of-resources
+  report sum [my-amount-of-resources] of people
+end
+
+to-report retirees-average-amount-of-resources
+  report (sum [my-amount-of-resources] of people with [age = "retired"]) / (count people with [age = "retired"])
+end
+
+to-report workers-average-amount-of-resources
+  report (sum [my-amount-of-resources] of people with [age = "worker"]) / (count people with [age = "worker"])
+end
+
+to-report students-average-amount-of-resources
+  report (sum [my-amount-of-resources] of people with [age = "student"]) / (count people with [age = "student"])
+end
+
+to-report young-average-amount-of-resources
+  report (sum [my-amount-of-resources] of people with [age = "young"]) / (count people with [age = "young"])
+end

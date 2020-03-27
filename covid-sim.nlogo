@@ -13,7 +13,6 @@ globals [
 
 to setup
   check-parameters
-  preset-parameters
   clear-all
   set-default-shape people "circle"
   if debug?[  random-seed 47822 ]
@@ -37,31 +36,6 @@ to setup
   reset-ticks
 end
 
-to preset-parameters
-  if preset-profiles = "none"[stop]
-  if preset-profiles = "medirarrea"[
-    set ratio-adults-homes 0.3
-    set ratio-retired-couple-homes 0.42
-    set ratio-family-homes 0.26
-    set ratio-multi-generational-homes 0.02
-    set #total-population 250
-  ]
-  if preset-profiles = "scandinavia" [
-    set ratio-adults-homes 0.49
-    set ratio-retired-couple-homes 0.27
-    set ratio-family-homes 0.23
-    set ratio-multi-generational-homes 0.01
-    set #total-population 220
-  ]
-  if preset-profiles = "south-asia" [
-  set ratio-adults-homes 0.15
-    set ratio-retired-couple-homes 0.22
-    set ratio-family-homes 0.51
-    set ratio-multi-generational-homes 0.12
-    set #total-population 310
-  ]
-end
-
 to check-parameters
   if probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1
   [
@@ -82,14 +56,16 @@ to infect-one-random-person
 end
 
 to go
+
   tick
   spread-contagion
   update-within-agent-disease-status
   update-people-epistemic-status
   perform-people-activities
+  perform-trades-between-gathering-points
+  perform-government-actions
   update-display
   update-time
-  apply-active-measures
 end
 
 to update-time
@@ -143,7 +119,159 @@ to update-within-agent-disease-status
   ask people [update-within-disease-status]
 end
 
+to perform-people-activities
+  ask gathering-points [set current-profit 0]
+  ask people [set my-current-income 0]
 
+  ask people [
+    perform-activity
+  ]
+  ask people [
+    execute-activity-effect
+    update-needs-for-playing (list current-activity current-motivation)
+  ]
+  if animate? [
+    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+    while [any? walkers] [
+      every 0.1 [
+        ask walkers [
+          face current-activity
+          while [not allowed-move?] [
+            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
+              [ right 10 ]
+              [ left 10 ]
+          ]
+          forward min (list 1 distance current-activity)
+        ]
+        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+      ]
+    ]
+  ]
+end
+
+to perform-trades-between-gathering-points
+  let transfer-amount-from-shops-to-workplaces 0
+
+  ask gathering-points with [gathering-type = "essential-shop"]
+  [
+    if current-profit > 0
+    [
+      let amount-charged current-profit * ratio-amount-spent-by-essential-shops-on-supplies
+      set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
+      set amount-of-resources amount-of-resources - amount-charged
+      set current-profit current-profit - amount-charged
+    ]
+  ]
+
+  ask gathering-points with [gathering-type = "non-essential-shop"]
+  [
+    if current-profit > 0
+    [
+      let amount-charged current-profit * ratio-amount-spent-by-non-essential-shops-on-supplies
+      set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
+      set amount-of-resources amount-of-resources - amount-charged
+      set current-profit current-profit - amount-charged
+    ]
+  ]
+
+  let n-of-workplaces count gathering-points with [gathering-type = "workplace"]
+  ask gathering-points with [gathering-type = "workplace"]
+  [
+    set amount-of-resources amount-of-resources + transfer-amount-from-shops-to-workplaces / n-of-workplaces
+    set current-profit current-profit + transfer-amount-from-shops-to-workplaces / n-of-workplaces
+  ]
+end
+
+to perform-government-actions
+  ;collect taxes
+  let taxes-collected 0
+
+  ask gathering-points with [gathering-type = "essential-shop"]
+  [
+    if current-profit > 0
+    [
+      let tax-amount current-profit * ratio-tax-on-essential-shops
+      set taxes-collected taxes-collected + tax-amount
+      set amount-of-resources amount-of-resources - tax-amount
+      set current-profit current-profit - tax-amount
+    ]
+  ]
+
+  ask gathering-points with [gathering-type = "non-essential-shop"]
+  [
+    if current-profit > 0
+    [
+      let tax-amount current-profit * ratio-tax-on-non-essential-shops
+      set taxes-collected taxes-collected + tax-amount
+      set amount-of-resources amount-of-resources - tax-amount
+      set current-profit current-profit - tax-amount
+    ]
+  ]
+
+  ask gathering-points with [gathering-type = "workplace"]
+  [
+    if current-profit > 0
+    [
+      let tax-amount current-profit * ratio-tax-on-workplaces
+      set taxes-collected taxes-collected + tax-amount
+      set amount-of-resources amount-of-resources - tax-amount
+      set current-profit current-profit - tax-amount
+    ]
+  ]
+
+  ask people with [age = "worker"]
+  [
+    if my-current-income > 0
+    [
+      let tax-amount my-current-income * ratio-tax-on-workers
+      set taxes-collected taxes-collected + tax-amount
+      set my-amount-of-resources my-amount-of-resources - tax-amount
+      set my-current-income my-current-income - tax-amount
+    ]
+  ]
+
+  ;redistribution
+  let hospital-subsidy taxes-collected * ratio-hospital-subsidy
+  let university-subsidy taxes-collected * ratio-university-subsidy
+  let retirees-subsidy taxes-collected * ratio-retirees-subsidy
+  let students-subsidy taxes-collected * ratio-students-subsidy
+  let young-subsidy taxes-collected * ratio-young-subsidy
+
+  let n-of-hospitals count gathering-points with [gathering-type = "hospital"]
+  ask gathering-points with [gathering-type = "hospital"]
+  [
+    set amount-of-resources amount-of-resources + hospital-subsidy / n-of-hospitals
+    set current-profit current-profit + hospital-subsidy / n-of-hospitals
+  ]
+
+  let n-of-universities count gathering-points with [gathering-type = "university"]
+  ask gathering-points with [gathering-type = "university"]
+  [
+    set amount-of-resources amount-of-resources + university-subsidy / n-of-universities
+    set current-profit current-profit + university-subsidy / n-of-universities
+  ]
+
+  let n-of-retirees count people with [age = "retired"]
+  ask people with [age = "retired"]
+  [
+    set my-amount-of-resources my-amount-of-resources + retirees-subsidy / n-of-retirees
+    set my-current-income my-current-income + retirees-subsidy / n-of-retirees
+  ]
+
+  let n-of-students count people with [age = "student"]
+  ask people with [age = "student"]
+  [
+    set my-amount-of-resources my-amount-of-resources + students-subsidy / n-of-students
+    set my-current-income my-current-income + students-subsidy / n-of-students
+  ]
+
+  let n-of-young count people with [age = "young"]
+  ask people with [age = "young"]
+  [
+    set my-amount-of-resources my-amount-of-resources + young-subsidy / n-of-young
+    set my-current-income my-current-income + young-subsidy / n-of-young
+  ]
+end
 
 to-report allowed-move?
   report can-move? 1 and (not any? gathering-points-on patch-ahead 1 or member? current-activity gathering-points-on patch-ahead 1)
@@ -180,6 +308,10 @@ file-close
     ]
   file-print "]}"
 file-close
+end
+
+to-report total-amount-of-resources-available-in-the-system
+  report sum [my-amount-of-resources] of people + sum [amount-of-resources] of gathering-points
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -561,7 +693,7 @@ INPUTBOX
 1315
 451
 #young
-61.0
+47.0
 1
 0
 Number
@@ -572,7 +704,7 @@ INPUTBOX
 1385
 451
 #students
-66.0
+65.0
 1
 0
 Number
@@ -583,7 +715,7 @@ INPUTBOX
 1446
 451
 #workers
-117.0
+105.0
 1
 0
 Number
@@ -594,7 +726,7 @@ INPUTBOX
 1504
 451
 #retired
-66.0
+83.0
 1
 0
 Number
@@ -757,7 +889,7 @@ true
 true
 "" ""
 PENS
-"lockdown?" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
+"lockdown" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
 "@home" 1.0 0 -7500403 true "" "plot count people with [is-at-home?] / count people"
 "watched-kids" 1.0 0 -955883 true "" "plot count children with [is-currently-watched-by-an-adult?] / count children"
 "workersWorking@work" 1.0 0 -6459832 true "" "plot count workers with [is-working-at-work?] / count workers"
@@ -812,10 +944,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1399
-759
-1491
-792
+1400
+758
+1492
+791
 density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
@@ -925,9 +1057,9 @@ HORIZONTAL
 
 SWITCH
 1318
-914
+913
 1480
-947
+946
 closed-workplaces?
 closed-workplaces?
 1
@@ -1019,7 +1151,7 @@ BUTTON
 77
 346
 1 Week Run
-setup\nrepeat 28 [go]
+setup\nrepeat 21 [go]
 NIL
 1
 T
@@ -1459,7 +1591,7 @@ INPUTBOX
 2030
 362
 #total-population
-310.0
+300.0
 1
 0
 Number
@@ -1617,7 +1749,7 @@ SWITCH
 94
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1644,10 +1776,10 @@ closed-schools?
 11
 
 SWITCH
-1225
-1010
-1530
-1043
+1226
+1009
+1531
+1042
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1663,7 +1795,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.51
+0.25
 0.01
 1
 NIL
@@ -1736,15 +1868,15 @@ Non-essential workplaces
 1
 
 SLIDER
-1504
-938
-1644
-971
+1505
+937
+1645
+970
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.09
+0.1
 0.01
 1
 NIL
@@ -1781,7 +1913,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.15
+0.25
 0.01
 1
 NIL
@@ -1796,7 +1928,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.22
+0.25
 0.01
 1
 NIL
@@ -1811,7 +1943,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.12
+0.25
 0.01
 1
 NIL
@@ -1843,62 +1975,261 @@ factor-reduction-probability-transmission-young
 NIL
 HORIZONTAL
 
-CHOOSER
-1322
-482
-1460
-527
-preset-profiles
-preset-profiles
-"none" "medirarrea" "scandinavia" "south-asia"
-3
+PLOT
+8
+1095
+520
+1245
+Average amount of resources per people age
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"retired" 1.0 0 -16777216 true "" "plot retirees-average-amount-of-resources"
+"worker" 1.0 0 -13345367 true "" "plot workers-average-amount-of-resources"
+"student" 1.0 0 -955883 true "" "plot students-average-amount-of-resources"
+"young" 1.0 0 -13840069 true "" "plot young-average-amount-of-resources"
+
+PLOT
+8
+1249
+520
+1399
+Amount of resources per gathering point
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"essential-shop" 1.0 0 -16777216 true "" "plot essential-shop-amount-of-resources"
+"non-essential-shop" 1.0 0 -13345367 true "" "plot non-essential-shop-amount-of-resources"
+"university" 1.0 0 -955883 true "" "plot university-amount-of-resources"
+"hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-resources"
+"workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-resources"
+
+PLOT
+976
+1215
+1394
+1365
+Total amount of resources available in the system
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
 
 SLIDER
-1250
-1084
-1412
-1119
-ratio-population-randomly-tested-daily
-ratio-population-randomly-tested-daily
+526
+1114
+862
+1147
+ratio-amount-spent-by-essential-shops-on-supplies
+ratio-amount-spent-by-essential-shops-on-supplies
 0
 1
-0.0
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+526
+1151
+863
+1184
+ratio-amount-spent-by-non-essential-shops-on-supplies
+ratio-amount-spent-by-non-essential-shops-on-supplies
+0
+1
+0.2
 0.01
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-1207
-1084
-1246
-1108
-Testing
+528
+1095
+712
+1123
+Shops get supplies from workplaces
 11
 0.0
 1
 
-SWITCH
-1420
-1085
-1653
-1119
-test-home-of-confirmed-people?
-test-home-of-confirmed-people?
+SLIDER
+527
+1215
+738
+1248
+ratio-tax-on-essential-shops
+ratio-tax-on-essential-shops
 0
 1
--1000
+0.5
+0.01
+1
+NIL
+HORIZONTAL
 
-SWITCH
-1418
-1122
-1676
-1156
-test-workplace-of-confirmed-people?
-test-workplace-of-confirmed-people?
+SLIDER
+527
+1253
+739
+1286
+ratio-tax-on-non-essential-shops
+ratio-tax-on-non-essential-shops
 0
 1
--1000
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+527
+1291
+739
+1324
+ratio-tax-on-workplaces
+ratio-tax-on-workplaces
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+527
+1329
+739
+1362
+ratio-tax-on-workers
+ratio-tax-on-workers
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+529
+1197
+706
+1225
+Taxes charged by the government
+11
+0.0
+1
+
+TEXTBOX
+764
+1197
+941
+1225
+Distribution of government subsidy
+11
+0.0
+1
+
+SLIDER
+763
+1215
+936
+1248
+ratio-hospital-subsidy
+ratio-hospital-subsidy
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+763
+1253
+936
+1286
+ratio-university-subsidy
+ratio-university-subsidy
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+763
+1291
+936
+1324
+ratio-retirees-subsidy
+ratio-retirees-subsidy
+0
+1
+0.3
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+764
+1329
+936
+1362
+ratio-students-subsidy
+ratio-students-subsidy
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+764
+1367
+936
+1400
+ratio-young-subsidy
+ratio-young-subsidy
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

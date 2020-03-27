@@ -1,40 +1,13 @@
-to perform-people-activities
-  ask people [
-    perform-activity
-  ]
-  ask people [
-    execute-activity-effect
-    update-needs-for-playing (list current-activity current-motivation)
-  ]
-  animate-people-activity
-  
-end
-
-to animate-people-activity
-  if animate? [
-    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
-    while [any? walkers] [
-      every 0.1 [
-        ask walkers [
-          face current-activity
-          while [not allowed-move?] [
-            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
-              [ right 10 ]
-            [ left 10 ]
-          ]
-          forward min (list 1 distance current-activity)
-        ]
-        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
-      ]
-    ]
-  ]
-end
-
 to execute-activity-effect
   ifelse activity-model = "public&private leisure, rest, age-based work"
   [
     if [gathering-type] of current-activity = "essential-shop"
-    [ ask my-home [set available-food-rations available-food-rations + 7 * count gatherers ] ]
+    [
+      let amount-of-rations-to-add amount-of-rations-I-buy-when-going-to-essential-shops
+      ask my-home [set available-food-rations available-food-rations + amount-of-rations-to-add ]
+    ]
+    
+    update-resource-based-on-current-activity
     ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
     ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
     
@@ -55,6 +28,94 @@ to execute-activity-effect
     if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
   ]
   [error "not implemented"]
+end
+
+to update-resource-based-on-current-activity
+  ;if is-at-home? [stop]
+  
+  if is-working?
+  [
+    let amount-earned 0
+    
+    set my-amount-of-resources my-amount-of-resources + amount-earned
+    
+    ifelse [gathering-type] of current-activity = "essential-shop"
+    [
+      set amount-earned 10
+      ask my-essential-shop [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+    ]
+    [
+      ifelse [gathering-type] of current-activity = "non-essential-shop"
+      [
+        set amount-earned 10
+        ask my-non-essential-shop [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+      ]
+      [
+        ifelse [gathering-type] of current-activity = "home"
+        [
+          set amount-earned 10
+          ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+        ]
+        [
+          ifelse [gathering-type] of current-activity = "university"
+          [
+            set amount-earned 10
+            ask my-university [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+          ]
+          [
+            ifelse [gathering-type] of current-activity = "hospital"
+            [
+              set amount-earned 10
+              ask my-hospital [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+            ]
+            [
+              ifelse [gathering-type] of current-activity = "workplace"
+              [
+                set amount-earned 10
+                ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+              ]
+              [
+                error (sentence "not implemented" [gathering-type] of current-activity)
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+    
+    set my-amount-of-resources my-amount-of-resources + amount-earned
+    set my-current-income my-current-income + amount-earned
+    
+    stop
+  ]
+  
+  if is-learning? [stop]
+  
+  if is-getting-tested? [stop]
+  
+  if is-resting? [stop]
+  
+  if is-relaxing? [stop]
+  
+  if is-performing-essential-shopping?
+  [
+    let amount-spent amount-of-rations-I-buy-when-going-to-essential-shops
+    set my-amount-of-resources my-amount-of-resources - amount-spent
+    set my-current-income my-current-income - amount-spent
+    ask my-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent]
+    stop
+  ]
+  
+  if is-performing-shopping?
+  [
+    let amount-spent amount-of-rations-I-buy-when-going-to-shops
+    set my-amount-of-resources my-amount-of-resources - amount-spent
+    set my-current-income my-current-income - amount-spent
+    ask my-non-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent]
+    stop
+  ]
+  
+  error (sentence "not implmplemented" [gathering-type] of current-activity  current-motivation)
 end
 
 to-report is-working-at-work?
@@ -101,9 +162,37 @@ to-report is-resting?
   report current-motivation = "rest"
 end
 
+to-report is-relaxing? 
+  report current-motivation = "relaxing"
+end
+
 to-report is-at-home?
   report  current-activity = my-home
 end  
+
+to-report is-learning?
+  report current-motivation = "learning"
+end
+
+to-report is-getting-tested?
+  report current-motivation = "get-tested"
+end
+
+to-report is-performing-essential-shopping?
+  report current-motivation = "essential shopping"
+end
+
+to-report is-performing-shopping?
+  report current-motivation = "shopping"
+end
+
+to-report amount-of-rations-I-buy-when-going-to-essential-shops
+  report 7 * count [gatherers] of my-home
+end
+
+to-report amount-of-rations-I-buy-when-going-to-shops
+  report 7
+end
 
 to-report can-be-done-with-a-dependable-person? [ad]
   if [is-home?] of first ad
