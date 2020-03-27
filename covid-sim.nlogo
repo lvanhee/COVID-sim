@@ -23,7 +23,6 @@ to go
   update-time
   apply-active-measures
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 81
@@ -820,7 +819,7 @@ SWITCH
 57
 animate?
 animate?
-0
+1
 1
 -1000
 
@@ -1462,7 +1461,7 @@ SWITCH
 94
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
