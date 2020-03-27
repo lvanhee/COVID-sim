@@ -88,12 +88,12 @@ NIL
 CHOOSER
 550
 393
-721
+738
 438
 original-distribution
 original-distribution
-"one-person-per-patch" "set-by-quotas" "set-by-people-quotas"
-2
+"one-person-per-patch" "set-by-household-quotas" "set-by-people-quotas"
+1
 
 CHOOSER
 1262
@@ -372,7 +372,7 @@ INPUTBOX
 1247
 750
 #homes
-101.0
+100.0
 1
 0
 Number
@@ -403,7 +403,7 @@ INPUTBOX
 1315
 451
 #young
-1.0
+18.0
 1
 0
 Number
@@ -414,7 +414,7 @@ INPUTBOX
 1385
 451
 #students
-0.0
+64.0
 1
 0
 Number
@@ -425,7 +425,7 @@ INPUTBOX
 1446
 451
 #workers
-0.0
+82.0
 1
 0
 Number
@@ -436,7 +436,7 @@ INPUTBOX
 1504
 451
 #retired
-0.0
+56.0
 1
 0
 Number
@@ -832,7 +832,7 @@ CHOOSER
 household-composition
 household-composition
 "segregated-elderly" "balanced-mix" "different-kinds"
-1
+2
 
 MONITOR
 525
@@ -1302,7 +1302,7 @@ INPUTBOX
 2030
 362
 #total-population
-250.0
+220.0
 1
 0
 Number
@@ -1508,7 +1508,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.26
+0.23
 0.01
 1
 NIL
@@ -1626,7 +1626,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.3
+0.49
 0.01
 1
 NIL
@@ -1641,7 +1641,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.42
+0.27
 0.01
 1
 NIL
@@ -1671,7 +1671,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.02
+0.01
 0.01
 1
 NIL
@@ -1982,7 +1982,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "medirarrea" "scandinavia" "south-asia"
-1
+2
 
 SLIDER
 781
@@ -2103,8 +2103,19 @@ CHOOSER
 59
 preset-scenario
 preset-scenario
-"none" "kidsland" "one-family" "scenario-1-always-open-scandinavia"
+"none" "kidsland" "one-family" "zero-action-scandinavia"
+3
+
+SWITCH
+554
+114
+677
+147
+static-seed?
+static-seed?
 1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

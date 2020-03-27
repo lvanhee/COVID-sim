@@ -4,7 +4,7 @@ to setup
   load-preset-parameters
   clear-all
   set-default-shape people "circle"
-  if debug?[  random-seed 47822 ]
+  if debug? or static-seed?[  random-seed 47822 ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
@@ -270,7 +270,7 @@ end
 to create-all-people
   if original-distribution = "set-by-household-quotas"
   [
-    set household-composition "different-kinds"
+    if not (household-composition = "different-kinds") [error "wrong initialization of household composition"]
 
     let #adults-homes floor (#homes * ratio-adults-homes)
     let #retired-couple-homes floor (#homes * ratio-retired-couple-homes)
@@ -337,8 +337,10 @@ to create-all-people
 
   if original-distribution = "one-person-per-patch"
   [ask patches [sprout-people 1 [setup-person]]]
-  if original-distribution = "set-by-people-quotas"
-  [create-people #young + #students + #workers + #retired [setup-person]]
+  ;if original-distribution = "set-by-people-quotas"
+  ;[
+    create-people #young + #students + #workers + #retired [setup-person]
+  ;]
   setup-people-homes
 
 

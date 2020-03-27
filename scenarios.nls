@@ -3,8 +3,11 @@ to load-preset-parameters
   load-population-profiles
 end
 
-to load-scenario
-  if preset-scenario = "none" [stop]
+to-report is-test-scenario? [s]
+  report s = "kidsland" or s = "one-family"
+end
+
+to load-test-scenario
   if preset-scenario = "kidsland" 
   [
     set #young 1
@@ -22,12 +25,55 @@ to load-scenario
     set #young 2
     set #workers 2
     set original-distribution "set-by-people-quotas"
-    show original-distribution
     set household-composition "balanced-mix"
+    stop
+  ]
+end
+
+to load-scenario
+  if preset-scenario = "none" [stop]
+  if is-test-scenario? preset-scenario
+  [
+    load-test-scenario
+    stop
+  ]
+  
+  ;;the general process lies in adapting your scenario from the baseline
+  load-baseline-scenario
+  
+  if preset-scenario = "zero-action-scandinavia"
+  [
+    load-scandinavian-population-default
+    
     stop
   ]
   error "unimplemented"
 end
+
+to load-baseline-scenario
+  set #hospital 1
+  set #schools 3
+  set #universities 10
+  set #workplaces 10
+  set #public-leisure 1
+  set #private-leisure 10
+  set #homes 100
+  set #essential-shops 5
+  set #non-essential-shops 10
+  
+  load-no-measures
+end
+
+to load-no-measures
+  
+end
+
+to load-scandinavian-population-default
+   set household-composition "different-kinds"
+    set original-distribution "set-by-household-quotas"
+    set preset-profiles "scandinavia"
+end
+
 to load-scenario-minimal
   set #hospital 1
   set #schools 1
@@ -35,6 +81,7 @@ to load-scenario-minimal
   set #workplaces 1
   set #schools 1
 end
+
 
 to load-population-profiles
   if preset-profiles = "none"[stop]
