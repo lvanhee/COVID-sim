@@ -403,7 +403,7 @@ INPUTBOX
 1315
 451
 #young
-28.0
+1.0
 1
 0
 Number
@@ -414,7 +414,7 @@ INPUTBOX
 1385
 451
 #students
-53.0
+0.0
 1
 0
 Number
@@ -425,7 +425,7 @@ INPUTBOX
 1446
 451
 #workers
-78.0
+0.0
 1
 0
 Number
@@ -436,7 +436,7 @@ INPUTBOX
 1504
 451
 #retired
-91.0
+0.0
 1
 0
 Number
@@ -832,7 +832,7 @@ CHOOSER
 household-composition
 household-composition
 "segregated-elderly" "balanced-mix" "different-kinds"
-2
+1
 
 MONITOR
 525

@@ -1,6 +1,7 @@
- to setup
+__includes ["scenarios.nls"]
+to setup
   check-parameters
-  preset-parameters
+  load-preset-parameters
   clear-all
   set-default-shape people "circle"
   if debug?[  random-seed 47822 ]
@@ -24,67 +25,6 @@
   reset-ticks
 end
 
-to load-scenario
-  if preset-scenario = "none" [stop]
-  if preset-scenario = "kidsland" 
-  [
-    set #young 1
-    set #workers 0
-    set original-distribution "set-by-people-quotas"
-    show original-distribution
-    set household-composition "balanced-mix"
-    stop
-  ]
-  
-  if preset-scenario = "one-family"
-  [
-    set #young 2
-    set #workers 2
-    set original-distribution "set-by-people-quotas"
-    show original-distribution
-    set household-composition "balanced-mix"
-    stop
-  ]
-  error "unimplemented"
-end
-to load-scenario-minimal
-  set #hospital 1
-  set #schools 1
-  set #universities 1
-  set #workplaces 1
-  set #schools 1
-end
-
-to preset-parameters
-  load-scenario
-  
-  load-population-profiles
-end
-
-to load-population-profiles
-  if preset-profiles = "none"[stop]
-  if preset-profiles = "medirarrea"[
-    set ratio-adults-homes 0.3
-    set ratio-retired-couple-homes 0.42
-    set ratio-family-homes 0.26
-    set ratio-multi-generational-homes 0.02
-    set #total-population 250
-  ]
-  if preset-profiles = "scandinavia" [
-    set ratio-adults-homes 0.49
-    set ratio-retired-couple-homes 0.27
-    set ratio-family-homes 0.23
-    set ratio-multi-generational-homes 0.01
-    set #total-population 220
-  ]
-  if preset-profiles = "south-asia" [
-  set ratio-adults-homes 0.15
-    set ratio-retired-couple-homes 0.22
-    set ratio-family-homes 0.51
-    set ratio-multi-generational-homes 0.12
-    set #total-population 310
-  ]
-end
 
 to check-parameters
   if probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1
