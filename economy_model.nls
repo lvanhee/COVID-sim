@@ -7,9 +7,13 @@ to perform-trades-between-gathering-points
     if current-profit > 0
     [
       let amount-charged current-profit * ratio-amount-spent-by-essential-shops-on-supplies
-      set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
-      set amount-of-resources amount-of-resources - amount-charged
-      set current-profit current-profit - amount-charged
+      if workplace-amount-of-goods-in-stock >= (transfer-amount-from-shops-to-workplaces + amount-charged) / unit-price-of-goods
+      [
+        set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
+        set amount-of-resources amount-of-resources - amount-charged
+        set current-profit current-profit - amount-charged
+        set stock-of-goods stock-of-goods + amount-charged / unit-price-of-goods
+      ]
     ]
   ]
 
@@ -18,9 +22,13 @@ to perform-trades-between-gathering-points
     if current-profit > 0
     [
       let amount-charged current-profit * ratio-amount-spent-by-non-essential-shops-on-supplies
-      set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
-      set amount-of-resources amount-of-resources - amount-charged
-      set current-profit current-profit - amount-charged
+      if workplace-amount-of-goods-in-stock >= (transfer-amount-from-shops-to-workplaces + amount-charged) / unit-price-of-goods
+      [
+        set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
+        set amount-of-resources amount-of-resources - amount-charged
+        set current-profit current-profit - amount-charged
+        set stock-of-goods stock-of-goods + amount-charged / unit-price-of-goods
+      ]
     ]
   ]
 
@@ -29,6 +37,7 @@ to perform-trades-between-gathering-points
   [
     set amount-of-resources amount-of-resources + transfer-amount-from-shops-to-workplaces / n-of-workplaces
     set current-profit current-profit + transfer-amount-from-shops-to-workplaces / n-of-workplaces
+    set stock-of-goods stock-of-goods - transfer-amount-from-shops-to-workplaces / unit-price-of-goods / n-of-workplaces
   ]
 end
 

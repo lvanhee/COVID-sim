@@ -2096,26 +2096,55 @@ importance-self-esteem
 NIL
 HORIZONTAL
 
-CHOOSER
-795
-14
-1045
-59
-preset-scenario
-preset-scenario
-"none" "kidsland" "one-family" "zero-action-scandinavia"
-3
+PLOT
+9
+1403
+520
+1553
+Amount of goods in stock
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"essential-shop" 1.0 0 -16777216 true "" "plot essential-shop-amount-of-goods-in-stock"
+"non-essential-shop" 1.0 0 -13345367 true "" "plot non-essential-shop-amount-of-goods-in-stock"
+"workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-goods-in-stock"
 
-SWITCH
-554
-114
-677
-147
-static-seed?
-static-seed?
-0
+SLIDER
+527
+1424
+771
+1457
+goods-produced-by-work-performed
+goods-produced-by-work-performed
 1
--1000
+50
+30.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+527
+1462
+699
+1495
+unit-price-of-goods
+unit-price-of-goods
+0.1
+5
+1.0
+0.1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

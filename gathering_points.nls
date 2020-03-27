@@ -4,6 +4,8 @@ gathering-points-own [gathering-type
   
   amount-of-resources
   current-profit
+  
+  stock-of-goods
 ]
 
 ;the head of the link are people and the tail are gathering points
@@ -11,6 +13,7 @@ directed-link-breed [gathering-links gathering-link]
 gathering-links-own [commitment 
   features ;stores whatever is useful for decision-making, useful for including factors appealing to e.g. needs and values
 ]
+
 
 to-report proximity-factor
   if gathering-type = "hospital" [report density-factor-hospital]
@@ -223,4 +226,16 @@ end
 
 to-report workplace-amount-of-resources
   report sum [amount-of-resources] of gathering-points with [gathering-type = "workplace"]
+end
+
+to-report essential-shop-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "essential-shop"]
+end
+
+to-report non-essential-shop-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "non-essential-shop"]
+end
+
+to-report workplace-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
 end

@@ -1,13 +1,7 @@
 to execute-activity-effect
   ifelse activity-model = "public&private leisure, rest, age-based work"
   [
-    if [gathering-type] of current-activity = "essential-shop"
-    [
-      let amount-of-rations-to-add amount-of-rations-I-buy-when-going-to-essential-shops
-      ask my-home [set available-food-rations available-food-rations + amount-of-rations-to-add ]
-    ]
-    
-    update-resource-based-on-current-activity
+    update-resources-based-on-current-activity
     ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
     ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
     
@@ -42,7 +36,8 @@ to-report is-forced-motive? [m]
   report m = "mandatory"
 end
 
-to update-resource-based-on-current-activity
+to update-resources-based-on-current-activity
+
   ;if is-at-home? [stop]
   
   if is-forced-to-be-in-school? or is-learning? or is-getting-tested? or is-resting? or is-relaxing? 
@@ -51,6 +46,8 @@ to update-resource-based-on-current-activity
   let amount-earned 0
   if is-working?
   [
+    let amount-earned 0
+    let contribution-to-stock goods-produced-by-work-performed
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
       set amount-earned 10
@@ -66,7 +63,7 @@ to update-resource-based-on-current-activity
         ifelse [gathering-type] of current-activity = "home"
         [
           set amount-earned 10
-          ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+          ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
         ]
         [
           ifelse [gathering-type] of current-activity = "university"
@@ -84,7 +81,7 @@ to update-resource-based-on-current-activity
               ifelse [gathering-type] of current-activity = "workplace"
               [
                 set amount-earned 10
-                ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned]
+                ask my-workplace [set amount-of-resources amount-of-resources - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
               ]
               [
                 ifelse [gathering-type] of current-activity = "school"
@@ -112,19 +109,30 @@ to update-resource-based-on-current-activity
   
   if is-performing-essential-shopping?
   [
-    let amount-spent amount-of-rations-I-buy-when-going-to-essential-shops * price-of-rations
+    let max-amount-of-rations-I-can-buy my-amount-of-resources / price-of-rations
+    let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-essential-shops max (list max-amount-of-rations-I-can-buy 0))
+    
+    let available-goods-in-my-essential-shop max (list [stock-of-goods] of my-essential-shop 0)
+    
+    set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-essential-shop)
+    
+    ask my-home [set available-food-rations available-food-rations + amount-of-rations-to-buy]
+    
+    let amount-spent amount-of-rations-to-buy * price-of-rations
+    let stock-decrease amount-of-rations-to-buy
     set my-amount-of-resources my-amount-of-resources - amount-spent
     set my-current-income my-current-income - amount-spent
-    ask my-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent]
+    ask my-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
     stop
   ]
   
   if is-performing-non-essential-shopping?
   [
     let amount-spent amount-of-rations-I-buy-when-going-to-shops * price-of-rations
+    let stock-decrease amount-of-rations-I-buy-when-going-to-shops
     set my-amount-of-resources my-amount-of-resources - amount-spent
     set my-current-income my-current-income - amount-spent
-    ask my-non-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent]
+    ask my-non-essential-shop [set amount-of-resources amount-of-resources + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
     stop
   ]
   
