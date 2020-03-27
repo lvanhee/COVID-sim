@@ -5,8 +5,9 @@ to-report my-relatives
 end
 
 to-report my-colleagues
-  if my-workplace != nobody [
-    report other [gatherers] of my-workplace
+  let my-wp  my-workplace
+  if my-wp != nobody [
+    report other [gatherers with [my-workplace = my-wp]] of my-wp
   ]
   report (turtle-set nobody)
 end

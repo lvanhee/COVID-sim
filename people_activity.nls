@@ -1,3 +1,35 @@
+to perform-people-activities
+  ask people [
+    perform-activity
+  ]
+  ask people [
+    execute-activity-effect
+    update-needs-for-playing (list current-activity current-motivation)
+  ]
+  animate-people-activity
+  
+end
+
+to animate-people-activity
+  if animate? [
+    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+    while [any? walkers] [
+      every 0.1 [
+        ask walkers [
+          face current-activity
+          while [not allowed-move?] [
+            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
+              [ right 10 ]
+            [ left 10 ]
+          ]
+          forward min (list 1 distance current-activity)
+        ]
+        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+      ]
+    ]
+  ]
+end
+
 to execute-activity-effect
   ifelse activity-model = "public&private leisure, rest, age-based work"
   [

@@ -9,13 +9,33 @@ to update-epistemic-status
       set epistemic-infection-status "immune"
     ]
   ]
-  [ 
-    
+  [
+    let knew-was-infected epistemic-infection-status = "infected"
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
+    
+    if not knew-was-infected and test-home-of-confirmed-people?
+    [
+     ; show "test"
+      ask [gatherers] of my-home [perform-test]
+    ]
+    if not knew-was-infected and test-workplace-of-confirmed-people? and has-a-work?
+    [
+      ask my-colleagues [perform-test]
+    ]
   ]
 end
 
 to-report is-believing-to-be-infected?
   report epistemic-infection-status = "infected" 
+end
+
+to perform-test
+  if not is-infected? and is-believing-to-be-infected? [set epistemic-infection-status "immune"]
+  if is-infected? [
+    let knew-was-infected epistemic-infection-status = "infected"
+    set epistemic-infection-status "infected"
+    set last-day-observed-symptoms current-day
+  ]
+  
 end

@@ -4,7 +4,6 @@ __includes ["need_management.nls" ]
 to-report my-preferred-available-activity-descriptor ;reports a string, which can be related to a gathering point and a concrete activity
   debug-file-print (sentence "Person " who " " age)
   report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
- ; [[my-need-satisfaction myself] of myself] 
 end
 
 to-report is-away?
@@ -96,8 +95,6 @@ to select-activity
   set is-moving-outside-for-reaching-current-activity? current-activity != first c-a
   set current-activity first c-a
   set current-motivation last c-a
-    
-;  show (word "selected:" [gathering-type] of current-activity " " current-motivation)
 end
 
 

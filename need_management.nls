@@ -270,6 +270,7 @@ to-report global-prevalence-of [activity-descriptor]
   my-current-prevalence-of-autonomy-needs activity-descriptor
   +
   my-current-prevalence-of-survival-needs activity-descriptor
+  
   ;should be expanded with new needs as they are added
   
   debug-file-print (sentence "Global prevalence of:" [gathering-type] of first activity-descriptor " " last activity-descriptor " " total-satisfaction)
@@ -280,9 +281,6 @@ end
 to-report my-current-expected-prevalence-of-belonging-needs [activity-descriptor]
   let result 
   my-importance-for-belonging-needs * my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played activity-descriptor
-  
-  ;show (sentence "prevalence&shift of community:"
-;    [gathering-type] of first activity-descriptor last activity-descriptor result expected-shift)
   report result
 end
 

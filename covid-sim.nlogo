@@ -82,7 +82,6 @@ to infect-one-random-person
 end
 
 to go
-
   tick
   spread-contagion
   update-within-agent-disease-status
@@ -90,6 +89,7 @@ to go
   perform-people-activities
   update-display
   update-time
+  apply-active-measures
 end
 
 to update-time
@@ -143,32 +143,7 @@ to update-within-agent-disease-status
   ask people [update-within-disease-status]
 end
 
-to perform-people-activities
-  ask people [
-    perform-activity
-  ]
-  ask people [
-    execute-activity-effect
-    update-needs-for-playing (list current-activity current-motivation)
-  ]
-  if animate? [
-    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
-    while [any? walkers] [
-      every 0.1 [
-        ask walkers [
-          face current-activity
-          while [not allowed-move?] [
-            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
-              [ right 10 ]
-              [ left 10 ]
-          ]
-          forward min (list 1 distance current-activity)
-        ]
-        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
-      ]
-    ]
-  ]
-end
+
 
 to-report allowed-move?
   report can-move? 1 and (not any? gathering-points-on patch-ahead 1 or member? current-activity gathering-points-on patch-ahead 1)
@@ -586,7 +561,7 @@ INPUTBOX
 1315
 451
 #young
-47.0
+61.0
 1
 0
 Number
@@ -597,7 +572,7 @@ INPUTBOX
 1385
 451
 #students
-65.0
+66.0
 1
 0
 Number
@@ -608,7 +583,7 @@ INPUTBOX
 1446
 451
 #workers
-105.0
+117.0
 1
 0
 Number
@@ -619,7 +594,7 @@ INPUTBOX
 1504
 451
 #retired
-83.0
+66.0
 1
 0
 Number
@@ -782,7 +757,7 @@ true
 true
 "" ""
 PENS
-"lockdown" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
+"lockdown?" 1.0 0 -2674135 true "" "plot ifelse-value is-lockdown-active? [1] [0]"
 "@home" 1.0 0 -7500403 true "" "plot count people with [is-at-home?] / count people"
 "watched-kids" 1.0 0 -955883 true "" "plot count children with [is-currently-watched-by-an-adult?] / count children"
 "workersWorking@work" 1.0 0 -6459832 true "" "plot count workers with [is-working-at-work?] / count workers"
@@ -837,10 +812,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1400
-758
-1492
-791
+1399
+759
+1491
+792
 density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
@@ -950,9 +925,9 @@ HORIZONTAL
 
 SWITCH
 1318
-913
+914
 1480
-946
+947
 closed-workplaces?
 closed-workplaces?
 1
@@ -1002,7 +977,7 @@ SWITCH
 57
 animate?
 animate?
-0
+1
 1
 -1000
 
@@ -1044,7 +1019,7 @@ BUTTON
 77
 346
 1 Week Run
-setup\nrepeat 21 [go]
+setup\nrepeat 28 [go]
 NIL
 1
 T
@@ -1062,7 +1037,7 @@ SWITCH
 57
 debug?
 debug?
-0
+1
 1
 -1000
 
@@ -1484,7 +1459,7 @@ INPUTBOX
 2030
 362
 #total-population
-300.0
+310.0
 1
 0
 Number
@@ -1642,7 +1617,7 @@ SWITCH
 94
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1669,10 +1644,10 @@ closed-schools?
 11
 
 SWITCH
-1226
-1009
-1531
-1042
+1225
+1010
+1530
+1043
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1688,7 +1663,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.25
+0.51
 0.01
 1
 NIL
@@ -1761,15 +1736,15 @@ Non-essential workplaces
 1
 
 SLIDER
-1505
-937
-1645
-970
+1504
+938
+1644
+971
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.1
+0.09
 0.01
 1
 NIL
@@ -1806,7 +1781,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.25
+0.15
 0.01
 1
 NIL
@@ -1821,7 +1796,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.25
+0.22
 0.01
 1
 NIL
@@ -1836,7 +1811,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.25
+0.12
 0.01
 1
 NIL
@@ -1876,7 +1851,54 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "medirarrea" "scandinavia" "south-asia"
+3
+
+SLIDER
+1250
+1084
+1412
+1119
+ratio-population-randomly-tested-daily
+ratio-population-randomly-tested-daily
 0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+1207
+1084
+1246
+1108
+Testing
+11
+0.0
+1
+
+SWITCH
+1420
+1085
+1653
+1119
+test-home-of-confirmed-people?
+test-home-of-confirmed-people?
+0
+1
+-1000
+
+SWITCH
+1418
+1122
+1676
+1156
+test-workplace-of-confirmed-people?
+test-workplace-of-confirmed-people?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
