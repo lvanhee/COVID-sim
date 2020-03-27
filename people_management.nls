@@ -175,19 +175,6 @@ to-report default-color
   error "not implemented"
 end
 
-to update-people-display
-  set color default-color
-  if infection-status = "healthy"
-  [set color color + 2]
-  if infection-status = "infected"
-  [set color color ]
-  if infection-status = "dead"
-  [set color color - 2]
-  if infection-status = "immune"
-  [set color white]
-
-end
-
 to set-infection-status [infection]
   set infection-status infection
 end

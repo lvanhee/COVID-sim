@@ -1,4 +1,4 @@
-__includes ["people_management.nls" "global_metrics.nls" "utils.nls" "setup.nls" "environment_dynamics.nls" "economy_model.nls" "animation.nls"]
+__includes ["people_management.nls" "global_metrics.nls" "utils.nls" "setup.nls" "environment_dynamics.nls" "animation.nls"]
 breed [people person]
 
 globals [
@@ -25,13 +25,13 @@ to go
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-81
-12
-518
-450
+99
+19
+506
+427
 -1
 -1
-13.0
+7.824
 1
 10
 1
@@ -42,9 +42,9 @@ GRAPHICS-WINDOW
 0
 1
 0
-32
+50
 0
-32
+50
 0
 0
 1
@@ -820,7 +820,7 @@ SWITCH
 57
 animate?
 animate?
-1
+0
 1
 -1000
 
@@ -2113,7 +2113,7 @@ SWITCH
 147
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 

@@ -7,3 +7,36 @@ end
 to-report allowed-move?
   report can-move? 1 and (not any? gathering-points-on patch-ahead 1 or member? current-activity gathering-points-on patch-ahead 1)
 end
+
+to animate-walk-to-goal
+  if animate? [
+    let walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+    while [any? walkers] [
+      every 0.1 [
+        ask walkers [
+          face current-activity
+          while [not allowed-move?] [
+            ifelse subtract-headings towards current-activity heading + 10 < subtract-headings towards current-activity heading - 10
+              [ right 10 ]
+              [ left 10 ]
+          ]
+          forward min (list 1 distance current-activity)
+        ]
+        set walkers people with [pxcor != [pxcor] of current-activity or pycor != [pycor] of current-activity]
+      ]
+    ]
+  ]
+end
+
+to update-people-display
+  set color default-color
+  if infection-status = "healthy"
+  [set color color + 2]
+  if infection-status = "infected"
+  [set color color ]
+  if infection-status = "dead"
+  [set color color - 2]
+  if infection-status = "immune"
+  [set color white]
+
+end

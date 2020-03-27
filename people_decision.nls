@@ -67,7 +67,7 @@ to-report my-available-activity-descriptors
   
   ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
   
-  show 
+   
   if any? people-that-depend-on-me with [ (current-person-I-depend-on = nobody or current-person-I-depend-on = myself) 
     and is-currently-in-sitation-of-active-dependence?]
   [
