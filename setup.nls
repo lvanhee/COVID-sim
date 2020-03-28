@@ -340,10 +340,11 @@ to setup-activities
   create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
   create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
   
+  ask gathering-points with [gathering-type = "school"] [set amount-of-capital 100]
   ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]
-  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200]
-  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100]
-  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100]
+  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200 set stock-of-goods 100]
+  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods 100]
+  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods 100]
   ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital 1000]
   setup-activity-animate-positions
   

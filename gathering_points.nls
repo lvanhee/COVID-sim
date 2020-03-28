@@ -4,6 +4,7 @@ gathering-points-own [gathering-type
   
   amount-of-capital
   current-profit
+  max-amount-of-capital-to-retain
   
   stock-of-goods
 ]
@@ -222,6 +223,10 @@ end
 
 to-report hospital-amount-of-capital
   report sum [amount-of-capital] of gathering-points with [gathering-type = "hospital"]
+end
+
+to-report school-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "school"]
 end
 
 to-report workplace-amount-of-capital
