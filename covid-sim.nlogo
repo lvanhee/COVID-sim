@@ -604,12 +604,12 @@ NIL
 11
 
 BUTTON
-10
-90
-90
-124
+11
+91
+91
+125
 1 Week Run
-setup\ngo\nwhile [day-of-the-week != \"monday\" or slice-of-the-day != \"morning\"] [go]
+go\nwhile [day-of-the-week != \"monday\" or slice-of-the-day != \"morning\"] [go]
 NIL
 1
 T
