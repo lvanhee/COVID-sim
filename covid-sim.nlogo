@@ -9,6 +9,7 @@ globals [
   #dead-people
   #dead-retired
   away-gathering-point
+  #who-became-sick-while-travelling-locally
 ]
 
 to go
@@ -889,7 +890,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.22
+0.0
 0.01
 1
 NIL
@@ -920,21 +921,6 @@ importance-survival
 0
 1
 0.7
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1530
-408
-1716
-441
-probability-going-abroad
-probability-going-abroad
-0
-1
-0.01
 0.01
 1
 NIL
@@ -992,20 +978,20 @@ SWITCH
 409
 migration?
 migration?
-1
+0
 1
 -1000
 
 SLIDER
-1695
-441
-1882
-474
-density-travelling-propagation
-density-travelling-propagation
+1693
+452
+1880
+485
+density-travelling-propagation2
+density-travelling-propagation2
 0
 1
-0.11
+0.05
 0.01
 1
 NIL
@@ -1798,7 +1784,7 @@ SWITCH
 56
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1917,10 +1903,10 @@ Density factors \nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-1535
-443
-1696
-471
+1533
+454
+1694
+482
 Risks of becoming sick when travelling locally
 11
 0.0
@@ -1982,6 +1968,32 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+1530
+409
+1716
+442
+probability-going-abroad
+probability-going-abroad
+0
+1
+0.02
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+717
+813
+781
+858
+NIL
+#who-became-sick-while-travelling-locally
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

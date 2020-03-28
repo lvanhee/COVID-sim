@@ -58,7 +58,7 @@ to load-baseline-scenario
   set #essential-shops 5
   set #non-essential-shops 10
   
-  set with-infected? true  
+  set with-infected? true
   set migration? true
   set probability-infection-when-abroad 0.1
   

@@ -13,13 +13,32 @@ to spread-by-activity-proximity
 end
 
 to apply-risk-of-contamination-when-travelling
-  if density-travelling-propagation = 0 [stop]
+  if density-travelling-propagation2 = 0 [stop]
+  if not is-moving-outside-for-reaching-current-activity? [stop]
+  
   let travellers people with [is-moving-outside-for-reaching-current-activity?]
   let #contagious count travellers with [is-contagious?]
+   
+  let ratio-contagious #contagious / count people
+  
+  ;;these are "intuitive maths", to be confirmed if relevant
+  ;;the squared root represents the risk of two people picking the same item when each pick n items on a n*n space (x*x -> n * 1)
+  ;;it could be cubic if the people we would consider a 3D space (or time)
+  let number-encounters sqrt count travellers
+  
+  let probability-avoiding-all-contagious (1 - ratio-contagious) ^ number-encounters
+  let probability-getting-sick 1 - probability-avoiding-all-contagious
+  
+ ; show (sentence count travellers with [is-contagious?] "/" ratio-contagious "#contacts" number-encounters "avoid all:" probability-avoiding-all-contagious "sick?" probability-getting-sick)
   
   ;;could be fastened with a bit of math, like 1-(1-p)^k
-  repeat (#contagious) [
-    apply-risk-of-contamination density-travelling-propagation * ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]]
+  let was-sick? is-infected?
+  apply-risk-of-contamination probability-getting-sick * density-travelling-propagation2 * age-infection-risk-mitigation-factor
+  if not was-sick? and is-infected? [set #who-became-sick-while-travelling-locally #who-became-sick-while-travelling-locally + 1]
+end
+
+to-report age-infection-risk-mitigation-factor
+  report ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]
 end
 
 to apply-risk-of-contamination-when-away
