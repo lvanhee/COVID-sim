@@ -791,7 +791,7 @@ probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
 1
-0.2
+0.21
 0.01
 1
 NIL
@@ -1554,7 +1554,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.15
+0.03
 0.01
 1
 NIL
@@ -1756,7 +1756,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-30.0
+8.0
 1
 1
 NIL

@@ -61,6 +61,8 @@ to load-baseline-scenario
   set with-infected? true
   set migration? true
   set probability-infection-when-abroad 0.1
+  set goods-produced-by-work-performed 8
+  set ratio-university-subsidy 0.03
   
   load-no-measures
 end
