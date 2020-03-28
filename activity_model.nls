@@ -51,44 +51,51 @@ to update-resources-based-on-current-activity
     let contribution-to-stock goods-produced-by-work-performed
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
-      set amount-earned 10
+      let amount-to-earn 10
+      set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
       ask my-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
     ]
     [
       ifelse [gathering-type] of current-activity = "non-essential-shop"
       [
-        set amount-earned 10
+        let amount-to-earn 10
+        set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
         ask my-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
       ]
       [
         ifelse [gathering-type] of current-activity = "home"
         [
-          set amount-earned 10
+          let amount-to-earn 10
+          set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-workplace 0))
           ask my-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
         ]
         [
           ifelse [gathering-type] of current-activity = "university"
           [
-            set amount-earned 10
+            let amount-to-earn 10
+            set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-university 0))
             ask my-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
           ]
           [
             ifelse [gathering-type] of current-activity = "hospital"
             [
-              set amount-earned 10
+              let amount-to-earn 10
+              set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-hospital 0))
               ask my-hospital [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
             ]
             [
               ifelse [gathering-type] of current-activity = "workplace"
               [
-                set amount-earned 10
+                let amount-to-earn 10
+                set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-workplace 0))
                 ask my-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
               ]
               [
                 ifelse [gathering-type] of current-activity = "school"
                 [
-                  set amount-earned 10
-                  ask my-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+                  let amount-to-earn 10
+                  set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-school 0))
+                  ask my-school [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
                 ]
                 [
                   error (sentence "not implemented" [gathering-type] of current-activity)
@@ -129,8 +136,15 @@ to update-resources-based-on-current-activity
   
   if is-performing-non-essential-shopping?
   [
-    let amount-spent amount-of-rations-I-buy-when-going-to-shops * price-of-rations
-    let stock-decrease amount-of-rations-I-buy-when-going-to-shops
+    let max-amount-of-rations-I-can-buy my-amount-of-capital / price-of-rations
+    let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-shops max (list max-amount-of-rations-I-can-buy 0))
+    
+    let available-goods-in-my-non-essential-shop max (list [stock-of-goods] of my-non-essential-shop 0)
+    
+    set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-non-essential-shop)
+    
+    let amount-spent amount-of-rations-to-buy * price-of-rations
+    let stock-decrease amount-of-rations-to-buy
     set my-amount-of-capital my-amount-of-capital - amount-spent
     set my-current-income my-current-income - amount-spent
     ask my-non-essential-shop [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]

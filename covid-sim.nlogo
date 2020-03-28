@@ -1444,6 +1444,7 @@ PENS
 "university" 1.0 0 -955883 true "" "plot university-amount-of-capital"
 "hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-capital"
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-capital"
+"school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
 
 PLOT
 979
@@ -1462,46 +1463,6 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
-
-SLIDER
-529
-1149
-865
-1182
-ratio-amount-spent-by-essential-shops-on-supplies
-ratio-amount-spent-by-essential-shops-on-supplies
-0
-1
-0.79
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-529
-1186
-866
-1219
-ratio-amount-spent-by-non-essential-shops-on-supplies
-ratio-amount-spent-by-non-essential-shops-on-supplies
-0
-1
-0.87
-0.01
-1
-NIL
-HORIZONTAL
-
-TEXTBOX
-531
-1130
-767
-1158
-Shops get supplies from workplaces
-11
-0.0
-1
 
 SLIDER
 530
@@ -1585,26 +1546,11 @@ Distribution of government subsidy
 
 SLIDER
 766
-1250
-939
-1283
-ratio-hospital-subsidy
-ratio-hospital-subsidy
-0
-1
-0.15
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-766
 1288
 939
 1321
-ratio-university-subsidy
-ratio-university-subsidy
+ratio-hospital-subsidy
+ratio-hospital-subsidy
 0
 1
 0.15
@@ -1618,6 +1564,21 @@ SLIDER
 1326
 939
 1359
+ratio-university-subsidy
+ratio-university-subsidy
+0
+1
+0.15
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+766
+1364
+939
+1397
 ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
@@ -1630,9 +1591,9 @@ HORIZONTAL
 
 SLIDER
 767
-1364
+1402
 939
-1397
+1435
 ratio-students-subsidy
 ratio-students-subsidy
 0
@@ -1644,15 +1605,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-767
-1402
-939
-1435
-ratio-young-subsidy
-ratio-young-subsidy
+766
+1250
+938
+1283
+ratio-school-subsidy
+ratio-school-subsidy
 0
 1
-0.0
+0.01
 0.01
 1
 NIL
@@ -1716,9 +1677,9 @@ People testing
 1
 
 SLIDER
-872
+530
 1149
-1044
+702
 1182
 price-of-rations
 price-of-rations
