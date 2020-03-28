@@ -1,18 +1,4 @@
 __includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls"]
-globals [
-  #min-workers-in-adults-homes
-  #min-students-in-adults-homes
-  #min-retirees-in-retired-couple-homes
-  #min-workers-in-family-homes
-  #min-students-in-family-homes
-  #min-young-in-family-homes
-  #min-workers-in-multi-generational-homes
-  #min-students-in-multi-generational-homes
-  #min-young-in-multi-generational-homes
-  #min-retirees-in-multi-generational-homes
-
-  distribution-control-variable
-]
 
 people-own [
   age
@@ -103,178 +89,11 @@ people-own [
   my-expected-income
 ]
 
-
-;;it may that at some point we turn homes as a special breed of turtle that (bidirectionally) relates to a gathering point
-to setup-person-home
-
-  let h nobody
-  if household-composition = "balanced-mix"
-  [
-    set h min-one-of homes [count gatherers with [age = [age] of [myself] of myself]]
-  ]
-  if household-composition = "segregated-elderly"
-  [
-    let quota-of-homes-of-retired floor (#homes * #retired / #people )
-    let quota-of-homes-for-non-retired floor (#homes - quota-of-homes-of-retired)
-
-    ifelse is-retired?
-    [
-      ifelse count houses-hosting-retired < quota-of-homes-of-retired
-      [
-        set h one-of homes with [not any? gatherers]
-      ]
-      [
-        set h one-of houses-only-hosting-retired with-min [count gatherers]
-      ]
-    ]
-    [
-      let filled-houses-for-non-retired homes with [any? gatherers and not any? gatherers with [is-retired?]]
-      ifelse count filled-houses-for-non-retired < quota-of-homes-for-non-retired
-      [set h one-of homes with [not any? gatherers]]
-      [set h one-of filled-houses-for-non-retired with-min [count gatherers]]
-    ]
-  ]
-  if household-composition = "different-kinds"
-  [
-    if age = "retired"
-    [
-      ifelse #min-retirees-in-retired-couple-homes > 0
-      [
-        ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-        ]
-        [
-          set h one-of empty-houses
-        ]
-
-        set #min-retirees-in-retired-couple-homes #min-retirees-in-retired-couple-homes - 1
-      ]
-      [
-        ifelse #min-retirees-in-multi-generational-homes > 0
-        [
-          set h one-of empty-houses
-
-          set #min-retirees-in-multi-generational-homes #min-retirees-in-multi-generational-homes - 1
-        ]
-        [
-          ;extra retirees
-          set h one-of houses-hosting-multiple-generations
-        ]
-      ]
-    ]
-
-    if age = "worker"
-    [
-      ifelse #min-workers-in-adults-homes > 0
-      [
-        ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-        ]
-        [
-          set h one-of empty-houses
-        ]
-
-        set #min-workers-in-adults-homes #min-workers-in-adults-homes - 1
-      ]
-      [
-        ifelse #min-workers-in-multi-generational-homes > 0
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-
-          set #min-workers-in-multi-generational-homes #min-workers-in-multi-generational-homes - 1
-        ]
-        [
-          ifelse #min-workers-in-family-homes > 0
-          [
-            set h one-of empty-houses
-
-            set #min-workers-in-family-homes #min-workers-in-family-homes - 1
-          ]
-          [
-            ;extra workers
-            set h one-of homes with [any? gatherers with [age = "worker"]]
-          ]
-        ]
-      ]
-    ]
-
-    if age = "student"
-    [
-      ifelse #min-students-in-adults-homes > 0
-      [
-        ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
-        ]
-        [
-          set h one-of empty-houses
-        ]
-
-        set #min-students-in-adults-homes #min-students-in-adults-homes - 1
-      ]
-      [
-        ifelse #min-students-in-multi-generational-homes > 0
-        [
-          set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
-
-          set #min-students-in-multi-generational-homes #min-students-in-multi-generational-homes - 1
-        ]
-        [
-          ifelse #min-students-in-family-homes > 0
-          [
-            set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-
-            set #min-students-in-family-homes #min-students-in-family-homes - 1
-          ]
-          [
-            ;extra students
-            set h one-of homes with [any? gatherers with [age = "student"] or any? gatherers with [age = "young"]]
-          ]
-        ]
-      ]
-    ]
-
-    if age = "young"
-    [
-      ifelse #min-young-in-family-homes > 0
-      [
-        set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-
-        set #min-young-in-family-homes #min-young-in-family-homes - 1
-      ]
-      [
-        ifelse #min-young-in-multi-generational-homes > 0
-        [
-          set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
-
-          set #min-young-in-multi-generational-homes #min-young-in-multi-generational-homes - 1
-        ]
-        [
-          ;extra young
-          set h one-of homes with [any? gatherers with [age = "worker"] and any? gatherers with [age != "worker"]]
-        ]
-      ]
-    ]
-  ]
-
-  if h = nobody [error (word "unimplemented for: " age " " self)]
-
-  create-gathering-link-to h
-  [
-    set commitment 1
-    set features (list "rest" "visit family")
-  ]
-end
-
-
-
-to setup-person
+to setup-person [#young #students #workers #retired]
   set my-amount-of-resources 30 * price-of-rations
   set my-previous-amount-of-resources my-amount-of-resources
 
-  setup-person-age
+  setup-person-age #young #students #workers #retired
 
   setup-disease-profile
 
@@ -321,230 +140,70 @@ to update-people-epistemic-status
 end
 
 to-report default-color
-  if age-model = "young-old"
-  [
-    ifelse age = "young" [report green]
-    [report blue]
-  ]
-
-  if age-model = "young,student,worker,retired"
-  [
-    if age = "young" [report green]
-    if age = "student" [report orange]
-    if age = "worker" [report blue]
-    if age = "retired" [report red]
-  ]
-  error "not implemented"
+  if age = "young" [report green]
+  if age = "student" [report orange]
+  if age = "worker" [report blue]
+  if age = "retired" [report red]
 end
 
 to set-infection-status [infection]
   set infection-status infection
 end
 
-to create-all-people
-  if household-composition = "different-kinds"
-  [
-    set households-distribution? true
-  ]
-
-  if households-distribution?
-  [
-    set household-composition "different-kinds"
-
-    let #adults-homes floor (#homes * ratio-adults-homes)
-    let #retired-couple-homes floor (#homes * ratio-retired-couple-homes)
-    let #family-homes floor (#homes * ratio-family-homes)
-    let #multi-generational-homes #homes - (#adults-homes + #retired-couple-homes + #family-homes)
-
-    let #min-people #adults-homes * 2 + #retired-couple-homes * 2 + #family-homes * 2 + #multi-generational-homes * 3
-
-    ;initializing local variables
-    let #extra-retirees 0
-    let #extra-young 0
-    let #extra-students 0
-    let #extra-workers 0
-
-    ifelse #min-people <= #total-population
-    [
-      set #min-workers-in-adults-homes (floor (#adults-homes / 2)) * 2 ;to ensure that adults-homes have either 2 workers or 2 students (not both)
-      set #min-students-in-adults-homes #adults-homes * 2 - #min-workers-in-adults-homes
-      set #min-retirees-in-retired-couple-homes #retired-couple-homes * 2
-      set #min-workers-in-family-homes #family-homes
-      set #min-students-in-family-homes floor (#family-homes / 2)
-      set #min-young-in-family-homes #family-homes - #min-students-in-family-homes
-      set #min-workers-in-multi-generational-homes #multi-generational-homes
-      set #min-students-in-multi-generational-homes floor (#multi-generational-homes / 2)
-      set #min-young-in-multi-generational-homes #multi-generational-homes - #min-students-in-multi-generational-homes
-      set #min-retirees-in-multi-generational-homes #multi-generational-homes
-
-      let #extra-people #total-population - #min-people
-
-      if #extra-people > 0
-      [
-        ;#extra-retirees
-        if #multi-generational-homes > 0
-        [
-          set #extra-retirees floor (#extra-people * 1 / 10)
-        ]
-
-        ;#extra-young
-        if #family-homes + #multi-generational-homes > 0
-        [
-          set #extra-young floor (#extra-people * 3 / 10)
-        ]
-
-        ;#extra-students and #extra-workers
-        ifelse #adults-homes + #family-homes + #multi-generational-homes > 0
-        [
-          set #extra-students floor (#extra-people * 2 / 10)
-          set #extra-workers #extra-people - (#extra-retirees + #extra-young + #extra-students)
-        ]
-        [
-          error "Once there are only homes for retired couples, total population should be exactly twice the number of homes"
-        ]
-      ]
-    ]
-    [
-      error word "#total-population should be at least " #min-people
-    ]
-
-    set #young #min-young-in-family-homes + #min-young-in-multi-generational-homes + #extra-young
-    set #students #min-students-in-adults-homes + #min-students-in-family-homes + #min-students-in-multi-generational-homes + #extra-students
-    set #workers #min-workers-in-adults-homes + #min-workers-in-family-homes + #min-workers-in-multi-generational-homes + #extra-workers
-    set #retired #min-retirees-in-retired-couple-homes + #min-retirees-in-multi-generational-homes + #extra-retirees
-  ]
-
-  if original-distribution = "one-person-per-patch"
-  [ask patches [sprout-people 1 [setup-person]]]
-  if original-distribution = "set-by-quotas"
-  [create-people #young + #students + #workers + #retired [setup-person]]
-  setup-people-homes
-
-
-  ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
-end
-
 to relate-person-to-gathering-points
-
+  
   create-gathering-link-to one-of gathering-points with [gathering-type = "hospital"]
   [
     set commitment 1
     set features (list "get-tested" "get-treatment")
   ]
-  ifelse activity-model = "public&private leisure, rest, age-based work" and age-model = "young,student,worker,retired"
-  [
-    create-gathering-link-to one-of gathering-points with [gathering-type = "private-leisure"]
-    [ set commitment 1 set features (list "relaxing")]
-    create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
-    [ set commitment 1 set features (list "relaxing")]
-    create-gathering-links-to n-of (ceiling #essential-shops * 0.2) gathering-points with [gathering-type = "essential-shop"]
-    [ set commitment 1 set features (list "essential shopping" "shopping")]
-    create-gathering-links-to n-of (ceiling #non-essential-shops * 0.4) gathering-points with [gathering-type = "non-essential-shop"]
-    [ set commitment 1 set features (list "relaxing" "shopping")]
-
-    if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
+  
+  create-gathering-link-to one-of gathering-points with [gathering-type = "private-leisure"]
+  [ set commitment 1 set features (list "relaxing")]
+  create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
+  [ set commitment 1 set features (list "relaxing")]
+  create-gathering-links-to n-of (ceiling #essential-shops * 0.2) gathering-points with [gathering-type = "essential-shop"]
+  [ set commitment 1 set features (list "essential shopping" "shopping")]
+  create-gathering-links-to n-of (ceiling #non-essential-shops * 0.4) gathering-points with [gathering-type = "non-essential-shop"]
+  [ set commitment 1 set features (list "relaxing" "shopping")]
+  
+  if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
+    [ set commitment 1
+      set features (list "mandatory")]
+  ]
+  
+  if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
+    [ set commitment 1 set features (list "learning")]]
+  
+  if age = "worker" [
+    if random-float 1 < probability-hospital-personel [
+      ask one-of my-out-gathering-links with [[gathering-type] of other-end = "hospital"] [
+        set features (lput "contractual obligation" (lput "getting money" features))
+      ]
+      stop
+    ]
+    if random-float 1 < probability-school-personel [
+      create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
       [ set commitment 1
-        set features (list "mandatory")]
-    ]
-
-    if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
-      [ set commitment 1 set features (list "learning")]]
-
-    if age = "worker" [
-      if random-float 1 < probability-hospital-personel [
-        ask one-of my-out-gathering-links with [[gathering-type] of other-end = "hospital"] [
-          set features (lput "contractual obligation" (lput "getting money" features))
-        ]
-        stop
+        set features (list "getting money" "contractual obligation")
       ]
-      if random-float 1 < probability-school-personel [
-        create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
-        [ set commitment 1
-          set features (list "getting money" "contractual obligation")
-        ]
-        stop
+      stop
+    ]
+    if random-float 1 < probability-university-personel [
+      create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
+      [ set commitment 1
+        set features (list "getting money" "contractual obligation")
       ]
-      if random-float 1 < probability-university-personel [
-        create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
-        [ set commitment 1
-          set features (list "getting money" "contractual obligation")
-        ]
-        stop
+      stop
+    ]
+    if random-float 1 < probability-shopkeeper [
+      ask one-of my-out-gathering-links with [member? "shopping" features] [
+        set features (lput "contractual obligation" (lput "getting money" features))
       ]
-      if random-float 1 < probability-shopkeeper [
-        ask one-of my-out-gathering-links with [member? "shopping" features] [
-          set features (lput "contractual obligation" (lput "getting money" features))
-        ]
-        stop
-      ]
-      create-gathering-link-to one-of gathering-points with [gathering-type = "workplace"]
-      [ set commitment 1 set features (list "getting money" "contractual obligation")]
+      stop
     ]
-  ]
-  [error "not implemented"]
-end
-
-to setup-people-homes
-  if household-composition = "balanced-mix" or household-composition = "segregated-elderly"
-  [
-    ask people [setup-person-home]
-  ]
-  if household-composition = "different-kinds"
-  [
-    ask n-of #min-retirees-in-retired-couple-homes homeless-people with [age = "retired"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-retirees-in-multi-generational-homes homeless-people with [age = "retired"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-workers-in-adults-homes homeless-people with [age = "worker"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-workers-in-multi-generational-homes homeless-people with [age = "worker"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-workers-in-family-homes homeless-people with [age = "worker"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-students-in-adults-homes homeless-people with [age = "student"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-students-in-multi-generational-homes homeless-people with [age = "student"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-students-in-family-homes homeless-people with [age = "student"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-young-in-family-homes homeless-people with [age = "young"]
-    [
-      setup-person-home
-    ]
-
-    ask n-of #min-young-in-multi-generational-homes homeless-people with [age = "young"]
-    [
-      setup-person-home
-    ]
-
-    ask homeless-people
-    [
-      setup-person-home
-    ]
+    create-gathering-link-to one-of gathering-points with [gathering-type = "workplace"]
+    [ set commitment 1 set features (list "getting money" "contractual obligation")]
   ]
 end
 

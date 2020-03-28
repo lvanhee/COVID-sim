@@ -7,25 +7,10 @@ to-report is-test-scenario? [s]
   report s = "kidsland" or s = "one-family"
 end
 
-to load-test-scenario
-  if preset-scenario = "kidsland" 
-  [
-    set #young 1
-    set #workers 0
-    set #students 0
-    set #retired 0
-    set original-distribution "set-by-people-quotas"
-    show original-distribution
-    set household-composition "balanced-mix"
-    stop
-  ]
-  
+to load-test-scenario  
   if preset-scenario = "one-family"
   [
-    set #young 2
-    set #workers 2
-    set original-distribution "set-by-people-quotas"
-    set household-composition "balanced-mix"
+    set #total-population 4
     stop
   ]
 end
@@ -65,12 +50,14 @@ to load-baseline-scenario
 end
 
 to load-no-measures
-  
+  set ratio-omniscious-infected-that-trigger-school-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
+  set #days-trigger-school-closing-measure 10000
+  set #days-trigger-non-essential-business-closing-measure 10000
+  set is-closing-school-when-any-reported-case-measure? false
 end
 
 to load-scandinavian-population-default
-   set household-composition "different-kinds"
-    set original-distribution "set-by-household-quotas"
     set preset-profiles "scandinavia"
 end
 

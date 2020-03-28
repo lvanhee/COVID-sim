@@ -1,4 +1,16 @@
 __includes ["scenarios.nls"]
+
+globals[#min-workers-in-adults-homes
+  #min-students-in-adults-homes
+  #min-retirees-in-retired-couple-homes
+  #min-workers-in-family-homes
+  #min-students-in-family-homes
+  #min-young-in-family-homes
+  #min-workers-in-multi-generational-homes
+  #min-students-in-multi-generational-homes
+  #min-young-in-multi-generational-homes
+  #min-retirees-in-multi-generational-homes
+  distribution-control-variable]
 to setup
   clear-all
   check-parameters
@@ -39,223 +51,191 @@ end
 
 
 to setup-people-homes
-  if household-composition = "balanced-mix" or household-composition = "segregated-elderly"
+
+  ask n-of #min-retirees-in-retired-couple-homes homeless-people with [age = "retired"]
   [
-    ask people [setup-person-home]
+    setup-person-home
   ]
-  if household-composition = "different-kinds"
+  
+  ask n-of #min-retirees-in-multi-generational-homes homeless-people with [age = "retired"]
   [
-    ask n-of #min-retirees-in-retired-couple-homes homeless-people with [age = "retired"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-retirees-in-multi-generational-homes homeless-people with [age = "retired"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-workers-in-adults-homes homeless-people with [age = "worker"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-workers-in-multi-generational-homes homeless-people with [age = "worker"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-workers-in-family-homes homeless-people with [age = "worker"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-students-in-adults-homes homeless-people with [age = "student"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-students-in-multi-generational-homes homeless-people with [age = "student"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-students-in-family-homes homeless-people with [age = "student"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-young-in-family-homes homeless-people with [age = "young"]
-    [
-      setup-person-home
-    ]
-    
-    ask n-of #min-young-in-multi-generational-homes homeless-people with [age = "young"]
-    [
-      setup-person-home
-    ]
-    
-    ask homeless-people
-    [
-      setup-person-home
-    ]
+    setup-person-home   
+  ]
+  
+  ask n-of #min-workers-in-adults-homes homeless-people with [age = "worker"]
+  [
+    setup-person-home 
+  ]
+  
+  ask n-of #min-workers-in-multi-generational-homes homeless-people with [age = "worker"]
+  [
+    setup-person-home 
+  ]
+  
+  ask n-of #min-workers-in-family-homes homeless-people with [age = "worker"]
+  [
+    setup-person-home
+  ]
+  
+  ask n-of #min-students-in-adults-homes homeless-people with [age = "student"]
+  [
+    setup-person-home
+  ]
+  
+  ask n-of #min-students-in-multi-generational-homes homeless-people with [age = "student"]
+  [
+    setup-person-home
+  ]
+  
+  ask n-of #min-students-in-family-homes homeless-people with [age = "student"]
+  [
+    setup-person-home 
+  ]
+  
+  ask n-of #min-young-in-family-homes homeless-people with [age = "young"]
+  [
+    setup-person-home
+  ]
+  
+  ask n-of #min-young-in-multi-generational-homes homeless-people with [age = "young"]
+  [
+    setup-person-home
+  ]
+  
+  ask homeless-people
+  [
+    setup-person-home 
   ]
 end
 
 ;;it may that at some point we turn homes as a special breed of turtle that (bidirectionally) relates to a gathering point
 to setup-person-home
   
+  
   let h nobody
-  if household-composition = "balanced-mix"
+  
+  if age = "retired"
   [
-    set h min-one-of homes [count gatherers with [age = [age] of [myself] of myself]]
+    ifelse #min-retirees-in-retired-couple-homes > 0
+    [
+      ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
+      [
+        set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
+      ]
+      [
+        set h one-of empty-houses
+      ]
+      
+      set #min-retirees-in-retired-couple-homes #min-retirees-in-retired-couple-homes - 1
+    ]
+    [
+      ifelse #min-retirees-in-multi-generational-homes > 0
+      [
+        set h one-of empty-houses
+        
+        set #min-retirees-in-multi-generational-homes #min-retirees-in-multi-generational-homes - 1
+      ]
+      [
+        ;extra retirees
+        set h one-of houses-hosting-multiple-generations
+      ]
+    ]
   ]
-  if household-composition = "segregated-elderly"
+  
+  if age = "worker"
   [
-    let quota-of-homes-of-retired floor (#homes * #retired / #people )
-    let quota-of-homes-for-non-retired floor (#homes - quota-of-homes-of-retired)
-    
-    ifelse is-retired?
+    ifelse #min-workers-in-adults-homes > 0
     [
-      ifelse count houses-hosting-retired < quota-of-homes-of-retired
-      [
-        set h one-of homes with [not any? gatherers]
-      ]
-      [
-        set h one-of houses-only-hosting-retired with-min [count gatherers]
-      ]
-    ]
-    [
-      let filled-houses-for-non-retired homes with [any? gatherers and not any? gatherers with [is-retired?]]
-      ifelse count filled-houses-for-non-retired < quota-of-homes-for-non-retired
-      [set h one-of homes with [not any? gatherers]]
-      [set h one-of filled-houses-for-non-retired with-min [count gatherers]]
-    ]
-  ]
-  if household-composition = "different-kinds"
-  [
-    if age = "retired"
-    [
-      ifelse #min-retirees-in-retired-couple-homes > 0
-      [
-        ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-        ]
-        [
-          set h one-of empty-houses
-        ]
-        
-        set #min-retirees-in-retired-couple-homes #min-retirees-in-retired-couple-homes - 1
-      ]
-      [
-        ifelse #min-retirees-in-multi-generational-homes > 0
-        [
-          set h one-of empty-houses
-          
-          set #min-retirees-in-multi-generational-homes #min-retirees-in-multi-generational-homes - 1
-        ]
-        [
-          ;extra retirees
-          set h one-of houses-hosting-multiple-generations
-        ]
-      ]
-    ]
-    
-    if age = "worker"
-    [
-      ifelse #min-workers-in-adults-homes > 0
-      [
-        ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-        ]
-        [
-          set h one-of empty-houses
-        ]
-        
-        set #min-workers-in-adults-homes #min-workers-in-adults-homes - 1
-      ]
-      [
-        ifelse #min-workers-in-multi-generational-homes > 0
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
-          
-          set #min-workers-in-multi-generational-homes #min-workers-in-multi-generational-homes - 1
-        ]
-        [
-          ifelse #min-workers-in-family-homes > 0
-          [
-            set h one-of empty-houses
-            
-            set #min-workers-in-family-homes #min-workers-in-family-homes - 1
-          ]
-          [
-            ;extra workers
-            set h one-of homes with [any? gatherers with [age = "worker"]]
-          ]
-        ]
-      ]
-    ]
-    
-    if age = "student"
-    [
-      ifelse #min-students-in-adults-homes > 0
-      [
-        ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
-        [
-          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
-        ]
-        [
-          set h one-of empty-houses
-        ]
-        
-        set #min-students-in-adults-homes #min-students-in-adults-homes - 1
-      ]
-      [
-        ifelse #min-students-in-multi-generational-homes > 0
-        [
-          set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
-          
-          set #min-students-in-multi-generational-homes #min-students-in-multi-generational-homes - 1
-        ]
-        [
-          ifelse #min-students-in-family-homes > 0
-          [
-            set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-            
-            set #min-students-in-family-homes #min-students-in-family-homes - 1
-          ]
-          [
-            ;extra students
-            set h one-of homes with [any? gatherers with [age = "student"] or any? gatherers with [age = "young"]]
-          ]
-        ]
-      ]
-    ]
-    
-    if age = "young"
-    [
-      ifelse #min-young-in-family-homes > 0
+      ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
       [
         set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
-        
-        set #min-young-in-family-homes #min-young-in-family-homes - 1
       ]
       [
-        ifelse #min-young-in-multi-generational-homes > 0
+        set h one-of empty-houses
+      ]
+      
+      set #min-workers-in-adults-homes #min-workers-in-adults-homes - 1
+    ]
+    [
+      ifelse #min-workers-in-multi-generational-homes > 0
+      [
+        set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "retired"]]
+        
+        set #min-workers-in-multi-generational-homes #min-workers-in-multi-generational-homes - 1
+      ]
+      [
+        ifelse #min-workers-in-family-homes > 0
         [
-          set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
+          set h one-of empty-houses
           
-          set #min-young-in-multi-generational-homes #min-young-in-multi-generational-homes - 1
+          set #min-workers-in-family-homes #min-workers-in-family-homes - 1
         ]
         [
-          ;extra young
-          set h one-of homes with [any? gatherers with [age = "worker"] and any? gatherers with [age != "worker"]]
+          ;extra workers
+          set h one-of homes with [any? gatherers with [age = "worker"]]
         ]
       ]
     ]
   ]
+  
+  if age = "student"
+  [
+    ifelse #min-students-in-adults-homes > 0
+    [
+      ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
+      [
+        set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
+      ]
+      [
+        set h one-of empty-houses
+      ]
+      
+      set #min-students-in-adults-homes #min-students-in-adults-homes - 1
+    ]
+    [
+      ifelse #min-students-in-multi-generational-homes > 0
+      [
+        set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
+        
+        set #min-students-in-multi-generational-homes #min-students-in-multi-generational-homes - 1
+      ]
+      [
+        ifelse #min-students-in-family-homes > 0
+        [
+          set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
+          
+          set #min-students-in-family-homes #min-students-in-family-homes - 1
+        ]
+        [
+          ;extra students
+          set h one-of homes with [any? gatherers with [age = "student"] or any? gatherers with [age = "young"]]
+        ]
+      ]
+    ]
+  ]
+  
+  if age = "young"
+  [
+    ifelse #min-young-in-family-homes > 0
+    [
+      set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
+      
+      set #min-young-in-family-homes #min-young-in-family-homes - 1
+    ]
+    [
+      ifelse #min-young-in-multi-generational-homes > 0
+      [
+        set h one-of homes with [count gatherers = 2 and any? gatherers with [age = "worker"] and any? gatherers with [age = "retired"]]
+        
+        set #min-young-in-multi-generational-homes #min-young-in-multi-generational-homes - 1
+      ]
+      [
+        ;extra young
+        set h one-of homes with [any? gatherers with [age = "worker"] and any? gatherers with [age != "worker"]]
+      ]
+    ]
+  ]
+  
   
   if h = nobody [error (word "unimplemented for: " age " " self)]
   
@@ -267,10 +247,13 @@ to setup-person-home
 end
 
 to create-all-people
-  if original-distribution = "set-by-household-quotas"
-  [
-    if not (household-composition = "different-kinds") [error "wrong initialization of household composition"]
-    
+  
+  let #young 0
+  let #students 0
+  let #workers 0
+  let #retired 0
+  
+  
     let #adults-homes floor (#homes * ratio-adults-homes)
     let #retired-couple-homes floor (#homes * ratio-retired-couple-homes)
     let #family-homes floor (#homes * ratio-family-homes)
@@ -283,6 +266,8 @@ to create-all-people
     let #extra-young 0
     let #extra-students 0
     let #extra-workers 0
+    
+
     
     ifelse #min-people <= #total-population
     [
@@ -332,13 +317,10 @@ to create-all-people
     set #students #min-students-in-adults-homes + #min-students-in-family-homes + #min-students-in-multi-generational-homes + #extra-students
     set #workers #min-workers-in-adults-homes + #min-workers-in-family-homes + #min-workers-in-multi-generational-homes + #extra-workers
     set #retired #min-retirees-in-retired-couple-homes + #min-retirees-in-multi-generational-homes + #extra-retirees
-  ]
   
-  if original-distribution = "one-person-per-patch"
-  [ask patches [sprout-people 1 [setup-person]]]
   ;if original-distribution = "set-by-people-quotas"
   ;[
-  create-people #young + #students + #workers + #retired [setup-person]
+  create-people #young + #students + #workers + #retired [setup-person #young #students #workers #retired]
   ;]
   setup-people-homes
   
@@ -347,36 +329,36 @@ to create-all-people
 end
 
 to setup-activities
-  if activity-model = "public&private leisure, rest, age-based work"
-  [
-    create-gathering-points #schools [set gathering-type "school" set shape "triangle" set color orange set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
-    create-gathering-points #universities [set gathering-type "university" set shape "triangle 2" set color magenta + 2 set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
-    create-gathering-points #workplaces [set gathering-type "workplace" set shape "pentagon" set color sky + 3 set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
-    create-gathering-points #essential-shops [set gathering-type "essential-shop" set shape "cow" set color yellow set xcor 4 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "essential-shop"] / (#essential-shops + 1)]
-    create-gathering-points #non-essential-shops [set gathering-type "non-essential-shop" set shape "face happy" set color violet + 2 set xcor 5 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "non-essential-shop"] / (#non-essential-shops + 1)]
-    create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
-    create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
-    create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-    create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
-    
-    ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
-    ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200]
-    ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
-    ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
-    ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
-    
-    
-    setup-activity-animate-positions
-  ]
+  
+  
+  create-gathering-points #schools [set gathering-type "school" set shape "triangle" set color orange set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
+  create-gathering-points #universities [set gathering-type "university" set shape "triangle 2" set color magenta + 2 set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
+  create-gathering-points #workplaces [set gathering-type "workplace" set shape "pentagon" set color sky + 3 set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
+  create-gathering-points #essential-shops [set gathering-type "essential-shop" set shape "cow" set color yellow set xcor 4 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "essential-shop"] / (#essential-shops + 1)]
+  create-gathering-points #non-essential-shops [set gathering-type "non-essential-shop" set shape "face happy" set color violet + 2 set xcor 5 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "non-essential-shop"] / (#non-essential-shops + 1)]
+  create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
+  create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
+  create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
+  create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
+  
+  ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
+  ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200]
+  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
+  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
+  ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
+  setup-activity-animate-positions
+  
   if migration?
   [
     create-gathering-points 1
     [
+      set gathering-type "away"
       set away-gathering-point self
       set shape "airplane"
     ]
   ]
   
+  ask gathering-points with [gathering-type = 0] [error (sentence "ill defined " self)]
 end
 
 to setup-activity-animate-positions
@@ -424,4 +406,13 @@ to setup-activity-animate-positions
   ]
   
   
+end
+
+to setup-person-age [#young #students #workers #retired]
+  set age nobody
+  if count people with [age = "young"] < #young [set age "young"]
+  if count people with [age = "student"] < #students [set age "student"]
+  if count people with [age = "worker"] < #workers [set age "worker"]
+  if count people with [age = "retired"] < #retired [set age "retired"]
+  if age = nobody [error "too many agents being created"]
 end

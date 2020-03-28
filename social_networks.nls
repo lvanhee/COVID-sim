@@ -45,3 +45,27 @@ end
 to-report is-child?
   report age = "young"
 end
+
+to-report students
+  report people with [ is-student?]
+end
+
+to-report is-adult?
+  report is-student? or is-worker? or is-retired?
+end
+
+to-report is-student?
+  report age = "student"
+end
+
+to-report is-worker?
+  report age = "worker"
+end
+
+to-report is-retired?
+  report age = "retired"
+end
+
+to-report retireds
+  report people with [is-retired?]
+end

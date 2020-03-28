@@ -1,6 +1,5 @@
 to setup-disease-profile
-  if disease-model = "advanced"
-  [
+  
     let p random-float 1
     
     
@@ -33,107 +32,62 @@ to setup-disease-profile
     [set p p - probability-recorvery-if-treated-old]
     
      set disease-profile "unavoidable death"
-  ]
-end
-
-
-
-to-report probability-recovering-mdm
-  if age = "retired" or age = "old" [
-    report recovery-rate-old
-  ]
-  
-  if age = "young" or age = "student" or age = "worker" [
-    report recovery-rate-young
-  ]
-  
-end
-
-to-report probability-passing-out-mdm
-    if age = "retired" or age = "old" [
-    report mortality-rate-old
-  ]
-  
-   if age = "young" or age = "student" or age = "worker" [
-    report mortality-rate-young
-  ]
 end
 
 
 to-report is-immune?
-  if disease-model = "markovian" or disease-model = "advanced" [report infection-status = "immune"] 
-  error "not implemented"
+  report infection-status = "immune"
 end
 
-to update-within-disease-status
-  if disease-model = "markovian" 
-  [
-    if infection-status = "infected"
-    [
-      let immune? false
-      let dead? false
-      set immune?  random-float 1 < probability-recovering-mdm
-      set dead?  random-float 1 < probability-passing-out-mdm
-      
-      if immune? [set infection-status "immune"]
-      if dead? [
-        kill-person]
-    ]
-    stop
-  ]
+to update-within-disease-status   
+  if infection-status = "healthy" or infection-status = "immune" [stop]
+  if slice-of-the-day = "morning" [set duration-current-disease-status duration-current-disease-status - 1]
   
-  if disease-model = "advanced"
+  ifelse duration-current-disease-status <= 0 
   [
-    if infection-status = "healthy" or infection-status = "immune" [stop]
-    if slice-of-the-day = "morning" [set duration-current-disease-status duration-current-disease-status - 1]
-    
-    ifelse duration-current-disease-status <= 0 
+    if infection-status = "asymptomatic noncontagious" 
     [
-      if infection-status = "asymptomatic noncontagious" 
+      set infection-status "infected-asymptomatic"
+      set duration-current-disease-status  asympomatic-contagiousness-to-symptomatic-contagiousness
+      stop
+    ]
+    
+    if infection-status = "infected-asymptomatic"
+    [
+      ifelse disease-profile = "self-recovery with no symptoms" [set infection-status "immune"]
       [
-        set infection-status "infected-asymptomatic"
-        set duration-current-disease-status  asympomatic-contagiousness-to-symptomatic-contagiousness
+        set infection-status "infected-symptomatic"
+        set duration-current-disease-status symptomatic-to-critical-or-heal
+      ]
+      
+      stop
+    ]
+    
+    if infection-status = "infected-symptomatic"
+    [
+      if disease-profile = "recovery if treated" or disease-profile = "unavoidable death"
+      [
+        set infection-status "infected-critical"
+        set duration-current-disease-status critical-to-terminal
         stop
       ]
-      
-      if infection-status = "infected-asymptomatic"
-      [
-        ifelse disease-profile = "self-recovery with no symptoms" [set infection-status "immune"]
-        [
-          set infection-status "infected-symptomatic"
-          set duration-current-disease-status symptomatic-to-critical-or-heal
-        ]
-        
-        stop
-      ]
-      
-      if infection-status = "infected-symptomatic"
-      [
-        if disease-profile = "recovery if treated" or disease-profile = "unavoidable death"
-        [
-          set infection-status "infected-critical"
-          set duration-current-disease-status critical-to-terminal
-          stop
-        ]
-        if disease-profile = "self-recovery with symptoms"[set infection-status "immune" stop]
-        error (sentence "unimplemented: " disease-profile duration-current-disease-status infection-status)
-      ]
-      
-      if infection-status = "infected-critical"
-      [
-        set infection-status "infected-terminal"
-        set duration-current-disease-status terminal-to-death
-        stop
-      ]
-      
-      if infection-status = "infected-terminal"
-      [kill-person]
-        
+      if disease-profile = "self-recovery with symptoms"[set infection-status "immune" stop]
       error (sentence "unimplemented: " disease-profile duration-current-disease-status infection-status)
     ]
-    [stop]
+    
+    if infection-status = "infected-critical"
+    [
+      set infection-status "infected-terminal"
+      set duration-current-disease-status terminal-to-death
+      stop
+    ]
+    
+    if infection-status = "infected-terminal"
+    [kill-person]
+    
+    error (sentence "unimplemented: " disease-profile duration-current-disease-status infection-status)
   ]
-  error (sentence "not implemented" disease-profile duration-current-disease-status infection-status)
+  [stop]
 end
 
 to kill-person 
@@ -155,13 +109,9 @@ end
 ;simplification, with a more advanced model, these symptoms might be visible after a few days of incubation
 ;might depend on age (e.g. more visible for the elderly, might be undetected for kids)
 to-report has-internally-visible-symptoms?
-  if disease-model = "advanced"
-  [
-    report  infection-status = "infected-symptomatic"
+  report  infection-status = "infected-symptomatic"
   or infection-status = "infected-critical"
   or infection-status = "infected-terminal"
-  ]
-  if disease-model = "markovian" [report is-infected?]
 end
 
 

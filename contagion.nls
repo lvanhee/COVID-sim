@@ -1,26 +1,11 @@
-to spread-contagion
-  if propagation-by-coordinates-proximity?[spread-by-coordinates-proximity]
-  
-  if activity-based-progagation?
-  [spread-by-activity-proximity]
-end
-
-to spread-by-coordinates-proximity
-  if propagation-by-coordinates-proximity?
-  [
-    ask people with [is-contagious?]
-    [ask people in-radius propagation-radius with [not is-immune?]
-      [
-        apply-risk-of-contamination 1 * ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]
-      ]
-    ]
-  ]
+to spread-contagion  
+  spread-by-activity-proximity
 end
 
 to spread-by-activity-proximity
   ask people [
     if is-away? [apply-risk-of-contamination-when-away]
-    if travelling-propagation? [apply-risk-of-contamination-when-travelling]
+    apply-risk-of-contamination-when-travelling
     
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
     repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity * ifelse-value is-young?  [factor-reduction-probability-transmission-young] [1]]
@@ -28,10 +13,12 @@ to spread-by-activity-proximity
 end
 
 to apply-risk-of-contamination-when-travelling
+  if density-travelling-propagation = 0 [stop]
   let travellers people with [is-moving-outside-for-reaching-current-activity?]
+  let #contagious count travellers with [is-contagious?]
   
   ;;could be fastened with a bit of math, like 1-(1-p)^k
-  repeat (count travellers with [is-contagious?]) [
+  repeat (#contagious) [
     apply-risk-of-contamination density-travelling-propagation * ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]]
 end
 
@@ -43,18 +30,13 @@ to apply-risk-of-contamination-when-away
 end
 
 to set-contaminated
-  if disease-model = "markovian" 
-    [set infection-status "infected"]
-  if disease-model = "advanced"
-  [
-    set infection-status "asymptomatic noncontagious" 
-    set duration-current-disease-status infection-to-asymptomatic-contagiousness
-  ]
+  set infection-status "asymptomatic noncontagious" 
+  set duration-current-disease-status infection-to-asymptomatic-contagiousness
 end
 
 to apply-risk-of-contamination [factor]
   let contagion-occurs? false
-  if (not is-away? and random-float 1 < factor * propagation-risk-yom and infection-status = "healthy")
+  if (not is-away? and random-float 1 < factor * propagation-risk and infection-status = "healthy")
   [set contagion-occurs? true]
   
   if contagion-occurs?
@@ -72,9 +54,8 @@ to-report is-alive?
 end
 
 to infect-one-random-person
-    ask n-of (min list 3 #people) people [
-    if disease-model = "markovian"[set-infection-status "infected"]
-    if disease-model = "advanced" [set-infection-status "infected-asymptomatic"  set duration-current-disease-status infection-to-asymptomatic-contagiousness]
+    ask n-of (min list 3 count people) people [
+    set-infection-status "infected-asymptomatic"  set duration-current-disease-status infection-to-asymptomatic-contagiousness
   ]
 end
 
