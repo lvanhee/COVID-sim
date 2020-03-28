@@ -1443,7 +1443,7 @@ PENS
 "non-essential-shop" 1.0 0 -13345367 true "" "plot non-essential-shop-amount-of-capital"
 "university" 1.0 0 -955883 true "" "plot university-amount-of-capital"
 "hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-capital"
-"workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-resources"
+"workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-capital"
 
 PLOT
 979
