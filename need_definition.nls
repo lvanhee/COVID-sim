@@ -72,9 +72,9 @@ to-report rest-need-satisfaction [ad]
 end
 
 to-report financial-survival-need-satisfaction
-  report clamp 0 1 (my-amount-of-resources / price-of-rations * count my-relatives * 7)
+  report clamp 0 1 (my-amount-of-capital / price-of-rations * count my-relatives * 7)
 end
 
 to-report financial-safety-need-satisfaction
-  report ifelse-value my-previous-amount-of-resources > 0 [clamp 0 1 (my-amount-of-resources / my-previous-amount-of-resources)] [0]
+  report ifelse-value my-previous-amount-of-capital > 0 [clamp 0 1 (my-amount-of-capital / my-previous-amount-of-capital)] [0]
 end

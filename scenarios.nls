@@ -3,6 +3,10 @@ to load-preset-parameters
   load-population-profiles
 end
 
+to set-values 
+  load-scenario
+end
+
 to-report is-test-scenario? [s]
   report s = "kidsland" or s = "one-family"
 end
@@ -23,13 +27,21 @@ to load-scenario
     stop
   ]
   
+  
   ;;the general process lies in adapting your scenario from the baseline
   load-baseline-scenario
+  
+  if preset-scenario = "uninfected-scandinavia"
+  [
+    load-scandinavian-population-default
+    set with-infected? false
+    set probability-infection-when-abroad 0
+    stop
+  ]
   
   if preset-scenario = "zero-action-scandinavia"
   [
     load-scandinavian-population-default
-    
     stop
   ]
   error "unimplemented"
@@ -45,6 +57,10 @@ to load-baseline-scenario
   set #homes 100
   set #essential-shops 5
   set #non-essential-shops 10
+  
+  set with-infected? true  
+  set migration? true
+  set probability-infection-when-abroad 0.1
   
   load-no-measures
 end

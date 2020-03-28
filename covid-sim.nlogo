@@ -992,7 +992,7 @@ SWITCH
 409
 migration?
 migration?
-0
+1
 1
 -1000
 
@@ -1177,7 +1177,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1407,7 +1407,7 @@ PLOT
 1130
 523
 1280
-Average amount of resources per people age
+Average amount of capital per people age
 NIL
 NIL
 0.0
@@ -1418,17 +1418,17 @@ true
 true
 "" ""
 PENS
-"retired" 1.0 0 -16777216 true "" "plot retirees-average-amount-of-resources"
-"worker" 1.0 0 -13345367 true "" "plot workers-average-amount-of-resources"
-"student" 1.0 0 -955883 true "" "plot students-average-amount-of-resources"
-"young" 1.0 0 -13840069 true "" "plot young-average-amount-of-resources"
+"retired" 1.0 0 -16777216 true "" "plot retirees-average-amount-of-capital"
+"worker" 1.0 0 -13345367 true "" "plot workers-average-amount-of-capital"
+"student" 1.0 0 -955883 true "" "plot students-average-amount-of-capital"
+"young" 1.0 0 -13840069 true "" "plot young-average-amount-of-capital"
 
 PLOT
 11
 1284
 523
 1434
-Amount of resources per gathering point
+Amount of capital per gathering point
 NIL
 NIL
 0.0
@@ -1439,10 +1439,10 @@ true
 true
 "" ""
 PENS
-"essential-shop" 1.0 0 -16777216 true "" "plot essential-shop-amount-of-resources"
-"non-essential-shop" 1.0 0 -13345367 true "" "plot non-essential-shop-amount-of-resources"
-"university" 1.0 0 -955883 true "" "plot university-amount-of-resources"
-"hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-resources"
+"essential-shop" 1.0 0 -16777216 true "" "plot essential-shop-amount-of-capital"
+"non-essential-shop" 1.0 0 -13345367 true "" "plot non-essential-shop-amount-of-capital"
+"university" 1.0 0 -955883 true "" "plot university-amount-of-capital"
+"hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-capital"
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-resources"
 
 PLOT
@@ -1450,7 +1450,7 @@ PLOT
 1250
 1397
 1400
-Total amount of resources available in the system
+Total amount of capital available in the system
 NIL
 NIL
 0.0
@@ -1842,14 +1842,14 @@ static-seed?
 -1000
 
 CHOOSER
-586
-75
-766
-120
+538
+72
+718
+117
 preset-scenario
 preset-scenario
-"none" "one-family" "zero-action-scandinavia"
-2
+"none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family"
+1
 
 MONITOR
 716
@@ -2003,6 +2003,23 @@ TEXTBOX
 Economy model
 13
 23.0
+1
+
+BUTTON
+725
+76
+814
+109
+NIL
+set-values
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
 1
 
 @#$#@#$#@

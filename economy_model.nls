@@ -10,7 +10,7 @@ to perform-trades-between-gathering-points
       if workplace-amount-of-goods-in-stock >= (transfer-amount-from-shops-to-workplaces + amount-charged) / unit-price-of-goods
       [
         set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
-        set amount-of-resources amount-of-resources - amount-charged
+        set amount-of-capital amount-of-capital - amount-charged
         set current-profit current-profit - amount-charged
         set stock-of-goods stock-of-goods + amount-charged / unit-price-of-goods
       ]
@@ -25,7 +25,7 @@ to perform-trades-between-gathering-points
       if workplace-amount-of-goods-in-stock >= (transfer-amount-from-shops-to-workplaces + amount-charged) / unit-price-of-goods
       [
         set transfer-amount-from-shops-to-workplaces transfer-amount-from-shops-to-workplaces + amount-charged
-        set amount-of-resources amount-of-resources - amount-charged
+        set amount-of-capital amount-of-capital - amount-charged
         set current-profit current-profit - amount-charged
         set stock-of-goods stock-of-goods + amount-charged / unit-price-of-goods
       ]
@@ -35,7 +35,7 @@ to perform-trades-between-gathering-points
   let n-of-workplaces count gathering-points with [gathering-type = "workplace"]
   ask gathering-points with [gathering-type = "workplace"]
   [
-    set amount-of-resources amount-of-resources + transfer-amount-from-shops-to-workplaces / n-of-workplaces
+    set amount-of-capital amount-of-capital + transfer-amount-from-shops-to-workplaces / n-of-workplaces
     set current-profit current-profit + transfer-amount-from-shops-to-workplaces / n-of-workplaces
     set stock-of-goods stock-of-goods - transfer-amount-from-shops-to-workplaces / unit-price-of-goods / n-of-workplaces
   ]
@@ -51,7 +51,7 @@ to perform-government-actions
     [
       let tax-amount current-profit * ratio-tax-on-essential-shops
       set taxes-collected taxes-collected + tax-amount
-      set amount-of-resources amount-of-resources - tax-amount
+      set amount-of-capital amount-of-capital - tax-amount
       set current-profit current-profit - tax-amount
     ]
   ]
@@ -62,7 +62,7 @@ to perform-government-actions
     [
       let tax-amount current-profit * ratio-tax-on-non-essential-shops
       set taxes-collected taxes-collected + tax-amount
-      set amount-of-resources amount-of-resources - tax-amount
+      set amount-of-capital amount-of-capital - tax-amount
       set current-profit current-profit - tax-amount
     ]
   ]
@@ -73,7 +73,7 @@ to perform-government-actions
     [
       let tax-amount current-profit * ratio-tax-on-workplaces
       set taxes-collected taxes-collected + tax-amount
-      set amount-of-resources amount-of-resources - tax-amount
+      set amount-of-capital amount-of-capital - tax-amount
       set current-profit current-profit - tax-amount
     ]
   ]
@@ -84,7 +84,7 @@ to perform-government-actions
     [
       let tax-amount my-current-income * ratio-tax-on-workers
       set taxes-collected taxes-collected + tax-amount
-      set my-amount-of-resources my-amount-of-resources - tax-amount
+      set my-amount-of-capital my-amount-of-capital - tax-amount
       set my-current-income my-current-income - tax-amount
     ]
   ]
@@ -99,35 +99,35 @@ to perform-government-actions
   let n-of-hospitals count gathering-points with [gathering-type = "hospital"]
   ask gathering-points with [gathering-type = "hospital"]
   [
-    set amount-of-resources amount-of-resources + hospital-subsidy / n-of-hospitals
+    set amount-of-capital amount-of-capital + hospital-subsidy / n-of-hospitals
     set current-profit current-profit + hospital-subsidy / n-of-hospitals
   ]
 
   let n-of-universities count gathering-points with [gathering-type = "university"]
   ask gathering-points with [gathering-type = "university"]
   [
-    set amount-of-resources amount-of-resources + university-subsidy / n-of-universities
+    set amount-of-capital amount-of-capital + university-subsidy / n-of-universities
     set current-profit current-profit + university-subsidy / n-of-universities
   ]
 
   let n-of-retirees count people with [age = "retired"]
   ask people with [age = "retired"]
   [
-    set my-amount-of-resources my-amount-of-resources + retirees-subsidy / n-of-retirees
+    set my-amount-of-capital my-amount-of-capital + retirees-subsidy / n-of-retirees
     set my-current-income my-current-income + retirees-subsidy / n-of-retirees
   ]
 
   let n-of-students count people with [age = "student"]
   ask people with [age = "student"]
   [
-    set my-amount-of-resources my-amount-of-resources + students-subsidy / n-of-students
+    set my-amount-of-capital my-amount-of-capital + students-subsidy / n-of-students
     set my-current-income my-current-income + students-subsidy / n-of-students
   ]
 
   let n-of-young count people with [age = "young"]
   ask people with [age = "young"]
   [
-    set my-amount-of-resources my-amount-of-resources + young-subsidy / n-of-young
+    set my-amount-of-capital my-amount-of-capital + young-subsidy / n-of-young
     set my-current-income my-current-income + young-subsidy / n-of-young
   ]
 end

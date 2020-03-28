@@ -3,5 +3,5 @@ to-report ratio-infected
 end
 
 to-report total-amount-of-resources-available-in-the-system
-  report sum [my-amount-of-resources] of people + sum [amount-of-resources] of gathering-points
+  report sum [my-amount-of-capital] of people + sum [amount-of-capital] of gathering-points
 end

@@ -2,7 +2,7 @@ breed [gathering-points gathering-point]
 gathering-points-own [gathering-type
   available-food-rations ; rations of food that are available, this will be most useful for homes
   
-  amount-of-resources
+  amount-of-capital
   current-profit
   
   stock-of-goods
@@ -204,28 +204,28 @@ to-report schools
   report gathering-points with [gathering-type = "school"]
 end
 
-to-report gathering-points-total-amount-of-resources
-  report sum [amount-of-resources] of gathering-points
+to-report gathering-points-total-amount-of-capital
+  report sum [amount-of-capital] of gathering-points
 end
 
-to-report essential-shop-amount-of-resources
-  report sum [amount-of-resources] of gathering-points with [gathering-type = "essential-shop"]
+to-report essential-shop-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "essential-shop"]
 end
 
-to-report non-essential-shop-amount-of-resources
-  report sum [amount-of-resources] of gathering-points with [gathering-type = "non-essential-shop"]
+to-report non-essential-shop-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "non-essential-shop"]
 end
 
-to-report university-amount-of-resources
-  report sum [amount-of-resources] of gathering-points with [gathering-type = "university"]
+to-report university-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "university"]
 end
 
-to-report hospital-amount-of-resources
-  report sum [amount-of-resources] of gathering-points with [gathering-type = "hospital"]
+to-report hospital-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "hospital"]
 end
 
-to-report workplace-amount-of-resources
-  report sum [amount-of-resources] of gathering-points with [gathering-type = "workplace"]
+to-report workplace-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "workplace"]
 end
 
 to-report essential-shop-amount-of-goods-in-stock

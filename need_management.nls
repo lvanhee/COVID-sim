@@ -291,10 +291,10 @@ to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-f
     report max (list ((- my-expected-income) / eating-costs) 0)
   ]
   if motive = "essential shopping" [
-    report (- min (list ((my-amount-of-resources - eating-costs) / eating-costs) 1))
+    report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
   ]
   if motive = "shopping" [
-    report (- min (list ((my-amount-of-resources - 7 * price-of-rations) / eating-costs) 1))
+    report (- min (list ((my-amount-of-capital - 7 * price-of-rations) / eating-costs) 1))
   ]
   report 0
 end
@@ -305,18 +305,18 @@ to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for
   let eating-costs price-of-rations * count my-relatives * 7
 
   if is-I-have-contractual-obligations? and gp = my-work [
-    if my-previous-amount-of-resources > 0 
-    [report clamp 0 1 my-expected-income / my-previous-amount-of-resources]
+    if my-previous-amount-of-capital > 0 
+    [report clamp 0 1 my-expected-income / my-previous-amount-of-capital]
     report 1
   ]
-  if my-previous-amount-of-resources <= 0 [
+  if my-previous-amount-of-capital <= 0 [
     report -1
   ]
   if motive = "essential shopping" [
-    report (- (eating-costs / my-previous-amount-of-resources))
+    report (- (eating-costs / my-previous-amount-of-capital))
   ]
   if motive = "shopping" [
-    report (- (7 * price-of-rations / my-previous-amount-of-resources))
+    report (- (7 * price-of-rations / my-previous-amount-of-capital))
   ]
   report 0
 end

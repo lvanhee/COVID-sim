@@ -14,7 +14,6 @@ globals[#min-workers-in-adults-homes
 to setup
   clear-all
   check-parameters
-  load-preset-parameters
   set-default-shape people "circle"
   if debug? or static-seed?[  random-seed 47822 ]
   set slice-of-the-day "morning"
@@ -146,7 +145,13 @@ to setup-person-home
   [
     ifelse #min-workers-in-adults-homes > 0
     [
-      set h one-of empty-houses
+      ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
+      [
+        set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "worker"]]
+      ]
+      [
+        set h one-of empty-houses
+      ]
       
       set #min-workers-in-adults-homes #min-workers-in-adults-homes - 1
     ]
@@ -176,7 +181,13 @@ to setup-person-home
   [
     ifelse #min-students-in-adults-homes > 0
     [
-      set h one-of empty-houses
+      ifelse any? homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
+      [
+        set h one-of homes with [count gatherers = 1 and any? gatherers with [age = "student"]]
+      ]
+      [
+        set h one-of empty-houses
+      ]
       
       set #min-students-in-adults-homes #min-students-in-adults-homes - 1
     ]
@@ -247,7 +258,7 @@ to create-all-people
     let #family-homes floor (#homes * ratio-family-homes)
     let #multi-generational-homes #homes - (#adults-homes + #retired-couple-homes + #family-homes)
     
-    let #min-people #adults-homes + #retired-couple-homes * 2 + #family-homes * 2 + #multi-generational-homes * 3
+    let #min-people #adults-homes * 2 + #retired-couple-homes * 2 + #family-homes * 2 + #multi-generational-homes * 3
     
     ;initializing local variables
     let #extra-retirees 0
@@ -259,8 +270,8 @@ to create-all-people
     
     ifelse #min-people <= #total-population
     [
-      set #min-workers-in-adults-homes floor (#adults-homes / 2) ;to ensure that adults-homes have either workers or students (not both)
-      set #min-students-in-adults-homes #adults-homes - #min-workers-in-adults-homes
+      set #min-workers-in-adults-homes (floor (#adults-homes / 2)) * 2 ;to ensure that adults-homes have either 2 workers or 2 students (not both)
+      set #min-students-in-adults-homes #adults-homes * 2 - #min-workers-in-adults-homes
       set #min-retirees-in-retired-couple-homes #retired-couple-homes * 2
       set #min-workers-in-family-homes #family-homes
       set #min-students-in-family-homes floor (#family-homes / 2)
@@ -283,13 +294,13 @@ to create-all-people
         ;#extra-young
         if #family-homes + #multi-generational-homes > 0
         [
-          set #extra-young floor (#extra-people * 2.5 / 10)
+          set #extra-young floor (#extra-people * 3 / 10)
         ]
         
         ;#extra-students and #extra-workers
         ifelse #adults-homes + #family-homes + #multi-generational-homes > 0
         [
-          set #extra-students floor (#extra-people * 1.5 / 10)
+          set #extra-students floor (#extra-people * 2 / 10)
           set #extra-workers #extra-people - (#extra-retirees + #extra-young + #extra-students)
         ]
         [
@@ -329,11 +340,11 @@ to setup-activities
   create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
   create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
   
-  ask gathering-points with [gathering-type = "university"] [set amount-of-resources 100]
-  ask gathering-points with [gathering-type = "workplace"] [set amount-of-resources 200]
-  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-resources 100]
-  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-resources 100]
-  ask gathering-points with [gathering-type = "hospital"] [set amount-of-resources 1000]
+  ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]
+  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200]
+  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100]
+  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100]
+  ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital 1000]
   setup-activity-animate-positions
   
   if migration?
