@@ -325,6 +325,7 @@ to create-all-people
   
   
   ask people [ set current-activity one-of link-neighbors with  [gathering-type = "home"]]
+  ask homes [ set available-food-rations count gatherers * (random days-of-rations-bought + days-of-rations-bought) ]
 end
 
 to setup-activities
@@ -338,12 +339,12 @@ to setup-activities
   create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
   create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
   create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-  create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1) set available-food-rations random 14 + 7]
+  create-gathering-points #homes [set gathering-type "home" set shape "house" set color green set xcor 9 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "home"] / (#homes + 1)]
   
   ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]
-  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200]
-  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100]
-  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100]
+  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200 set stock-of-goods 100]
+  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100 set stock-of-goods 100]
+  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100 set stock-of-goods 100]
   ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital 1000]
   setup-activity-animate-positions
   

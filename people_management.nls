@@ -82,6 +82,7 @@ people-own [
   my-importance-for-relaxing-needs
   luxury-need-satisfaction
   my-importance-for-luxury-needs
+  amount-of-last-luxury-items-bought
 
   my-amount-of-capital
   my-previous-amount-of-capital
@@ -132,7 +133,7 @@ to setup-person [#young #students #workers #retired]
   set my-importance-for-autonomy-needs clamp 0.01 1 random-normal importance-autonomy needs-std-dev
   set my-importance-for-food-safety-needs 1
   set my-importance-for-financial-survival-needs 1
-  set my-importance-for-financial-safety-needs clamp 0.01 1 random-normal 1 needs-std-dev
+  set my-importance-for-financial-safety-needs clamp 0.01 1 random-normal importance-financial-safety needs-std-dev
 end
 
 to update-people-epistemic-status

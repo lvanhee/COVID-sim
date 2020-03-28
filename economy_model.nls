@@ -43,7 +43,7 @@ end
 
 to perform-government-actions
   ;collect taxes
-  let taxes-collected 0
+  set taxes-collected 0
 
   ask gathering-points with [gathering-type = "essential-shop"]
   [

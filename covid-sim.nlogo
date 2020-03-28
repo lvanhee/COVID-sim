@@ -9,6 +9,7 @@ globals [
   #dead-people
   #dead-retired
   away-gathering-point
+  taxes-collected
 ]
 
 to go
@@ -405,7 +406,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-1.0
+0.19
 0.01
 1
 NIL
@@ -457,7 +458,7 @@ density-factor-hospital
 density-factor-hospital
 0
 1
-0.8
+0.81
 0.01
 1
 NIL
@@ -904,7 +905,7 @@ importance-compliance
 importance-compliance
 0
 1
-0.5
+0.55
 0.01
 1
 NIL
@@ -992,7 +993,7 @@ SWITCH
 409
 migration?
 migration?
-1
+0
 1
 -1000
 
@@ -1005,7 +1006,7 @@ density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.11
+0.0
 0.01
 1
 NIL
@@ -1017,7 +1018,7 @@ INPUTBOX
 639
 512
 #total-population
-220.0
+300.0
 1
 0
 Number
@@ -1163,7 +1164,7 @@ true
 true
 "" ""
 PENS
-"safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
+"Combined" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
 "compliance" 1.0 0 -13840069 true "" "plot mean [compliance-need-satisfaction] of people"
 "risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
 "food-safety" 1.0 0 -5325092 true "" "plot mean [food-safety-need-satisfaction] of people"
@@ -1177,7 +1178,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1366,7 +1367,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.0
 0.01
 1
 NIL
@@ -1381,7 +1382,7 @@ importance-financial-safety
 importance-financial-safety
 0
 1
-0.44
+0.3
 0.01
 1
 NIL
@@ -1396,7 +1397,7 @@ factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
 1
-0.57
+0.68
 0.01
 1
 NIL
@@ -1487,7 +1488,7 @@ ratio-amount-spent-by-non-essential-shops-on-supplies
 ratio-amount-spent-by-non-essential-shops-on-supplies
 0
 1
-0.87
+0.78
 0.01
 1
 NIL
@@ -1527,7 +1528,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.4
+0.38
 0.01
 1
 NIL
@@ -1542,7 +1543,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.6
+0.51
 0.01
 1
 NIL
@@ -1557,7 +1558,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.43
+0.44
 0.01
 1
 NIL
@@ -1592,7 +1593,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.15
+0.19
 0.01
 1
 NIL
@@ -1607,7 +1608,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.15
+0.1
 0.01
 1
 NIL
@@ -1622,7 +1623,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.39
+0.41
 0.01
 1
 NIL
@@ -1666,7 +1667,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "mediterranea" "scandinavia" "south-asia"
-2
+0
 
 SLIDER
 1274
@@ -1677,7 +1678,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+0.01
 0.01
 1
 NIL
@@ -1725,7 +1726,7 @@ price-of-rations
 0.5
 10
 1.5
-0.5
+0.1
 1
 NIL
 HORIZONTAL
@@ -1746,7 +1747,7 @@ true
 true
 "" ""
 PENS
-"self esteem" 1.0 0 -16777216 true "" "plot mean [self-esteem-need-satisfaction] of people"
+"combined" 1.0 0 -16777216 true "" "plot mean [self-esteem-need-satisfaction] of people"
 "relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
 "luxury" 1.0 0 -955883 true "" "plot mean [luxury-need-satisfaction] of people"
 
@@ -1809,7 +1810,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-30.0
+21.0
 1
 1
 NIL
@@ -1824,7 +1825,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.0
+1.1
 0.1
 1
 NIL
@@ -1849,7 +1850,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family"
-1
+0
 
 MONITOR
 716
@@ -2021,6 +2022,32 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+872
+1187
+1068
+1220
+days-of-rations-bought
+days-of-rations-bought
+0
+28
+3.0
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1008
+920
+1065
+965
+#away
+count people with [is-away?]
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
