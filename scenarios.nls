@@ -48,7 +48,22 @@ to load-scenario
 end
 
 to load-baseline-scenario
-  set #hospital 1
+  load-default-city-layout-model
+  load-default-disease-model
+  load-default-migration-model
+  load-default-contagion-model
+  load-default-economic-parameters
+  
+  load-no-measures
+end
+
+to load-default-migration-model
+  set migration? true
+  set probability-infection-when-abroad 0.0
+end
+
+to load-default-city-layout-model
+    set #hospital 1
   set #schools 3
   set #universities 10
   set #workplaces 10
@@ -57,14 +72,39 @@ to load-baseline-scenario
   set #homes 100
   set #essential-shops 5
   set #non-essential-shops 10
+end
+
+to load-default-disease-model
+   set with-infected? true
+end
+
+
+to load-default-contagion-model
+end
+
+to load-default-economic-parameters
+  set price-of-rations 2.1
+  set days-of-rations-bought 3
+  set ratio-tax-on-essential-shops 0.52
+  set ratio-tax-on-non-essential-shops 0.52
+  set ratio-tax-on-workplaces 0.55
+  set ratio-tax-on-workers 0.41
+  set goods-produced-by-work-performed 10
+  set unit-price-of-goods 1.8
+  set max-stock-of-goods-in-a-shop 500
+  set starting-amount-of-capital-workers 75
+  set starting-amount-of-capital-retired 30
+  set starting-amount-of-capital-students 35
   
-  set with-infected? true
-  set migration? true
-  set probability-infection-when-abroad 0.1
-  set goods-produced-by-work-performed 8
-  set ratio-university-subsidy 0.03
+  set ratio-school-subsidy 0.07
+  set ratio-hospital-subsidy 0.18
+  set ratio-university-subsidy 0.02
+  set ratio-retirees-subsidy 0.37
+  set ratio-students-subsidy 0.3
   
-  load-no-measures
+  set government-pays-wages? false
+  set ratio-of-wage-paid-by-the-government 0.8
+  set government-initial-reserve-of-capital 10000
 end
 
 to load-no-measures

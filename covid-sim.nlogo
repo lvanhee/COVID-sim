@@ -1556,7 +1556,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.03
+0.02
 0.01
 1
 NIL
@@ -1758,7 +1758,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-8.0
+10.0
 1
 1
 NIL
