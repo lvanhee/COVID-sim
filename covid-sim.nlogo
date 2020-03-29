@@ -340,7 +340,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -1126,9 +1126,9 @@ count people with [[gathering-type] of current-activity = \"essential-shop\"]
 MONITOR
 1064
 873
-1124
+1139
 918
-#@shop
+#@NEshop
 count people with [[gathering-type] of current-activity = \"non-essential-shop\"]
 17
 1
@@ -2121,9 +2121,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-1690
+1692
 936
-1827
+1829
 969
 probably-contagion-mitigation-from-social-distancing
 probably-contagion-mitigation-from-social-distancing
@@ -2146,9 +2146,9 @@ Social distancing
 1
 
 SLIDER
-1690
+1692
 903
-1827
+1829
 936
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
@@ -2161,9 +2161,9 @@ NIL
 HORIZONTAL
 
 MONITOR
-1690
+1692
 969
-1826
+1828
 1014
 NIL
 is-social-distancing-measure-active?

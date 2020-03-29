@@ -60,10 +60,6 @@ to-report is-home?
   report gathering-type = "home"
 end
 
-to-report is-university?
-  report gathering-type = "university"
-end
-
 to-report is-hospital?
   report gathering-type = "hospital"
 end
@@ -157,17 +153,27 @@ end
 
 to-report is-accessible?
   if is-lockdown-enforced? [
-    ; If the lockdown is enforced, all schools, universities, and workplaces automatically close
-    report gathering-type != "workplace" and gathering-type != "school" and gathering-type != "university"
+    report is-open-during-lockdown?
   ]
-  if gathering-type = "workplace" and closed-workplaces? [report false]
-  if gathering-type = "school" and closed-schools? [report false]  
-  if gathering-type = "university" and closed-universities? [report false]  
+  if is-workplace? and closed-workplaces? [report false]
+  if is-school? and closed-schools? [report false]  
+  if is-university? and closed-universities? [report false]  
   report true
 end
 
+to-report is-open-during-lockdown?
+  if is-workplace? or is-school? or is-university? or is-non-essential-shop? or is-public-leisure?
+  or is-private-leisure? [report false]
+  if is-essential-shop? or is-hospital? or is-home? [report true]
+  
+  report (sentence "unimplemented for:" [gathering-type] of self)
+end
+to-report is-university?
+  report gathering-type = "university"
+end
+
 to-report homes
-  report gathering-points with [gathering-type = "home"]
+  report gathering-points with [is-home?]
 end
 
 to-report gatherers
