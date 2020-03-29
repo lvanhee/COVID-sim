@@ -2101,7 +2101,7 @@ starting-amount-of-capital-retired
 starting-amount-of-capital-retired
 0
 100
-30.0
+34.0
 1
 1
 NIL
@@ -2252,6 +2252,28 @@ PENS
 "hospital" 1.0 0 -13840069 true "" "plot #hospitals-out-of-capital"
 "workplace" 1.0 0 -2674135 true "" "plot #workplaces-out-of-capital"
 "school" 1.0 0 -8630108 true "" "plot #schools-out-of-capital"
+
+PLOT
+16
+1613
+526
+1763
+Activities
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"@Work" 1.0 0 -14070903 true "" "plot count people with [is-at-work?]"
+"@Pu-Leisure" 1.0 0 -5298144 true "" "plot count people with [is-at-public-leisure-place?]"
+"@Pr-Leisure" 1.0 0 -3844592 true "" "plot count people with [is-at-private-leisure-place?]"
+"@Home" 1.0 0 -14439633 true "" "plot count people with [is-at-home?]"
+"@Univ" 1.0 0 -4079321 true "" "plot count people with [is-at-university?]"
 
 @#$#@#$#@
 ## WHAT IS IT?
