@@ -20,7 +20,7 @@ to update-needs-for-playing [current-activity-descriptor]
   if relaxing-need-satisfaction > 1 [set relaxing-need-satisfaction 1]
   
   set luxury-need-satisfaction luxury-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-luxury-after-having-played current-activity-descriptor
+  my-actual-discounted-satisfaction-gain-for-luxury-after-having-played current-activity-descriptor
   if luxury-need-satisfaction > 1 [set luxury-need-satisfaction 1]
   
   set autonomy-need-satisfaction autonomy-need-satisfaction +
@@ -52,7 +52,7 @@ to decay-need-satisfaction
   set relaxing-need-satisfaction relaxing-need-satisfaction * 0.8
   if relaxing-need-satisfaction < 0 [set relaxing-need-satisfaction 0]
   
-  set luxury-need-satisfaction luxury-need-satisfaction * 0.95
+  set luxury-need-satisfaction luxury-need-satisfaction * 0.98
   if luxury-need-satisfaction < 0 [set luxury-need-satisfaction 0]
 end
 
@@ -166,12 +166,16 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
     set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
   ]
   
+  ; Make kids go to school
   ifelse (motive = "mandatory") and not is-lockdown-enforced? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ] [
-    set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1
+    if age = "youth" [
+      set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1
+    ]
   ]
   
+  ; Make students go to university
   if (motive = "learning") and not is-lockdown-enforced? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
@@ -218,10 +222,7 @@ to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing
     if slice-of-the-day = "night" [
       report 0.8
     ]
-    report 0.15
-  ]
-  if motive = "shopping" [
-    report 0.1
+    report 0.2
   ]
   if motive = "relaxing" [
     report 0.2
@@ -234,9 +235,15 @@ to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [
   let motive last ad
   
   if motive = "shopping" [
-    report 0.2
+    report 0.4
   ]
   report 0
+end
+
+to-report actual-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad]
+  let result min (list (amount-of-last-luxury-items-bought / 7) 1) * 0.4
+  set amount-of-last-luxury-items-bought 0
+  report result
 end
 
 to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing [ad]
@@ -282,7 +289,7 @@ end
 to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [ad]
   let gp first ad
   let motive last ad
-  let eating-costs price-of-rations * (1 + count my-relatives * 7)
+  let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? [
     if gp = my-work [
@@ -294,7 +301,7 @@ to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-f
     report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
   ]
   if motive = "shopping" [
-    report (- min (list ((my-amount-of-capital - 7 * price-of-rations) / eating-costs) 1))
+    report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations) / eating-costs) 1))
   ]
   report 0
 end
@@ -302,7 +309,7 @@ end
 to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [ad]
   let gp first ad
   let motive last ad
-  let eating-costs price-of-rations * count my-relatives * 7
+  let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? and gp = my-work [
     if my-previous-amount-of-capital > 0 
@@ -316,7 +323,7 @@ to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for
     report (- (eating-costs / my-previous-amount-of-capital))
   ]
   if motive = "shopping" [
-    report (- (7 * price-of-rations / my-previous-amount-of-capital))
+    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations / my-previous-amount-of-capital))
   ]
   report 0
 end
@@ -458,6 +465,12 @@ end
 to-report my-expected-discounted-satisfaction-gain-for-luxury-after-having-played [ad]
   let expected-increase expected-undiscounted-luxury-needs-satisfaction-increase-for-playing ad
   let discounted-increase expected-increase * (1 - luxury-need-satisfaction)
+  report discounted-increase
+end
+
+to-report my-actual-discounted-satisfaction-gain-for-luxury-after-having-played [ad]
+  let actual-increase actual-undiscounted-luxury-needs-satisfaction-increase-for-playing ad
+  let discounted-increase actual-increase * (1 - luxury-need-satisfaction)
   report discounted-increase
 end
 

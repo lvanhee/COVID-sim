@@ -57,7 +57,7 @@ end
 ;;here, food-safety is rather a subaspect of safety (more cognitive, worries about the future)
 ;;TBU: should be dependent on the current plan, i.e. acquiring food should be expected to lower this need
 to-report food-safety-need-satisfaction
-  report min (list ([available-food-rations] of my-home / 14) 1)
+  report min (list ([available-food-rations] of my-home / amount-of-rations-I-buy-when-going-to-essential-shops) 1)
 end
 
 to-report rest-need-satisfaction [ad]
@@ -72,7 +72,7 @@ to-report rest-need-satisfaction [ad]
 end
 
 to-report financial-survival-need-satisfaction
-  report clamp 0 1 (my-amount-of-capital / price-of-rations * count my-relatives * 7)
+  report clamp 0 1 (my-amount-of-capital / price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops)
 end
 
 to-report financial-safety-need-satisfaction
