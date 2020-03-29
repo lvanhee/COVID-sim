@@ -11,7 +11,7 @@ globals [
   away-gathering-point
   #who-became-sick-while-travelling-locally
   government-reserve-of-capital
-  velocity-of-money-in-total-system
+  total-amount-of-capital-in-circulation
   goods-production-of-total-system
 ]
 
@@ -342,7 +342,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -2184,7 +2184,7 @@ NIL
 0.0
 10.0
 0.0
-10.0
+0.5
 true
 false
 "" ""
@@ -2222,10 +2222,13 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot #adult-people-out-of-capital"
+"total" 1.0 0 -16777216 true "" "plot #adult-people-out-of-capital"
+"worker" 1.0 0 -13345367 true "" "plot #workers-out-of-capital"
+"retired" 1.0 0 -955883 true "" "plot #retired-out-of-capital"
+"student" 1.0 0 -10899396 true "" "plot #students-out-of-capital"
 
 PLOT
 1446

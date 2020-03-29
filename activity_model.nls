@@ -133,7 +133,7 @@ to update-resources-based-on-current-activity
     set my-amount-of-capital my-amount-of-capital + amount-earned
     set my-current-income my-current-income + amount-earned
     
-    set velocity-of-money-in-total-system velocity-of-money-in-total-system + amount-earned
+    set total-amount-of-capital-in-circulation total-amount-of-capital-in-circulation + amount-earned
     set goods-production-of-total-system goods-production-of-total-system + contribution-to-stock
 
     stop
@@ -160,7 +160,7 @@ to update-resources-based-on-current-activity
     set my-current-income my-current-income - amount-spent
     ask picked-essential-shop [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
     
-    set velocity-of-money-in-total-system velocity-of-money-in-total-system + amount-spent
+    set total-amount-of-capital-in-circulation total-amount-of-capital-in-circulation + amount-spent
     stop
   ]
 
@@ -182,7 +182,7 @@ to update-resources-based-on-current-activity
       set my-current-income my-current-income - amount-spent
       ask current-activity [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
       
-      set velocity-of-money-in-total-system velocity-of-money-in-total-system + amount-spent
+      set total-amount-of-capital-in-circulation total-amount-of-capital-in-circulation + amount-spent
     ]
     stop
   ]
@@ -352,7 +352,7 @@ to-report  is-contractual-obligation? [m]
 end
 
 to perform-people-activities
-  set velocity-of-money-in-total-system 0
+  set total-amount-of-capital-in-circulation 0
   set goods-production-of-total-system 0
   
   ask gathering-points [set current-profit 0]
