@@ -1,9 +1,9 @@
 to execute-activity-effect
-  
+
   update-resources-based-on-current-activity
   ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
   ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
-  
+
   ;the epistemic infection status depends on whether the person has (had) visible symptoms, not on where it now gathers
   ;though, gathering place might be to be recorded (i.e. a "maybe infected" state if public space has been visited and public space is believed to be contagious)
   ;if [gathering-type] of current-activity = "hospital"
@@ -11,9 +11,9 @@ to execute-activity-effect
   let family-here count ([gatherers] of current-activity) with [member? self [my-relatives] of myself]
   if any? my-relatives and family-here / count my-relatives > 0.5 [ set days-since-seen-relatives 0 ]
   let colleagues-here count ([gatherers] of current-activity) with [member? self [my-colleagues] of myself]
-  
+
   let mc my-colleagues
-  
+
   if any? mc
   [
     if (colleagues-here / count mc > 0.5) [ set days-since-seen-colleagues 0 ]]
@@ -36,59 +36,74 @@ end
 to update-resources-based-on-current-activity
   if not is-being-away? current-activity and current-motivation = "travelling" [error "wrong place while travelling"]
   if current-activity = 0 [error "failed to select an activity"]
-  
+
   if current-motivation = follow-person-in-charge-motive [stop]
-  
+
 
   ;if is-at-home? [stop]
-  
-  if is-forced-to-be-in-school? or is-learning? or is-getting-tested? or is-resting? or is-relaxing? 
+
+  if is-forced-to-be-in-school? or is-learning? or is-getting-tested? or is-resting? or is-relaxing?
   or (is-at-home? and is-forced-to-be-here?) [stop]
 
+  let amount-to-earn 0
   let amount-earned 0
   if is-working?
   [
     let contribution-to-stock goods-produced-by-work-performed
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
-      set amount-earned 10
-      ask my-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+      set amount-to-earn 10
+      let picked-work my-work
+      set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
+      ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
     ]
     [
       ifelse [gathering-type] of current-activity = "non-essential-shop"
       [
-        set amount-earned 10
-        ask my-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+        set amount-to-earn 10
+        let picked-work my-work
+        set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
+        ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
       ]
       [
         ifelse [gathering-type] of current-activity = "home"
         [
-          set amount-earned 10
-          ask my-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
+          set amount-to-earn 10
+          let picked-work my-work
+          set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
+          ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
         ]
         [
           ifelse [gathering-type] of current-activity = "university"
           [
-            set amount-earned 10
-            ask my-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+            set amount-to-earn 10
+            let picked-university max-one-of all-universities [amount-of-capital]
+            set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-university 0))
+            ask picked-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
           ]
           [
             ifelse [gathering-type] of current-activity = "hospital"
             [
-              set amount-earned 10
-              ask my-hospital [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+              set amount-to-earn 10
+              let picked-hospital max-one-of all-hospitals [amount-of-capital]
+              set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-hospital 0))
+              ask picked-hospital [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
             ]
             [
               ifelse [gathering-type] of current-activity = "workplace"
               [
-                set amount-earned 10
-                ask my-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
+                set amount-to-earn 10
+                let picked-workplace max-one-of all-workplaces [amount-of-capital]
+                set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-workplace 0))
+                ask picked-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
               ]
               [
                 ifelse [gathering-type] of current-activity = "school"
                 [
-                  set amount-earned 10
-                  ask my-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+                  set amount-to-earn 10
+                  let picked-school max-one-of all-schools [amount-of-capital]
+                  set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-school 0))
+                  ask picked-school [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
                 ]
                 [
                   error (sentence "not implemented" [gathering-type] of current-activity)
@@ -99,53 +114,68 @@ to update-resources-based-on-current-activity
         ]
       ]
     ]
-    
+
+    if government-pays-wages?
+    [
+      if amount-earned < amount-to-earn
+      [
+        let worker-subsidy ratio-of-wage-paid-by-the-government * (amount-to-earn - amount-earned)
+        set amount-earned amount-earned + worker-subsidy
+        set government-reserve-of-capital government-reserve-of-capital - worker-subsidy
+      ]
+    ]
+
     set my-amount-of-capital my-amount-of-capital + amount-earned
     set my-current-income my-current-income + amount-earned
-    
+
     stop
   ]
-  
 
-  
+
+
   if is-performing-essential-shopping?
   [
     let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations)
     let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-essential-shops max (list max-amount-of-rations-I-can-buy 0))
-    
-    let available-goods-in-my-essential-shop max (list [stock-of-goods] of my-essential-shop 0)
-    
+
+    let picked-essential-shop max-one-of all-essential-shops [stock-of-goods]
+
+    let available-goods-in-my-essential-shop max (list [stock-of-goods] of picked-essential-shop 0)
+
     set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-essential-shop)
-    
+
     ask my-home [set available-food-rations available-food-rations + amount-of-rations-to-buy]
-    
+
     let amount-spent amount-of-rations-to-buy * price-of-rations
     let stock-decrease amount-of-rations-to-buy
     set my-amount-of-capital my-amount-of-capital - amount-spent
     set my-current-income my-current-income - amount-spent
-    ask my-essential-shop [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
+    ask picked-essential-shop [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
     stop
   ]
-  
+
   if is-performing-non-essential-shopping?
   [
-    let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations)
-    let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-shops max (list max-amount-of-rations-I-can-buy 0))
-    
-    let available-goods-in-my-shop max (list [stock-of-goods] of current-activity 0)
-    set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-shop)
-    
-    let amount-spent amount-of-rations-to-buy * price-of-rations
-    let stock-decrease amount-of-rations-to-buy
-    set my-amount-of-capital my-amount-of-capital - amount-spent
-    set my-current-income my-current-income - amount-spent
-    set amount-of-last-luxury-items-bought amount-of-rations-to-buy
-    ask current-activity [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
+    if not closed-non-essential?
+    [
+      let max-amount-of-rations-I-can-buy my-amount-of-capital / price-of-rations
+      let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-shops max (list max-amount-of-rations-I-can-buy 0))
+
+      let available-goods-in-my-non-essential-shop max (list [stock-of-goods] of current-activity 0)
+
+      set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-non-essential-shop)
+
+      let amount-spent amount-of-rations-to-buy * price-of-rations
+      let stock-decrease amount-of-rations-to-buy
+      set my-amount-of-capital my-amount-of-capital - amount-spent
+      set my-current-income my-current-income - amount-spent
+      ask current-activity [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
+    ]
     stop
   ]
-  
+
   if is-being-away? current-activity [stop]
-  
+
   error (sentence "not implemented" [gathering-type] of current-activity current-motivation)
 end
 
@@ -169,16 +199,16 @@ end
 to perform-activity
 
     select-activity
-    
+
     if current-activity = 0 [error "failed to select an activity"]
-    
+
     ask children with [
-      is-currently-in-sitation-of-active-dependence? and 
+      is-currently-in-sitation-of-active-dependence? and
       current-person-I-depend-on != nobody]
     [set current-activity [current-activity] of current-person-I-depend-on
       set current-motivation follow-person-in-charge-motive
     ]
-    
+
     if not animate? [
       move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
       set heading towards current-activity
@@ -203,11 +233,11 @@ to-report is-resting-at-home?
   and is-at-home?
 end
 
-to-report is-resting? 
+to-report is-resting?
   report current-motivation = "rest"
 end
 
-to-report is-relaxing? 
+to-report is-relaxing?
   report current-motivation = "relaxing"
 end
 
@@ -218,7 +248,7 @@ end
 to-report is-forced-to-be-in-school?
   report [gathering-type] of current-activity = "school" and current-motivation = "mandatory"
 end
-  
+
 to-report is-learning?
   report current-motivation = learning-motive
 end
@@ -238,7 +268,7 @@ end
 to-report is-essential-shop-gathering-point? [gp]
   report gp = "essential shopping"
 end
-  
+
 
 to-report is-performing-shopping?
   report is-a-shopping-motivation? current-motivation
@@ -288,15 +318,15 @@ to-report is-home-gathering-point? [location]
 end
 
 to-report can-be-done-with-a-dependable-person? [ad]
-  if 
+  if
   is-home-gathering-point? location-of ad
   or ([is-hospital?] of first ad and last ad = "get-tested")
   or (is-a-shopping-motivation? last ad)
   or (is-a-leisure-motivation? motive-of ad)
   [report true]
-    
-  if 
-  ([is-university? or is-hospital? or is-workplace? or is-shop? or is-school?] of location-of ad) 
+
+  if
+  ([is-university? or is-hospital? or is-workplace? or is-shop? or is-school?] of location-of ad)
   and (motive-of ad = learning-motive or
     is-contractual-obligation? motive-of ad)
   [report false]
@@ -321,12 +351,12 @@ to perform-people-activities
   ask people [
     if not is-being-away? current-activity and current-motivation = "travelling" [error "wrong place while travelling"]
     perform-activity
-    if not is-being-away? current-activity and current-motivation = "travelling" [error (sentence "wrong place while travelling" current-activity current-motivation)]    
+    if not is-being-away? current-activity and current-motivation = "travelling" [error (sentence "wrong place while travelling" current-activity current-motivation)]
   ]
   ask people [
     if not is-being-away? current-activity and current-motivation = "travelling" [error (sentence "wrong place while travelling" current-activity current-motivation)]
     execute-activity-effect
     update-needs-for-playing (list current-activity current-motivation)
-  ]  
+  ]
   animate-walk-to-goal
 end

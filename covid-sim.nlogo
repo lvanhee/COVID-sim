@@ -9,7 +9,8 @@ globals [
   #dead-people
   #dead-retired
   away-gathering-point
-  taxes-collected
+  #who-became-sick-while-travelling-locally
+  government-reserve-of-capital
 ]
 
 to go
@@ -791,7 +792,7 @@ probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
 1
-0.2
+0.21
 0.01
 1
 NIL
@@ -890,7 +891,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.22
+0.0
 0.01
 1
 NIL
@@ -921,21 +922,6 @@ importance-survival
 0
 1
 0.7
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1530
-408
-1716
-441
-probability-going-abroad
-probability-going-abroad
-0
-1
-0.01
 0.01
 1
 NIL
@@ -998,15 +984,15 @@ migration?
 -1000
 
 SLIDER
-1695
-441
-1882
-474
-density-travelling-propagation
-density-travelling-propagation
+1693
+452
+1880
+485
+density-travelling-propagation2
+density-travelling-propagation2
 0
 1
-0.0
+0.05
 0.01
 1
 NIL
@@ -1445,11 +1431,12 @@ PENS
 "university" 1.0 0 -955883 true "" "plot university-amount-of-capital"
 "hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-capital"
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-capital"
+"school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
 
 PLOT
 979
 1250
-1397
+1441
 1400
 Total amount of capital available in the system
 NIL
@@ -1459,10 +1446,11 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
+"total" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
+"government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
 529
@@ -1586,9 +1574,9 @@ Distribution of government subsidy
 
 SLIDER
 766
-1250
+1288
 939
-1283
+1321
 ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
@@ -1601,14 +1589,14 @@ HORIZONTAL
 
 SLIDER
 766
-1288
+1326
 939
-1321
+1359
 ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.1
+0.03
 0.01
 1
 NIL
@@ -1616,9 +1604,9 @@ HORIZONTAL
 
 SLIDER
 766
-1326
+1364
 939
-1359
+1397
 ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
@@ -1631,9 +1619,9 @@ HORIZONTAL
 
 SLIDER
 767
-1364
+1402
 939
-1397
+1435
 ratio-students-subsidy
 ratio-students-subsidy
 0
@@ -1645,15 +1633,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-767
-1402
-939
-1435
-ratio-young-subsidy
-ratio-young-subsidy
+766
+1250
+938
+1283
+ratio-school-subsidy
+ratio-school-subsidy
 0
 1
-0.0
+0.01
 0.01
 1
 NIL
@@ -1717,9 +1705,9 @@ People testing
 1
 
 SLIDER
-872
+530
 1149
-1044
+702
 1182
 price-of-rations
 price-of-rations
@@ -1810,7 +1798,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-21.0
+8.0
 1
 1
 NIL
@@ -1838,7 +1826,7 @@ SWITCH
 56
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1957,10 +1945,10 @@ Density factors \nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-1535
-443
-1696
-471
+1533
+454
+1694
+482
 Risks of becoming sick when travelling locally
 11
 0.0
@@ -2038,6 +2026,21 @@ days-of-rations-bought
 NIL
 HORIZONTAL
 
+SLIDER
+1530
+409
+1716
+442
+probability-going-abroad
+probability-going-abroad
+0
+1
+0.02
+0.01
+1
+NIL
+HORIZONTAL
+
 MONITOR
 1008
 920
@@ -2048,6 +2051,54 @@ count people with [is-away?]
 17
 1
 11
+
+MONITOR
+717
+813
+781
+858
+NIL
+#who-became-sick-while-travelling-locally
+17
+1
+11
+
+SWITCH
+768
+1460
+968
+1493
+government-pays-wages?
+government-pays-wages?
+1
+1
+-1000
+
+SLIDER
+768
+1499
+1039
+1532
+ratio-of-wage-paid-by-the-government
+ratio-of-wage-paid-by-the-government
+0
+1
+0.8
+0.01
+1
+NIL
+HORIZONTAL
+
+INPUTBOX
+768
+1539
+967
+1599
+government-initial-reserve-of-capital
+10000.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
