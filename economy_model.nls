@@ -72,6 +72,7 @@ to perform-trades-between-gathering-points
   
   ;workplace
   let total-capital-spent-by-all-shops actual-amount-of-stocks-bought * unit-price-of-goods
+  set velocity-of-money-in-total-system velocity-of-money-in-total-system + total-capital-spent-by-all-shops
   
   if total-capital-spent-by-all-shops > 0
   [
@@ -180,4 +181,34 @@ to perform-government-actions
   [
     set government-reserve-of-capital government-reserve-of-capital + (taxes-collected - taxes-redistributed)
   ]
+  
+  set velocity-of-money-in-total-system velocity-of-money-in-total-system + taxes-redistributed
+end
+
+to-report #adult-people-out-of-capital
+  report count people with [age != "young" and my-amount-of-capital <= 0]
+end
+
+to-report #essential-shops-out-of-capital
+  report count gathering-points with [gathering-type = "essential-shop" and amount-of-capital <= 0]
+end
+
+to-report #non-essential-shops-out-of-capital
+  report count gathering-points with [gathering-type = "non-essential-shop" and amount-of-capital <= 0]
+end
+
+to-report #universities-out-of-capital
+  report count gathering-points with [gathering-type = "university" and amount-of-capital <= 0]
+end
+
+to-report #hospitals-out-of-capital
+  report count gathering-points with [gathering-type = "hospital" and amount-of-capital <= 0]
+end
+
+to-report #workplaces-out-of-capital
+  report count gathering-points with [gathering-type = "workplace" and amount-of-capital <= 0]
+end
+
+to-report #schools-out-of-capital
+  report count gathering-points with [gathering-type = "school" and amount-of-capital <= 0]
 end

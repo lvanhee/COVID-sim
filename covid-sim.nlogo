@@ -11,6 +11,8 @@ globals [
   away-gathering-point
   #who-became-sick-while-travelling-locally
   government-reserve-of-capital
+  velocity-of-money-in-total-system
+  goods-production-of-total-system
 ]
 
 to go
@@ -1434,10 +1436,10 @@ PENS
 "school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
 
 PLOT
-979
-1250
-1441
-1400
+1056
+1081
+1518
+1231
 Total amount of capital available in the system
 NIL
 NIL
@@ -2170,6 +2172,83 @@ is-social-distancing-measure-active?
 17
 1
 11
+
+PLOT
+1056
+1241
+1422
+1391
+Velocity of money in total system
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot velocity-of-money-in-total-system"
+
+PLOT
+1056
+1402
+1423
+1552
+Goods production of total system
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot goods-production-of-total-system"
+
+PLOT
+1446
+1241
+1856
+1391
+Number of adult people out of capital
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot #adult-people-out-of-capital"
+
+PLOT
+1446
+1402
+1857
+1552
+Number of gathering points out of capital
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"essential-shop" 1.0 0 -16777216 true "" "plot #essential-shops-out-of-capital"
+"non-essential-shop" 1.0 0 -13345367 true "" "plot #non-essential-shops-out-of-capital"
+"university" 1.0 0 -955883 true "" "plot #universities-out-of-capital"
+"hospital" 1.0 0 -13840069 true "" "plot #hospitals-out-of-capital"
+"workplace" 1.0 0 -2674135 true "" "plot #workplaces-out-of-capital"
+"school" 1.0 0 -8630108 true "" "plot #schools-out-of-capital"
 
 @#$#@#$#@
 ## WHAT IS IT?

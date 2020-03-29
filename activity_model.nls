@@ -47,9 +47,9 @@ to update-resources-based-on-current-activity
 
   let amount-to-earn 0
   let amount-earned 0
+  let contribution-to-stock 0
   if is-working?
   [
-    let contribution-to-stock goods-produced-by-work-performed
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
       set amount-to-earn 10
@@ -60,10 +60,13 @@ to update-resources-based-on-current-activity
     [
       ifelse [gathering-type] of current-activity = "non-essential-shop"
       [
-        set amount-to-earn 10
-        let picked-work my-work
-        set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
-        ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+        if not closed-non-essential?
+        [
+          set amount-to-earn 10
+          let picked-work my-work
+          set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
+          ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+        ]
       ]
       [
         ifelse [gathering-type] of current-activity = "home"
@@ -71,6 +74,7 @@ to update-resources-based-on-current-activity
           set amount-to-earn 10
           let picked-work my-work
           set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
+          set contribution-to-stock amount-earned / amount-to-earn * goods-produced-by-work-performed
           ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
         ]
         [
@@ -95,6 +99,7 @@ to update-resources-based-on-current-activity
                 set amount-to-earn 10
                 let picked-workplace max-one-of all-workplaces [amount-of-capital]
                 set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-workplace 0))
+                set contribution-to-stock amount-earned / amount-to-earn * goods-produced-by-work-performed
                 ask picked-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
               ]
               [
@@ -127,6 +132,9 @@ to update-resources-based-on-current-activity
 
     set my-amount-of-capital my-amount-of-capital + amount-earned
     set my-current-income my-current-income + amount-earned
+    
+    set velocity-of-money-in-total-system velocity-of-money-in-total-system + amount-earned
+    set goods-production-of-total-system goods-production-of-total-system + contribution-to-stock
 
     stop
   ]
@@ -151,6 +159,8 @@ to update-resources-based-on-current-activity
     set my-amount-of-capital my-amount-of-capital - amount-spent
     set my-current-income my-current-income - amount-spent
     ask picked-essential-shop [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
+    
+    set velocity-of-money-in-total-system velocity-of-money-in-total-system + amount-spent
     stop
   ]
 
@@ -171,6 +181,8 @@ to update-resources-based-on-current-activity
       set my-amount-of-capital my-amount-of-capital - amount-spent
       set my-current-income my-current-income - amount-spent
       ask current-activity [set amount-of-capital amount-of-capital + amount-spent set current-profit current-profit + amount-spent set stock-of-goods stock-of-goods - stock-decrease]
+      
+      set velocity-of-money-in-total-system velocity-of-money-in-total-system + amount-spent
     ]
     stop
   ]
@@ -340,6 +352,9 @@ to-report  is-contractual-obligation? [m]
 end
 
 to perform-people-activities
+  set velocity-of-money-in-total-system 0
+  set goods-production-of-total-system 0
+  
   ask gathering-points [set current-profit 0]
   ask people [
     if working-day? and member? slice-of-the-day ["afternoon" "evening"] [
