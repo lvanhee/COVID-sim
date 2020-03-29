@@ -36,3 +36,7 @@ to apply-active-measures
     perform-test
   ]
 end
+
+to-report is-social-distancing-measure-active?
+  report ratio-omniscious-infected-that-trigger-social-distancing-measure < ratio-infected
+end

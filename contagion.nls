@@ -8,8 +8,23 @@ to spread-by-activity-proximity
     apply-risk-of-contamination-when-travelling
     
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
-    repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity * ifelse-value is-young?  [factor-reduction-probability-transmission-young] [1]]
+    repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity * contextual-contagion-modificators]
   ]
+end
+
+to-report contextual-contagion-modificators
+  report 
+  age-infection-risk-mitigation-factor
+  * social-distancing-risk-mitigation-factor
+end
+
+to-report social-distancing-risk-mitigation-factor
+  ifelse is-I-apply-social-distancing? [report probably-contagion-mitigation-from-social-distancing]
+  [report 1]
+end
+
+to-report is-I-apply-social-distancing?
+  report is-social-distancing-measure-active?
 end
 
 to apply-risk-of-contamination-when-travelling
@@ -33,7 +48,7 @@ to apply-risk-of-contamination-when-travelling
   
   ;;could be fastened with a bit of math, like 1-(1-p)^k
   let was-sick? is-infected?
-  apply-risk-of-contamination probability-getting-sick * density-travelling-propagation2 * age-infection-risk-mitigation-factor
+  apply-risk-of-contamination probability-getting-sick * density-travelling-propagation2 * contextual-contagion-modificators
   if not was-sick? and is-infected? [set #who-became-sick-while-travelling-locally #who-became-sick-while-travelling-locally + 1]
 end
 
@@ -42,7 +57,7 @@ to-report age-infection-risk-mitigation-factor
 end
 
 to apply-risk-of-contamination-when-away
-  if random-float 1 < probability-infection-when-abroad * (ifelse-value is-young? [factor-reduction-probability-transmission-young] [1]) and infection-status = "healthy"
+  if random-float 1 < probability-infection-when-abroad * contextual-contagion-modificators and infection-status = "healthy"
   [
     set-contaminated
   ]

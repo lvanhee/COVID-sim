@@ -434,7 +434,7 @@ INPUTBOX
 1498
 658
 #non-essential-shops
-8.0
+10.0
 1
 0
 Number
@@ -891,7 +891,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.0
+0.1
 0.01
 1
 NIL
@@ -1164,7 +1164,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1556,7 +1556,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.02
+0.03
 0.01
 1
 NIL
@@ -1615,7 +1615,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "mediterranea" "scandinavia" "south-asia"
-0
+2
 
 SLIDER
 1274
@@ -1758,7 +1758,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-10.0
+8.0
 1
 1
 NIL
@@ -1798,7 +1798,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family"
-0
+2
 
 MONITOR
 716
@@ -2119,6 +2119,57 @@ starting-amount-of-capital-students
 1
 NIL
 HORIZONTAL
+
+SLIDER
+1690
+936
+1827
+969
+probably-contagion-mitigation-from-social-distancing
+probably-contagion-mitigation-from-social-distancing
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+1720
+884
+1870
+902
+Social distancing
+9
+0.0
+1
+
+SLIDER
+1690
+903
+1827
+936
+ratio-omniscious-infected-that-trigger-social-distancing-measure
+ratio-omniscious-infected-that-trigger-social-distancing-measure
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1690
+969
+1826
+1014
+NIL
+is-social-distancing-measure-active?
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
