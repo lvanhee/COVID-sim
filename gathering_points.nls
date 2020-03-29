@@ -100,20 +100,44 @@ to-report my-university
   report one-of gathering-link-neighbors with [gathering-type = "university"]
 end
 
+to-report all-universities
+  report gathering-link-neighbors with [gathering-type = "university"]
+end
+
 to-report my-hospital
   report one-of gathering-link-neighbors with [gathering-type = "hospital"]
+end
+
+to-report all-hospitals
+  report gathering-link-neighbors with [gathering-type = "hospital"]
 end
 
 to-report my-school
   report one-of gathering-link-neighbors with [gathering-type = "school"]
 end
 
+to-report all-schools
+  report gathering-link-neighbors with [gathering-type = "school"]
+end
+
 to-report my-non-essential-shop
   report one-of gathering-link-neighbors with [is-non-essential-shop?]
 end
 
+to-report all-non-essential-shops
+  report gathering-link-neighbors with [is-non-essential-shop?]
+end
+
 to-report my-essential-shop
   report one-of gathering-link-neighbors with [is-essential-shop?]
+end
+
+to-report all-essential-shops
+  report gathering-link-neighbors with [is-essential-shop?]
+end
+
+to-report all-workplaces
+  report gathering-link-neighbors with [is-workplace?]
 end
 
 to-report my-private-leisure

@@ -163,4 +163,10 @@ to perform-government-actions
     set my-amount-of-capital my-amount-of-capital + students-subsidy / n-of-students
     set my-current-income my-current-income + students-subsidy / n-of-students
   ]
+  
+  let taxes-redistributed school-subsidy + hospital-subsidy + university-subsidy + retirees-subsidy + students-subsidy
+  if taxes-redistributed < taxes-collected
+  [
+    set government-reserve-of-capital government-reserve-of-capital + (taxes-collected - taxes-redistributed)
+  ]
 end

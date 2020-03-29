@@ -10,6 +10,7 @@ globals [
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
+  government-reserve-of-capital
 ]
 
 to go
@@ -1435,7 +1436,7 @@ PENS
 PLOT
 979
 1250
-1397
+1441
 1400
 Total amount of capital available in the system
 NIL
@@ -1445,10 +1446,11 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
+"total" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
+"government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
 530
@@ -1994,6 +1996,43 @@ NIL
 17
 1
 11
+
+SWITCH
+768
+1460
+968
+1493
+government-pays-wages?
+government-pays-wages?
+1
+1
+-1000
+
+SLIDER
+768
+1499
+1039
+1532
+ratio-of-wage-paid-by-the-government
+ratio-of-wage-paid-by-the-government
+0
+1
+0.8
+0.01
+1
+NIL
+HORIZONTAL
+
+INPUTBOX
+768
+1539
+967
+1599
+government-initial-reserve-of-capital
+10000.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -20,6 +20,7 @@ to setup
   set day-of-the-week "monday"
   set current-day 0
   set #dead-people 0
+  set government-reserve-of-capital government-initial-reserve-of-capital
   
   setup-activities
   create-all-people
