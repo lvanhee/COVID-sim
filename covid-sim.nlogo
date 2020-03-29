@@ -366,10 +366,10 @@ PENS
 "kids@home" 1.0 0 -10899396 true "" "plot count children with [is-at-home?] / count children"
 
 MONITOR
-541
-142
-659
-187
+801
+804
+919
+849
 NIL
 day-of-the-week
 17
@@ -377,10 +377,10 @@ day-of-the-week
 11
 
 MONITOR
-662
-142
-778
-187
+922
+804
+1038
+849
 NIL
 slice-of-the-day
 17
@@ -434,7 +434,7 @@ INPUTBOX
 1498
 658
 #non-essential-shops
-10.0
+8.0
 1
 0
 Number
@@ -474,7 +474,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.16
+0.17
 0.01
 1
 NIL
@@ -1164,7 +1164,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1353,7 +1353,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.0
+0.01
 0.01
 1
 NIL
@@ -1453,46 +1453,6 @@ PENS
 "government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
-529
-1149
-865
-1182
-ratio-amount-spent-by-essential-shops-on-supplies
-ratio-amount-spent-by-essential-shops-on-supplies
-0
-1
-0.79
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-529
-1186
-866
-1219
-ratio-amount-spent-by-non-essential-shops-on-supplies
-ratio-amount-spent-by-non-essential-shops-on-supplies
-0
-1
-0.78
-0.01
-1
-NIL
-HORIZONTAL
-
-TEXTBOX
-531
-1130
-767
-1158
-Shops get supplies from workplaces
-11
-0.0
-1
-
-SLIDER
 530
 1250
 741
@@ -1501,7 +1461,7 @@ ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
 1
-0.21
+0.52
 0.01
 1
 NIL
@@ -1516,7 +1476,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.38
+0.52
 0.01
 1
 NIL
@@ -1531,7 +1491,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.51
+0.55
 0.01
 1
 NIL
@@ -1546,7 +1506,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.44
+0.41
 0.01
 1
 NIL
@@ -1581,7 +1541,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.19
+0.18
 0.01
 1
 NIL
@@ -1596,7 +1556,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.03
+0.02
 0.01
 1
 NIL
@@ -1611,7 +1571,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.41
+0.37
 0.01
 1
 NIL
@@ -1641,7 +1601,7 @@ ratio-school-subsidy
 ratio-school-subsidy
 0
 1
-0.01
+0.07
 0.01
 1
 NIL
@@ -1705,15 +1665,15 @@ People testing
 1
 
 SLIDER
-530
-1149
-702
-1182
+531
+1159
+703
+1192
 price-of-rations
 price-of-rations
 0.5
 10
-1.5
+2.1
 0.1
 1
 NIL
@@ -1774,7 +1734,7 @@ PLOT
 1438
 523
 1588
-Amount of goods in stock
+Accumulated amount of goods in stock per type of business
 NIL
 NIL
 0.0
@@ -1798,7 +1758,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-8.0
+10.0
 1
 1
 NIL
@@ -1813,7 +1773,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.1
+1.8
 0.1
 1
 NIL
@@ -1826,7 +1786,7 @@ SWITCH
 56
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -2012,10 +1972,10 @@ NIL
 1
 
 SLIDER
-872
-1187
-1068
-1220
+531
+1197
+727
+1230
 days-of-rations-bought
 days-of-rations-bought
 0
@@ -2099,6 +2059,66 @@ government-initial-reserve-of-capital
 1
 0
 Number
+
+SLIDER
+530
+1537
+748
+1570
+max-stock-of-goods-in-a-shop
+max-stock-of-goods-in-a-shop
+0
+1000
+500.0
+10
+1
+NIL
+HORIZONTAL
+
+SLIDER
+766
+1122
+1036
+1155
+starting-amount-of-capital-workers
+starting-amount-of-capital-workers
+0
+100
+75.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+766
+1160
+1037
+1193
+starting-amount-of-capital-retired
+starting-amount-of-capital-retired
+0
+100
+30.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+766
+1198
+1050
+1231
+starting-amount-of-capital-students
+starting-amount-of-capital-students
+0
+100
+35.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -91,10 +91,15 @@ people-own [
 ]
 
 to setup-person [#young #students #workers #retired]
-  set my-amount-of-capital 30 * price-of-rations
-  set my-previous-amount-of-capital my-amount-of-capital
-
   setup-person-age #young #students #workers #retired
+  
+  if age = "worker" 
+  [set my-amount-of-capital starting-amount-of-capital-workers]
+  if age = "retired"
+  [set my-amount-of-capital starting-amount-of-capital-retired]
+  if age = "student"
+  [set my-amount-of-capital starting-amount-of-capital-students]
+  set my-previous-amount-of-capital my-amount-of-capital
 
   setup-disease-profile
 
@@ -232,7 +237,7 @@ to-report retirees-average-amount-of-capital
 end
 
 to-report workers-average-amount-of-capital
-  report (sum [my-amount-of-capital] of people with [age = "worker"]) / (count people with [age = "worker"])
+  report mean [my-amount-of-capital] of people with [age = "worker"]
 end
 
 to-report students-average-amount-of-capital

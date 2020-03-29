@@ -52,7 +52,7 @@ to decay-need-satisfaction
   set relaxing-need-satisfaction relaxing-need-satisfaction * 0.8
   if relaxing-need-satisfaction < 0 [set relaxing-need-satisfaction 0]
   
-  set luxury-need-satisfaction luxury-need-satisfaction * 0.95
+  set luxury-need-satisfaction luxury-need-satisfaction * 0.98
   if luxury-need-satisfaction < 0 [set luxury-need-satisfaction 0]
 end
 
@@ -235,13 +235,13 @@ to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [
   let motive last ad
   
   if motive = "shopping" [
-    report 0.3
+    report 0.4
   ]
   report 0
 end
 
 to-report actual-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad]
-  let result min (list (amount-of-last-luxury-items-bought / 7) 1) * 0.3
+  let result min (list (amount-of-last-luxury-items-bought / 7) 1) * 0.4
   set amount-of-last-luxury-items-bought 0
   report result
 end

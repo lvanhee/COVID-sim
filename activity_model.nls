@@ -164,7 +164,8 @@ to update-resources-based-on-current-activity
       let available-goods-in-my-non-essential-shop max (list [stock-of-goods] of current-activity 0)
 
       set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-non-essential-shop)
-
+      
+      set amount-of-last-luxury-items-bought amount-of-rations-to-buy
       let amount-spent amount-of-rations-to-buy * price-of-rations
       let stock-decrease amount-of-rations-to-buy
       set my-amount-of-capital my-amount-of-capital - amount-spent
