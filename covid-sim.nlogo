@@ -1616,7 +1616,7 @@ CHOOSER
 296
 preset-profiles
 preset-profiles
-"none" "mediterranea" "scandinavia" "south-asia"
+"none" "mediterranea" "scandinavia" "south-asia" "north-america"
 2
 
 SLIDER

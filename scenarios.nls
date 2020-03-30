@@ -200,10 +200,17 @@ to load-population-profiles
     set #total-population 220
   ]
   if preset-profiles = "south-asia" [
-  set ratio-adults-homes 0.15
+    set ratio-adults-homes 0.15
     set ratio-retired-couple-homes 0.22
     set ratio-family-homes 0.51
     set ratio-multi-generational-homes 0.12
     set #total-population 310
+  ]
+  if preset-profiles = "north-america" [
+    set ratio-adults-homes 0.37
+    set ratio-retired-couple-homes 0.33
+    set ratio-family-homes 0.28
+    set ratio-multi-generational-homes 0.02
+    set #total-population 260
   ]
 end
