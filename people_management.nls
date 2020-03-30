@@ -168,9 +168,9 @@ to relate-person-to-gathering-points
   [ set commitment 1 set features (list "relaxing")]
   create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
   [ set commitment 1 set features (list "relaxing")]
-  create-gathering-links-to n-of (ceiling #essential-shops * 0.2) gathering-points with [gathering-type = "essential-shop"]
+  create-gathering-links-to n-of (ceiling (#essential-shops * 0.2)) gathering-points with [gathering-type = "essential-shop"]
   [ set commitment 1 set features (list "essential shopping" "shopping")]
-  create-gathering-links-to n-of (ceiling #non-essential-shops * 0.4) gathering-points with [gathering-type = "non-essential-shop"]
+  create-gathering-links-to n-of (ceiling (#non-essential-shops * 0.4)) gathering-points with [gathering-type = "non-essential-shop"]
   [ set commitment 1 set features (list "relaxing" "shopping")]
   
   if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
