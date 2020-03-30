@@ -60,13 +60,10 @@ to update-resources-based-on-current-activity
     [
       ifelse [gathering-type] of current-activity = "non-essential-shop"
       [
-        if not closed-non-essential?
-        [
-          set amount-to-earn workers-wages
-          let picked-work my-work
-          set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
-          ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
-        ]
+        set amount-to-earn workers-wages
+        let picked-work my-work
+        set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
+        ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
       ]
       [
         ifelse [gathering-type] of current-activity = "home"
