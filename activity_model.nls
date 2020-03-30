@@ -33,6 +33,7 @@ to-report is-forced-motive? [m]
   report m = "mandatory"
 end
 
+
 to update-resources-based-on-current-activity
   if not is-being-away? current-activity and current-motivation = "travelling" [error "wrong place while travelling"]
   if current-activity = 0 [error "failed to select an activity"]
@@ -41,97 +42,35 @@ to update-resources-based-on-current-activity
 
 
   ;if is-at-home? [stop]
-
+  
   if is-forced-to-be-in-school? or is-learning? or is-getting-tested? or is-resting? or is-relaxing?
   or (is-at-home? and is-forced-to-be-here?) [stop]
-
+  
   let amount-to-earn 0
   let amount-earned 0
   if is-working?
   [
+    set amount-to-earn 10
+    
     let contribution-to-stock goods-produced-by-work-performed
-    ifelse [gathering-type] of current-activity = "essential-shop"
-    [
-      set amount-to-earn 10
-      let picked-work my-work
-      set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
-      ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
-    ]
-    [
-      ifelse [gathering-type] of current-activity = "non-essential-shop"
-      [
-        set amount-to-earn 10
-        let picked-work my-work
-        set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
-        ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
-      ]
-      [
-        ifelse [gathering-type] of current-activity = "home"
-        [
-          set amount-to-earn 10
-          let picked-work my-work
-          set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
-          ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
-        ]
-        [
-          ifelse [gathering-type] of current-activity = "university"
-          [
-            set amount-to-earn 10
-            let picked-university max-one-of all-universities [amount-of-capital]
-            set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-university 0))
-            ask picked-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
-          ]
-          [
-            ifelse [gathering-type] of current-activity = "hospital"
-            [
-              set amount-to-earn 10
-              let picked-hospital max-one-of all-hospitals [amount-of-capital]
-              set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-hospital 0))
-              ask picked-hospital [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
-            ]
-            [
-              ifelse [gathering-type] of current-activity = "workplace"
-              [
-                set amount-to-earn 10
-                let picked-workplace max-one-of all-workplaces [amount-of-capital]
-                set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-workplace 0))
-                ask picked-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
-              ]
-              [
-                ifelse [gathering-type] of current-activity = "school"
-                [
-                  set amount-to-earn 10
-                  let picked-school max-one-of all-schools [amount-of-capital]
-                  set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-school 0))
-                  ask picked-school [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
-                ]
-                [
-                  error (sentence "not implemented" [gathering-type] of current-activity)
-                ]
-              ]
-            ]
-          ]
-        ]
-      ]
-    ]
-
+    set amount-earned min (list amount-to-earn max (list [amount-of-capital] of place-I-work-in 0))
+    perform-transaction self place-I-work-in (list "salary" amount-earned) (list "work")
+    
     if government-pays-wages?
     [
       if amount-earned < amount-to-earn
       [
         let worker-subsidy ratio-of-wage-paid-by-the-government * (amount-to-earn - amount-earned)
-        set amount-earned amount-earned + worker-subsidy
-        set government-reserve-of-capital government-reserve-of-capital - worker-subsidy
+        perform-transaction self "government" (list "subsidy" worker-subsidy) (list "nothing")
       ]
     ]
-
     set my-amount-of-capital my-amount-of-capital + amount-earned
     set my-current-income my-current-income + amount-earned
-
+    
     stop
   ]
-
-
+  
+  
 
   if is-performing-essential-shopping?
   [
@@ -360,4 +299,10 @@ to perform-people-activities
     update-needs-for-playing (list current-activity current-motivation)
   ]
   animate-walk-to-goal
+end
+
+
+to-report is-allowed-to-work-from-home?
+  report member? [gathering-type] of place-I-work-in ["workplace" "university"]
+  ;link-neighbors with [gathering-type = "workplace"]
 end

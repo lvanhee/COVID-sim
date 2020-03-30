@@ -15,6 +15,7 @@ globals [
 
 to go
   tick
+  update-economy-variables
   spread-contagion
   update-within-agent-disease-status
   update-people-epistemic-status
@@ -340,7 +341,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -407,7 +408,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.19
+0.25
 0.01
 1
 NIL
@@ -891,7 +892,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.1
+0.0
 0.01
 1
 NIL
@@ -1164,7 +1165,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1626,7 +1627,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.01
+1.0
 0.01
 1
 NIL
@@ -1798,7 +1799,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family"
-2
+1
 
 MONITOR
 716
@@ -2170,6 +2171,24 @@ is-social-distancing-measure-active?
 17
 1
 11
+
+PLOT
+1175
+1447
+1375
+1597
+Velocity
+NIL
+NIL
+0.0
+0.001
+0.0
+0.001
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot total-amount-of-transaction-for-this-tick / total-capital"
 
 @#$#@#$#@
 ## WHAT IS IT?

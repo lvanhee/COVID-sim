@@ -47,13 +47,26 @@ to-report is-working-at-home?
   report is-working? and is-at-home?
 end
 
-to-report my-work
-  report [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
+to-report hospitals
+  report gathering-points with [is-hospital?]
 end
+
+to-report universities
+  report gathering-points with [is-university?]
+end
+
+to-report shops
+  report gathering-points with [is-shop?]
+end
+
+to-report workplaces
+  report gathering-points with [is-workplace?]
+end
+    
 
 
 to-report is-at-work?
-  report current-activity = my-work
+  report current-activity = place-I-work-in
 end
 
 to-report is-home?
@@ -132,6 +145,10 @@ to-report all-essential-shops
   report gathering-link-neighbors with [is-essential-shop?]
 end
 
+to-report non-essential-shops
+  report gathering-points with [is-non-essential-shop?]
+end
+
 to-report all-workplaces
   report gathering-link-neighbors with [is-workplace?]
 end
@@ -149,6 +166,10 @@ to-report expected-number-of-other-participants
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
   if gathering-type = "hospital" [report random 5 + 2]
   report count other in-gathering-link-neighbors
+end
+
+to-report essential-shops
+  report gathering-points with [is-essential-shop?]
 end
 
 to-report is-accessible?

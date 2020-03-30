@@ -47,7 +47,7 @@ to-report my-available-activity-descriptors
         ]
         
         set activities (lput (list
-          [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
+          place-I-work-in
           "contractual obligation")
           activities)
       ]
@@ -109,10 +109,6 @@ end
 
 
 
-to-report is-allowed-to-work-from-home?
-  report member? [gathering-type] of my-work ["workplace" "university"]
-  ;link-neighbors with [gathering-type = "workplace"]
-end
 
 
 to-report is-currently-watched-by-an-adult?

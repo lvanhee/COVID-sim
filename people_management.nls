@@ -10,17 +10,15 @@ people-own [
   last-day-observed-symptoms
   has-done-shopping
   purpose-of-the-current-gathering
-  ;set-default-shape turtles "circle"
-
+  
+  place-I-work-in
   ;;the disease profile records how the person will react to the disease
   disease-profile
   duration-current-disease-status
 
   current-person-I-depend-on
 
-  ;;this variable indicates whether the carrier can effectively be cured or whether he/she is too weak and will die anyway if sick
-  ;;if data shows high difference, it might to be expanded at a later time for finer granularity (i.e. "can-be-cured-if-cured-early?" and "can-be-cured-if-cured-late?")
-  can-be-cured?
+
 
 
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
@@ -156,6 +154,15 @@ to set-infection-status [infection]
   set infection-status infection
 end
 
+to-report select-place-I-work-in
+  if random-float 1 < probability-hospital-personel [report one-of hospitals]
+  if random-float 1 < probability-school-personel [report one-of schools]
+  if random-float 1 < probability-university-personel [ report one-of universities]
+  if random-float 1 < probability-shopkeeper [ report one-of shops]
+  report one-of workplaces
+
+end
+
 to relate-person-to-gathering-points
   
   create-gathering-link-to one-of gathering-points with [gathering-type = "hospital"]
@@ -181,35 +188,12 @@ to relate-person-to-gathering-points
   if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
     [ set commitment 1 set features (list "learning")]]
   
-  if age = "worker" [
-    if random-float 1 < probability-hospital-personel [
-      ask one-of my-out-gathering-links with [[gathering-type] of other-end = "hospital"] [
-        set features (lput "contractual obligation" (lput "getting money" features))
-      ]
-      stop
+  if is-worker? [
+    set place-I-work-in select-place-I-work-in
+    create-gathering-link-to place-I-work-in
+    [ set commitment 1
+      set features (list "getting money" "contractual obligation")
     ]
-    if random-float 1 < probability-school-personel [
-      create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
-      [ set commitment 1
-        set features (list "getting money" "contractual obligation")
-      ]
-      stop
-    ]
-    if random-float 1 < probability-university-personel [
-      create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
-      [ set commitment 1
-        set features (list "getting money" "contractual obligation")
-      ]
-      stop
-    ]
-    if random-float 1 < probability-shopkeeper [
-      ask one-of my-out-gathering-links with [member? "shopping" features] [
-        set features (lput "contractual obligation" (lput "getting money" features))
-      ]
-      stop
-    ]
-    create-gathering-link-to one-of gathering-points with [gathering-type = "workplace"]
-    [ set commitment 1 set features (list "getting money" "contractual obligation")]
   ]
 end
 

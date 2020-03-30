@@ -37,5 +37,4 @@ to perform-test
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
   ]
-  
 end

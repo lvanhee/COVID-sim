@@ -292,7 +292,7 @@ to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-f
   let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? [
-    if gp = my-work [
+    if gp = place-I-work-in [
       report min (list (my-expected-income / eating-costs) 1)
     ]
     report max (list ((- my-expected-income) / eating-costs) 0)
@@ -311,7 +311,7 @@ to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for
   let motive last ad
   let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
 
-  if is-I-have-contractual-obligations? and gp = my-work [
+  if is-I-have-contractual-obligations? and gp = place-I-work-in [
     if my-previous-amount-of-capital > 0 
     [report clamp 0 1 my-expected-income / my-previous-amount-of-capital]
     report 1

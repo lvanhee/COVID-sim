@@ -1,4 +1,10 @@
- 
+globals[
+  total-amount-of-transaction-for-this-tick
+] 
+
+to update-economy-variables
+  set total-amount-of-transaction-for-this-tick 0
+end
 to perform-trades-between-gathering-points
   
   let total-amount-of-goods-available-in-workplaces sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
@@ -8,7 +14,7 @@ to perform-trades-between-gathering-points
   
   ;essential-shop
   let total-capital-available-in-essential-shops-to-buy-goods 0
-  ask gathering-points with [gathering-type = "essential-shop"]
+  ask essential-shops
   [
     let capital-available-to-buy-goods amount-of-capital - max-amount-of-capital-to-retain
     set capital-available-to-buy-goods max (list capital-available-to-buy-goods 0)
@@ -19,7 +25,10 @@ to perform-trades-between-gathering-points
   
   if total-capital-to-be-spent-by-essential-shops > 0
   [
-    ask gathering-points with [gathering-type = "essential-shop"]
+    ;;Gustavo: ok, this should work. Maybe it would be best to have an external function for transations i.e. "I buy X goods from Y, I lose X' money, he gets X' money"
+    ;;it is more in line with the agent-oriented paradigm (and makes it easier to track transactions for instance)
+    ;;same for other places
+    ask essential-shops
     [
       let capital-available-to-buy-goods amount-of-capital - max-amount-of-capital-to-retain
       set capital-available-to-buy-goods max (list capital-available-to-buy-goods 0)
@@ -33,6 +42,8 @@ to perform-trades-between-gathering-points
       set current-profit current-profit - amount-charged
       set stock-of-goods stock-of-goods + stock-bought
       set actual-amount-of-stocks-bought actual-amount-of-stocks-bought + stock-bought
+      
+      set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick + amount-of-capital
     ]
   ]
   
@@ -42,7 +53,7 @@ to perform-trades-between-gathering-points
   
   ;non-essential-shop
   let total-capital-available-in-non-essential-shops-to-buy-goods 0
-  ask gathering-points with [gathering-type = "non-essential-shop"]
+  ask non-essential-shops
   [
     let capital-available-to-buy-goods amount-of-capital - max-amount-of-capital-to-retain
     set capital-available-to-buy-goods max (list capital-available-to-buy-goods 0)
@@ -51,9 +62,11 @@ to perform-trades-between-gathering-points
   
   let total-capital-to-be-spent-by-non-essential-shops min (list total-capital-available-in-non-essential-shops-to-buy-goods virtual-total-amount-of-goods-available-in-workplaces-converted-to-capital)
   
+  ;;might be a very good idea to refactor this, make it agent based, use the same function as for essential shops
+  ;;i.e. having a function perform-buyout non-essential-shops
   if total-capital-to-be-spent-by-non-essential-shops > 0
   [
-    ask gathering-points with [gathering-type = "non-essential-shop"]
+    ask non-essential-shops
     [
       let capital-available-to-buy-goods amount-of-capital - max-amount-of-capital-to-retain
       set capital-available-to-buy-goods max (list capital-available-to-buy-goods 0)
@@ -67,6 +80,8 @@ to perform-trades-between-gathering-points
       set current-profit current-profit - amount-charged
       set stock-of-goods stock-of-goods + stock-bought
       set actual-amount-of-stocks-bought actual-amount-of-stocks-bought + stock-bought
+      
+      set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick + amount-of-capital
     ]
   ]
   
@@ -83,6 +98,119 @@ to perform-trades-between-gathering-points
       set stock-of-goods stock-of-goods - capital-income / unit-price-of-goods
     ]
   ]
+end
+
+to-report is-salary-value? [v]
+  report first v = "salary"
+end
+
+to-report is-work-value? [v]
+  report first v = "work"
+end
+
+to-report salary-value-from [v]
+  report last v
+end
+
+to increase-capital-by [val]
+  
+  if is-person? self
+  [
+    set my-amount-of-capital my-amount-of-capital + val
+    set my-current-income my-current-income + val
+  ]
+  
+  if is-gathering-point? self
+  [
+    set amount-of-capital amount-of-capital + val
+    set current-profit current-profit + val
+  ]
+end
+
+to perform-cash-transfer [a1 a2 amount]
+  
+  ask a1 [increase-capital-by amount]
+  ask a2 [increase-capital-by (- amount)]
+  
+  set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick +  abs amount
+end
+
+to-report is-cash-transfer? [value]
+  if value = "work" [report false]
+  if first value = "work" [report false]
+  if is-salary-value? value [report true]
+  error (sentence "unimplemented for:" value)
+end
+
+to-report cash-value-of [v]
+  report last v
+end
+
+to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
+
+  let a2-to-a1-completed? false
+  let a1-to-a2-completed? false
+  
+  
+;        set amount-earned amount-earned + worker-subsidy
+;        set government-reserve-of-capital government-reserve-of-capital - worker-subsidy
+  
+  if is-cash-transfer? value-a1-to-a2
+  [
+    perform-cash-transfer a1 a2 (cash-value-of value-a1-to-a2)
+    set a1-to-a2-completed? true
+  ]
+  
+    if is-cash-transfer? value-a2-to-a1
+  [
+    perform-cash-transfer a2 a1 (cash-value-of value-a2-to-a1)
+    set a2-to-a1-completed? true
+  ]
+ 
+  ;;work performance could be related to another part of the model; but let's save it here for now & simplicity
+  if is-person? a1 and is-gathering-point? a2 and [is-workplace?] of a2 and is-work-value? value-a1-to-a2
+  [
+    ask a2 [set stock-of-goods stock-of-goods + goods-produced-by-work-performed]
+    set a1-to-a2-completed? true
+  ]
+  
+  if is-work-value? value-a1-to-a2 
+  and is-person? a1 
+  and is-gathering-point? a2
+  and ([is-school?] of a2 or [is-university?] of a2 or [is-shop?] of a2 or [is-hospital?] of a2)
+  [
+    set a1-to-a2-completed? true
+  ]
+  
+  if a1-to-a2-completed? and a2-to-a1-completed? [stop]
+  
+  if is-gathering-point? a2 [show [gathering-type] of a2]
+  error (sentence "not implemented" a1 a2 value-a2-to-a1 value-a1-to-a2)
+  
+;  ;
+;      [
+;        ifelse [gathering-type] of current-activity = "workplace"
+;        [
+;          set amount-to-earn 10
+;          let picked-workplace max-one-of all-workplaces [amount-of-capital]
+;          set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-workplace 0))
+;          ask picked-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
+;        ]
+;        [
+;          ifelse [gathering-type] of current-activity = "school"
+;          [
+;            set amount-to-earn 10
+;            let picked-school max-one-of all-schools [amount-of-capital]
+;            set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-school 0))
+;            ask picked-school [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
+;          ]
+;          [
+;            error (sentence "not implemented" [gathering-type] of current-activity)
+;          ]
+;        ]
+;      ]
+;    ]
+  
 end
 
 to perform-government-actions
@@ -180,4 +308,8 @@ to perform-government-actions
   [
     set government-reserve-of-capital government-reserve-of-capital + (taxes-collected - taxes-redistributed)
   ]
+end
+
+to-report total-capital
+  report sum [my-amount-of-capital] of people + sum [amount-of-capital] of gathering-points
 end
