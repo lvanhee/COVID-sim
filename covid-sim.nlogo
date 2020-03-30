@@ -1456,9 +1456,9 @@ PENS
 
 SLIDER
 530
-1250
+1260
 741
-1283
+1293
 ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
@@ -1471,9 +1471,9 @@ HORIZONTAL
 
 SLIDER
 530
-1288
+1298
 742
-1321
+1331
 ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
@@ -1486,9 +1486,9 @@ HORIZONTAL
 
 SLIDER
 530
-1326
+1336
 742
-1359
+1369
 ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
@@ -1501,9 +1501,9 @@ HORIZONTAL
 
 SLIDER
 530
-1364
+1374
 742
-1397
+1407
 ratio-tax-on-workers
 ratio-tax-on-workers
 0
@@ -1516,9 +1516,9 @@ HORIZONTAL
 
 TEXTBOX
 532
-1232
+1242
 730
-1260
+1270
 Taxes charged by the government
 11
 0.0
@@ -1668,9 +1668,9 @@ People testing
 
 SLIDER
 531
-1159
+1169
 703
-1192
+1202
 price-of-rations
 price-of-rations
 0.5
@@ -1753,9 +1753,9 @@ PENS
 
 SLIDER
 530
-1459
+1469
 739
-1492
+1502
 goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
@@ -1768,9 +1768,9 @@ HORIZONTAL
 
 SLIDER
 530
-1497
+1507
 739
-1530
+1540
 unit-price-of-goods
 unit-price-of-goods
 0.1
@@ -1975,9 +1975,9 @@ NIL
 
 SLIDER
 531
-1197
+1207
 727
-1230
+1240
 days-of-rations-bought
 days-of-rations-bought
 1
@@ -2064,9 +2064,9 @@ Number
 
 SLIDER
 530
-1537
+1547
 748
-1570
+1580
 max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
@@ -2274,6 +2274,21 @@ PENS
 "@Pr-Leisure" 1.0 0 -3844592 true "" "plot count people with [is-at-private-leisure-place?]"
 "@Home" 1.0 0 -14439633 true "" "plot count people with [is-at-home?]"
 "@Univ" 1.0 0 -4079321 true "" "plot count people with [is-at-university?]"
+
+SLIDER
+531
+1131
+703
+1164
+workers-wages
+workers-wages
+0
+30
+10.0
+0.5
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
