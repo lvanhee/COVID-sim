@@ -52,7 +52,7 @@ to update-resources-based-on-current-activity
   [
     ifelse [gathering-type] of current-activity = "essential-shop"
     [
-      set amount-to-earn 10
+      set amount-to-earn workers-wages
       let picked-work my-work
       set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
       ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
@@ -62,7 +62,7 @@ to update-resources-based-on-current-activity
       [
         if not closed-non-essential?
         [
-          set amount-to-earn 10
+          set amount-to-earn workers-wages
           let picked-work my-work
           set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
           ask picked-work [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
@@ -71,7 +71,7 @@ to update-resources-based-on-current-activity
       [
         ifelse [gathering-type] of current-activity = "home"
         [
-          set amount-to-earn 10
+          set amount-to-earn workers-wages
           let picked-work my-work
           set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-work 0))
           set contribution-to-stock amount-earned / amount-to-earn * goods-produced-by-work-performed
@@ -80,7 +80,7 @@ to update-resources-based-on-current-activity
         [
           ifelse [gathering-type] of current-activity = "university"
           [
-            set amount-to-earn 10
+            set amount-to-earn workers-wages
             let picked-university max-one-of all-universities [amount-of-capital]
             set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-university 0))
             ask picked-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
@@ -88,7 +88,7 @@ to update-resources-based-on-current-activity
           [
             ifelse [gathering-type] of current-activity = "hospital"
             [
-              set amount-to-earn 10
+              set amount-to-earn workers-wages
               let picked-hospital max-one-of all-hospitals [amount-of-capital]
               set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-hospital 0))
               ask picked-hospital [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
@@ -96,7 +96,7 @@ to update-resources-based-on-current-activity
             [
               ifelse [gathering-type] of current-activity = "workplace"
               [
-                set amount-to-earn 10
+                set amount-to-earn workers-wages
                 let picked-workplace max-one-of all-workplaces [amount-of-capital]
                 set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-workplace 0))
                 set contribution-to-stock amount-earned / amount-to-earn * goods-produced-by-work-performed
@@ -105,7 +105,7 @@ to update-resources-based-on-current-activity
               [
                 ifelse [gathering-type] of current-activity = "school"
                 [
-                  set amount-to-earn 10
+                  set amount-to-earn workers-wages
                   let picked-school max-one-of all-schools [amount-of-capital]
                   set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-school 0))
                   ask picked-school [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
