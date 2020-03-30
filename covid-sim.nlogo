@@ -893,7 +893,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.1
+0.0
 0.01
 1
 NIL
@@ -1543,7 +1543,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.18
+0.21
 0.01
 1
 NIL
@@ -1558,7 +1558,7 @@ ratio-university-subsidy
 ratio-university-subsidy
 0
 1
-0.02
+0.03
 0.01
 1
 NIL
@@ -1573,7 +1573,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.37
+0.34
 0.01
 1
 NIL
@@ -1588,7 +1588,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.3
+0.34
 0.01
 1
 NIL
@@ -1603,7 +1603,7 @@ ratio-school-subsidy
 ratio-school-subsidy
 0
 1
-0.07
+0.03
 0.01
 1
 NIL
@@ -1675,7 +1675,7 @@ price-of-rations
 price-of-rations
 0.5
 10
-2.1
+2.2
 0.1
 1
 NIL
@@ -1760,7 +1760,7 @@ goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-10.0
+12.0
 1
 1
 NIL
@@ -1775,7 +1775,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.8
+1.7
 0.1
 1
 NIL
@@ -1795,11 +1795,11 @@ static-seed?
 CHOOSER
 538
 72
-718
+757
 117
 preset-scenario
 preset-scenario
-"none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family"
+"none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages"
 2
 
 MONITOR
@@ -1957,10 +1957,10 @@ Economy model
 1
 
 BUTTON
-725
-76
-814
-109
+766
+78
+855
+111
 NIL
 set-values
 NIL
@@ -2101,7 +2101,7 @@ starting-amount-of-capital-retired
 starting-amount-of-capital-retired
 0
 100
-34.0
+40.0
 1
 1
 NIL
@@ -2116,7 +2116,7 @@ starting-amount-of-capital-students
 starting-amount-of-capital-students
 0
 100
-35.0
+30.0
 1
 1
 NIL
