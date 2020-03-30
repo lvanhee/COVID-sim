@@ -1980,7 +1980,7 @@ SLIDER
 1230
 days-of-rations-bought
 days-of-rations-bought
-0
+1
 28
 3.0
 1
