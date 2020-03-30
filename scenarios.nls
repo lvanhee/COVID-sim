@@ -5,6 +5,7 @@ end
 
 to set-values 
   load-scenario
+  load-population-profiles
 end
 
 to-report is-test-scenario? [s]
@@ -30,6 +31,11 @@ to load-scenario
   
   ;;the general process lies in adapting your scenario from the baseline
   load-baseline-scenario
+  
+  if preset-scenario = "generic-baseline"
+  [
+    stop
+  ]
   
   if preset-scenario = "uninfected-scandinavia"
   [
@@ -179,7 +185,7 @@ end
 
 to load-population-profiles
   if preset-profiles = "none"[stop]
-  if preset-profiles = "medirarrea"[
+  if preset-profiles = "mediterranea"[
     set ratio-adults-homes 0.3
     set ratio-retired-couple-homes 0.42
     set ratio-family-homes 0.26
@@ -194,10 +200,17 @@ to load-population-profiles
     set #total-population 220
   ]
   if preset-profiles = "south-asia" [
-  set ratio-adults-homes 0.15
+    set ratio-adults-homes 0.15
     set ratio-retired-couple-homes 0.22
     set ratio-family-homes 0.51
     set ratio-multi-generational-homes 0.12
     set #total-population 310
+  ]
+  if preset-profiles = "north-america" [
+    set ratio-adults-homes 0.37
+    set ratio-retired-couple-homes 0.33
+    set ratio-family-homes 0.28
+    set ratio-multi-generational-homes 0.02
+    set #total-population 260
   ]
 end

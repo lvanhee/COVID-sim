@@ -1006,7 +1006,7 @@ INPUTBOX
 639
 512
 #total-population
-300.0
+220.0
 1
 0
 Number
@@ -1616,7 +1616,7 @@ CHOOSER
 296
 preset-profiles
 preset-profiles
-"none" "mediterranea" "scandinavia" "south-asia"
+"none" "mediterranea" "scandinavia" "south-asia" "north-america"
 2
 
 SLIDER
@@ -1799,8 +1799,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"none" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages"
-2
+"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages"
+1
 
 MONITOR
 716
