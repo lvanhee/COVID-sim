@@ -44,6 +44,34 @@ to load-scenario
     load-scandinavian-population-default
     stop
   ]
+  
+  if preset-scenario = "economic-scenario-1-baseline"
+  [
+    load-scenario-1-baseline-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-2-infections"
+  [
+    load-scenario-1-baseline-economic-parameters
+    load-scenario-2-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-3-lockdown"
+  [
+    load-scenario-1-baseline-economic-parameters
+    load-scenario-3-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-4-wages"
+  [
+    load-scenario-1-baseline-economic-parameters
+    load-scenario-4-economic-parameters
+    stop
+  ]
+  
   error "unimplemented"
 end
 
@@ -83,28 +111,48 @@ to load-default-contagion-model
 end
 
 to load-default-economic-parameters
-  set price-of-rations 2.1
+  set price-of-rations 2.2
   set days-of-rations-bought 3
   set ratio-tax-on-essential-shops 0.52
   set ratio-tax-on-non-essential-shops 0.52
   set ratio-tax-on-workplaces 0.55
   set ratio-tax-on-workers 0.41
-  set goods-produced-by-work-performed 10
-  set unit-price-of-goods 1.8
+  set goods-produced-by-work-performed 12
+  set unit-price-of-goods 1.7
   set max-stock-of-goods-in-a-shop 500
   set starting-amount-of-capital-workers 75
-  set starting-amount-of-capital-retired 30
-  set starting-amount-of-capital-students 35
+  set starting-amount-of-capital-retired 40
+  set starting-amount-of-capital-students 30
   
-  set ratio-school-subsidy 0.07
-  set ratio-hospital-subsidy 0.18
-  set ratio-university-subsidy 0.02
-  set ratio-retirees-subsidy 0.37
-  set ratio-students-subsidy 0.3
+  set ratio-school-subsidy 0.03
+  set ratio-hospital-subsidy 0.21
+  set ratio-university-subsidy 0.03
+  set ratio-retirees-subsidy 0.34
+  set ratio-students-subsidy 0.34
   
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8
   set government-initial-reserve-of-capital 10000
+end
+
+to load-scenario-1-baseline-economic-parameters
+  set #non-essential-shops 5
+  set with-infected? false
+end
+
+to load-scenario-2-economic-parameters
+  set with-infected? true
+end
+
+to load-scenario-3-economic-parameters
+  set with-infected? true
+  set global-confinment-measures "total-lockdown"
+end
+
+to load-scenario-4-economic-parameters
+  set with-infected? true
+  set global-confinment-measures "total-lockdown"
+  set government-pays-wages? true
 end
 
 to load-no-measures
