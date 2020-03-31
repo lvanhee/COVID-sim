@@ -13,9 +13,13 @@ globals [
   government-reserve-of-capital
   total-amount-of-capital-in-circulation
   goods-production-of-total-system
+
+  time-counting-1
+  time-counting-2
 ]
 
 to go
+  reset-timer
   tick
   spread-contagion
   update-within-agent-disease-status
@@ -26,6 +30,7 @@ to go
   update-display
   update-time
   apply-active-measures
+
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -60,8 +65,8 @@ BUTTON
 26
 91
 60
-NIL
 setup
+setup\nshow  (sentence time-counting-1  time-counting-2)
 NIL
 1
 T
@@ -78,7 +83,7 @@ BUTTON
 91
 92
 go
-go\nif not any? people with [is-contagious?]\n[stop]
+go\nshow  (sentence time-counting-1  time-counting-2)\nif not any? people with [is-contagious?]\n[stop]
 T
 1
 T
@@ -144,7 +149,7 @@ INPUTBOX
 856
 657
 #schools
-3.0
+30.0
 1
 0
 Number
@@ -155,7 +160,7 @@ INPUTBOX
 948
 657
 #universities
-10.0
+20.0
 1
 0
 Number
@@ -166,7 +171,7 @@ INPUTBOX
 1041
 658
 #workplaces
-10.0
+100.0
 1
 0
 Number
@@ -187,7 +192,7 @@ INPUTBOX
 1132
 658
 #public-leisure
-1.0
+10.0
 1
 0
 Number
@@ -198,7 +203,7 @@ INPUTBOX
 1224
 658
 #private-leisure
-10.0
+100.0
 1
 0
 Number
@@ -212,17 +217,6 @@ Proxemics is represented as \"meeting spaces\" people can move into and be infec
 9
 0.0
 1
-
-INPUTBOX
-1223
-598
-1313
-658
-#homes
-100.0
-1
-0
-Number
 
 TEXTBOX
 559
@@ -395,7 +389,7 @@ INPUTBOX
 1409
 658
 #essential-shops
-5.0
+50.0
 1
 0
 Number
@@ -436,7 +430,7 @@ INPUTBOX
 1498
 658
 #non-essential-shops
-10.0
+100.0
 1
 0
 Number
@@ -447,7 +441,7 @@ INPUTBOX
 768
 657
 #hospital
-1.0
+10.0
 1
 0
 Number
@@ -999,17 +993,6 @@ density-travelling-propagation2
 1
 NIL
 HORIZONTAL
-
-INPUTBOX
-546
-452
-639
-512
-#total-population
-220.0
-1
-0
-Number
 
 MONITOR
 528
@@ -1617,7 +1600,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "mediterranea" "scandinavia" "south-asia" "north-america"
-2
+4
 
 SLIDER
 1274
@@ -1799,8 +1782,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages"
-1
+"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
+9
 
 MONITOR
 716
@@ -2289,6 +2272,28 @@ workers-wages
 1
 NIL
 HORIZONTAL
+
+INPUTBOX
+545
+451
+624
+511
+#households
+100.0
+1
+0
+Number
+
+MONITOR
+636
+460
+695
+505
+#people
+count people
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

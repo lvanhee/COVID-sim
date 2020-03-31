@@ -3,20 +3,18 @@ to execute-activity-effect
   update-resources-based-on-current-activity
   ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
   ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
-
+  
   ;the epistemic infection status depends on whether the person has (had) visible symptoms, not on where it now gathers
   ;though, gathering place might be to be recorded (i.e. a "maybe infected" state if public space has been visited and public space is believed to be contagious)
   ;if [gathering-type] of current-activity = "hospital"
   ;[ set epistemic-infection-status  infection-status ]
   let family-here count ([gatherers] of current-activity) with [member? self [my-relatives] of myself]
   if any? my-relatives and family-here / count my-relatives > 0.5 [ set days-since-seen-relatives 0 ]
-  let colleagues-here count ([gatherers] of current-activity) with [member? self [my-colleagues] of myself]
-
-  let mc my-colleagues
-
-  if any? mc
+  
+  if is-worker? 
   [
-    if (colleagues-here / count mc > 0.5) [ set days-since-seen-colleagues 0 ]]
+    let colleagues-here count ([gatherers] of current-activity) with [member? self [my-colleagues] of myself]
+    if (colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]]
   let friends-here count ([gatherers] of current-activity) with [member? self [my-friends] of myself]
   if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
 end
@@ -78,7 +76,7 @@ to update-resources-based-on-current-activity
           ifelse [gathering-type] of current-activity = "university"
           [
             set amount-to-earn workers-wages
-            let picked-university max-one-of all-universities [amount-of-capital]
+            let picked-university my-university;;people relate to only one university
             set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-university 0))
             ask picked-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
           ]
@@ -207,9 +205,9 @@ end
 
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
 to perform-activity
-
+reset-timer
     select-activity
-
+  
     if current-activity = 0 [error "failed to select an activity"]
 
     ask children with [
@@ -349,6 +347,7 @@ to-report  is-contractual-obligation? [m]
 end
 
 to perform-people-activities
+  reset-timer
   set total-amount-of-capital-in-circulation 0
   set goods-production-of-total-system 0
   
@@ -360,16 +359,23 @@ to perform-people-activities
     set my-current-income 0
     set my-previous-amount-of-capital my-amount-of-capital
   ]
-
+  
+  
+  
   ask people [
     if not is-being-away? current-activity and current-motivation = "travelling" [error "wrong place while travelling"]
     perform-activity
+    
+       
     if not is-being-away? current-activity and current-motivation = "travelling" [error (sentence "wrong place while travelling" current-activity current-motivation)]
   ]
+  
+
   ask people [
     if not is-being-away? current-activity and current-motivation = "travelling" [error (sentence "wrong place while travelling" current-activity current-motivation)]
     execute-activity-effect
     update-needs-for-playing (list current-activity current-motivation)
   ]
   animate-walk-to-goal
+
 end

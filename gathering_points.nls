@@ -11,7 +11,7 @@ gathering-points-own [gathering-type
 
 ;the head of the link are people and the tail are gathering points
 directed-link-breed [gathering-links gathering-link]
-gathering-links-own [commitment 
+gathering-links-own [
   features ;stores whatever is useful for decision-making, useful for including factors appealing to e.g. needs and values
 ]
 
@@ -47,7 +47,9 @@ to-report is-working-at-home?
   report is-working? and is-at-home?
 end
 
+;;a bit ineffective; create work relationships instead...
 to-report my-work
+  if not is-worker? [error (sentence "function called on a wrong person" age)]
   report [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
 end
 
@@ -109,8 +111,8 @@ to-report my-university
   report one-of gathering-link-neighbors with [gathering-type = "university"]
 end
 
-to-report all-universities
-  report gathering-link-neighbors with [gathering-type = "university"]
+to-report universities
+  report gathering-points with [is-university?]
 end
 
 to-report my-hospital
@@ -286,4 +288,25 @@ end
 
 to-report workplace-amount-of-goods-in-stock
   report sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
+end
+
+to-report shops
+  report gathering-points with [is-shop?]
+end
+
+to-report hospitals
+  report gathering-points with [is-hospital?]
+end
+
+to-report workplaces
+  report gathering-points with [is-workplace?]
+end
+
+to-report essential-shops
+  report gathering-points with [is-essential-shop?]
+end
+
+
+to-report non-essential-shops
+  report gathering-points with [is-non-essential-shop?]
 end

@@ -90,57 +90,6 @@ people-own [
   my-expected-income
 ]
 
-to setup-person [#young #students #workers #retired]
-  setup-person-age #young #students #workers #retired
-  
-  if age = "worker" 
-  [set my-amount-of-capital starting-amount-of-capital-workers]
-  if age = "retired"
-  [set my-amount-of-capital starting-amount-of-capital-retired]
-  if age = "student"
-  [set my-amount-of-capital starting-amount-of-capital-students]
-  set my-previous-amount-of-capital my-amount-of-capital
-
-  setup-disease-profile
-
-  set is-moving-outside-for-reaching-current-activity? false
-  ;setup-person-home
-
-
-  relate-person-to-gathering-points
-
-  set current-person-I-depend-on nobody
-  set color default-color
-  set size 0.5
-  set infection-status "healthy"
-  set epistemic-infection-status "healthy"
-  set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
-  set has-done-shopping false
-
-
-
-  set belonging-need-satisfaction random-float 0.5 + 0.5
-  set compliance-need-satisfaction random-float 0.5 + 0.5
-  set relaxing-need-satisfaction random-float 0.3 + 0.7
-  set luxury-need-satisfaction random-float 0.3 + 0.7
-  set risk-avoidance-need-satisfaction random-float 0.5 + 0.5
-  set autonomy-need-satisfaction 0.95
-  ;set financial-safety-need-satisfaction 1
-  ;the importance levels for each community need should add up to 1
-  set my-importance-for-belonging-needs clamp 0.01 1 random-normal ratio-safety-belonging needs-std-dev
-  set my-importance-for-safety-needs 1 - my-importance-for-belonging-needs
-  set my-importance-for-self-esteem-needs clamp 0.01 1 random-normal importance-self-esteem needs-std-dev
-  set my-importance-for-compliance-needs clamp 0.01 1 random-normal importance-compliance needs-std-dev
-  set my-importance-for-survival-needs clamp 0.01 1 random-normal importance-survival needs-std-dev
-  set my-importance-for-relaxing-needs clamp 0.01 1 random-normal importance-leisure needs-std-dev
-  set my-importance-for-luxury-needs clamp 0.01 1 random-normal importance-luxury needs-std-dev
-  set my-importance-for-risk-avoidance-needs clamp 0.01 1 random-normal importance-risk-avoidance needs-std-dev
-  set my-importance-for-autonomy-needs clamp 0.01 1 random-normal importance-autonomy needs-std-dev
-  set my-importance-for-food-safety-needs 1
-  set my-importance-for-financial-survival-needs 1
-  set my-importance-for-financial-safety-needs clamp 0.01 1 random-normal importance-financial-safety needs-std-dev
-end
-
 to update-people-epistemic-status
   ask people [update-epistemic-status]
 end
@@ -156,62 +105,6 @@ to set-infection-status [infection]
   set infection-status infection
 end
 
-to relate-person-to-gathering-points
-  
-  create-gathering-link-to one-of gathering-points with [gathering-type = "hospital"]
-  [
-    set commitment 1
-    set features (list "get-tested" "get-treatment")
-  ]
-  
-  create-gathering-link-to one-of gathering-points with [gathering-type = "private-leisure"]
-  [ set commitment 1 set features (list "relaxing")]
-  create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
-  [ set commitment 1 set features (list "relaxing")]
-  create-gathering-links-to n-of (ceiling (#essential-shops * 0.2)) gathering-points with [gathering-type = "essential-shop"]
-  [ set commitment 1 set features (list "essential shopping" "shopping")]
-  create-gathering-links-to n-of (ceiling (#non-essential-shops * 0.4)) gathering-points with [gathering-type = "non-essential-shop"]
-  [ set commitment 1 set features (list "relaxing" "shopping")]
-  
-  if age = "young" [ create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
-    [ set commitment 1
-      set features (list "mandatory")]
-  ]
-  
-  if age = "student" [ create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
-    [ set commitment 1 set features (list "learning")]]
-  
-  if age = "worker" [
-    if random-float 1 < probability-hospital-personel [
-      ask one-of my-out-gathering-links with [[gathering-type] of other-end = "hospital"] [
-        set features (lput "contractual obligation" (lput "getting money" features))
-      ]
-      stop
-    ]
-    if random-float 1 < probability-school-personel [
-      create-gathering-link-to one-of gathering-points with [gathering-type = "school"]
-      [ set commitment 1
-        set features (list "getting money" "contractual obligation")
-      ]
-      stop
-    ]
-    if random-float 1 < probability-university-personel [
-      create-gathering-link-to one-of gathering-points with [gathering-type = "university"]
-      [ set commitment 1
-        set features (list "getting money" "contractual obligation")
-      ]
-      stop
-    ]
-    if random-float 1 < probability-shopkeeper [
-      ask one-of my-out-gathering-links with [member? "shopping" features] [
-        set features (lput "contractual obligation" (lput "getting money" features))
-      ]
-      stop
-    ]
-    create-gathering-link-to one-of gathering-points with [gathering-type = "workplace"]
-    [ set commitment 1 set features (list "getting money" "contractual obligation")]
-  ]
-end
 
 to-report has-a-work?
    report any? my-gathering-links with  [member? "contractual obligation" features]
@@ -225,7 +118,7 @@ to-report children
 end
 
 to-report is-young?
-  report age = "young"
+  report age = young-age
 end
 
 to-report total-amount-of-capital
@@ -237,7 +130,7 @@ to-report retirees-average-amount-of-capital
 end
 
 to-report workers-average-amount-of-capital
-  report mean [my-amount-of-capital] of people with [age = "worker"]
+  report mean [my-amount-of-capital] of workers
 end
 
 to-report students-average-amount-of-capital
@@ -246,4 +139,20 @@ end
 
 to-report young-average-amount-of-capital
   report (sum [my-amount-of-capital] of people with [age = "young"]) / (count people with [age = "young"])
+end
+
+to-report worker-age
+  report "worker"
+end
+
+to-report student-age
+  report "student"
+end
+
+to-report retired-age
+  report "retired"
+end
+
+to-report young-age
+  report "young"
 end

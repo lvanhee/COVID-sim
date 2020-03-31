@@ -63,6 +63,7 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
   let gp first ad
   let motive last ad
   
+  
   let number [expected-number-of-other-participants] of gp
   let base 0
   let network-bonus 1
@@ -81,14 +82,22 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
   if family-present and days-since-seen-relatives > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-relatives / 28))
   ]
-  let colleagues-present any? (([gatherers] of gp) with [member? self [my-colleagues] of myself])
-  if colleagues-present and days-since-seen-colleagues > 0 [
-    set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
+  
+  if is-worker?
+  [
+    let colleagues-present any? (([gatherers] of gp) with [member? self [my-colleagues] of myself])
+    if colleagues-present and days-since-seen-colleagues > 0 [
+      set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
+    ]
   ]
+  set time-counting-1 time-counting-1 + timer
+  reset-timer  
   let friends-present any? (([gatherers] of gp) with [member? self [my-friends] of myself])
   if friends-present and days-since-seen-friends > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-friends / 28))
   ]
+      set time-counting-2 time-counting-2 + timer
+  reset-timer  
   report base * network-bonus
 end
 
@@ -330,16 +339,27 @@ end
 
 
 to-report global-prevalence-of [ad]
+  reset-timer
+  let belonging-needs my-current-expected-prevalence-of-belonging-needs ad
+
+  let safety-needs my-current-prevalence-of-safety-needs ad
+  
+  let self-esteem-needs my-current-prevalence-of-self-esteem-needs ad
+  let autonomy-needs my-current-prevalence-of-autonomy-needs ad
+  let survival-needs my-current-prevalence-of-survival-needs ad
+
   let total-satisfaction
-  my-current-expected-prevalence-of-belonging-needs ad
+  belonging-needs
   +
-  my-current-prevalence-of-safety-needs ad
+  safety-needs
   +
-  my-current-prevalence-of-self-esteem-needs ad
+  self-esteem-needs
   +
-  my-current-prevalence-of-autonomy-needs ad
+  autonomy-needs
   +
-  my-current-prevalence-of-survival-needs ad
+  survival-needs
+  
+
   
   ;should be expanded with new needs as they are added
   

@@ -1,15 +1,24 @@
 directed-link-breed [dependable-adult-links dependable-adult-link]
 
+;;this representation works as long as the workplace network does not become too large
+;directed-link-breed [workplace-colleague-links workplace-colleague-link]
+
+;breed [work-social-networks work-social-network]
+
+
 to-report my-relatives
   report other [gatherers] of my-home
 end
 
 to-report my-colleagues
-  let my-wp  my-workplace
-  if my-wp != nobody [
-    report other [gatherers with [my-workplace = my-wp]] of my-wp
-  ]
-  report (turtle-set nobody)
+  if not is-worker? [report (turtle-set)]
+  report [gatherers] of my-work
+  ;report workplace-colleague-link-neighbors
+  ;let my-wp  my-workplace
+  ;if my-wp != nobody [
+ ;   report other [gatherers with [my-workplace = my-wp]] of my-wp
+ ; ]
+ ; report (turtle-set nobody)
 end
 
 to-report my-friends
@@ -20,22 +29,8 @@ to-report my-home
   report one-of gathering-link-neighbors with [gathering-type = "home"]
 end
 
-;;not done for hospital workers
-;the proper way consists in adding a new type of links, called "work links"
-;or indicate that the place can be reached for work
-to-report my-workplace
-  report one-of gathering-link-neighbors with [gathering-type = "university" or gathering-type = "school" or gathering-type = "workplace"]
-end
-
-
 to-report people-that-depend-on-me
   report in-dependable-adult-link-neighbors
-end
-
-
-
-to setup-social-networks
-  ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
 end
 
 to-report workers

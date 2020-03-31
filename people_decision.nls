@@ -92,14 +92,16 @@ end
 
 
 to select-activity
-  let c-a my-preferred-available-activity-descriptor
+  reset-timer
   
+  let c-a my-preferred-available-activity-descriptor
+
   if (migration? and random-float 1 < probability-going-abroad) [
     debug-show "away"
     set c-a (list away-gathering-point "travelling")
   ]
   
-  
+
   set is-moving-outside-for-reaching-current-activity? current-activity != location-of c-a
   set current-activity location-of c-a
   set current-motivation motive-of c-a
