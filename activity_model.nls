@@ -203,6 +203,34 @@ to-report is-working-motive? [m]
   report m = "contractual obligation"
 end
 
+to-report #workers-working
+  report count workers with [is-working?]
+end
+
+to-report #workers-working-at-essential-shop
+  report count workers with [is-working? and [gathering-type] of my-work = "essential-shop"]
+end
+
+to-report #workers-working-at-non-essential-shop
+  report count workers with [is-working? and [gathering-type] of my-work = "non-essential-shop"]
+end
+
+to-report #workers-working-at-university
+  report count workers with [is-working? and [gathering-type] of my-work = "university"]
+end
+
+to-report #workers-working-at-hospital
+  report count workers with [is-working? and [gathering-type] of my-work = "hospital"]
+end
+
+to-report #workers-working-at-workplace
+  report count workers with [is-working? and [gathering-type] of my-work = "workplace"]
+end
+
+to-report #workers-working-at-school
+  report count workers with [is-working? and [gathering-type] of my-work = "school"]
+end
+
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
 to perform-activity
 reset-timer

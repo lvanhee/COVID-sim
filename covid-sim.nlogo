@@ -430,7 +430,7 @@ INPUTBOX
 1498
 658
 #non-essential-shops
-10.0
+5.0
 1
 0
 Number
@@ -1149,7 +1149,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1783,7 +1783,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-3
+5
 
 MONITOR
 716
@@ -2294,6 +2294,95 @@ count people
 17
 1
 11
+
+MONITOR
+1180
+1665
+1293
+1710
+NIL
+#hospital-workers
+17
+1
+11
+
+MONITOR
+1040
+1613
+1173
+1658
+NIL
+#essential-shop-workers
+17
+1
+11
+
+MONITOR
+1180
+1613
+1355
+1658
+NIL
+#non-essential-shop-workers
+17
+1
+11
+
+MONITOR
+1041
+1665
+1173
+1710
+NIL
+#university-workers
+17
+1
+11
+
+MONITOR
+1180
+1718
+1285
+1763
+NIL
+#school-workers
+17
+1
+11
+
+MONITOR
+1042
+1718
+1173
+1763
+NIL
+#workplace-workers
+17
+1
+11
+
+PLOT
+534
+1613
+1033
+1763
+Number of workers actually working at each gathering point
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"essential-shop" 1.0 0 -16777216 true "" "plot #workers-working-at-essential-shop"
+"non-essential-shop" 1.0 0 -13345367 true "" "plot #workers-working-at-non-essential-shop"
+"university" 1.0 0 -955883 true "" "plot #workers-working-at-university"
+"hospital" 1.0 0 -13840069 true "" "plot #workers-working-at-hospital"
+"workplace" 1.0 0 -2674135 true "" "plot #workers-working-at-workplace"
+"school" 1.0 0 -8630108 true "" "plot #workers-working-at-school"
 
 @#$#@#$#@
 ## WHAT IS IT?
