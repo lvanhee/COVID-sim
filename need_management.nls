@@ -298,7 +298,7 @@ end
 to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [ad]
   let gp first ad
   let motive last ad
-  let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
+  let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? [
     if gp = my-work [
@@ -310,7 +310,7 @@ to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-f
     report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
   ]
   if motive = "shopping" [
-    report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations) / eating-costs) 1))
+    report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops) / eating-costs) 1))
   ]
   report 0
 end
@@ -318,7 +318,7 @@ end
 to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [ad]
   let gp first ad
   let motive last ad
-  let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
+  let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? and gp = my-work [
     if my-previous-amount-of-capital > 0 
@@ -332,7 +332,7 @@ to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for
     report (- (eating-costs / my-previous-amount-of-capital))
   ]
   if motive = "shopping" [
-    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations / my-previous-amount-of-capital))
+    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-previous-amount-of-capital))
   ]
   report 0
 end
