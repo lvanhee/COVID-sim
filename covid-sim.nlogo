@@ -149,7 +149,7 @@ INPUTBOX
 856
 657
 #schools
-30.0
+3.0
 1
 0
 Number
@@ -160,7 +160,7 @@ INPUTBOX
 948
 657
 #universities
-20.0
+10.0
 1
 0
 Number
@@ -171,7 +171,7 @@ INPUTBOX
 1041
 658
 #workplaces
-100.0
+10.0
 1
 0
 Number
@@ -192,7 +192,7 @@ INPUTBOX
 1132
 658
 #public-leisure
-10.0
+1.0
 1
 0
 Number
@@ -203,7 +203,7 @@ INPUTBOX
 1224
 658
 #private-leisure
-100.0
+10.0
 1
 0
 Number
@@ -389,7 +389,7 @@ INPUTBOX
 1409
 658
 #essential-shops
-50.0
+5.0
 1
 0
 Number
@@ -430,7 +430,7 @@ INPUTBOX
 1498
 658
 #non-essential-shops
-100.0
+10.0
 1
 0
 Number
@@ -441,7 +441,7 @@ INPUTBOX
 768
 657
 #hospital
-10.0
+1.0
 1
 0
 Number
@@ -1149,7 +1149,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1600,7 +1600,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "mediterranea" "scandinavia" "south-asia" "north-america"
-4
+2
 
 SLIDER
 1274
@@ -1783,7 +1783,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-9
+2
 
 MONITOR
 716
