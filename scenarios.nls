@@ -159,7 +159,7 @@ to load-default-economic-parameters
 end
 
 to load-scenario-1-baseline-economic-parameters
-  ;set #non-essential-shops 5
+  set #non-essential-shops 5
   set with-infected? false
 end
 
