@@ -97,6 +97,7 @@ to load-scenario
 end
 
 to load-baseline-scenario
+  load-scandinavian-population-default
   load-default-city-layout-model
   load-default-disease-model
   load-default-migration-model
@@ -114,7 +115,7 @@ end
 
 
 to load-default-city-layout-model
-    set #hospital 1
+  set #hospital 1
   set #schools 3
   set #universities 10
   set #workplaces 10
@@ -158,7 +159,7 @@ to load-default-economic-parameters
 end
 
 to load-scenario-1-baseline-economic-parameters
-  set #non-essential-shops 5
+  ;set #non-essential-shops 5
   set with-infected? false
 end
 
