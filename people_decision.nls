@@ -26,7 +26,11 @@ to-report my-available-activity-descriptors
     debug-show "came back"
   ]
   
+  
   let activities (list (list my-home "rest"))
+  
+  if has-internally-visible-symptoms? or is-believing-to-be-infected?
+  [ set activities lput activity-descriptor my-hospital treatment-motive activities ]
   
   if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
     [
@@ -38,7 +42,7 @@ to-report my-available-activity-descriptors
         set activities (lput (list my-university  "learning") activities)
       ]
       
-      if age = "worker" [
+      if is-worker? [
         if is-allowed-to-work-from-home? [
           set activities (lput (list
             my-home

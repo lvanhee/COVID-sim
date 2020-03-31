@@ -1,3 +1,5 @@
+__includes ["hospitals.nls"]
+
 breed [gathering-points gathering-point]
 gathering-points-own [gathering-type
   available-food-rations ; rations of food that are available, this will be most useful for homes
@@ -8,6 +10,7 @@ gathering-points-own [gathering-type
   
   stock-of-goods
 ]
+
 
 ;the head of the link are people and the tail are gathering points
 directed-link-breed [gathering-links gathering-link]

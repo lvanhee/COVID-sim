@@ -1,0 +1,3 @@
+to-report recovery-if-treated-profile
+  report "recovery if treated"
+end

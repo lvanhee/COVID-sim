@@ -143,6 +143,8 @@ to setup-person [current-home l-age]
     set is-moving-outside-for-reaching-current-activity? false
     ;setup-person-home
     
+    set is-currently-allocated-a-bed-in-hospital? false
+    
     
     setup-relation-to-gathering-points
     
