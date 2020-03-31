@@ -310,3 +310,27 @@ end
 to-report non-essential-shops
   report gathering-points with [is-non-essential-shop?]
 end
+
+to-report #essential-shop-workers
+  report count workers with [[gathering-type] of my-work = "essential-shop"]
+end
+
+to-report #non-essential-shop-workers
+  report count workers with [[gathering-type] of my-work = "non-essential-shop"]
+end
+
+to-report #university-workers
+  report count workers with [[gathering-type] of my-work = "university"]
+end
+
+to-report #hospital-workers
+  report count workers with [[gathering-type] of my-work = "hospital"]
+end
+
+to-report #workplace-workers
+  report count workers with [[gathering-type] of my-work = "workplace"]
+end
+
+to-report #school-workers
+  report count workers with [[gathering-type] of my-work = "school"]
+end
