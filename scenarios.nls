@@ -34,7 +34,6 @@ to load-scenario
   
   if preset-scenario = "generic-baseline"
   [
-    load-scandinavian-population-default
     stop
   ]
   
@@ -98,6 +97,7 @@ to load-scenario
 end
 
 to load-baseline-scenario
+  load-scandinavian-population-default
   load-default-city-layout-model
   load-default-disease-model
   load-default-migration-model
@@ -115,7 +115,7 @@ end
 
 
 to load-default-city-layout-model
-    set #hospital 1
+  set #hospital 1
   set #schools 3
   set #universities 10
   set #workplaces 10
