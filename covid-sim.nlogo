@@ -1149,7 +1149,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1611,7 +1611,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.01
+0.0
 0.01
 1
 NIL
@@ -1624,7 +1624,7 @@ SWITCH
 860
 test-workplace-of-confirmed-people?
 test-workplace-of-confirmed-people?
-0
+1
 1
 -1000
 
@@ -1635,7 +1635,7 @@ SWITCH
 827
 test-home-of-confirmed-people?
 test-home-of-confirmed-people?
-0
+1
 1
 -1000
 
@@ -1783,7 +1783,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-2
+3
 
 MONITOR
 716

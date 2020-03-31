@@ -184,6 +184,9 @@ to load-no-measures
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
   set global-confinment-measures "none"
+  set test-home-of-confirmed-people? false
+  set test-workplace-of-confirmed-people? false
+  set ratio-population-randomly-tested-daily 0
 end
 
 to load-scandinavian-population-default
