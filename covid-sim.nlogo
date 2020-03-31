@@ -430,7 +430,7 @@ INPUTBOX
 1498
 658
 #non-essential-shops
-5.0
+10.0
 1
 0
 Number
@@ -1149,7 +1149,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1438,40 +1438,40 @@ PENS
 "government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
-530
-1260
-741
-1293
-ratio-tax-on-essential-shops
-ratio-tax-on-essential-shops
-0
-1
-0.52
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-530
-1298
+531
+1303
 742
-1331
-ratio-tax-on-non-essential-shops
-ratio-tax-on-non-essential-shops
-0
-1
-0.52
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-530
 1336
-742
-1369
+ratio-tax-on-essential-shops
+ratio-tax-on-essential-shops
+0
+1
+0.52
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+531
+1341
+743
+1374
+ratio-tax-on-non-essential-shops
+ratio-tax-on-non-essential-shops
+0
+1
+0.52
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+531
+1379
+743
+1412
 ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
@@ -1483,10 +1483,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-530
-1374
-742
-1407
+531
+1417
+743
+1450
 ratio-tax-on-workers
 ratio-tax-on-workers
 0
@@ -1498,10 +1498,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-532
-1242
-730
-1270
+533
+1285
+731
+1313
 Taxes charged by the government
 11
 0.0
@@ -1652,10 +1652,10 @@ People testing
 SLIDER
 531
 1169
-703
+743
 1202
-price-of-rations
-price-of-rations
+price-of-rations-in-essential-shops
+price-of-rations-in-essential-shops
 0.5
 10
 2.2
@@ -1736,9 +1736,9 @@ PENS
 
 SLIDER
 530
-1469
+1477
 739
-1502
+1510
 goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
@@ -1751,9 +1751,9 @@ HORIZONTAL
 
 SLIDER
 530
-1507
+1515
 739
-1540
+1548
 unit-price-of-goods
 unit-price-of-goods
 0.1
@@ -1783,7 +1783,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-5
+1
 
 MONITOR
 716
@@ -2047,9 +2047,9 @@ Number
 
 SLIDER
 530
-1547
+1555
 748
-1580
+1588
 max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
@@ -2383,6 +2383,21 @@ PENS
 "hospital" 1.0 0 -13840069 true "" "plot #workers-working-at-hospital"
 "workplace" 1.0 0 -2674135 true "" "plot #workers-working-at-workplace"
 "school" 1.0 0 -8630108 true "" "plot #workers-working-at-school"
+
+SLIDER
+531
+1246
+757
+1279
+price-of-rations-in-non-essential-shops
+price-of-rations-in-non-essential-shops
+0.5
+10
+2.2
+0.1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
