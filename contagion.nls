@@ -1,4 +1,4 @@
-to spread-contagion  
+to spread-contagion
   spread-by-activity-proximity
 end
 
@@ -21,10 +21,6 @@ end
 to-report social-distancing-risk-mitigation-factor
   ifelse is-I-apply-social-distancing? [report probably-contagion-mitigation-from-social-distancing]
   [report 1]
-end
-
-to-report is-I-apply-social-distancing?
-  report is-social-distancing-measure-active?
 end
 
 to apply-risk-of-contamination-when-travelling

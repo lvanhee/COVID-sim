@@ -3,7 +3,8 @@ __includes ["need_management.nls" ]
 
 to-report my-preferred-available-activity-descriptor ;reports a string, which can be related to a gathering point and a concrete activity
   debug-file-print (sentence "Person " who " " age)
-  report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
+  report item 0 reduce [[x y] -> ifelse-value item 1 x > item 1 y [x] [y]] (map [x -> (list x (global-prevalence-of x))] my-available-activity-descriptors)
+  ;report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
 end
 
 to-report is-away?
@@ -21,7 +22,7 @@ to-report my-available-activity-descriptors
   if migration? and is-away?
   [
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
-      report (list (list away-gathering-point travelling-reason))
+      report (list (list away-gathering-point travelling-reason false))
     ]
     debug-show "came back"
   ]
@@ -55,12 +56,12 @@ to-report my-available-activity-descriptors
   
   if slice-of-the-day = "evening" or not working-day? or age = "retired"
   [
-    if age != "young" [
+    if age != "young" and slice-of-the-day != "night" [
       set activities lput (list [other-end] of one-of my-gathering-links with [member? "essential shopping" features] "essential shopping") activities
     ]
 
     set activities lput (list my-public-leisure "relaxing" ) activities
-    if age != "young" [
+    if age != "young" and slice-of-the-day != "night" [
       set activities lput (list my-non-essential-shop "shopping") activities
     ]
     set activities lput (list my-private-leisure "relaxing") activities
@@ -80,8 +81,11 @@ to-report my-available-activity-descriptors
     ask people-that-depend-on-me [ set current-person-I-depend-on myself]
     set activities filter [ i -> can-be-done-with-a-dependable-person? i] activities
   ]
-  
-  report activities
+  let ret []
+  foreach activities [ activity ->
+    set ret fput (lput true activity) fput (lput false activity) ret
+  ]
+  report ret
 end
 
 
@@ -98,13 +102,14 @@ to select-activity
 
   if (migration? and random-float 1 < probability-going-abroad) [
     debug-show "away"
-    set c-a (list away-gathering-point "travelling")
+    set c-a (list away-gathering-point "travelling" false)
   ]
   
 
   set is-moving-outside-for-reaching-current-activity? current-activity != location-of c-a
   set current-activity location-of c-a
   set current-motivation motive-of c-a
+  set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = "travelling" [error "wrong place while travelling"]
 end
 
