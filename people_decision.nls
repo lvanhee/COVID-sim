@@ -23,7 +23,6 @@ to-report my-available-activity-descriptors
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
       report (list (list away-gathering-point travelling-reason))
     ]
-    debug-show "came back"
   ]
   
   
@@ -101,7 +100,6 @@ to select-activity
   let c-a my-preferred-available-activity-descriptor
 
   if (migration? and random-float 1 < probability-going-abroad) [
-    debug-show "away"
     set c-a (list away-gathering-point "travelling")
   ]
   

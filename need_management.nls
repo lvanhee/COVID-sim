@@ -138,15 +138,26 @@ to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-p
   let gp first ad
   let motive last ad
   
-  if gp != my-home [
-    let number [expected-number-of-other-participants] of gp
-    if number = 0 [report 0.2 ]
-    if number < 5 [report 0.1 ]
-    if number < 10 [report 0.05 ]
-    if number < 20 [report 0]
+  ifelse is-believing-to-be-infected? or has-internally-visible-symptoms? [
+    if any-free-bed-in-hospital? and is-get-healed-to-hospital-descriptor? ad [
+      report 0.3
+    ]
+    if is-currently-being-treated-at-hospital? and is-get-healed-to-hospital-descriptor? ad [
+      report 0.4
+    ]
     report -0.1
+  ] [
+    if gp != my-home [
+      let number [expected-number-of-other-participants] of gp
+      if number = 0 [report 0.2 ]
+      if number < 5 [report 0.1 ]
+      if number < 10 [report 0.05 ]
+      if number < 20 [report 0]
+      report -0.1
+    ]
+    
+    report 0.15
   ]
-  report 0.15
 end
 
 to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playing [ad]
@@ -205,7 +216,11 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
   ; A passive bonus for compliance in case there is no lockdown
   if not is-lockdown-enforced? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
-  ]  
+  ]
+  
+  if is-currently-being-treated-at-hospital? and [is-hospital?] of gp [
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.3
+  ]
     
   report bonus-compliance-to-obligation
 end
@@ -229,9 +244,15 @@ to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing
   
   if motive = "rest" [
     if slice-of-the-day = "night" [
-      report 0.8
+      report ifelse-value has-internally-visible-symptoms? [ 0.6 ] [ 0.8 ]
     ]
-    report 0.2
+    report ifelse-value has-internally-visible-symptoms? [ 0.15 ] [ 0.2 ]
+  ]
+  if is-currently-being-treated-at-hospital? and is-get-healed-to-hospital-descriptor? ad [
+    if slice-of-the-day = "night" [
+      report 0.7
+    ]
+    report 0.15
   ]
   if motive = "relaxing" [
     report 0.2
@@ -315,7 +336,7 @@ to-report global-prevalence-of [ad]
   
   ;should be expanded with new needs as they are added
   
-  debug-file-print (sentence "Global prevalence of:" [gathering-type] of first ad " " last activity-descriptor " " total-satisfaction)
+  debug-file-print (sentence "Global prevalence of:" [gathering-type] of first ad " " last ad " " total-satisfaction)
   report total-satisfaction
 end
 

@@ -1195,7 +1195,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.0
+0.23
 0.01
 1
 NIL
@@ -1293,7 +1293,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.0
+0.49
 0.01
 1
 NIL
@@ -1308,7 +1308,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-1.0
+0.27
 0.01
 1
 NIL
@@ -1338,7 +1338,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.0
+0.01
 0.01
 1
 NIL
@@ -1611,7 +1611,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+0.05
 0.01
 1
 NIL
@@ -2280,7 +2280,7 @@ INPUTBOX
 624
 511
 #households
-10.0
+100.0
 1
 0
 Number
@@ -2297,10 +2297,10 @@ count people
 11
 
 INPUTBOX
-754
-1644
-909
-1704
+1552
+233
+1707
+293
 #beds-in-hospital
 100.0
 1
@@ -2330,10 +2330,10 @@ NIL
 11
 
 MONITOR
-589
-1650
-721
-1695
+1387
+239
+1519
+284
 NIL
 #taken-hospital-beds
 17
