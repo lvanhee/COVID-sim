@@ -152,7 +152,7 @@ to update-resources-based-on-current-activity
 
   if is-performing-essential-shopping?
   [
-    let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations)
+    let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations-in-essential-shops)
     let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-essential-shops max (list max-amount-of-rations-I-can-buy 0))
 
     let picked-essential-shop max-one-of all-essential-shops [stock-of-goods]
@@ -163,7 +163,7 @@ to update-resources-based-on-current-activity
 
     ask my-home [set available-food-rations available-food-rations + amount-of-rations-to-buy]
 
-    let amount-spent amount-of-rations-to-buy * price-of-rations
+    let amount-spent amount-of-rations-to-buy * price-of-rations-in-essential-shops
     let stock-decrease amount-of-rations-to-buy
     set my-amount-of-capital my-amount-of-capital - amount-spent
     set my-current-income my-current-income - amount-spent
@@ -177,7 +177,7 @@ to update-resources-based-on-current-activity
   [
     if not closed-non-essential?
     [
-      let max-amount-of-rations-I-can-buy my-amount-of-capital / price-of-rations
+      let max-amount-of-rations-I-can-buy my-amount-of-capital / price-of-rations-in-non-essential-shops
       let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-shops max (list max-amount-of-rations-I-can-buy 0))
 
       let available-goods-in-my-non-essential-shop max (list [stock-of-goods] of current-activity 0)
@@ -185,7 +185,7 @@ to update-resources-based-on-current-activity
       set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-non-essential-shop)
       
       set amount-of-last-luxury-items-bought amount-of-rations-to-buy
-      let amount-spent amount-of-rations-to-buy * price-of-rations
+      let amount-spent amount-of-rations-to-buy * price-of-rations-in-non-essential-shops
       let stock-decrease amount-of-rations-to-buy
       set my-amount-of-capital my-amount-of-capital - amount-spent
       set my-current-income my-current-income - amount-spent
@@ -216,6 +216,34 @@ end
 
 to-report is-working-motive? [m]
   report m = "contractual obligation"
+end
+
+to-report #workers-working
+  report count workers with [is-working?]
+end
+
+to-report #workers-working-at-essential-shop
+  report count workers with [is-working? and [gathering-type] of my-work = "essential-shop"]
+end
+
+to-report #workers-working-at-non-essential-shop
+  report count workers with [is-working? and [gathering-type] of my-work = "non-essential-shop"]
+end
+
+to-report #workers-working-at-university
+  report count workers with [is-working? and [gathering-type] of my-work = "university"]
+end
+
+to-report #workers-working-at-hospital
+  report count workers with [is-working? and [gathering-type] of my-work = "hospital"]
+end
+
+to-report #workers-working-at-workplace
+  report count workers with [is-working? and [gathering-type] of my-work = "workplace"]
+end
+
+to-report #workers-working-at-school
+  report count workers with [is-working? and [gathering-type] of my-work = "school"]
 end
 
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]

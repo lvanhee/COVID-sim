@@ -134,7 +134,8 @@ to load-default-contagion-model
 end
 
 to load-default-economic-parameters
-  set price-of-rations 2.2
+  set price-of-rations-in-essential-shops 2.2
+  set price-of-rations-in-non-essential-shops 2.2
   set days-of-rations-bought 3
   set ratio-tax-on-essential-shops 0.52
   set ratio-tax-on-non-essential-shops 0.52
@@ -159,7 +160,7 @@ to load-default-economic-parameters
 end
 
 to load-scenario-1-baseline-economic-parameters
-  ;set #non-essential-shops 5
+  set #non-essential-shops 5
   set with-infected? false
 end
 
