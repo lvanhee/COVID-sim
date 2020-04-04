@@ -8,12 +8,11 @@ to update-needs-for-playing [current-activity-descriptor]
   belonging-need-satisfaction + my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played current-activity-descriptor
   if belonging-need-satisfaction > 1 [set belonging-need-satisfaction 1]
 
-  set compliance-need-satisfaction clamp 0 1 compliance-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-compliance-after-having-played current-activity-descriptor
+  set compliance-need-satisfaction clamp 0 1 (compliance-need-satisfaction +
+  my-expected-discounted-satisfaction-gain-for-compliance-after-having-played current-activity-descriptor)
 
-  set risk-avoidance-need-satisfaction risk-avoidance-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played current-activity-descriptor
-  if risk-avoidance-need-satisfaction > 1 [set risk-avoidance-need-satisfaction 1]
+  set risk-avoidance-need-satisfaction  clamp 0 1 (risk-avoidance-need-satisfaction +
+  my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played current-activity-descriptor)
 
   set relaxing-need-satisfaction relaxing-need-satisfaction +
   my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played current-activity-descriptor
@@ -60,13 +59,17 @@ end
 ;update these numbers based on how many people are actually met when moving
 ;include networks and joint meetings
 to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
 
 
   let number [expected-number-of-other-participants] of gp
   let base 0
   let network-bonus 1
+  let social-distancing-cut 1
+  if social-distancing-of ad [
+    set social-distancing-cut (1 - social-distance-profile)
+  ]
   ;show (sentence "expected shift satisfaction community:"
   ;   [gathering-type] of first activity-descriptor last activity-descriptor number)
   ifelse number = 0
@@ -98,16 +101,20 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
   ]
       set time-counting-2 time-counting-2 + timer
   reset-timer
-  report base * network-bonus
+  report base * network-bonus * social-distancing-cut
 end
 
 to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
 
   let number count people with [current-activity = gp]
   let base 0
   let network-bonus 1
+  let social-distancing-cut 1
+  if social-distancing-of ad [
+    set social-distancing-cut (1 - social-distance-profile)
+  ]
   ;show (sentence "expected shift satisfaction community:"
   ;   [gathering-type] of first activity-descriptor last activity-descriptor number)
   ifelse number = 0
@@ -131,44 +138,56 @@ to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing 
   if friends-present and days-since-seen-friends > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-friends / 28))
   ]
-  report base * network-bonus
+  report base * network-bonus * social-distancing-cut
 end
 
 to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
+  let result 0.1
 
   ifelse is-believing-to-be-infected? or has-internally-visible-symptoms? [
     if any-free-bed-in-hospital? and is-get-healed-to-hospital-descriptor? ad [
-      report 0.3
+      set result 0.3
     ]
     if is-currently-being-treated-at-hospital? and is-get-healed-to-hospital-descriptor? ad [
-      report 0.4
+      set result 0.4
     ]
-    report -0.1
+    set result -0.1
   ] [
     if gp != my-home [
       let number [expected-number-of-other-participants] of gp
-      if number = 0 [report 0.2 ]
-      if number < 5 [report 0.1 ]
-      if number < 10 [report 0.05 ]
-      if number < 20 [report 0]
-      report -0.1
+      if number = 0 [set result 0.2 ]
+      if number < 5 [set result 0.1 ]
+      if number < 10 [set result 0.05 ]
+      if number < 20 [set result 0]
+      set result -0.1
     ]
-
-    report 0.15
   ]
+
+
+  ifelse social-distancing-of ad
+    [ set result result + 0.1 ]
+    [ set result result - 0.1 ]
+
+  report result
 end
 
 to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
 
   let bonus-compliance-to-obligation 0
   if gp = my-home and is-lockdown-enforced?
   [
   ;  show "lockdown bonus"
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
+  ]
+
+  if is-social-distancing-measure-active? [
+    ifelse social-distancing-of ad
+    [ set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1 ]
+    [ set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1 ]
   ]
 
   if (motive = "contractual obligation") and is-I-have-contractual-obligations?
@@ -227,7 +246,7 @@ end
 
 ; The agents expect to get food for seven days at a time
 to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing [ad]
-  let motive last ad
+  let motive motive-of ad
   if motive = "essential shopping" [
     let available-food-days [available-food-rations] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food-rations]
     if available-food-days >= 14 [
@@ -239,8 +258,8 @@ to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-play
 end
 
 to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
 
   if motive = "rest" [
     if slice-of-the-day = "night" [
@@ -261,8 +280,8 @@ to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing
 end
 
 to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
 
   if motive = "shopping" [
     report 0.4
@@ -277,8 +296,8 @@ to-report actual-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad
 end
 
 to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
 
   if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
@@ -307,10 +326,9 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
   report 0
 end
 
-
 to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
   let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? [
@@ -329,8 +347,8 @@ to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-f
 end
 
 to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [ad]
-  let gp first ad
-  let motive last ad
+  let gp location-of ad
+  let motive motive-of ad
   let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? and gp = my-work [
@@ -374,10 +392,9 @@ to-report global-prevalence-of [ad]
 
 
 
-
   ;should be expanded with new needs as they are added
 
-  debug-file-print (sentence "Global prevalence of:" [gathering-type] of first ad " " last ad " " total-satisfaction)
+  debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
   report total-satisfaction
 end
 
