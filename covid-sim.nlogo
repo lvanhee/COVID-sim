@@ -1900,7 +1900,7 @@ Risks of becoming sick when travelling locally
 1
 
 TEXTBOX
-1147
+1138
 800
 1271
 828
@@ -1910,7 +1910,7 @@ All people at home are tested if one is confirmed sick.
 1
 
 TEXTBOX
-1147
+1138
 831
 1273
 859
@@ -2139,7 +2139,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-1.0
+0.12
 0.01
 1
 NIL
@@ -2270,6 +2270,21 @@ workers-wages
 30
 10.0
 0.5
+1
+NIL
+HORIZONTAL
+
+SLIDER
+989
+468
+1228
+501
+mean-social-distance-profile
+mean-social-distance-profile
+0
+1
+0.25
+0.01
 1
 NIL
 HORIZONTAL
@@ -2413,6 +2428,32 @@ MONITOR
 1763
 NIL
 #workplace-workers
+17
+1
+11
+
+SLIDER
+1230
+468
+1480
+501
+std-dev-social-distance-profile
+std-dev-social-distance-profile
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1692
+1014
+1828
+1059
+#social-distancing
+count people with [is-I-apply-social-distancing? = true]
 17
 1
 11

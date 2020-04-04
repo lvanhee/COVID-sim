@@ -22,16 +22,16 @@ to setup
   set current-day 0
   set #dead-people 0
   set government-reserve-of-capital government-initial-reserve-of-capital
-  
+
   setup-activities
   create-all-households
   setup-social-networks
   if with-infected? [infect-one-random-person]
-  
+
   update-display
-  
+
   ask links[hide-link]
-  
+
   set is-lockdown-active? false
   reset-ticks
 end
@@ -61,12 +61,12 @@ to create-all-households
   let #retired-couple-homes floor (#households * ratio-retired-couple-homes)
   let #family-homes floor (#households * ratio-family-homes)
   let #multi-generational-homes #households - (#adults-homes + #retired-couple-homes + #family-homes)
-  
+
   repeat #adults-homes [create-household "adult"]
   repeat #family-homes [create-household "family"]
   repeat #retired-couple-homes[create-household "retired-couple"]
   repeat #multi-generational-homes [create-household "multigenerational"]
-  
+
   ask people [ set current-activity one-of homes]
   ask homes [ set available-food-rations count gatherers * (random days-of-rations-bought + days-of-rations-bought) ]
 end
@@ -75,11 +75,11 @@ to create-household [t]
   let current-home nobody
   create-gathering-points 1 [set current-home self
     set gathering-type "home"
-    set shape "house" 
-    set color green 
+    set shape "house"
+    set color green
     set xcor 9 * max-pxcor / 10 set ycor max-pycor * random-float 1
   ]
-  
+
   if t = "adult"
   [
     let l-age "undefined"
@@ -90,7 +90,7 @@ to create-household [t]
     setup-person current-home l-age
     stop
   ]
-  
+
   if t = "family"
   [
     setup-person current-home worker-age
@@ -99,14 +99,14 @@ to create-household [t]
     setup-person current-home young-age
     stop
   ]
-  
+
    if t = "retired-couple"
   [
     setup-person current-home retired-age
     setup-person current-home retired-age
     stop
   ]
-  
+
    if t = "multigenerational"
   [
     setup-person current-home retired-age
@@ -117,7 +117,7 @@ to create-household [t]
     setup-person current-home young-age
     stop
   ]
-  
+
   error (sentence "not implemented" t)
 end
 
@@ -131,23 +131,22 @@ end
 to setup-person [current-home l-age]
   create-people 1 [
     set age l-age
-    
+
     set my-amount-of-capital my-starting-amount-of-capital
-    
+
     set my-previous-amount-of-capital my-amount-of-capital
-    
+
     setup-disease-profile
-    
+
     create-gathering-link-to current-home [set features (list "rest" "visit family")]
-    
+
     set is-moving-outside-for-reaching-current-activity? false
     ;setup-person-home
-    
+
     set is-currently-allocated-a-bed-in-hospital? false
-    
-    
+
     setup-relation-to-gathering-points
-    
+
     set current-person-I-depend-on nobody
     set color default-color
     set size 0.5
@@ -155,9 +154,10 @@ to setup-person [current-home l-age]
     set epistemic-infection-status "healthy"
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
-    
-    
-    
+
+  set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
+  set is-I-apply-social-distancing? is-social-distancing-measure-active?
+
     set belonging-need-satisfaction random-float 0.5 + 0.5
     set compliance-need-satisfaction random-float 0.5 + 0.5
     set relaxing-need-satisfaction random-float 0.3 + 0.7
@@ -187,7 +187,7 @@ to setup-relation-to-gathering-points
   [
     set features (list "get-tested" "get-treatment")
   ]
-  
+
   create-gathering-link-to one-of gathering-points with [gathering-type = "private-leisure"]
   [  set features (list "relaxing")]
   create-gathering-link-to one-of gathering-points with [gathering-type = "public-leisure"]
@@ -196,12 +196,12 @@ to setup-relation-to-gathering-points
   [ set features (list "essential shopping" "shopping")]
   create-gathering-links-to n-of (min list 4 (ceiling (#non-essential-shops * 0.4))) non-essential-shops
   [ set features (list "relaxing" "shopping")]
-  
+
   if is-young? [
     create-gathering-link-to one-of schools [ set features (list "mandatory")]]
-  
+
   if is-student? [ create-gathering-link-to one-of universities [ set features (list "learning")]]
-  
+
   if is-worker? [
     let work-at-list  (list "getting money" "contractual obligation")
     let target one-of workplaces
@@ -213,18 +213,18 @@ to setup-relation-to-gathering-points
     [
       set target one-of schools
     ]
-    
+
     if rand >= probability-hospital-personel + probability-school-personel and rand < probability-hospital-personel + probability-school-personel + probability-university-personel
     [
       set target one-of universities
     ]
-    
+
     if rand >= probability-hospital-personel + probability-school-personel + probability-university-personel and
     rand < probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper
     [
       set target one-of shops
     ]
-        
+
       if out-gathering-link-to target = nobody [
         create-gathering-link-to target [set features (list)]]
       ask out-gathering-link-to target [set features (sentence work-at-list features)]
@@ -244,7 +244,7 @@ to setup-activities
   create-gathering-points #hospital [set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
   create-gathering-points #public-leisure [set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
   create-gathering-points #private-leisure [set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
-  
+
 
   ask gathering-points with [gathering-type = "school"] [set amount-of-capital 100]
   ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]

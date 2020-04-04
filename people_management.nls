@@ -66,6 +66,8 @@ people-own [
   autonomy-need-satisfaction
   my-importance-for-autonomy-needs
   ; Variables for belonging needs
+  social-distance-profile
+  is-I-apply-social-distancing?
   days-since-seen-relatives
   days-since-seen-colleagues
   days-since-seen-friends
