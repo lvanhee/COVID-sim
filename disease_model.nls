@@ -1,9 +1,12 @@
+__includes ["disease_profiles.nls"]
+globals [ #people-saved-by-hospitalization
+   #people-dying-due-to-lack-of-hospitalization
+]
+
 to setup-disease-profile
   
     let p random-float 1
-    
-    
-    
+
     if (age = "retired" and p > probability-self-recovery-symptoms-old + probability-recorvery-if-treated-old + probability-unavoidable-death-old)
     or ((not (age = "retired")) and p > probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death)
     [
@@ -65,7 +68,7 @@ to update-within-disease-status
     
     if infection-status = "infected-symptomatic"
     [
-      if disease-profile = "recovery if treated" or disease-profile = "unavoidable death"
+      if disease-profile = recovery-if-treated-profile or disease-profile = "unavoidable death"
       [
         set infection-status "infected-critical"
         set duration-current-disease-status critical-to-terminal
@@ -77,6 +80,13 @@ to update-within-disease-status
     
     if infection-status = "infected-critical"
     [
+      if is-currently-being-treated-at-hospital? and disease-profile = "recovery if treated" 
+      [
+        set infection-status immune-infection-status
+        set #people-saved-by-hospitalization #people-saved-by-hospitalization + 1
+        stop
+      ]
+      
       set infection-status "infected-terminal"
       set duration-current-disease-status terminal-to-death
       stop
@@ -90,9 +100,24 @@ to update-within-disease-status
   [stop]
 end
 
+to-report is-observing-critical-symptoms?
+  report infection-status = infected-critical-infection-status
+end
+
+to-report infected-critical-infection-status
+  report "infected-critical"
+end
+
+to-report immune-infection-status
+  report "immune"
+end
+
 to kill-person 
+  
   set infection-status "dead" 
   set #dead-people #dead-people + 1
+  if disease-profile = recovery-if-treated-profile
+  [set #people-dying-due-to-lack-of-hospitalization #people-dying-due-to-lack-of-hospitalization + 1]
   if age = "retired" [ set #dead-retired #dead-retired + 1]
   die
 end

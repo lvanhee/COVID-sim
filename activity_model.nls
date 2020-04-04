@@ -1,6 +1,21 @@
+__includes ["motives.nls"]
+
 to execute-activity-effect
 
+  if is-currently-allocated-a-bed-in-hospital? and not (current-motivation = treatment-motive) [
+    release-bed-in-hospital
+  ]
+  
+  
+  if not is-currently-allocated-a-bed-in-hospital? and (current-motivation = treatment-motive) 
+  [
+    try-acquire-a-bed-in-hospital
+  ]
+  
   update-resources-based-on-current-activity
+  
+  
+  
   ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
   ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
   
@@ -17,6 +32,7 @@ to execute-activity-effect
     if (colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]]
   let friends-here count ([gatherers] of current-activity) with [member? self [my-friends] of myself]
   if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
+  
 end
 
 to-report activity-descriptor [gp mo]
@@ -27,9 +43,7 @@ to-report is-forced-to-be-here?
   report is-forced-motive? current-motivation
 end
 
-to-report is-forced-motive? [m]
-  report m = "mandatory"
-end
+
 
 to update-resources-based-on-current-activity
   if not is-being-away? current-activity and current-motivation = "travelling" [error "wrong place while travelling"]
@@ -183,6 +197,7 @@ to update-resources-based-on-current-activity
   ]
 
   if is-being-away? current-activity [stop]
+  if current-motivation = treatment-motive [stop];;let's assume being treated is free for now
 
   error (sentence "not implemented" [gathering-type] of current-activity current-motivation)
 end
@@ -406,4 +421,8 @@ to perform-people-activities
   ]
   animate-walk-to-goal
 
+end
+
+to-report is-get-healed-to-hospital-descriptor? [d]
+  report [is-hospital?] of location-of d and motive-of d = treatment-motive
 end

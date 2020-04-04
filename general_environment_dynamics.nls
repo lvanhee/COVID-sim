@@ -13,7 +13,7 @@ to update-time
     set current-day current-day + 1
     ask homes [
       if available-food-rations > 0 [
-        set available-food-rations available-food-rations - count gatherers
+        set available-food-rations available-food-rations - min (list (count gatherers) available-food-rations)
       ]
     ]
     ask people [

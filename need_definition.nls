@@ -29,7 +29,7 @@ end
 to-report self-esteem-need-satisfaction
   let needs (list relaxing-need-satisfaction)
   let importances (list my-importance-for-relaxing-needs)
-  if age != "young" [
+  if is-young? [
     set needs fput luxury-need-satisfaction needs
     set importances fput my-importance-for-luxury-needs importances
   ]
@@ -43,33 +43,51 @@ to-report survival-need-satisfaction
   ;;survival needs often revolve around short-term temporality (e.g. stopping to breath)
   if is-believing-to-be-infected?
   [
-    ifelse is-resting-at-home?[report 0.3]
-    [report 0]
+    if not (is-resting-at-home? or is-currently-allocated-a-bed-in-hospital?) [report 0]
+    if is-observing-critical-symptoms? and (is-resting-at-home? or is-currently-allocated-a-bed-in-hospital?) [report 0.1]
+    
+    if is-resting-at-home? or is-currently-allocated-a-bed-in-hospital? [report 0.3]
+    error "undefined"
   ]
   
   report 1
 end
 
 to-report expected-undiscounted-survival-needs-satisfaction-increase-for-playing [ad]
-  report rest-need-satisfaction ad
+  report expected-undiscounted-healthcare-need-satisfaction ad
+end
+
+to-report expected-undiscounted-healthcare-need-satisfaction [ad]
+  
+  ifelse is-believing-to-be-infected? or has-internally-visible-symptoms?
+  [
+    if is-observing-critical-symptoms? [
+      if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
+      [report .8]
+      report 0
+    ]
+    
+    if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
+    [
+      report .3
+    ]
+    if is-rest-at-home-descriptor? ad
+    [ report 0.2 ]
+    report 0
+  ]
+  ;;can be updated if agents start to be deprived from sleep, not needed at the moment
+  [report 1]
 end
 
 ;;here, food-safety is rather a subaspect of safety (more cognitive, worries about the future)
 ;;TBU: should be dependent on the current plan, i.e. acquiring food should be expected to lower this need
 to-report food-safety-need-satisfaction
+  if is-currently-being-treated-at-hospital? [
+    report 1
+  ]
   report min (list ([available-food-rations] of my-home / amount-of-rations-I-buy-when-going-to-essential-shops) 1)
 end
 
-to-report rest-need-satisfaction [ad]
-  if is-believing-to-be-infected?
-  [
-    ifelse is-rest-at-home-descriptor? ad 
-    [report .3]
-    [report 0]
-  ]
-  ;;can be updated if agents start to be deprived from sleep, not needed at the moment
-  report 1
-end
 
 to-report financial-survival-need-satisfaction
   report clamp 0 1 (my-amount-of-capital / price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops)
@@ -77,4 +95,55 @@ end
 
 to-report financial-safety-need-satisfaction
   report ifelse-value my-previous-amount-of-capital > 0 [clamp 0 1 (my-amount-of-capital / my-previous-amount-of-capital)] [0]
+end
+
+to-report expected-undiscounted-safety-needs-satisfaction-increase-for-playing [ad]
+  report weighted-mean (list 
+    (expected-undiscounted-compliance-needs-satisfaction-increase-for-playing ad) 
+    (expected-undiscounted-survival-needs-satisfaction-increase-for-playing ad) ;;this line is very strange. Shouldn't it be financial-survival, here?
+    (expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing ad)
+  ) 
+  (list my-importance-for-compliance-needs my-importance-for-survival-needs my-importance-for-risk-avoidance-needs)
+end
+
+to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
+  let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
+
+  if is-I-have-contractual-obligations? [
+    if gp = my-work [
+      report min (list (my-expected-income / eating-costs) 1)
+    ]
+    report max (list ((- my-expected-income) / eating-costs) 0)
+  ]
+  if motive = "essential shopping" [
+    report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
+  ]
+  if motive = "shopping" [
+    report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations) / eating-costs) 1))
+  ]
+  report 0
+end
+
+to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [ad]
+  let gp first ad
+  let motive last ad
+  let eating-costs price-of-rations * amount-of-rations-I-buy-when-going-to-essential-shops
+
+  if is-I-have-contractual-obligations? and gp = my-work [
+    if my-previous-amount-of-capital > 0 
+    [report clamp 0 1 my-expected-income / my-previous-amount-of-capital]
+    report 1
+  ]
+  if my-previous-amount-of-capital <= 0 [
+    report -1
+  ]
+  if motive = "essential shopping" [
+    report (- (eating-costs / my-previous-amount-of-capital))
+  ]
+  if motive = "shopping" [
+    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations / my-previous-amount-of-capital))
+  ]
+  report 0
 end

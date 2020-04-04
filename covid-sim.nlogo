@@ -103,7 +103,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.04
+1.0
 0.01
 1
 NIL
@@ -688,7 +688,7 @@ INPUTBOX
 1641
 126
 critical-to-terminal
-2.0
+30.0
 1
 0
 Number
@@ -758,7 +758,7 @@ probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
 1
-0.1
+0.0
 0.01
 1
 NIL
@@ -773,7 +773,7 @@ probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
 1
-0.6
+1.0
 0.01
 1
 NIL
@@ -788,7 +788,7 @@ probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
 1
-0.21
+0.0
 0.01
 1
 NIL
@@ -917,7 +917,7 @@ importance-survival
 importance-survival
 0
 1
-0.7
+0.93
 0.01
 1
 NIL
@@ -1611,7 +1611,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+0.05
 0.01
 1
 NIL
@@ -2257,6 +2257,7 @@ PENS
 "@Pr-Leisure" 1.0 0 -3844592 true "" "plot count people with [is-at-private-leisure-place?]"
 "@Home" 1.0 0 -14439633 true "" "plot count people with [is-at-home?]"
 "@Univ" 1.0 0 -4079321 true "" "plot count people with [is-at-university?]"
+"Treated" 1.0 0 -7500403 true "" "plot count people with [current-motivation = treatment-motive]"
 
 SLIDER
 531
@@ -2295,6 +2296,28 @@ count people
 1
 11
 
+INPUTBOX
+1552
+233
+1707
+293
+#beds-in-hospital
+100.0
+1
+0
+Number
+
+MONITOR
+525
+766
+618
+811
+NIL
+#people-saved-by-hospitalization
+17
+1
+11
+
 MONITOR
 1180
 1665
@@ -2329,6 +2352,17 @@ NIL
 11
 
 MONITOR
+622
+765
+712
+810
+NIL
+#denied-requests-for-hospital-beds
+17
+1
+11
+
+MONITOR
 1041
 1665
 1173
@@ -2340,12 +2374,34 @@ NIL
 11
 
 MONITOR
+1387
+239
+1519
+284
+NIL
+#taken-hospital-beds
+17
+1
+11
+
+MONITOR
 1180
 1718
 1285
 1763
 NIL
 #school-workers
+17
+1
+11
+
+MONITOR
+719
+763
+781
+808
+NIL
+#people-dying-due-to-lack-of-hospitalization
 17
 1
 11

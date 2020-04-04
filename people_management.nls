@@ -10,6 +10,8 @@ people-own [
   last-day-observed-symptoms
   has-done-shopping
   purpose-of-the-current-gathering
+  
+  is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
 
   ;;the disease profile records how the person will react to the disease

@@ -1,0 +1,30 @@
+ globals [#taken-hospital-beds
+#denied-requests-for-hospital-beds]
+
+to release-bed-in-hospital
+  set #taken-hospital-beds #taken-hospital-beds - 1
+  set is-currently-allocated-a-bed-in-hospital? false
+  if #taken-hospital-beds < 0 [error "assertion error"]
+end
+
+to  acquire-a-bed-in-hospital
+  set  #taken-hospital-beds #taken-hospital-beds + 1
+  set is-currently-allocated-a-bed-in-hospital? true
+  if #taken-hospital-beds > #beds-in-hospital [error "assertion error"]
+end
+
+to-report any-free-bed-in-hospital?
+  report #taken-hospital-beds < #beds-in-hospital
+end
+
+to-report is-currently-being-treated-at-hospital?
+  report  current-motivation = treatment-motive and [is-hospital?] of current-activity and is-currently-allocated-a-bed-in-hospital?
+end
+
+to try-acquire-a-bed-in-hospital
+  ifelse any-free-bed-in-hospital?
+  [
+    acquire-a-bed-in-hospital
+  ]
+  [set #denied-requests-for-hospital-beds #denied-requests-for-hospital-beds + 1]
+end
