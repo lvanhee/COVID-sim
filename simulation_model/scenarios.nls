@@ -70,6 +70,9 @@ to load-scenario-specifics
   if preset-scenario = "scenario-1-closing-all"
   [
     set #days-trigger-non-essential-business-closing-measure 0
+    set global-confinment-measures "total-lockdown"
+    set #days-trigger-school-closing-measure 0
+    set closed-universities? true
     stop
   ]
   
@@ -119,6 +122,7 @@ to load-scenario-specifics
 end
 
 to load-baseline-scenario
+  set static-seed? true
   load-scandinavian-population-default
   load-default-city-layout-model
   load-default-disease-model
@@ -149,6 +153,7 @@ end
 
 to load-default-disease-model
    set with-infected? true
+  set propagation-risk 0.04
 end
 
 

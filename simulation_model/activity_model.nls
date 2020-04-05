@@ -378,6 +378,7 @@ to-report can-be-done-with-a-dependable-person? [ad]
   or ([is-hospital?] of first ad and last ad = "get-tested")
   or (is-a-shopping-motivation? last ad)
   or (is-a-leisure-motivation? motive-of ad)
+  or motive-of ad = treatment-motive
   [report true]
 
   if

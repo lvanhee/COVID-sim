@@ -103,7 +103,7 @@ propagation-risk
 propagation-risk
 0
 1
-1.0
+0.04
 0.01
 1
 NIL
@@ -336,7 +336,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -539,7 +539,7 @@ SWITCH
 936
 closed-universities?
 closed-universities?
-1
+0
 1
 -1000
 
@@ -1222,7 +1222,7 @@ INPUTBOX
 1391
 996
 #days-trigger-school-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1268,7 +1268,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1611,7 +1611,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.05
+0.0
 0.01
 1
 NIL
@@ -1771,7 +1771,7 @@ SWITCH
 56
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1783,7 +1783,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-1
+7
 
 MONITOR
 716

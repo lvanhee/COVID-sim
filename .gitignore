@@ -1,6 +1,6 @@
 *.tmp.nlogo
 .project
 /description.txt
-/snapshot_0.txt
-/snapshot_2.txt
+/snapshot_*
 *.log
+processing/*.csv
