@@ -1,3 +1,4 @@
+extensions [profiler]
 __includes ["setup.nls" "people_management.nls" "global_metrics.nls" "utils.nls" "environment_dynamics.nls" "animation.nls"]
 breed [people person]
 
@@ -83,7 +84,7 @@ BUTTON
 91
 92
 go
-go\nshow  (sentence time-counting-1  time-counting-2)\nif not any? people with [is-contagious?]\n[stop]
+go\nif not any? people with [is-contagious?]\n[stop]
 T
 1
 T
@@ -103,7 +104,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.04
+0.05
 0.01
 1
 NIL
@@ -336,7 +337,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -688,7 +689,7 @@ INPUTBOX
 1641
 126
 critical-to-terminal
-30.0
+2.0
 1
 0
 Number
@@ -758,7 +759,7 @@ probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
 1
-0.0
+0.1
 0.01
 1
 NIL
@@ -773,7 +774,7 @@ probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
 1
-1.0
+0.6
 0.01
 1
 NIL
@@ -788,7 +789,7 @@ probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
 1
-0.0
+0.2
 0.01
 1
 NIL
@@ -1222,7 +1223,7 @@ INPUTBOX
 1391
 996
 #days-trigger-school-closing-measure
-0.0
+10000.0
 1
 0
 Number
@@ -1268,7 +1269,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-0.0
+10000.0
 1
 0
 Number
@@ -1783,7 +1784,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-7
+1
 
 MONITOR
 716

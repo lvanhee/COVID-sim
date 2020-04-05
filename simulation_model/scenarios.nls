@@ -152,8 +152,12 @@ to load-default-city-layout-model
 end
 
 to load-default-disease-model
-   set with-infected? true
-  set propagation-risk 0.04
+  set with-infected? true
+  set propagation-risk 0.05
+  set critical-to-terminal 2
+  set probability-recorvery-if-treated-old 0.6
+  set probability-unavoidable-death-old 0.2
+  set probability-self-recovery-symptoms-old 0.1
 end
 
 

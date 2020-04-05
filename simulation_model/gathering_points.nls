@@ -1,5 +1,16 @@
 __includes ["hospitals.nls"]
-
+globals
+[
+  hospitals
+  workplaces
+  schools
+  homes
+  private-leisure-points
+  public-leisure-points
+  universities
+  essential-shops
+  non-essential-shops
+]
 breed [gathering-points gathering-point]
 gathering-points-own [gathering-type
   available-food-rations ; rations of food that are available, this will be most useful for homes
@@ -7,6 +18,8 @@ gathering-points-own [gathering-type
   amount-of-capital
   current-profit
   max-amount-of-capital-to-retain
+  
+  hired-workers-here
   
   stock-of-goods
 ]
@@ -49,13 +62,6 @@ end
 to-report is-working-at-home?
   report is-working? and is-at-home?
 end
-
-;;a bit ineffective; create work relationships instead...
-to-report my-work
-  if not is-worker? [error (sentence "function called on a wrong person" age)]
-  report [other-end] of one-of my-gathering-links with  [member? "contractual obligation" features]
-end
-
 
 to-report is-at-work?
   if not is-worker? [report false]
@@ -114,45 +120,23 @@ to-report my-university
   report one-of gathering-link-neighbors with [gathering-type = "university"]
 end
 
-to-report universities
-  report gathering-points with [is-university?]
-end
-
 to-report my-hospital
   report one-of gathering-link-neighbors with [gathering-type = "hospital"]
 end
 
-to-report all-hospitals
-  report gathering-link-neighbors with [gathering-type = "hospital"]
-end
 
 to-report my-school
   report one-of gathering-link-neighbors with [gathering-type = "school"]
-end
-
-to-report all-schools
-  report gathering-link-neighbors with [gathering-type = "school"]
 end
 
 to-report my-non-essential-shop
   report one-of gathering-link-neighbors with [is-non-essential-shop?]
 end
 
-to-report all-non-essential-shops
-  report gathering-link-neighbors with [is-non-essential-shop?]
-end
-
 to-report my-essential-shop
   report one-of gathering-link-neighbors with [is-essential-shop?]
 end
 
-to-report all-essential-shops
-  report gathering-link-neighbors with [is-essential-shop?]
-end
-
-to-report all-workplaces
-  report gathering-link-neighbors with [is-workplace?]
-end
 
 to-report my-private-leisure
   report one-of gathering-link-neighbors with [is-private-leisure?]
@@ -188,10 +172,6 @@ to-report is-open-during-lockdown?
 end
 to-report is-university?
   report gathering-type = "university"
-end
-
-to-report homes
-  report gathering-points with [is-home?]
 end
 
 to-report gatherers
@@ -249,9 +229,6 @@ to-report  is-someone-officially-sick?
   report any? people with [is-believing-to-be-infected?]   
 end
 
-to-report schools
-  report gathering-points with [gathering-type = "school"]
-end
 
 to-report gathering-points-total-amount-of-capital
   report sum [amount-of-capital] of gathering-points
@@ -295,23 +272,6 @@ end
 
 to-report shops
   report gathering-points with [is-shop?]
-end
-
-to-report hospitals
-  report gathering-points with [is-hospital?]
-end
-
-to-report workplaces
-  report gathering-points with [is-workplace?]
-end
-
-to-report essential-shops
-  report gathering-points with [is-essential-shop?]
-end
-
-
-to-report non-essential-shops
-  report gathering-points with [is-non-essential-shop?]
 end
 
 to-report #essential-shop-workers

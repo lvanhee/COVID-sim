@@ -5,3 +5,8 @@ end
 to-report treatment-motive
   report "treatment"
 end
+
+to-report work-motive
+  report "contractual obligation"
+end
+  

@@ -1,5 +1,5 @@
 to-report ratio-infected
-  report count people with [is-infected?] / count people with [is-alive?]
+  report #infected / count people
 end
 
 to-report total-amount-of-resources-available-in-the-system

@@ -1,6 +1,8 @@
 __includes ["disease_profiles.nls"]
 globals [ #people-saved-by-hospitalization
    #people-dying-due-to-lack-of-hospitalization
+  #infected
+  infected-people
 ]
 
 to setup-disease-profile
@@ -43,7 +45,7 @@ to-report is-immune?
 end
 
 to update-within-disease-status   
-  if infection-status = "healthy" or infection-status = "immune" [stop]
+  if infection-status = healthy-infection-status or infection-status = "immune" [stop]
   if slice-of-the-day = "morning" [set duration-current-disease-status duration-current-disease-status - 1]
   
   ifelse duration-current-disease-status <= 0 
@@ -55,9 +57,9 @@ to update-within-disease-status
       stop
     ]
     
-    if infection-status = "infected-asymptomatic"
+    if infection-status = infected-asymptomatic-status
     [
-      ifelse disease-profile = "self-recovery with no symptoms" [set infection-status "immune"]
+      ifelse disease-profile = "self-recovery with no symptoms" [set-immune]
       [
         set infection-status "infected-symptomatic"
         set duration-current-disease-status symptomatic-to-critical-or-heal
@@ -74,7 +76,7 @@ to update-within-disease-status
         set duration-current-disease-status critical-to-terminal
         stop
       ]
-      if disease-profile = "self-recovery with symptoms"[set infection-status "immune" stop]
+      if disease-profile = "self-recovery with symptoms"[set-immune stop]
       error (sentence "unimplemented: " disease-profile duration-current-disease-status infection-status)
     ]
     
@@ -100,6 +102,39 @@ to update-within-disease-status
   [stop]
 end
 
+to set-immune
+  if is-infected?
+  [
+    set #infected #infected - 1
+  ]
+    set infection-status immune-infection-status
+end
+
+to-report infected-asymptomatic-status
+  report "infected-asymptomatic"
+end
+
+to set-infection-status [infection]
+  if infection = immune-infection-status
+  [set-immune]
+  
+  if not is-infected? and is-infection-status? infection
+  [
+    set #infected #infected + 1
+  ]
+  
+  set infection-status infection
+end
+
+to-report is-infection-status? [in]
+  report in = infected-critical-infection-status
+  or
+  in = infected-asymptomatic-status
+end
+
+to-report healthy-infection-status
+  report "healthy"
+end
 to-report is-observing-critical-symptoms?
   report infection-status = infected-critical-infection-status
 end

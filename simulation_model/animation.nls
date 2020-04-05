@@ -30,13 +30,11 @@ end
 
 to update-people-display
   set color default-color
-  if infection-status = "healthy"
+  if infection-status = healthy-infection-status
   [set color color + 2]
-  if infection-status = "infected"
+  if is-infected?
   [set color color ]
-  if infection-status = "dead"
-  [set color color - 2]
-  if infection-status = "immune"
+  if infection-status = immune-infection-status
   [set color white]
 
 end

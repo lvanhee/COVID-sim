@@ -12,7 +12,7 @@ end
 
 to-report my-colleagues
   if not is-worker? [report (turtle-set)]
-  report [gatherers] of my-work
+  report other [hired-workers-here] of my-work
   ;report workplace-colleague-link-neighbors
   ;let my-wp  my-workplace
   ;if my-wp != nobody [
@@ -23,10 +23,6 @@ end
 
 to-report my-friends
   report other [gatherers] of my-private-leisure
-end
-
-to-report my-home
-  report one-of gathering-link-neighbors with [gathering-type = "home"]
 end
 
 to-report people-that-depend-on-me

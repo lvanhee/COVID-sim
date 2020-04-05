@@ -10,6 +10,9 @@ people-own [
   last-day-observed-symptoms
   has-done-shopping
   purpose-of-the-current-gathering
+  my-home
+  my-work
+  my-essential-shops
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
@@ -105,13 +108,8 @@ to-report default-color
   if age = "retired" [report red]
 end
 
-to set-infection-status [infection]
-  set infection-status infection
-end
-
-
 to-report has-a-work?
-   report any? my-gathering-links with  [member? "contractual obligation" features]
+   report any? my-gathering-links with  [member? work-motive features]
  end
 
 to-report homeless-people

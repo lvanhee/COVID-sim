@@ -83,9 +83,13 @@ to-report is-alive?
   report not (infection-status = "dead")
 end
 
+
+
+
 to infect-one-random-person
     ask n-of (min list 3 count people) people [
-    set-infection-status "infected-asymptomatic"  set duration-current-disease-status infection-to-asymptomatic-contagiousness
+    set-infection-status infected-asymptomatic-status
+    set duration-current-disease-status infection-to-asymptomatic-contagiousness
   ]
 end
 

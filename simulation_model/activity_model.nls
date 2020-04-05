@@ -29,13 +29,15 @@ to execute-activity-effect
   if is-worker? 
   [
     let colleagues-here count ([gatherers] of current-activity) with [member? self [my-colleagues] of myself]
-    if (colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]]
+    
+    if (any? other my-colleagues and colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]]
   let friends-here count ([gatherers] of current-activity) with [member? self [my-friends] of myself]
   if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
   
 end
 
 to-report activity-descriptor [gp mo]
+  if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
   report (list gp mo)
 end
 
@@ -98,7 +100,7 @@ to update-resources-based-on-current-activity
             ifelse [gathering-type] of current-activity = "hospital"
             [
               set amount-to-earn workers-wages
-              let picked-hospital max-one-of all-hospitals [amount-of-capital]
+              let picked-hospital max-one-of hospitals [amount-of-capital]
               set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-hospital 0))
               ask picked-hospital [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
             ]
@@ -106,7 +108,7 @@ to update-resources-based-on-current-activity
               ifelse [gathering-type] of current-activity = "workplace"
               [
                 set amount-to-earn workers-wages
-                let picked-workplace max-one-of all-workplaces [amount-of-capital]
+                let picked-workplace max-one-of workplaces [amount-of-capital]
                 set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-workplace 0))
                 set contribution-to-stock amount-earned / amount-to-earn * goods-produced-by-work-performed
                 ask picked-workplace [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned set stock-of-goods stock-of-goods + contribution-to-stock]
@@ -115,7 +117,7 @@ to update-resources-based-on-current-activity
                 ifelse [gathering-type] of current-activity = "school"
                 [
                   set amount-to-earn workers-wages
-                  let picked-school max-one-of all-schools [amount-of-capital]
+                  let picked-school max-one-of schools [amount-of-capital]
                   set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-school 0))
                   ask picked-school [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
                 ]
@@ -155,7 +157,7 @@ to update-resources-based-on-current-activity
     let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations-in-essential-shops)
     let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-essential-shops max (list max-amount-of-rations-I-can-buy 0))
 
-    let picked-essential-shop max-one-of all-essential-shops [stock-of-goods]
+    let picked-essential-shop max-one-of essential-shops [stock-of-goods]
 
     let available-goods-in-my-essential-shop max (list [stock-of-goods] of picked-essential-shop 0)
 
