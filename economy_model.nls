@@ -5,6 +5,7 @@ globals[
 to update-economy-variables
   set total-amount-of-transaction-for-this-tick 0
 end
+
 to perform-trades-between-gathering-points
   
   let total-amount-of-goods-available-in-workplaces sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
@@ -108,8 +109,32 @@ to-report is-work-value? [v]
   report first v = "work"
 end
 
+to-report is-purchase-value? [v]
+  report first v = "purchase"
+end
+
+to-report is-subsidy-value? [v]
+  report first v = "subsidy"
+end
+
+to-report is-payment-value? [v]
+  report first v = "payment"
+end
+
+to-report is-tax-value? [v]
+  report first v = "tax"
+end
+
 to-report salary-value-from [v]
   report last v
+end
+
+to-report is-government? [v]
+  report v = "government"
+end
+
+to-report is-nothing? [v]
+  report first v = "nothing"
 end
 
 to increase-capital-by [val]
@@ -128,21 +153,45 @@ to increase-capital-by [val]
 end
 
 to perform-cash-transfer [a1 a2 amount]
+  ;from a1 to a2
   
-  ask a1 [increase-capital-by amount]
-  ask a2 [increase-capital-by (- amount)]
+  ifelse is-government? a1
+  [
+    set government-reserve-of-capital government-reserve-of-capital - amount
+    ask a2 [increase-capital-by amount]
+  ]
+  [
+    ifelse is-government? a2
+    [
+      ask a1 [increase-capital-by (- amount)]
+      set government-reserve-of-capital government-reserve-of-capital + amount
+    ]
+    [
+      ask a1 [increase-capital-by (- amount)]
+      ask a2 [increase-capital-by amount]
+    ]
+  ]
   
-  set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick +  abs amount
+  set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick + abs amount
 end
 
 to-report is-cash-transfer? [value]
   if value = "work" [report false]
-  if first value = "work" [report false]
+  if is-work-value? value [report false]
+  if is-purchase-value? value [report false]
+  if is-nothing? value [report false]
   if is-salary-value? value [report true]
+  if is-subsidy-value? value [report true]
+  if is-payment-value? value [report true]
+  if is-tax-value? value [report true]
   error (sentence "unimplemented for:" value)
 end
 
 to-report cash-value-of [v]
+  report last v
+end
+
+to-report purchase-amount-of [v]
   report last v
 end
 
@@ -161,26 +210,67 @@ to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
     set a1-to-a2-completed? true
   ]
   
-    if is-cash-transfer? value-a2-to-a1
+  if is-cash-transfer? value-a2-to-a1
   [
     perform-cash-transfer a2 a1 (cash-value-of value-a2-to-a1)
     set a2-to-a1-completed? true
   ]
- 
+  
   ;;work performance could be related to another part of the model; but let's save it here for now & simplicity
-  if is-person? a1 and is-gathering-point? a2 and [is-workplace?] of a2 and is-work-value? value-a1-to-a2
+  if is-work-value? value-a1-to-a2
   [
-    ask a2 [set stock-of-goods stock-of-goods + goods-produced-by-work-performed]
-    set a1-to-a2-completed? true
+    if is-person? a1 and is-gathering-point? a2
+    [
+      if [is-workplace?] of a2
+      [
+        ask a2 [set stock-of-goods stock-of-goods + goods-produced-by-work-performed]
+      ]
+      set a1-to-a2-completed? true
+    ]
   ]
   
-  if is-work-value? value-a1-to-a2 
-  and is-person? a1 
-  and is-gathering-point? a2
-  and ([is-school?] of a2 or [is-university?] of a2 or [is-shop?] of a2 or [is-hospital?] of a2)
+  if is-work-value? value-a2-to-a1
   [
-    set a1-to-a2-completed? true
+    if is-person? a2 and is-gathering-point? a1
+    [
+      if [is-workplace?] of a1
+      [
+        ask a1 [set stock-of-goods stock-of-goods + goods-produced-by-work-performed]
+      ]
+      set a2-to-a1-completed? true
+    ]
   ]
+  
+  if is-purchase-value? value-a1-to-a2
+  [
+    let purchase-amount purchase-amount-of value-a1-to-a2
+    if is-person? a2 and is-gathering-point? a1
+    [
+      ask a1 [set stock-of-goods stock-of-goods - purchase-amount]
+      if [is-essential-shop?] of a1
+      [
+        ask a2 [ask my-home [set available-food-rations available-food-rations + purchase-amount]]
+      ]
+      set a1-to-a2-completed? true
+    ]
+  ]
+  
+  if is-purchase-value? value-a2-to-a1
+  [
+    let purchase-amount purchase-amount-of value-a2-to-a1
+    if is-person? a1 and is-gathering-point? a2
+    [
+      ask a2 [set stock-of-goods stock-of-goods - purchase-amount]
+      if [is-essential-shop?] of a2
+      [
+        ask a1 [ask my-home [set available-food-rations available-food-rations + purchase-amount]]
+      ]
+      set a2-to-a1-completed? true
+    ]
+  ]
+  
+  if is-nothing? value-a1-to-a2 [set a1-to-a2-completed? true]
+  if is-nothing? value-a2-to-a1 [set a2-to-a1-completed? true]
   
   if a1-to-a2-completed? and a2-to-a1-completed? [stop]
   
@@ -223,8 +313,8 @@ to perform-government-actions
     [
       let tax-amount current-profit * ratio-tax-on-essential-shops
       set taxes-collected taxes-collected + tax-amount
-      set amount-of-capital amount-of-capital - tax-amount
-      set current-profit current-profit - tax-amount
+      
+      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
     ]
   ]
 
@@ -234,8 +324,8 @@ to perform-government-actions
     [
       let tax-amount current-profit * ratio-tax-on-non-essential-shops
       set taxes-collected taxes-collected + tax-amount
-      set amount-of-capital amount-of-capital - tax-amount
-      set current-profit current-profit - tax-amount
+      
+      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
     ]
   ]
 
@@ -245,8 +335,8 @@ to perform-government-actions
     [
       let tax-amount current-profit * ratio-tax-on-workplaces
       set taxes-collected taxes-collected + tax-amount
-      set amount-of-capital amount-of-capital - tax-amount
-      set current-profit current-profit - tax-amount
+      
+      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
     ]
   ]
 
@@ -256,8 +346,8 @@ to perform-government-actions
     [
       let tax-amount my-current-income * ratio-tax-on-workers
       set taxes-collected taxes-collected + tax-amount
-      set my-amount-of-capital my-amount-of-capital - tax-amount
-      set my-current-income my-current-income - tax-amount
+      
+      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
     ]
   ]
 
@@ -271,42 +361,41 @@ to perform-government-actions
   let n-of-schools count gathering-points with [gathering-type = "school"]
   ask gathering-points with [gathering-type = "school"]
   [
-    set amount-of-capital amount-of-capital + school-subsidy / n-of-schools
-    set current-profit current-profit + school-subsidy / n-of-schools
+    let subsidy school-subsidy / n-of-schools
+    
+    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
   ]
 
   let n-of-hospitals count gathering-points with [gathering-type = "hospital"]
   ask gathering-points with [gathering-type = "hospital"]
   [
-    set amount-of-capital amount-of-capital + hospital-subsidy / n-of-hospitals
-    set current-profit current-profit + hospital-subsidy / n-of-hospitals
+    let subsidy hospital-subsidy / n-of-hospitals
+    
+    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
   ]
 
   let n-of-universities count gathering-points with [gathering-type = "university"]
   ask gathering-points with [gathering-type = "university"]
   [
-    set amount-of-capital amount-of-capital + university-subsidy / n-of-universities
-    set current-profit current-profit + university-subsidy / n-of-universities
+    let subsidy university-subsidy / n-of-universities
+    
+    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
   ]
 
   let n-of-retirees count people with [age = "retired"]
   ask people with [age = "retired"]
   [
-    set my-amount-of-capital my-amount-of-capital + retirees-subsidy / n-of-retirees
-    set my-current-income my-current-income + retirees-subsidy / n-of-retirees
+    let subsidy retirees-subsidy / n-of-retirees
+    
+    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
   ]
 
   let n-of-students count people with [age = "student"]
   ask people with [age = "student"]
   [
-    set my-amount-of-capital my-amount-of-capital + students-subsidy / n-of-students
-    set my-current-income my-current-income + students-subsidy / n-of-students
-  ]
-  
-  let taxes-redistributed school-subsidy + hospital-subsidy + university-subsidy + retirees-subsidy + students-subsidy
-  if taxes-redistributed < taxes-collected
-  [
-    set government-reserve-of-capital government-reserve-of-capital + (taxes-collected - taxes-redistributed)
+    let subsidy students-subsidy / n-of-students
+    
+    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
   ]
 end
 
