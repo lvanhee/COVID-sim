@@ -1778,11 +1778,11 @@ static-seed?
 CHOOSER
 538
 72
-757
+777
 117
 preset-scenario
 preset-scenario
-"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
+"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
 1
 
 MONITOR
@@ -1940,10 +1940,10 @@ Economy model
 1
 
 BUTTON
-766
-78
-855
-111
+779
+79
+868
+112
 NIL
 set-values
 NIL

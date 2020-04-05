@@ -27,11 +27,13 @@ to load-scenario
     load-test-scenario
     stop
   ]
-  
-  
   ;;the general process lies in adapting your scenario from the baseline
   load-baseline-scenario
   
+  load-scenario-specifics
+end
+
+to load-scenario-specifics    
   if preset-scenario = "generic-baseline"
   [
     stop
@@ -48,6 +50,26 @@ to load-scenario
   if preset-scenario = "zero-action-scandinavia"
   [
     load-scandinavian-population-default
+    stop
+  ]
+  
+    
+  if preset-scenario = "scenario-1-closing-schools-and-uni"
+  [
+    set #days-trigger-school-closing-measure 0
+    set closed-universities? true
+    stop
+  ]
+  
+  if preset-scenario = "scenario-1-work-at-home-only"
+  [
+    set #days-trigger-non-essential-business-closing-measure 0
+    stop
+  ]
+  
+  if preset-scenario = "scenario-1-closing-all"
+  [
+    set #days-trigger-non-essential-business-closing-measure 0
     stop
   ]
   
