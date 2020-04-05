@@ -26,7 +26,7 @@
 	{
 		"type" : "netlogo",
 		"file": "C:/Users/loisv/git/COVID-sim3/simulation_model/covid-sim.nlogo",
-		"setup": "setup set-values",
+		"setup": "set-values setup ",
 		"go": "go",
 		"experiment-executor":"netlogo-executor",
 		"_comment":"as ticks is an input variable, the executer will apply multiple ticks in a row"
