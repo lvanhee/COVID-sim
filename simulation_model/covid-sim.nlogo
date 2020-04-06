@@ -114,7 +114,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.05
+1.0
 0.01
 1
 NIL

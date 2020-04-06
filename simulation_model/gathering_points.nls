@@ -149,7 +149,7 @@ end
 ;might be to be revised later, if the number of people expected to show up at the gathering point lowers
 to-report expected-number-of-other-participants
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
-  if gathering-type = "hospital" [report random 5 + 2]
+  if is-hospital? [report random 5 + 2]
   report count other in-gathering-link-neighbors
 end
 
