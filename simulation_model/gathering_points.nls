@@ -270,6 +270,10 @@ to-report workplace-amount-of-goods-in-stock
   report sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
 end
 
+to-report is-leisure-point?
+  report is-public-leisure? or is-private-leisure?
+end
+
 to-report shops
   report gathering-points with [is-shop?]
 end
@@ -296,4 +300,8 @@ end
 
 to-report #school-workers
   report count workers with [[gathering-type] of my-work = "school"]
+end
+
+to-report is-family-present-in-current-gathering-point?
+  report any? my-relatives with [current-activity = [current-activity] of myself]
 end

@@ -160,7 +160,7 @@ INPUTBOX
 856
 657
 #schools
-3.0
+30.0
 1
 0
 Number
@@ -171,7 +171,7 @@ INPUTBOX
 948
 657
 #universities
-10.0
+20.0
 1
 0
 Number
@@ -182,7 +182,7 @@ INPUTBOX
 1041
 658
 #workplaces
-10.0
+100.0
 1
 0
 Number
@@ -203,7 +203,7 @@ INPUTBOX
 1132
 658
 #public-leisure
-1.0
+10.0
 1
 0
 Number
@@ -214,7 +214,7 @@ INPUTBOX
 1224
 658
 #private-leisure
-10.0
+100.0
 1
 0
 Number
@@ -315,10 +315,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1222
-658
-1314
-691
+1407
+657
+1499
+690
 density-factor-homes
 density-factor-homes
 0
@@ -395,20 +395,20 @@ slice-of-the-day
 11
 
 INPUTBOX
-1313
+1223
 598
-1409
+1319
 658
 #essential-shops
-5.0
+50.0
 1
 0
 Number
 
 SLIDER
-1314
+1224
 658
-1406
+1316
 691
 density-factor-essential-shops
 density-factor-essential-shops
@@ -421,9 +421,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-1406
+1316
 657
-1498
+1408
 690
 density-factor-non-essential-shops
 density-factor-non-essential-shops
@@ -436,12 +436,12 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1407
+1317
 598
-1498
+1408
 658
 #non-essential-shops
-10.0
+100.0
 1
 0
 Number
@@ -452,7 +452,7 @@ INPUTBOX
 768
 657
 #hospital
-1.0
+10.0
 1
 0
 Number
@@ -993,10 +993,10 @@ migration?
 SLIDER
 1693
 452
-1880
+1914
 485
-density-travelling-propagation2
-density-travelling-propagation2
+density-travelling-propagation
+density-travelling-propagation
 0
 1
 0.05
@@ -1794,7 +1794,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-1
+12
 
 MONITOR
 716
@@ -2306,7 +2306,7 @@ INPUTBOX
 624
 511
 #households
-100.0
+1000.0
 1
 0
 Number

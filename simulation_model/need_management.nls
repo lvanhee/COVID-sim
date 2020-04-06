@@ -82,26 +82,37 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
     ]
   ]
   
-  let family-present any? my-relatives with [current-activity = [current-activity] of myself]
-  if family-present and days-since-seen-relatives > 0 [
+  
+  if is-family-present-in-current-gathering-point? and days-since-seen-relatives > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-relatives / 28))
   ]
 
   if is-worker?
   [
-    let colleagues-present any? my-colleagues with [current-activity = [current-activity] of myself]
+    ;;workers expect to meet their colleagues at the workplace
+    let colleagues-present location-of ad = my-work
+    ;let colleagues-present any? my-colleagues with [current-activity = [current-activity] of myself]
     if colleagues-present and days-since-seen-colleagues > 0 [
       set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
     ]
   ]
-  set time-counting-1 time-counting-1 + timer
-  reset-timer
-  let friends-present any? my-friends with [current-activity = [current-activity] of myself]
+
+  ;;people expect to meet their friends at the leisure spaces
+  ;;or kids at schools
+  ;;or students at the uni
+  ;;this counts as a psychological heuristic that saves from having to cross sets of agents (which is bad for computational complexity reasons)
+  ;;
+  ;;moreover it was checking whether the other type of agent is at the current point
+  ;;which was a bit weird as agents keep moving and in theory don't really know what is the gathering point of others (and whether they plan to go there or are currently there)
+  ;;another solution might be to create a form of a likelihood factor: agents increase/decrease this factor when they meet/do not meet a friend
+  let friends-present [is-leisure-point?] of location-of ad or 
+  ([is-school?] of location-of ad and is-young?) or
+  ([is-university?] of location-of ad and is-student?)
+  ;any? my-friends with [current-activity = [current-activity] of myself]
   if friends-present and days-since-seen-friends > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-friends / 28))
   ]
-      set time-counting-2 time-counting-2 + timer
-  reset-timer
+
   report base * network-bonus * social-distancing-cut
 end
 

@@ -99,20 +99,26 @@ end
 
 
 to select-activity
-  reset-timer
-
   let c-a my-preferred-available-activity-descriptor
 
   if (migration? and random-float 1 < probability-going-abroad) [
     set c-a (list away-gathering-point "travelling" false)
   ]
-
-
-  set is-moving-outside-for-reaching-current-activity? current-activity != location-of c-a
+  
+  let loc location-of c-a
+  select-activity-wtf? c-a
   set current-activity location-of c-a
   set current-motivation motive-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = "travelling" [error "wrong place while travelling"]
+  end
+
+;;this function is the main bottleneck of the whole application!
+;;it draws 0.2ms per call 
+to select-activity-wtf? [loc]
+  
+ ; set is-moving-outside-for-reaching-current-activity? not (current-activity = location-of c-a)
+  set is-moving-outside-for-reaching-current-activity? not (current-activity = loc)
 end
 
 

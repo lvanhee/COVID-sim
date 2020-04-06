@@ -1,7 +1,11 @@
 __includes ["motives.nls"]
 
 to execute-activity-effect
-
+  if is-currently-in-sitation-of-active-dependence? and current-person-I-depend-on != nobody
+  [set current-activity [current-activity] of current-person-I-depend-on
+    set current-motivation follow-person-in-charge-motive
+  ]
+  
   if is-currently-allocated-a-bed-in-hospital? and not (current-motivation = treatment-motive) [
     release-bed-in-hospital
   ]
@@ -243,19 +247,9 @@ end
 
 ;with the people decision update, this function should now only be about execution, not so much about decision [e.g. implement here the effect of getting tested at the hospital]
 to perform-activity
-reset-timer
     select-activity
   
-    if current-activity = 0 [error "failed to select an activity"]
-
-    ask children with [
-      is-currently-in-sitation-of-active-dependence? and
-      current-person-I-depend-on != nobody]
-    [set current-activity [current-activity] of current-person-I-depend-on
-      set current-motivation follow-person-in-charge-motive
-    ]
-
-    if not animate? [
+  if not animate? [
       move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
       set heading towards current-activity
     ]

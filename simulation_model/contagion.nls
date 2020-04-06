@@ -3,9 +3,12 @@ to spread-contagion
 end
 
 to spread-by-activity-proximity
+  let travellers people with [is-moving-outside-for-reaching-current-activity?]
+  let #contagious count travellers with [is-contagious?]
+
   ask people [
     if is-away? [apply-risk-of-contamination-when-away]
-    apply-risk-of-contamination-when-travelling
+    apply-risk-of-contamination-when-travelling count travellers #contagious
     
     let number-contamination count (other [link-neighbors] of current-activity) with [current-activity = [current-activity] of myself and is-contagious?]
     repeat number-contamination [ apply-risk-of-contamination [proximity-factor] of current-activity * contextual-contagion-modificators]
@@ -23,19 +26,17 @@ to-report social-distancing-risk-mitigation-factor
   [report 1]
 end
 
-to apply-risk-of-contamination-when-travelling
-  if density-travelling-propagation2 = 0 [stop]
-  if not is-moving-outside-for-reaching-current-activity? [stop]
-  
-  let travellers people with [is-moving-outside-for-reaching-current-activity?]
-  let #contagious count travellers with [is-contagious?]
+
+to apply-risk-of-contamination-when-travelling [#travellers #contagious]
+  if density-travelling-propagation = 0 [stop]
+  if not is-moving-outside-for-reaching-current-activity? [stop]  
    
   let ratio-contagious #contagious / count people
   
   ;;these are "intuitive maths", to be confirmed if relevant
   ;;the squared root represents the risk of two people picking the same item when each pick n items on a n*n space (x*x -> n * 1)
   ;;it could be cubic if the people we would consider a 3D space (or time)
-  let number-encounters sqrt count travellers
+  let number-encounters sqrt #travellers
   
   let probability-avoiding-all-contagious (1 - ratio-contagious) ^ number-encounters
   let probability-getting-sick 1 - probability-avoiding-all-contagious
@@ -44,7 +45,7 @@ to apply-risk-of-contamination-when-travelling
   
   ;;could be fastened with a bit of math, like 1-(1-p)^k
   let was-sick? is-infected?
-  apply-risk-of-contamination probability-getting-sick * density-travelling-propagation2 * contextual-contagion-modificators
+  apply-risk-of-contamination probability-getting-sick * density-travelling-propagation * contextual-contagion-modificators
   if not was-sick? and is-infected? [set #who-became-sick-while-travelling-locally #who-became-sick-while-travelling-locally + 1]
 end
 
