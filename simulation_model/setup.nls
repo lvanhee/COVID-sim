@@ -12,8 +12,6 @@ globals[#min-workers-in-adults-homes
   #min-retirees-in-multi-generational-homes
   distribution-control-variable]
 to setup
-  profiler:reset
-  profiler:start
   reset-timer
   clear-all
   check-parameters
@@ -37,12 +35,6 @@ to setup
   set is-lockdown-active? false
   reset-ticks
   
-  profiler:stop
-  let _fname "report.log"
-  carefully [file-delete _fname] []
-  file-open _fname
-  file-print profiler:report
-  file-close
 end
 
 to setup-social-networks

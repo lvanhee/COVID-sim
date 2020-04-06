@@ -75,3 +75,12 @@ file-close
   file-print "]}"
 file-close
 end
+
+to export-profiling
+  profiler:stop
+  let _fname "report.log"
+  carefully [file-delete _fname] []
+  file-open _fname
+  file-print profiler:report
+  file-close
+end

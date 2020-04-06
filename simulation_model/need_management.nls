@@ -81,21 +81,22 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
       [set base 0.25]
     ]
   ]
-  let family-present any? (([gatherers] of gp) with [member? self [my-relatives] of myself])
+  
+  let family-present any? my-relatives with [current-activity = [current-activity] of myself]
   if family-present and days-since-seen-relatives > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-relatives / 28))
   ]
 
   if is-worker?
   [
-    let colleagues-present any? (([gatherers] of gp) with [member? self [my-colleagues] of myself])
+    let colleagues-present any? my-colleagues with [current-activity = [current-activity] of myself]
     if colleagues-present and days-since-seen-colleagues > 0 [
       set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
     ]
   ]
   set time-counting-1 time-counting-1 + timer
   reset-timer
-  let friends-present any? (([gatherers] of gp) with [member? self [my-friends] of myself])
+  let friends-present any? my-friends with [current-activity = [current-activity] of myself]
   if friends-present and days-since-seen-friends > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-friends / 28))
   ]

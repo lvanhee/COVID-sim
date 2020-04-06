@@ -129,3 +129,15 @@ to-report is-currently-watched-by-an-adult?
   report any? [current-gatherers with [is-adult?]] of current-activity
 end
 
+to update-belief-based-on-current-activity
+    let family-here count my-relatives with [current-activity = [current-activity] of myself]
+  if any? my-relatives and family-here / count my-relatives > 0.5 [ set days-since-seen-relatives 0 ]
+  
+  if is-worker? 
+  [
+    let colleagues-here count my-colleagues with [current-activity = [current-activity] of myself]
+    if (any? other my-colleagues and colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]
+  ]
+  let friends-here count my-friends with [current-activity = [current-activity] of myself]
+  if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
+end

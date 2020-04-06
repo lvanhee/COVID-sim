@@ -23,16 +23,9 @@ to execute-activity-effect
   ;though, gathering place might be to be recorded (i.e. a "maybe infected" state if public space has been visited and public space is believed to be contagious)
   ;if [gathering-type] of current-activity = "hospital"
   ;[ set epistemic-infection-status  infection-status ]
-  let family-here count ([gatherers] of current-activity) with [member? self [my-relatives] of myself]
-  if any? my-relatives and family-here / count my-relatives > 0.5 [ set days-since-seen-relatives 0 ]
   
-  if is-worker? 
-  [
-    let colleagues-here count ([gatherers] of current-activity) with [member? self [my-colleagues] of myself]
-    
-    if (any? other my-colleagues and colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]]
-  let friends-here count ([gatherers] of current-activity) with [member? self [my-friends] of myself]
-  if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
+  update-belief-based-on-current-activity
+
   
 end
 
