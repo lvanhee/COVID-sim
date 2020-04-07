@@ -86,7 +86,7 @@ to export-profiling
 end
 
 to save-world-state
-  let filename (word "output/" ticks ".csv")
+  let filename import-scenario-name
   if file-exists? filename[ file-delete filename]
   file-open filename
   file-print " "

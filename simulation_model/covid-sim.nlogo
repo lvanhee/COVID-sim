@@ -33,9 +33,6 @@ to go
   update-time
   apply-active-measures
 
-  if save-on-file?[save-world-state]
-
-
 end
 
 to go-profile
@@ -2509,24 +2506,13 @@ price-of-rations-in-non-essential-shops
 NIL
 HORIZONTAL
 
-SWITCH
-868
-23
-980
-56
-save-on-file?
-save-on-file?
-0
-1
--1000
-
 INPUTBOX
 539
 122
 633
 182
 import-scenario-name
-output/10.csv
+output/done.csv
 1
 0
 String
@@ -2538,6 +2524,23 @@ BUTTON
 172
 load
 load-scenario-from-file
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+716
+140
+785
+173
+export
+save-world-state
 NIL
 1
 T
