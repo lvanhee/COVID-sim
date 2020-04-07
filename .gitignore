@@ -4,3 +4,4 @@
 /snapshot_*
 *.log
 processing/*.csv
+output/
