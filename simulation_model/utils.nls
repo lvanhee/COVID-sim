@@ -84,3 +84,16 @@ to export-profiling
   file-print profiler:report
   file-close
 end
+
+to save-world-state
+  let filename (word "output/" ticks ".csv")
+  if file-exists? filename[ file-delete filename]
+  file-open filename
+  file-print " "
+  file-close
+  export-world filename
+end
+
+to load-scenario-from-file
+  import-world import-scenario-name
+end
