@@ -114,7 +114,7 @@ propagation-risk
 propagation-risk
 0
 1
-1.0
+0.05
 0.01
 1
 NIL
@@ -160,7 +160,7 @@ INPUTBOX
 856
 657
 #schools
-30.0
+3.0
 1
 0
 Number
@@ -171,7 +171,7 @@ INPUTBOX
 948
 657
 #universities
-20.0
+10.0
 1
 0
 Number
@@ -182,7 +182,7 @@ INPUTBOX
 1041
 658
 #workplaces
-100.0
+10.0
 1
 0
 Number
@@ -203,7 +203,7 @@ INPUTBOX
 1132
 658
 #public-leisure
-10.0
+1.0
 1
 0
 Number
@@ -214,7 +214,7 @@ INPUTBOX
 1224
 658
 #private-leisure
-100.0
+10.0
 1
 0
 Number
@@ -400,7 +400,7 @@ INPUTBOX
 1319
 658
 #essential-shops
-50.0
+5.0
 1
 0
 Number
@@ -441,7 +441,7 @@ INPUTBOX
 1408
 658
 #non-essential-shops
-100.0
+10.0
 1
 0
 Number
@@ -452,7 +452,7 @@ INPUTBOX
 768
 657
 #hospital
-10.0
+1.0
 1
 0
 Number
@@ -1279,7 +1279,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1793,8 +1793,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-5K"
-12
+"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K"
+6
 
 MONITOR
 716
@@ -2306,7 +2306,7 @@ INPUTBOX
 624
 511
 #households
-1000.0
+100.0
 1
 0
 Number
