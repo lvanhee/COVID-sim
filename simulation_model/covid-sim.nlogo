@@ -140,7 +140,7 @@ PENS
 "Immune" 1.0 0 -11033397 true "" "plot count people with [infection-status = \"immune\"]"
 "Infected" 1.0 0 -2674135 true "" "plot count people with [is-infected?]"
 "EInfected" 1.0 0 -1604481 true "" "plot count people with [epistemic-infection-status = \"infected\"]"
-"EImmune" 1.0 0 -5516827 true "" "plot count people with [epistemic-infection-status = \"immune\"]"
+"EImmune" 1.0 0 -5516827 true "" "plot count people with [is-believing-to-be-immune?]"
 "Inf. Retired" 1.0 0 -10141563 true "" "plot count people with [age = \"retired\" and infection-status = \"infected\"]"
 
 TEXTBOX
@@ -2587,6 +2587,36 @@ NIL
 17
 1
 11
+
+SLIDER
+1573
+771
+1840
+804
+ratio-population-daily-immunity-testing
+ratio-population-daily-immunity-testing
+0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1346
+32
+1527
+65
+daily-risk-believe-experiencing-fake-symptoms
+daily-risk-believe-experiencing-fake-symptoms
+0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

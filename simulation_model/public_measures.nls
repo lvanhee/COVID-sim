@@ -35,6 +35,10 @@ to apply-active-measures
   ask n-of (ratio-population-randomly-tested-daily * count people) people [
     perform-test
   ]
+  
+  ask n-of (ratio-population-daily-immunity-testing * count people) people [
+    perform-immunity-test
+  ]
 end
 
 to-report is-social-distancing-measure-active?

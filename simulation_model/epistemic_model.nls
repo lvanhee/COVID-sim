@@ -1,12 +1,14 @@
 to update-epistemic-status
+  set am-I-experiencing-fake-symptoms? random-float 1 < daily-risk-believe-experiencing-fake-symptoms
+  
   if infection-status = "dead" [
     set epistemic-infection-status "dead"
     stop
   ]
-  ifelse not has-internally-visible-symptoms? [
+  ifelse not has-internally-visible-symptoms? and not am-I-experiencing-fake-symptoms? [
     if epistemic-infection-status = "infected" and last-day-observed-symptoms < current-day - 3
     [
-      set epistemic-infection-status "immune"
+      set epistemic-infection-status had-symptoms-long-ago-infection-status
     ]
   ]
   [
@@ -37,5 +39,24 @@ to perform-test
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
   ]
-  
+end
+
+
+to-report is-believing-to-be-immune?
+  report  has-been-tested-immune? or has-had-symptoms-long-ago?
+end
+
+to-report has-had-symptoms-long-ago?
+  report epistemic-infection-status = had-symptoms-long-ago-infection-status
+end
+
+to-report  had-symptoms-long-ago-infection-status
+  report "had-symptoms-long-ago"
+end
+
+
+to perform-immunity-test
+    if is-immune? [
+    set has-been-tested-immune? true 
+  ]
 end

@@ -138,17 +138,11 @@ to setup-person [current-home l-age]
     set my-home current-home
     
     set my-previous-amount-of-capital my-amount-of-capital
-    
+    set has-been-tested-immune? false
     setup-disease-profile
     
     create-gathering-link-to current-home [set features (list "rest" "visit family")]
-    setup-person1
-
-  ]
-end
-
-to setup-person1
-      set is-moving-outside-for-reaching-current-activity? false
+    set is-moving-outside-for-reaching-current-activity? false
     ;setup-person-home
     
     set is-currently-allocated-a-bed-in-hospital? false
@@ -163,6 +157,8 @@ to setup-person1
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
     setup-person-needs 
+
+  ]
 end
 
 to setup-person-needs 
