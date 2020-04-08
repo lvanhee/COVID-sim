@@ -1,4 +1,23 @@
- 
+;;this function puts altogether some code lying in the wrong place in the code
+to reset-economy-measurements
+  set total-amount-of-capital-in-circulation 0
+  set goods-production-of-total-system 0
+  
+  ask people [   
+    set my-current-income 0
+    set my-previous-amount-of-capital my-amount-of-capital]
+  
+  ;;weird, shouldn't people expected to be pain only when they plan on working?
+  ;;e.g. lower pay when working from home; or no/less pay when staying at home taking care of a child? (holiday leave)
+  ask people [
+    if working-day? and member? slice-of-the-day ["afternoon" "evening"] [
+      set my-expected-income my-current-income
+    ]
+  ]
+  
+  ask gathering-points [set current-profit 0]
+end
+  
 to perform-trades-between-gathering-points
   
   let total-amount-of-goods-available-in-workplaces sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]

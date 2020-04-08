@@ -33,6 +33,8 @@ to setup
   ask links[hide-link]
 
   set is-lockdown-active? false
+  set list-of-buses (list)
+  set list-of-shared-cars (list)
   reset-ticks
   
 end
@@ -157,7 +159,7 @@ to setup-person [current-home l-age]
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
     setup-person-needs 
-
+    set stayed-out-queuing-for-bus? false
   ]
 end
 

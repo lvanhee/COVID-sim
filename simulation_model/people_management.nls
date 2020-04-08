@@ -13,6 +13,9 @@ people-own [
   my-home
   my-work
   my-essential-shops
+  my-means-of-transportation
+  
+  stayed-out-queuing-for-bus?
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"

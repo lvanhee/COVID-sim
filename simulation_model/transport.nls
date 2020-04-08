@@ -1,0 +1,106 @@
+globals [is-busses-overrun? #denied-attempts-due-to-bus-overload
+  list-of-buses
+  list-of-shared-cars
+  #people-denied-bus
+]
+to travelling-to-activity-phase
+  set is-busses-overrun? false
+  
+  move-on-display
+
+  
+  ask people [set stayed-out-queuing-for-bus? false ]
+  
+  let bus-users (turtle-set)
+  let shared-car-users (turtle-set)
+  
+  ask people [
+    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation stay-here-transportation-method stop]
+    set my-means-of-transportation random-means-of-transportation
+    if my-means-of-transportation = public-transportation-method [set bus-users (turtle-set bus-users self)]
+    if my-means-of-transportation = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
+  ]
+  
+  set list-of-buses n-values #bus-per-timeslot [x -> (turtle-set)]
+  let #users-in-buses 0
+  
+  ask bus-users [
+    if #users-in-buses >= max-total-bus-flow-at-current-timestep - 1 [
+      set #people-denied-bus #people-denied-bus + 1 
+      set stayed-out-queuing-for-bus? true stop]
+    let random-item random length list-of-buses
+    if count item random-item list-of-buses = #max-people-per-bus [set stayed-out-queuing-for-bus? true]
+    
+    while[count (item random-item list-of-buses) = #max-people-per-bus]
+    [set random-item (random-item + 1) mod length list-of-buses]
+    
+    set list-of-buses replace-item random-item list-of-buses (turtle-set self (item random-item list-of-buses))
+    set #users-in-buses #users-in-buses + 1
+  ] 
+  
+  set list-of-shared-cars (list)
+  let ongoing-set (turtle-set)
+  ask shared-car-users [
+    if count ongoing-set = 5 [
+      set list-of-shared-cars lput ongoing-set list-of-shared-cars
+      set ongoing-set (turtle-set)
+    ]
+    set ongoing-set (turtle-set self ongoing-set)
+  ]
+  if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
+  
+  
+end
+
+to-report max-total-bus-flow-at-current-timestep
+  report #bus-per-timeslot * #max-people-per-bus
+end
+
+to-report stay-here-transportation-method
+  report "stay-here"
+end
+
+to-report random-means-of-transportation
+  let rand random-float 1
+  if rand < my-probability-of-taking-the-bus [report public-transportation-method]
+  set rand rand - my-probability-of-taking-the-bus
+  if rand < my-probability-of-taking-a-shared-car [report shared-car-transportation-method]
+  report solo-transportation-method
+end
+
+to-report solo-transportation-method
+  report "solo"
+end
+
+to-report public-transportation-method
+  report "public"
+end
+
+to-report shared-car-transportation-method
+  report "shared-car"
+end
+
+to-report my-probability-of-taking-the-bus
+  if is-child? [report ratio-children-public-transport]
+  if is-retired? [report ratio-retired-public-transport]
+  if is-student? [report ratio-student-public-transport]
+  if is-worker? [report ratio-worker-public-transport]
+end
+
+to-report my-probability-of-taking-a-shared-car
+  if is-child? [report ratio-children-shared-car]
+  if is-retired? [report ratio-student-shared-car]
+  if is-student? [report ratio-student-shared-car]
+  if is-worker? [report ratio-worker-shared-car]
+end
+
+
+to move-on-display 
+  ask people
+  [
+    if not animate? [
+      move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
+      set heading towards current-activity
+    ]
+  ]
+end

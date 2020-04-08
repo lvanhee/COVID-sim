@@ -13,7 +13,7 @@ end
 
 
 to-report travelling-reason
-  report "travelling"
+  report travelling-motive
 end
 
 ;;here one should also include caring for children.
@@ -100,9 +100,10 @@ end
 
 to select-activity
   let c-a my-preferred-available-activity-descriptor
-
+  
+  ;;select if migration takes over and people move around
   if (migration? and random-float 1 < probability-going-abroad) [
-    set c-a (list away-gathering-point "travelling" false)
+    set c-a (list away-gathering-point travelling-motive false)
   ]
   
   let loc location-of c-a
@@ -110,8 +111,8 @@ to select-activity
   set current-activity location-of c-a
   set current-motivation motive-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
-  if current-activity != away-gathering-point and current-motivation = "travelling" [error "wrong place while travelling"]
-  end
+  if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
+end
 
 ;;this function is the main bottleneck of the whole application!
 ;;it draws 0.2ms per call 

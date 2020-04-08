@@ -10,3 +10,6 @@ to-report work-motive
   report "contractual obligation"
 end
   
+to-report travelling-motive
+  report "travelling"
+end
