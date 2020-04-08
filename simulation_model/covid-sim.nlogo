@@ -2801,10 +2801,10 @@ HORIZONTAL
 SLIDER
 1718
 730
-1890
+1919
 763
-density-in-buses
-density-in-buses
+density-in-public-transport
+density-in-public-transport
 0
 1
 0.3

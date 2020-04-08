@@ -20,7 +20,7 @@ to spread-by-travelling
   ]
   
   foreach list-of-buses [
-    x -> spread-within-a-set-of-turtles x density-in-buses [ [] -> set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1]
+    x -> spread-within-a-set-of-turtles x density-in-public-transport [ [] -> set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1]
   ]
   
   foreach list-of-shared-cars [
