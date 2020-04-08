@@ -12,7 +12,7 @@ end
 
 to-report my-colleagues
   if not is-worker? [report (turtle-set)]
-  report other [hired-workers-here] of my-work
+  report other [hired-workers] of my-work
   ;report workplace-colleague-link-neighbors
   ;let my-wp  my-workplace
   ;if my-wp != nobody [

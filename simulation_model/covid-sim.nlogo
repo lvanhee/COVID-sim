@@ -2399,7 +2399,7 @@ NIL
 11
 
 MONITOR
-1387
+1402
 239
 1519
 284
@@ -2550,6 +2550,43 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+1588
+621
+1851
+654
+productivity-factor-when-not-at-work
+productivity-factor-when-not-at-work
+0
+1
+0.79
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1402
+282
+1519
+327
+NIL
+hospital-effectiveness
+17
+1
+11
+
+MONITOR
+1302
+264
+1402
+309
+NIL
+#beds-available-for-admission
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

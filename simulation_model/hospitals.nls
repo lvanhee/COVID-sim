@@ -14,7 +14,7 @@ to  acquire-a-bed-in-hospital
 end
 
 to-report any-free-bed-in-hospital?
-  report #taken-hospital-beds < #beds-in-hospital
+  report #taken-hospital-beds < #beds-available-for-admission
 end
 
 to-report is-currently-being-treated-at-hospital?
@@ -27,4 +27,12 @@ to try-acquire-a-bed-in-hospital
     acquire-a-bed-in-hospital
   ]
   [set #denied-requests-for-hospital-beds #denied-requests-for-hospital-beds + 1]
+end
+
+to-report hospital-effectiveness
+  report mean [1 - ratio-sick-personnel] of hospitals
+end
+
+to-report #beds-available-for-admission
+  report floor (#beds-in-hospital * hospital-effectiveness - #taken-hospital-beds)
 end

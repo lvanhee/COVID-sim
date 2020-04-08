@@ -17,9 +17,7 @@ to execute-activity-effect
   ]
   
   update-resources-based-on-current-activity
-  
-  
-  
+
   ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
   ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
   

@@ -19,8 +19,7 @@ gathering-points-own [gathering-type
   current-profit
   max-amount-of-capital-to-retain
   
-  hired-workers-here
-  
+  hired-workers
   stock-of-goods
 ]
 
@@ -31,6 +30,9 @@ gathering-links-own [
   features ;stores whatever is useful for decision-making, useful for including factors appealing to e.g. needs and values
 ]
 
+to-report ratio-personnel-here
+  report count hired-workers with [current-activity = myself and current-motivation = work-motive] / count hired-workers
+end
 
 to-report proximity-factor
   if gathering-type = "hospital" [report density-factor-hospital]
@@ -61,6 +63,10 @@ end
 
 to-report is-working-at-home?
   report is-working? and is-at-home?
+end
+
+to-report ratio-sick-personnel
+  report count hired-workers with [has-internally-visible-symptoms?] / count hired-workers
 end
 
 to-report is-at-work?
