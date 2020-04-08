@@ -65,22 +65,25 @@ to create-all-households
   let #family-homes floor (#households * ratio-family-homes)
   let #multi-generational-homes #households - (#adults-homes + #retired-couple-homes + #family-homes)
   
-  repeat #adults-homes [create-household "adult"]
-  repeat #family-homes [create-household "family"]
-  repeat #retired-couple-homes[create-household "retired-couple"]
-  repeat #multi-generational-homes [create-household "multigenerational"]
+  let #created-households 0
+  
+  repeat #adults-homes [create-household "adult" #created-households  #households set #created-households  #created-households + 1]
+  repeat #family-homes [create-household "family" #created-households  #households set #created-households  #created-households + 1]
+  repeat #retired-couple-homes[create-household "retired-couple" #created-households #households set  #created-households  #created-households + 1]
+  repeat #multi-generational-homes [create-household "multigenerational" #created-households  #households set  #created-households  #created-households + 1]
 
   ask homes [ set available-food-rations count gatherers * (random days-of-rations-bought + days-of-rations-bought) ]
 end
 
-to create-household [t]
+to create-household [t #created-households #households-to-create]
   let current-home nobody
   create-gathering-points 1 [set current-home self
     set homes (turtle-set homes self)
     set gathering-type "home"
     set shape "house"
     set color green
-    set xcor 9 * max-pxcor / 10 set ycor max-pycor * random-float 1
+    set xcor 9 * max-pxcor / 10 
+    set ycor max-pycor * #created-households / #households-to-create
   ]
 
   if t = "adult"
