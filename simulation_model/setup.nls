@@ -42,6 +42,10 @@ end
 to setup-social-networks
   ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
 ;  ask workers [  create-workplace-colleague-links-to other workers with [my-workplace = [my-workplace] of myself]]
+  ask people [
+    let possible-friends reduce [ [x y] -> (turtle-set x y) ] ([gatherers] of (turtle-set my-private-leisure my-school my-university))
+    create-my-friends-links-with n-of 7 other possible-friends
+  ]
 end
 
 

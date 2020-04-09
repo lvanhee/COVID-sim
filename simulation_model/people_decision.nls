@@ -107,8 +107,8 @@ to select-activity
   ]
   
   let loc location-of c-a
-  select-activity-wtf? c-a
-  set current-activity location-of c-a
+  select-activity-wtf? loc
+  set current-activity loc
   set current-motivation motive-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]

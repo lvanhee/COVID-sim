@@ -587,7 +587,7 @@ SWITCH
 57
 animate?
 animate?
-0
+1
 1
 -1000
 
@@ -1151,8 +1151,8 @@ PENS
 "compliance" 1.0 0 -13840069 true "" "plot mean [compliance-need-satisfaction] of people"
 "risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
 "food-safety" 1.0 0 -5325092 true "" "plot mean [food-safety-need-satisfaction] of people"
-"financial-survival" 1.0 0 -5825686 true "" "plot mean [financial-survival-need-satisfaction] of people"
-"financial-safety" 1.0 0 -8990512 true "" "plot mean [financial-safety-need-satisfaction] of people"
+"financial-survival" 1.0 0 -5825686 true "" "plot mean [financial-survival-need-satisfaction] of people with [age != \"youth\"]"
+"financial-safety" 1.0 0 -8990512 true "" "plot mean [financial-safety-need-satisfaction] of people with [age != \"youth\"]"
 
 SWITCH
 1075
@@ -1280,7 +1280,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-1000.0
+10000.0
 1
 0
 Number
@@ -1795,7 +1795,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K"
-6
+1
 
 MONITOR
 716
@@ -2893,6 +2893,23 @@ NIL
 17
 1
 11
+
+BUTTON
+12
+127
+92
+160
+1 Month Run
+let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day <= end-day] [ go ]
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

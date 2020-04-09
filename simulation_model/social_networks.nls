@@ -1,4 +1,5 @@
 directed-link-breed [dependable-adult-links dependable-adult-link]
+undirected-link-breed [my-friends-links my-friends-link]
 
 ;;this representation works as long as the workplace network does not become too large
 ;directed-link-breed [workplace-colleague-links workplace-colleague-link]
@@ -22,7 +23,11 @@ to-report my-colleagues
 end
 
 to-report my-friends
-  report other [gatherers] of my-private-leisure
+  report my-friends-link-neighbors
+end
+
+to-report my-network
+  report (turtle-set my-relatives my-colleagues my-friends)
 end
 
 to-report people-that-depend-on-me
