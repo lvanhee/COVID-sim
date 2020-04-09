@@ -127,9 +127,12 @@ to set-infection-status [infection]
 end
 
 to-report is-infection-status? [in]
-  report in = infected-critical-infection-status
-  or
-  in = infected-asymptomatic-status
+  report in = "infected"
+  or in = "asymptomatic noncontagious" 
+  or in = "infected-asymptomatic"
+  or in = "infected-symptomatic"
+  or in = "infected-critical"
+  or in = "infected-terminal"
 end
 
 to-report healthy-infection-status
@@ -158,12 +161,7 @@ to kill-person
 end
 
 to-report is-infected?
-  report infection-status = "infected"
-  or infection-status = "asymptomatic noncontagious" 
-  or infection-status = "infected-asymptomatic"
-  or infection-status = "infected-symptomatic"
-  or infection-status = "infected-critical"
-  or infection-status = "infected-terminal"
+  report is-infection-status? infection-status
 end
 
 ;simplification, with a more advanced model, these symptoms might be visible after a few days of incubation
