@@ -167,6 +167,9 @@ to setup-person [current-home l-age]
     set has-done-shopping false
     setup-person-needs 
     set stayed-out-queuing-for-bus? false
+    
+    set I-know-of-social-distancing? false
+    set I-know-of-working-from-home? false
   ]
 end
 

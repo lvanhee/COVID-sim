@@ -1,3 +1,7 @@
+globals [
+  was-social-distancing-enforced?
+]
+
 to-report is-lockdown-enforced?
   if global-confinment-measures = "total-lockdown" [
     set is-lockdown-active? true
@@ -39,8 +43,20 @@ to apply-active-measures
   ask n-of (ratio-population-daily-immunity-testing * count people) people [
     perform-immunity-test
   ]
+  
+  if was-social-distancing-enforced? != is-social-distancing-measure-active? [
+    set was-social-distancing-enforced? is-social-distancing-measure-active?
+    inform-people-of-measures
+  ]
 end
 
 to-report is-social-distancing-measure-active?
   report ratio-omniscious-infected-that-trigger-social-distancing-measure < ratio-infected
+end
+
+to inform-people-of-measures
+  ask n-of (count people * percentage-news-watchers) people [
+    set I-know-of-social-distancing? true
+    set I-know-of-working-from-home? true
+  ]
 end

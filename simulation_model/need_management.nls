@@ -196,7 +196,7 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
   ]
 
-  if is-social-distancing-measure-active? [
+  if is-social-distancing-measure-active? and I-know-of-social-distancing? [
     ifelse social-distancing-of ad
     [ set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1 ]
     [ set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1 ]
