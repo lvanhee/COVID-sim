@@ -90,7 +90,7 @@ end
 
 
 to-report financial-survival-need-satisfaction
-  report clamp 0 1 (my-amount-of-capital / price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops)
+  report clamp 0 1 (my-amount-of-capital / (price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops))
 end
 
 to-report financial-safety-need-satisfaction
