@@ -152,4 +152,30 @@ to update-belief-based-on-current-activity
   let friends-here count my-friends with [current-activity = [current-activity] of myself]
   if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
   if any? other my-network with [I-know-of-social-distancing?] [ set I-know-of-social-distancing? true ]
+  
+  update-memory
+end
+
+to-report add-activity [act act-list]
+  let index 0
+  foreach act-list [act-count -> 
+    if act = item 0 act-count [
+      report replace-item index act-list (list (item 0 act-count) (item 1 act-count + 1))
+    ]
+    set index index + 1
+  ]
+  report lput (list act 1) act-list
+end
+
+to update-memory
+  let network-activity []
+  let network-activities []
+  ask my-network [
+    set network-activities add-activity (list current-motivation is-I-apply-social-distancing?) network-activities
+  ]
+  set network-activity item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] network-activities)
+  set what-my-network-did lput network-activity what-my-network-did
+  if length what-my-network-did > 28 [
+    set what-my-network-did but-first what-my-network-did
+  ]
 end

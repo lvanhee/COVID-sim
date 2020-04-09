@@ -11,6 +11,8 @@ globals [
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
+
+  memory
 ]
 
 to go

@@ -2,30 +2,30 @@ __includes ["motives.nls" "transport.nls"]
 
 to execute-activity-effect
 
-  
+
   if is-currently-allocated-a-bed-in-hospital? and not (current-motivation = treatment-motive) [
     release-bed-in-hospital
   ]
-  
-  
-  if not is-currently-allocated-a-bed-in-hospital? and (current-motivation = treatment-motive) 
+
+
+  if not is-currently-allocated-a-bed-in-hospital? and (current-motivation = treatment-motive)
   [
     try-acquire-a-bed-in-hospital
   ]
-  
+
   update-resources-based-on-current-activity
 
   ;might be interesting to hold this variable as an integer, for storing when the next shopping will be needed
   ;additionally, we might want at some point to hold additional variables within homes (i.e. one person getting the food for the whole community)
-  
+
   ;the epistemic infection status depends on whether the person has (had) visible symptoms, not on where it now gathers
   ;though, gathering place might be to be recorded (i.e. a "maybe infected" state if public space has been visited and public space is believed to be contagious)
   ;if [gathering-type] of current-activity = "hospital"
   ;[ set epistemic-infection-status  infection-status ]
-  
+
   update-belief-based-on-current-activity
 
-  
+
 end
 
 to-report activity-descriptor [gp mo]
@@ -56,10 +56,10 @@ to update-resources-based-on-current-activity
   if is-working?
   [
     set amount-to-earn 10
-    
+
     set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
     perform-transaction self my-work (list "salary" amount-earned) (list "work")
-    
+
     if government-pays-wages?
     [
       if amount-earned < amount-to-earn
@@ -68,10 +68,10 @@ to update-resources-based-on-current-activity
         perform-transaction self "government" (list "subsidy" worker-subsidy) (list "nothing")
       ]
     ]
-    
+
     stop
   ]
-  
+
   if is-performing-essential-shopping?
   [
     let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations-in-essential-shops)
@@ -84,9 +84,9 @@ to update-resources-based-on-current-activity
     set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-essential-shop)
 
     let amount-spent amount-of-rations-to-buy * price-of-rations-in-essential-shops
-    
+
     perform-transaction self picked-essential-shop (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent)
-    
+
     stop
   ]
 
@@ -100,10 +100,10 @@ to update-resources-based-on-current-activity
       let available-goods-in-my-non-essential-shop max (list [stock-of-goods] of current-activity 0)
 
       set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-non-essential-shop)
-      
+
       set amount-of-last-luxury-items-bought amount-of-rations-to-buy
       let amount-spent amount-of-rations-to-buy * price-of-rations-in-non-essential-shops
-      
+
       perform-transaction self current-activity (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent)
     ]
     stop
@@ -289,19 +289,19 @@ end
 
 to perform-people-activities
   reset-timer
-  
+
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
     select-activity
     if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
-    
+
     if is-currently-in-sitation-of-active-dependence? and current-person-I-depend-on != nobody
     [
       set current-activity [current-activity] of current-person-I-depend-on
       set current-motivation follow-person-in-charge-motive
     ]
   ]
-  
+
   travelling-to-activity-phase
 
   ask people [
