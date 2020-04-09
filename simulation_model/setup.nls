@@ -22,6 +22,7 @@ to setup
   set current-day 0
   set #dead-people 0
   set government-reserve-of-capital government-initial-reserve-of-capital
+  set was-social-distancing-enforced? false
 
   setup-activities
   create-all-households
@@ -168,8 +169,9 @@ to setup-person [current-home l-age]
     setup-person-needs 
     set stayed-out-queuing-for-bus? false
     
-    set I-know-of-social-distancing? false
-    set I-know-of-working-from-home? false
+    set I-know-of-social-distancing? true
+    set I-know-of-working-from-home? true
+    set what-my-network-did []
   ]
 end
 

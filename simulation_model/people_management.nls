@@ -33,6 +33,9 @@ people-own [
   ; Optional measures information
   I-know-of-social-distancing?
   I-know-of-working-from-home?
+  ; Memory of the network's actions
+  ; The memory is a list with a max lenght of 28 (for all the ticks in a week). New events get added to the end, so the first event should always be what most people in your network did last
+  what-my-network-did
   
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
   ;"needs" are a relevant concept for accounting for the reasons that can push an agent for violating guidelines, in spite of generally complying to them

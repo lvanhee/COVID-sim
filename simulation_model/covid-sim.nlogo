@@ -14,6 +14,8 @@ globals [
   government-reserve-of-capital
   total-amount-of-capital-in-circulation
   goods-production-of-total-system
+
+  memory
 ]
 
 to go

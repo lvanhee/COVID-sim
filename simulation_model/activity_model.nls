@@ -84,7 +84,7 @@ to update-resources-based-on-current-activity
           ifelse [gathering-type] of current-activity = "university"
           [
             set amount-to-earn workers-wages
-            let picked-university my-university;;people relate to only one university
+            let picked-university my-work;;people relate to only one university
             set amount-earned min (list amount-to-earn max (list [amount-of-capital] of picked-university 0))
             ask picked-university [set amount-of-capital amount-of-capital - amount-earned set current-profit current-profit - amount-earned]
           ]
