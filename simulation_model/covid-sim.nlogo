@@ -767,7 +767,7 @@ probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
 1
-0.1
+0.11
 0.01
 1
 NIL
@@ -1334,7 +1334,7 @@ importance-financial-safety
 importance-financial-safety
 0
 1
-0.3
+0.31
 0.01
 1
 NIL
@@ -1349,7 +1349,7 @@ factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
 1
-0.68
+0.69
 0.01
 1
 NIL
@@ -2578,7 +2578,7 @@ ratio-worker-public-transport
 ratio-worker-public-transport
 0
 1
-0.4
+0.01
 0.01
 1
 NIL
@@ -2756,7 +2756,7 @@ density-in-public-transport
 density-in-public-transport
 0
 1
-0.5
+0.31
 0.01
 1
 NIL
@@ -3071,6 +3071,32 @@ user-of-tracking-app-probability
 NIL
 HORIZONTAL
 
+SWITCH
+1528
+1078
+1831
+1111
+is-working-from-home-recommended?
+is-working-from-home-recommended?
+1
+1
+-1000
+
+SLIDER
+1142
+530
+1368
+563
+percentage-news-watchers
+percentage-news-watchers
+0
+1
+0.75
+0.01
+1
+NIL
+HORIZONTAL
+
 MONITOR
 1895
 888
@@ -3139,6 +3165,23 @@ BUTTON
 272
 inspect person
 inspect one-of people
+NIL
+1
+T
+OBSERVER
+NIL
+I
+NIL
+NIL
+1
+
+BUTTON
+1832
+903
+2001
+936
+NIL
+inform-people-of-measures
 NIL
 1
 T
