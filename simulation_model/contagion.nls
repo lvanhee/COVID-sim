@@ -99,7 +99,7 @@ to apply-risk-of-contamination-when-away
 end
 
 to set-contaminated
-  set infection-status "asymptomatic noncontagious" 
+  set-infection-status "asymptomatic noncontagious" 
   set duration-current-disease-status infection-to-asymptomatic-contagiousness
 end
 
