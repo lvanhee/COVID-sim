@@ -156,7 +156,7 @@ end
 to-report expected-number-of-other-participants
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
   if is-hospital? [report random 5 + 2]
-  report count other in-gathering-link-neighbors
+  report count in-gathering-link-neighbors
 end
 
 to-report is-accessible?
