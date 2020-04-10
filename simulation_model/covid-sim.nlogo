@@ -37,7 +37,7 @@ to go-profile
     profiler:reset
   profiler:start
 
-  repeat 10 [go]
+  repeat 100 [go]
   export-profiling
 end
 
@@ -66,8 +66,8 @@ GRAPHICS-WINDOW
 50
 0
 50
-0
-0
+1
+1
 1
 ticks
 30.0
