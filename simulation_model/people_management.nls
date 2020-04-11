@@ -13,12 +13,20 @@ people-own [
   my-home
   my-work
   my-essential-shops
-  my-means-of-transportation
   
+  ;;transportation model
+  my-means-of-transportation-I-currently-use
+  can-I-perform-solo-transportation?
   stayed-out-queuing-for-bus?
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
+  
+  previous-contacts-met
+  is-user-of-tracking-app?
+  
+  has-been-tested-infected?
+  last-test-tick
 
   ;;the disease profile records how the person will react to the disease
   disease-profile

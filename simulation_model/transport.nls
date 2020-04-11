@@ -15,10 +15,10 @@ to travelling-to-activity-phase
   let shared-car-users (turtle-set)
   
   ask people [
-    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation stay-here-transportation-method stop]
-    set my-means-of-transportation random-means-of-transportation
-    if my-means-of-transportation = public-transportation-method [set bus-users (turtle-set bus-users self)]
-    if my-means-of-transportation = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
+    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method stop]
+    set my-means-of-transportation-I-currently-use random-means-of-transportation
+    if my-means-of-transportation-I-currently-use = public-transportation-method [set bus-users (turtle-set bus-users self)]
+    if my-means-of-transportation-I-currently-use = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
   ]
   
   set list-of-buses n-values #bus-per-timeslot [x -> (turtle-set)]
@@ -65,6 +65,7 @@ to-report random-means-of-transportation
   if rand < my-probability-of-taking-the-bus [report public-transportation-method]
   set rand rand - my-probability-of-taking-the-bus
   if rand < my-probability-of-taking-a-shared-car [report shared-car-transportation-method]
+  if not can-I-perform-solo-transportation? [report random-means-of-transportation]
   report solo-transportation-method
 end
 

@@ -42,6 +42,11 @@ to spread-by-activity-proximity
 end
 
 to spread-within-a-set-of-turtles [ts prox-factor lambda-when-contagion]
+  
+  let tracked-users ts with [is-user-of-tracking-app?]
+  ask tracked-users
+  [if is-user-of-tracking-app? [set previous-contacts-met (replace-item 0 previous-contacts-met (turtle-set tracked-users last previous-contacts-met))]]
+  
   let number-contagious count ts with [is-contagious?]
   ;;could be replaced by better maths it time becomes short
   repeat number-contagious [

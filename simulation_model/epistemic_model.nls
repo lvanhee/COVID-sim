@@ -1,3 +1,4 @@
+globals [#tests-performed]
 to update-epistemic-status
   set am-I-experiencing-fake-symptoms? random-float 1 < daily-risk-believe-experiencing-fake-symptoms
   
@@ -16,6 +17,8 @@ to update-epistemic-status
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
     
+    if not knew-was-infected and is-testing-people-recorded-by-the-proximity-app-measure? [perform-test]
+    
     if not knew-was-infected and test-home-of-confirmed-people?
     [
      ; show "test"
@@ -33,13 +36,21 @@ to-report is-believing-to-be-infected?
 end
 
 to perform-test
+  set #tests-performed #tests-performed + 1
+  
   if not is-infected? and is-believing-to-be-infected? [set epistemic-infection-status "immune"]
   if is-infected? [
-    let knew-was-infected epistemic-infection-status = "infected"
+    let knew-was-infected? has-been-tested-infected?
+    set has-been-tested-infected? true
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
+    
+    if not knew-was-infected? and is-testing-people-recorded-by-the-proximity-app-measure?[
+      ask people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?] [perform-test]
+    ]
   ]
 end
+
 
 
 to-report is-believing-to-be-immune?

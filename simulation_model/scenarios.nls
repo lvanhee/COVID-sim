@@ -133,6 +133,7 @@ to load-baseline-scenario
   load-default-disease-model
   load-default-migration-model
   load-default-contagion-model
+  load-default-transport-model
   load-default-economic-parameters
   
   load-no-measures
@@ -176,7 +177,7 @@ end
 
 to load-default-disease-model
   set with-infected? true
-  set propagation-risk 0.05
+  set propagation-risk 0.04
   set critical-to-terminal 2
   set probability-recorvery-if-treated-old 0.6
   set probability-unavoidable-death-old 0.2

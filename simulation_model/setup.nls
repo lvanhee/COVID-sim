@@ -148,6 +148,7 @@ to setup-person [current-home l-age]
   create-people 1 [
     set age l-age
     
+    set has-been-tested-infected? false
     set my-amount-of-capital my-starting-amount-of-capital
     set current-activity current-home
     set my-home current-home
@@ -163,6 +164,9 @@ to setup-person [current-home l-age]
     set is-currently-allocated-a-bed-in-hospital? false
     
     setup-relation-to-gathering-points
+    set previous-contacts-met n-values #days-tracking [(turtle-set)]
+    set is-user-of-tracking-app? random-float 1 < user-of-tracking-app-probability
+    set can-I-perform-solo-transportation? random-float 1  <  owning-solo-transportation-probability
     
     set current-person-I-depend-on nobody
     set color default-color

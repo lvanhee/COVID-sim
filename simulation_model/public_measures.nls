@@ -44,3 +44,11 @@ end
 to-report is-social-distancing-measure-active?
   report ratio-omniscious-infected-that-trigger-social-distancing-measure < ratio-infected
 end
+
+to-report people-recorded-by-my-recording-app
+  report reduce [[x y] -> (turtle-set x y)] previous-contacts-met
+end
+
+to-report average-number-of-people-recorded-by-recording-apps
+  report mean [count people-recorded-by-my-recording-app] of people with [is-user-of-tracking-app?]
+end
