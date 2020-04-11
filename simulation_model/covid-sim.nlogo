@@ -11,9 +11,6 @@ globals [
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
-  government-reserve-of-capital
-  total-amount-of-capital-in-circulation
-  goods-production-of-total-system
 ]
 
 to go
@@ -1418,7 +1415,7 @@ true
 true
 "" ""
 PENS
-"total" 1.0 0 -16777216 true "" "plot total-amount-of-resources-available-in-the-system"
+"total" 1.0 0 -16777216 true "" "plot total-amount-of-capital-in-the-system"
 "government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER

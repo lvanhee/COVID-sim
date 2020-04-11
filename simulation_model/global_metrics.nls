@@ -2,6 +2,6 @@ to-report ratio-infected
   report #infected / count people
 end
 
-to-report total-amount-of-resources-available-in-the-system
+to-report total-amount-of-capital-in-the-system
   report sum [my-amount-of-capital] of people + sum [amount-of-capital] of gathering-points + government-reserve-of-capital
 end
