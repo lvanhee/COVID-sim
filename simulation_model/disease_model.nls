@@ -1,6 +1,6 @@
 __includes ["disease_profiles.nls"]
 globals [ #people-saved-by-hospitalization
-   #people-dying-due-to-lack-of-hospitalization
+  #people-dying-due-to-lack-of-hospitalization
   #infected
   infected-people
 ]
