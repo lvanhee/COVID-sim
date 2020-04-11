@@ -22,10 +22,15 @@ to setup
   set current-day 0
   set #dead-people 0
   set government-reserve-of-capital government-initial-reserve-of-capital
+  ;;; For cultural dimension:
+  
 
   setup-activities
   create-all-households
+  setup-person-needs
   setup-social-networks
+   
+  
   if with-infected? [infect-one-random-person]
 
   update-display
@@ -165,34 +170,47 @@ to setup-person [current-home l-age]
     set epistemic-infection-status "healthy"
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
-    setup-person-needs 
     set stayed-out-queuing-for-bus? false
   ]
 end
 
 to setup-person-needs 
-  set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
-  set is-I-apply-social-distancing? is-social-distancing-measure-active?
-  set belonging-need-satisfaction random-float 0.5 + 0.5
-  set compliance-need-satisfaction random-float 0.5 + 0.5
-  set relaxing-need-satisfaction random-float 0.3 + 0.7
-  set luxury-need-satisfaction random-float 0.3 + 0.7
-  set risk-avoidance-need-satisfaction random-float 0.5 + 0.5
-  set autonomy-need-satisfaction 0.95
-  ;set financial-safety-need-satisfaction 1
-  ;the importance levels for each community need should add up to 1
-  set my-importance-for-belonging-needs clamp 0.01 1 random-normal ratio-safety-belonging needs-std-dev
-  set my-importance-for-safety-needs 1 - my-importance-for-belonging-needs
-    set my-importance-for-self-esteem-needs clamp 0.01 1 random-normal importance-self-esteem needs-std-dev
-    set my-importance-for-compliance-needs clamp 0.01 1 random-normal importance-compliance needs-std-dev
-  set my-importance-for-survival-needs clamp 0.01 1 random-normal importance-survival needs-std-dev
-  set my-importance-for-relaxing-needs clamp 0.01 1 random-normal importance-leisure needs-std-dev
-  set my-importance-for-luxury-needs clamp 0.01 1 random-normal importance-luxury needs-std-dev
-  set my-importance-for-risk-avoidance-needs clamp 0.01 1 random-normal importance-risk-avoidance needs-std-dev
-  set my-importance-for-autonomy-needs clamp 0.01 1 random-normal importance-autonomy needs-std-dev
-  set my-importance-for-food-safety-needs 1
-  set my-importance-for-financial-survival-needs 1
-  set my-importance-for-financial-safety-needs clamp 0.01 1 random-normal importance-financial-safety needs-std-dev
+  
+  ifelse culture?
+  [setup-importances-based-on-culture
+  ]
+  [ ask people [
+    set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
+    set is-I-apply-social-distancing? is-social-distancing-measure-active?
+    
+   ;SUBNEEDS satisfaction level
+    set belonging-satisfaction-level random-float 0.5 + 0.5
+    set compliance-satisfaction-level random-float 0.5 + 0.5
+    set leisure-satisfaction-level random-float 0.3 + 0.7
+    set sleep-satisfaction-level random-float 0.2 + 0.8
+    set luxury-satisfaction-level random-float 0.3 + 0.7
+    set risk-avoidance-satisfaction-level random-float 0.5 + 0.5
+    set autonomy-satisfaction-level 0.95
+    
+    ;MASLOW-NEEDS
+    
+    set importance-weight-self-esteem clamp 0.01 1 random-normal importance-self-esteem needs-std-dev
+    set importance-weight-belonging (clamp 0.01 1 random-normal ratio-safety-belonging needs-std-dev) 
+    set importance-weight-survival clamp 0.01 1 random-normal importance-survival needs-std-dev
+    set importance-weight-safety 1 - importance-weight-belonging
+    
+    ;SUBNEEDS
+    set importance-weight-compliance clamp 0.01 1 random-normal importance-compliance needs-std-dev 
+    set importance-weight-leisure clamp 0.01 1 random-normal importance-leisure needs-std-dev
+    set importance-weight-luxury clamp 0.01 1 random-normal importance-luxury needs-std-dev
+    set importance-weight-risk-avoidance clamp 0.01 1 random-normal importance-risk-avoidance needs-std-dev
+    set importance-weight-autonomy clamp 0.01 1 random-normal importance-autonomy needs-std-dev
+    set importance-weight-food-safety 1
+    set importance-weight-financial-survival 1
+    set importance-weight-sleep 1
+    set importance-weight-health 1
+    set importance-weight-financial-safety clamp 0.01 1 random-normal importance-financial-safety needs-std-dev
+  ]]
 end
 
 to setup-relation-to-gathering-points

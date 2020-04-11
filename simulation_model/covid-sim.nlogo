@@ -37,7 +37,7 @@ to go-profile
     profiler:reset
   profiler:start
 
-  repeat 100 [go]
+  repeat 10 [go]
   export-profiling
 end
 
@@ -309,7 +309,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.21
+0.19
 0.01
 1
 NIL
@@ -324,7 +324,7 @@ density-factor-homes
 density-factor-homes
 0
 1
-1.0
+0.96
 0.01
 1
 NIL
@@ -430,7 +430,7 @@ density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
 1
-0.71
+0.79
 0.01
 1
 NIL
@@ -1065,7 +1065,7 @@ PLOT
 9
 768
 520
-918
+1087
 Average need satisfaction
 time
 need satisfaction
@@ -1077,11 +1077,17 @@ true
 true
 "" ""
 PENS
-"belonging" 1.0 0 -16777216 true "" "plot mean [belonging-need-satisfaction] of people"
-"safety" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
-"autonomy" 1.0 0 -955883 true "" "plot mean [autonomy-need-satisfaction] of people"
-"self-esteem" 1.0 0 -13840069 true "" "plot mean [self-esteem-need-satisfaction] of people"
-"survival" 1.0 0 -2674135 true "" "plot mean [survival-need-satisfaction] of people"
+"belonging" 1.0 0 -16777216 true "" "plot mean [belonging-satisfaction-level] of people"
+"risk avoidance" 1.0 0 -13345367 true "" "plot mean [risk-avoidance-satisfaction-level] of people"
+"autonomy" 1.0 0 -955883 true "" "plot mean [autonomy-satisfaction-level] of people"
+"luxury" 1.0 0 -8330359 true "" "plot mean [luxury-satisfaction-level] of people"
+"health" 1.0 0 -2674135 true "" "plot mean [health-satisfaction-level] of people"
+"sleep" 1.0 0 -7500403 true "" "plot mean [sleep-satisfaction-level] of people"
+"compliance" 1.0 0 -6459832 true "" "plot mean [compliance-satisfaction-level] of people"
+"financial-safety" 1.0 0 -1184463 true "" "plot mean [financial-safety-satisfaction-level] of people"
+"food-safety" 1.0 0 -14439633 true "" "plot mean [food-safety-satisfaction-level] of people"
+"leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
+"financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people"
 
 SLIDER
 982
@@ -1131,29 +1137,6 @@ count people with [[gathering-type] of current-activity = \"non-essential-shop\"
 1
 11
 
-PLOT
-8
-921
-520
-1071
-Average safety needs satisfaction
-time
-satisfaction
-0.0
-10.0
-0.0
-1.0
-true
-true
-"" ""
-PENS
-"Combined" 1.0 0 -13345367 true "" "plot mean [safety-need-satisfaction] of people"
-"compliance" 1.0 0 -13840069 true "" "plot mean [compliance-need-satisfaction] of people"
-"risk avoidance" 1.0 0 -2674135 true "" "plot mean [risk-avoidance-need-satisfaction] of people"
-"food-safety" 1.0 0 -5325092 true "" "plot mean [food-safety-need-satisfaction] of people"
-"financial-survival" 1.0 0 -5825686 true "" "plot mean [financial-survival-need-satisfaction] of people with [age != \"youth\"]"
-"financial-safety" 1.0 0 -8990512 true "" "plot mean [financial-safety-need-satisfaction] of people with [age != \"youth\"]"
-
 SWITCH
 1075
 34
@@ -1164,17 +1147,6 @@ with-infected?
 0
 1
 -1000
-
-MONITOR
-526
-922
-593
-967
-autonomy
-mean [autonomy-need-satisfaction] of people
-3
-1
-11
 
 MONITOR
 1236
@@ -1676,26 +1648,6 @@ price-of-rations-in-essential-shops
 NIL
 HORIZONTAL
 
-PLOT
-598
-924
-1008
-1074
-Average self-esteem needs satisfaction
-time
-satisfaction
-0.0
-10.0
-0.0
-1.0
-true
-true
-"" ""
-PENS
-"combined" 1.0 0 -16777216 true "" "plot mean [self-esteem-need-satisfaction] of people"
-"relaxing" 1.0 0 -13840069 true "" "plot mean [relaxing-need-satisfaction] of people"
-"luxury" 1.0 0 -955883 true "" "plot mean [luxury-need-satisfaction] of people"
-
 SLIDER
 1334
 419
@@ -2081,7 +2033,7 @@ starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
 100
-75.0
+73.0
 1
 1
 NIL
@@ -2684,7 +2636,7 @@ ratio-children-shared-car
 ratio-children-shared-car
 0
 1
-1.0
+0.93
 0.01
 1
 NIL
@@ -2792,7 +2744,7 @@ density-when-queuing
 density-when-queuing
 0
 1
-0.6
+0.59
 0.01
 1
 NIL
@@ -2807,7 +2759,7 @@ density-in-public-transport
 density-in-public-transport
 0
 1
-0.3
+0.25
 0.01
 1
 NIL
@@ -2822,7 +2774,7 @@ density-in-shared-cars
 density-in-shared-cars
 0
 1
-0.8
+0.75
 0.01
 1
 NIL
@@ -2909,6 +2861,187 @@ NIL
 NIL
 NIL
 NIL
+1
+
+SWITCH
+2024
+73
+2127
+106
+culture?
+culture?
+0
+1
+-1000
+
+CHOOSER
+1955
+129
+2093
+174
+national_culture
+national_culture
+"Netherlands" "United States" "China" "Russia"
+0
+
+SLIDER
+1952
+180
+2126
+213
+uncertainty-avoidance
+uncertainty-avoidance
+0
+100
+53.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2135
+179
+2324
+212
+individualism-vs-collectivism
+individualism-vs-collectivism
+0
+100
+80.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1953
+223
+2125
+256
+power-distance
+power-distance
+0
+100
+38.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2135
+225
+2324
+258
+indulgence-vs-restraint
+indulgence-vs-restraint
+0
+100
+68.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1953
+270
+2127
+303
+masculinity-vs-femininity
+masculinity-vs-femininity
+0
+100
+14.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2138
+270
+2324
+303
+long-vs-short-termism
+long-vs-short-termism
+0
+100
+67.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2100
+130
+2223
+163
+value-std-dev
+value-std-dev
+0
+20
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1952
+318
+2175
+351
+value-system-calibration-factor
+value-system-calibration-factor
+0
+40
+25.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1951
+365
+2123
+398
+survival-multiplier
+survival-multiplier
+0
+3
+1.5
+0.1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2132
+366
+2304
+399
+maslow-multiplier
+maslow-multiplier
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+1958
+74
+2018
+106
+Cultural\nDimension
+13
+34.0
 1
 
 @#$#@#$#@

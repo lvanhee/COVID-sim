@@ -1,44 +1,6 @@
-;;See Maslow structure for further indication (the first lines are "strong" override while others are more fuzzy and culturally-sensitive)
-;;survival needs differ from safety in that they are related to the urgency of physiological risk where safety is rather a matter of general anxiety
+__includes ["cultural_dimension.nls"]
 
-
-;;I set food safety need satisfaction with a "min" operator as it tends to override other needs
-;;risk avoidance might be a second option. Though, risk-compliance makes it for a poor proxy; as "safety = risk-avoidance"
-;;a more specific concept would be appropriate (e.g. "contagion-safety" for instance, I let you adapt depending on what you want to represent with this variable).
-to-report safety-need-satisfaction
-  let physiological-needs (list food-safety-need-satisfaction)
-  let importances-physiological-needs (list my-importance-for-food-safety-needs)
-  
-  let psychological-needs (list compliance-need-satisfaction risk-avoidance-need-satisfaction)
-  let importances-psychological-needs (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs)
-  
-  if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
-    set physiological-needs fput financial-survival-need-satisfaction physiological-needs
-    set importances-physiological-needs fput my-importance-for-financial-survival-needs importances-physiological-needs
-    
-    set psychological-needs fput financial-safety-need-satisfaction psychological-needs
-    set importances-psychological-needs fput my-importance-for-financial-safety-needs importances-psychological-needs
-  ]
-  report 
-  min (list 
-    min physiological-needs
-    weighted-mean psychological-needs importances-psychological-needs
-    )
-end
-
-to-report self-esteem-need-satisfaction
-  let needs (list relaxing-need-satisfaction)
-  let importances (list my-importance-for-relaxing-needs)
-  if is-young? [
-    set needs fput luxury-need-satisfaction needs
-    set importances fput my-importance-for-luxury-needs importances
-  ]
-  report weighted-mean needs importances
-end
-
-;;to be updated later on:
-
-to-report survival-need-satisfaction
+to-report health-satisfaction-level
   ;;constant value set to average
   ;;survival needs often revolve around short-term temporality (e.g. stopping to breath)
   if is-believing-to-be-infected?
@@ -53,35 +15,10 @@ to-report survival-need-satisfaction
   report 1
 end
 
-to-report expected-undiscounted-survival-needs-satisfaction-increase-for-playing [ad]
-  report expected-undiscounted-healthcare-need-satisfaction ad
-end
-
-to-report expected-undiscounted-healthcare-need-satisfaction [ad]
-  
-  ifelse is-believing-to-be-infected? or has-internally-visible-symptoms?
-  [
-    if is-observing-critical-symptoms? [
-      if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
-      [report .8]
-      report 0
-    ]
-    
-    if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
-    [
-      report .3
-    ]
-    if is-rest-at-home-descriptor? ad
-    [ report 0.2 ]
-    report 0
-  ]
-  ;;can be updated if agents start to be deprived from sleep, not needed at the moment
-  [report 1]
-end
 
 ;;here, food-safety is rather a subaspect of safety (more cognitive, worries about the future)
 ;;TBU: should be dependent on the current plan, i.e. acquiring food should be expected to lower this need
-to-report food-safety-need-satisfaction
+to-report food-safety-satisfaction-level
   if is-currently-being-treated-at-hospital? [
     report 1
   ]
@@ -89,10 +26,56 @@ to-report food-safety-need-satisfaction
 end
 
 
-to-report financial-survival-need-satisfaction
+to-report financial-survival-satisfaction-level
   report clamp 0 1 (my-amount-of-capital / (price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops))
 end
 
-to-report financial-safety-need-satisfaction
+to-report financial-safety-satisfaction-level
   report ifelse-value my-previous-amount-of-capital > 0 [clamp 0 1 (my-amount-of-capital / my-previous-amount-of-capital)] [0]
+end
+
+
+to-report SDE-survival [ad]
+  let physiological-needs (list 
+    SDE-food-safety ad 
+    SDE-health ad
+    SDE-sleep ad  
+  )
+  if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
+    set physiological-needs fput (SDE-financial-survival ad) physiological-needs
+  ]
+  report max physiological-needs
+end
+
+to-report SDE-safety [ad]
+  ; Using min here the value is always zero (food can only go up when they go to the store, but that lowers compliance/risk avoidance).
+  ; The actual solution is to fully recalculate what safety would be after doing the action based on the satisfaction-gains calculated,
+  ;  pick the lowest one, and take the difference between that and current satisfaction
+  
+  let psychological-needs (list
+    (SDE-compliance ad)
+    (SDE-risk-avoidance ad)
+  )
+  let importances-psychological-needs (list importance-weight-compliance importance-weight-risk-avoidance)
+
+  if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
+    set psychological-needs fput (SDE-financial-safety ad) psychological-needs
+    set importances-psychological-needs fput importance-weight-financial-safety importances-psychological-needs
+  ]
+
+  report weighted-mean psychological-needs importances-psychological-needs
+  
+end
+
+to-report SDE-self-esteem [ad]
+  let needs (list 
+  SDE-leisure ad
+  SDE-autonomy ad)
+  let importances (list importance-weight-leisure importance-weight-autonomy)
+  if age != "young" [
+    set needs fput (SDE-luxury ad) needs
+    set importances fput importance-weight-luxury importances
+  ]
+  report weighted-mean needs importances
+  
 end
