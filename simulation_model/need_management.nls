@@ -1,30 +1,37 @@
 __includes ["need_definition.nls"]
 ;might be to be updated later on, as need satisfaction depends on the consequences of your action rather than on your intent
 ;e.g. visiting a shop should not satisfy one's safety needs if this shop is empty
+
+;LEGENDA
+; Every subneed consist of a following variables:
+; SWDE-[Need]: the expected weighted discounted satisfaction gain for a need after performing an action. This is equal to SDE-[Need] * importance-weight-[Need]
+; SDE-[Need]: the expected discounted satisfaction gain for a need after performing an action. This is equal to the SUE-[Need]*urgency-[Need]
+; SUE-[Need]: The expected undiscounted satisfaction gain for a need after performing an action. 
+; urgency-[Need]: Is the urgency of satisfaction a need. Equal to (1 - [Need]-satisfaction-level)
+; importance-weight-[Need]: Importance-weight
+; SUA-[Need]: The actual undiscounted satisfaction gain for a need after performing an action.
+; SDA-[Need]: The actual discounted satisfaction gain for a need after performing an action. This is equal to the SUA-[Need]/SUE-[Need] * urgency-[Need].
+
+
 to update-needs-for-playing [current-activity-descriptor]
-  decay-need-satisfaction
+  decay-satisfaction-level
 
-  set belonging-need-satisfaction
-  belonging-need-satisfaction + my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played current-activity-descriptor
-  if belonging-need-satisfaction > 1 [set belonging-need-satisfaction 1]
+  set belonging-satisfaction-level clamp 0 1 (belonging-satisfaction-level + SDA-belonging current-activity-descriptor)
+ 
+  set compliance-satisfaction-level clamp 0 1 (compliance-satisfaction-level + SDE-compliance current-activity-descriptor)
 
-  set compliance-need-satisfaction clamp 0 1 (compliance-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-compliance-after-having-played current-activity-descriptor)
+  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDE-risk-avoidance current-activity-descriptor)
 
-  set risk-avoidance-need-satisfaction  clamp 0 1 (risk-avoidance-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played current-activity-descriptor)
+  set leisure-satisfaction-level clamp 0 1 (leisure-satisfaction-level + SDE-leisure current-activity-descriptor)
+  
+  set autonomy-satisfaction-level clamp 0 1 (autonomy-satisfaction-level + SDE-autonomy current-activity-descriptor)
+  
+  set sleep-satisfaction-level clamp 0 1 (sleep-satisfaction-level + SDE-sleep current-activity-descriptor)
+  
+  if age != "young" [
+  set luxury-satisfaction-level clamp 0 1 (luxury-satisfaction-level + SDA-luxury current-activity-descriptor)
+  ]
 
-  set relaxing-need-satisfaction relaxing-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played current-activity-descriptor
-  if relaxing-need-satisfaction > 1 [set relaxing-need-satisfaction 1]
-
-  set luxury-need-satisfaction luxury-need-satisfaction +
-  my-actual-discounted-satisfaction-gain-for-luxury-after-having-played current-activity-descriptor
-  if luxury-need-satisfaction > 1 [set luxury-need-satisfaction 1]
-
-  set autonomy-need-satisfaction autonomy-need-satisfaction +
-  my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played current-activity-descriptor
-  if autonomy-need-satisfaction > 1 [set autonomy-need-satisfaction 1]
 end
 
 
@@ -33,32 +40,34 @@ end
 ;--need decay should decrease over time when not taken care of
 ;--special situations can lead to special decay (e.g. breaking an army-enforced lock in should hurt badly the satisfaction of safety needs)
 ;[the previous point might call for the introduction of the person's context later on]
-to decay-need-satisfaction
+to decay-satisfaction-level
   let belonging-decay 0.02
   if any? my-relatives and days-since-seen-relatives > 0 [set belonging-decay belonging-decay * 1.5]
   if any? my-colleagues and days-since-seen-colleagues > 0 [set belonging-decay belonging-decay * 1.5]
   if days-since-seen-friends > 0 [set belonging-decay belonging-decay * 1.5]
 
-  set belonging-need-satisfaction belonging-need-satisfaction - belonging-decay
-  if belonging-need-satisfaction < 0 [set belonging-need-satisfaction 0]
+  set belonging-satisfaction-level belonging-satisfaction-level - belonging-decay
+  if belonging-satisfaction-level < 0 [set belonging-satisfaction-level 0]
 
-  set compliance-need-satisfaction compliance-need-satisfaction * 0.8
-  if compliance-need-satisfaction < 0 [set compliance-need-satisfaction 0]
+  set compliance-satisfaction-level compliance-satisfaction-level * 0.8
+  if compliance-satisfaction-level < 0 [set compliance-satisfaction-level 0]
 
-  set risk-avoidance-need-satisfaction risk-avoidance-need-satisfaction * 0.8
-  if risk-avoidance-need-satisfaction < 0 [set risk-avoidance-need-satisfaction 0]
+  set leisure-satisfaction-level leisure-satisfaction-level * 0.95
+  if leisure-satisfaction-level < 0 [set leisure-satisfaction-level 0]
+  
+  set sleep-satisfaction-level sleep-satisfaction-level * 0.8 
+  if sleep-satisfaction-level < 0 [set sleep-satisfaction-level 0]
 
-  set relaxing-need-satisfaction relaxing-need-satisfaction * 0.8
-  if relaxing-need-satisfaction < 0 [set relaxing-need-satisfaction 0]
-
-  set luxury-need-satisfaction luxury-need-satisfaction * 0.98
-  if luxury-need-satisfaction < 0 [set luxury-need-satisfaction 0]
+  if age != "young" [
+  set luxury-satisfaction-level luxury-satisfaction-level * 0.98
+  if luxury-satisfaction-level < 0 [set luxury-satisfaction-level 0]
+  ]
 end
 
 ;Future work:
 ;update these numbers based on how many people are actually met when moving
 ;include networks and joint meetings
-to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-belonging [ad]
   let gp location-of ad
   let motive motive-of ad
 
@@ -116,7 +125,7 @@ to-report expected-undiscounted-belonging-needs-satisfaction-increase-for-playin
   report base * network-bonus * social-distancing-cut
 end
 
-to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing [ad]
+to-report SUA-belonging [ad]
   let gp location-of ad
   let motive motive-of ad
 
@@ -153,7 +162,7 @@ to-report actual-undiscounted-belonging-needs-satisfaction-increase-for-playing 
   report base * network-bonus * social-distancing-cut
 end
 
-to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-risk-avoidance [ad]
   let gp location-of ad
   let motive motive-of ad
   let result 0.1
@@ -171,9 +180,9 @@ to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-p
       let number [expected-number-of-other-participants] of gp
       if number = 0 [set result 0.2 ]
       if number < 5 [set result 0.1 ]
-      if number < 10 [set result 0.05 ]
-      if number < 20 [set result 0]
-      set result -0.1
+      if number < 10 [set result -0.1 ]
+      if number < 20 [set result -0.2]
+      set result -0.3
     ]
   ]
 
@@ -185,7 +194,7 @@ to-report expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-p
   report result
 end
 
-to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-compliance [ad]
   let gp location-of ad
   let motive motive-of ad
 
@@ -257,7 +266,7 @@ to-report expected-undiscounted-compliance-needs-satisfaction-increase-for-playi
 end
 
 ; The agents expect to get food for seven days at a time
-to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-food-safety [ad]
   let motive motive-of ad
   if motive = "essential shopping" [
     let available-food-days [available-food-rations] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food-rations]
@@ -269,11 +278,22 @@ to-report expected-undiscounted-food-safety-needs-satisfaction-increase-for-play
   report 0
 end
 
-to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-leisure [ad]
   let gp location-of ad
   let motive motive-of ad
 
-  if motive = "rest" [
+
+  if motive = "relaxing" [
+    report 0.2
+  ]
+  report 0
+end
+
+to-report SUE-sleep [ad]
+ let gp location-of ad
+  let motive motive-of ad 
+  
+    if motive = "rest" [
     if slice-of-the-day = "night" [
       report ifelse-value has-internally-visible-symptoms? [ 0.6 ] [ 0.8 ]
     ]
@@ -285,29 +305,31 @@ to-report expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing
     ]
     report 0.15
   ]
-  if motive = "relaxing" [
-    report 0.2
+  report 0
+  
+end
+
+
+to-report SUE-luxury [ad]
+  if age != "young" [
+    let gp location-of ad
+    let motive motive-of ad
+    
+    if motive = "shopping" [
+      report 0.4
+    ]
+    report 0
   ]
   report 0
 end
 
-to-report expected-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad]
-  let gp location-of ad
-  let motive motive-of ad
-
-  if motive = "shopping" [
-    report 0.4
-  ]
-  report 0
-end
-
-to-report actual-undiscounted-luxury-needs-satisfaction-increase-for-playing [ad]
+to-report SUA-luxury [ad]
   let result min (list (amount-of-last-luxury-items-bought / 7) 1) * 0.4
   set amount-of-last-luxury-items-bought 0
   report result
 end
 
-to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-autonomy [ad]
   let gp location-of ad
   let motive motive-of ad
 
@@ -338,27 +360,31 @@ to-report expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing
   report 0
 end
 
-to-report expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing [ad]
-  let gp location-of ad
-  let motive motive-of ad
-  let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
-
-  if is-I-have-contractual-obligations? [
-    if gp = my-work [
-      report min (list (my-expected-income / eating-costs) 1)
+to-report SUE-financial-survival [ad]
+  if age != "young" [
+    let gp location-of ad
+    let motive motive-of ad
+    let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
+    
+    if is-I-have-contractual-obligations? [
+      if gp = my-work [
+        report min (list (my-expected-income / eating-costs) 1)
+      ]
+      report max (list ((- my-expected-income) / eating-costs) 0)
     ]
-    report max (list ((- my-expected-income) / eating-costs) 0)
-  ]
-  if motive = "essential shopping" [
-    report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
-  ]
-  if motive = "shopping" [
-    report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops) / eating-costs) 1))
+    if motive = "essential shopping" [
+      report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
+    ]
+    if motive = "shopping" [
+      report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops) / eating-costs) 1))
+    ]
+    report 0
   ]
   report 0
 end
 
-to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing [ad]
+to-report SUE-financial-safety [ad]
+  if age != "young" [
   let gp location-of ad
   let motive motive-of ad
   let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
@@ -377,187 +403,155 @@ to-report expected-undiscounted-financial-safety-needs-satisfaction-increase-for
   if motive = "shopping" [
     report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-previous-amount-of-capital))
   ]
+    report 0
+  ]
   report 0
 end
 
 
+to-report SUE-health [ad]
+  ifelse is-believing-to-be-infected? or has-internally-visible-symptoms?
+  [
+    if is-observing-critical-symptoms? [
+      if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
+      [report .8]
+      report 0
+    ]
+    
+    if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
+    [
+      report .3
+    ]
+    if is-rest-at-home-descriptor? ad
+    [ report 0.2 ]
+    report 0
+  ]
+  ;;can be updated if agents start to be deprived from sleep, not needed at the moment
+  [report 1]
+ 
+end
+
 to-report global-prevalence-of [ad]
   reset-timer
-  let belonging-needs my-current-expected-prevalence-of-belonging-needs ad
-
-  let safety-needs my-current-prevalence-of-safety-needs ad
-
-  let self-esteem-needs my-current-prevalence-of-self-esteem-needs ad
-  let autonomy-needs my-current-prevalence-of-autonomy-needs ad
-  let survival-needs my-current-prevalence-of-survival-needs ad
-
-  let total-satisfaction
-  belonging-needs
-  +
-  safety-needs
-  +
-  self-esteem-needs
-  +
-  autonomy-needs
-  +
-  survival-needs
-
-
-
+  let total-satisfaction 0
+  ifelse culture? 
+  [set total-satisfaction sum (list
+    (SDE-food-safety ad * importance-weight-food-safety) 
+    (SDE-financial-survival ad * importance-weight-financial-survival) 
+    (SDE-risk-avoidance ad * importance-weight-health) 
+    (SDE-sleep ad * importance-weight-sleep) 
+    (SDE-compliance ad * importance-weight-compliance) 
+    (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
+    (SDE-financial-safety ad * importance-weight-financial-safety) 
+    (SDE-belonging ad * importance-weight-belonging)
+    (SDE-autonomy ad * importance-weight-autonomy) 
+    (SDE-luxury ad * importance-weight-luxury) 
+    (SDE-leisure ad * importance-weight-leisure) 
+    (SDE-sleep ad * importance-weight-sleep) 
+    (SDE-sleep ad * importance-weight-sleep)) 
+  ]
+    
+  [ 
+    ;; SDE-survival, SDE-safety, SDE-belonging, SDE-self-esteem are only used in the non-culture needs model and are located in need_defintion.nls
+    set total-satisfaction sum (list
+    (importance-weight-survival * SDE-survival ad) 
+    (importance-weight-safety * SDE-safety ad)
+    (importance-weight-belonging * SDE-belonging ad)
+    (importance-weight-self-esteem * SDE-self-esteem ad))
+  ]
+  
+ debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
+  report total-satisfaction
+  
   ;should be expanded with new needs as they are added
 
-  debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
-  report total-satisfaction
 end
 
-;simple direct linear translation; experience shows that sigmoid functions are good candidates
-to-report my-current-expected-prevalence-of-belonging-needs [ad]
-  let result
-  my-importance-for-belonging-needs * my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played ad
-  report result
-end
+;;; SDE and SDA SURVIVAL NEEDS
 
-
-
-;simple direct linear translation; experience shows that sigmoid functions are good candidates
-;likewise, it can be based on recen experience from the agent (e.g. being reminded by a high-status figure to comply to a given rule)
-to-report my-current-prevalence-of-safety-needs [ad]
-  report my-importance-for-safety-needs * (my-expected-discounted-satisfaction-gain-for-safety-after-having-played ad)
-end
-
-to-report my-current-prevalence-of-survival-needs [ad]
-  report my-importance-for-survival-needs * (my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played ad)
-end
-
-to-report my-current-prevalence-of-self-esteem-needs [ad]
-  report my-importance-for-self-esteem-needs * (my-expected-discounted-satisfaction-gain-for-self-esteem-after-having-played ad)
-end
-
-to-report my-expected-discounted-satisfaction-gain-for-survival-needs-after-having-played [ad]
-  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - survival-need-satisfaction)
+to-report SDE-health [ad]
+  let expected-increase SUE-health ad
+  let discounted-increase expected-increase * (1 - health-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-current-prevalence-of-relaxing-needs [ad]
-  report my-importance-for-relaxing-needs * (my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played ad)
-end
-
-to-report my-current-prevalence-of-autonomy-needs [ad]
-  report my-importance-for-autonomy-needs * (my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played ad)
-end
-
-to-report my-expected-discounted-satisfaction-gain-for-self-esteem-after-having-played [ad]
-  let needs (list my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played ad)
-  let importances (list my-importance-for-relaxing-needs)
-  if age != "young" [
-    set needs fput (my-expected-discounted-satisfaction-gain-for-luxury-after-having-played ad) needs
-    set importances fput my-importance-for-luxury-needs importances
-  ]
-  report weighted-mean needs importances
-end
-
-to-report my-expected-discounted-satisfaction-gain-for-safety-after-having-played [ad]
-  ; Using min here the value is always zero (food can only go up when they go to the store, but that lowers compliance/risk avoidance).
-  ; The actual solution is to fully recalculate what safety would be after doing the action based on the satisfaction-gains calculated,
-  ;  pick the lowest one, and take the difference between that and current satisfaction
-  let physiological-needs (list my-expected-discounted-satisfaction-gain-for-food-safety-after-having-played ad)
-  let importances-physiological-needs (list my-importance-for-food-safety-needs)
-
-  let psychological-needs (list
-    (my-expected-discounted-satisfaction-gain-for-compliance-after-having-played ad)
-    (my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played ad)
-  )
-  let importances-psychological-needs (list my-importance-for-compliance-needs my-importance-for-risk-avoidance-needs)
-
-  if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
-    set physiological-needs fput (my-expected-discounted-satisfaction-gain-for-financial-survival-after-having-played ad) physiological-needs
-    set importances-physiological-needs fput my-importance-for-financial-survival-needs importances-physiological-needs
-
-    set psychological-needs fput (my-expected-discounted-satisfaction-gain-for-financial-safety-after-having-played ad) psychological-needs
-    set importances-psychological-needs fput my-importance-for-financial-safety-needs importances-psychological-needs
-  ]
-
-  report
-  max (list
-    max physiological-needs
-    weighted-mean psychological-needs importances-psychological-needs
-  )
-
-  ;  let expected-increase expected-undiscounted-compliance-needs-satisfaction-increase-for-playing activity-descriptor
-  ;  let discounted-increase expected-increase * (1 - compliance-need-satisfaction)
-;  report discounted-increase
-end
-
-to-report my-expected-discounted-satisfaction-gain-for-compliance-after-having-played [ad]
-  let expected-increase expected-undiscounted-compliance-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - compliance-need-satisfaction)
+to-report SDE-food-safety [ad]
+  let expected-increase SUE-food-safety ad
+  let discounted-increase expected-increase * (1 - food-safety-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-risk-avoidance-after-having-played [ad]
-  let expected-increase expected-undiscounted-risk-avoidance-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - risk-avoidance-need-satisfaction)
+to-report SDE-financial-survival [ad]
+  let expected-increase SUE-financial-survival ad
+  let discounted-increase expected-increase * (1 - financial-survival-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-survival-after-having-played [ad]
-  let expected-increase expected-undiscounted-survival-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - survival-need-satisfaction)
+to-report SDE-sleep [ad]
+  let expected-increase SUE-sleep ad
+  let discounted-increase expected-increase * (1 - sleep-satisfaction-level)
   report discounted-increase
 end
 
-to-report  my-expected-discounted-satisfaction-gain-for-belonging-needs-after-having-played [ad]
-  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
+;;; SDE and SDA SAFETY NEEDS
+
+to-report SDE-financial-safety [ad]
+  let expected-increase SUE-financial-safety ad
+  let discounted-increase expected-increase * (1 - financial-safety-satisfaction-level)
   report discounted-increase
 end
 
-to-report  my-actual-discounted-satisfaction-gain-for-belonging-needs-after-having-played [ad]
-  let expected-increase expected-undiscounted-belonging-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - belonging-need-satisfaction)
+to-report SDE-compliance [ad]
+  let expected-increase SUE-compliance ad
+  let discounted-increase expected-increase * (1 - compliance-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-relaxing-after-having-played [ad]
-  let expected-increase expected-undiscounted-relaxing-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - relaxing-need-satisfaction)
+to-report SDE-risk-avoidance [ad]
+  let expected-increase SUE-risk-avoidance ad
+  let discounted-increase expected-increase * (1 - risk-avoidance-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-luxury-after-having-played [ad]
-  let expected-increase expected-undiscounted-luxury-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - luxury-need-satisfaction)
+;;; SDE and SDA BELONGING NEEDS
+
+to-report SDE-belonging [ad]
+  let expected-increase SUE-belonging ad
+  let discounted-increase expected-increase * (1 - belonging-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-actual-discounted-satisfaction-gain-for-luxury-after-having-played [ad]
-  let actual-increase actual-undiscounted-luxury-needs-satisfaction-increase-for-playing ad
-  let discounted-increase actual-increase * (1 - luxury-need-satisfaction)
+to-report  SDA-belonging [ad]
+  let expected-increase SUA-belonging ad
+  let discounted-increase expected-increase * (1 - belonging-satisfaction-level)
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-autonomy-after-having-played [ad]
-  let expected-increase expected-undiscounted-autonomy-needs-satisfaction-increase-for-playing ad
+;;; SDE and SDA SELF-ESTEEM NEEDS
+
+to-report SDE-leisure [ad]
+  let expected-increase SUE-leisure ad
+  let discounted-increase expected-increase * (1 - leisure-satisfaction-level)
+  report discounted-increase
+end
+
+to-report SDE-luxury [ad]
+  let expected-increase SUE-luxury ad
+  let discounted-increase expected-increase * (1 - luxury-satisfaction-level)
+  report discounted-increase
+end
+
+to-report SDA-luxury [ad]
+  let actual-increase SUA-luxury ad
+  let discounted-increase actual-increase * (1 - luxury-satisfaction-level)
+  report discounted-increase
+end
+
+to-report SDE-autonomy [ad]
+  let expected-increase SUE-autonomy ad
   let discounted-increase expected-increase
-  if expected-increase > 0 [ set discounted-increase expected-increase * (1 - autonomy-need-satisfaction) ]
+  if expected-increase > 0 [ set discounted-increase expected-increase * (1 - autonomy-satisfaction-level) ]
   report discounted-increase
 end
 
-to-report my-expected-discounted-satisfaction-gain-for-food-safety-after-having-played [ad]
-  let expected-increase expected-undiscounted-food-safety-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - food-safety-need-satisfaction)
-  report discounted-increase
-end
 
-to-report my-expected-discounted-satisfaction-gain-for-financial-survival-after-having-played [ad]
-  let expected-increase expected-undiscounted-financial-survival-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - financial-survival-need-satisfaction)
-  report discounted-increase
-end
-
-to-report my-expected-discounted-satisfaction-gain-for-financial-safety-after-having-played [ad]
-  let expected-increase expected-undiscounted-financial-safety-needs-satisfaction-increase-for-playing ad
-  let discounted-increase expected-increase * (1 - financial-safety-need-satisfaction)
-  report discounted-increase
-end

@@ -1,0 +1,433 @@
+to setup-importances-based-on-culture
+  load-nations-hofstede-dimension-scores
+  map-hofstede-dimensions-to-schwartz-values
+  configure-agent-value-systems
+  calibrate-importance-weights-of-needs
+  set-initial-need-satisfaction-levels
+end
+
+to set-initial-need-satisfaction-levels
+  ;These are the water tank needs with random starting values
+  ;The water tanks for financial safety, financial survival, health are located in the need_defintion.nls file
+
+ 
+  ask people [
+  ;Initiate need satisfaction levels (i.e. fill up watertanks)
+  ;SURVIVAL:
+   set sleep-satisfaction-level random-float 0.2 + 0.8
+
+  ;SAFETY:
+  set risk-avoidance-satisfaction-level random-float 0.5 + 0.5
+   set compliance-satisfaction-level random-float 0.5 + 0.5
+
+  ;BELONGING:
+  set belonging-satisfaction-level random-float 0.5 + 0.5
+
+  ;SELF-ESTEEM:
+  set leisure-satisfaction-level random-float 0.3 + 0.7
+  set luxury-satisfaction-level random-float 0.3 + 0.7
+  set autonomy-satisfaction-level 0.95
+ 
+  
+  set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
+  set is-I-apply-social-distancing? is-social-distancing-measure-active?
+    
+  ]
+
+end
+
+to calibrate-importance-weights-of-needs
+
+  ;These are the water tank needs with random starting values (the other water tanks: financial safety, financial are calculated and located in the need_defintion.nls file):
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;; CULTURAL MODEL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ; *** FINISH THIS PART: HOW DO VALUES MAP ONTO IMPORTANCE WEIGHTS ***
+  ;For each agent: set the importance ascribed to its needs
+
+  ask people [
+    ;initiate maslow-based importance weights for the maslow need categories
+    let weight-esteem 1
+    let weight-belonging weight-esteem * (1 + maslow-multiplier)
+    let weight-safety weight-belonging * (1 + maslow-multiplier)
+    let weight-survival weight-safety * ((1 + maslow-multiplier) * survival-multiplier)
+
+    let number-of-survival-needs 4
+    let weight-survival-needs 1 / number-of-survival-needs
+
+    ;Set importance weights of subneeds of SURVIVAL (sum of weights must equal 'weight-survival')
+    set importance-weight-food-safety (weight-survival-needs * weight-survival)
+    set importance-weight-financial-survival (weight-survival-needs * weight-survival)
+    set importance-weight-health (weight-survival-needs * weight-survival)
+    set importance-weight-sleep (weight-survival-needs * weight-survival)
+
+    ;Set importance weights of subneeds of SAFETY (sum of weights must equal 'weight-safety')
+    let safety-needs-standardizer sum (list power security conformity-tradition)
+    set importance-weight-financial-safety power / safety-needs-standardizer
+    set importance-weight-risk-avoidance security / safety-needs-standardizer
+    set importance-weight-compliance conformity-tradition / safety-needs-standardizer
+
+    ;Set importance weights of subneeds of BELONGING (sum of weights must equal 'weight-belonging')
+    set importance-weight-belonging ((benevolence + conformity-tradition) / (2 * 100)) * weight-belonging
+
+    ;Set importance weights of subneeds of ESTEEM
+    set importance-weight-luxury ((hedonism + power) / 2)
+    set importance-weight-leisure ((hedonism + stimulation) / 2)
+    set importance-weight-autonomy ((self-direction + achievement) / 2)
+    ;standardize & scale weights of esteem subneeds (i.e. sum of weights must equal 'weight-esteem')
+    let esteem-needs-standardizer sum (list importance-weight-luxury importance-weight-leisure importance-weight-autonomy)
+    set importance-weight-luxury (importance-weight-luxury / esteem-needs-standardizer) * weight-esteem
+    set importance-weight-leisure (importance-weight-leisure / esteem-needs-standardizer) * weight-esteem
+    set importance-weight-autonomy (importance-weight-autonomy / esteem-needs-standardizer) * weight-esteem
+
+    let total-of-weights sum (list
+      importance-weight-food-safety
+      importance-weight-financial-survival
+      importance-weight-health
+      importance-weight-sleep
+      importance-weight-financial-safety
+      importance-weight-risk-avoidance
+      importance-weight-compliance
+      importance-weight-belonging
+      importance-weight-luxury
+      importance-weight-leisure
+      importance-weight-autonomy
+    )
+
+    ;Normalize all the importance weights so that they sum up to 1
+    set importance-weight-food-safety (importance-weight-food-safety / total-of-weights)
+    set importance-weight-financial-survival (importance-weight-financial-survival / total-of-weights)
+    set importance-weight-health (importance-weight-health / total-of-weights)
+    set importance-weight-sleep (importance-weight-sleep / total-of-weights)
+    set importance-weight-financial-safety (importance-weight-financial-safety / total-of-weights)
+    set importance-weight-risk-avoidance (importance-weight-risk-avoidance / total-of-weights)
+    set importance-weight-compliance (importance-weight-compliance / total-of-weights)
+    set importance-weight-belonging (importance-weight-belonging / total-of-weights)
+    set importance-weight-luxury (importance-weight-luxury / total-of-weights)
+    set importance-weight-leisure (importance-weight-leisure / total-of-weights)
+    set importance-weight-autonomy (importance-weight-autonomy / total-of-weights)
+
+  ]
+end
+
+;*** MAP HOFSTEDE DIMENSIONS TO INITIATION OF VALUE SYSTEMS ***
+to map-hofstede-dimensions-to-schwartz-values
+
+  let UAI_pos uncertainty-avoidance
+  let PDI_pos power-distance
+  let MAS_pos masculinity-vs-femininity
+  let IDV_pos individualism-vs-collectivism
+  let IVR_pos indulgence-vs-restraint
+  let LTO_pos long-vs-short-termism
+
+  let UAI_neg 100 - uncertainty-avoidance
+  let PDI_neg 100 - power-distance
+  let MAS_neg 100 - masculinity-vs-femininity
+  let IDV_neg 100 - individualism-vs-collectivism
+  let IVR_neg 100 - indulgence-vs-restraint
+  let LTO_neg 100 - long-vs-short-termism
+
+  let mean_HED (IDV_pos + IVR_pos) / 2
+  let mean_STM (IDV_pos + UAI_neg + PDI_neg ) / 3
+  let mean_SD (IDV_pos + UAI_neg + PDI_neg ) / 3
+  let mean_UNI (IDV_neg + UAI_neg + MAS_neg) / 3
+  let mean_BEN (IDV_neg + UAI_neg + MAS_neg) / 3
+  let mean_CT (IDV_neg + UAI_pos + PDI_pos + IVR_neg) / 4
+  let mean_SEC (IDV_neg + UAI_pos + PDI_pos) / 3
+  let mean_POW (IDV_pos + UAI_pos + MAS_pos) / 3
+  let mean_ACH (IDV_pos + MAS_pos) / 2
+
+  ask people [
+    set hedonism clamp 0 100 random-normal mean_HED value-std-dev
+    set stimulation clamp 0 100 random-normal mean_STM value-std-dev
+    set self-direction clamp 0 100 random-normal mean_SD value-std-dev
+    set universalism clamp 0 100 random-normal mean_UNI value-std-dev
+    set benevolence clamp 0 100 random-normal mean_BEN value-std-dev
+    set conformity-tradition clamp 0 100 random-normal mean_CT value-std-dev
+    set security clamp 0 100 random-normal mean_SEC value-std-dev
+    set power clamp 0 100 random-normal mean_POW value-std-dev
+    set achievement clamp 0 100 random-normal mean_ACH value-std-dev
+
+    set value-system (list hedonism stimulation self-direction universalism benevolence conformity-tradition security power achievement)
+  ]
+
+end
+
+;increase logical consistency of agent value systems
+to configure-agent-value-systems
+  ask people [
+    let values value-system
+
+    let N length values
+
+    let index 0
+    let index_i 0
+    let index_j 0
+
+    let Vi 0
+    let Vj 0
+    let Vi_update 0
+    let Vj_update 0
+
+    let calibrated-values []
+
+    while [index < N ] [
+      ;load unaltered Vi
+      set Vi item index values
+
+      ;walk through value system and compare each index the rest starting with item 0 thru length of list (9 values)
+      set index_i index
+      set index_j index_i + 1
+
+      while [index_j < N] [
+        ;load unaltered Vj
+        set Vj item index_j values
+
+        set Vi_update item 0 calibrate-value index_i index_j values
+        set Vj_update item 1 calibrate-value index_i index_j values
+
+        if Vi_update != Vi [
+          set values replace-item index_i values Vi_update
+;          show (word "Value " index_i " with level " Vi " is replaced with " Vi_update)
+          ;update Vi
+          set Vi Vi_update
+        ]
+
+        if Vj_update != Vj [
+          set values replace-item index_j values Vj_update
+;          show (word "Value " index_j " with level " Vj " is replaced with " Vj_update)
+        ]
+        set index_j index_j + 1
+      ]
+      set index index + 1
+    ]
+  ]
+end
+
+;the computational procedure within this report is based on Heidari et al. (2018)
+to-report calibrate-value [#index_i #index_j #value-system]
+
+  ;Load value levels into local variable
+  let V_i (item #index_i #value-system)
+  let V_j (item #index_j #value-system)
+
+  ;determine difference between indices (i.e. distance between values on the Schwartz circumplex)
+  let d_index abs (#index_i - #index_j)
+  ;determine difference in value levels
+  let d_V abs (V_i - V_j)
+  ;load calibration factor
+  let cf value-system-calibration-factor
+
+  ;initiate boundaries LB (lower bound), UB (upper bound) (this is based on condition 1; see Heidari et al., 2018)
+  let LB 0
+  let UB 0
+  let UB_i d_index * cf
+  let UB_j (10 - d_index) * cf
+
+  ifelse d_index <= 5 [
+    set UB UB_i
+  ][
+    set UB UB_j
+  ]
+
+  ;d_Vc is constrained (c) difference (d) between value levels (V)
+  let d_Vc 0
+  ifelse d_V > UB [
+    ;if difference between value levels is higher than UB, set dVc to UB
+   set d_Vc UB
+  ][
+    ;if difference between value levels is NOT higher than UB, set dVc to dV
+   set d_Vc d_V
+  ]
+
+  ;determine difference between unconstrained delta value levels [dV] and constrained delta value levels [dVc]
+  let diff_dV_dVc (d_V - d_Vc)
+
+  let delta 0
+
+  ;ONLY if dV > dVc, then values move closer towards one another as to respect the condition LB < dV < UB
+  if d_V > d_Vc [
+    set delta diff_dV_dVc / 2
+    ifelse V_i > V_j [
+      ;if Vi is larger than Vj, then Vi decreases and Vj increases
+      set V_i V_i - delta
+      set V_j V_j + delta
+    ][
+      ;if Vi is smaller than Vj, then Vi increases and Vj decreases
+      set V_i V_i + delta
+      set V_j V_j - delta
+    ]
+  ]
+
+  report (list V_i V_j)
+
+end
+
+to activate-decay-of-needs
+
+
+
+end
+
+
+
+;;This reporter procedure takes two (mutualistic) values as inputs and outputs their updated value levels
+;;Specifically, the EXECUTE-VALUE-MUTUALISM! computes the updated levels of a pair of mutualistic values that become more similar
+;to-report EXECUTE-VALUE-MUTUALISM! [#index1 #index2 #values]
+;  ;Load value levels into local variable
+;  let value1 (item #index1 #values)
+;  let value2 (item #index2 #values)
+;
+;  ;Determine 'extremeness' of value 1 (used to determine direction of convergence)
+;  let value1_extremity (value1 - 0.5)
+;  ;Determine 'extremeness' of value 2 (used to determine direction of convergence)
+;  let value2_extremity (value2 - 0.5)
+;
+;  ;Determine the difference between levels of value 1 and value 2 (used to determine strength of convergence)
+;  let value1_value2_diff abs (value1 - value2)
+;
+;  ;Initiate (local) delta variables
+;  let delta_value1 0
+;  let delta_value2 0
+;
+;  ;If balance of forces? Then values do not move towards one another
+;  if value1_extremity = value2_extremity [
+;    set delta_value1 0
+;    set delta_value2 0
+;  ]
+;  ;The global variable 'value_mutualism' modulates the strength of convergence between two mutualistic values.
+;  ;If value 1 is more extreme than value 2? Then value 2 will move towards value 1
+;  if abs value1_extremity > abs value2_extremity [
+;    set delta_value2 (value1_value2_diff * value_mutualism)
+;    if value1_extremity < 0 [set delta_value2 (delta_value2 * -1)]
+;  ]
+;  ;If value 1 is less extreme than value 2? Then value 1 will move towards value 2
+;  if abs value1_extremity < abs value2_extremity [
+;    set delta_value1 (value1_value2_diff * value_mutualism)
+;    if value2_extremity < 0 [set delta_value1 (delta_value1 * -1)]
+;  ]
+;  report list delta_value1 delta_value2
+;end
+;
+;
+;
+;
+;
+;
+;
+;
+;to-report EXECUTE-VALUE-ANTAGONISM! [#index1 #index2 #values_t1 #values_t0]
+;  ;Delta values will range from -0.2 to 0.2 (see 'execute-value-system-disruption' procedure)
+;  ;Determine change in value with index = #index1
+;  let delta_value1 (item #index1 #values_t1) - (item #index1 #values_t0)
+;  ;Determine change in value with index = #index2
+;  let delta_value2 (item #index2 #values_t1) - (item #index2 #values_t0)
+;
+;  ;Initiate local variables
+;  let effect_dv1_v2 0
+;  let effect_dv2_v1 0
+;  let value1_changed 0
+;  let value2_changed 0
+;
+;  ;Introduce a switch between executing this procedure in a multiplicative vs additive manner:
+;  let X "multiplicative"
+;  let Y "additive"
+;  ;VERIFIED: value systems seem to calibrate nicely using the additive calculation procedure (as checked via correlation matrices)
+;  let calculation_procedure Y
+;
+;  ;delta_value is positive when new value > old value ... delta_value negative when new value < old value
+;  ;NOTE: 'value_antagonism' modulates the strength of the effect of a change in a particular value on its respective antagonist
+;  if calculation_procedure = X [
+;    ;MULTIPLICATIVE:
+;
+;    ;When delta_value is positive, the antagonist's level will decrease
+;    ;When delta_value is negative, the antagonist's level will increase
+;
+;    ;Determine the effect of a change in value 1 (dv1) on value 2 (v2)
+;    set effect_dv1_v2 1 - (delta_value1 * (1 + value_antagonism))
+;    ;Determine the effect of a change in value 2 (dv2) on value 1 (v1)
+;    set effect_dv2_v1 1 - (delta_value2 * (1 + value_antagonism))
+;
+;    ;When value levels approach 0 or 1, their movement (the magnitude of change) towards extremity diminishes...
+;    ;...When this happens, antagonist values are not affected anymore...
+;    ;...In order to correct for this phenomenon, value levels that exceed 0.99 or fall below 0.01 exert a fixed influence on their antagonist.
+;    let fixed_effect 0.25
+;
+;    if (item #index1 #values_t1) >= 0.99 [set effect_dv1_v2 1 - fixed_effect]
+;    if (item #index1 #values_t1) <= 0.01 [set effect_dv1_v2 1 + fixed_effect]
+;
+;    if (item #index2 #values_t1) >= 0.99 [set effect_dv2_v1 1 - fixed_effect]
+;    if (item #index2 #values_t1) <= 0.01 [set effect_dv2_v1 1 + fixed_effect]
+;
+;    ;determine changed level of value with index 1 as a result of a change in index 2
+;    set value1_changed (SPECIFY-FLOOR-CEILING! ((item #index1 #values_t1) * effect_dv2_v1) 0.001 0.999)
+;    ;determine changed level of value with index 2 as a result of a change in index 1
+;    set value2_changed (SPECIFY-FLOOR-CEILING! ((item #index2 #values_t1) * effect_dv1_v2) 0.001 0.999)
+;  ]
+;  if calculation_procedure = Y [
+;    ;ADDITIVE:
+;
+;    ;When delta_value is positive, the antagonist's level will decrease
+;    ;When delta_value is negative, the antagonist's level will increase
+;
+;    ;Determine the effect of a change in value 1 (dv1) on value 2 (v2)
+;    set effect_dv1_v2 delta_value1 * value_antagonism
+;    ;Determine the effect of a change in value 2 (dv2) on value 1 (v1)
+;    set effect_dv2_v1 delta_value2 * value_antagonism
+;
+;    ;When value levels approach 0 or 1, their movement (the magnitude of change) towards extremity diminishes...
+;    ;...When this happens, antagonist values are not affected anymore...
+;    ;...In order to correct for this phenomenon, value levels that exceed 0.99 or fall below 0.01 exert a fixed influence on their antagonist.
+;    let fixed_effect 0.3
+;
+;    if (item #index1 #values_t1) >= 0.99 [set effect_dv1_v2 fixed_effect]
+;    if (item #index1 #values_t1) <= 0.01 [set effect_dv1_v2 -1 * fixed_effect]
+;
+;    if (item #index2 #values_t1) >= 0.99 [set effect_dv2_v1 fixed_effect]
+;    if (item #index2 #values_t1) <= 0.01 [set effect_dv2_v1 -1 * fixed_effect]
+;
+;    set value1_changed (SPECIFY-FLOOR-CEILING! ((item #index1 #values_t1) - effect_dv2_v1) 0.001 0.999)
+;    set value2_changed (SPECIFY-FLOOR-CEILING! ((item #index2 #values_t1) - effect_dv1_v2) 0.001 0.999)
+;  ]
+;  report list value1_changed value2_changed
+;end
+
+
+;scores taken from https://www.hofstede-insights.com/product/compare-countries/
+to load-nations-hofstede-dimension-scores
+  if national_culture = "Netherlands" [
+    set power-distance 38
+    set individualism-vs-collectivism 80
+    set masculinity-vs-femininity 14
+    set uncertainty-avoidance 53
+    set long-vs-short-termism 67
+    set indulgence-vs-restraint 68
+  ]
+
+  if national_culture = "United States" [
+    set power-distance 40
+    set individualism-vs-collectivism 91
+    set masculinity-vs-femininity 62
+    set uncertainty-avoidance 46
+    set long-vs-short-termism 26
+    set indulgence-vs-restraint 68
+  ]
+
+  if national_culture = "China" [
+    set power-distance 80
+    set individualism-vs-collectivism 20
+    set masculinity-vs-femininity 66
+    set uncertainty-avoidance 30
+    set long-vs-short-termism 87
+    set indulgence-vs-restraint 24
+  ]
+
+  if national_culture = "Russia" [
+    set power-distance 93
+    set individualism-vs-collectivism 39
+    set masculinity-vs-femininity 36
+    set uncertainty-avoidance 95
+    set long-vs-short-termism 81
+    set indulgence-vs-restraint 20
+  ]
+end

@@ -56,40 +56,72 @@ people-own [
   ;Regarding assumptions/scale, my gut feeling (to be checked against theory) is that available plans and need prevalence should evolve over time when the agent faces new situations
   ;Notably, new plans for satisfying should be learnable by agents (e.g. satisfying physical-activity needs might need some adaptation when locked in)
   ;and traumatic events or long-term deprivation should affect the need structure (e.g. food deprivation should dramatically bump up the prevalence of food safety, thus causing rush to supermarkets for instance)
+  ;;;;;;;; CULTURAL MODEL VARIABLES (by Amineh, Bart, Kurt) ;;;;;;;;
 
-  ;;need-related aspects
-  ;note that these terminal variables could/should eventually end-up as functions based on more specific needs
-  ;here are two needs for the sake of illustration
-  ;checkout the list of universal human needs for more ideas
-  ;these are two needs from Maslow
-  belonging-need-satisfaction
-  my-importance-for-belonging-needs
-  ; safety-need-satisfaction is a reporter
-  my-importance-for-safety-needs
-  my-importance-for-self-esteem-needs
-  autonomy-need-satisfaction
-  my-importance-for-autonomy-needs
+  ;SCHWARTZ VALUE VARIABLES
+  hedonism
+  stimulation
+  self-direction
+  universalism
+  benevolence
+  conformity-tradition
+  security
+  power
+  achievement
+
+  ;LISTS
+  value-system
+  
+  ;IMPORTANCE of BELONGING needs
+  importance-weight-belonging
+
+  ;IMPORTANCE of SURVIVAL needs
+  importance-weight-food-safety
+  importance-weight-financial-survival
+  importance-weight-health
+  importance-weight-sleep
+
+  ;IMPORTANCE of SAFET needs
+  importance-weight-financial-safety
+  importance-weight-risk-avoidance
+  importance-weight-compliance
+
+  ;IMPORTANCE of ESTEEM needs
+  importance-weight-luxury
+  importance-weight-leisure
+  importance-weight-autonomy
+
+  ;Need satisfaction levels (i.e. level of watertanks)
+  ;SURVIVAL:
+  sleep-satisfaction-level
+
+  ;SAFETY:
+  risk-avoidance-satisfaction-level
+  compliance-satisfaction-level
+
+  ;BELONGING:
+  belonging-satisfaction-level
+
+  ;SELF-ESTEEM:
+  leisure-satisfaction-level
+  luxury-satisfaction-level
+  autonomy-satisfaction-level
+  
+  ;FOR STANDARD NEED MODEL:
+  importance-weight-safety 
+  importance-weight-self-esteem 
+  importance-weight-belonging  
+  importance-weight-survival
+  
+  
   ; Variables for belonging needs
   social-distance-profile
   is-I-apply-social-distancing?
   days-since-seen-relatives
   days-since-seen-colleagues
   days-since-seen-friends
-  ; Subneeds of safety
-  compliance-need-satisfaction
-  my-importance-for-compliance-needs
-  my-importance-for-survival-needs ; survival-need-satisfaction is a reporter
-  risk-avoidance-need-satisfaction
-  my-importance-for-risk-avoidance-needs
-  my-importance-for-food-safety-needs
-  my-importance-for-financial-survival-needs
-  ;financial-safety-need-satisfaction
-  my-importance-for-financial-safety-needs
-  ; Subneeds for self esteem
-  relaxing-need-satisfaction
-  my-importance-for-relaxing-needs
-  luxury-need-satisfaction
-  my-importance-for-luxury-needs
+  
+  
   amount-of-last-luxury-items-bought
 
   my-amount-of-capital
