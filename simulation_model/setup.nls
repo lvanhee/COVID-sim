@@ -23,12 +23,13 @@ to setup
   set #dead-people 0
   set government-reserve-of-capital government-initial-reserve-of-capital
   ;;; For cultural dimension:
-  
-
+ 
   setup-activities
   create-all-households
   setup-person-needs
   setup-social-networks
+  
+  
    
   
   if with-infected? [infect-one-random-person]
@@ -177,13 +178,14 @@ end
 to setup-person-needs 
   
   ifelse culture?
-  [setup-importances-based-on-culture
+  [
+    setup-importances-based-on-culture
   ]
   [ ask people [
     set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
     set is-I-apply-social-distancing? is-social-distancing-measure-active?
     
-   ;SUBNEEDS satisfaction level
+    ;SUBNEEDS satisfaction level
     set belonging-satisfaction-level random-float 0.5 + 0.5
     set compliance-satisfaction-level random-float 0.5 + 0.5
     set leisure-satisfaction-level random-float 0.3 + 0.7

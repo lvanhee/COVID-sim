@@ -1,4 +1,3 @@
-__includes ["cultural_dimension.nls"]
 
 to-report health-satisfaction-level
   ;;constant value set to average

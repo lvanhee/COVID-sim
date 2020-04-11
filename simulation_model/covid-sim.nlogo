@@ -34,7 +34,7 @@ to go
 end
 
 to go-profile
-    profiler:reset
+  profiler:reset
   profiler:start
 
   repeat 10 [go]
@@ -2033,7 +2033,7 @@ starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
 100
-73.0
+75.0
 1
 1
 NIL
@@ -2882,7 +2882,7 @@ CHOOSER
 national_culture
 national_culture
 "Netherlands" "United States" "China" "Russia"
-0
+2
 
 SLIDER
 1952
@@ -2893,7 +2893,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-53.0
+30.0
 1
 1
 NIL
@@ -2908,7 +2908,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-80.0
+20.0
 1
 1
 NIL
@@ -2923,7 +2923,7 @@ power-distance
 power-distance
 0
 100
-38.0
+80.0
 1
 1
 NIL
@@ -2938,7 +2938,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-68.0
+24.0
 1
 1
 NIL
@@ -2953,7 +2953,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-14.0
+66.0
 1
 1
 NIL
@@ -2968,7 +2968,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-67.0
+87.0
 1
 1
 NIL

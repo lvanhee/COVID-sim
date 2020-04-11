@@ -1,7 +1,5 @@
 to setup-importances-based-on-culture
-  load-nations-hofstede-dimension-scores
-  map-hofstede-dimensions-to-schwartz-values
-  configure-agent-value-systems
+  set-values-based-on-culture
   calibrate-importance-weights-of-needs
   set-initial-need-satisfaction-levels
 end
@@ -36,6 +34,7 @@ to set-initial-need-satisfaction-levels
 
 end
 
+
 to calibrate-importance-weights-of-needs
 
   ;These are the water tank needs with random starting values (the other water tanks: financial safety, financial are calculated and located in the need_defintion.nls file):
@@ -62,18 +61,18 @@ to calibrate-importance-weights-of-needs
     set importance-weight-sleep (weight-survival-needs * weight-survival)
 
     ;Set importance weights of subneeds of SAFETY (sum of weights must equal 'weight-safety')
-    let safety-needs-standardizer sum (list power security conformity-tradition)
-    set importance-weight-financial-safety power / safety-needs-standardizer
-    set importance-weight-risk-avoidance security / safety-needs-standardizer
-    set importance-weight-compliance conformity-tradition / safety-needs-standardizer
+    let safety-needs-standardizer sum (list importance-given-to-power-value importance-given-to-security-value importance-given-to-conformity-tradition-value)
+    set importance-weight-financial-safety importance-given-to-power-value / safety-needs-standardizer
+    set importance-weight-risk-avoidance importance-given-to-security-value / safety-needs-standardizer
+    set importance-weight-compliance importance-given-to-conformity-tradition-value / safety-needs-standardizer
 
     ;Set importance weights of subneeds of BELONGING (sum of weights must equal 'weight-belonging')
-    set importance-weight-belonging ((benevolence + conformity-tradition) / (2 * 100)) * weight-belonging
+    set importance-weight-belonging ((importance-given-to-benevolence-value + importance-given-to-conformity-tradition-value) / (2 * 100)) * weight-belonging
 
     ;Set importance weights of subneeds of ESTEEM
-    set importance-weight-luxury ((hedonism + power) / 2)
-    set importance-weight-leisure ((hedonism + stimulation) / 2)
-    set importance-weight-autonomy ((self-direction + achievement) / 2)
+    set importance-weight-luxury ((importance-given-to-hedonism-value + importance-given-to-power-value) / 2)
+    set importance-weight-leisure ((importance-given-to-hedonism-value + importance-given-to-stimulation-value) / 2)
+    set importance-weight-autonomy ((importance-given-to-self-direction-value + importance-given-to-achievement-value) / 2)
     ;standardize & scale weights of esteem subneeds (i.e. sum of weights must equal 'weight-esteem')
     let esteem-needs-standardizer sum (list importance-weight-luxury importance-weight-leisure importance-weight-autonomy)
     set importance-weight-luxury (importance-weight-luxury / esteem-needs-standardizer) * weight-esteem
@@ -111,7 +110,7 @@ to calibrate-importance-weights-of-needs
 end
 
 ;*** MAP HOFSTEDE DIMENSIONS TO INITIATION OF VALUE SYSTEMS ***
-to map-hofstede-dimensions-to-schwartz-values
+to set-values-based-on-culture
 
   let UAI_pos uncertainty-avoidance
   let PDI_pos power-distance
@@ -138,22 +137,25 @@ to map-hofstede-dimensions-to-schwartz-values
   let mean_ACH (IDV_pos + MAS_pos) / 2
 
   ask people [
-    set hedonism clamp 0 100 random-normal mean_HED value-std-dev
-    set stimulation clamp 0 100 random-normal mean_STM value-std-dev
-    set self-direction clamp 0 100 random-normal mean_SD value-std-dev
-    set universalism clamp 0 100 random-normal mean_UNI value-std-dev
-    set benevolence clamp 0 100 random-normal mean_BEN value-std-dev
-    set conformity-tradition clamp 0 100 random-normal mean_CT value-std-dev
-    set security clamp 0 100 random-normal mean_SEC value-std-dev
-    set power clamp 0 100 random-normal mean_POW value-std-dev
-    set achievement clamp 0 100 random-normal mean_ACH value-std-dev
+    set importance-given-to-hedonism-value clamp 0 100 random-normal mean_HED value-std-dev
+    set importance-given-to-stimulation-value clamp 0 100 random-normal mean_STM value-std-dev
+    set importance-given-to-self-direction-value clamp 0 100 random-normal mean_SD value-std-dev
+    set importance-given-to-universalism-value clamp 0 100 random-normal mean_UNI value-std-dev
+    set importance-given-to-benevolence-value clamp 0 100 random-normal mean_BEN value-std-dev
+    set importance-given-to-conformity-tradition-value clamp 0 100 random-normal mean_CT value-std-dev
+    set importance-given-to-security-value clamp 0 100 random-normal mean_SEC value-std-dev
+    set importance-given-to-power-value clamp 0 100 random-normal mean_POW value-std-dev
+    set importance-given-to-achievement-value clamp 0 100 random-normal mean_ACH value-std-dev
 
-    set value-system (list hedonism stimulation self-direction universalism benevolence conformity-tradition security power achievement)
+    set value-system (list importance-given-to-hedonism-value importance-given-to-stimulation-value importance-given-to-self-direction-value importance-given-to-universalism-value importance-given-to-benevolence-value importance-given-to-conformity-tradition-value importance-given-to-security-value importance-given-to-power-value importance-given-to-achievement-value)
   ]
+  
+  configure-agent-value-systems
 
 end
 
 ;increase logical consistency of agent value systems
+;;L: Could you please rename this function for making it more straightforward?
 to configure-agent-value-systems
   ask people [
     let values value-system

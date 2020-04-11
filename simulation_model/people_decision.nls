@@ -1,4 +1,4 @@
-__includes ["need_management.nls" ]
+__includes ["need_management.nls" "cultural_dimension.nls"]
 
 
 to-report my-preferred-available-activity-descriptor ;reports a string, which can be related to a gathering point and a concrete activity

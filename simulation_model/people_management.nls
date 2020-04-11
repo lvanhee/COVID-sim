@@ -59,17 +59,17 @@ people-own [
   ;;;;;;;; CULTURAL MODEL VARIABLES (by Amineh, Bart, Kurt) ;;;;;;;;
 
   ;SCHWARTZ VALUE VARIABLES
-  hedonism
-  stimulation
-  self-direction
-  universalism
-  benevolence
-  conformity-tradition
-  security
-  power
-  achievement
+  importance-given-to-hedonism-value
+  importance-given-to-stimulation-value
+  importance-given-to-self-direction-value
+  importance-given-to-universalism-value
+  importance-given-to-benevolence-value
+  importance-given-to-conformity-tradition-value
+  importance-given-to-security-value
+  importance-given-to-power-value
+  importance-given-to-achievement-value
 
-  ;LISTS
+  ;LISTS;;!!!Seems like a duplicate with the previous values
   value-system
   
   ;IMPORTANCE of BELONGING needs
