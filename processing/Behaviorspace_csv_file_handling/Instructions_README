@@ -1,0 +1,12 @@
+*** behaviorspace_csv_handling.R instructions ***
+
+The "behaviorspace_csv_handling.R" script contains some simple code that transforms the ckv files that Netlogo's behaviorspace generates into a dataframe that lends itself for building visualisations with ggplot and/or plotly. 
+
+The script was originally built to create visuals for combinations of:
+- individual agents
+- metrics (agent values to be precise)
+- time series (ticks)
+- comparing simulation runs (runs)
+
+If anything is unclear? don't hesitate to contact me:
+- kurtkreulen@gmail.com

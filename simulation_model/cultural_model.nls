@@ -1,0 +1,319 @@
+;Cultural_model.nls created by Bart de Bruin (TU Delft) and Kurt Kreulen (TU Delft), efforts coordinated by Amineh Ghorbani (TU Delft)
+
+;Short description of procedures included in this nls file:
+;setup-person-values-and-needs-based-on-cultural-model: is called in setup.nls, calls procedures that calibrate agent values and needs according to the cultural model
+;set-initial-need-satisfaction-levels; initiates need satisfaction levels (i.e. water tank levels)
+;calibrate-importance-weights-of-needs; each agent ascribes a particular importance to each of its weights based on the configuration of its value system
+;set-values-based-on-culture; agent value systems are calibrated on the basis of the settings of the Hofstede cultural dimensions (see ASSOCC model interface)
+;increase-logical-consistency-of-agent-value-systems; agent value systems are structured according to the Schwartz circumplex value model ...
+; ... (i.e. values placed closer to one another in the circumplex correlate positively, while values placed further apart in the circumplex correlate negatively)
+;load-nations-hofstede-dimension-scores: calibrate Hofstede dimensions based on a nation's Hofstede dimension scorecard
+
+to setup-person-values-and-needs-based-on-cultural-model
+  load-nations-hofstede-dimension-scores
+  set-values-based-on-culture
+  calibrate-importance-weights-of-needs
+  set-initial-need-satisfaction-levels
+end
+
+to set-initial-need-satisfaction-levels
+  ;NOTE: The water tanks for financial safety (SAFETY), financial survival (SURVIVAL), health (SURVIVAL) are located in the need_defintion.nls file
+  
+  ask people [
+    ;Initiate need satisfaction levels (i.e. fill up watertanks)
+    
+    ;SURVIVAL:
+    set sleep-satisfaction-level random-float 1
+    
+    ;SAFETY:
+    set risk-avoidance-satisfaction-level random-float 1
+    set compliance-satisfaction-level random-float 1
+    
+    ;BELONGING:
+    set belonging-satisfaction-level random-float 1
+    
+    ;SELF-ESTEEM:
+    set leisure-satisfaction-level random-float 1
+    set luxury-satisfaction-level random-float 1
+    set autonomy-satisfaction-level 0.95
+    
+    ;Calibrate social distance variables
+    set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
+    set is-I-apply-social-distancing? is-social-distancing-measure-active?    
+  ]
+end
+
+
+to calibrate-importance-weights-of-needs
+
+  ;For each agent: set the importance ascribed to its needs
+  ;Importance weights ascribed to needs vary between 0 and 1
+  
+  ;IMPORTANT VARIABLES:
+  ;maslow-multiplier = modulates the hierarchical aspect of maslow needs ...
+  ; ... i.e. the higher the maslow-multiplier, the higher the importance ascribed to lower level needs vis-a-vis those situated at higher levels in the Maslow pyramid.
+  ;survival-multiplier = increases the importance ascribed to biological (survival) needs vis-a-vis psychological needs (safety, belonging, esteem).
+  
+  ask people [
+    ;initiate maslow-based importance weights for the maslow need categories
+    let weight-esteem-needs-category 1
+    let weight-belonging-needs-category weight-esteem-needs-category * (1 + maslow-multiplier)
+    let weight-safety-needs-category weight-belonging-needs-category * (1 + maslow-multiplier)
+    let weight-survival-needs-category weight-safety-needs-category * ((1 + maslow-multiplier) * survival-multiplier)
+
+    ;Set importance weights of subneeds of SURVIVAL
+    set importance-weight-food-safety (weight-survival-needs * weight-survival-needs-category)
+    set importance-weight-financial-survival (weight-survival-needs * weight-survival-needs-category)
+    set importance-weight-health (weight-survival-needs * weight-survival-needs-category)
+    set importance-weight-sleep (weight-survival-needs * weight-survival-needs-category)
+
+    ;Set importance weights of subneeds of SAFETY
+    set importance-weight-financial-safety (importance-given-to-power-value / 100) * weight-safety-needs-category
+    set importance-weight-risk-avoidance (importance-given-to-security-value / 100) * weight-safety-needs-category
+    set importance-weight-compliance (importance-given-to-conformity-tradition-value / 100) * weight-safety-needs-category
+
+    ;Set importance weights of subneeds of BELONGING
+    set importance-weight-belonging-subneed ((importance-given-to-benevolence-value + importance-given-to-conformity-tradition-value) / (2 * 100)) * weight-belonging-needs-category
+
+    ;Set importance weights of subneeds of ESTEEM
+    set importance-weight-luxury ((importance-given-to-hedonism-value + importance-given-to-power-value) / (2 * 100)) * weight-esteem-needs-category
+    set importance-weight-leisure ((importance-given-to-hedonism-value + importance-given-to-stimulation-value) / (2 * 100)) * weight-esteem-needs-category
+    set importance-weight-autonomy ((importance-given-to-self-direction-value + importance-given-to-achievement-value) / (2 * 200)) * weight-esteem-needs-category
+
+    let total-sum-of-weights sum (list
+      importance-weight-food-safety
+      importance-weight-financial-survival
+      importance-weight-health
+      importance-weight-sleep
+      importance-weight-financial-safety
+      importance-weight-risk-avoidance
+      importance-weight-compliance
+      importance-weight-belonging-subneed
+      importance-weight-luxury
+      importance-weight-leisure
+      importance-weight-autonomy)
+
+    ;Normalize all the importance weights so that they sum up to 1
+    set importance-weight-food-safety (importance-weight-food-safety / total-sum-of-weights)
+    set importance-weight-financial-survival (importance-weight-financial-survival / total-sum-of-weights)
+    set importance-weight-health (importance-weight-health / total-sum-of-weights)
+    set importance-weight-sleep (importance-weight-sleep / total-sum-of-weights)
+    set importance-weight-financial-safety (importance-weight-financial-safety / total-sum-of-weights)
+    set importance-weight-risk-avoidance (importance-weight-risk-avoidance / total-sum-of-weights)
+    set importance-weight-compliance (importance-weight-compliance / total-sum-of-weights)
+    set importance-weight-belonging-subneed (importance-weight-belonging-subneed / total-sum-of-weights)
+    set importance-weight-luxury (importance-weight-luxury / total-sum-of-weights)
+    set importance-weight-leisure (importance-weight-leisure / total-sum-of-weights)
+    set importance-weight-autonomy (importance-weight-autonomy / total-sum-of-weights)
+  ]
+end
+
+
+to set-values-based-on-culture
+
+  let UAI_pos uncertainty-avoidance
+  let PDI_pos power-distance
+  let MAS_pos masculinity-vs-femininity
+  let IDV_pos individualism-vs-collectivism
+  let IVR_pos indulgence-vs-restraint
+  let LTO_pos long-vs-short-termism
+
+  let UAI_neg 100 - uncertainty-avoidance
+  let PDI_neg 100 - power-distance
+  let MAS_neg 100 - masculinity-vs-femininity
+  let IDV_neg 100 - individualism-vs-collectivism
+  let IVR_neg 100 - indulgence-vs-restraint
+  let LTO_neg 100 - long-vs-short-termism
+
+  let mean_HED (IDV_pos + IVR_pos) / 2
+  let mean_STM (IDV_pos + UAI_neg + PDI_neg ) / 3
+  let mean_SD (IDV_pos + UAI_neg + PDI_neg ) / 3
+  let mean_UNI (IDV_neg + UAI_neg + MAS_neg) / 3
+  let mean_BEN (IDV_neg + UAI_neg + MAS_neg) / 3
+  let mean_CT (IDV_neg + UAI_pos + PDI_pos + IVR_neg) / 4
+  let mean_SEC (IDV_neg + UAI_pos + PDI_pos) / 3
+  let mean_POW (IDV_pos + UAI_pos + MAS_pos) / 3
+  let mean_ACH (IDV_pos + MAS_pos) / 2
+
+  ask people [
+    set importance-given-to-hedonism-value clamp 0 100 random-normal mean_HED value-std-dev
+    set importance-given-to-stimulation-value clamp 0 100 random-normal mean_STM value-std-dev
+    set importance-given-to-self-direction-value clamp 0 100 random-normal mean_SD value-std-dev
+    set importance-given-to-universalism-value clamp 0 100 random-normal mean_UNI value-std-dev
+    set importance-given-to-benevolence-value clamp 0 100 random-normal mean_BEN value-std-dev
+    set importance-given-to-conformity-tradition-value clamp 0 100 random-normal mean_CT value-std-dev
+    set importance-given-to-security-value clamp 0 100 random-normal mean_SEC value-std-dev
+    set importance-given-to-power-value clamp 0 100 random-normal mean_POW value-std-dev
+    set importance-given-to-achievement-value clamp 0 100 random-normal mean_ACH value-std-dev
+
+  ]
+  
+  increase-logical-consistency-of-agent-value-systems
+
+end
+
+;Increase logical consistency of agent value systems
+;That is, values placed closer to one another on the Schwartz value circumplex model should have somewhat similar importance levels
+;Values placed further from one another on the Schwartz model should have dissimilar importance levels
+to increase-logical-consistency-of-agent-value-systems
+  ask people [
+    let values (list 
+      importance-given-to-hedonism-value 
+      importance-given-to-stimulation-value 
+      importance-given-to-self-direction-value 
+      importance-given-to-universalism-value 
+      importance-given-to-benevolence-value 
+      importance-given-to-conformity-tradition-value 
+      importance-given-to-security-value 
+      importance-given-to-power-value 
+      importance-given-to-achievement-value)
+
+    let N length values
+
+    let index 0
+    let index_i 0
+    let index_j 0
+
+    let Vi 0
+    let Vj 0
+    let Vi_update 0
+    let Vj_update 0
+
+    let calibrated-values []
+
+    while [index < N ] [
+      ;load unaltered Vi
+      set Vi item index values
+
+      ;walk through value system and compare each index the rest starting with item 0 thru length of list (9 values)
+      set index_i index
+      set index_j index_i + 1
+
+      while [index_j < N] [
+        ;load unaltered Vj
+        set Vj item index_j values
+
+        set Vi_update item 0 calibrate-values index_i index_j values
+        set Vj_update item 1 calibrate-values index_i index_j values
+
+        if Vi_update != Vi [
+          set values replace-item index_i values Vi_update
+          set Vi Vi_update
+        ]
+
+        if Vj_update != Vj [
+          set values replace-item index_j values Vj_update
+        ]
+        set index_j index_j + 1
+      ]
+      set index index + 1
+    ]
+  ]
+end
+
+
+;scores taken from https://www.hofstede-insights.com/product/compare-countries/
+to load-nations-hofstede-dimension-scores
+  if set_national_culture = "Custom" [
+    set power-distance power-distance
+    set individualism-vs-collectivism individualism-vs-collectivism
+    set masculinity-vs-femininity masculinity-vs-femininity
+    set uncertainty-avoidance uncertainty-avoidance
+    set long-vs-short-termism long-vs-short-termism
+    set indulgence-vs-restraint indulgence-vs-restraint
+  ]
+  if set_national_culture = "Netherlands" [
+    set power-distance 38
+    set individualism-vs-collectivism 80
+    set masculinity-vs-femininity 14
+    set uncertainty-avoidance 53
+    set long-vs-short-termism 67
+    set indulgence-vs-restraint 68
+  ]
+
+  if set_national_culture = "United States" [
+    set power-distance 40
+    set individualism-vs-collectivism 91
+    set masculinity-vs-femininity 62
+    set uncertainty-avoidance 46
+    set long-vs-short-termism 26
+    set indulgence-vs-restraint 68
+  ]
+
+  if set_national_culture = "China" [
+    set power-distance 80
+    set individualism-vs-collectivism 20
+    set masculinity-vs-femininity 66
+    set uncertainty-avoidance 30
+    set long-vs-short-termism 87
+    set indulgence-vs-restraint 24
+  ]
+
+  if set_national_culture = "Russia" [
+    set power-distance 93
+    set individualism-vs-collectivism 39
+    set masculinity-vs-femininity 36
+    set uncertainty-avoidance 95
+    set long-vs-short-termism 81
+    set indulgence-vs-restraint 20
+  ]
+end
+
+
+;the computational procedure within this reporter is based on Heidari et al. (2018)
+to-report calibrate-values [#index_i #index_j #value-system]
+
+  ;Load value levels into local variable
+  let V_i (item #index_i #value-system)
+  let V_j (item #index_j #value-system)
+
+  ;determine difference between indices (i.e. distance between values on the Schwartz circumplex)
+  let d_index abs (#index_i - #index_j)
+  ;determine difference in value levels
+  let d_V abs (V_i - V_j)
+  ;load calibration factor (a lower calibration factor means that values placed close to one another on the Schwartz circumplex will hold more similar importance levels)
+  ;default setting for value-system-calibration-factor is 25 (based on Heidari et al., 2018)
+  let cf value-system-calibration-factor
+
+  ;initiate boundaries LB (lower bound), UB (upper bound) (this is based on condition 1; see Heidari et al., 2018)
+  let LB 0
+  let UB 0
+  let UB_i d_index * cf
+  let UB_j (10 - d_index) * cf
+
+  ifelse d_index <= 5 [
+    set UB UB_i
+  ][
+    set UB UB_j
+  ]
+
+  ;d_Vc is constrained (c) difference (d) between value levels (V)
+  let d_Vc 0
+  ifelse d_V > UB [
+    ;if difference between value levels is higher than UB, set dVc to UB
+   set d_Vc UB
+  ][
+    ;if difference between value levels is NOT higher than UB, set dVc to dV
+   set d_Vc d_V
+  ]
+
+  ;determine difference between unconstrained delta value levels [dV] and constrained delta value levels [dVc]
+  let diff_dV_dVc (d_V - d_Vc)
+
+  let delta 0
+
+  ;ONLY if dV > dVc, then values move closer towards one another as to respect the condition LB < dV < UB
+  if d_V > d_Vc [
+    set delta diff_dV_dVc / 2
+    ifelse V_i > V_j [
+      ;if Vi is larger than Vj, then Vi decreases and Vj increases
+      set V_i V_i - delta
+      set V_j V_j + delta
+    ][
+      ;if Vi is smaller than Vj, then Vi increases and Vj decreases
+      set V_i V_i + delta
+      set V_j V_j - delta
+    ]
+  ]
+  report (list V_i V_j)
+end

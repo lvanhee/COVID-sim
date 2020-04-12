@@ -1,17 +1,36 @@
 __includes ["need_definition.nls"]
-;might be to be updated later on, as need satisfaction depends on the consequences of your action rather than on your intent
+;might need to be updated later on, as need satisfaction depends on the consequences of your action rather than on your intent
 ;e.g. visiting a shop should not satisfy one's safety needs if this shop is empty
 
-;LEGENDA
-; Every subneed consist of a following variables:
-; SWDE-[Need]: the expected weighted discounted satisfaction gain for a need after performing an action. This is equal to SDE-[Need] * importance-weight-[Need]
-; SDE-[Need]: the expected discounted satisfaction gain for a need after performing an action. This is equal to the SUE-[Need]*urgency-[Need]
-; SUE-[Need]: The expected undiscounted satisfaction gain for a need after performing an action. 
-; urgency-[Need]: Is the urgency of satisfaction a need. Equal to (1 - [Need]-satisfaction-level)
-; importance-weight-[Need]: Importance-weight
-; SUA-[Need]: The actual undiscounted satisfaction gain for a need after performing an action.
-; SDA-[Need]: The actual discounted satisfaction gain for a need after performing an action. This is equal to the SUA-[Need]/SUE-[Need] * urgency-[Need].
+; *** IMPORTANT: Description of variables and mechanisms underlying the need satisfaction level dynamics ***
+;SUE = Satisfaction Undiscounted Expected (i.e. before undertaking activity)
+;SDE = Satisfaction Discounted Expected (i.e. before undertaking activity)
+;SDA = Satisfaction Discounted Actual (i.e. after having performed the activity)
+;SUA = Satisfaction Undiscounted Actual (i.e. after having performed the activity)
 
+;PROCESS DESCRIPTION:
+;For every need a SUE is computed which is dependent upon the action that the agent is considering //
+;More precisely, during a given tick, an agent is afforded a set of actions based on its current location & activity //
+;From this set of actions, the agent picks the action that grants it the highest total satisfaction //
+;An action's total-satisfaction is computed as the sum of the satisfaction gains of that action for all of the agent's needs.
+
+;In short, performing an action has an effect on the satisfaction levels of an agent's needs //
+;Each action [A] presents an expected satisfaction [Sue(A)] for each individual need //
+;This Sue(A) is then multiplied by [i] the urgency of a need (uNeed = 1 - NeedNSL) and the importance-weight ascribed to the need (wNeed) //
+;This means that needs with a high urgency and a high importance will have a relatively large influence on the action that is selected by an agent during a given tick.
+
+;The agent starts off by computing a 'raw' expected satisfaction gain from a particular action; this is called the SUE //
+;The agent then multiplies this SUE by the 'urgency' of that particular need; this is called the SDE //
+;Once the agent has performed the action, it reflects on the ACTUAL satisfaction gained from executing that action; this is called the SUA //
+;The final ACTUAL satisfaction gained from an action is referred to as the SDA and is either [i] SDA = SDE or [ii] SDA = SUA //
+;Where [i] represents a situation where the agent's ESTIMATION (i.e. expectation) of the satisfaction gained from an activity perfectly matches the ACTUAL satisfaction gained from that activity //
+;And [ii] represents a situation where the agent's ESTIMATION (i.e. expectation) of the satisfaction gained from an activity does NOT match the ACTUAL satisfaction gained from that activity.
+
+;SUE-[Need]: The expected undiscounted satisfaction gain for a need of performing an action 
+;urgency-[Need]: Is the urgency of satisfying a need (i.e. the status of its water tank), which is equal to (1 - [Need]-satisfaction-level)
+;SDE-[Need]: the expected discounted satisfaction gain for a need of performing an action. This is equal to the SUE-[Need] * urgency-[Need]
+;SUA-[Need]: The actual undiscounted satisfaction gain for a need after having performed an action
+;SDA-[Need]: The actual discounted satisfaction gain for a need after having performed an action
 
 to update-needs-for-playing [current-activity-descriptor]
   decay-satisfaction-level
@@ -432,39 +451,40 @@ to-report SUE-health [ad]
 end
 
 to-report global-prevalence-of [ad]
+  ;*** this procedure should be expanded with new needs as they are added ***
   reset-timer
   let total-satisfaction 0
-  ifelse culture? 
-  [set total-satisfaction sum (list
-    (SDE-food-safety ad * importance-weight-food-safety) 
-    (SDE-financial-survival ad * importance-weight-financial-survival) 
-    (SDE-risk-avoidance ad * importance-weight-health) 
-    (SDE-sleep ad * importance-weight-sleep) 
-    (SDE-compliance ad * importance-weight-compliance) 
-    (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
-    (SDE-financial-safety ad * importance-weight-financial-safety) 
-    (SDE-belonging ad * importance-weight-belonging)
-    (SDE-autonomy ad * importance-weight-autonomy) 
-    (SDE-luxury ad * importance-weight-luxury) 
-    (SDE-leisure ad * importance-weight-leisure) 
-    (SDE-sleep ad * importance-weight-sleep) 
-    (SDE-sleep ad * importance-weight-sleep)) 
-  ]
-    
-  [ 
+  ifelse culture? [
+    ;if cultural model is activated then:
+    ;calculate the total-satisfaction an agent expects to gain from performing an activity as the weighted sum of all its needs
+    set total-satisfaction sum (list
+      ;Survival needs
+      (SDE-food-safety ad * importance-weight-food-safety) 
+      (SDE-financial-survival ad * importance-weight-financial-survival)
+      (SDE-sleep ad * importance-weight-sleep) 
+      (SDE-health ad * importance-weight-health) 
+      ;Safety needs
+      (SDE-compliance ad * importance-weight-compliance) 
+      (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
+      (SDE-financial-safety ad * importance-weight-financial-safety) 
+      ;Belonging needs
+      (SDE-belonging ad * importance-weight-belonging-subneed)
+      ;Esteem needs
+      (SDE-autonomy ad * importance-weight-autonomy) 
+      (SDE-luxury ad * importance-weight-luxury) 
+      (SDE-leisure ad * importance-weight-leisure)) 
+  ][ 
     ;; SDE-survival, SDE-safety, SDE-belonging, SDE-self-esteem are only used in the non-culture needs model and are located in need_defintion.nls
     set total-satisfaction sum (list
-    (importance-weight-survival * SDE-survival ad) 
-    (importance-weight-safety * SDE-safety ad)
-    (importance-weight-belonging * SDE-belonging ad)
-    (importance-weight-self-esteem * SDE-self-esteem ad))
+      (importance-weight-survival * SDE-survival ad) 
+      (importance-weight-safety * SDE-safety ad)
+      (importance-weight-belonging * SDE-belonging ad)
+      (importance-weight-self-esteem * SDE-self-esteem ad))
   ]
   
- debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
+  debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
   report total-satisfaction
   
-  ;should be expanded with new needs as they are added
-
 end
 
 ;;; SDE and SDA SURVIVAL NEEDS

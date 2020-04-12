@@ -64,6 +64,7 @@ people-own [
   ;Regarding assumptions/scale, my gut feeling (to be checked against theory) is that available plans and need prevalence should evolve over time when the agent faces new situations
   ;Notably, new plans for satisfying should be learnable by agents (e.g. satisfying physical-activity needs might need some adaptation when locked in)
   ;and traumatic events or long-term deprivation should affect the need structure (e.g. food deprivation should dramatically bump up the prevalence of food safety, thus causing rush to supermarkets for instance)
+  
   ;;;;;;;; CULTURAL MODEL VARIABLES (by Amineh, Bart, Kurt) ;;;;;;;;
 
   ;SCHWARTZ VALUE VARIABLES
@@ -76,12 +77,10 @@ people-own [
   importance-given-to-security-value
   importance-given-to-power-value
   importance-given-to-achievement-value
-
-  ;LISTS;;!!!Seems like a duplicate with the previous values
-  value-system
   
   ;IMPORTANCE of BELONGING needs
-  importance-weight-belonging
+  ;*** NOTE: the belonging only contains 1x subneed (subneeds will be added to this category at a later stage) ***
+  importance-weight-belonging-subneed
 
   ;IMPORTANCE of SURVIVAL needs
   importance-weight-food-safety
@@ -89,7 +88,7 @@ people-own [
   importance-weight-health
   importance-weight-sleep
 
-  ;IMPORTANCE of SAFET needs
+  ;IMPORTANCE of SAFETY needs
   importance-weight-financial-safety
   importance-weight-risk-avoidance
   importance-weight-compliance
@@ -100,6 +99,8 @@ people-own [
   importance-weight-autonomy
 
   ;Need satisfaction levels (i.e. level of watertanks)
+  ;The need satisfaction levels of food-safety, financial-survival, health, and financial-safety are reporters (see need_definition.nls)
+
   ;SURVIVAL:
   sleep-satisfaction-level
 
@@ -115,27 +116,28 @@ people-own [
   luxury-satisfaction-level
   autonomy-satisfaction-level
   
-  ;FOR STANDARD NEED MODEL:
-  importance-weight-safety 
-  importance-weight-self-esteem 
-  importance-weight-belonging  
-  importance-weight-survival
-  
-  
-  ; Variables for belonging needs
+  ;Variables for BELONGING needs
   social-distance-profile
   is-I-apply-social-distancing?
   days-since-seen-relatives
   days-since-seen-colleagues
   days-since-seen-friends
   
-  
+  ;Variables for Luxury need (ESTEEM)
   amount-of-last-luxury-items-bought
 
+  ;Variables for Financial Safety need (SAFETY)
   my-amount-of-capital
   my-previous-amount-of-capital
   my-current-income
   my-expected-income
+  
+  ;FOR STANDARD (i.e. NON-CULTURAL) NEEDS MODEL:
+  importance-weight-safety 
+  importance-weight-self-esteem 
+  importance-weight-belonging  
+  importance-weight-survival
+
 ]
 
 to update-people-epistemic-status
