@@ -69,10 +69,10 @@ ticks
 30.0
 
 BUTTON
-13
-26
-91
-60
+11
+21
+89
+55
 setup
 setup
 NIL
@@ -80,16 +80,16 @@ NIL
 T
 OBSERVER
 NIL
-NIL
+S
 NIL
 NIL
 1
 
 BUTTON
 12
-58
+59
 91
-92
+93
 go
 go\nif not any? people with [is-contagious?]\n[stop]
 T
@@ -610,10 +610,10 @@ NIL
 11
 
 BUTTON
-11
-91
-91
-125
+12
+101
+92
+135
 1 Week Run
 go\nwhile [day-of-the-week != \"monday\" or slice-of-the-day != \"morning\"] [go]
 NIL
@@ -910,7 +910,7 @@ importance-compliance
 importance-compliance
 0
 1
-0.55
+0.49
 0.01
 1
 NIL
@@ -2599,10 +2599,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2012
-497
-2129
-525
+1997
+518
+2114
+546
 The rest goes on private/safe transport
 11
 0.0
@@ -2844,9 +2844,9 @@ NIL
 
 BUTTON
 12
-127
+141
 92
-160
+174
 1 Month Run
 let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day <= end-day] [ go ]
 NIL
@@ -2860,10 +2860,10 @@ NIL
 1
 
 SWITCH
-2024
-73
-2127
-106
+2007
+47
+2110
+80
 culture?
 culture?
 0
@@ -2871,110 +2871,110 @@ culture?
 -1000
 
 CHOOSER
-1955
-129
-2093
-174
-national_culture
-national_culture
-"Netherlands" "United States" "China" "Russia"
+2122
+35
+2272
+80
+set_national_culture
+set_national_culture
+"Custom" "Netherlands" "United States" "China" "Russia"
 2
 
 SLIDER
-1952
-180
-2126
-213
+2008
+117
+2182
+150
 uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-30.0
+46.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2135
-179
-2324
-212
+2191
+116
+2380
+149
 individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-20.0
+91.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1953
-223
-2125
-256
+2009
+160
+2181
+193
 power-distance
 power-distance
 0
 100
-80.0
+40.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2135
-225
-2324
-258
+2191
+162
+2380
+195
 indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-24.0
+68.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1953
-270
-2127
-303
+2009
+207
+2183
+240
 masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-66.0
+62.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2138
-270
-2324
-303
+2194
+207
+2380
+240
 long-vs-short-termism
 long-vs-short-termism
 0
 100
-87.0
+26.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2100
-130
-2223
-163
+2248
+274
+2371
+307
 value-std-dev
 value-std-dev
 0
@@ -2986,10 +2986,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1952
-318
-2175
-351
+2012
+275
+2235
+308
 value-system-calibration-factor
 value-system-calibration-factor
 0
@@ -3001,25 +3001,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-1951
-365
-2123
-398
+2012
+349
+2184
+382
 survival-multiplier
 survival-multiplier
 0
 3
-1.5
+1.0
 0.1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2132
-366
-2304
-399
+2193
+350
+2365
+383
 maslow-multiplier
 maslow-multiplier
 0
@@ -3031,13 +3031,13 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1958
-74
-2018
-106
-Cultural\nDimension
-13
-34.0
+2006
+24
+2127
+48
+Cultural Model
+14
+83.0
 1
 
 SLIDER
@@ -3074,7 +3074,7 @@ MONITOR
 1895
 888
 2114
-934
+933
 #recorded-contacts-in-proximity-app
 average-number-of-people-recorded-by-recording-apps
 17
@@ -3096,7 +3096,7 @@ SWITCH
 1896
 934
 2115
-968
+967
 is-testing-people-recorded-by-the-proximity-app-measure?
 is-testing-people-recorded-by-the-proximity-app-measure?
 0
@@ -3107,12 +3107,91 @@ MONITOR
 1880
 1040
 1993
-1086
+1085
 NIL
 #tests-performed
 17
 1
 11
+
+BUTTON
+12
+193
+93
+226
+go once
+go
+NIL
+1
+T
+OBSERVER
+NIL
+G
+NIL
+NIL
+1
+
+BUTTON
+2
+239
+93
+272
+inspect person
+inspect one-of people
+NIL
+1
+T
+OBSERVER
+NIL
+I
+NIL
+NIL
+1
+
+SLIDER
+2012
+390
+2185
+423
+weight-survival-needs
+weight-survival-needs
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+2008
+94
+2342
+121
+Hofstede dimension settings
+12
+83.0
+1
+
+TEXTBOX
+2012
+253
+2209
+283
+Agent value system settings
+12
+83.0
+1
+
+TEXTBOX
+2011
+322
+2201
+352
+Agent need system settings
+12
+83.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
