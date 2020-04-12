@@ -60,8 +60,7 @@ to load-scenario-specifics
     
   if preset-scenario = "scenario-1-closing-schools-and-uni"
   [
-    set #days-trigger-school-closing-measure 0
-    set closed-universities? true
+    load-closed-schools-and-uni-measures
     stop
   ]
   
@@ -73,10 +72,7 @@ to load-scenario-specifics
   
   if preset-scenario = "scenario-1-closing-all"
   [
-    set #days-trigger-non-essential-business-closing-measure 0
-    set global-confinment-measures "total-lockdown"
-    set #days-trigger-school-closing-measure 0
-    set closed-universities? true
+    load-all-closed-measures
     stop
   ]
   
@@ -125,6 +121,17 @@ to load-scenario-specifics
   error "unimplemented"
 end
 
+to load-closed-schools-and-uni-measures
+  set #days-trigger-school-closing-measure 0
+  set closed-universities? true
+end
+
+to load-all-closed-measures
+  set #days-trigger-non-essential-business-closing-measure 0
+  set global-confinment-measures "total-lockdown"
+  set #days-trigger-school-closing-measure 0
+  set closed-universities? true
+end
 to load-baseline-scenario
   set static-seed? true
   set #households 100
@@ -177,7 +184,7 @@ end
 
 to load-default-disease-model
   set with-infected? true
-  set propagation-risk 0.04
+  set propagation-risk 0.08
   set critical-to-terminal 2
   set probability-recorvery-if-treated-old 0.6
   set probability-unavoidable-death-old 0.2
@@ -236,6 +243,7 @@ end
 
 to load-no-measures
   set ratio-omniscious-infected-that-trigger-school-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-social-distancing-measure 1
   set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
@@ -244,6 +252,8 @@ to load-no-measures
   set test-home-of-confirmed-people? false
   set test-workplace-of-confirmed-people? false
   set ratio-population-randomly-tested-daily 0
+  set closed-universities? false
+  set is-testing-people-recorded-by-the-proximity-app-measure? false
 end
 
 to load-scandinavian-population-default

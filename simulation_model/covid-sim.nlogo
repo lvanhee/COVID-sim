@@ -1,5 +1,5 @@
 extensions [profiler]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "utils.nls" "environment_dynamics.nls" "animation.nls"]
+__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "utils.nls" "environment_dynamics.nls" "animation.nls" "behaviourspace.nls"]
 breed [people person]
 
 globals [
@@ -40,6 +40,7 @@ end
 to startup
   setup
 end
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 99
@@ -111,7 +112,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.03
+0.08
 0.01
 1
 NIL
@@ -320,7 +321,7 @@ density-factor-homes
 density-factor-homes
 0
 1
-0.96
+1.0
 0.01
 1
 NIL
@@ -344,7 +345,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -523,7 +524,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.13
+0.14
 0.01
 1
 NIL
@@ -1202,7 +1203,7 @@ INPUTBOX
 1391
 996
 #days-trigger-school-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1248,7 +1249,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1727,7 +1728,7 @@ HORIZONTAL
 SWITCH
 746
 23
-869
+875
 56
 static-seed?
 static-seed?
@@ -1742,8 +1743,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"none" "generic-baseline" "uninfected-scandinavia" "zero-action-scandinavia" "one-family" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K"
-3
+"uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K" "one-family"
+4
 
 MONITOR
 716
@@ -2099,7 +2100,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.12
+1.0
 0.01
 1
 NIL
@@ -2277,7 +2278,7 @@ INPUTBOX
 1707
 293
 #beds-in-hospital
-100.0
+10.0
 1
 0
 Number
@@ -3099,7 +3100,7 @@ SWITCH
 967
 is-testing-people-recorded-by-the-proximity-app-measure?
 is-testing-people-recorded-by-the-proximity-app-measure?
-0
+1
 1
 -1000
 
@@ -3192,6 +3193,17 @@ Agent need system settings
 12
 83.0
 1
+
+INPUTBOX
+877
+10
+927
+70
+#random-seed
+1.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?

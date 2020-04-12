@@ -10,13 +10,14 @@ globals[#min-workers-in-adults-homes
   #min-students-in-multi-generational-homes
   #min-young-in-multi-generational-homes
   #min-retirees-in-multi-generational-homes
-  distribution-control-variable]
+  distribution-control-variable
+]
 to setup
   reset-timer
   clear-all
   check-parameters
   set-default-shape people "circle"
-  if debug? or static-seed?[  random-seed 47822 ]
+  if debug? or static-seed?[  random-seed #random-seed ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0

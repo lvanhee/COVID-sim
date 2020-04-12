@@ -1,0 +1,26 @@
+to-report behaviour-fitness
+  ;;could be improved by repeating this experiment multiple times, or with different random seeds
+  
+  load-no-measures
+  setup
+  repeat 2 [go]
+  let ratio-casualties-no-measures #dead-people / (count people + #dead-people)
+  
+  load-closed-schools-and-uni-measures
+  setup
+  repeat 2 [go]
+  let ratio-casualties-closed-schools-and-uni #dead-people / (count people + #dead-people)
+  
+  load-all-closed-measures
+  setup
+  repeat 2 [go]
+  let ratio-casualties-all-closed #dead-people / (count people + #dead-people)
+    
+  let satisfaction-scenario-1 
+  (ratio-casualties-no-measures - ratio-casualties-closed-schools-and-uni) * 0.5
+  +
+  (ratio-casualties-closed-schools-and-uni - ratio-casualties-all-closed) * 0.5
+  
+  
+  report satisfaction-scenario-1 
+end
