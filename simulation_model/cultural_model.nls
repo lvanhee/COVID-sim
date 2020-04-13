@@ -17,24 +17,25 @@ to setup-person-values-and-needs-based-on-cultural-model
 end
 
 to set-initial-need-satisfaction-levels
-  ;NOTE: The water tanks for financial safety (SAFETY), financial survival (SURVIVAL), health (SURVIVAL) are located in the need_defintion.nls file
+  ;NOTE: The water tanks for financial safety (SAFETY), food safety (SURVIVAL), financial survival (SURVIVAL), health (SURVIVAL) are located in the need_defintion.nls file
+  ;The subneeds defined in need_defintion.nls are not formalized as people-own variables but as to-reporter functions
   
   ask people [
     ;Initiate need satisfaction levels (i.e. fill up watertanks)
     
     ;SURVIVAL:
-    set sleep-satisfaction-level random-float 1
+    set sleep-satisfaction-level random-float 0.2 + 0.8
     
     ;SAFETY:
-    set risk-avoidance-satisfaction-level random-float 1
-    set compliance-satisfaction-level random-float 1
+    set risk-avoidance-satisfaction-level random-float 0.5 + 0.5
+    set compliance-satisfaction-level random-float 0.5 + 0.5
     
     ;BELONGING:
-    set belonging-satisfaction-level random-float 1
+    set belonging-satisfaction-level random-float 0.5 + 0.5
     
     ;SELF-ESTEEM:
-    set leisure-satisfaction-level random-float 1
-    set luxury-satisfaction-level random-float 1
+    set leisure-satisfaction-level random-float 0.3 + 0.7
+    set luxury-satisfaction-level random-float 0.3 + 0.7
     set autonomy-satisfaction-level 0.95
     
     ;Calibrate social distance variables
