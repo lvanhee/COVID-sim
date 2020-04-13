@@ -165,7 +165,8 @@ to-report is-accessible?
   ]
   if is-workplace? and closed-workplaces? [report false]
   if is-school? and closed-schools? [report false]  
-  if is-university? and closed-universities? [report false]  
+  if is-university? and closed-universities? [report false]
+  if is-non-essential-shop? and closed-non-essential? [report false]
   report true
 end
 

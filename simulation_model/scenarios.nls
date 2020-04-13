@@ -196,6 +196,8 @@ to load-default-contagion-model
 end
 
 to load-default-economic-parameters
+  set productivity-at-home 1
+  set workers-wages 10
   set price-of-rations-in-essential-shops 2.2
   set price-of-rations-in-non-essential-shops 2.2
   set days-of-rations-bought 3

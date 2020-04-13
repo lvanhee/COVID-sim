@@ -24,7 +24,41 @@ to reset-economy-measurements
   
   ask gathering-points [set current-profit 0]
 end
-  
+
+to run-economic-cycle
+  perform-payment-of-fixed-costs
+  perform-trades-between-gathering-points
+  perform-government-actions
+end
+
+to perform-payment-of-fixed-costs
+  ask non-essential-shops
+  [
+    if not is-accessible?
+    [
+      if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
+      [
+        ask hired-workers
+        [
+          let amount-to-earn workers-wages
+          
+          let amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
+          perform-transaction self my-work (list "salary" amount-earned) (list "nothing")
+          
+          if government-pays-wages?
+          [
+            if amount-earned < amount-to-earn
+            [
+              let worker-subsidy ratio-of-wage-paid-by-the-government * (amount-to-earn - amount-earned)
+              perform-transaction self "government" (list "subsidy" worker-subsidy) (list "nothing")
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
+end
+
 to perform-trades-between-gathering-points
   
   let total-amount-of-goods-available-in-workplaces sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
@@ -230,8 +264,15 @@ to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
     [
       if [is-workplace?] of a2
       [
-        ask a2 [set stock-of-goods stock-of-goods + goods-produced-by-work-performed]
-        set goods-production-of-total-system goods-production-of-total-system + goods-produced-by-work-performed
+        let goods-produced goods-produced-by-work-performed
+        
+        if [is-at-home?] of a1
+        [
+          set goods-produced goods-produced * productivity-at-home
+        ]
+        
+        ask a2 [set stock-of-goods stock-of-goods + goods-produced]
+        set goods-production-of-total-system goods-production-of-total-system + goods-produced
       ]
       set a1-to-a2-completed? true
     ]
@@ -243,8 +284,15 @@ to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
     [
       if [is-workplace?] of a1
       [
-        ask a1 [set stock-of-goods stock-of-goods + goods-produced-by-work-performed]
-        set goods-production-of-total-system goods-production-of-total-system + goods-produced-by-work-performed
+        let goods-produced goods-produced-by-work-performed
+        
+        if [is-at-home?] of a2
+        [
+          set goods-produced goods-produced * productivity-at-home
+        ]
+        
+        ask a1 [set stock-of-goods stock-of-goods + goods-produced]
+        set goods-production-of-total-system goods-production-of-total-system + goods-produced
       ]
       set a2-to-a1-completed? true
     ]
