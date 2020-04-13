@@ -39,6 +39,7 @@ to-report SDE-survival [ad]
     SDE-food-safety ad 
     SDE-health ad
     SDE-sleep ad  
+    SDE-conformity ad
   )
   if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
     set physiological-needs fput (SDE-financial-survival ad) physiological-needs

@@ -42,7 +42,7 @@ people-own [
   I-know-of-social-distancing?
   I-know-of-working-from-home?
   ; Memory of the network's actions
-  ; The memory is a list with a max lenght of 28 (for all the ticks in a week). New events get added to the end, so the first event should always be what most people in your network did last
+  ; The memory is a list with a max lenght of 28 (for all the ticks in a week). New events get added to the end, so the first event should always be what most people in your network did one week ago
   what-my-network-did
   
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
@@ -95,6 +95,7 @@ people-own [
   importance-weight-financial-survival
   importance-weight-health
   importance-weight-sleep
+  importance-weight-conformity
 
   ;IMPORTANCE of SAFETY needs
   importance-weight-financial-safety
@@ -111,6 +112,7 @@ people-own [
 
   ;SURVIVAL:
   sleep-satisfaction-level
+  conformity-satisfaction-level
 
   ;SAFETY:
   risk-avoidance-satisfaction-level

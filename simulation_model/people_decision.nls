@@ -173,7 +173,7 @@ to update-memory
   ask my-network [
     set network-activities add-activity (list current-motivation is-I-apply-social-distancing?) network-activities
   ]
-  set network-activity item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] network-activities)
+  set network-activity fput nobody (item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] network-activities))
   set what-my-network-did lput network-activity what-my-network-did
   if length what-my-network-did > 28 [
     set what-my-network-did but-first what-my-network-did

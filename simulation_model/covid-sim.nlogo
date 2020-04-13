@@ -42,7 +42,6 @@ end
 to startup
   setup
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 99
@@ -347,7 +346,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -550,7 +549,7 @@ SWITCH
 936
 closed-universities?
 closed-universities?
-0
+1
 1
 -1000
 
@@ -769,7 +768,7 @@ probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
 1
-0.11
+0.1
 0.01
 1
 NIL
@@ -898,7 +897,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.0
+0.02
 0.01
 1
 NIL
@@ -958,7 +957,7 @@ probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
 1
-0.1
+0.12
 0.01
 1
 NIL
@@ -1087,6 +1086,7 @@ PENS
 "food-safety" 1.0 0 -14439633 true "" "plot mean [food-safety-satisfaction-level] of people"
 "leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
 "financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people"
+"conformity" 1.0 0 -12345184 true "" "plot mean [conformity-satisfaction-level] of people"
 
 SLIDER
 982
@@ -1205,7 +1205,7 @@ INPUTBOX
 1391
 996
 #days-trigger-school-closing-measure
-0.0
+10000.0
 1
 0
 Number
@@ -1251,7 +1251,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-0.0
+10000.0
 1
 0
 Number
@@ -1444,7 +1444,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.52
+0.45
 0.01
 1
 NIL
@@ -1509,7 +1509,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.21
+0.16
 0.01
 1
 NIL
@@ -1539,7 +1539,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.34
+0.37
 0.01
 1
 NIL
@@ -1554,7 +1554,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.34
+0.26
 0.01
 1
 NIL
@@ -1721,7 +1721,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.7
+2.0
 0.1
 1
 NIL
@@ -1746,7 +1746,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K" "one-family"
-4
+1
 
 MONITOR
 716
@@ -1978,7 +1978,7 @@ SWITCH
 1493
 government-pays-wages?
 government-pays-wages?
-1
+0
 1
 -1000
 
@@ -2238,10 +2238,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-989
-468
-1228
-501
+1111
+495
+1350
+528
 mean-social-distance-profile
 mean-social-distance-profile
 0
@@ -2396,10 +2396,10 @@ NIL
 11
 
 SLIDER
-1230
-468
-1480
-501
+1352
+495
+1602
+528
 std-dev-social-distance-profile
 std-dev-social-distance-profile
 0
@@ -2580,7 +2580,7 @@ ratio-worker-public-transport
 ratio-worker-public-transport
 0
 1
-0.01
+0.4
 0.01
 1
 NIL
@@ -2635,7 +2635,7 @@ ratio-children-shared-car
 ratio-children-shared-car
 0
 1
-0.0
+0.03
 0.01
 1
 NIL
@@ -2650,7 +2650,7 @@ ratio-student-shared-car
 ratio-student-shared-car
 0
 1
-0.1
+0.15
 0.01
 1
 NIL
@@ -2758,7 +2758,7 @@ density-in-public-transport
 density-in-public-transport
 0
 1
-0.31
+0.5
 0.01
 1
 NIL
@@ -3027,7 +3027,7 @@ maslow-multiplier
 maslow-multiplier
 0
 1
-0.1
+0.15
 0.01
 1
 NIL
@@ -3178,10 +3178,10 @@ NIL
 1
 
 BUTTON
-1832
-903
-2001
-936
+1464
+711
+1633
+744
 NIL
 inform-people-of-measures
 NIL
@@ -3189,7 +3189,7 @@ NIL
 T
 OBSERVER
 NIL
-I
+NIL
 NIL
 NIL
 1
@@ -3249,6 +3249,88 @@ INPUTBOX
 1
 0
 Number
+
+SLIDER
+981
+454
+1153
+487
+importance-conformity
+importance-conformity
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+CHOOSER
+2060
+658
+2262
+703
+network-generation-method
+network-generation-method
+"random" "value-similarity"
+0
+
+TEXTBOX
+2060
+633
+2210
+652
+Friend Networks
+14
+115.0
+1
+
+SLIDER
+2060
+704
+2265
+737
+peer-group-friend-links
+peer-group-friend-links
+1
+150
+7.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2059
+740
+2324
+773
+percentage-of-agents-with-random-link
+percentage-of-agents-with-random-link
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+BUTTON
+2062
+781
+2219
+814
+Write network as dot
+write-network-to-file user-new-file
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+0
 
 @#$#@#$#@
 ## WHAT IS IT?

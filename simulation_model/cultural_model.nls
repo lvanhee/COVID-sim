@@ -24,6 +24,7 @@ to set-initial-need-satisfaction-levels
     
     ;SURVIVAL:
     set sleep-satisfaction-level random-float 1
+    set conformity-satisfaction-level random-float 1
     
     ;SAFETY:
     set risk-avoidance-satisfaction-level random-float 1
@@ -66,6 +67,7 @@ to calibrate-importance-weights-of-needs
     set importance-weight-financial-survival (weight-survival-needs * weight-survival-needs-category)
     set importance-weight-health (weight-survival-needs * weight-survival-needs-category)
     set importance-weight-sleep (weight-survival-needs * weight-survival-needs-category)
+    set importance-weight-conformity (weight-survival-needs * weight-survival-needs-category)
 
     ;Set importance weights of subneeds of SAFETY
     set importance-weight-financial-safety (importance-given-to-power-value / 100) * weight-safety-needs-category
@@ -85,6 +87,7 @@ to calibrate-importance-weights-of-needs
       importance-weight-financial-survival
       importance-weight-health
       importance-weight-sleep
+      importance-weight-conformity
       importance-weight-financial-safety
       importance-weight-risk-avoidance
       importance-weight-compliance
@@ -98,6 +101,7 @@ to calibrate-importance-weights-of-needs
     set importance-weight-financial-survival (importance-weight-financial-survival / total-sum-of-weights)
     set importance-weight-health (importance-weight-health / total-sum-of-weights)
     set importance-weight-sleep (importance-weight-sleep / total-sum-of-weights)
+    set importance-weight-conformity (importance-weight-conformity / total-sum-of-weights)
     set importance-weight-financial-safety (importance-weight-financial-safety / total-sum-of-weights)
     set importance-weight-risk-avoidance (importance-weight-risk-avoidance / total-sum-of-weights)
     set importance-weight-compliance (importance-weight-compliance / total-sum-of-weights)

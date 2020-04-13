@@ -6,6 +6,58 @@ undirected-link-breed [my-friends-links my-friends-link]
 
 ;breed [work-social-networks work-social-network]
 
+to setup-social-networks
+  if network-generation-method = "random" 
+  [setup-social-networks-random stop]
+  if network-generation-method = "value-similarity"
+  [setup-social-networks-value-similarity stop]
+  error (sentence "Method" network-generation-method "for generating network unknown. Please select another")
+end
+
+to-report possible-friends
+  let agents-to-befriend reduce [ [x y] -> (turtle-set x y) ] ([gatherers] of (turtle-set my-private-leisure my-school my-university))
+  report other agents-to-befriend with [not my-friends-link-neighbor? myself]
+end
+
+to setup-social-networks-random
+  ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
+;  ask workers [  create-workplace-colleague-links-to other workers with [my-workplace = [my-workplace] of myself]]
+  ask people [
+    ; Its up to n so this does not throw an error if there are a lot of leisure places and not enough agents to become friends with
+    create-my-friends-links-with up-to-n-of peer-group-friend-links possible-friends
+  ]
+end
+
+to-report value-euclidean-distance [other-agent]
+  report sqrt sum (list 
+    ((importance-given-to-hedonism-value - [importance-given-to-hedonism-value] of other-agent) ^ 2)
+    ((importance-given-to-stimulation-value - [importance-given-to-stimulation-value] of other-agent) ^ 2)
+    ((importance-given-to-self-direction-value - [importance-given-to-self-direction-value] of other-agent) ^ 2)
+    ((importance-given-to-universalism-value - [importance-given-to-universalism-value] of other-agent) ^ 2)
+    ((importance-given-to-benevolence-value - [importance-given-to-benevolence-value] of other-agent) ^ 2)
+    ((importance-given-to-conformity-tradition-value - [importance-given-to-conformity-tradition-value] of other-agent) ^ 2)
+    ((importance-given-to-security-value - [importance-given-to-security-value] of other-agent) ^ 2)
+    ((importance-given-to-power-value - [importance-given-to-power-value] of other-agent) ^ 2)
+    ((importance-given-to-achievement-value - [importance-given-to-achievement-value] of other-agent) ^ 2))
+end
+
+to setup-social-networks-value-similarity
+  ; If there are less than 20 people, setup the social network randomly
+  ifelse count people > 20 [
+    ask people [
+      ; Its up to n so this does not throw an error if there are a lot of leisure places and not enough agents to become friends with
+      create-my-friends-links-with turtle-set up-to-n-of peer-group-friend-links (sort-on [value-euclidean-distance myself] possible-friends)
+    ]
+    repeat round (percentage-of-agents-with-random-link * count people) [
+      ask one-of people [
+        let new-friend one-of possible-friends
+        ask one-of my-friends-links [ die ]
+        create-my-friends-link-with new-friend
+      ]
+    ]
+  ]
+  [setup-social-networks-random]
+end
 
 to-report my-relatives
   report other [gatherers] of my-home
@@ -64,4 +116,19 @@ end
 
 to-report retireds
   report people with [is-retired?]
+end
+
+to write-network-to-file [file]
+  if file-exists? file [file-delete file]
+  file-open file
+  file-print "graph {"
+  file-print "graph [overlap=false];"
+  file-print "node [style=filled];"
+  ask my-friends-links [
+    let turtle1 min-one-of both-ends [who]
+    let turtle2 max-one-of both-ends [who]
+    file-print (word "\"" [who] of turtle1 "\" -- \"" [who] of turtle2 "\";") 
+  ]
+  file-print "}"
+  file-close
 end
