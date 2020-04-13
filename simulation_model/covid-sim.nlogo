@@ -343,7 +343,7 @@ CHOOSER
 global-confinment-measures
 global-confinment-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -437,7 +437,7 @@ INPUTBOX
 1408
 658
 #non-essential-shops
-5.0
+10.0
 1
 0
 Number
@@ -546,7 +546,7 @@ SWITCH
 936
 closed-universities?
 closed-universities?
-1
+0
 1
 -1000
 
@@ -939,7 +939,7 @@ importance-leisure
 importance-leisure
 0
 1
-0.3
+0.24
 0.01
 1
 NIL
@@ -1139,7 +1139,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1201,7 +1201,7 @@ INPUTBOX
 1391
 996
 #days-trigger-school-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1247,7 +1247,7 @@ INPUTBOX
 1537
 996
 #days-trigger-non-essential-business-closing-measure
-10000.0
+0.0
 1
 0
 Number
@@ -1742,7 +1742,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K" "one-family"
-5
+1
 
 MONITOR
 716

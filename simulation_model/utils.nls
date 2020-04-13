@@ -4,6 +4,13 @@ to-report weighted-mean [values weights]
   report (sum (map [ [v w] -> v * w] values weights)) / sum weights
 end
 
+to-report bounded-linear-map [min-val max-val min-map max-map val]
+  if val < min-val [report min-map]
+  if val > max-val [report max-map]
+  report (val - min-val) / (max-val - min-val) * (max-map - min-map) + min-map
+end
+  
+
 ; Clamps a number in between 0 and 1
 to-report clamp [low high number]
   if number < low [

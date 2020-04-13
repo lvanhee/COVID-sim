@@ -1,0 +1,60 @@
+ {
+    "name": "Experiment Example",
+    "author": "Loïs Vanhée",
+    
+    "variables": 
+	{
+			"input-variables":[
+			{
+				"name": "propagation-risk",
+				"range": "[0 0.01 0.2]"
+			},
+			{
+				"name": "#beds-in-hospital",
+				"range": "[0 2 20]"
+			}
+			],
+			
+			"output-variables":[
+			{
+				"name": "behaviourspace-global-fitness-value"
+			},
+			{
+				"name": "behaviourspace-satisfaction-scenario-1"
+			}
+			]
+	},
+	
+	"executor": 
+	{
+		"type" : "netlogo",
+		"file": "C:/Users/loisv/git/COVID-sim3/simulation_model/covid-sim.nlogo",
+		"pre-setup": "set preset-scenario \"zero-action-scandinavia\" set-values",
+		"go": "",
+		"experiment-executor":"netlogo-executor",
+		"_comment":"as ticks is an input variable, the executer will apply multiple ticks in a row",
+		"multi-experiment":"full-reset-every-experiment"
+	},
+	
+	"output":
+	{
+		"goal":
+			{
+				"type":"maximize",
+				"variable":"behaviourspace-global-fitness-value",
+				"exploration-mode":
+				{
+				"mode": "hillclimbing",
+				"search-approach": "one-variable-at-a-time",
+				"value-selection":"all-values"
+				}
+			},
+		"type":"csv",
+		"output-modificators":"save-all-improvements",
+		"file":"C:/Users/loisv/git/COVID-sim3/processing/behavioursearch/output.csv"
+		
+	}
+	
+    
+    
+} 

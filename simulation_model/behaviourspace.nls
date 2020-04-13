@@ -1,26 +1,46 @@
-to-report behaviour-fitness
+;these globals must be updated at the END of the procedure; as they get destroyed by "setup"
+globals[ratio-casualties-no-measures ratio-casualties-closed-schools-and-uni ratio-casualties-all-closed]
+
+;cannot use globals within this function, as setup kills them!
+to-report behaviourspace-global-fitness-value
   ;;could be improved by repeating this experiment multiple times, or with different random seeds
   
   load-no-measures
   setup
-  repeat 2 [go]
-  let ratio-casualties-no-measures #dead-people / (count people + #dead-people)
+  while [any? people with [is-infected?]] [go]
+  let ratio-casualties-no-measures-tmp #dead-people / (count people + #dead-people)
   
   load-closed-schools-and-uni-measures
   setup
-  repeat 2 [go]
-  let ratio-casualties-closed-schools-and-uni #dead-people / (count people + #dead-people)
+  while [any? people with [is-infected?]] [go]
+  let ratio-casualties-closed-schools-and-uni-tmp #dead-people / (count people + #dead-people)
   
   load-all-closed-measures
   setup
-  repeat 2 [go]
-  let ratio-casualties-all-closed #dead-people / (count people + #dead-people)
+  while [any? people with [is-infected?]] [go]
+  let ratio-casualties-all-closed-tmp #dead-people / (count people + #dead-people)
     
-  let satisfaction-scenario-1 
-  (ratio-casualties-no-measures - ratio-casualties-closed-schools-and-uni) * 0.5
-  +
-  (ratio-casualties-closed-schools-and-uni - ratio-casualties-all-closed) * 0.5
-  
-  
-  report satisfaction-scenario-1 
+  set ratio-casualties-no-measures ratio-casualties-no-measures-tmp
+  set ratio-casualties-closed-schools-and-uni ratio-casualties-closed-schools-and-uni-tmp
+  set ratio-casualties-all-closed ratio-casualties-all-closed-tmp
+  report behaviourspace-satisfaction-scenario-1
+end
+
+;;might be worth setting a "min" value here
+to-report behaviourspace-satisfaction-scenario-1 
+  report ;#beds-in-hospital + propagation-risk
+   behaviourspace-satisfaction-scenario-1-1 * 0.5 +
+  behaviourspace-satisfaction-scenario-1-2 * 0.5
+end
+
+;;the ratio of casualties when no measures should be higher than when schools and uni are closed
+to-report behaviourspace-satisfaction-scenario-1-1
+  if ratio-casualties-closed-schools-and-uni = 0 [report 0]
+  report bounded-linear-map 1 1.5 0 1 (ratio-casualties-no-measures / ratio-casualties-closed-schools-and-uni)
+end
+
+;;the ratio of casualties when closed shools & uni should be ideally twice larger as when everything is closed
+to-report behaviourspace-satisfaction-scenario-1-2
+  if ratio-casualties-all-closed = 0 [report 1]
+  report bounded-linear-map 1 2 0 1 (ratio-casualties-closed-schools-and-uni / ratio-casualties-all-closed)
 end
