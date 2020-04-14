@@ -136,6 +136,9 @@ people-own [
   ;Variables for Luxury need (ESTEEM)
   amount-of-last-luxury-items-bought
 
+  ;;L: this dichotomy is conceptually discussable: the evaluation of safety it BASED on these variables;
+  ;;but, in principles, these variables are not there for evaluating safety and they are/can/should influence other aspects (including other needs).
+  ;;same for all variables
   ;Variables for Financial Safety need (SAFETY)
   my-amount-of-capital
   my-previous-amount-of-capital
@@ -210,4 +213,8 @@ end
 
 to-report young-age
   report "young"
+end
+
+to-report app-users
+  report people with [is-user-of-tracking-app?]
 end

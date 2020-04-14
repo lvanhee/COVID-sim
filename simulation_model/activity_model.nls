@@ -51,13 +51,11 @@ to update-resources-based-on-current-activity
   if is-forced-to-be-in-school? or is-learning? or is-getting-tested? or is-resting? or is-relaxing?
   or (is-at-home? and is-forced-to-be-here?) [stop]
 
-  let amount-to-earn 0
-  let amount-earned 0
   if is-working?
   [
-    set amount-to-earn 10
+    let amount-to-earn workers-wages
 
-    set amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
+    let amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
     perform-transaction self my-work (list "salary" amount-earned) (list "work")
 
     if government-pays-wages?
@@ -77,15 +75,15 @@ to update-resources-based-on-current-activity
     let max-amount-of-rations-I-can-buy (floor my-amount-of-capital / price-of-rations-in-essential-shops)
     let amount-of-rations-to-buy min (list amount-of-rations-I-buy-when-going-to-essential-shops max (list max-amount-of-rations-I-can-buy 0))
 
-    let picked-essential-shop max-one-of essential-shops [stock-of-goods]
+    ;let picked-essential-shop max-one-of essential-shops [stock-of-goods]
 
-    let available-goods-in-my-essential-shop max (list [stock-of-goods] of picked-essential-shop 0)
+    let available-goods-in-my-essential-shop max (list [stock-of-goods] of current-activity 0)
 
     set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-essential-shop)
 
     let amount-spent amount-of-rations-to-buy * price-of-rations-in-essential-shops
 
-    perform-transaction self picked-essential-shop (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent)
+    perform-transaction self current-activity (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent)
 
     stop
   ]

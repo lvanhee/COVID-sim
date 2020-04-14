@@ -29,6 +29,7 @@ to setup
   create-all-households
   setup-person-needs
   setup-social-networks
+  setup-app-users
 
   if with-infected? [infect-one-random-person]
 
@@ -40,6 +41,19 @@ to setup
   set list-of-buses (list)
   set list-of-shared-cars (list)
   reset-ticks
+end
+
+to setup-app-users
+  ask people [set is-user-of-tracking-app? false]
+  let #people-using-the-app count people * ratio-of-users-of-the-tracking-app
+  let #people-selected-for-their-anxiety-level #people-using-the-app * ratio-of-anxiety-avoidance-users
+  let #people-randomly-selected #people-using-the-app - #people-selected-for-their-anxiety-level
+
+  ask max-n-of #people-selected-for-their-anxiety-level people [importance-weight-safety +
+importance-weight-risk-avoidance +
+importance-weight-compliance] [set is-user-of-tracking-app? true]
+
+  ask n-of #people-randomly-selected people with [not is-user-of-tracking-app?][set is-user-of-tracking-app? true]
 
 end
 
@@ -153,7 +167,7 @@ to setup-person [current-home l-age]
 
     setup-relation-to-gathering-points
     set previous-contacts-met n-values #days-tracking [(turtle-set)]
-    set is-user-of-tracking-app? random-float 1 < user-of-tracking-app-probability
+
     set can-I-perform-solo-transportation? random-float 1  <  owning-solo-transportation-probability
 
     set current-person-I-depend-on nobody
