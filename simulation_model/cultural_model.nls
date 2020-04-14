@@ -79,7 +79,7 @@ to calibrate-importance-weights-of-needs
     ;Set importance weights of subneeds of ESTEEM
     set importance-weight-luxury ((importance-given-to-hedonism-value + importance-given-to-power-value) / (2 * 100)) * weight-esteem-needs-category
     set importance-weight-leisure ((importance-given-to-hedonism-value + importance-given-to-stimulation-value) / (2 * 100)) * weight-esteem-needs-category
-    set importance-weight-autonomy ((importance-given-to-self-direction-value + importance-given-to-achievement-value) / (2 * 200)) * weight-esteem-needs-category
+    set importance-weight-autonomy ((importance-given-to-self-direction-value + importance-given-to-achievement-value) / (2 * 100)) * weight-esteem-needs-category
 
     let total-sum-of-weights sum (list
       importance-weight-food-safety

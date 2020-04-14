@@ -2877,7 +2877,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Netherlands" "United States" "China" "Russia"
-2
+1
 
 SLIDER
 2008
@@ -2888,7 +2888,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-46.0
+53.0
 1
 1
 NIL
@@ -2903,7 +2903,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-91.0
+80.0
 1
 1
 NIL
@@ -2918,7 +2918,7 @@ power-distance
 power-distance
 0
 100
-40.0
+38.0
 1
 1
 NIL
@@ -2948,7 +2948,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-62.0
+14.0
 1
 1
 NIL
@@ -2963,7 +2963,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-26.0
+67.0
 1
 1
 NIL
