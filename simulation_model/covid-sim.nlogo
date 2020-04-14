@@ -2591,7 +2591,7 @@ ratio-worker-shared-car
 ratio-worker-shared-car
 0
 1
-0.15
+0.13
 0.01
 1
 NIL
@@ -2661,7 +2661,7 @@ ratio-retired-shared-car
 ratio-retired-shared-car
 0
 1
-0.5
+0.47
 0.01
 1
 NIL
@@ -3055,15 +3055,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-1792
-820
-2018
-853
-user-of-tracking-app-probability
-user-of-tracking-app-probability
+1894
+855
+2137
+888
+ratio-of-users-of-the-tracking-app
+ratio-of-users-of-the-tracking-app
 0
 1
-1.0
+0.35
 0.01
 1
 NIL
@@ -3081,10 +3081,10 @@ average-number-of-people-recorded-by-recording-apps
 11
 
 INPUTBOX
-1911
-961
-2066
-1021
+1895
+967
+2050
+1027
 #days-tracking
 3.0
 1
@@ -3103,10 +3103,10 @@ is-testing-people-recorded-by-the-proximity-app-measure?
 -1000
 
 MONITOR
-1880
-1040
-1993
-1085
+1895
+1027
+2008
+1072
 NIL
 #tests-performed
 17
@@ -3217,6 +3217,54 @@ productivity-at-home
 1
 NIL
 HORIZONTAL
+
+SLIDER
+1894
+823
+2101
+856
+ratio-of-anxiety-avoidance-users
+ratio-of-anxiety-avoidance-users
+0
+1
+0.56
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1894
+1071
+1972
+1116
+#app-users
+count people with [is-user-of-tracking-app?]
+17
+1
+11
+
+MONITOR
+1970
+1071
+2114
+1116
+standard anxiety avoidance of people
+mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of people
+17
+1
+11
+
+MONITOR
+1894
+1114
+2068
+1159
+anxiety-avoidance of app users
+mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of app-users
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
