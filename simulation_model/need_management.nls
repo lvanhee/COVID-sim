@@ -51,6 +51,7 @@ to update-needs-for-playing [current-activity-descriptor]
   set luxury-satisfaction-level clamp 0 1 (luxury-satisfaction-level + SDA-luxury current-activity-descriptor)
   ]
 
+  set conformity-satisfaction-level clamp 0 1 (conformity-satisfaction-level + SDA-conformity current-activity-descriptor)
 end
 
 
@@ -62,7 +63,6 @@ end
 to decay-satisfaction-level
   let belonging-decay 0.02
   if any? my-relatives and days-since-seen-relatives > 0 [set belonging-decay belonging-decay * 1.5]
-  if any? my-colleagues and days-since-seen-colleagues > 0 [set belonging-decay belonging-decay * 1.5]
   if days-since-seen-friends > 0 [set belonging-decay belonging-decay * 1.5]
 
   set belonging-satisfaction-level belonging-satisfaction-level - belonging-decay
@@ -81,6 +81,9 @@ to decay-satisfaction-level
   set luxury-satisfaction-level luxury-satisfaction-level * 0.98
   if luxury-satisfaction-level < 0 [set luxury-satisfaction-level 0]
   ]
+  
+  set conformity-satisfaction-level conformity-satisfaction-level * 0.8
+  if conformity-satisfaction-level < 0 [set conformity-satisfaction-level 0]
 end
 
 ;Future work:
@@ -90,7 +93,8 @@ to-report SUE-belonging [ad]
   let gp location-of ad
   let motive motive-of ad
 
-
+  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure"]
+  [ report 0 ]
   let number [expected-number-of-other-participants] of gp
   let base 0
   let network-bonus 1
@@ -110,19 +114,8 @@ to-report SUE-belonging [ad]
     ]
   ]
   
-  
   if is-family-present-in-current-gathering-point? and days-since-seen-relatives > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-relatives / 28))
-  ]
-
-  if is-worker?
-  [
-    ;;workers expect to meet their colleagues at the workplace
-    let colleagues-present location-of ad = my-work
-    ;let colleagues-present any? my-colleagues with [current-activity = [current-activity] of myself]
-    if colleagues-present and days-since-seen-colleagues > 0 [
-      set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
-    ]
   ]
 
   ;;people expect to meet their friends at the leisure spaces
@@ -148,6 +141,9 @@ to-report SUA-belonging [ad]
   let gp location-of ad
   let motive motive-of ad
 
+  ; Only your home, and public and private leisure places satisfy belonging needs
+  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure"]
+  [ report 0 ]
   let number count people with [current-activity = gp]
   let base 0
   let network-bonus 1
@@ -169,10 +165,6 @@ to-report SUA-belonging [ad]
   let family-present any? (([gatherers] of gp) with [member? self [my-relatives] of myself])
   if family-present and days-since-seen-relatives > 0 [
     set network-bonus network-bonus + min (list 0.5 (days-since-seen-relatives / 28))
-  ]
-  let colleagues-present any? (([gatherers] of gp) with [member? self [my-colleagues] of myself])
-  if colleagues-present and days-since-seen-colleagues > 0 [
-    set network-bonus network-bonus + min (list 0.5 (days-since-seen-colleagues / 28))
   ]
   let friends-present any? (([gatherers] of gp) with [member? self [my-friends] of myself])
   if friends-present and days-since-seen-friends > 0 [
@@ -224,7 +216,7 @@ to-report SUE-compliance [ad]
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
   ]
 
-  if is-social-distancing-measure-active? [
+  if is-social-distancing-measure-active? and I-know-of-social-distancing? [
     ifelse social-distancing-of ad
     [ set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1 ]
     [ set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1 ]
@@ -429,25 +421,56 @@ end
 
 
 to-report SUE-health [ad]
-  ifelse is-believing-to-be-infected? or has-internally-visible-symptoms?
+  let base 1
+  let sd-bonus 0.8
+  if social-distancing-of ad [
+    set sd-bonus 1
+  ]
+  if is-believing-to-be-infected? or has-internally-visible-symptoms?
   [
     if is-observing-critical-symptoms? [
       if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
-      [report .8]
-      report 0
+      [set base .8]
+      set base 0
     ]
     
     if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
     [
-      report .3
+      set base .3
     ]
     if is-rest-at-home-descriptor? ad
-    [ report 0.2 ]
-    report 0
+    [ set base 0.2 ]
+    set base 0
   ]
   ;;can be updated if agents start to be deprived from sleep, not needed at the moment
-  [report 1]
- 
+  report base * sd-bonus
+end
+
+to-report conformity-increase [ad action]
+  let motive motive-of ad
+  let sd social-distancing-of ad
+  
+  if motive = motive-of action and sd = social-distancing-of action [
+    report 0.4
+  ]
+  if motive = motive-of action [
+    report 0.3
+  ]
+  if sd = social-distancing-of action [
+    report 0.15
+  ]
+  report 0
+end
+
+to-report SUE-conformity [ad]
+  if length what-my-network-did >= 28 [
+    report conformity-increase ad (first what-my-network-did)
+  ]
+  report 1
+end
+
+to-report SUA-conformity [ad]
+  report conformity-increase ad (last what-my-network-did)
 end
 
 to-report global-prevalence-of [ad]
@@ -463,6 +486,7 @@ to-report global-prevalence-of [ad]
       (SDE-financial-survival ad * importance-weight-financial-survival)
       (SDE-sleep ad * importance-weight-sleep) 
       (SDE-health ad * importance-weight-health) 
+      (SDE-conformity ad * importance-weight-conformity)
       ;Safety needs
       (SDE-compliance ad * importance-weight-compliance) 
       (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
@@ -510,6 +534,18 @@ end
 to-report SDE-sleep [ad]
   let expected-increase SUE-sleep ad
   let discounted-increase expected-increase * (1 - sleep-satisfaction-level)
+  report discounted-increase
+end
+
+to-report SDE-conformity [ad]
+  let expected-increase SUE-conformity ad
+  let discounted-increase expected-increase * (1 - conformity-satisfaction-level)
+  report discounted-increase
+end
+
+to-report  SDA-conformity [ad]
+  let expected-increase SUA-conformity ad
+  let discounted-increase expected-increase * (1 - conformity-satisfaction-level)
   report discounted-increase
 end
 

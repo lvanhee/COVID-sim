@@ -23,13 +23,14 @@ to setup
   set current-day 0
   set #dead-people 0
   set government-reserve-of-capital government-initial-reserve-of-capital
-  
+  set was-social-distancing-enforced? false
+
   setup-activities
   create-all-households
   setup-person-needs
   setup-social-networks
   setup-app-users
-    
+
   if with-infected? [infect-one-random-person]
 
   update-display
@@ -47,24 +48,14 @@ to setup-app-users
   let #people-using-the-app count people * ratio-of-users-of-the-tracking-app
   let #people-selected-for-their-anxiety-level #people-using-the-app * ratio-of-anxiety-avoidance-users
   let #people-randomly-selected #people-using-the-app - #people-selected-for-their-anxiety-level
-  
-  ask max-n-of #people-selected-for-their-anxiety-level people [importance-weight-safety + 
+
+  ask max-n-of #people-selected-for-their-anxiety-level people [importance-weight-safety +
 importance-weight-risk-avoidance +
 importance-weight-compliance] [set is-user-of-tracking-app? true]
-  
+
   ask n-of #people-randomly-selected people with [not is-user-of-tracking-app?][set is-user-of-tracking-app? true]
-  
-end
 
-to setup-social-networks
-  ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
-;  ask workers [  create-workplace-colleague-links-to other workers with [my-workplace = [my-workplace] of myself]]
-  ask people [
-    let possible-friends reduce [ [x y] -> (turtle-set x y) ] ([gatherers] of (turtle-set my-private-leisure my-school my-university))
-    create-my-friends-links-with n-of 7 other possible-friends
-  ]
 end
-
 
 to check-parameters
   if probability-self-recovery-symptoms + probability-recorvery-if-treated + probability-unavoidable-death > 1
@@ -85,9 +76,9 @@ to create-all-households
   let #retired-couple-homes floor (#households * ratio-retired-couple-homes)
   let #family-homes floor (#households * ratio-family-homes)
   let #multi-generational-homes #households - (#adults-homes + #retired-couple-homes + #family-homes)
-  
+
   let #created-households 0
-  
+
   repeat #adults-homes [create-household "adult" #created-households  #households set #created-households  #created-households + 1]
   repeat #family-homes [create-household "family" #created-households  #households set #created-households  #created-households + 1]
   repeat #retired-couple-homes[create-household "retired-couple" #created-households #households set  #created-households  #created-households + 1]
@@ -103,7 +94,7 @@ to create-household [t #created-households #households-to-create]
     set gathering-type "home"
     set shape "house"
     set color green
-    set xcor 9 * max-pxcor / 10 
+    set xcor 9 * max-pxcor / 10
     set ycor max-pycor * #created-households / #households-to-create
   ]
 
@@ -158,27 +149,27 @@ end
 to setup-person [current-home l-age]
   create-people 1 [
     set age l-age
-    
+
     set has-been-tested-infected? false
     set my-amount-of-capital my-starting-amount-of-capital
     set current-activity current-home
     set my-home current-home
-    
+
     set my-previous-amount-of-capital my-amount-of-capital
     set has-been-tested-immune? false
     setup-disease-profile
-    
+
     create-gathering-link-to current-home [set features (list "rest" "visit family")]
     set is-moving-outside-for-reaching-current-activity? false
     ;setup-person-home
-    
+
     set is-currently-allocated-a-bed-in-hospital? false
-    
+
     setup-relation-to-gathering-points
     set previous-contacts-met n-values #days-tracking [(turtle-set)]
-    
+
     set can-I-perform-solo-transportation? random-float 1  <  owning-solo-transportation-probability
-    
+
     set current-person-I-depend-on nobody
     set color default-color
     set size 0.5
@@ -187,35 +178,41 @@ to setup-person [current-home l-age]
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
     set stayed-out-queuing-for-bus? false
+
+    set I-know-of-social-distancing? true
+    set I-know-of-working-from-home? true
+    set what-my-network-did []
   ]
 end
 
-to setup-person-needs 
-  
+to setup-person-needs
+
   ifelse culture? [
     setup-person-values-and-needs-based-on-cultural-model
-  ][ 
+  ][
     ask people [
       set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
       set is-I-apply-social-distancing? is-social-distancing-measure-active?
-      
+
       ;SUBNEEDS satisfaction level
       set belonging-satisfaction-level random-float 0.5 + 0.5
       set compliance-satisfaction-level random-float 0.5 + 0.5
       set leisure-satisfaction-level random-float 0.3 + 0.7
       set sleep-satisfaction-level random-float 0.2 + 0.8
+      set conformity-satisfaction-level random-float 0.2 + 0.8
       set luxury-satisfaction-level random-float 0.3 + 0.7
       set risk-avoidance-satisfaction-level random-float 0.5 + 0.5
       set autonomy-satisfaction-level 0.95
-      
+
       ;MASLOW NEEDS
       set importance-weight-self-esteem clamp 0.01 1 random-normal importance-self-esteem needs-std-dev
-      set importance-weight-belonging (clamp 0.01 1 random-normal ratio-safety-belonging needs-std-dev) 
+      set importance-weight-belonging (clamp 0.01 1 random-normal ratio-safety-belonging needs-std-dev)
       set importance-weight-survival clamp 0.01 1 random-normal importance-survival needs-std-dev
       set importance-weight-safety 1 - importance-weight-belonging
-      
+
       ;SUBNEEDS
-      set importance-weight-compliance clamp 0.01 1 random-normal importance-compliance needs-std-dev 
+      set importance-weight-compliance clamp 0.01 1 random-normal importance-compliance needs-std-dev
+      set importance-weight-conformity clamp 0.01 1 random-normal importance-conformity needs-std-dev
       set importance-weight-leisure clamp 0.01 1 random-normal importance-leisure needs-std-dev
       set importance-weight-luxury clamp 0.01 1 random-normal importance-luxury needs-std-dev
       set importance-weight-risk-avoidance clamp 0.01 1 random-normal importance-risk-avoidance needs-std-dev
@@ -227,7 +224,7 @@ to setup-person-needs
       set importance-weight-financial-safety clamp 0.01 1 random-normal importance-financial-safety needs-std-dev
     ]
   ]
-  
+
 end
 
 to setup-relation-to-gathering-points
@@ -241,12 +238,12 @@ to setup-relation-to-gathering-points
   [  set features (list "relaxing")]
   create-gathering-link-to one-of public-leisure-points
   [ set features (list "relaxing")]
-  
+
   setup-relation-to-gathering-points1
 end
 
 to setup-relation-to-gathering-points1
-  
+
   set my-essential-shops n-of (min list 2 (ceiling (#essential-shops * 0.2))) essential-shops
    create-gathering-links-to my-essential-shops
   [ set features (list "essential shopping" "shopping")]
@@ -272,12 +269,12 @@ to  setup-worker-relation-to-gathering-point
     [
       set target one-of schools
     ]
-    
+
     if rand >= probability-hospital-personel + probability-school-personel and rand < probability-hospital-personel + probability-school-personel + probability-university-personel
     [
       set target one-of universities
     ]
-    
+
     if rand >= probability-hospital-personel + probability-school-personel + probability-university-personel and
     rand < probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper
     [
@@ -300,22 +297,22 @@ to setup-activities
   set universities (turtle-set)
   set public-leisure-points (turtle-set)
   set private-leisure-points (turtle-set)
-  
+
   create-gathering-points #schools [
     set schools (turtle-set schools self)
     set hired-workers (turtle-set)
     set gathering-type "school" set shape "triangle" set color orange set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
-  
+
   create-gathering-points #universities [
     set universities (turtle-set universities self)
     set hired-workers (turtle-set)
     set gathering-type "university" set shape "triangle 2" set color magenta + 2 set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
-  
+
   create-gathering-points #workplaces [
     set workplaces (turtle-set workplaces self)
     set hired-workers (turtle-set)
     set gathering-type "workplace" set shape "pentagon" set color sky + 3 set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
-  
+
   create-gathering-points #essential-shops [
     set essential-shops (turtle-set essential-shops self)
     set hired-workers (turtle-set)
@@ -332,7 +329,7 @@ to setup-activities
     set public-leisure-points (turtle-set public-leisure-points self)
     set hired-workers (turtle-set)
     set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
-  
+
   create-gathering-points #private-leisure [
     set private-leisure-points (turtle-set private-leisure-points self)
     set hired-workers (turtle-set)

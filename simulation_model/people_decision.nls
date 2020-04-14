@@ -43,7 +43,7 @@ to-report my-available-activity-descriptors
       ]
 
       if is-worker? [
-        if is-allowed-to-work-from-home? [
+        if is-allowed-to-work-from-home? and I-know-of-working-from-home? [
           set activities (lput (activity-descriptor
             my-home
             work-motive)
@@ -86,7 +86,10 @@ to-report my-available-activity-descriptors
   ]
   let ret []
   foreach activities [ activity ->
-    set ret fput (lput true activity) fput (lput false activity) ret
+    set ret fput (lput false activity) ret
+    if I-know-of-social-distancing? [
+      set ret fput (lput true activity) ret
+    ]
   ]
   report ret
 end
@@ -137,14 +140,42 @@ to-report is-currently-watched-by-an-adult?
 end
 
 to update-belief-based-on-current-activity
-    let family-here count my-relatives with [current-activity = [current-activity] of myself]
+  let family-here count my-relatives with [current-activity = [current-activity] of myself]
   if any? my-relatives and family-here / count my-relatives > 0.5 [ set days-since-seen-relatives 0 ]
   
   if is-worker? 
   [
     let colleagues-here count my-colleagues with [current-activity = [current-activity] of myself]
     if (any? other my-colleagues and colleagues-here / count my-colleagues > 0.5) [ set days-since-seen-colleagues 0 ]
+    if any? other my-colleagues with [I-know-of-working-from-home?] [ set I-know-of-working-from-home? true ]
   ]
   let friends-here count my-friends with [current-activity = [current-activity] of myself]
   if any? my-friends and friends-here / count my-friends > 0.5 [ set days-since-seen-friends 0 ]
+  if any? other my-network with [I-know-of-social-distancing?] [ set I-know-of-social-distancing? true ]
+  
+  update-memory
+end
+
+to-report add-activity [act act-list]
+  let index 0
+  foreach act-list [act-count -> 
+    if act = item 0 act-count [
+      report replace-item index act-list (list (item 0 act-count) (item 1 act-count + 1))
+    ]
+    set index index + 1
+  ]
+  report lput (list act 1) act-list
+end
+
+to update-memory
+  let network-activity []
+  let network-activities []
+  ask my-network [
+    set network-activities add-activity (list current-motivation is-I-apply-social-distancing?) network-activities
+  ]
+  set network-activity fput nobody (item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] network-activities))
+  set what-my-network-did lput network-activity what-my-network-did
+  if length what-my-network-did > 28 [
+    set what-my-network-did but-first what-my-network-did
+  ]
 end

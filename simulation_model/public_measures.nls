@@ -1,3 +1,7 @@
+globals [
+  was-social-distancing-enforced?
+]
+
 to-report is-lockdown-enforced?
   if global-confinment-measures = "total-lockdown" [
     set is-lockdown-active? true
@@ -12,13 +16,13 @@ to-report is-lockdown-enforced?
     ]
     if ratio-infected <= 0.05 [ set is-lockdown-active? false]
     report false
-  ]    
+  ]
   report false
 end
 
 to-report closed-non-essential?
   report ratio-infected > ratio-omniscious-infected-that-trigger-non-essential-closing-measure
-  or 
+  or
   #days-trigger-non-essential-business-closing-measure <= current-day
 end
 
@@ -28,16 +32,21 @@ to-report closed-schools?
   or
   ratio-infected > ratio-omniscious-infected-that-trigger-school-closing-measure
   or
-  #days-trigger-school-closing-measure <= current-day  
+  #days-trigger-school-closing-measure <= current-day
 end
 
 to apply-active-measures
   ask n-of (ratio-population-randomly-tested-daily * count people) people [
     perform-test
   ]
-  
+
   ask n-of (ratio-population-daily-immunity-testing * count people) people [
     perform-immunity-test
+  ]
+
+  if was-social-distancing-enforced? != is-social-distancing-measure-active? [
+    set was-social-distancing-enforced? is-social-distancing-measure-active?
+    inform-people-of-measures
   ]
 end
 
@@ -51,4 +60,11 @@ end
 
 to-report average-number-of-people-recorded-by-recording-apps
   report mean [count people-recorded-by-my-recording-app] of people with [is-user-of-tracking-app?]
+end
+
+to inform-people-of-measures
+  ask n-of (count people * percentage-news-watchers) people [
+    set I-know-of-social-distancing? true
+    set I-know-of-working-from-home? true
+  ]
 end
