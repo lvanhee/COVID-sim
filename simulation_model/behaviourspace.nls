@@ -1,46 +1,75 @@
-;these globals must be updated at the END of the procedure; as they get destroyed by "setup"
-globals[ratio-casualties-no-measures ratio-casualties-closed-schools-and-uni ratio-casualties-all-closed]
+__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_utils.nls"]
 
-;cannot use globals within this function, as setup kills them!
 to-report behaviourspace-global-fitness-value
   ;;could be improved by repeating this experiment multiple times, or with different random seeds
   
-  load-no-measures
-  setup
-  while [any? people with [is-infected?]] [go]
-  let ratio-casualties-no-measures-tmp #dead-people / (count people + #dead-people)
+  if file-exists? behaviourspace-tmp-file-location [file-delete behaviourspace-tmp-file-location]
+ 
+  report behaviourspace-satisfaction-scenario-1 * 0.2 + sanity-checks * 0.8
+end
+
+to-report behaviourspace-tmp-file-location
+  report "tmp_behaviourspace.csv"
+end
+
+to-report no-measures-experiment-behaviourspace-name
+  report "no-measures"
+end
+
+
+to-report closed-schools-and-uni-behaviourspace-experiment-name
+  report "closed-schools-and-uni"
+end
+
+to-report closed-all-behaviourspace-experiment-name
+  report "all-closed"
+end
+
+
+to-report ratio-of-casualties-behaviourspace-variable-name
+  report "ratio-casualties"
+end
+
+to-report #max-hospital-beds-taken-behaviourspace-variable-name
+  report "#max-hospital-beds-taken-at-once"
+end
+
+
+;;to be very cautions about: some variables might be overriden by an experiment
+;;(e.g. an experiment playing with the number of hospital beds can leave an altered number of hospital beds at the end of the experiment)
+;;normally, this issue should not occur when using the "loading" function, but it might (his variable should then be reset to the right value)
+;; though, this voids the use of the autocalibrator, so be very wary when using it.
+to execute-and-save [experiment-name]
+  if experiment-name = no-measures-experiment-behaviourspace-name
+  [
+    load-no-measures
+    setup
+    while [any? people with [is-infected?]] [go]
+    let ratio-casualties-no-measures-tmp #dead-people / (count people + #dead-people)
+    save-on-file experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties-no-measures-tmp
+    save-on-file experiment-name #max-hospital-beds-taken-behaviourspace-variable-name #max-hospital-beds-taken-at-once
+    stop
+  ]
   
-  load-closed-schools-and-uni-measures
+  if experiment-name = closed-schools-and-uni-behaviourspace-experiment-name
+  [
+    load-closed-schools-and-uni-measures
   setup
   while [any? people with [is-infected?]] [go]
   let ratio-casualties-closed-schools-and-uni-tmp #dead-people / (count people + #dead-people)
+    save-on-file experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties-closed-schools-and-uni-tmp
+    stop
+  ]
   
-  load-all-closed-measures
-  setup
-  while [any? people with [is-infected?]] [go]
-  let ratio-casualties-all-closed-tmp #dead-people / (count people + #dead-people)
-    
-  set ratio-casualties-no-measures ratio-casualties-no-measures-tmp
-  set ratio-casualties-closed-schools-and-uni ratio-casualties-closed-schools-and-uni-tmp
-  set ratio-casualties-all-closed ratio-casualties-all-closed-tmp
-  report behaviourspace-satisfaction-scenario-1
-end
-
-;;might be worth setting a "min" value here
-to-report behaviourspace-satisfaction-scenario-1 
-  report ;#beds-in-hospital + propagation-risk
-   behaviourspace-satisfaction-scenario-1-1 * 0.5 +
-  behaviourspace-satisfaction-scenario-1-2 * 0.5
-end
-
-;;the ratio of casualties when no measures should be higher than when schools and uni are closed
-to-report behaviourspace-satisfaction-scenario-1-1
-  if ratio-casualties-closed-schools-and-uni = 0 [report 0]
-  report bounded-linear-map 1 1.5 0 1 (ratio-casualties-no-measures / ratio-casualties-closed-schools-and-uni)
-end
-
-;;the ratio of casualties when closed shools & uni should be ideally twice larger as when everything is closed
-to-report behaviourspace-satisfaction-scenario-1-2
-  if ratio-casualties-all-closed = 0 [report 1]
-  report bounded-linear-map 1 2 0 1 (ratio-casualties-closed-schools-and-uni / ratio-casualties-all-closed)
+  if experiment-name = closed-all-behaviourspace-experiment-name
+  [
+    load-all-closed-measures
+    setup
+    while [any? people with [is-infected?]] [go]
+    let ratio-casualties #dead-people / (count people + #dead-people)
+    save-on-file experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties
+    stop
+  ]
+  
+  error (sentence "unimplemented for:" experiment-name)
 end

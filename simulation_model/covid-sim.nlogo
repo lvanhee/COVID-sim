@@ -16,6 +16,7 @@ globals [
 to go
 
   reset-timer
+  tick
   reset-economy-measurements
   spread-contagion
   update-within-agent-disease-status
@@ -25,7 +26,6 @@ to go
   update-display
   update-time
   apply-active-measures
-  tick
 end
 
 to go-profile
@@ -227,9 +227,9 @@ Proxemics is represented as \"meeting spaces\" people can move into and be infec
 
 TEXTBOX
 559
-305
+302
 709
-323
+320
 Age model
 9
 0.0
@@ -492,7 +492,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.15
+0.12
 0.01
 1
 NIL
@@ -507,7 +507,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.13
+0.11
 0.01
 1
 NIL
@@ -522,7 +522,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.13
+0.14
 0.01
 1
 NIL
@@ -549,6 +549,31 @@ closed-universities?
 1
 1
 -1000
+
+SLIDER
+982
+354
+1159
+387
+ratio-safety-belonging
+ratio-safety-belonging
+0
+1
+0.41
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+989
+315
+1139
+347
+Needs\nmodel
+13
+34.0
+1
 
 SWITCH
 534
@@ -797,10 +822,10 @@ Simulation management
 1
 
 TEXTBOX
-540
-230
-690
-248
+544
+202
+694
+220
 Households distribution
 13
 62.0
@@ -876,6 +901,51 @@ NIL
 HORIZONTAL
 
 SLIDER
+1159
+354
+1335
+387
+importance-compliance
+importance-compliance
+0
+1
+0.49
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1159
+386
+1336
+419
+importance-survival
+importance-survival
+0
+1
+0.93
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1157
+419
+1334
+452
+importance-leisure
+importance-leisure
+0
+1
+0.24
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
 1716
 408
 1882
@@ -884,7 +954,22 @@ probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
 1
-0.17
+0.12
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1334
+387
+1506
+420
+importance-risk-avoidance
+importance-risk-avoidance
+0
+1
+0.39
 0.01
 1
 NIL
@@ -910,7 +995,7 @@ density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.07
+0.05
 0.01
 1
 NIL
@@ -1000,6 +1085,21 @@ PENS
 "financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people"
 "conformity" 1.0 0 -12345184 true "" "plot mean [conformity-satisfaction-level] of people"
 
+SLIDER
+982
+387
+1159
+420
+importance-autonomy
+importance-autonomy
+0
+1
+0.28
+0.01
+1
+NIL
+HORIZONTAL
+
 MONITOR
 894
 873
@@ -1040,7 +1140,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1136,7 +1236,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.99
+1.0
 0.01
 1
 NIL
@@ -1195,10 +1295,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2193
-389
-2365
-422
+1046
+318
+1218
+351
 needs-std-dev
 needs-std-dev
 0
@@ -1218,7 +1318,22 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.25
+0.01
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1335
+354
+1506
+387
+importance-financial-safety
+importance-financial-safety
+0
+1
+0.31
 0.01
 1
 NIL
@@ -1458,10 +1573,10 @@ NIL
 HORIZONTAL
 
 CHOOSER
-555
-251
-693
-296
+559
+223
+697
+268
 preset-profiles
 preset-profiles
 "none" "mediterranea" "scandinavia" "south-asia" "north-america"
@@ -1525,6 +1640,36 @@ price-of-rations-in-essential-shops
 10
 2.2
 0.1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1334
+419
+1506
+452
+importance-luxury
+importance-luxury
+0
+1
+0.15
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+982
+419
+1159
+452
+importance-self-esteem
+importance-self-esteem
+0
+1
+0.41
+0.01
 1
 NIL
 HORIZONTAL
@@ -1597,8 +1742,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K" "one-family"
-0
+"uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
+1
 
 MONITOR
 716
@@ -1755,9 +1900,9 @@ Economy model
 1
 
 BUTTON
-779
+797
 79
-868
+886
 112
 NIL
 set-values
@@ -2090,10 +2235,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2012
-429
-2185
-462
+1111
+495
+1350
+528
 mean-social-distance-profile
 mean-social-distance-profile
 0
@@ -2132,7 +2277,7 @@ INPUTBOX
 1707
 293
 #beds-in-hospital
-10.0
+13.0
 1
 0
 Number
@@ -2248,10 +2393,10 @@ NIL
 11
 
 SLIDER
-2193
-429
-2366
-462
+1352
+495
+1602
+528
 std-dev-social-distance-profile
 std-dev-social-distance-profile
 0
@@ -2312,9 +2457,9 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-537
+539
 122
-631
+633
 182
 import-scenario-name
 output/done.csv
@@ -2703,7 +2848,7 @@ BUTTON
 92
 174
 1 Month Run
-let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day < end-day] [ go ]
+let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day <= end-day] [ go ]
 NIL
 1
 T
@@ -2714,15 +2859,26 @@ NIL
 NIL
 1
 
+SWITCH
+2007
+47
+2110
+80
+culture?
+culture?
+0
+1
+-1000
+
 CHOOSER
-2005
-45
-2155
-90
+2122
+35
+2272
+80
 set_national_culture
 set_national_culture
-"Custom" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-8
+"Custom" "Netherlands" "United States" "China" "Russia"
+1
 
 SLIDER
 2008
@@ -2733,7 +2889,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-50.0
+53.0
 1
 1
 NIL
@@ -2748,7 +2904,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-69.0
+80.0
 1
 1
 NIL
@@ -2763,7 +2919,7 @@ power-distance
 power-distance
 0
 100
-31.0
+38.0
 1
 1
 NIL
@@ -2778,7 +2934,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-55.0
+68.0
 1
 1
 NIL
@@ -2793,7 +2949,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-8.0
+14.0
 1
 1
 NIL
@@ -2808,7 +2964,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-35.0
+67.0
 1
 1
 NIL
@@ -2853,7 +3009,7 @@ survival-multiplier
 survival-multiplier
 0
 3
-2.5
+1.0
 0.1
 1
 NIL
@@ -2868,7 +3024,7 @@ maslow-multiplier
 maslow-multiplier
 0
 1
-0.0
+0.15
 0.01
 1
 NIL
@@ -3035,6 +3191,21 @@ NIL
 NIL
 1
 
+SLIDER
+2012
+390
+2185
+423
+weight-survival-needs
+weight-survival-needs
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
 TEXTBOX
 2008
 94
@@ -3076,6 +3247,21 @@ INPUTBOX
 0
 Number
 
+SLIDER
+981
+454
+1153
+487
+importance-conformity
+importance-conformity
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
 CHOOSER
 2060
 658
@@ -3084,7 +3270,7 @@ CHOOSER
 network-generation-method
 network-generation-method
 "random" "value-similarity"
-1
+0
 
 TEXTBOX
 2060
@@ -3206,20 +3392,22 @@ mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportanc
 1
 11
 
-SLIDER
-2012
-390
-2185
-423
-weight-survival-needs
-weight-survival-needs
-0
-1
-0.5
-0.01
-1
+BUTTON
+634
+270
+697
+303
+set
+load-population-profile-based-on-current-preset-profile
 NIL
-HORIZONTAL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

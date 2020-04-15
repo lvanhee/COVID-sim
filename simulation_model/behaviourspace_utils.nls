@@ -1,0 +1,51 @@
+ to-report behaviourspace-load-from-file [experiment-name variable-name]
+  file-close
+ ; wait 1
+  file-open behaviourspace-tmp-file-location
+  while [not file-at-end?]
+  [
+    let current-line file-read-line
+    let searched-key (word experiment-name " " variable-name)
+    if length current-line >=  (length experiment-name + length variable-name + 1) and
+    (searched-key =  substring current-line 0 (length experiment-name + length variable-name + 1))
+    [
+      file-close
+      report read-from-string (substring current-line (length experiment-name + length variable-name + 1) length current-line)
+    ]
+  ]
+  error (sentence "searching for a nonexisting variable:" experiment-name variable-name)
+end
+
+to save-on-file [experiment-name variable-name variable-value]
+  file-open behaviourspace-tmp-file-location
+  file-print (word experiment-name " " variable-name " " variable-value)
+  file-flush
+  file-close
+end
+
+
+
+
+to-report behaviourspace-load-variable [experiment-name variable-name]
+  if behaviourspace-load-from-file-contains? experiment-name variable-name [report behaviourspace-load-from-file experiment-name variable-name]
+  execute-and-save experiment-name
+  report behaviourspace-load-from-file experiment-name variable-name
+end
+
+to-report behaviourspace-load-from-file-contains? [experiment-name variable-name]
+  if not file-exists? behaviourspace-tmp-file-location [report false]
+  
+  file-open behaviourspace-tmp-file-location
+  
+  while [not file-at-end?]
+  [
+    let current-line file-read-line
+    if (length current-line >= (length experiment-name + length variable-name + 1)) and
+    (substring current-line 0 (length experiment-name + length variable-name + 1)) = (word experiment-name " " variable-name)
+    [
+      file-close
+      report true]
+  ]
+  file-close
+  report false
+end

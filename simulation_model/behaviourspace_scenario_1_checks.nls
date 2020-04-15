@@ -1,0 +1,23 @@
+;;might be worth setting a "min" value here
+to-report behaviourspace-satisfaction-scenario-1 
+  report ;#beds-in-hospital + propagation-risk
+   behaviourspace-satisfaction-scenario-1-1 * 0.5 +
+  behaviourspace-satisfaction-scenario-1-2 * 0.5
+end 
+
+;;the ratio of casualties when no measures should be higher than when schools and uni are closed
+to-report behaviourspace-satisfaction-scenario-1-1
+  let ratio-casualties-closed-schools-and-uni behaviourspace-load-variable "closed-schools-and-uni" ratio-of-casualties-behaviourspace-variable-name
+  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-experiment-behaviourspace-name ratio-of-casualties-behaviourspace-variable-name
+  if ratio-casualties-closed-schools-and-uni = 0 [report 0]
+  report bounded-linear-map 1 1.5 0 1 (ratio-casualties-no-measures / ratio-casualties-closed-schools-and-uni)
+end
+
+;;the ratio of casualties when closed shools & uni should be ideally twice larger as when everything is closed
+to-report behaviourspace-satisfaction-scenario-1-2
+  let ratio-casualties-all-closed behaviourspace-load-variable "all-closed" ratio-of-casualties-behaviourspace-variable-name
+  let ratio-casualties-closed-schools-and-uni behaviourspace-load-variable "closed-schools-and-uni" "ratio-casualties"
+  
+  if ratio-casualties-all-closed = 0 [report 1]
+  report bounded-linear-map 1 2 0 1 (ratio-casualties-closed-schools-and-uni / ratio-casualties-all-closed)
+end

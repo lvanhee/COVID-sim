@@ -21,6 +21,8 @@ gathering-points-own [gathering-type
   
   hired-workers
   stock-of-goods
+  
+  cached-number-of-participants
 ]
 
 
@@ -154,9 +156,11 @@ end
 
 ;might be to be revised later, if the number of people expected to show up at the gathering point lowers
 to-report expected-number-of-other-participants
+  if cached-number-of-participants > 0 [report cached-number-of-participants]
  ; if is-practicable-at-home? and is-lockdown-enforced? [report 0]
   if is-hospital? [report random 5 + 2]
-  report count in-gathering-link-neighbors
+  set cached-number-of-participants count in-gathering-link-neighbors
+  report cached-number-of-participants
 end
 
 to-report is-accessible?

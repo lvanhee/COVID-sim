@@ -1,13 +1,13 @@
 to load-preset-parameters
   load-scenario
-  load-population-profiles
+  load-population-profile-based-on-current-preset-profile
 end
 
 to set-values 
   load-scenario
-  load-population-profiles
+  load-population-profile-based-on-current-preset-profile
   
-  load-nations-hofstede-dimension-scores
+  if culture?[load-nations-hofstede-dimension-scores]
 end
 
 to-report is-test-scenario? [s]
@@ -104,19 +104,33 @@ to load-scenario-specifics
   if preset-scenario = "no-action-scandinavia-2.5K"
   [
     load-scandinavian-population-default
-    set #hospital 10
-    set #schools 30
-    set #universities 20
-    set #workplaces 100
-    set #public-leisure 10
-    set #private-leisure 100
-    set #essential-shops 50
-    set #non-essential-shops 100
-    set #households 1000
+    load-scaled-values 1000
     stop
   ]
   
+  if preset-scenario = "app-test-scenario-5-1K"
+  [
+     load-scaled-values (1000 / 2.5)
+    stop
+  ]
   error "unimplemented"
+end
+
+to load-scaled-values [#hld]
+  set #beds-in-hospital floor (#hld / 30)
+  load-scaled-gathering-point-distribution #hld
+end
+
+to load-scaled-gathering-point-distribution [#hld]
+  set #hospital floor (#hld / 100)
+  set #schools floor (#hld / 30)
+  set #universities floor (#hld / 50)
+  set #workplaces floor (#hld / 10)
+  set #public-leisure floor (#hld / 100)
+  set #private-leisure floor (#hld / 10)
+  set #essential-shops floor (#hld / 20)
+  set #non-essential-shops floor (#hld / 10)
+  set #households #hld
 end
 
 to load-closed-schools-and-uni-measures
@@ -269,7 +283,7 @@ to load-scenario-minimal
 end
 
 
-to load-population-profiles
+to load-population-profile-based-on-current-preset-profile
   if preset-profiles = "none"[stop]
   if preset-profiles = "mediterranea"[
     set ratio-adults-homes 0.3
