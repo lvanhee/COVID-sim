@@ -46,7 +46,6 @@ to-report epistemic-false-positive-error-ratio report count people with [is-beli
 
 to-report epistemic-error-of-ignored-immunity-ratio report count people with [not is-believing-to-be-immune? and not is-immune?] / count people end
 
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 99
@@ -2885,8 +2884,8 @@ CHOOSER
 80
 set_national_culture
 set_national_culture
-"Custom" "Netherlands" "United States" "China" "Russia"
-1
+"Custom" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
+7
 
 SLIDER
 2008
