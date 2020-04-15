@@ -15,6 +15,7 @@ globals[#min-workers-in-adults-homes
 to setup
   reset-timer
   clear-all
+  if debug? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
   set-default-shape people "circle"
   if debug? or static-seed?[  random-seed #random-seed ]
@@ -202,10 +203,10 @@ end
 
 to setup-relation-to-gathering-points1
 
-  set my-essential-shops n-of (min list 2 (ceiling (#essential-shops * 0.2))) essential-shops
+  set my-essential-shops n-of (min list 2 (ceiling (#essential-shops-gp * 0.2))) essential-shops
    create-gathering-links-to my-essential-shops
   [ set features (list "essential shopping" "shopping")]
-  create-gathering-links-to n-of (min list 4 (ceiling (#non-essential-shops * 0.4))) non-essential-shops
+  create-gathering-links-to n-of (min list 4 (ceiling (#non-essential-shops-gp * 0.4))) non-essential-shops
   [ set features (list "relaxing" "shopping")]
 
   if is-young? [
@@ -256,42 +257,42 @@ to setup-activities
   set public-leisure-points (turtle-set)
   set private-leisure-points (turtle-set)
 
-  create-gathering-points #schools [
+  create-gathering-points #schools-gp [
     set schools (turtle-set schools self)
     set hired-workers (turtle-set)
-    set gathering-type "school" set shape "triangle" set color orange set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools + 1)]
+    set gathering-type "school" set shape "triangle" set color orange set xcor max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "school"] / (#schools-gp + 1)]
 
-  create-gathering-points #universities [
+  create-gathering-points #universities-gp [
     set universities (turtle-set universities self)
     set hired-workers (turtle-set)
-    set gathering-type "university" set shape "triangle 2" set color magenta + 2 set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities + 1)]
+    set gathering-type "university" set shape "triangle 2" set color magenta + 2 set xcor 2 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "university"] / (#universities-gp + 1)]
 
-  create-gathering-points #workplaces [
+  create-gathering-points #workplaces-gp [
     set workplaces (turtle-set workplaces self)
     set hired-workers (turtle-set)
-    set gathering-type "workplace" set shape "pentagon" set color sky + 3 set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces + 1)]
+    set gathering-type "workplace" set shape "pentagon" set color sky + 3 set xcor 3 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "workplace"] / (#workplaces-gp + 1)]
 
-  create-gathering-points #essential-shops [
+  create-gathering-points #essential-shops-gp [
     set essential-shops (turtle-set essential-shops self)
     set hired-workers (turtle-set)
-    set gathering-type "essential-shop" set shape "cow" set color yellow set xcor 4 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "essential-shop"] / (#essential-shops + 1)]
-  create-gathering-points #non-essential-shops [
+    set gathering-type "essential-shop" set shape "cow" set color yellow set xcor 4 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "essential-shop"] / (#essential-shops-gp + 1)]
+  create-gathering-points #non-essential-shops-gp [
     set non-essential-shops (turtle-set non-essential-shops self)
     set hired-workers (turtle-set)
-    set gathering-type "non-essential-shop" set shape "face happy" set color violet + 2 set xcor 5 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "non-essential-shop"] / (#non-essential-shops + 1)]
-  create-gathering-points #hospital [
+    set gathering-type "non-essential-shop" set shape "face happy" set color violet + 2 set xcor 5 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "non-essential-shop"] / (#non-essential-shops-gp + 1)]
+  create-gathering-points #hospital-gp [
     set  hospitals (turtle-set  hospitals self)
     set hired-workers (turtle-set)
-    set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital + 1)]
-  create-gathering-points #public-leisure [
+    set gathering-type "hospital" set shape "x" set heading 45 set color red set size 2 set xcor 6 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "hospital"] / (#hospital-gp + 1)]
+  create-gathering-points #public-leisure-gp [
     set public-leisure-points (turtle-set public-leisure-points self)
     set hired-workers (turtle-set)
-    set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure + 1)]
+    set gathering-type "public-leisure" set shape "square 2" set color lime  set xcor 7 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "public-leisure"] / (#public-leisure-gp + 1)]
 
-  create-gathering-points #private-leisure [
+  create-gathering-points #private-leisure-gp [
     set private-leisure-points (turtle-set private-leisure-points self)
     set hired-workers (turtle-set)
-    set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure + 1)]
+    set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure-gp + 1)]
 
 
   ask gathering-points with [gathering-type = "school"] [set amount-of-capital 100]

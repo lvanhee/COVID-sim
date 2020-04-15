@@ -122,14 +122,14 @@ to load-scaled-values [#hld]
 end
 
 to load-scaled-gathering-point-distribution [#hld]
-  set #hospital floor (#hld / 100)
-  set #schools floor (#hld / 30)
-  set #universities floor (#hld / 50)
-  set #workplaces floor (#hld / 10)
-  set #public-leisure floor (#hld / 100)
-  set #private-leisure floor (#hld / 10)
-  set #essential-shops floor (#hld / 20)
-  set #non-essential-shops floor (#hld / 10)
+  set #hospital-gp floor (#hld / 100)
+  set #schools-gp floor (#hld / 30)
+  set #universities-gp floor (#hld / 50)
+  set #workplaces-gp floor (#hld / 10)
+  set #public-leisure-gp floor (#hld / 100)
+  set #private-leisure-gp floor (#hld / 10)
+  set #essential-shops-gp floor (#hld / 20)
+  set #non-essential-shops-gp floor (#hld / 10)
   set #households #hld
 end
 
@@ -184,14 +184,14 @@ end
 
 
 to load-default-city-layout-model
-  set #hospital 1
-  set #schools 3
-  set #universities 10
-  set #workplaces 10
-  set #public-leisure 1
-  set #private-leisure 10
-  set #essential-shops 5
-  set #non-essential-shops 10
+  set #hospital-gp 1
+  set #schools-gp 3
+  set #universities-gp 10
+  set #workplaces-gp 10
+  set #public-leisure-gp 1
+  set #private-leisure-gp 10
+  set #essential-shops-gp 5
+  set #non-essential-shops-gp 10
 end
 
 to load-default-disease-model
@@ -236,7 +236,7 @@ to load-default-economic-parameters
 end
 
 to load-scenario-1-baseline-economic-parameters
-  set #non-essential-shops 5
+  set #non-essential-shops-gp 5
   set with-infected? false
 end
 
@@ -275,11 +275,10 @@ to load-scandinavian-population-default
 end
 
 to load-scenario-minimal
-  set #hospital 1
-  set #schools 1
-  set #universities 1
-  set #workplaces 1
-  set #schools 1
+  set #hospital-gp 1
+  set #schools-gp 1
+  set #universities-gp 1
+  set #workplaces-gp 1
 end
 
 
