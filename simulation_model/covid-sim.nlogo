@@ -39,6 +39,14 @@ end
 to startup
   setup
 end
+
+to-report epistemic-accuracy report count people with [is-infected? and is-believing-to-be-infected?] / count people with [is-infected?] end
+
+to-report epistemic-false-positive-error-ratio report count people with [is-believing-to-be-infected? and not is-infected?] / count people end
+
+to-report epistemic-error-of-ignored-immunity-ratio report count people with [not is-believing-to-be-immune? and not is-immune?] / count people end
+
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 99
@@ -3064,7 +3072,7 @@ ratio-of-users-of-the-tracking-app
 ratio-of-users-of-the-tracking-app
 0
 1
-0.35
+0.0
 0.01
 1
 NIL
@@ -3121,10 +3129,10 @@ Number
 SWITCH
 1896
 934
-2115
+2284
 967
-is-testing-people-recorded-by-the-proximity-app-measure?
-is-testing-people-recorded-by-the-proximity-app-measure?
+is-testing-people-recorded-by-the-proximity-app-measure?2
+is-testing-people-recorded-by-the-proximity-app-measure?2
 1
 1
 -1000
@@ -3336,7 +3344,7 @@ ratio-of-anxiety-avoidance-users
 ratio-of-anxiety-avoidance-users
 0
 1
-0.56
+0.0
 0.01
 1
 NIL

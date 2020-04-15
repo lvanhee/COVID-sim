@@ -17,7 +17,7 @@ to update-epistemic-status
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
     
-    if not knew-was-infected and is-testing-people-recorded-by-the-proximity-app-measure? [perform-test]
+    if not knew-was-infected and is-user-of-tracking-app? [perform-test]
     
     if not knew-was-infected and test-home-of-confirmed-people?
     [
@@ -45,7 +45,7 @@ to perform-test
     set epistemic-infection-status "infected"
     set last-day-observed-symptoms current-day
     
-    if not knew-was-infected? and is-testing-people-recorded-by-the-proximity-app-measure?[
+    if not knew-was-infected? and is-testing-people-recorded-by-the-proximity-app-measure?2[
       ask people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?] [perform-test]
     ]
   ]

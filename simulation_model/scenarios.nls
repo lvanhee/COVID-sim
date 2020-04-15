@@ -267,7 +267,7 @@ to load-no-measures
   set test-workplace-of-confirmed-people? false
   set ratio-population-randomly-tested-daily 0
   set closed-universities? false
-  set is-testing-people-recorded-by-the-proximity-app-measure? false
+  set is-testing-people-recorded-by-the-proximity-app-measure?2 false
 end
 
 to load-scandinavian-population-default
