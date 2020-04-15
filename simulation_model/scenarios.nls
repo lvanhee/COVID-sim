@@ -7,9 +7,7 @@ to set-values
   load-scenario
   load-population-profiles
   
-  if culture?[load-nations-hofstede-dimension-scores]
-  
-  
+  load-nations-hofstede-dimension-scores
 end
 
 to-report is-test-scenario? [s]

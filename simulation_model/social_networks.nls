@@ -49,7 +49,7 @@ to setup-social-networks-value-similarity
       create-my-friends-links-with turtle-set up-to-n-of peer-group-friend-links (sort-on [value-euclidean-distance myself] possible-friends)
     ]
     repeat round (percentage-of-agents-with-random-link * count people) [
-      ask one-of people [
+      ask one-of people with [any? possible-friends] [
         let new-friend one-of possible-friends
         ask one-of my-friends-links [ die ]
         create-my-friends-link-with new-friend
