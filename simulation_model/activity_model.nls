@@ -56,7 +56,10 @@ to update-resources-based-on-current-activity
     let amount-to-earn workers-wages
 
     let amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
-    perform-transaction self my-work (list "salary" amount-earned) (list "work")
+    if amount-earned > 0
+    [
+      perform-transaction self my-work (list "salary" amount-earned) (list "work")
+    ]
 
     if government-pays-wages?
     [
