@@ -522,7 +522,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.14
+0.13
 0.01
 1
 NIL
@@ -549,31 +549,6 @@ closed-universities?
 1
 1
 -1000
-
-SLIDER
-982
-354
-1159
-387
-ratio-safety-belonging
-ratio-safety-belonging
-0
-1
-0.41
-0.01
-1
-NIL
-HORIZONTAL
-
-TEXTBOX
-989
-315
-1139
-347
-Needs\nmodel
-13
-34.0
-1
 
 SWITCH
 534
@@ -894,52 +869,7 @@ probability-infection-when-abroad
 probability-infection-when-abroad
 0
 1
-0.02
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1159
-354
-1335
-387
-importance-compliance
-importance-compliance
-0
-1
-0.49
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1159
-386
-1336
-419
-importance-survival
-importance-survival
-0
-1
-0.93
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1157
-419
-1334
-452
-importance-leisure
-importance-leisure
-0
-1
-0.24
+0.0
 0.01
 1
 NIL
@@ -955,21 +885,6 @@ probability-getting-back-when-abroad
 0
 1
 0.12
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1334
-387
-1506
-420
-importance-risk-avoidance
-importance-risk-avoidance
-0
-1
-0.39
 0.01
 1
 NIL
@@ -1084,21 +999,6 @@ PENS
 "leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
 "financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people"
 "conformity" 1.0 0 -12345184 true "" "plot mean [conformity-satisfaction-level] of people"
-
-SLIDER
-982
-387
-1159
-420
-importance-autonomy
-importance-autonomy
-0
-1
-0.28
-0.01
-1
-NIL
-HORIZONTAL
 
 MONITOR
 894
@@ -1295,10 +1195,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1046
-318
-1218
-351
+2193
+389
+2365
+422
 needs-std-dev
 needs-std-dev
 0
@@ -1319,21 +1219,6 @@ ratio-multi-generational-homes
 0
 1
 0.01
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1335
-354
-1506
-387
-importance-financial-safety
-importance-financial-safety
-0
-1
-0.31
 0.01
 1
 NIL
@@ -1441,7 +1326,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.45
+0.52
 0.01
 1
 NIL
@@ -1506,7 +1391,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.16
+0.21
 0.01
 1
 NIL
@@ -1536,7 +1421,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.37
+0.34
 0.01
 1
 NIL
@@ -1551,7 +1436,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.26
+0.34
 0.01
 1
 NIL
@@ -1644,36 +1529,6 @@ price-of-rations-in-essential-shops
 NIL
 HORIZONTAL
 
-SLIDER
-1334
-419
-1506
-452
-importance-luxury
-importance-luxury
-0
-1
-0.15
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-982
-419
-1159
-452
-importance-self-esteem
-importance-self-esteem
-0
-1
-0.41
-0.01
-1
-NIL
-HORIZONTAL
-
 PLOT
 12
 1438
@@ -1718,7 +1573,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-2.0
+1.7
 0.1
 1
 NIL
@@ -1975,7 +1830,7 @@ SWITCH
 1493
 government-pays-wages?
 government-pays-wages?
-0
+1
 1
 -1000
 
@@ -2235,10 +2090,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1111
-495
-1350
-528
+2012
+429
+2185
+462
 mean-social-distance-profile
 mean-social-distance-profile
 0
@@ -2393,10 +2248,10 @@ NIL
 11
 
 SLIDER
-1352
-495
-1602
-528
+2193
+429
+2366
+462
 std-dev-social-distance-profile
 std-dev-social-distance-profile
 0
@@ -2457,9 +2312,9 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-539
+537
 122
-633
+631
 182
 import-scenario-name
 output/done.csv
@@ -2592,7 +2447,7 @@ ratio-worker-shared-car
 ratio-worker-shared-car
 0
 1
-0.13
+0.15
 0.01
 1
 NIL
@@ -2632,7 +2487,7 @@ ratio-children-shared-car
 ratio-children-shared-car
 0
 1
-0.03
+0.0
 0.01
 1
 NIL
@@ -2647,7 +2502,7 @@ ratio-student-shared-car
 ratio-student-shared-car
 0
 1
-0.15
+0.1
 0.01
 1
 NIL
@@ -2662,7 +2517,7 @@ ratio-retired-shared-car
 ratio-retired-shared-car
 0
 1
-0.47
+0.5
 0.01
 1
 NIL
@@ -2848,7 +2703,7 @@ BUTTON
 92
 174
 1 Month Run
-let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day <= end-day] [ go ]
+let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day < end-day] [ go ]
 NIL
 1
 T
@@ -2859,22 +2714,11 @@ NIL
 NIL
 1
 
-SWITCH
-2007
-47
-2110
-80
-culture?
-culture?
-0
-1
--1000
-
 CHOOSER
-2122
-35
-2272
-80
+2007
+46
+2157
+91
 set_national_culture
 set_national_culture
 "Custom" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
@@ -3009,7 +2853,7 @@ survival-multiplier
 survival-multiplier
 0
 3
-1.0
+2.5
 0.1
 1
 NIL
@@ -3024,7 +2868,7 @@ maslow-multiplier
 maslow-multiplier
 0
 1
-0.15
+0.0
 0.01
 1
 NIL
@@ -3082,10 +2926,10 @@ is-working-from-home-recommended?
 -1000
 
 SLIDER
-1142
-530
-1368
-563
+1015
+418
+1241
+451
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -3175,10 +3019,10 @@ NIL
 1
 
 BUTTON
-1464
-711
-1633
-744
+1015
+456
+1184
+489
 NIL
 inform-people-of-measures
 NIL
@@ -3247,21 +3091,6 @@ INPUTBOX
 0
 Number
 
-SLIDER
-981
-454
-1153
-487
-importance-conformity
-importance-conformity
-0
-1
-0.6
-0.01
-1
-NIL
-HORIZONTAL
-
 CHOOSER
 2060
 658
@@ -3270,7 +3099,7 @@ CHOOSER
 network-generation-method
 network-generation-method
 "random" "value-similarity"
-0
+1
 
 TEXTBOX
 2060

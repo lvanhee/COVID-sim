@@ -477,34 +477,25 @@ to-report global-prevalence-of [ad]
   ;*** this procedure should be expanded with new needs as they are added ***
   reset-timer
   let total-satisfaction 0
-  ifelse culture? [
-    ;if cultural model is activated then:
-    ;calculate the total-satisfaction an agent expects to gain from performing an activity as the weighted sum of all its needs
-    set total-satisfaction sum (list
-      ;Survival needs
-      (SDE-food-safety ad * importance-weight-food-safety) 
-      (SDE-financial-survival ad * importance-weight-financial-survival)
-      (SDE-sleep ad * importance-weight-sleep) 
-      (SDE-health ad * importance-weight-health) 
-      (SDE-conformity ad * importance-weight-conformity)
-      ;Safety needs
-      (SDE-compliance ad * importance-weight-compliance) 
-      (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
-      (SDE-financial-safety ad * importance-weight-financial-safety) 
-      ;Belonging needs
-      (SDE-belonging ad * importance-weight-belonging-subneed)
-      ;Esteem needs
-      (SDE-autonomy ad * importance-weight-autonomy) 
-      (SDE-luxury ad * importance-weight-luxury) 
-      (SDE-leisure ad * importance-weight-leisure)) 
-  ][ 
-    ;; SDE-survival, SDE-safety, SDE-belonging, SDE-self-esteem are only used in the non-culture needs model and are located in need_defintion.nls
-    set total-satisfaction sum (list
-      (importance-weight-survival * SDE-survival ad) 
-      (importance-weight-safety * SDE-safety ad)
-      (importance-weight-belonging * SDE-belonging ad)
-      (importance-weight-self-esteem * SDE-self-esteem ad))
-  ]
+  ;if cultural model is activated then:
+  ;calculate the total-satisfaction an agent expects to gain from performing an activity as the weighted sum of all its needs
+  set total-satisfaction sum (list
+    ;Survival needs
+    (SDE-food-safety ad * importance-weight-food-safety) 
+    (SDE-financial-survival ad * importance-weight-financial-survival)
+    (SDE-sleep ad * importance-weight-sleep) 
+    (SDE-health ad * importance-weight-health) 
+    (SDE-conformity ad * importance-weight-conformity)
+    ;Safety needs
+    (SDE-compliance ad * importance-weight-compliance) 
+    (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
+    (SDE-financial-safety ad * importance-weight-financial-safety) 
+    ;Belonging needs
+    (SDE-belonging ad * importance-weight-belonging-subneed)
+    ;Esteem needs
+    (SDE-autonomy ad * importance-weight-autonomy) 
+    (SDE-luxury ad * importance-weight-luxury) 
+    (SDE-leisure ad * importance-weight-leisure)) 
   
   debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
   report total-satisfaction
