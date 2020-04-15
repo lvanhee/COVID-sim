@@ -45,7 +45,6 @@ to-report epistemic-accuracy report count people with [is-infected? and is-belie
 to-report epistemic-false-positive-error-ratio report count people with [is-believing-to-be-infected? and not is-infected?] / count people end
 
 to-report epistemic-error-of-ignored-immunity-ratio report count people with [not is-believing-to-be-immune? and not is-immune?] / count people end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 99
@@ -162,7 +161,7 @@ INPUTBOX
 597
 856
 657
-#schools
+#schools-gp
 3.0
 1
 0
@@ -173,7 +172,7 @@ INPUTBOX
 597
 948
 657
-#universities
+#universities-gp
 10.0
 1
 0
@@ -184,7 +183,7 @@ INPUTBOX
 598
 1041
 658
-#workplaces
+#workplaces-gp
 10.0
 1
 0
@@ -205,7 +204,7 @@ INPUTBOX
 598
 1132
 658
-#public-leisure
+#public-leisure-gp
 1.0
 1
 0
@@ -216,7 +215,7 @@ INPUTBOX
 598
 1224
 658
-#private-leisure
+#private-leisure-gp
 10.0
 1
 0
@@ -402,7 +401,7 @@ INPUTBOX
 598
 1319
 658
-#essential-shops
+#essential-shops-gp
 5.0
 1
 0
@@ -443,7 +442,7 @@ INPUTBOX
 598
 1408
 658
-#non-essential-shops
+#non-essential-shops-gp
 10.0
 1
 0
@@ -454,7 +453,7 @@ INPUTBOX
 597
 768
 657
-#hospital
+#hospital-gp
 1.0
 1
 0
@@ -639,7 +638,7 @@ SWITCH
 57
 debug?
 debug?
-0
+1
 1
 -1000
 
@@ -3380,7 +3379,7 @@ count people with [is-user-of-tracking-app?]
 MONITOR
 1970
 1071
-2114
+2077
 1116
 standard anxiety avoidance of people
 mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of people
