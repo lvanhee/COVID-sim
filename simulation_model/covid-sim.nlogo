@@ -639,7 +639,7 @@ SWITCH
 57
 debug?
 debug?
-1
+0
 1
 -1000
 
@@ -1598,7 +1598,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+0.1
 0.01
 1
 NIL

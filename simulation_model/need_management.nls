@@ -429,19 +429,18 @@ to-report SUE-health [ad]
   ]
   if is-believing-to-be-infected? or has-internally-visible-symptoms?
   [
-    if is-observing-critical-symptoms? [
-      if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
+    ifelse is-observing-critical-symptoms? [
+      ifelse is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
       [set base .8]
-      set base 0
+      [set base 0]
+    ] [
+      ifelse is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
+      [set base .6]
+      [ ifelse is-rest-at-home-descriptor? ad
+        [ set base 0.2 ]
+        [ set base -0.1 ]
+      ]
     ]
-    
-    if is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
-    [
-      set base .3
-    ]
-    if is-rest-at-home-descriptor? ad
-    [ set base 0.2 ]
-    set base 0
   ]
   ;;can be updated if agents start to be deprived from sleep, not needed at the moment
   report base * sd-bonus
