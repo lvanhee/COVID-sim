@@ -219,6 +219,7 @@ end
 
 ;scores taken from https://www.hofstede-insights.com/product/compare-countries/
 to load-nations-hofstede-dimension-scores
+
   if set_national_culture = "Custom" [
     set power-distance power-distance
     set individualism-vs-collectivism individualism-vs-collectivism
@@ -226,42 +227,43 @@ to load-nations-hofstede-dimension-scores
     set uncertainty-avoidance uncertainty-avoidance
     set long-vs-short-termism long-vs-short-termism
     set indulgence-vs-restraint indulgence-vs-restraint
+    stop
   ]
-  if set_national_culture = "Netherlands" [
-    set power-distance 38
-    set individualism-vs-collectivism 80
-    set masculinity-vs-femininity 14
-    set uncertainty-avoidance 53
-    set long-vs-short-termism 67
-    set indulgence-vs-restraint 68
-  ]
+  
+  file-open "Hofstede´s cultural dimensions.csv"
+  let hofstede-list []
 
-  if set_national_culture = "United States" [
-    set power-distance 40
-    set individualism-vs-collectivism 91
-    set masculinity-vs-femininity 62
-    set uncertainty-avoidance 46
-    set long-vs-short-termism 26
-    set indulgence-vs-restraint 68
-  ]
+  while [not file-at-end? ] [
+    let csv file-read-line
+    set csv word csv ";"  ; add comma for loop termination 
 
-  if set_national_culture = "China" [
-    set power-distance 80
-    set individualism-vs-collectivism 20
-    set masculinity-vs-femininity 66
-    set uncertainty-avoidance 30
-    set long-vs-short-termism 87
-    set indulgence-vs-restraint 24
+    let mylist []  ; list of values 
+    while [not empty? csv] 
+    [
+      let $x position ";" csv 
+      let $item substring csv 0 $x  ; extract item 
+      carefully [set $item read-from-string $item][] ; convert if number 
+      set mylist lput $item mylist  ; append to list 
+      set csv substring csv ($x + 1) length csv  ; remove item and comma 
+    ] 
+    if first mylist = set_national_culture [
+      set hofstede-list but-first mylist ]
   ]
-
-  if set_national_culture = "Russia" [
-    set power-distance 93
-    set individualism-vs-collectivism 39
-    set masculinity-vs-femininity 36
-    set uncertainty-avoidance 95
-    set long-vs-short-termism 81
-    set indulgence-vs-restraint 20
-  ]
+ 
+  file-close
+  
+    set power-distance first hofstede-list
+    set hofstede-list but-first hofstede-list
+    set individualism-vs-collectivism first hofstede-list
+    set hofstede-list but-first hofstede-list
+    set masculinity-vs-femininity first hofstede-list
+    set hofstede-list but-first hofstede-list
+    set uncertainty-avoidance first hofstede-list
+    set hofstede-list but-first hofstede-list
+    set long-vs-short-termism first hofstede-list
+    set hofstede-list but-first hofstede-list
+    set indulgence-vs-restraint first hofstede-list
+    set hofstede-list but-first hofstede-list
 end
 
 

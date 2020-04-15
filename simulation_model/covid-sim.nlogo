@@ -1236,7 +1236,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-1.0
+0.99
 0.01
 1
 NIL
@@ -2877,8 +2877,8 @@ CHOOSER
 80
 set_national_culture
 set_national_culture
-"Custom" "Netherlands" "United States" "China" "Russia"
-1
+"Custom" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
+8
 
 SLIDER
 2008
@@ -2889,7 +2889,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-53.0
+50.0
 1
 1
 NIL
@@ -2904,7 +2904,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-80.0
+69.0
 1
 1
 NIL
@@ -2919,7 +2919,7 @@ power-distance
 power-distance
 0
 100
-38.0
+31.0
 1
 1
 NIL
@@ -2934,7 +2934,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-68.0
+55.0
 1
 1
 NIL
@@ -2949,7 +2949,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-14.0
+8.0
 1
 1
 NIL
@@ -2964,7 +2964,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-67.0
+35.0
 1
 1
 NIL
