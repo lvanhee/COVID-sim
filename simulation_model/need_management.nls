@@ -61,7 +61,7 @@ end
 ;--special situations can lead to special decay (e.g. breaking an army-enforced lock in should hurt badly the satisfaction of safety needs)
 ;[the previous point might call for the introduction of the person's context later on]
 to decay-satisfaction-level
-  let belonging-decay 0.02
+  let belonging-decay 0.01
   if any? my-relatives and days-since-seen-relatives > 0 [set belonging-decay belonging-decay * 1.5]
   if days-since-seen-friends > 0 [set belonging-decay belonging-decay * 1.5]
 
@@ -70,6 +70,9 @@ to decay-satisfaction-level
 
   set compliance-satisfaction-level compliance-satisfaction-level * 0.8
   if compliance-satisfaction-level < 0 [set compliance-satisfaction-level 0]
+  
+  set risk-avoidance-satisfaction-level risk-avoidance-satisfaction-level * 0.95
+  if risk-avoidance-satisfaction-level < 0 [set risk-avoidance-satisfaction-level 0]
 
   set leisure-satisfaction-level leisure-satisfaction-level * 0.95
   if leisure-satisfaction-level < 0 [set leisure-satisfaction-level 0]
@@ -107,10 +110,10 @@ to-report SUE-belonging [ad]
   ifelse number = 0
   [set base 0]
   [ifelse number < 5
-    [set base 0.05]
+    [set base 0.1]
     [ifelse number < 20
-      [set base 0.1]
-      [set base 0.25]
+      [set base 0.2]
+      [set base 0.4]
     ]
   ]
   
@@ -156,10 +159,10 @@ to-report SUA-belonging [ad]
   ifelse number = 0
   [set base 0]
   [ifelse number < 5
-    [set base 0.05]
+    [set base 0.1]
     [ifelse number < 20
-      [set base 0.1]
-      [set base 0.25]
+      [set base 0.2]
+      [set base 0.4]
     ]
   ]
   let family-present any? (([gatherers] of gp) with [member? self [my-relatives] of myself])
@@ -191,12 +194,11 @@ to-report SUE-risk-avoidance [ad]
       let number [expected-number-of-other-participants] of gp
       if number = 0 [set result 0.2 ]
       if number < 5 [set result 0.1 ]
-      if number < 10 [set result -0.1 ]
-      if number < 20 [set result -0.2]
-      set result -0.3
+      if number < 10 [set result 0.05 ]
+      ifelse number < 20 [set result 0]
+      [set result -0.1]
     ]
   ]
-
 
   ifelse social-distancing-of ad
     [ set result result + 0.1 ]
@@ -228,7 +230,7 @@ to-report SUE-compliance [ad]
     if not is-lockdown-enforced? and gp != my-home [
       set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
       if gp = current-activity [
-        set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
+        set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
       ]
     ]
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
@@ -293,9 +295,8 @@ to-report SUE-leisure [ad]
   let gp location-of ad
   let motive motive-of ad
 
-
   if motive = "relaxing" [
-    report 0.2
+    report 0.4
   ]
   report 0
 end
@@ -304,11 +305,11 @@ to-report SUE-sleep [ad]
  let gp location-of ad
   let motive motive-of ad 
   
-    if motive = "rest" [
+  if motive = "rest" [
     if slice-of-the-day = "night" [
       report ifelse-value has-internally-visible-symptoms? [ 0.6 ] [ 0.8 ]
     ]
-    report ifelse-value has-internally-visible-symptoms? [ 0.15 ] [ 0.2 ]
+    report ifelse-value has-internally-visible-symptoms? [ 0.05 ] [ 0.1 ]
   ]
   if is-currently-being-treated-at-hospital? and is-get-healed-to-hospital-descriptor? ad [
     if slice-of-the-day = "night" [
@@ -358,7 +359,7 @@ to-report SUE-autonomy [ad]
     if age = "worker" [
       ifelse motive = work-motive [
         ifelse gp != my-home
-        [ report 0.2 ]
+        [ report 0.3 ]
         [ report 0.05 ]
       ]
       [ report -0.1 ]
@@ -402,7 +403,7 @@ to-report SUE-financial-safety [ad]
 
   if is-I-have-contractual-obligations? and gp = my-work [
     if my-previous-amount-of-capital > 0
-    [report clamp 0 1 my-expected-income / my-previous-amount-of-capital]
+    [report clamp 0 1 (my-expected-income / my-previous-amount-of-capital)]
     report 1
   ]
   if my-previous-amount-of-capital <= 0 [
@@ -497,9 +498,35 @@ to-report global-prevalence-of [ad]
     (SDE-luxury ad * importance-weight-luxury) 
     (SDE-leisure ad * importance-weight-leisure)) 
   
-  debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " total-satisfaction)
+  debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " social-distancing-of ad " " total-satisfaction)
   report total-satisfaction
   
+end
+
+to debug-global-prevalence-of [ad]
+  debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " social-distancing-of ad) 
+    ;Survival needs
+  debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
+  debug-print (word "  Financial-survival:" (SDE-financial-survival ad * importance-weight-financial-survival))
+  debug-print (word "  Sleep:" (SDE-sleep ad * importance-weight-sleep))
+  debug-print (word "  Health:" (SDE-health ad * importance-weight-health))
+  debug-print (word "  Conformity:" (SDE-conformity ad * importance-weight-conformity))
+    ;Safety needs
+  debug-print (word "  Compliance:" (SDE-compliance ad * importance-weight-compliance))
+  debug-print (word "  Risk Avoidance:" (SDE-risk-avoidance ad * importance-weight-risk-avoidance))
+  debug-print (word "  Financial Safety:" (SDE-financial-safety ad * importance-weight-financial-safety))
+    ;Belonging needs
+  debug-print (word "  Belonging:" (SDE-belonging ad * importance-weight-belonging-subneed))
+    ;Esteem needs
+  debug-print (word "  Autonomy:" (SDE-autonomy ad * importance-weight-autonomy))
+  debug-print (word "  Luxury:" (SDE-luxury ad * importance-weight-luxury))
+  debug-print (word "  Leisure:" (SDE-leisure ad * importance-weight-leisure))
+  
+  debug-print (word " Global:" global-prevalence-of ad)
+end
+
+to debug-my-preferred-available-activity-descriptor
+  foreach my-available-activity-descriptors debug-global-prevalence-of 
 end
 
 ;;; SDE and SDA SURVIVAL NEEDS

@@ -16,7 +16,6 @@ globals [
 to go
 
   reset-timer
-  tick
   reset-economy-measurements
   spread-contagion
   update-within-agent-disease-status
@@ -26,6 +25,7 @@ to go
   update-display
   update-time
   apply-active-measures
+  tick
 end
 
 to go-profile
@@ -227,9 +227,9 @@ Proxemics is represented as \"meeting spaces\" people can move into and be infec
 
 TEXTBOX
 559
-302
+305
 709
-320
+323
 Age model
 9
 0.0
@@ -492,7 +492,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.12
+0.15
 0.01
 1
 NIL
@@ -507,7 +507,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.11
+0.13
 0.01
 1
 NIL
@@ -884,7 +884,7 @@ probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
 1
-0.12
+0.17
 0.01
 1
 NIL
@@ -910,7 +910,7 @@ density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.05
+0.07
 0.01
 1
 NIL
@@ -1040,7 +1040,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1218,7 +1218,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.25
 0.01
 1
 NIL
@@ -1598,7 +1598,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "no-action-scandinavia-2.5K" "one-family"
-1
+0
 
 MONITOR
 716
@@ -2715,10 +2715,10 @@ NIL
 1
 
 CHOOSER
-2007
-46
-2157
-91
+2005
+45
+2155
+90
 set_national_culture
 set_national_culture
 "Custom" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
@@ -2926,10 +2926,10 @@ is-working-from-home-recommended?
 -1000
 
 SLIDER
-1015
-418
-1241
-451
+1142
+530
+1368
+563
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -3019,10 +3019,10 @@ NIL
 1
 
 BUTTON
-1015
-456
-1184
-489
+1464
+711
+1633
+744
 NIL
 inform-people-of-measures
 NIL
@@ -3034,21 +3034,6 @@ NIL
 NIL
 NIL
 1
-
-SLIDER
-2012
-390
-2185
-423
-weight-survival-needs
-weight-survival-needs
-0
-1
-0.5
-0.01
-1
-NIL
-HORIZONTAL
 
 TEXTBOX
 2008
@@ -3220,6 +3205,21 @@ mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportanc
 17
 1
 11
+
+SLIDER
+2012
+390
+2185
+423
+weight-survival-needs
+weight-survival-needs
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
