@@ -25,11 +25,12 @@ to set-initial-need-satisfaction-levels
 
     ;SURVIVAL:
     set sleep-satisfaction-level random-float 0.2 + 0.8
-    set conformity-satisfaction-level random-float 1
+    
 
     ;SAFETY:
     set risk-avoidance-satisfaction-level random-float 0.3 + 0.7
     set compliance-satisfaction-level random-float 0.3 + 0.7
+    set conformity-satisfaction-level random-float 1
 
     ;BELONGING:
     set belonging-satisfaction-level random-float 0.5 + 0.5
@@ -68,13 +69,14 @@ to calibrate-importance-weights-of-needs
     set importance-weight-financial-survival (weight-survival-needs * weight-survival-needs-category)
     set importance-weight-health (weight-survival-needs * weight-survival-needs-category)
     set importance-weight-sleep (weight-survival-needs * weight-survival-needs-category)
-    set importance-weight-conformity (weight-survival-needs * weight-survival-needs-category)
+    
 
     ;Set importance weights of subneeds of SAFETY
     set importance-weight-financial-safety (importance-given-to-power-value / 100) * weight-safety-needs-category
     set importance-weight-risk-avoidance (importance-given-to-security-value / 100) * weight-safety-needs-category
     set importance-weight-compliance (importance-given-to-conformity-tradition-value / 100) * weight-safety-needs-category
-
+    set importance-weight-conformity (importance-given-to-conformity-tradition-value / 100) * weight-safety-needs-category
+    
     ;Set importance weights of subneeds of BELONGING
     set importance-weight-belonging-subneed ((importance-given-to-benevolence-value + importance-given-to-conformity-tradition-value) / (2 * 100)) * weight-belonging-needs-category
 
