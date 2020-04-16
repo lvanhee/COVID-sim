@@ -4,7 +4,6 @@
 
 to-report behaviourspace-households
   report behaviourspace-households-a * 0.33 + behaviourspace-households-b * 0.33 + behaviourspace-households-c * 0.34
-
 end
 
 to-report behaviourspace-households-a

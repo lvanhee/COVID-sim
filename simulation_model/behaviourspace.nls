@@ -1,4 +1,4 @@
-__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_utils.nls"]
+__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_utils.nls"]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;VARIABLES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -8,6 +8,14 @@ end
 
 to-report ratio-infected-behaviourspace-variable-name
 	report "ratio-infected-people"
+end
+
+to-report peak-infected-behaviourspace-variable-name
+	report "peak-infected-people"
+end
+
+to-report #-tests-behaviourspace-variable-name
+	report "#-tests"
 end
 
 to-report #max-hospital-beds-taken-behaviourspace-variable-name
@@ -38,7 +46,20 @@ end
 
 to-report no-measures-behaviourspace-experiment-name
   report "no-measures"
+end  
+  
+to-report no-random-testing-behaviorspace-experiment-name
+  report "no-random-testing"
 end
+
+to-report part-random-testing-behaviorspace-experiment-name
+  report "part-random-testing"
+end
+
+to-report full-random-testing-behaviorspace-experiment-name
+  report "full-random-testing"
+end
+
 
 to run-no-measures-experiment
   
@@ -111,6 +132,64 @@ to execute-and-save [experiment-name]
 ;===================================================================
 ;FL 2020-04-16
 ;===================================================================
+  
+  if experiment-name = no-random-testing-behaviorspace-experiment-name
+  [
+    load-baseline-scenario
+    load-no-measures
+    set ratio-population-randomly-tested-daily 0
+    setup
+    
+    let total-number-peak-infected-people -1
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+
+    save-on-file no-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+    save-on-file no-random-testing-behaviorspace-experiment-name #-tests-behaviourspace-variable-name #tests-performed
+    stop
+  ]
+  
+  if experiment-name = part-random-testing-behaviorspace-experiment-name
+  [
+    load-baseline-scenario
+    load-no-measures
+    set ratio-population-randomly-tested-daily 0.1
+    setup
+    
+    let total-number-peak-infected-people -1
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+
+    save-on-file part-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+    save-on-file part-random-testing-behaviorspace-experiment-name #-tests-behaviourspace-variable-name #tests-performed
+    stop
+  ]
+  
+   
+  if experiment-name = full-random-testing-behaviorspace-experiment-name
+  [
+    load-baseline-scenario
+    load-no-measures
+    set ratio-population-randomly-tested-daily 1
+    setup
+    
+    let total-number-peak-infected-people -1
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+
+    save-on-file full-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+    save-on-file full-random-testing-behaviorspace-experiment-name #-tests-behaviourspace-variable-name #tests-performed
+    stop
+  ]
   
   if experiment-name = mostly-elderly-household-behaviourspace-experiment-name
   [

@@ -1597,7 +1597,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+1.0
 0.01
 1
 NIL
@@ -3765,7 +3765,8 @@ NetLogo 6.1.1
 @#$#@#$#@
 <experiments>
   <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
+    <setup>load-population-profile-based-on-current-preset-profile
+setup</setup>
     <go>go</go>
     <timeLimit steps="3"/>
     <metric>count turtles</metric>
