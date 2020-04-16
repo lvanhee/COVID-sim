@@ -161,7 +161,8 @@ end
 ;Values placed further from one another on the Schwartz model should have dissimilar importance levels
 to increase-logical-consistency-of-agent-value-systems
   ask people [
-    let values (list
+
+    let value_system (list
       importance-given-to-hedonism-value
       importance-given-to-stimulation-value
       importance-given-to-self-direction-value
@@ -171,8 +172,10 @@ to increase-logical-consistency-of-agent-value-systems
       importance-given-to-security-value
       importance-given-to-power-value
       importance-given-to-achievement-value)
+    
+    let value_system_copy value_system
 
-    let N length values
+    let N length value_system_copy
 
     let index 0
     let index_i 0
@@ -183,11 +186,9 @@ to increase-logical-consistency-of-agent-value-systems
     let Vi_update 0
     let Vj_update 0
 
-    let calibrated-values []
-
     while [index < N ] [
       ;load unaltered Vi
-      set Vi item index values
+      set Vi item index value_system_copy
 
       ;walk through value system and compare each index the rest starting with item 0 thru length of list (9 values)
       set index_i index
@@ -195,26 +196,55 @@ to increase-logical-consistency-of-agent-value-systems
 
       while [index_j < N] [
         ;load unaltered Vj
-        set Vj item index_j values
+        set Vj item index_j value_system_copy
 
-        set Vi_update item 0 calibrate-values index_i index_j values
-        set Vj_update item 1 calibrate-values index_i index_j values
+        set Vi_update item 0 calibrate-values index_i index_j value_system_copy
+        set Vj_update item 1 calibrate-values index_i index_j value_system_copy
 
         if Vi_update != Vi [
-          set values replace-item index_i values Vi_update
+          set value_system_copy replace-item index_i value_system_copy Vi_update
+          ;update Vi
           set Vi Vi_update
         ]
 
         if Vj_update != Vj [
-          set values replace-item index_j values Vj_update
+          set value_system_copy replace-item index_j value_system_copy Vj_update
         ]
         set index_j index_j + 1
       ]
       set index index + 1
     ]
+
+    ;check whether values have changed as a consequence of the foregoing calibration procedure
+    ;first create some easy-to-work-with variables
+    let HED_index position importance-given-to-hedonism-value value_system
+    let STM_index position importance-given-to-stimulation-value value_system
+    let SD_index position importance-given-to-self-direction-value value_system
+    let UNI_index position importance-given-to-universalism-value value_system
+    let BEN_index position importance-given-to-benevolence-value value_system
+    let CT_index position importance-given-to-conformity-tradition-value value_system
+    let SEC_index position importance-given-to-security-value value_system
+    let POW_index position importance-given-to-power-value value_system
+    let ACH_index position importance-given-to-achievement-value value_system
+    ;check whether values have changed
+    let value_changed? (map != value_system_copy value_system)
+    let changed_value_indices return-position-of-item-from-list true value_changed?
+    ;alter the agent's value system accordingly
+    ifelse empty? changed_value_indices [
+      stop
+    ][
+      if member? HED_index changed_value_indices [set importance-given-to-hedonism-value item HED_index value_system_copy]
+      if member? STM_index changed_value_indices [set importance-given-to-stimulation-value item STM_index value_system_copy]
+      if member? SD_index changed_value_indices [set importance-given-to-self-direction-value item SD_index value_system_copy]
+      if member? UNI_index changed_value_indices [set importance-given-to-universalism-value item UNI_index value_system_copy]
+      if member? BEN_index changed_value_indices [set importance-given-to-benevolence-value item BEN_index value_system_copy]
+      if member? CT_index changed_value_indices [set importance-given-to-conformity-tradition-value item CT_index value_system_copy]
+      if member? SEC_index changed_value_indices [set importance-given-to-security-value item SEC_index value_system_copy]
+      if member? POW_index changed_value_indices [set importance-given-to-power-value item POW_index value_system_copy]
+      if member? ACH_index changed_value_indices [set importance-given-to-achievement-value item ACH_index value_system_copy]
+    ]
   ]
 end
-
 
 ;scores taken from https://www.hofstede-insights.com/product/compare-countries/
 to load-nations-hofstede-dimension-scores
@@ -263,8 +293,8 @@ to load-nations-hofstede-dimension-scores
     set hofstede-list but-first hofstede-list
     set indulgence-vs-restraint first hofstede-list
     set hofstede-list but-first hofstede-list
+  
 end
-
 
 ;the computational procedure within this reporter is based on Heidari et al. (2018)
 to-report calibrate-values [#index_i #index_j #value-system]
@@ -322,4 +352,10 @@ to-report calibrate-values [#index_i #index_j #value-system]
     ]
   ]
   report (list V_i V_j)
+end
+
+to-report return-position-of-item-from-list [#criteria #list]
+  let indices n-values length #list [ i -> i ]
+  let result filter [ i -> item i #list = #criteria ] indices
+  report result
 end
