@@ -8,7 +8,7 @@ end
 ;;the ratio of casualties when no measures should be higher than when schools and uni are closed
 to-report behaviourspace-satisfaction-scenario-1-1
   let ratio-casualties-closed-schools-and-uni behaviourspace-load-variable "closed-schools-and-uni" ratio-of-casualties-behaviourspace-variable-name
-  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-experiment-behaviourspace-name ratio-of-casualties-behaviourspace-variable-name
+  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name
   if ratio-casualties-closed-schools-and-uni = 0 [report 0]
   report bounded-linear-map 1 1.5 0 1 (ratio-casualties-no-measures / ratio-casualties-closed-schools-and-uni)
 end

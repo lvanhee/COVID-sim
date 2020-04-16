@@ -10,10 +10,10 @@ end
 to-report hospital-gets-overloaded-when-no-measures
   ;;when no measure is taken, then beds should be overloaded
   ;;might be to be refined (e.g. "if there is a point where some shortage was needed")
-  report behaviourspace-load-variable no-measures-experiment-behaviourspace-name #max-hospital-beds-taken-behaviourspace-variable-name
+  report behaviourspace-load-variable no-measures-behaviourspace-experiment-name #max-hospital-beds-taken-behaviourspace-variable-name
 end 
 
 ;;the ratio of casualties when closed shools & uni should be ideally twice larger as when everything is closed
 to-report behaviourspace-satisfaction-casualties
-  report bounded-linear-map 0 0.1 0 1 behaviourspace-load-variable no-measures-experiment-behaviourspace-name ratio-of-casualties-behaviourspace-variable-name
+  report bounded-linear-map 0 0.1 0 1 behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name
 end
