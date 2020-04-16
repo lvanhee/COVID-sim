@@ -7,7 +7,7 @@ to set-values
   load-scenario
   load-population-profile-based-on-current-preset-profile
   
-  if culture?[load-nations-hofstede-dimension-scores]
+  load-nations-hofstede-dimension-scores
 end
 
 to-report is-test-scenario? [s]
@@ -154,6 +154,7 @@ to load-baseline-scenario
   load-default-contagion-model
   load-default-transport-model
   load-default-economic-parameters
+  load-default-values-needs-parameters
   
   load-no-measures
 end
@@ -308,4 +309,15 @@ to load-population-profile-based-on-current-preset-profile
     set ratio-family-homes 0.28
     set ratio-multi-generational-homes 0.02
   ]
+end
+
+to load-default-values-needs-parameters
+  ; Values
+  set value-system-calibration-factor 25
+  set value-std-dev 10
+  ; Needs
+  set survival-multiplier 2.5
+  set maslow-multiplier 0
+  set weight-survival-needs 0.5
+  set needs-std-dev 0.11
 end
