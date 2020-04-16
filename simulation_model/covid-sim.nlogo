@@ -483,7 +483,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.17
+0.04
 0.01
 1
 NIL
@@ -498,7 +498,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.12
+0.03
 0.01
 1
 NIL
@@ -513,7 +513,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.11
+0.03
 0.01
 1
 NIL
@@ -528,7 +528,7 @@ probability-shopkeeper
 probability-shopkeeper
 0
 1
-0.14
+0.04
 0.01
 1
 NIL
@@ -555,6 +555,31 @@ closed-universities?
 1
 1
 -1000
+
+SLIDER
+982
+354
+1159
+387
+ratio-safety-belonging
+ratio-safety-belonging
+0
+1
+0.41
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+989
+315
+1139
+347
+Needs\nmodel
+13
+34.0
+1
 
 SWITCH
 534
@@ -882,6 +907,51 @@ NIL
 HORIZONTAL
 
 SLIDER
+1159
+354
+1335
+387
+importance-compliance
+importance-compliance
+0
+1
+0.49
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1159
+386
+1336
+419
+importance-survival
+importance-survival
+0
+1
+0.93
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1157
+419
+1334
+452
+importance-leisure
+importance-leisure
+0
+1
+0.24
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
 1716
 408
 1882
@@ -891,6 +961,21 @@ probability-getting-back-when-abroad
 0
 1
 0.12
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1334
+387
+1506
+420
+importance-risk-avoidance
+importance-risk-avoidance
+0
+1
+0.39
 0.01
 1
 NIL
@@ -1005,6 +1090,21 @@ PENS
 "leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
 "financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people"
 "conformity" 1.0 0 -12345184 true "" "plot mean [conformity-satisfaction-level] of people"
+
+SLIDER
+982
+387
+1159
+420
+importance-autonomy
+importance-autonomy
+0
+1
+0.28
+0.01
+1
+NIL
+HORIZONTAL
 
 MONITOR
 894
@@ -1201,10 +1301,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2194
-390
-2366
-423
+1046
+318
+1218
+351
 needs-std-dev
 needs-std-dev
 0
@@ -1225,6 +1325,21 @@ ratio-multi-generational-homes
 0
 1
 0.01
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1335
+354
+1506
+387
+importance-financial-safety
+importance-financial-safety
+0
+1
+0.31
 0.01
 1
 NIL
@@ -1482,7 +1597,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.1
+0.0
 0.01
 1
 NIL
@@ -1531,6 +1646,36 @@ price-of-rations-in-essential-shops
 10
 2.2
 0.1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1334
+419
+1506
+452
+importance-luxury
+importance-luxury
+0
+1
+0.15
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+982
+419
+1159
+452
+importance-self-esteem
+importance-self-esteem
+0
+1
+0.41
+0.01
 1
 NIL
 HORIZONTAL
@@ -1599,12 +1744,12 @@ static-seed?
 CHOOSER
 538
 72
-777
+780
 117
 preset-scenario
 preset-scenario
-"uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
-1
+"uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
+2
 
 MONITOR
 716
@@ -2058,10 +2203,10 @@ PENS
 "school" 1.0 0 -8630108 true "" "plot #schools-out-of-capital"
 
 PLOT
-16
-1613
-526
-1763
+12
+1601
+521
+1765
 Activities
 NIL
 NIL
@@ -2079,6 +2224,8 @@ PENS
 "@Home" 1.0 0 -14439633 true "" "plot count people with [is-at-home?]"
 "@Univ" 1.0 0 -4079321 true "" "plot count people with [is-at-university?]"
 "Treated" 1.0 0 -7500403 true "" "plot count people with [current-motivation = treatment-motive]"
+"@E-Shop" 1.0 0 -8630108 true "" "plot count people-at-essential-shops"
+"@NE-Shop" 1.0 0 -5825686 true "" "plot count people-at-non-essential-shops"
 
 SLIDER
 531
@@ -2096,10 +2243,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2013
-455
-2186
-488
+1111
+495
+1350
+528
 mean-social-distance-profile
 mean-social-distance-profile
 0
@@ -2254,10 +2401,10 @@ NIL
 11
 
 SLIDER
-2195
-455
-2367
-488
+1352
+495
+1602
+528
 std-dev-social-distance-profile
 std-dev-social-distance-profile
 0
@@ -2720,11 +2867,22 @@ NIL
 NIL
 1
 
+SWITCH
+2007
+47
+2110
+80
+culture?
+culture?
+0
+1
+-1000
+
 CHOOSER
-2006
-45
-2156
-90
+2122
+35
+2272
+80
 set_national_culture
 set_national_culture
 "Custom" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
@@ -2874,7 +3032,7 @@ maslow-multiplier
 maslow-multiplier
 0
 1
-0.15
+0.0
 0.01
 1
 NIL
@@ -2932,10 +3090,10 @@ is-working-from-home-recommended?
 -1000
 
 SLIDER
-1039
-420
-1265
-453
+1142
+530
+1368
+563
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -3025,10 +3183,10 @@ NIL
 1
 
 BUTTON
-1268
-420
-1437
-453
+1464
+711
+1633
+744
 NIL
 inform-people-of-measures
 NIL
@@ -3096,6 +3254,21 @@ INPUTBOX
 1
 0
 Number
+
+SLIDER
+981
+454
+1153
+487
+importance-conformity
+importance-conformity
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
 
 CHOOSER
 2060
@@ -3242,16 +3415,6 @@ NIL
 NIL
 NIL
 NIL
-1
-
-TEXTBOX
-2016
-433
-2265
-461
-Agent Social Distancing settings
-12
-83.0
 1
 
 @#$#@#$#@
