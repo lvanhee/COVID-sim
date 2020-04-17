@@ -1,0 +1,113 @@
+breed [macro-sectors macro-sector]
+
+macro-sectors-own
+[
+  sector-type
+  amount-of-capital
+]
+
+directed-link-breed [macro-sector-links macro-sector-link]
+macro-sector-links-own
+[
+  priority
+  drain ;capital to pay
+]
+
+to run-macro-economics
+;  ask macro-sectors
+;  [
+;    set amount-of-capital amount-of-capital + 1
+;  ]
+  ask macro-sectors
+  [
+    foreach sort-on [priority] my-out-macro-sector-links 
+    [
+      the-link -> ask the-link [
+        if [amount-of-capital] of myself >= drain
+        [
+          perform-transaction myself other-end (list "nothing") (list "trade" drain)
+        ]
+      ]
+    ]
+  ]
+end
+
+to-report is-agriculture-essential?
+  report sector-type = "agriculture-essential"
+end
+
+to-report is-agriculture-luxury?
+  report sector-type = "agriculture-luxury"
+end
+
+to-report is-manufacturing-essential?
+  report sector-type = "manufacturing-essential"
+end
+
+to-report is-manufacturing-luxury?
+  report sector-type = "manufacturing-luxury"
+end
+
+to-report is-services-essential?
+  report sector-type = "services-essential"
+end
+
+to-report is-services-luxury?
+  report sector-type = "services-luxury"
+end
+
+to-report is-education-research?
+  report sector-type = "education-research"
+end
+
+to-report is-households-sector?
+  report sector-type = "households"
+end
+
+to-report is-government-sector?
+  report sector-type = "government"
+end
+
+to-report is-international-sector?
+  report sector-type = "international"
+end
+
+to-report total-capital-agriculture-essential
+  report sum [amount-of-capital] of macro-sectors with [is-agriculture-essential?]
+end
+
+to-report total-capital-agriculture-luxury
+  report sum [amount-of-capital] of macro-sectors with [is-agriculture-luxury?]
+end
+
+to-report total-capital-manufacturing-essential
+  report sum [amount-of-capital] of macro-sectors with [is-manufacturing-essential?]
+end
+
+to-report total-capital-manufacturing-luxury
+  report sum [amount-of-capital] of macro-sectors with [is-manufacturing-luxury?]
+end
+
+to-report total-capital-services-essential
+  report sum [amount-of-capital] of macro-sectors with [is-services-essential?]
+end
+
+to-report total-capital-services-luxury
+  report sum [amount-of-capital] of macro-sectors with [is-services-luxury?]
+end
+
+to-report total-capital-education-research
+  report sum [amount-of-capital] of macro-sectors with [is-education-research?]
+end
+
+to-report total-capital-households-sector
+  report sum [amount-of-capital] of macro-sectors with [is-households-sector?]
+end
+
+to-report total-capital-government-sector
+  report sum [amount-of-capital] of macro-sectors with [is-government-sector?]
+end
+
+to-report total-capital-international-sector
+  report sum [amount-of-capital] of macro-sectors with [is-international-sector?]
+end
