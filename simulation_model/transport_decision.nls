@@ -1,34 +1,36 @@
-globals [
-  solo-transport-costs
-  public-transport-costs
-  car-sharing-costs
-]
-
-
 ;;Satisfaction undiscounted expected functions
 
+;youth do not have capital because they do not participate in the economic model
+
 to-report SUE-financial-safety-transport [mt]
-  if mt = "solo" [
-    report (- (solo-transport-costs / my-previous-amount-of-capital))
+  if age != "young" [
+    if mt = "solo" [
+      report (- (solo-transport-costs / my-previous-amount-of-capital))
+    ]
+    if mt = "public" [
+      report (- (public-transport-costs / my-previous-amount-of-capital))
+    ]
+    if mt = "shared-car" [
+      report (- (car-sharing-costs / my-previous-amount-of-capital))
+    ]
   ]
-  if mt = "public" [
-    report (- (public-transport-costs / my-previous-amount-of-capital))
-  ]
-  if mt = "shared-car" [
-    report (- (car-sharing-costs / my-previous-amount-of-capital))
-  ] 
+  report 0
 end
 
 to-report SUE-financial-survival-transport [mt]
-  if mt = "solo" [
-      report (- min (list ((my-amount-of-capital - solo-transport-costs) / solo-transport-costs) 1))
+  if age != "young" [
+    let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
+    if mt = "solo" [
+      report (- min (list ((my-amount-of-capital - solo-transport-costs) / eating-costs) 1))
+    ]
+    if mt = "public" [
+      report (- min (list ((my-amount-of-capital - public-transport-costs) / eating-costs) 1))
+    ]
+    if mt = "shared-car" [
+      report (- min (list ((my-amount-of-capital - car-sharing-costs) / eating-costs) 1))
+    ]
   ]
-  if mt = "public" [
-      report (- min (list ((my-amount-of-capital - public-transport-costs) / public-transport-costs) 1))
-  ]
-  if mt = "shared-car" [
-      report (- min (list ((my-amount-of-capital - car-sharing-costs) / car-sharing-costs) 1))
-  ]  
+  report 0
 end
 
 to-report SUE-conformity-transport [mt]
@@ -126,9 +128,8 @@ to-report add-occurance [occ occ-list]
 end
 
 to-report determine-my-preferred-means-of-transport
-  set what-transport-I-used remove "stay-here" what-transport-I-used
   let counts-of-my-means-of-transport []
-  foreach what-transport-I-used [mt ->
+  foreach remove "stay-here" what-transport-I-used [mt ->
     set counts-of-my-means-of-transport add-occurance mt counts-of-my-means-of-transport
   ]
   let my-preferred-means-of-transport (item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] counts-of-my-means-of-transport))
@@ -136,8 +137,14 @@ to-report determine-my-preferred-means-of-transport
 end
 
 to-report report-habit-satisfaction [mt]
-  let my-preferred-means-of-transport determine-my-preferred-means-of-transport
-  if my-preferred-means-of-transport = mt [
+  if not empty? remove "stay-here" what-transport-I-used [
+    if length what-transport-I-used >= 28 [
+      let my-preferred-means-of-transport determine-my-preferred-means-of-transport
+      if my-preferred-means-of-transport = mt [
+        report 1
+      ]
+      report 0
+    ]
     report 1
   ]
   report 0

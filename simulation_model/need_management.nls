@@ -39,7 +39,7 @@ to update-needs-for-playing [current-activity-descriptor]
  
   set compliance-satisfaction-level clamp 0 1 (compliance-satisfaction-level + SDE-compliance current-activity-descriptor)
 
-  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDE-risk-avoidance current-activity-descriptor)
+  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDE-risk-avoidance current-activity-descriptor + SDE-risk-avoidance-transport my-means-of-transportation-I-currently-use)
 
   set leisure-satisfaction-level clamp 0 1 (leisure-satisfaction-level + SDE-leisure current-activity-descriptor)
   
@@ -51,7 +51,7 @@ to update-needs-for-playing [current-activity-descriptor]
   set luxury-satisfaction-level clamp 0 1 (luxury-satisfaction-level + SDA-luxury current-activity-descriptor)
   ]
 
-  set conformity-satisfaction-level clamp 0 1 (conformity-satisfaction-level + SDA-conformity current-activity-descriptor)
+  set conformity-satisfaction-level clamp 0 1 (conformity-satisfaction-level + SDA-conformity current-activity-descriptor + SDA-conformity-transport my-means-of-transportation-I-currently-use)
 end
 
 
