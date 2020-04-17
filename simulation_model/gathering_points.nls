@@ -132,6 +132,14 @@ to-report my-hospital
   report one-of gathering-link-neighbors with [gathering-type = "hospital"]
 end
 
+to-report people-at-essential-shops
+  report people with [[is-essential-shop?] of current-activity]
+end
+
+to-report people-at-non-essential-shops
+  report people with [[is-non-essential-shop?] of current-activity]
+end
+
 
 to-report my-school
   report one-of gathering-link-neighbors with [gathering-type = "school"]

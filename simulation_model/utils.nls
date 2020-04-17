@@ -104,3 +104,7 @@ end
 to load-scenario-from-file
   import-world import-scenario-name
 end
+
+to-report starts-with? [string start]
+   report  length string > length start and substring string 0 length start = start
+end

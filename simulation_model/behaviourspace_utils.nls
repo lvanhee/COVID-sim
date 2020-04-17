@@ -49,3 +49,8 @@ to-report behaviourspace-load-from-file-contains? [experiment-name variable-name
   file-close
   report false
 end
+
+to-report behaviourspace-tmp-file-location
+  report "tmp_behaviourspace.csv"
+end
+

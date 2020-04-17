@@ -1,0 +1,98 @@
+;===================================================================
+;FL 2020-04-16
+;===================================================================
+
+to-report behaviourspace-households
+  report behaviourspace-households-a * 0.33 + behaviourspace-households-b * 0.33 + behaviourspace-households-c * 0.34
+end
+
+to-report behaviourspace-households-a
+	let ratio-casualties-infected-mostly-elderly behaviourspace-households-mostly-elderly-casualties / behaviourspace-households-mostly-elderly-infected
+  (ifelse 
+    ratio-casualties-infected-mostly-elderly >= 0.75 [report 1]
+    ratio-casualties-infected-mostly-elderly >= 0.50 [report 0.5]
+    [report 0.0])
+end
+
+to-report behaviourspace-households-b
+  let ratio-infected-families-vs-elderly behaviourspace-households-mostly-families-infected / behaviourspace-households-mostly-elderly-infected
+	  (ifelse 
+    ratio-infected-families-vs-elderly >= 1.5 [report 1]
+    ratio-infected-families-vs-elderly >= 1.25 [report 0.5]
+    [report 0])
+  end
+
+to-report behaviourspace-households-c
+  let lower-bound-casualties behaviourspace-households-mostly-families-casualties
+  let upper-bound-casualties behaviourspace-households-mostly-elderly-casualties
+  
+  let upper-bound-infected behaviourspace-households-mostly-families-infected
+  let lower-bound-infected behaviourspace-households-mostly-elderly-infected
+  
+  let infected-violated 0
+  let casualties-violated 0
+  
+  ifelse ((behaviourspace-households-mostly-multigen-casualties < lower-bound-casualties) or (behaviourspace-households-mostly-multigen-casualties > upper-bound-casualties))[set casualties-violated 1][]
+  ifelse ((behaviourspace-households-mostly-adults-casualties < lower-bound-casualties) or (behaviourspace-households-mostly-adults-casualties > upper-bound-casualties))[set casualties-violated 1][]
+  ifelse ((behaviourspace-households-evenly-distributed-casualties < lower-bound-casualties) or (behaviourspace-households-evenly-distributed-casualties > upper-bound-casualties))[set casualties-violated 1][]
+
+  ifelse ((behaviourspace-households-mostly-multigen-infected < lower-bound-infected) or (behaviourspace-households-mostly-multigen-infected > upper-bound-infected))[set infected-violated 1][]
+  ifelse ((behaviourspace-households-mostly-adults-infected < lower-bound-infected) or (behaviourspace-households-mostly-adults-infected > upper-bound-infected))[set infected-violated 1][]
+  ifelse ((behaviourspace-households-evenly-distributed-infected < lower-bound-infected) or (behaviourspace-households-evenly-distributed-infected > upper-bound-infected))[set infected-violated 1][]
+  
+  ifelse (infected-violated = 1 and casualties-violated = 1)[report 0][
+    (ifelse (infected-violated = 0 and casualties-violated = 0)[report 1]
+    [report 0.5])
+  ]
+end
+
+to-report behaviourspace-households-mostly-elderly-casualties
+	let ratio-casualties-mostly-elderly behaviourspace-load-variable "mostly-elderly-household" "ratio-casualties-people"
+	report ratio-casualties-mostly-elderly
+end
+
+to-report behaviourspace-households-mostly-adults-casualties
+	let ratio-casualties-mostly-adults behaviourspace-load-variable "mostly-adults-household" "ratio-casualties-people"
+	report ratio-casualties-mostly-adults
+end
+
+to-report behaviourspace-households-mostly-families-casualties
+	let ratio-casualties-mostly-families behaviourspace-load-variable "mostly-families-household" "ratio-casualties-people"
+	report ratio-casualties-mostly-families
+end
+
+to-report behaviourspace-households-mostly-multigen-casualties
+	let ratio-casualties-mostly-multigen behaviourspace-load-variable "mostly-multigen-household" "ratio-casualties-people"
+	report ratio-casualties-mostly-multigen
+end
+
+to-report behaviourspace-households-evenly-distributed-casualties
+	let ratio-casualties-evenly-distributed behaviourspace-load-variable "evenly-distributed-household" "ratio-casualties-people"
+	report ratio-casualties-evenly-distributed
+end
+
+to-report behaviourspace-households-mostly-elderly-infected
+  let ratio-infected-mostly-elderly behaviourspace-load-variable "mostly-elderly-household" "ratio-infected-people"
+	report ratio-infected-mostly-elderly
+end
+
+to-report behaviourspace-households-mostly-adults-infected
+  let ratio-infected-mostly-adults behaviourspace-load-variable "mostly-adults-household" "ratio-infected-people"
+	report ratio-infected-mostly-adults
+end
+
+to-report behaviourspace-households-mostly-families-infected
+  let ratio-infected-mostly-families behaviourspace-load-variable "mostly-families-household" "ratio-infected-people"
+	report ratio-infected-mostly-families
+end
+
+to-report behaviourspace-households-mostly-multigen-infected
+  let ratio-infected-mostly-multigen behaviourspace-load-variable "mostly-multigen-household" "ratio-infected-people"
+	report ratio-infected-mostly-multigen
+end
+
+to-report behaviourspace-households-evenly-distributed-infected
+  let ratio-infected-evenly-distributed behaviourspace-load-variable "evenly-distributed-household" "ratio-infected-people"
+	report ratio-infected-evenly-distributed
+end
+;===================================================================

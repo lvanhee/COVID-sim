@@ -1,3 +1,5 @@
+__includes ["macro_economic_model.nls"]
+
 globals[
   government-reserve-of-capital
   total-amount-of-transaction-for-this-tick
@@ -26,6 +28,7 @@ to reset-economy-measurements
 end
 
 to run-economic-cycle
+  run-macro-economics
   perform-payment-of-fixed-costs
   perform-trades-between-gathering-points
   perform-government-actions
@@ -170,6 +173,10 @@ to-report is-tax-value? [v]
   report first v = "tax"
 end
 
+to-report is-trade-value? [v]
+  report first v = "trade"
+end
+
 to-report salary-value-from [v]
   report last v
 end
@@ -194,6 +201,11 @@ to increase-capital-by [val]
   [
     set amount-of-capital amount-of-capital + val
     set current-profit current-profit + val
+  ]
+  
+  if is-macro-sector? self
+  [
+    set amount-of-capital amount-of-capital + val
   ]
 end
 
@@ -229,6 +241,7 @@ to-report is-cash-transfer? [value]
   if is-subsidy-value? value [report true]
   if is-payment-value? value [report true]
   if is-tax-value? value [report true]
+  if is-trade-value? value [report true]
   error (sentence "unimplemented for:" value)
 end
 

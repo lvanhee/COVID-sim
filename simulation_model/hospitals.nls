@@ -33,7 +33,8 @@ to try-acquire-a-bed-in-hospital
 end
 
 to-report hospital-effectiveness
-  report mean [1 - ratio-sick-personnel] of hospitals
+  ifelse sum [count hired-workers] of hospitals = 0 [report 0]
+  [report mean [ifelse-value (count hired-workers > 0) [1 - ratio-sick-personnel] [0]] of hospitals]
 end
 
 to-report #beds-available-for-admission

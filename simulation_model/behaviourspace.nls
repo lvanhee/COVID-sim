@@ -1,75 +1,335 @@
-__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_utils.nls"]
+__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_utils.nls"]
 
-to-report behaviourspace-global-fitness-value
-  ;;could be improved by repeating this experiment multiple times, or with different random seeds
-  
-  if file-exists? behaviourspace-tmp-file-location [file-delete behaviourspace-tmp-file-location]
- 
-  report behaviourspace-satisfaction-scenario-1 * 0.2 + sanity-checks * 0.8
+;;;;;;;;;;;;;;;;;;;;;;;;;;VARIABLES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to-report ratio-casualties-behaviourspace-variable-name
+	report "ratio-casualties-people"
 end
 
-to-report behaviourspace-tmp-file-location
-  report "tmp_behaviourspace.csv"
+to-report ratio-infected-behaviourspace-variable-name
+	report "ratio-infected-people"
 end
 
-to-report no-measures-experiment-behaviourspace-name
-  report "no-measures"
+to-report peak-infected-behaviourspace-variable-name
+	report "peak-infected-people"
 end
 
-
-to-report closed-schools-and-uni-behaviourspace-experiment-name
-  report "closed-schools-and-uni"
-end
-
-to-report closed-all-behaviourspace-experiment-name
-  report "all-closed"
-end
-
-
-to-report ratio-of-casualties-behaviourspace-variable-name
-  report "ratio-casualties"
+to-report #-tests-behaviourspace-variable-name
+	report "#-tests"
 end
 
 to-report #max-hospital-beds-taken-behaviourspace-variable-name
   report "#max-hospital-beds-taken-at-once"
 end
 
+;;;;;;;;;;;;;;;;;;;;;;;;;EXPERIMENTS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to-report mostly-elderly-household-behaviourspace-experiment-name
+	report "mostly-elderly-household"
+end
+
+to-report mostly-adults-household-behaviourspace-experiment-name
+	report "mostly-adults-household"
+end
+
+to-report mostly-families-household-behaviourspace-experiment-name
+	report "mostly-families-household"
+end
+
+to-report mostly-multigen-household-behaviourspace-experiment-name
+	report "mostly-multigen-household"
+end
+
+to-report evenly-distributed-household-behaviourspace-experiment-name
+	report "evenly-distributed-household"
+end
+
+to-report no-measures-behaviourspace-experiment-name
+  report "no-measures"
+end  
+  
+to-report no-random-testing-behaviorspace-experiment-name
+  report "no-random-testing"
+end
+
+to-report part-random-testing-behaviorspace-experiment-name
+  report "part-random-testing"
+end
+
+to-report full-random-testing-behaviorspace-experiment-name
+  report "full-random-testing"
+end
+
+
+to run-no-measures-experiment
+  
+  ;;experiment protocol
+  load-no-measures
+  setup
+  while [any? people with [is-infected?]] [go]
+  
+  ;;saving all variables that can be relevant for later processing
+  let ratio-casualties-no-measures-tmp #dead-people / (count people + #dead-people)
+  save-on-file no-measures-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties-no-measures-tmp
+  save-on-file no-measures-behaviourspace-experiment-name #max-hospital-beds-taken-behaviourspace-variable-name #max-hospital-beds-taken-at-once
+end
+
+
+
+to-report closed-schools-and-uni-behaviourspace-experiment-name
+  report "closed-schools-and-uni"
+end
+
+to run-closed-schools-and-uni-experiment
+  load-closed-schools-and-uni-measures
+  setup
+  while [any? people with [is-infected?]] [go]
+  let ratio-casualties-closed-schools-and-uni-tmp #dead-people / (count people + #dead-people)
+  save-on-file closed-schools-and-uni-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties-closed-schools-and-uni-tmp
+end
+
+to-report all-closed-behaviourspace-experiment-name
+  report "all-closed"
+end
+
+to run-all-closed-experiment
+  load-all-closed-measures
+  setup
+  while [any? people with [is-infected?]] [go]
+  let ratio-casualties #dead-people / (count people + #dead-people)
+  save-on-file  all-closed-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties
+end
+
+to-report ratio-of-casualties-behaviourspace-variable-name
+  report "ratio-casualties"
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;GLOBAL FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;to be very cautions about: some variables might be overriden by an experiment
 ;;(e.g. an experiment playing with the number of hospital beds can leave an altered number of hospital beds at the end of the experiment)
 ;;normally, this issue should not occur when using the "loading" function, but it might (his variable should then be reset to the right value)
 ;; though, this voids the use of the autocalibrator, so be very wary when using it.
 to execute-and-save [experiment-name]
-  if experiment-name = no-measures-experiment-behaviourspace-name
+  if experiment-name = no-measures-behaviourspace-experiment-name
   [
-    load-no-measures
-    setup
-    while [any? people with [is-infected?]] [go]
-    let ratio-casualties-no-measures-tmp #dead-people / (count people + #dead-people)
-    save-on-file experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties-no-measures-tmp
-    save-on-file experiment-name #max-hospital-beds-taken-behaviourspace-variable-name #max-hospital-beds-taken-at-once
+    run-no-measures-experiment
     stop
   ]
   
   if experiment-name = closed-schools-and-uni-behaviourspace-experiment-name
   [
-    load-closed-schools-and-uni-measures
-  setup
-  while [any? people with [is-infected?]] [go]
-  let ratio-casualties-closed-schools-and-uni-tmp #dead-people / (count people + #dead-people)
-    save-on-file experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties-closed-schools-and-uni-tmp
+    run-closed-schools-and-uni-experiment
     stop
   ]
   
-  if experiment-name = closed-all-behaviourspace-experiment-name
+  if experiment-name = all-closed-behaviourspace-experiment-name
   [
-    load-all-closed-measures
-    setup
-    while [any? people with [is-infected?]] [go]
-    let ratio-casualties #dead-people / (count people + #dead-people)
-    save-on-file experiment-name ratio-of-casualties-behaviourspace-variable-name ratio-casualties
+    run-all-closed-experiment
     stop
   ]
+  
+;===================================================================
+;FL 2020-04-16
+;===================================================================
+  
+  if experiment-name = no-random-testing-behaviorspace-experiment-name
+  [
+    load-baseline-scenario
+    load-no-measures
+    set ratio-population-randomly-tested-daily 0
+    setup
+    
+    let total-number-peak-infected-people -1
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+
+    save-on-file no-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+    save-on-file no-random-testing-behaviorspace-experiment-name #-tests-behaviourspace-variable-name #tests-performed
+    stop
+  ]
+  
+  if experiment-name = part-random-testing-behaviorspace-experiment-name
+  [
+    load-baseline-scenario
+    load-no-measures
+    set ratio-population-randomly-tested-daily 0.1
+    setup
+    
+    let total-number-peak-infected-people -1
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+
+    save-on-file part-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+    save-on-file part-random-testing-behaviorspace-experiment-name #-tests-behaviourspace-variable-name #tests-performed
+    stop
+  ]
+  
+   
+  if experiment-name = full-random-testing-behaviorspace-experiment-name
+  [
+    load-baseline-scenario
+    load-no-measures
+    set ratio-population-randomly-tested-daily 1
+    setup
+    
+    let total-number-peak-infected-people -1
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+
+    save-on-file full-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+    save-on-file full-random-testing-behaviorspace-experiment-name #-tests-behaviourspace-variable-name #tests-performed
+    stop
+  ]
+  
+  if experiment-name = mostly-elderly-household-behaviourspace-experiment-name
+  [
+    load-no-measures
+    set preset-profiles "none"
+    set ratio-adults-homes 0.05
+    set ratio-retired-couple-homes 0.85
+    set ratio-family-homes 0.05
+    set ratio-multi-generational-homes 0.05
+    setup
+    
+    let total-number-peak-infected-people -1
+    let total-number-people count people
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+    let total-number-dead-people #dead-people
+    let ratio-casualties-people  total-number-dead-people / total-number-people 
+    let ratio-infected-people  total-number-peak-infected-people / total-number-people
+    
+    save-on-file experiment-name ratio-casualties-behaviourspace-variable-name ratio-casualties-people
+    save-on-file experiment-name ratio-infected-behaviourspace-variable-name ratio-infected-people
+    stop
+  ]
+  
+  if experiment-name = mostly-adults-household-behaviourspace-experiment-name
+  [
+    load-no-measures
+    set preset-profiles "none"
+    set ratio-adults-homes 0.85
+    set ratio-retired-couple-homes 0.05
+    set ratio-family-homes 0.05
+    set ratio-multi-generational-homes 0.05
+    setup
+    
+    let total-number-peak-infected-people -1
+    let total-number-people count people
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+    let total-number-dead-people #dead-people
+    let ratio-casualties-people  total-number-dead-people / total-number-people 
+    let ratio-infected-people  total-number-peak-infected-people / total-number-people
+    
+    save-on-file experiment-name ratio-casualties-behaviourspace-variable-name ratio-casualties-people
+    save-on-file experiment-name ratio-infected-behaviourspace-variable-name ratio-infected-people
+    stop
+  ]
+  
+  if experiment-name = mostly-families-household-behaviourspace-experiment-name
+  [
+    load-no-measures
+    set preset-profiles "none"
+    set ratio-adults-homes 0.05
+    set ratio-retired-couple-homes 0.05
+    set ratio-family-homes 0.85
+    set ratio-multi-generational-homes 0.05
+    setup
+    
+    let total-number-peak-infected-people -1
+    let total-number-people count people
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+    let total-number-dead-people #dead-people
+    let ratio-casualties-people  total-number-dead-people / total-number-people 
+    let ratio-infected-people  total-number-peak-infected-people / total-number-people
+    
+    save-on-file experiment-name ratio-casualties-behaviourspace-variable-name ratio-casualties-people
+    save-on-file experiment-name ratio-infected-behaviourspace-variable-name ratio-infected-people
+    stop
+  ]
+  
+  if experiment-name = mostly-multigen-household-behaviourspace-experiment-name
+  [
+    load-no-measures
+    set preset-profiles "none"
+    set ratio-adults-homes 0.05
+    set ratio-retired-couple-homes 0.05
+    set ratio-family-homes 0.05
+    set ratio-multi-generational-homes 0.85
+    setup
+    
+    let total-number-peak-infected-people -1
+    let total-number-people count people
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+    let total-number-dead-people #dead-people
+    let ratio-casualties-people  total-number-dead-people / total-number-people 
+    let ratio-infected-people  total-number-peak-infected-people / total-number-people
+    
+    save-on-file experiment-name ratio-casualties-behaviourspace-variable-name ratio-casualties-people
+    save-on-file experiment-name ratio-infected-behaviourspace-variable-name ratio-infected-people
+    stop
+  ]
+   
+  if experiment-name = evenly-distributed-household-behaviourspace-experiment-name
+  [
+    load-no-measures
+    set preset-profiles "none"
+    set ratio-adults-homes 0.25
+    set ratio-retired-couple-homes 0.25
+    set ratio-family-homes 0.25
+    set ratio-multi-generational-homes 0.25
+    setup
+    
+    let total-number-peak-infected-people -1
+    let total-number-people count people
+    
+    while [any? people with [is-infected?]] [
+      go
+      ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
+    ]
+    let total-number-dead-people #dead-people
+    let ratio-casualties-people  total-number-dead-people / total-number-people 
+    let ratio-infected-people  total-number-peak-infected-people / total-number-people
+    
+    save-on-file experiment-name ratio-casualties-behaviourspace-variable-name ratio-casualties-people
+    save-on-file experiment-name ratio-infected-behaviourspace-variable-name ratio-infected-people
+    stop
+  ] 
+;===================================================================
   
   error (sentence "unimplemented for:" experiment-name)
+end
+
+;this function is tailored for computing an overall "quality score" regarding all the features
+to-report behaviourspace-global-fitness-value
+  ;;could be improved by repeating this experiment multiple times, or with different random seeds
+  
+  if file-exists? behaviourspace-tmp-file-location [file-delete behaviourspace-tmp-file-location]
+ 
+  report behaviourspace-satisfaction-scenario-1 * 0.2 + sanity-checks * 0.8
 end

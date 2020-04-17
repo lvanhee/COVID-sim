@@ -7,7 +7,7 @@ to set-values
   load-scenario
   load-population-profile-based-on-current-preset-profile
   
-  if culture?[load-nations-hofstede-dimension-scores]
+  load-nations-hofstede-dimension-scores
 end
 
 to-report is-test-scenario? [s]
@@ -49,28 +49,9 @@ to load-scenario-specifics
     stop
   ]
   
-  if preset-scenario = "zero-action-scandinavia"
+  if is-scenario-1? preset-scenario
   [
-    load-scandinavian-population-default
-    stop
-  ]
-  
-    
-  if preset-scenario = "scenario-1-closing-schools-and-uni"
-  [
-    load-closed-schools-and-uni-measures
-    stop
-  ]
-  
-  if preset-scenario = "scenario-1-work-at-home-only"
-  [
-    set #days-trigger-non-essential-business-closing-measure 0
-    stop
-  ]
-  
-  if preset-scenario = "scenario-1-closing-all"
-  [
-    load-all-closed-measures
+    scenario-1-setup
     stop
   ]
   
@@ -116,6 +97,45 @@ to load-scenario-specifics
   error "unimplemented"
 end
 
+to scenario-1-setup
+  set probability-hospital-personel 0.04
+  set probability-school-personel 0.03 
+  set probability-university-personel 0.03
+  set probability-shopkeeper 0.04
+  
+  if preset-scenario = "scenario-1-zero-action-scandinavia"
+    [
+      load-scandinavian-population-default
+      stop
+  ]
+  
+  
+  if preset-scenario = "scenario-1-closing-schools-and-uni"
+  [
+    load-closed-schools-and-uni-measures
+    stop
+  ]
+  
+  if preset-scenario = "scenario-1-work-at-home-only"
+  [
+    set #days-trigger-non-essential-business-closing-measure 0
+    stop
+  ]
+  
+  if preset-scenario = "scenario-1-closing-all"
+  [
+    load-all-closed-measures
+    stop
+  ]
+end
+
+to-report is-scenario-1? [s]
+  report starts-with? s "scenario-1"
+end
+  
+  
+  
+
 to load-scaled-values [#hld]
   set #beds-in-hospital floor (#hld / 30)
   load-scaled-gathering-point-distribution #hld
@@ -140,7 +160,6 @@ end
 
 to load-all-closed-measures
   set #days-trigger-non-essential-business-closing-measure 0
-  set global-confinment-measures "total-lockdown"
   set #days-trigger-school-closing-measure 0
   set closed-universities? true
 end
@@ -154,6 +173,7 @@ to load-baseline-scenario
   load-default-contagion-model
   load-default-transport-model
   load-default-economic-parameters
+  load-default-values-needs-parameters
   
   load-no-measures
 end
@@ -308,4 +328,15 @@ to load-population-profile-based-on-current-preset-profile
     set ratio-family-homes 0.28
     set ratio-multi-generational-homes 0.02
   ]
+end
+
+to load-default-values-needs-parameters
+  ; Values
+  set value-system-calibration-factor 25
+  set value-std-dev 10
+  ; Needs
+  set survival-multiplier 2.5
+  set maslow-multiplier 0
+  set weight-survival-needs 0.5
+  set needs-std-dev 0.11
 end

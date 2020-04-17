@@ -1,0 +1,23 @@
+to-report behaviourspace-scenario-3-global-check
+  report min (list behaviourspace-scenario-3-comparison-0-10-lower-peak behaviourspace-scenario-3-comparison-10-100-lower-peak)
+end
+
+to-report behaviourspace-scenario-3-comparison-0-10-lower-peak
+  report bounded-linear-map 1 1.16 0 1 (behaviourspace-scenario-3-peak-no-testing / behaviourspace-scenario-3-peak-part-testing)
+end
+
+to-report behaviourspace-scenario-3-comparison-10-100-lower-peak
+  report bounded-linear-map 1 1.16 0 1 (behaviourspace-scenario-3-peak-part-testing / behaviourspace-scenario-3-peak-full-testing)
+end
+  
+to-report behaviourspace-scenario-3-peak-no-testing
+	report behaviourspace-load-variable no-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name
+end
+
+to-report behaviourspace-scenario-3-peak-part-testing
+	report behaviourspace-load-variable part-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name
+end
+
+to-report behaviourspace-scenario-3-peak-full-testing
+	report behaviourspace-load-variable full-random-testing-behaviorspace-experiment-name peak-infected-behaviourspace-variable-name
+end
