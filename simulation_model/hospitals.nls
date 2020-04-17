@@ -34,7 +34,7 @@ end
 
 to-report hospital-effectiveness
   ifelse sum [count hired-workers] of hospitals = 0 [report 0]
-  [report mean [1 - ratio-sick-personnel] of hospitals]
+  [report mean [ifelse-value (count hired-workers > 0) [1 - ratio-sick-personnel] [0]] of hospitals]
 end
 
 to-report #beds-available-for-admission
