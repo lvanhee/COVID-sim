@@ -1603,8 +1603,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-2-random-test-20" "scenario-2-app-test-60" "scenario-2-app-test-80" "scenario-2-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
-7
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
+6
 
 MONITOR
 716
@@ -2916,7 +2916,7 @@ ratio-of-users-of-the-tracking-app
 ratio-of-users-of-the-tracking-app
 0
 1
-0.8
+0.6
 0.01
 1
 NIL

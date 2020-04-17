@@ -53,9 +53,9 @@ to load-scenario-specifics
     stop
   ]
   
-  if is-scenario-2? preset-scenario
+  if is-scenario-3? preset-scenario
   [
-    scenario-2-setup
+    scenario-3-setup
     stop
   ]
   
@@ -101,27 +101,27 @@ to load-scenario-specifics
   error "unimplemented"
 end
 
-to scenario-2-setup
-  if preset-scenario = "scenario-2-random-test-20"
+to scenario-3-setup
+  if preset-scenario = "scenario-3-random-test-20"
   [
     load-baseline-scenario
     set ratio-population-randomly-tested-daily 0.2
     stop
   ]
   
-  if preset-scenario = "scenario-2-app-test-60"
+  if preset-scenario = "scenario-3-app-test-60"
     [
       load-baseline-scenario
       set ratio-of-users-of-the-tracking-app 0.6
       stop
   ]
-  if preset-scenario = "scenario-2-app-test-80"
+  if preset-scenario = "scenario-3-app-test-80"
     [
       load-baseline-scenario
       set ratio-of-users-of-the-tracking-app 0.8
       stop
   ]
-  if preset-scenario = "scenario-2-app-test-100"
+  if preset-scenario = "scenario-3-app-test-100"
     [
       load-baseline-scenario
       set ratio-of-users-of-the-tracking-app 1
@@ -165,8 +165,8 @@ to-report is-scenario-1? [s]
   report starts-with? s "scenario-1"
 end
 
-to-report is-scenario-2? [s]
-  report starts-with? s "scenario-2"
+to-report is-scenario-3? [s]
+  report starts-with? s "scenario-3"
 end
   
   
