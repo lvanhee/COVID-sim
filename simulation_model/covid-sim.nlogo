@@ -3417,6 +3417,33 @@ NIL
 NIL
 1
 
+PLOT
+1446
+1565
+2022
+1761
+Macro Economic Model - Capital Flow
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"agriculture-essential" 1.0 0 -16777216 true "" "plot total-capital-agriculture-essential"
+"agriculture-luxury" 1.0 0 -13345367 true "" "plot total-capital-agriculture-luxury"
+"manufacturing-essential" 1.0 0 -955883 true "" "plot total-capital-manufacturing-essential"
+"manufacturing-luxury" 1.0 0 -13840069 true "" "plot total-capital-manufacturing-luxury"
+"services-essential" 1.0 0 -2674135 true "" "plot total-capital-services-essential"
+"services-luxury" 1.0 0 -8630108 true "" "plot total-capital-services-luxury"
+"education-research" 1.0 0 -13791810 true "" "plot total-capital-education-research"
+"households-sector" 1.0 0 -6459832 true "" "plot total-capital-households-sector"
+"government-sector" 1.0 0 -5825686 true "" "plot total-capital-government-sector"
+"international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
+
 @#$#@#$#@
 ## WHAT IS IT?
 
