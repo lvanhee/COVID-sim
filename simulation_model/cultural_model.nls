@@ -74,7 +74,7 @@ to calibrate-importance-weights-of-needs
     ;Set importance weights of subneeds of SAFETY
     set importance-weight-financial-safety (importance-given-to-power-value / 100) * weight-safety-needs-category
     set importance-weight-risk-avoidance (importance-given-to-security-value / 100) * weight-safety-needs-category
-    set importance-weight-compliance (importance-given-to-conformity-tradition-value / 100) * weight-safety-needs-category
+    set importance-weight-compliance ((importance-given-to-conformity-tradition-value + importance-given-to-security-value) / (2 * 100)) * weight-safety-needs-category
     set importance-weight-conformity (importance-given-to-conformity-tradition-value / 100) * weight-safety-needs-category
     
     ;Set importance weights of subneeds of BELONGING
