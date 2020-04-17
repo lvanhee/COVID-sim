@@ -4,6 +4,9 @@
 
 to-report SUE-financial-safety-transport [mt]
   if age != "young" [
+    if my-previous-amount-of-capital <= 0 [
+      report -1
+    ]
     if mt = "solo" [
       report (- (solo-transport-costs / my-previous-amount-of-capital))
     ]
