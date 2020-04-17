@@ -174,8 +174,30 @@ to update-memory
     set network-activities add-activity (list current-motivation is-I-apply-social-distancing?) network-activities
   ]
   set network-activity fput nobody (item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] network-activities))
+  
   set what-my-network-did lput network-activity what-my-network-did
   if length what-my-network-did > 28 [
     set what-my-network-did but-first what-my-network-did
   ]
+  
+  ;;transport memory
+  set what-transport-I-used lput my-means-of-transportation-I-currently-use what-transport-I-used
+  if length what-transport-I-used > 28 [
+   set what-transport-I-used but-first what-transport-I-used
+  ]
+  
+  
+  
+  let counts-of-my-networks-means-of-transport []
+  ask my-network [
+    set counts-of-my-networks-means-of-transport add-activity my-means-of-transportation-I-currently-use counts-of-my-networks-means-of-transport
+  ]
+  let my-networks-means-of-transport (item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] counts-of-my-networks-means-of-transport))
+  
+  set what-transport-my-network-used lput my-networks-means-of-transport what-transport-my-network-used
+  if length what-transport-my-network-used > 28 [
+    set what-transport-my-network-used but-first what-transport-my-network-used
+  ]
+  
+  
 end

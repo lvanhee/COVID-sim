@@ -183,6 +183,9 @@ to setup-person [current-home l-age]
     set I-know-of-social-distancing? true
     set I-know-of-working-from-home? true
     set what-my-network-did []
+    set what-transport-I-used []
+    set my-transport-number -1
+    set what-transport-my-network-used []
   ]
 end
 
