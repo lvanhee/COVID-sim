@@ -280,7 +280,7 @@ to load-nations-hofstede-dimension-scores
     if first mylist = set_national_culture [
       set hofstede-list but-first mylist ]
   ]
- 
+  if empty? hofstede-list [error "Selected country is not in Hofstede's Dimensions CSV file"]
   file-close
   
     set power-distance first hofstede-list
