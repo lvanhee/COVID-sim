@@ -7,7 +7,7 @@ globals [
 
 ;;Satisfaction undiscounted expected functions
 
-to-report SUE-financial-safety [mt]
+to-report SUE-financial-safety-transport [mt]
   if mt = "solo" [
     report (- (solo-transport-costs / my-previous-amount-of-capital))
   ]
@@ -19,7 +19,7 @@ to-report SUE-financial-safety [mt]
   ] 
 end
 
-to-report SUE-financial-survival [mt]
+to-report SUE-financial-survival-transport [mt]
   if mt = "solo" [
       report (- min (list ((my-amount-of-capital - solo-transport-costs) / solo-transport-costs) 1))
   ]
@@ -31,7 +31,7 @@ to-report SUE-financial-survival [mt]
   ]  
 end
 
-to-report SUE-conformity [mt]
+to-report SUE-conformity-transport [mt]
   if length what-my-network-did >= 28 [
     if mt = first what-transport-my-network-used [report 0.4]
     report 0
@@ -39,7 +39,7 @@ to-report SUE-conformity [mt]
   report 1
 end
 
-to-report SUE-risk-avoidance [mt]
+to-report SUE-risk-avoidance-transport [mt]
   let result 0.1
   if mt = "solo" [set result 0.2]
   if mt = "public" [
@@ -59,42 +59,41 @@ to-report SUE-risk-avoidance [mt]
 end
 
 ;;Satisfaction discounted expected functions
-
-to-report SDE-financial-safety [mt]
-  let expected-increase SUE-financial-safety mt
+to-report SDE-financial-safety-transport [mt]
+  let expected-increase SUE-financial-safety-transport mt
   let discounted-increase expected-increase * (1 - financial-safety-satisfaction-level)
   report discounted-increase
 end
 
-to-report SDE-financial-survival [mt]
-  let expected-increase SUE-financial-survival mt
+to-report SDE-financial-survival-transport [mt]
+  let expected-increase SUE-financial-survival-transport mt
   let discounted-increase expected-increase * (1 - financial-survival-satisfaction-level)
   report discounted-increase
 end
 
-to-report SDE-conformity [mt]
-  let expected-increase SUE-conformity mt
+to-report SDE-conformity-transport [mt]
+  let expected-increase SUE-conformity-transport mt
   let discounted-increase expected-increase * (1 - conformity-satisfaction-level)
   report discounted-increase
 end
 
-to-report SDE-risk-avoidance [mt]
-  let expected-increase SUE-risk-avoidance mt
+to-report SDE-risk-avoidance-transport [mt]
+  let expected-increase SUE-risk-avoidance-transport mt
   let discounted-increase expected-increase * (1 - risk-avoidance-satisfaction-level)
   report discounted-increase
 end
 
 ;;Satisfaction  actual functions
-to-report SDA-financial-safety [mt]
-  report SDE-financial-safety mt
+to-report SDA-financial-safety-transport [mt]
+  report SDE-financial-safety-transport mt
 end
 
-to-report SDA-financial-survival [mt]
-  report SDE-financial-survival mt
+to-report SDA-financial-survival-transport [mt]
+  report SDE-financial-survival-transport mt
 end
 
 
-to-report SUA-conformity [mt]
+to-report SUA-conformity-transport [mt]
   if length what-my-network-did >= 28 [
     if mt = last what-transport-my-network-used [report 0.4]
     report 0
@@ -102,15 +101,15 @@ to-report SUA-conformity [mt]
   report 1
 end
 
-to-report  SDA-conformity [ad]
-  let expected-increase SUA-conformity ad
+to-report  SDA-conformity-transport [mt]
+  let expected-increase SUA-conformity-transport mt
   let discounted-increase expected-increase * (1 - conformity-satisfaction-level)
   report discounted-increase
 end
 
 ;to be updated based on the SDA function for actions
-to-report SDA-risk-avoidance [mt]
-  report SDE-risk-avoidance mt
+to-report SDA-risk-avoidance-transport [mt]
+  report SDE-risk-avoidance-transport mt
 end
 
 
@@ -126,7 +125,7 @@ to-report add-occurance [occ occ-list]
   report lput (list occ 1) occ-list
 end
 
-to-report determine-my-preferred-means-of-transport [what-transport-I-used]
+to-report determine-my-preferred-means-of-transport
   set what-transport-I-used remove "stay-here" what-transport-I-used
   let counts-of-my-means-of-transport []
   foreach what-transport-I-used [mt ->
@@ -137,14 +136,12 @@ to-report determine-my-preferred-means-of-transport [what-transport-I-used]
 end
 
 to-report report-habit-satisfaction [mt]
-  let my-preferred-means-of-transport determine-my-preferred-means-of-transport what-transport-I-used
+  let my-preferred-means-of-transport determine-my-preferred-means-of-transport
   if my-preferred-means-of-transport = mt [
     report 1
   ]
   report 0
 end
-
-
 
 ;;Prevalence calculation
 to-report expected-global-prevalence-of [mt]
@@ -154,10 +151,10 @@ to-report expected-global-prevalence-of [mt]
   ;calculate the total-satisfaction an agent expects to gain from a means of transport as the weighted sum of all its needs
   set total-satisfaction sum (list
     ;Needs
-    (SDE-financial-safety mt * importance-weight-financial-safety) 
-    (SDE-financial-survival mt * importance-weight-financial-survival)
-    (SDE-conformity mt * importance-weight-conformity)
-    (SDE-risk-avoidance mt * importance-weight-risk-avoidance)
+    (SDE-financial-safety-transport mt * importance-weight-financial-safety) 
+    (SDE-financial-survival-transport mt * importance-weight-financial-survival)
+    (SDE-conformity-transport mt * importance-weight-conformity)
+    (SDE-risk-avoidance-transport mt * importance-weight-risk-avoidance)
     
     ;Further factors
     (report-habit-satisfaction mt)
@@ -165,4 +162,11 @@ to-report expected-global-prevalence-of [mt]
     ;Calibration probability
     (my-probability-of-taking mt)
   )
+  report total-satisfaction
+end
+
+
+to-report determine-means-of-transport
+  let means-of-transport ["solo" "public" "shared-car"]
+  report item 0 reduce [[x y] -> ifelse-value item 1 x > item 1 y [x] [y]] (map [x -> (list x (expected-global-prevalence-of x))] means-of-transport)
 end

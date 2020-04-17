@@ -1,3 +1,5 @@
+__includes ["transport_decision.nls"]
+
 globals [is-busses-overrun? #denied-attempts-due-to-bus-overload
   list-of-buses
   list-of-shared-cars
@@ -16,7 +18,7 @@ to travelling-to-activity-phase
   
   ask people [
     if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method stop]
-    set my-means-of-transportation-I-currently-use random-means-of-transportation
+    set my-means-of-transportation-I-currently-use determine-means-of-transport
     if my-means-of-transportation-I-currently-use = public-transportation-method [
       set bus-users (turtle-set bus-users self)
       ;set what-transport-I-used
@@ -67,6 +69,8 @@ end
 to-report stay-here-transportation-method
   report "stay-here"
 end
+
+
 
 to-report random-means-of-transportation
   let rand random-float 1
