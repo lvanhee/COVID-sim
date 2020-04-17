@@ -1,8 +1,6 @@
 __includes ["motives.nls" "transport.nls"]
 
 to execute-activity-effect
-
-
   if is-currently-allocated-a-bed-in-hospital? and not (current-motivation = treatment-motive) [
     release-bed-in-hospital
   ]

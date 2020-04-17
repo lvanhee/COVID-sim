@@ -7,7 +7,7 @@
 			"input-variables":[
 			{
 				"name": "ticks",
-				"range": "[0 1 200]",
+				"range": "[0 1 10]",
 				"_comment":"Will generate a variable ticks with 201 values from 0 to 200"
 			},
 			{
@@ -36,9 +36,12 @@
 	"output":
 	{
 		"goal":"draw",
-		"type":"csv",
+		"type":"tikz",
 		"merge-by":"preset-scenario",
 		"sort-by":"ticks",
+		"x":"tick",
+		"y":"ratio-infected",
+		"plot":"preset-scenario",
 		"_comment":"all experiments having the same value for ratio-testing should be in the same file. Filenames will all contain ratio-testing=X in their name. This should generate 11 files, all containing 201 lines indicating the current tick and the #infected",
 		"folder":"C:/Users/loisv/git/COVID-sim3/processing/"
 		
