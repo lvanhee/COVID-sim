@@ -3100,30 +3100,30 @@ INPUTBOX
 Number
 
 CHOOSER
-2115
-644
-2317
-689
+2060
+658
+2262
+703
 network-generation-method
 network-generation-method
 "random" "value-similarity"
 0
 
 TEXTBOX
-2115
-619
-2265
-638
+2060
+633
+2210
+652
 Friend Networks
 14
 115.0
 1
 
 SLIDER
-2115
-690
-2320
-723
+2060
+704
+2265
+737
 peer-group-friend-links
 peer-group-friend-links
 1
@@ -3150,10 +3150,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2115
-725
-2380
-758
+2059
+740
+2324
+773
 percentage-of-agents-with-random-link
 percentage-of-agents-with-random-link
 0
@@ -3180,10 +3180,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-2118
-767
-2275
-800
+2062
+781
+2219
+814
 Write network as dot
 write-network-to-file user-new-file
 NIL

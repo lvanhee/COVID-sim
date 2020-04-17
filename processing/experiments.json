@@ -12,7 +12,7 @@
 			},
 			{
 				"name": "preset-scenario",
-				"range":"{generic-baseline scenario-1-closing-schools-and-uni scenario-1-work-at-home-only scenario-1-closing-all}"
+				"range":"{scenario-1-zero-action-scandinavia scenario-1-closing-schools-and-uni scenario-1-work-at-home-only scenario-1-closing-all}"
 			}],
 			
 			"output-variables":[
@@ -28,12 +28,14 @@
 		"file": "C:/Users/loisv/git/COVID-sim3/simulation_model/covid-sim.nlogo",
 		"setup": "set-values setup ",
 		"go": "go",
+		"multi-experiment":"parallel-executors",
 		"experiment-executor":"netlogo-executor",
 		"_comment":"as ticks is an input variable, the executer will apply multiple ticks in a row"
 	},
 	
 	"output":
 	{
+		"goal":"draw",
 		"type":"csv",
 		"merge-by":"preset-scenario",
 		"sort-by":"ticks",

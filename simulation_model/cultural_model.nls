@@ -261,7 +261,7 @@ to load-nations-hofstede-dimension-scores
     stop
   ]
   
-  file-open "Hofstede´s cultural dimensions.csv"
+  file-open "hofstede_cultural_dimensions.csv"
   let hofstede-list []
 
   while [not file-at-end? ] [
