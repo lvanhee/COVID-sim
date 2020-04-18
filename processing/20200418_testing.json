@@ -7,15 +7,15 @@
 			"input-variables":[
 			{
 				"name": "ticks",
-				"range": "[0 1 300]"
+				"range": "[0 1 3]"
 			},
 			{
 				"name": "#random-seed",
-				"range": "[0 1 2]"
+				"range": "[0 1 0]"
 			},
 			{
 				"name": "preset-scenario",
-				"range":"{default-scenario scenario-2-random-test-20 scenario-2-app-test-60 scenario-2-app-test-80 scenario-2-app-test-100}"
+				"range":"{default-scenario scenario-3-random-test-20 scenario-3-app-test-60 scenario-3-app-test-80 scenario-3-app-test-100}"
 			}],
 			
 			"output-variables":[

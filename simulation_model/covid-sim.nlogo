@@ -2325,7 +2325,7 @@ INPUTBOX
 633
 182
 import-scenario-name
-output/done.csv
+output/done3.csv
 1
 0
 String
@@ -2333,9 +2333,9 @@ String
 BUTTON
 644
 139
-707
+710
 172
-load
+import
 load-scenario-from-file
 NIL
 1
