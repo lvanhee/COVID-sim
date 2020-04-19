@@ -4,7 +4,7 @@ globals [ #people-saved-by-hospitalization
   #people-dying-due-to-lack-of-hospitalization
   #infected
    infected-people
-  list-of-dead-people
+  list-of-death-people
 ]
 
 to setup-disease-profile
@@ -159,7 +159,7 @@ to kill-person
   if disease-profile = recovery-if-treated-profile
   [set #people-dying-due-to-lack-of-hospitalization #people-dying-due-to-lack-of-hospitalization + 1]
   if age = "retired" [ set #dead-retired #dead-retired + 1]
-  set list-of-dead-people fput who list-of-dead-people 
+  set list-of-death-people fput who list-of-death-people 
   die
 end
 
