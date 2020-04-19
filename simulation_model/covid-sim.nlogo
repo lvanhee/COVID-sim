@@ -483,7 +483,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.01
+0.04
 0.01
 1
 NIL
@@ -3260,7 +3260,6 @@ PENS
 "education-research" 1.0 0 -13791810 true "" "plot total-capital-education-research"
 "households-sector" 1.0 0 -6459832 true "" "plot total-capital-households-sector"
 "government-sector" 1.0 0 -5825686 true "" "plot total-capital-government-sector"
-"international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
 
 TEXTBOX
 2015
@@ -3271,6 +3270,35 @@ Agent social distancing settings
 12
 83.0
 1
+
+PLOT
+1446
+1768
+1904
+1925
+Macro Economic Model - International Sector
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
+
+SWITCH
+1909
+1768
+2087
+1801
+close-services-luxury?
+close-services-luxury?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
