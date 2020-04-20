@@ -145,7 +145,7 @@ to-report SUA-belonging [ad]
   let motive motive-of ad
 
   ; Only your home, and public and private leisure places satisfy belonging needs
-  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure"]
+  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure" "work"]
   [ report 0 ]
   let number count people with [current-activity = gp]
   let base 0
