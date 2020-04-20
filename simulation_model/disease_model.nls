@@ -4,6 +4,7 @@ globals [ #people-saved-by-hospitalization
   #people-dying-due-to-lack-of-hospitalization
   #infected
    infected-people
+  list-of-dead-people
 ]
 
 to setup-disease-profile
@@ -46,8 +47,6 @@ to-report is-immune?
 end
 
 to update-within-disease-status 
-  if infection-status = "dead"
-  [die]
   if infection-status = healthy-infection-status or infection-status = immune-infection-status [stop]
   if slice-of-the-day = "morning" [set duration-current-disease-status duration-current-disease-status - 1]
   
@@ -98,8 +97,7 @@ to update-within-disease-status
     ]
     
     if infection-status = "infected-terminal"
-    [kill-person
-    stop]
+    [kill-person]
     
     error (sentence "unimplemented: " disease-profile duration-current-disease-status infection-status)
   ]
@@ -158,9 +156,11 @@ to kill-person
   set infection-status "dead" 
   set #infected #infected - 1
   set #dead-people #dead-people + 1
+  set list-of-dead-people fput who list-of-dead-people
   if disease-profile = recovery-if-treated-profile
   [set #people-dying-due-to-lack-of-hospitalization #people-dying-due-to-lack-of-hospitalization + 1]
   if age = "retired" [ set #dead-retired #dead-retired + 1]
+  die
   end
 
 to-report is-infected?

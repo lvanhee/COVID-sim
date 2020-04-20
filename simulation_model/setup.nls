@@ -23,6 +23,7 @@ to setup
   set day-of-the-week "monday"
   set current-day 0
   set #dead-people 0
+  set list-of-dead-people []
   set was-social-distancing-enforced? false
 
   setup-activities
