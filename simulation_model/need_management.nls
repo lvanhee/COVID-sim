@@ -344,31 +344,38 @@ end
 to-report SUE-autonomy [ad]
   let gp location-of ad
   let motive motive-of ad
+  let social-distancing social-distancing-of ad
+  let base 0
+  let sd-modifier 1
+  
+  if social-distancing [
+    set sd-modifier (1 - social-distance-profile)
+  ]
 
   if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
       ifelse [gathering-type] of gp = "school"
-      [ report  0.2 ]
-      [ report -0.1 ]
+      [ report  0.2 * sd-modifier ]
+      [ report -0.1 * (2 - sd-modifier) ]
     ]
     if age = "student" [
       ifelse [gathering-type] of gp = "university"
-      [ report  0.2 ]
-      [ report -0.1 ]
+      [ report  0.2 * sd-modifier ]
+      [ report -0.1 * (2 - sd-modifier) ]
     ]
     if age = "worker" [
       ifelse motive = work-motive [
         ifelse gp != my-home
-        [ report 0.3 ]
-        [ report 0.05 ]
+        [ report 0.3 * sd-modifier ]
+        [ report 0.05 * sd-modifier ]
       ]
-      [ report -0.1 ]
+      [ report -0.1 * (2 - sd-modifier) ]
     ]
   ]
   if slice-of-the-day = "night" and [gathering-type] of gp = "home" and motive = "rest"
-  [report 0.2]
+  [report 0.2 * sd-modifier ]
   if is-lockdown-enforced? and [gathering-type] of gp != "home"
-  [report 0.1]
+  [report 0.1 * sd-modifier ]
   report 0
 end
 
