@@ -443,7 +443,7 @@ INPUTBOX
 1408
 658
 #non-essential-shops-gp
-10.0
+5.0
 1
 0
 Number
@@ -1046,7 +1046,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1261,10 +1261,9 @@ true
 true
 "" ""
 PENS
-"retired" 1.0 0 -16777216 true "" "plot retirees-average-amount-of-capital"
 "worker" 1.0 0 -13345367 true "" "plot workers-average-amount-of-capital"
-"student" 1.0 0 -955883 true "" "plot students-average-amount-of-capital"
-"young" 1.0 0 -13840069 true "" "plot young-average-amount-of-capital"
+"retired" 1.0 0 -955883 true "" "plot retirees-average-amount-of-capital"
+"student" 1.0 0 -13840069 true "" "plot students-average-amount-of-capital"
 
 PLOT
 11
@@ -1362,7 +1361,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.41
+0.35
 0.01
 1
 NIL
@@ -1397,7 +1396,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.21
+0.09
 0.01
 1
 NIL
@@ -1427,7 +1426,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.34
+0.41
 0.01
 1
 NIL
@@ -1442,7 +1441,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.34
+0.39
 0.01
 1
 NIL
@@ -1579,7 +1578,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.7
+1.6
 0.1
 1
 NIL
@@ -1604,7 +1603,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
-6
+9
 
 MONITOR
 716
@@ -2091,7 +2090,7 @@ workers-wages
 workers-wages
 0
 30
-10.0
+13.0
 0.5
 1
 NIL
@@ -2916,7 +2915,7 @@ ratio-of-users-of-the-tracking-app
 ratio-of-users-of-the-tracking-app
 0
 1
-0.6
+0.0
 0.01
 1
 NIL
@@ -3299,6 +3298,47 @@ close-services-luxury?
 1
 1
 -1000
+
+PLOT
+1860
+1241
+2200
+1391
+Number of adult people in poverty
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"total" 1.0 0 -16777216 true "" "plot count people with [not is-young? and is-in-poverty?]"
+"worker" 1.0 0 -13345367 true "" "plot count workers with [is-in-poverty?]"
+"retired" 1.0 0 -955883 true "" "plot count retireds with [is-in-poverty?]"
+"students" 1.0 0 -13840069 true "" "plot count students with [is-in-poverty?]"
+
+PLOT
+1861
+1402
+2189
+1552
+Histogram of available capital
+my-amount-of-capital
+counts
+0.0
+500.0
+0.0
+10.0
+true
+true
+"foreach [\"worker\" \"retired\" \"student\"] [ pen ->\n  set-current-plot-pen pen\n  set-plot-pen-mode 1\n]\nset-histogram-num-bars 500" ""
+PENS
+"worker" 1.0 0 -13345367 true "" "histogram [my-amount-of-capital] of workers"
+"retired" 1.0 0 -955883 true "" "histogram [my-amount-of-capital] of retireds"
+"student" 1.0 0 -13840069 true "" "histogram [my-amount-of-capital] of students"
 
 @#$#@#$#@
 ## WHAT IS IT?
