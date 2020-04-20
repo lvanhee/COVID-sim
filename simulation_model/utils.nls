@@ -93,12 +93,8 @@ to export-profiling
 end
 
 to save-world-state
-  let filename import-scenario-name
-  if file-exists? filename[ file-delete filename]
-  file-open filename
-  file-print " "
-  file-close
-  export-world filename
+  if not file-exists? import-scenario-name [ show "sometimes the file needs to be created by hand first"]
+  export-world import-scenario-name
 end
 
 to load-scenario-from-file

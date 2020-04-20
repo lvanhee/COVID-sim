@@ -40,7 +40,7 @@ to startup
   setup
 end
 
-to-report epistemic-accuracy report count people with [is-infected? and is-believing-to-be-infected?] / count people with [is-infected?] end
+to-report epistemic-accuracy if #infected = 0 [report 1] report count people with [is-infected? and is-believing-to-be-infected?] / #infected end
 
 to-report epistemic-false-positive-error-ratio report count people with [is-believing-to-be-infected? and not is-infected?] / count people end
 
@@ -1482,7 +1482,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-1.0
+0.0
 0.01
 1
 NIL
@@ -1603,8 +1603,8 @@ CHOOSER
 117
 preset-scenario
 preset-scenario
-"uninfected-scandinavia" "zero-action-scandinavia" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
-2
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
+6
 
 MONITOR
 716
@@ -2325,7 +2325,7 @@ INPUTBOX
 633
 182
 import-scenario-name
-output/done.csv
+output/done3.csv
 1
 0
 String
@@ -2333,9 +2333,9 @@ String
 BUTTON
 644
 139
-707
+710
 172
-load
+import
 load-scenario-from-file
 NIL
 1
@@ -2916,7 +2916,7 @@ ratio-of-users-of-the-tracking-app
 ratio-of-users-of-the-tracking-app
 0
 1
-0.0
+0.6
 0.01
 1
 NIL
@@ -2961,31 +2961,20 @@ average-number-of-people-recorded-by-recording-apps
 
 INPUTBOX
 1895
-967
+931
 2050
-1027
+991
 #days-tracking
-3.0
+14.0
 1
 0
 Number
 
-SWITCH
-1896
-934
-2284
-967
-is-testing-people-recorded-by-the-proximity-app-measure?2
-is-testing-people-recorded-by-the-proximity-app-measure?2
-1
-1
--1000
-
 MONITOR
 1895
-1027
+991
 2008
-1072
+1036
 NIL
 #tests-performed
 17
@@ -3198,9 +3187,9 @@ NIL
 
 MONITOR
 1894
-1071
+1035
 1972
-1116
+1080
 #app-users
 count people with [is-user-of-tracking-app?]
 17
@@ -3209,9 +3198,9 @@ count people with [is-user-of-tracking-app?]
 
 MONITOR
 1970
-1071
+1035
 2077
-1116
+1080
 standard anxiety avoidance of people
 mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of people
 17
@@ -3220,9 +3209,9 @@ mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportanc
 
 MONITOR
 1894
-1114
+1078
 2068
-1159
+1123
 anxiety-avoidance of app users
 mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of app-users
 17
@@ -3271,7 +3260,6 @@ PENS
 "education-research" 1.0 0 -13791810 true "" "plot total-capital-education-research"
 "households-sector" 1.0 0 -6459832 true "" "plot total-capital-households-sector"
 "government-sector" 1.0 0 -5825686 true "" "plot total-capital-government-sector"
-"international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
 
 TEXTBOX
 2015
@@ -3282,6 +3270,35 @@ Agent social distancing settings
 12
 83.0
 1
+
+PLOT
+1446
+1768
+1904
+1925
+Macro Economic Model - International Sector
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
+
+SWITCH
+1909
+1768
+2087
+1801
+close-services-luxury?
+close-services-luxury?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
