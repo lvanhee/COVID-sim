@@ -96,7 +96,7 @@ to-report SUE-belonging [ad]
   let gp location-of ad
   let motive motive-of ad
 
-  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure"]
+  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure" "work"]
   [ report 0 ]
   let number [expected-number-of-other-participants] of gp
   let base 0
