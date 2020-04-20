@@ -478,3 +478,7 @@ end
 to-report velocity-of-money-in-total-system
   report total-amount-of-transaction-for-this-tick / total-amount-of-capital-in-the-system
 end
+
+to-report is-in-poverty?
+  report price-of-rations-in-essential-shops * days-of-rations-bought > my-amount-of-capital
+end

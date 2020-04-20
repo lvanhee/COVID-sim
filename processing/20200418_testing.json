@@ -7,18 +7,21 @@
 			"input-variables":[
 			{
 				"name": "ticks",
-				"range": "[0 1 5]",
-				"_comment":"Will generate a variable ticks with 201 values from 0 to 200"
+				"range": "[0 1 3]"
+			},
+			{
+				"name": "#random-seed",
+				"range": "[0 1 0]"
 			},
 			{
 				"name": "preset-scenario",
-				"range":"{scenario-1-zero-action-scandinavia scenario-1-closing-schools-and-uni scenario-1-work-at-home-only scenario-1-closing-all}"
+				"range":"{default-scenario scenario-3-random-test-20 scenario-3-app-test-60 scenario-3-app-test-80 scenario-3-app-test-100}"
 			}],
 			
 			"output-variables":[
-			{
-				"name": "ratio-infected"
-			}
+			{"name": "ratio-infected"},
+			{"name": "epistemic-accuracy"},
+			{"name": "#tests-performed"}
 			]
 	},
 	
@@ -26,7 +29,7 @@
 	{
 		"type" : "netlogo",
 		"file": "C:/Users/loisv/git/COVID-sim3/simulation_model/covid-sim.nlogo",
-		"setup": "set-values setup ",
+		"setup": "set-values setup set preset-profiles \"mediterranea\" load-population-profile-based-on-current-preset-profile ",
 		"go": "go",
 		"multi-experiment":"parallel-executors",
 		"experiment-executor":"netlogo-executor",
@@ -38,12 +41,13 @@
 		"goal":"draw",
 		"type":"jfreechart",
 		"sort-by":"ticks",
-		"x":"ticks",
-		"y":"ratio-infected",
-		"plot":"preset-scenario",
-		"_comment":"all experiments having the same value for ratio-testing should be in the same file. Filenames will all contain ratio-testing=X in their name. This should generate 11 files, all containing 201 lines indicating the current tick and the #infected",
+
+		"plot":[
+		{"x":"ticks","y":"ratio-infected","lines":"preset-scenario"},
+		{"x":"ticks","y":"epistemic-accuracy","lines":"preset-scenario"},
+		{"x":"ticks","y":"#tests-performed","lines":"preset-scenario"}
+		],
 		"folder":"C:/Users/loisv/git/COVID-sim3/processing/"
-		
 	}
 	
     

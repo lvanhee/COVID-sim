@@ -1,3 +1,5 @@
+globals [central-bank-reserve-of-capital]
+
 breed [macro-sectors macro-sector]
 
 macro-sectors-own
@@ -11,24 +13,79 @@ macro-sector-links-own
 [
   priority
   drain ;capital to pay
+  amount-of-capital-in-the-reserve
 ]
 
 to run-macro-economics
-;  ask macro-sectors
-;  [
-;    set amount-of-capital amount-of-capital + 1
-;  ]
   ask macro-sectors
   [
-    foreach sort-on [priority] my-out-macro-sector-links 
+    ;ensure that reserves have a minimum amount of capital
+    ask my-out-macro-sector-links
     [
-      the-link -> ask the-link [
-        if [amount-of-capital] of myself >= drain
-        [
-          perform-transaction myself other-end (list "nothing") (list "trade" drain)
-        ]
+      let min-amount-of-capital drain - amount-of-capital-in-the-reserve
+      if min-amount-of-capital > 0
+      [
+        ;the 'perform-transaction' procedure can't be used in the context of a link
+        ask myself [ set amount-of-capital amount-of-capital - min-amount-of-capital ]
+        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve + min-amount-of-capital
+        ;perform-transaction myself self (list "nothing") (list "trade" amount-of-capital-to-receive)
       ]
     ]
+    
+    ;check reserves
+    let amount-of-capital-to-fill-all-reserves 0
+    ask my-out-macro-sector-links
+    [
+      let threshold (10 - priority) * drain
+      let amount-of-capital-to-fill-reserve (threshold - amount-of-capital-in-the-reserve)
+      set amount-of-capital-to-fill-all-reserves amount-of-capital-to-fill-all-reserves + amount-of-capital-to-fill-reserve
+    ]
+    
+    ;fill reserves
+    let available-amount-of-capital max (list amount-of-capital 0)
+    let amount-of-capital-to-go-to-reserves min (list available-amount-of-capital amount-of-capital-to-fill-all-reserves)
+    let remaining-capital-to-go-to-reserves amount-of-capital-to-go-to-reserves ;control variable
+    if amount-of-capital-to-go-to-reserves > 0
+    [
+      ask my-out-macro-sector-links
+      [
+        let threshold (10 - priority) * drain
+        let amount-of-capital-to-fill-reserve (threshold - amount-of-capital-in-the-reserve)
+        let amount-of-capital-to-receive (amount-of-capital-to-fill-reserve / amount-of-capital-to-fill-all-reserves) * amount-of-capital-to-go-to-reserves
+        set amount-of-capital-to-receive min (list amount-of-capital-to-receive remaining-capital-to-go-to-reserves)
+        set remaining-capital-to-go-to-reserves remaining-capital-to-go-to-reserves - amount-of-capital-to-receive
+        
+        ;the 'perform-transaction' procedure can't be used in the context of a link
+        ask myself [ set amount-of-capital amount-of-capital - amount-of-capital-to-receive ]
+        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve + amount-of-capital-to-receive
+        ;perform-transaction myself self (list "nothing") (list "trade" amount-of-capital-to-receive)
+      ]
+    ]
+    
+    ;transfer capital to other sectors
+    ask my-out-macro-sector-links
+    [
+      ifelse [is-services-luxury?] of other-end and close-services-luxury?
+      []
+      [
+        let amount-of-capital-to-transfer min (list drain amount-of-capital-in-the-reserve)
+        
+        ;the 'perform-transaction' procedure can't be used in the context of a link
+        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve - amount-of-capital-to-transfer
+        ask other-end [ set amount-of-capital amount-of-capital + amount-of-capital-to-transfer ]
+        ;perform-transaction self other-end (list "nothing") (list "trade" amount-of-capital-to-transfer)
+      ]
+    ]
+    
+;    foreach sort-on [priority] my-out-macro-sector-links 
+;    [
+;      the-link -> ask the-link [
+;        if [amount-of-capital] of myself >= drain
+;        [
+;          perform-transaction myself other-end (list "nothing") (list "trade" drain)
+;        ]
+;      ]
+;    ]
   ]
 end
 

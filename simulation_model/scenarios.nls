@@ -3,7 +3,7 @@ to load-preset-parameters
   load-population-profile-based-on-current-preset-profile
 end
 
-to set-values 
+to set-values
   load-scenario
   load-population-profile-based-on-current-preset-profile
   
@@ -31,15 +31,13 @@ to load-scenario
   ]
   ;;the general process lies in adapting your scenario from the baseline
   load-baseline-scenario
+
   
   load-scenario-specifics
 end
 
 to load-scenario-specifics    
-  if preset-scenario = "generic-baseline"
-  [
-    stop
-  ]
+  if preset-scenario = "default-scenario" [stop]  
   
   if preset-scenario = "uninfected-scandinavia"
   [
@@ -52,6 +50,12 @@ to load-scenario-specifics
   if is-scenario-1? preset-scenario
   [
     scenario-1-setup
+    stop
+  ]
+  
+  if is-scenario-3? preset-scenario
+  [
+    scenario-3-setup
     stop
   ]
   
@@ -97,6 +101,34 @@ to load-scenario-specifics
   error "unimplemented"
 end
 
+to scenario-3-setup
+  if preset-scenario = "scenario-3-random-test-20"
+  [
+    load-baseline-scenario
+    set ratio-population-randomly-tested-daily 0.2
+    stop
+  ]
+  
+  if preset-scenario = "scenario-3-app-test-60"
+    [
+      load-baseline-scenario
+      set ratio-of-users-of-the-tracking-app 0.6
+      stop
+  ]
+  if preset-scenario = "scenario-3-app-test-80"
+    [
+      load-baseline-scenario
+      set ratio-of-users-of-the-tracking-app 0.8
+      stop
+  ]
+  if preset-scenario = "scenario-3-app-test-100"
+    [
+      load-baseline-scenario
+      set ratio-of-users-of-the-tracking-app 1
+      stop
+  ]
+end
+
 to scenario-1-setup
   set probability-hospital-personel 0.04
   set probability-school-personel 0.03 
@@ -132,6 +164,10 @@ end
 to-report is-scenario-1? [s]
   report starts-with? s "scenario-1"
 end
+
+to-report is-scenario-3? [s]
+  report starts-with? s "scenario-3"
+end
   
   
   
@@ -163,6 +199,7 @@ to load-all-closed-measures
   set #days-trigger-school-closing-measure 0
   set closed-universities? true
 end
+
 to load-baseline-scenario
   set static-seed? true
   set #households 100
@@ -174,7 +211,6 @@ to load-baseline-scenario
   load-default-transport-model
   load-default-economic-parameters
   load-default-values-needs-parameters
-  
   load-no-measures
 end
 
@@ -287,11 +323,12 @@ to load-no-measures
   set test-workplace-of-confirmed-people? false
   set ratio-population-randomly-tested-daily 0
   set closed-universities? false
-  set is-testing-people-recorded-by-the-proximity-app-measure?2 false
+  set ratio-of-users-of-the-tracking-app 0
 end
 
 to load-scandinavian-population-default
-    set preset-profiles "scandinavia"
+  set preset-profiles "scandinavia"
+  load-population-profile-based-on-current-preset-profile
 end
 
 to load-scenario-minimal
