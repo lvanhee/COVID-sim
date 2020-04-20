@@ -79,3 +79,26 @@ to-report SDE-self-esteem [ad]
   report weighted-mean needs importances
   
 end
+
+to-report quality-of-life-indicator
+  
+  let quality-of-life (list 
+      ;Survival needs
+    (food-safety-satisfaction-level * importance-weight-food-safety) 
+    (financial-survival-satisfaction-level * importance-weight-financial-survival)
+    (sleep-satisfaction-level * importance-weight-sleep) 
+    (health-satisfaction-level * importance-weight-health) 
+    (conformity-satisfaction-level * importance-weight-conformity)
+    ;Safety needs
+    (compliance-satisfaction-level * importance-weight-compliance) 
+    (risk-avoidance-satisfaction-level * importance-weight-risk-avoidance) 
+    (financial-safety-satisfaction-level * importance-weight-financial-safety) 
+    ;Belonging needs
+    (belonging-satisfaction-level * importance-weight-belonging-subneed)
+    ;Esteem needs
+    (autonomy-satisfaction-level * importance-weight-autonomy) 
+    (luxury-satisfaction-level * importance-weight-luxury) 
+    (leisure-satisfaction-level * importance-weight-leisure))
+  
+  report sum quality-of-life
+end
