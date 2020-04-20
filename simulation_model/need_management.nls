@@ -39,7 +39,7 @@ to update-needs-for-playing [current-activity-descriptor]
  
   set compliance-satisfaction-level clamp 0 1 (compliance-satisfaction-level + SDE-compliance current-activity-descriptor)
 
-  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDE-risk-avoidance current-activity-descriptor)
+  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDA-risk-avoidance current-activity-descriptor)
 
   set leisure-satisfaction-level clamp 0 1 (leisure-satisfaction-level + SDE-leisure current-activity-descriptor)
   
@@ -176,7 +176,7 @@ to-report SUA-belonging [ad]
   report base * network-bonus * social-distancing-cut
 end
 
-to-report SUE-risk-avoidance [ad]
+to-report risk-avoidance-increase [ad others]
   let gp location-of ad
   let motive motive-of ad
   let result 0.1
@@ -191,11 +191,10 @@ to-report SUE-risk-avoidance [ad]
     set result -0.1
   ] [
     if gp != my-home [
-      let number [expected-number-of-other-participants] of gp
-      if number = 0 [set result 0.2 ]
-      if number < 5 [set result 0.1 ]
-      if number < 10 [set result 0.05 ]
-      ifelse number < 20 [set result 0]
+      if others = 0 [set result 0.2 ]
+      if others < 5 [set result 0.1 ]
+      if others < 10 [set result 0.05 ]
+      ifelse others < 20 [set result 0]
       [set result -0.1]
     ]
   ]
@@ -205,6 +204,16 @@ to-report SUE-risk-avoidance [ad]
     [ set result result - 0.1 ]
 
   report result
+end
+
+to-report SUE-risk-avoidance [ad]
+  let gp location-of ad
+  report risk-avoidance-increase ad [expected-number-of-other-participants] of gp
+end
+
+to-report SUA-risk-avoidance [ad]
+  let gp location-of ad
+  report risk-avoidance-increase ad count people with [current-activity = gp]
 end
 
 to-report SUE-compliance [ad]
@@ -589,6 +598,12 @@ end
 
 to-report SDE-risk-avoidance [ad]
   let expected-increase SUE-risk-avoidance ad
+  let discounted-increase expected-increase * (1 - risk-avoidance-satisfaction-level)
+  report discounted-increase
+end
+
+to-report SDA-risk-avoidance [ad]
+  let expected-increase SUA-risk-avoidance ad
   let discounted-increase expected-increase * (1 - risk-avoidance-satisfaction-level)
   report discounted-increase
 end
