@@ -104,3 +104,75 @@ end
 to-report starts-with? [string start]
    report  length string > length start and substring string 0 length start = start
 end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Counter "datastructure" ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Creates a simple object counter for counting how often each object appears in a list. Should work on any object that supports =
+to-report new-counter
+  report []
+end
+
+; Add the object `obj` to a given `counter` and return the new counter. 
+to-report add-to-counter [counter obj]
+  let index 0
+  foreach counter [count-pair -> 
+    if obj = (cp-object count-pair) [
+      report replace-item index counter (cp-increase count-pair)
+    ]
+    set index index + 1
+  ]
+  report (lput (new-count-pair obj) counter)
+end
+
+; Report the count for a given object. -1 if the object is not counted
+to-report counter-get-count [counter obj]
+  foreach counter [count-pair ->
+    if obj = (cp-object count-pair) [
+      report cp-count count-pair
+    ]
+  ]
+  report -1
+end
+
+; Get the object with the highest count. Ties are broken in order of insertion
+to-report counter-max-value [counter]
+  report item 0 (reduce [ [x y] -> ifelse-value cp-count x >= cp-count y [x] [y] ] counter)
+end
+
+; Get the object with the lowest count. Ties are broken in order of insertion
+to-report counter-min-value [counter]
+  report item 0 (reduce [ [x y] -> ifelse-value cp-count x < cp-count y [x] [y] ] counter)
+end
+
+; Create a new count-pair for a given object. Count-pairs are used inside of counters.
+to-report new-count-pair [obj]
+  report (list obj 1)
+end
+
+; Get the object from a count-pair
+to-report cp-object [pair]
+  report item 0 pair
+end
+
+; Get the count from a given count-pair
+to-report cp-count [pair]
+  report item 1 pair
+end
+
+; Increase the count for the given count-pair, and return the new count-pair
+to-report cp-increase [pair]
+  report (list (cp-object pair) (cp-count pair + 1))
+end
+
+
+
+
+
+
+
+
+
+
+
