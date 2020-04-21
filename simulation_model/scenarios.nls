@@ -302,12 +302,12 @@ end
 
 to load-scenario-3-economic-parameters
   set with-infected? true
-  set global-confinment-measures "total-lockdown"
+  set global-confinement-measures "total-lockdown"
 end
 
 to load-scenario-4-economic-parameters
   set with-infected? true
-  set global-confinment-measures "total-lockdown"
+  set global-confinement-measures "total-lockdown"
   set government-pays-wages? true
 end
 
@@ -318,7 +318,7 @@ to load-no-measures
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
-  set global-confinment-measures "none"
+  set global-confinement-measures "none"
   set test-home-of-confirmed-people? false
   set test-workplace-of-confirmed-people? false
   set ratio-population-randomly-tested-daily 0
