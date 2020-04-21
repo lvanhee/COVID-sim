@@ -134,6 +134,9 @@ to-report is-allowed-to-work-from-home?
   ;link-neighbors with [gathering-type = "workplace"]
 end
 
+to-report is-currently-watching-a-child?
+  report any? [current-gatherers with [is-child?]] of current-activity
+end
 
 to-report is-currently-watched-by-an-adult?
   report any? [current-gatherers with [is-adult?]] of current-activity
