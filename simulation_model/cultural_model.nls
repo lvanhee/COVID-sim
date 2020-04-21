@@ -41,7 +41,27 @@ to set-initial-need-satisfaction-levels
     set autonomy-satisfaction-level 0.95
 
     ;Calibrate social distance variables
-    set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
+    ifelse make-social-distance-profile-value-based? [
+      
+      ;extroverts tend to value achievement, stimulation, hedonism (Roccas et al., 2002)
+      ;extroversion relates to tendency to approach / interact with people.
+      let extroversion (importance-given-to-achievement-value + importance-given-to-stimulation-value + (0.5 * importance-given-to-hedonism-value)) / 2.5
+      
+      ;introverts tend to value conformity & tradition, security (Roccas et al., 2002)
+      ;introversion relates to tendency to avoid / not interact with people.
+      let introversion (importance-given-to-conformity-tradition-value + importance-given-to-security-value) / 2
+      
+      ifelse extroversion > introversion [
+        ;the more extrovert the agent, the HIGHER its social distance profile.
+        set social-distance-profile clamp 0 1 random-normal extroversion std-dev-social-distance-profile
+      ][
+        ;the more introvert the agent, the LOWER its social distance profile.
+        set social-distance-profile clamp 0 1 random-normal (1 - introversion) std-dev-social-distance-profile
+      ]
+    ][
+      ;if social-distance-profile is not value based? then set it according to the relevant slider settings
+      set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
+    ]
     set is-I-apply-social-distancing? is-social-distancing-measure-active?
   ]
 end
