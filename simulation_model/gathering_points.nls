@@ -71,6 +71,14 @@ to-report ratio-sick-personnel
   report count hired-workers with [has-internally-visible-symptoms?] / count hired-workers
 end
 
+to-report #healthy-personel
+  report count hired-workers with [not has-internally-visible-symptoms?]
+end
+
+to-report #sick-personel
+  report count hired-workers with [has-internally-visible-symptoms?]
+end
+
 to-report is-at-work?
   if not is-worker? [report false]
   report current-activity = my-work

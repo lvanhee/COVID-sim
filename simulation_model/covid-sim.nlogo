@@ -3377,6 +3377,28 @@ make-social-distance-profile-value-based?
 1
 -1000
 
+MONITOR
+1580
+434
+1764
+479
+NIL
+#healthy-hospital-personel
+17
+1
+11
+
+MONITOR
+1582
+488
+1745
+533
+NIL
+#sick-hospital-personel
+17
+1
+11
+
 @#$#@#$#@
 ## WHAT IS IT?
 
