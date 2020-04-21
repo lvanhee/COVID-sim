@@ -375,5 +375,4 @@ to load-default-values-needs-parameters
   set survival-multiplier 2.5
   set maslow-multiplier 0
   set weight-survival-needs 0.5
-  set needs-std-dev 0.11
 end
