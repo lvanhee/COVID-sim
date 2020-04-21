@@ -44,14 +44,14 @@ to-report SUE-conformity-transport [mt]
   report 1
 end
 
-to-report SUE-risk-avoidance-transport [mt]
+to-report risk-avoidance-increase-transport [mt others]
   let result 0.1
   if mt = "solo" [set result 0.2]
   if mt = "public" [
-      if #max-people-per-bus = 0 [set result 0.2 ]
-      if #max-people-per-bus < 5 [set result 0.1 ]
-      if #max-people-per-bus < 10 [set result 0.05 ]
-      ifelse #max-people-per-bus < 20 [set result 0]
+      if others = 0 [set result 0.2 ]
+      if others < 5 [set result 0.1 ]
+      if others < 10 [set result 0.05 ]
+      ifelse others < 20 [set result 0]
       [set result -0.1]
   ]
   if mt = "shared-car" [set result 0.1]
@@ -60,8 +60,16 @@ to-report SUE-risk-avoidance-transport [mt]
   ;  [ set result result + 0.1 ]
   ;  [ set result result - 0.1 ]
 
-  report result
+  report result  
 end
+
+to-report SUE-risk-avoidance-transport [mt]
+  ;solo is 0, pt is #max-people-per-bus, shared car is 5 max
+  if mt = "solo" [report risk-avoidance-increase-transport mt 0]
+  if mt = "public" [report risk-avoidance-increase-transport mt #max-people-per-bus]
+  if mt = "shared-car" [report risk-avoidance-increase-transport mt 5]
+end
+
 
 ;;Satisfaction discounted expected functions
 to-report SDE-financial-safety-transport [mt]
@@ -97,7 +105,6 @@ to-report SDA-financial-survival-transport [mt]
   report SDE-financial-survival-transport mt
 end
 
-
 to-report SUA-conformity-transport [mt]
   if length what-my-network-did >= 28 [
     if mt = last what-transport-my-network-used [report 0.4]
@@ -112,9 +119,17 @@ to-report  SDA-conformity-transport [mt]
   report discounted-increase
 end
 
-;to be updated based on the SDA function for actions
-to-report SDA-risk-avoidance-transport [mt]
-  report SDE-risk-avoidance-transport mt
+to-report SUA-risk-avoidance-transport [mt]
+  if mt = "solo" [report risk-avoidance-increase-transport mt 0]
+  if mt = "public" [report risk-avoidance-increase-transport mt (count item my-transport-number list-of-buses) - 1 ]
+  if mt = "shared-car" [report risk-avoidance-increase-transport mt (count item my-transport-number list-of-shared-cars) - 1]
+end
+
+
+to-report SDA-risk-avoidance-transport [ad]
+  let expected-increase SUA-risk-avoidance-transport ad
+  let discounted-increase expected-increase * (1 - risk-avoidance-satisfaction-level)
+  report discounted-increase
 end
 
 
