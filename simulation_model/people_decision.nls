@@ -161,6 +161,8 @@ to update-memory
   ask my-network [
     set network-activities add-to-counter network-activities (list current-motivation is-I-apply-social-distancing?)
   ]
+  ; add a nobody to the front of the list to make it work like an activity
+  ; to do: switch to gathering point type?
   let network-activity fput nobody counter-max-value network-activities
   set what-my-network-did lput network-activity what-my-network-did
   if length what-my-network-did > 28 [
