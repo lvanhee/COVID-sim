@@ -1,0 +1,71 @@
+;;;;;;;;;;;personal reporters;;;;;;;;;;;;;;
+
+to-report works-at-home [id]
+  report [is-working-at-home?] of person id
+end
+
+to-report is-a-watched-child [id]
+  report [is-currently-watched-by-an-adult?] of person id
+end
+
+to-report is-watching-child [id]
+  report [is-currently-watching-a-child?] of person id
+end
+
+to-report is-at-work [id]
+  report [is-working-at-work?] of person id
+end
+
+to-report is-at-home [id]
+  report [is-at-home?] of person id
+end
+
+to-report is-at-public-leisure [id]
+  report [is-at-public-leisure-place?] of person id
+end
+
+to-report is-at-private-leisure [id]
+  report [is-at-private-leisure-place?] of person id
+end
+
+to-report is-at-school [id]
+  report [[gathering-type] of current-activity = "school"] of person id
+end
+
+to-report is-at-university [id]
+  report [is-at-university?] of person id
+end
+
+to-report is-at-essential-shop [id]
+  report [[is-essential-shop?] of current-activity] of person id
+end
+
+to-report is-at-non-essential-shop [id]
+  report [[is-non-essential-shop?] of current-activity] of person id
+end  
+
+to-report is-away [id]
+  report [is-away?] of person id
+end
+
+to-report is-at-hospital [id]
+  report [[gathering-type] of current-activity = "hospital"] of person id
+end
+
+;;;;;;;;;;;;;;;measure reporters;;;;;;;;;;;;
+
+to-report scenario-1-0?
+  report not closed-schools? and not closed-universities? and not closed-workplaces?
+end
+
+to-report scenario-1-1?
+  report closed-schools? and closed-universities? and not closed-workplaces?
+end
+
+to-report scenario-1-2?
+  report not closed-schools? and not closed-universities? and closed-workplaces?
+end
+
+to-report scenario-1-3?
+  report closed-schools? and closed-universities? and closed-workplaces?
+end
