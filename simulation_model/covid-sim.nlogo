@@ -1046,7 +1046,7 @@ SWITCH
 67
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -3384,6 +3384,27 @@ PENS
 "worker" 1.0 0 -13345367 true "" "histogram [my-amount-of-capital] of workers"
 "retired" 1.0 0 -955883 true "" "histogram [my-amount-of-capital] of retireds"
 "student" 1.0 0 -13840069 true "" "histogram [my-amount-of-capital] of students"
+
+PLOT
+539
+933
+980
+1083
+Quality of Life Indicator
+Time
+Quality of Life
+0.0
+10.0
+0.0
+1.0
+true
+true
+"" ""
+PENS
+"Mean" 1.0 0 -13840069 true "" "plot mean [quality-of-life-indicator] of people"
+"Median" 1.0 0 -14454117 true "" "plot median [quality-of-life-indicator] of people"
+"Min" 1.0 0 -2674135 true "" "plot min [quality-of-life-indicator] of people"
+"Max" 1.0 0 -1184463 true "" "plot max [quality-of-life-indicator] of people"
 
 @#$#@#$#@
 ## WHAT IS IT?
