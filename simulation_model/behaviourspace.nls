@@ -64,7 +64,7 @@ end
 to run-no-measures-experiment
   
   ;;experiment protocol
-  load-no-measures
+  disable-all-measures
   setup
   while [any? people with [is-infected?]] [go]
   
@@ -136,7 +136,7 @@ to execute-and-save [experiment-name]
   if experiment-name = no-random-testing-behaviorspace-experiment-name
   [
     load-baseline-scenario
-    load-no-measures
+    disable-all-measures
     set ratio-population-randomly-tested-daily 0
     setup
     
@@ -155,7 +155,7 @@ to execute-and-save [experiment-name]
   if experiment-name = part-random-testing-behaviorspace-experiment-name
   [
     load-baseline-scenario
-    load-no-measures
+    disable-all-measures
     set ratio-population-randomly-tested-daily 0.1
     setup
     
@@ -175,7 +175,7 @@ to execute-and-save [experiment-name]
   if experiment-name = full-random-testing-behaviorspace-experiment-name
   [
     load-baseline-scenario
-    load-no-measures
+    disable-all-measures
     set ratio-population-randomly-tested-daily 1
     setup
     
@@ -193,7 +193,7 @@ to execute-and-save [experiment-name]
   
   if experiment-name = mostly-elderly-household-behaviourspace-experiment-name
   [
-    load-no-measures
+    disable-all-measures
     set preset-profiles "none"
     set ratio-adults-homes 0.05
     set ratio-retired-couple-homes 0.85
@@ -219,7 +219,7 @@ to execute-and-save [experiment-name]
   
   if experiment-name = mostly-adults-household-behaviourspace-experiment-name
   [
-    load-no-measures
+    disable-all-measures
     set preset-profiles "none"
     set ratio-adults-homes 0.85
     set ratio-retired-couple-homes 0.05
@@ -245,7 +245,7 @@ to execute-and-save [experiment-name]
   
   if experiment-name = mostly-families-household-behaviourspace-experiment-name
   [
-    load-no-measures
+    disable-all-measures
     set preset-profiles "none"
     set ratio-adults-homes 0.05
     set ratio-retired-couple-homes 0.05
@@ -271,7 +271,7 @@ to execute-and-save [experiment-name]
   
   if experiment-name = mostly-multigen-household-behaviourspace-experiment-name
   [
-    load-no-measures
+    disable-all-measures
     set preset-profiles "none"
     set ratio-adults-homes 0.05
     set ratio-retired-couple-homes 0.05
@@ -297,7 +297,7 @@ to execute-and-save [experiment-name]
    
   if experiment-name = evenly-distributed-household-behaviourspace-experiment-name
   [
-    load-no-measures
+    disable-all-measures
     set preset-profiles "none"
     set ratio-adults-homes 0.25
     set ratio-retired-couple-homes 0.25

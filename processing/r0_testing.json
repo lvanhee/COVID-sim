@@ -1,0 +1,53 @@
+ {
+    "name": "Experiment Example",
+    "author": "Loïs Vanhée",
+    
+    "variables": 
+	{
+			"input-variables":[
+			{
+				"name": "#random-seed",
+				"range": "[0 1 5]"
+			},
+			{
+				"name": "ticks",
+				"range": "{50}"
+			},
+			
+			{
+				"name": "propagation-risk",
+				"range": "[0 0.01 0.3]"
+			}],
+			"output-variables":[
+			{"name": "r0"}
+			]
+	},
+	
+	"executor": 
+	{
+		"type" : "netlogo",
+		"file": "C:/Users/loisv/git/COVID-sim/simulation_model/covid-sim.nlogo",
+		"presetup-variables":"#random-seed",
+		"setup": "set preset-scenario \"default-scenario\" set-values setup",
+		"postsetup-variables":"propagation-risk",
+		"go": "go",
+		"multi-experiment":"parallel-executors",
+		"experiment-executor":"netlogo-executor",
+		"_comment":"as ticks is an input variable, the executer will apply multiple ticks in a row"
+	},
+	
+	"output":
+	{
+		"goal":"draw",
+		"type":"jfreechart",
+		"sort-by":"propagation-risk",
+
+		"plot":[
+		{"x":"propagation-risk","y":"r0","lines":"#random-seed"}
+		],
+		"folder":"C:/Users/loisv/git/COVID-sim3/processing/"
+	}
+	
+    
+    
+} 

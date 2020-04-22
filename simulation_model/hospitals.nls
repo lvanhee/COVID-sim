@@ -40,3 +40,11 @@ end
 to-report #beds-available-for-admission
   report floor (#beds-in-hospital * hospital-effectiveness - #taken-hospital-beds)
 end
+
+to-report #healthy-hospital-personel
+  report sum [#healthy-personel] of hospitals
+end
+
+to-report #sick-hospital-personel
+  report sum [#sick-personel] of hospitals
+end

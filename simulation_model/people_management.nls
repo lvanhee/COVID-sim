@@ -153,6 +153,8 @@ people-own [
   importance-weight-self-esteem 
   importance-weight-belonging  
   importance-weight-survival
+  
+  number-of-people-I-infected
 
 ]
 
