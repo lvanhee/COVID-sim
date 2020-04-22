@@ -211,7 +211,7 @@ to load-baseline-scenario
   load-default-transport-model
   load-default-economic-parameters
   load-default-values-needs-parameters
-  load-no-measures
+  disable-all-measures
 end
 
 to load-default-transport-model
@@ -257,6 +257,9 @@ to load-default-disease-model
   set probability-recorvery-if-treated-old 0.6
   set probability-unavoidable-death-old 0.2
   set probability-self-recovery-symptoms-old 0.1
+  set probability-unavoidable-death 0.1
+  set probability-recorvery-if-treated 0.1
+  set probability-self-recovery-symptoms 0.6
 end
 
 
@@ -311,20 +314,7 @@ to load-scenario-4-economic-parameters
   set government-pays-wages? true
 end
 
-to load-no-measures
-  set ratio-omniscious-infected-that-trigger-school-closing-measure 1
-  set ratio-omniscious-infected-that-trigger-social-distancing-measure 1
-  set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
-  set #days-trigger-school-closing-measure 10000
-  set #days-trigger-non-essential-business-closing-measure 10000
-  set is-closing-school-when-any-reported-case-measure? false
-  set global-confinement-measures "none"
-  set test-home-of-confirmed-people? false
-  set test-workplace-of-confirmed-people? false
-  set ratio-population-randomly-tested-daily 0
-  set closed-universities? false
-  set ratio-of-users-of-the-tracking-app 0
-end
+
 
 to load-scandinavian-population-default
   set preset-profiles "scandinavia"

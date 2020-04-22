@@ -116,7 +116,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.08
+0.1
 0.01
 1
 NIL
@@ -349,7 +349,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -693,25 +693,25 @@ terminal-to-death
 Number
 
 SLIDER
-2008
-199
-2253
-232
+1960
+203
+2205
+236
 probability-unavoidable-death
 probability-unavoidable-death
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1378
-159
-1643
-192
+1411
+204
+1676
+237
 probability-self-recovery-symptoms
 probability-self-recovery-symptoms
 0
@@ -723,10 +723,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1735
-200
-2004
-233
+1687
+204
+1956
+237
 probability-recorvery-if-treated
 probability-recorvery-if-treated
 0
@@ -738,10 +738,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1377
-202
-1730
-235
+1409
+242
+1675
+275
 probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
@@ -753,10 +753,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1735
-238
-2008
-271
+1687
+242
+1960
+275
 probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
@@ -768,10 +768,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2012
-238
-2275
-271
+1964
+242
+2204
+275
 probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
@@ -786,7 +786,7 @@ TEXTBOX
 1658
 162
 1994
-218
+192
 Probabilities of each line should be <1\nExtra probability counts as \"recovery without symptoms\"
 10
 15.0
@@ -1216,10 +1216,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1377
-240
-1731
-273
+2032
+284
+2267
+317
 factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
@@ -1576,7 +1576,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -3067,7 +3067,7 @@ INPUTBOX
 1027
 98
 #random-seed
-1.0
+14.0
 1
 0
 Number
@@ -3395,6 +3395,17 @@ MONITOR
 533
 NIL
 #sick-hospital-personel
+17
+1
+11
+
+MONITOR
+2045
+415
+2102
+460
+R0
+r0
 17
 1
 11

@@ -68,3 +68,18 @@ to inform-people-of-measures
     set I-know-of-working-from-home? true
   ]
 end
+
+to disable-all-measures
+  set ratio-omniscious-infected-that-trigger-school-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-social-distancing-measure 1
+  set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
+  set #days-trigger-school-closing-measure 10000
+  set #days-trigger-non-essential-business-closing-measure 10000
+  set is-closing-school-when-any-reported-case-measure? false
+  set global-confinement-measures "none"
+  set test-home-of-confirmed-people? false
+  set test-workplace-of-confirmed-people? false
+  set ratio-population-randomly-tested-daily 0
+  set closed-universities? false
+  set ratio-of-users-of-the-tracking-app 0
+end

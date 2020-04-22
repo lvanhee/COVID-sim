@@ -17,3 +17,23 @@ end
 to-report behaviourspace-satisfaction-casualties
   report bounded-linear-map 0 0.1 0 1 behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name
 end
+
+
+to-report check-r0-works
+  set preset-scenario "default-scenario" set-values
+  set propagation-risk 0
+  setup repeat 50 [go]
+  let r0-no-spread r0
+  
+  set propagation-risk 0.05
+  setup repeat 50 [go]
+  let r0-0.05 r0
+  
+  set propagation-risk 0.1
+  setup repeat 50 [go]
+  let r0-0.1 r0
+  
+  ifelse r0-no-spread < r0-0.05 and
+  r0-0.05 < r0-0.1 [report 1]
+  [report 0]
+end

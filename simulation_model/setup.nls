@@ -32,10 +32,14 @@ to setup
   setup-social-networks
   setup-app-users
   setup-economic-model
-
-  if with-infected? [infect-one-random-person]
-
-  update-display
+  
+  if with-infected? [
+    set  first-infected-people n-of (min list 3 count people) people
+    ask first-infected-people [contaminate nobody]
+    set #first-infected-people count first-infected-people
+  ]
+  
+update-display
 
   ask links[hide-link]
 

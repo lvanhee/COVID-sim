@@ -41,6 +41,11 @@ to setup-disease-profile
      set disease-profile "unavoidable death"
 end
 
+to set-contaminated-disease-status
+  set-infection-status infected-asymptomatic-status
+  set duration-current-disease-status infection-to-asymptomatic-contagiousness
+end
+
 
 to-report is-immune?
   report infection-status = immune-infection-status

@@ -4,7 +4,13 @@ globals [
   #people-infected-when-queuing
   #people-infected-in-activities
   #people-infected-in-general-travel
+  first-infected-people
+  #first-infected-people;;needed as infected people can die
+  #infected-by-first-infected-people
 ]
+
+directed-link-breed [contagion-links contagion-link]
+
 to spread-contagion
   spread-by-travelling
   spread-by-activity-proximity
@@ -12,23 +18,24 @@ end
 
 to spread-by-travelling
   let travellers people with [is-moving-outside-for-reaching-current-activity?]
-  let #contagious count travellers with [is-contagious?]
+  
+  let contagious travellers with [is-contagious?]
   ask people [if is-away? [apply-risk-of-contamination-when-away]]
   
   ask travellers [
-  apply-risk-of-contamination-when-travelling count travellers #contagious
+    apply-risk-of-contamination-when-travelling travellers contagious
   ]
   
   foreach list-of-buses [
-    x -> spread-within-a-set-of-turtles x density-in-public-transport [ [] -> set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1]
+    x -> spread-within-a-set-of-people x density-in-public-transport [ [] -> set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1]
   ]
   
   foreach list-of-shared-cars [
-    x -> spread-within-a-set-of-turtles x density-in-shared-cars [ [] -> set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1]
+    x -> spread-within-a-set-of-people x density-in-shared-cars [ [] -> set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1]
   ]
   
   let people-waiting-for-bus people with [stayed-out-queuing-for-bus?]
-  spread-within-a-set-of-turtles people-waiting-for-bus density-when-queuing 
+  spread-within-a-set-of-people people-waiting-for-bus density-when-queuing 
   * (sqrt count people-waiting-for-bus / count people);;this last factor represents the relative density of people waiting for buses
                                                     ;; which further reduces the risk of getting sick when queuing
   [ [] -> set #people-infected-when-queuing #people-infected-when-queuing + 1]
@@ -37,20 +44,21 @@ end
 to spread-by-activity-proximity
   ask gathering-points with [not (self = away-gathering-point)]
   [
-    spread-within-a-set-of-turtles current-gatherers proximity-factor [ [] -> set #people-infected-in-activities #people-infected-in-activities + 1]
+    spread-within-a-set-of-people current-gatherers proximity-factor [ [] -> set #people-infected-in-activities #people-infected-in-activities + 1]
   ]
 end
 
-to spread-within-a-set-of-turtles [ts prox-factor lambda-when-contagion]
+to spread-within-a-set-of-people [ts prox-factor lambda-when-contagion]
   
   let tracked-users ts with [is-user-of-tracking-app?]
   ask tracked-users
-  [if is-user-of-tracking-app? [set previous-contacts-met (replace-item 0 previous-contacts-met (turtle-set tracked-users last previous-contacts-met))]]
-  
-  let number-contagious count ts with [is-contagious?]
+  [
+    if is-user-of-tracking-app? [set previous-contacts-met (replace-item 0 previous-contacts-met (turtle-set tracked-users last previous-contacts-met))]]
+  let contagious-people-in-the-set  ts with [is-contagious?]
+  let number-contagious count contagious-people-in-the-set
   ;;could be replaced by better maths it time becomes short
   repeat number-contagious [
-    ask ts [apply-risk-of-contamination prox-factor * contextual-contagion-modificators lambda-when-contagion]
+    ask ts [apply-risk-of-contamination one-of other contagious-people-in-the-set prox-factor * contextual-contagion-modificators lambda-when-contagion]
   ]
 end
 
@@ -65,7 +73,9 @@ to-report social-distancing-risk-mitigation-factor
 end
 
 
-to apply-risk-of-contamination-when-travelling [#travellers #contagious]
+to apply-risk-of-contamination-when-travelling [travellers contagious]
+  let #travellers count travellers
+  let #contagious count contagious
   if density-travelling-propagation = 0 [stop]
   if not is-moving-outside-for-reaching-current-activity? [stop]  
    
@@ -83,7 +93,7 @@ to apply-risk-of-contamination-when-travelling [#travellers #contagious]
   
   ;;could be fastened with a bit of math, like 1-(1-p)^k
   let was-sick? is-infected?
-  apply-risk-of-contamination probability-getting-sick * density-travelling-propagation * contextual-contagion-modificators [ [] -> set #people-infected-in-general-travel #people-infected-in-general-travel + 1]
+  apply-risk-of-contamination one-of contagious probability-getting-sick * density-travelling-propagation * contextual-contagion-modificators [ [] -> set #people-infected-in-general-travel #people-infected-in-general-travel + 1]
   if not was-sick? and is-infected? [set #who-became-sick-while-travelling-locally #who-became-sick-while-travelling-locally + 1]
 end
 
@@ -94,21 +104,25 @@ end
 to apply-risk-of-contamination-when-away
   if random-float 1 < probability-infection-when-abroad * contextual-contagion-modificators and infection-status = healthy-infection-status
   [
-    set-contaminated
+    contaminate nobody
   ]
 end
 
-to set-contaminated
-  set-infection-status "asymptomatic noncontagious" 
-  set duration-current-disease-status infection-to-asymptomatic-contagiousness
-end
-
-to apply-risk-of-contamination [factor lambda-when-contagion]
+to apply-risk-of-contamination [infector factor lambda-when-contagion]  
   if  random-float 1 < factor * propagation-risk and infection-status = healthy-infection-status
   [
-    set-contaminated
     run lambda-when-contagion
+     contaminate infector
   ]
+end
+
+to contaminate [infector]
+  if infector != nobody [
+    if any? first-infected-people with [self = infector] [set #infected-by-first-infected-people  #infected-by-first-infected-people + 1]
+    if [not is-infected?] of infector [error "assertion error"]
+    ask infector [set number-of-people-I-infected number-of-people-I-infected + 1]
+    create-contagion-link-from infector [hide-link]]
+  set-contaminated-disease-status
 end
 
 to-report is-contagious?
@@ -119,11 +133,14 @@ to-report is-alive?
   report not (infection-status = "dead")
 end
 
-to infect-one-random-person
-    ask n-of (min list 3 count people) people [
-    set-infection-status infected-asymptomatic-status
-    set duration-current-disease-status infection-to-asymptomatic-contagiousness
-  ]
+to-report abc
+  report r0
 end
 
+to-report r0
+  report #infected-by-first-infected-people / #first-infected-people
+end
 
+to export-contagion-graph-to-graphviz
+ export-to-graphviz [[] -> out-contagion-link-neighbors]
+end
