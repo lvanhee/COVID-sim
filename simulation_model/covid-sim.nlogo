@@ -3496,6 +3496,21 @@ services-luxury-ratio-of-income-when-closed
 NIL
 HORIZONTAL
 
+SLIDER
+1488
+1830
+1668
+1863
+interest-rate-by-tick
+interest-rate-by-tick
+0
+0.01
+0.001
+0.0001
+1
+NIL
+HORIZONTAL
+
 @#$#@#$#@
 ## WHAT IS IT?
 
