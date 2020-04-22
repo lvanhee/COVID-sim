@@ -4,7 +4,7 @@
     
     "variables": 
 	{
-			"input-variables":[
+			"input-variables":[ 
 			{
 				"name": "#random-seed",
 				"range": "[0 1 5]"
