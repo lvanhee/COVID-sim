@@ -11,6 +11,7 @@ globals [
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
+  import-scenario-name
 ]
 
 to go
@@ -2305,11 +2306,11 @@ HORIZONTAL
 
 BUTTON
 548
-146
+141
 614
-179
+174
 import
-load-scenario-from-file
+ask-user-for-import-file\nload-scenario-from-file
 NIL
 1
 T
@@ -2322,11 +2323,11 @@ NIL
 
 BUTTON
 619
-146
+141
 688
-179
+174
 export
-save-world-state
+ask-user-for-export-file\nsave-world-state
 NIL
 1
 T

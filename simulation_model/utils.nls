@@ -92,11 +92,18 @@ to export-profiling
   file-close
 end
 
+to ask-user-for-export-file
+    set import-scenario-name user-new-file
+end
+
+to ask-user-for-import-file
+  set import-scenario-name user-file
+end
+
 to save-world-state
-  let import-scenario-name user-new-file
   ; Need to check for = false to not throw errors on normal string output
-  if import-scenario-name = false [
-    print "No file selected for load"
+  if import-scenario-name = false or import-scenario-name = "" [
+    print "No file selected for import"
     stop
   ]
   ;if not file-exists? import-scenario-name [ show "sometimes the file needs to be created by hand first"]
@@ -104,8 +111,7 @@ to save-world-state
 end
 
 to load-scenario-from-file
-  let import-scenario-name user-file
-  if import-scenario-name = false [
+  if import-scenario-name = false or import-scenario-name = "" [
     print "No file selected"
     stop
   ]
@@ -180,3 +186,12 @@ end
 to export-to-graphviz [neighbour-function]
   ask turtles [ ask run-result neighbour-function [print (word [who] of myself "->" who)]]
 end
+
+
+
+
+
+
+
+
+
