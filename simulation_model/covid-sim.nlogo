@@ -1046,7 +1046,7 @@ SWITCH
 70
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 

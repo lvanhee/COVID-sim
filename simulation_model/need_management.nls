@@ -291,7 +291,7 @@ end
 to-report SUE-food-safety [ad]
   let motive motive-of ad
   if motive = "essential shopping" [
-    let available-food-days [available-food-rations] of min-one-of (gathering-link-neighbors with [gathering-type = "home"]) [available-food-rations]
+    let available-food-days [available-food-rations] of my-home
     if available-food-days >= 14 [
       report 0
     ]
