@@ -33,7 +33,11 @@ to setup
   setup-app-users
   setup-economic-model
 
-  if with-infected? [infect-one-random-person]
+  if with-infected? [
+    set  first-infected-people n-of (min list 3 count people) people
+    ask first-infected-people [contaminate nobody]
+    set #first-infected-people count first-infected-people
+  ]
 
   update-display
 
