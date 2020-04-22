@@ -46,16 +46,12 @@ end
 
 to-report risk-avoidance-increase-transport [mt others]
   let result 0.1
-  if mt = "solo" [set result 0.2]
-  if mt = "public" [
-      if others = 0 [set result 0.2 ]
-      if others < 5 [set result 0.1 ]
-      if others < 10 [set result 0.05 ]
-      ifelse others < 20 [set result 0]
-      [set result -0.1]
-  ]
-  if mt = "shared-car" [set result 0.1]
-
+  if others = 0 [set result 0.2 ]
+  if others < 5 [set result 0.1 ]
+  if others < 10 [set result 0.05 ]
+  ifelse others < 20 [set result 0]
+  [set result -0.1]
+ 
   ;ifelse social-distancing-of ad
   ;  [ set result result + 0.1 ]
   ;  [ set result result - 0.1 ]
@@ -68,6 +64,7 @@ to-report SUE-risk-avoidance-transport [mt]
   if mt = "solo" [report risk-avoidance-increase-transport mt 0]
   if mt = "public" [report risk-avoidance-increase-transport mt #max-people-per-bus]
   if mt = "shared-car" [report risk-avoidance-increase-transport mt 5]
+  report 0.1
 end
 
 

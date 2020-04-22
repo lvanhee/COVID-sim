@@ -50,12 +50,13 @@ to travelling-to-activity-phase
   set list-of-shared-cars (list)
   let ongoing-set (turtle-set)
   ask shared-car-users [
+    ;currently amount people per car is 5, if changed also change SUE-risk-avoidance-transport!
     if count ongoing-set = 5 [
       set list-of-shared-cars lput ongoing-set list-of-shared-cars
       set ongoing-set (turtle-set)
     ]
     set ongoing-set (turtle-set self ongoing-set)
-    set my-transport-number (length list-of-shared-cars) + 1
+    set my-transport-number (length list-of-shared-cars)
   ]
   if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
   
