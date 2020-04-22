@@ -32,14 +32,10 @@ to setup
   setup-social-networks
   setup-app-users
   setup-economic-model
-  
-  if with-infected? [
-    set  first-infected-people n-of (min list 3 count people) people
-    ask first-infected-people [contaminate nobody]
-    set #first-infected-people count first-infected-people
-  ]
-  
-update-display
+
+  if with-infected? [infect-one-random-person]
+
+  update-display
 
   ask links[hide-link]
 
@@ -370,161 +366,162 @@ end
 
 to setup-economic-model
   set government-reserve-of-capital government-initial-reserve-of-capital
-  set central-bank-reserve-of-capital 10000
   setup-macro-economic-sectors
 end
 
 to setup-macro-economic-sectors
-  create-macro-sectors 1 [hide-turtle set sector-type "agriculture-essential" set amount-of-capital 160]
-  create-macro-sectors 1 [hide-turtle set sector-type "agriculture-luxury" set amount-of-capital 170]
-  create-macro-sectors 1 [hide-turtle set sector-type "manufacturing-essential" set amount-of-capital 211]
-  create-macro-sectors 1 [hide-turtle set sector-type "manufacturing-luxury" set amount-of-capital 256]
-  create-macro-sectors 1 [hide-turtle set sector-type "services-essential" set amount-of-capital 360] ;finances
-  create-macro-sectors 1 [hide-turtle set sector-type "services-luxury" set amount-of-capital 330] ;hospitality
-  create-macro-sectors 1 [hide-turtle set sector-type "education-research" set amount-of-capital 88]
-  create-macro-sectors 1 [hide-turtle set sector-type "households" set amount-of-capital 395]
-  create-macro-sectors 1 [hide-turtle set sector-type "government" set amount-of-capital 235]
-  create-macro-sectors 1 [hide-turtle set sector-type "international" set amount-of-capital 1000000]
+  create-central-banks 1 [hide-turtle set reserve-of-capital 1000000 set total-credit 0]
+  
+  create-macro-sectors 1 [hide-turtle set sector-type "agriculture-essential" set amount-of-capital 160 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "agriculture-luxury" set amount-of-capital 170 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "manufacturing-essential" set amount-of-capital 211 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "manufacturing-luxury" set amount-of-capital 256 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "services-essential" set amount-of-capital 360 set debt-with-central-bank 0] ;finances
+  create-macro-sectors 1 [hide-turtle set sector-type "services-luxury" set amount-of-capital 330 set debt-with-central-bank 0] ;hospitality
+  create-macro-sectors 1 [hide-turtle set sector-type "education-research" set amount-of-capital 88 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "households" set amount-of-capital 395 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "government" set amount-of-capital 235 set debt-with-central-bank 0]
+  create-macro-sectors 1 [hide-turtle set sector-type "international" set amount-of-capital 1000000 set debt-with-central-bank 0]
   
   ask macro-sectors
   [
     ifelse is-agriculture-essential?
     [
       
-      create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 10 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 20 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 10 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 25 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 20 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 5 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 10 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 30 set amount-of-capital-in-the-reserve 0]
-      create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 30 set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 25 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+      create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
     ]
     [
       ifelse is-agriculture-luxury?
       [
-        create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 10 set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
         
-        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 10 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 10 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 20 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 30 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 5 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 10 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 25 set amount-of-capital-in-the-reserve 0]
-        create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 50 set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 25 set drain default-drain set amount-of-capital-in-the-reserve 0]
+        create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
       ]
       [
         ifelse is-manufacturing-essential?
         [
-          create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 1 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 0 set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 1 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 0 set drain default-drain set amount-of-capital-in-the-reserve 0]
           
-          create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 10 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 40 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 30 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 10 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 20 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 30 set amount-of-capital-in-the-reserve 0]
-          create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 70 set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+          create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 70 set drain default-drain set amount-of-capital-in-the-reserve 0]
         ]
         [
           ifelse is-manufacturing-luxury?
           [
-            create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 1 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 0 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 20 set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 1 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 0 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
             
-            create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 40 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 40 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 10 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 40 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 35 set amount-of-capital-in-the-reserve 0]
-            create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 70 set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 35 set drain default-drain set amount-of-capital-in-the-reserve 0]
+            create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 70 set drain default-drain set amount-of-capital-in-the-reserve 0]
           ]
           [
             ifelse is-services-essential?
             [
-              create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 10 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 5 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 30 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 30 set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
               
-              create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 40 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 5 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 110 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 50 set amount-of-capital-in-the-reserve 0]
-              create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 80 set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 110 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
+              create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 80 set drain default-drain set amount-of-capital-in-the-reserve 0]
             ]
             [
               ifelse is-services-luxury?
               [
-                create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 10 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 20 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 20 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 30 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 40 set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
                 
-                create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 5 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 100 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 25 set amount-of-capital-in-the-reserve 0]
-                create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 80 set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 100 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 25 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 80 set drain default-drain set amount-of-capital-in-the-reserve 0]
               ]
               [
                 ifelse is-education-research?
                 [
-                  create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 1 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 1 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 10 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 20 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 10 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 1 set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 1 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 1 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 1 set drain default-drain set amount-of-capital-in-the-reserve 0]
                   
-                  create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 40 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 0 set amount-of-capital-in-the-reserve 0]
-                  create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 5 set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 0 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                  create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
                 ]
                 [
                   ifelse is-households-sector?
                   [
-                    create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 20 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 50 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 30 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 50 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 60 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 80 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 10 set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 30 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 60 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 80 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
                     
-                    create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 45 set amount-of-capital-in-the-reserve 0]
-                    create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 50 set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 45 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                    create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
                   ]
                   [
                     ifelse is-government-sector?
                     [
-                      create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 20 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 10 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 20 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 15 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 50 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 10 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 40 set amount-of-capital-in-the-reserve 0]
-                      create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 50 set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 15 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 10 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 40 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 50 set drain default-drain set amount-of-capital-in-the-reserve 0]
                       
-                      create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set drain 20 set amount-of-capital-in-the-reserve 0]
+                      create-macro-sector-link-to one-of other macro-sectors with [is-international-sector?] [set priority 9 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
                     ]
                     [
                       ifelse is-international-sector?
                       [
-                        create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set drain 120 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set drain 120 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set drain 100 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set drain 100 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set drain 80 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set drain 80 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set drain 5 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set drain 20 set amount-of-capital-in-the-reserve 0]
-                        create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set drain 15 set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-essential?] [set priority 1 set default-drain 120 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-agriculture-luxury?] [set priority 6 set default-drain 120 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-essential?] [set priority 2 set default-drain 100 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-manufacturing-luxury?] [set priority 6 set default-drain 100 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-services-essential?] [set priority 3 set default-drain 80 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-services-luxury?] [set priority 8 set default-drain 80 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-education-research?] [set priority 5 set default-drain 5 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-households-sector?] [set priority 4 set default-drain 20 set drain default-drain set amount-of-capital-in-the-reserve 0]
+                        create-macro-sector-link-to one-of other macro-sectors with [is-government-sector?] [set priority 7 set default-drain 15 set drain default-drain set amount-of-capital-in-the-reserve 0]
                         
                       ]
                       [
