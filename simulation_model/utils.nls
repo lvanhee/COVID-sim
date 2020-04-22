@@ -93,11 +93,22 @@ to export-profiling
 end
 
 to save-world-state
-  if not file-exists? import-scenario-name [ show "sometimes the file needs to be created by hand first"]
+  let import-scenario-name user-new-file
+  ; Need to check for = false to not throw errors on normal string output
+  if import-scenario-name = false [
+    print "No file selected for load"
+    stop
+  ]
+  ;if not file-exists? import-scenario-name [ show "sometimes the file needs to be created by hand first"]
   export-world import-scenario-name
 end
 
 to load-scenario-from-file
+  let import-scenario-name user-file
+  if import-scenario-name = false [
+    print "No file selected"
+    stop
+  ]
   import-world import-scenario-name
 end
 

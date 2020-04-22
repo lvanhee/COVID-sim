@@ -2303,22 +2303,11 @@ price-of-rations-in-non-essential-shops
 NIL
 HORIZONTAL
 
-INPUTBOX
-548
-139
-691
-199
-import-scenario-name
-output/done3.csv
-1
-0
-String
-
 BUTTON
-698
-152
-764
-185
+548
+146
+614
+179
 import
 load-scenario-from-file
 NIL
@@ -2332,10 +2321,10 @@ NIL
 1
 
 BUTTON
-769
-152
-838
-185
+619
+146
+688
+179
 export
 save-world-state
 NIL
