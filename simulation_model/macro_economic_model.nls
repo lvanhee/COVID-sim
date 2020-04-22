@@ -1,17 +1,23 @@
-globals [central-bank-reserve-of-capital]
-
 breed [macro-sectors macro-sector]
-
 macro-sectors-own
 [
   sector-type
   amount-of-capital
+  debt-with-central-bank
+]
+
+breed [central-banks central-bank]
+central-banks-own
+[
+  reserve-of-capital
+  total-credit
 ]
 
 directed-link-breed [macro-sector-links macro-sector-link]
 macro-sector-links-own
 [
   priority
+  default-drain ;capital to pay in a stable scenario
   drain ;capital to pay
   amount-of-capital-in-the-reserve
 ]
@@ -19,20 +25,103 @@ macro-sector-links-own
 to run-macro-economics
   ask macro-sectors
   [
+    ;set drains
+    ifelse is-services-luxury?
+    [
+      ifelse close-services-luxury?
+      [
+        ask my-out-macro-sector-links
+        [
+          set drain services-luxury-ratio-of-expenditures-when-closed * default-drain
+        ]
+      ]
+      [
+        ask my-out-macro-sector-links
+        [
+          set drain default-drain
+        ]
+      ]
+    ]
+    [
+      ifelse close-services-luxury?
+      [
+        ask out-macro-sector-link-to one-of macro-sectors with [is-services-luxury?]
+        [
+          set drain services-luxury-ratio-of-income-when-closed * default-drain
+        ]
+      ]
+      [
+        ask out-macro-sector-link-to one-of macro-sectors with [is-services-luxury?]
+        [
+          set drain default-drain
+        ]
+      ]
+    ]
+    
+    ;check reserves (minimum)
+    let min-amount-of-capital-needed 0
+    ask my-out-macro-sector-links
+    [
+      let min-capital drain - amount-of-capital-in-the-reserve
+      if min-capital > 0
+      [
+        set min-amount-of-capital-needed min-amount-of-capital-needed + min-capital
+      ]
+    ]
+    
+    ;pay debt
+    let surplus-amount-of-capital amount-of-capital - min-amount-of-capital-needed
+    set surplus-amount-of-capital max (list surplus-amount-of-capital 0)
+    if debt-with-central-bank > 0 and surplus-amount-of-capital > 0
+    [
+      let amount-of-capital-to-return min (list debt-with-central-bank surplus-amount-of-capital)
+      let my-bank one-of central-banks
+      perform-transaction self my-bank (list "loan" (- amount-of-capital-to-return)) (list "nothing")
+    ]
+    
+    let extra-amount-of-capital-needed min-amount-of-capital-needed - amount-of-capital
+    set extra-amount-of-capital-needed max (list extra-amount-of-capital-needed 0)
+    
+    ;get subsidy
+    if government-sector-subsidy-ratio > 0 and extra-amount-of-capital-needed > 0
+    [
+      ask one-of macro-sectors with [is-government-sector?]
+      [
+        let subsidy extra-amount-of-capital-needed * government-sector-subsidy-ratio
+        
+        let amount-of-capital-to-borrow subsidy - amount-of-capital
+        if amount-of-capital-to-borrow > 0
+        [
+          let my-bank one-of central-banks
+          perform-transaction self my-bank (list "loan" amount-of-capital-to-borrow) (list "nothing")
+        ]
+        
+        perform-transaction myself self (list "subsidy" subsidy) (list "nothing")
+        set extra-amount-of-capital-needed extra-amount-of-capital-needed - subsidy
+      ]
+    ]
+    
+    ;get loan
+    if extra-amount-of-capital-needed > 0
+    [
+      let my-bank one-of central-banks
+      perform-transaction self my-bank (list "loan" extra-amount-of-capital-needed) (list "nothing")
+    ]
+    
     ;ensure that reserves have a minimum amount of capital
     ask my-out-macro-sector-links
     [
-      let min-amount-of-capital drain - amount-of-capital-in-the-reserve
-      if min-amount-of-capital > 0
+      let min-capital drain - amount-of-capital-in-the-reserve
+      if min-capital > 0
       [
         ;the 'perform-transaction' procedure can't be used in the context of a link
-        ask myself [ set amount-of-capital amount-of-capital - min-amount-of-capital ]
-        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve + min-amount-of-capital
+        ask myself [ set amount-of-capital amount-of-capital - min-capital ]
+        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve + min-capital
         ;perform-transaction myself self (list "nothing") (list "trade" amount-of-capital-to-receive)
       ]
     ]
     
-    ;check reserves
+    ;check reserves (threshold)
     let amount-of-capital-to-fill-all-reserves 0
     ask my-out-macro-sector-links
     [
@@ -65,16 +154,14 @@ to run-macro-economics
     ;transfer capital to other sectors
     ask my-out-macro-sector-links
     [
-      ifelse [is-services-luxury?] of other-end and close-services-luxury?
-      []
-      [
-        let amount-of-capital-to-transfer min (list drain amount-of-capital-in-the-reserve)
-        
-        ;the 'perform-transaction' procedure can't be used in the context of a link
-        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve - amount-of-capital-to-transfer
-        ask other-end [ set amount-of-capital amount-of-capital + amount-of-capital-to-transfer ]
-        ;perform-transaction self other-end (list "nothing") (list "trade" amount-of-capital-to-transfer)
-      ]
+      let amount-of-capital-to-transfer min (list drain amount-of-capital-in-the-reserve)
+      
+      ;the 'perform-transaction' procedure can't be used in the context of a link
+      set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve - amount-of-capital-to-transfer
+      ask other-end [ set amount-of-capital amount-of-capital + amount-of-capital-to-transfer ]
+      ;perform-transaction self other-end (list "nothing") (list "trade" amount-of-capital-to-transfer)
+      
+      ;ifelse [is-services-luxury?] of other-end and close-services-luxury? [] []
     ]
     
 ;    foreach sort-on [priority] my-out-macro-sector-links 
@@ -167,4 +254,44 @@ end
 
 to-report total-capital-international-sector
   report sum [amount-of-capital] of macro-sectors with [is-international-sector?]
+end
+
+to-report total-debt-agriculture-essential
+  report sum [debt-with-central-bank] of macro-sectors with [is-agriculture-essential?]
+end
+
+to-report total-debt-agriculture-luxury
+  report sum [debt-with-central-bank] of macro-sectors with [is-agriculture-luxury?]
+end
+
+to-report total-debt-manufacturing-essential
+  report sum [debt-with-central-bank] of macro-sectors with [is-manufacturing-essential?]
+end
+
+to-report total-debt-manufacturing-luxury
+  report sum [debt-with-central-bank] of macro-sectors with [is-manufacturing-luxury?]
+end
+
+to-report total-debt-services-essential
+  report sum [debt-with-central-bank] of macro-sectors with [is-services-essential?]
+end
+
+to-report total-debt-services-luxury
+  report sum [debt-with-central-bank] of macro-sectors with [is-services-luxury?]
+end
+
+to-report total-debt-education-research
+  report sum [debt-with-central-bank] of macro-sectors with [is-education-research?]
+end
+
+to-report total-debt-households-sector
+  report sum [debt-with-central-bank] of macro-sectors with [is-households-sector?]
+end
+
+to-report total-debt-government-sector
+  report sum [debt-with-central-bank] of macro-sectors with [is-government-sector?]
+end
+
+to-report total-debt-international-sector
+  report sum [debt-with-central-bank] of macro-sectors with [is-international-sector?]
 end

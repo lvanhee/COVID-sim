@@ -11,6 +11,7 @@ globals [
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
+  import-scenario-name
 ]
 
 to go
@@ -116,7 +117,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.1
+0.08
 0.01
 1
 NIL
@@ -349,7 +350,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+1
 
 PLOT
 10
@@ -693,25 +694,25 @@ terminal-to-death
 Number
 
 SLIDER
-1960
-203
-2205
-236
+2008
+199
+2253
+232
 probability-unavoidable-death
 probability-unavoidable-death
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1411
-204
-1676
-237
+1378
+159
+1643
+192
 probability-self-recovery-symptoms
 probability-self-recovery-symptoms
 0
@@ -723,10 +724,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1687
-204
-1956
-237
+1735
+200
+2004
+233
 probability-recorvery-if-treated
 probability-recorvery-if-treated
 0
@@ -738,10 +739,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1409
-242
-1675
-275
+1377
+202
+1730
+235
 probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
@@ -753,10 +754,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1687
-242
-1960
-275
+1735
+238
+2008
+271
 probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
@@ -768,10 +769,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1964
-242
-2204
-275
+2012
+238
+2275
+271
 probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
@@ -786,7 +787,7 @@ TEXTBOX
 1658
 162
 1994
-192
+218
 Probabilities of each line should be <1\nExtra probability counts as \"recovery without symptoms\"
 10
 15.0
@@ -1216,10 +1217,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2032
-284
-2267
-317
+1377
+240
+1731
+273
 factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
@@ -1576,7 +1577,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -2303,24 +2304,13 @@ price-of-rations-in-non-essential-shops
 NIL
 HORIZONTAL
 
-INPUTBOX
-548
-139
-691
-199
-import-scenario-name
-output/done3.csv
-1
-0
-String
-
 BUTTON
-698
-152
-764
-185
+548
+141
+614
+174
 import
-load-scenario-from-file
+ask-user-for-import-file\nload-scenario-from-file
 NIL
 1
 T
@@ -2332,12 +2322,12 @@ NIL
 1
 
 BUTTON
-769
-152
-838
-185
+619
+141
+688
+174
 export
-save-world-state
+ask-user-for-export-file\nsave-world-state
 NIL
 1
 T
@@ -3067,7 +3057,7 @@ INPUTBOX
 1027
 98
 #random-seed
-14.0
+1.0
 1
 0
 Number
@@ -3220,10 +3210,10 @@ NIL
 1
 
 PLOT
-1486
-1826
-2062
-2022
+1678
+1829
+2254
+2025
 Macro Economic Model - Capital Flow
 NIL
 NIL
@@ -3257,9 +3247,9 @@ Agent social distancing settings
 
 PLOT
 1486
-2031
+2032
 1944
-2188
+2182
 Macro Economic Model - International Sector
 NIL
 NIL
@@ -3274,10 +3264,10 @@ PENS
 "international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
 
 SWITCH
-1952
-2036
-2130
-2069
+1490
+1867
+1668
+1900
 close-services-luxury?
 close-services-luxury?
 1
@@ -3399,16 +3389,112 @@ NIL
 1
 11
 
-MONITOR
-2045
-415
-2102
-460
-R0
-r0
-17
+SLIDER
+1448
+1977
+1668
+2010
+government-sector-subsidy-ratio
+government-sector-subsidy-ratio
+0
 1
-11
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+PLOT
+1951
+2032
+2386
+2182
+Macro Economic Model - Central Bank
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"reserve-of-capital" 1.0 0 -16777216 true "" "plot sum [reserve-of-capital] of central-banks"
+"total-credit" 1.0 0 -13345367 true "" "plot sum [total-credit] of central-banks"
+
+PLOT
+2267
+1830
+2806
+2024
+Macro Economic Model - Debt
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"agriculture-essential" 1.0 0 -16777216 true "" "plot total-debt-agriculture-essential"
+"agriculture-luxury" 1.0 0 -13345367 true "" "plot total-debt-agriculture-luxury"
+"manufacturing-essential" 1.0 0 -955883 true "" "plot total-debt-manufacturing-essential"
+"manufacturing-luxury" 1.0 0 -13840069 true "" "plot total-debt-manufacturing-luxury"
+"services-essential" 1.0 0 -2674135 true "" "plot total-debt-services-essential"
+"services-luxury" 1.0 0 -8630108 true "" "plot total-debt-services-luxury"
+"education-research" 1.0 0 -13791810 true "" "plot total-debt-education-research"
+"households-sector" 1.0 0 -6459832 true "" "plot total-debt-households-sector"
+
+PLOT
+2395
+2032
+2807
+2182
+Macro Economic Model - Government Debt
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"debt" 1.0 0 -16777216 true "" "plot total-debt-government-sector"
+
+SLIDER
+1363
+1903
+1668
+1936
+services-luxury-ratio-of-expenditures-when-closed
+services-luxury-ratio-of-expenditures-when-closed
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1367
+1940
+1668
+1973
+services-luxury-ratio-of-income-when-closed
+services-luxury-ratio-of-income-when-closed
+0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

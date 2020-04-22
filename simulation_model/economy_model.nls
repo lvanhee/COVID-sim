@@ -177,6 +177,10 @@ to-report is-trade-value? [v]
   report first v = "trade"
 end
 
+to-report is-loan-value? [v]
+  report first v = "loan"
+end
+
 to-report salary-value-from [v]
   report last v
 end
@@ -207,6 +211,25 @@ to increase-capital-by [val]
   [
     set amount-of-capital amount-of-capital + val
   ]
+  
+  if is-central-bank? self
+  [
+    set reserve-of-capital reserve-of-capital + val
+  ]
+end
+
+to increase-credit-by [val]
+  if is-central-bank? self
+  [
+    set total-credit total-credit + val
+  ]
+end
+
+to increase-debt-by [val]
+  if is-macro-sector? self
+  [
+    set debt-with-central-bank debt-with-central-bank + val
+  ]
 end
 
 to perform-cash-transfer [a1 a2 amount]
@@ -232,6 +255,17 @@ to perform-cash-transfer [a1 a2 amount]
   set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick + abs amount
 end
 
+to perform-loan-transfer [a1 a2 amount]
+  ;amount > 0: a1 grants a loan, a2 get a loan
+  ;amount < 0: a1 receives payment of a debt, a2 pays a debt
+  
+  ask a1 [increase-capital-by (- amount)]
+  ask a2 [increase-capital-by amount]
+  
+  ask a1 [increase-credit-by amount]
+  ask a2 [increase-debt-by amount]
+end
+
 to-report is-cash-transfer? [value]
   if value = "work" [report false]
   if is-work-value? value [report false]
@@ -242,6 +276,7 @@ to-report is-cash-transfer? [value]
   if is-payment-value? value [report true]
   if is-tax-value? value [report true]
   if is-trade-value? value [report true]
+  if is-loan-value? value [report false]
   error (sentence "unimplemented for:" value)
 end
 
@@ -250,6 +285,10 @@ to-report cash-value-of [v]
 end
 
 to-report purchase-amount-of [v]
+  report last v
+end
+
+to-report loan-value-of [v]
   report last v
 end
 
@@ -337,6 +376,18 @@ to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
       ]
       set a2-to-a1-completed? true
     ]
+  ]
+  
+  if is-loan-value? value-a1-to-a2
+  [
+    perform-loan-transfer a1 a2 (loan-value-of value-a1-to-a2)
+    set a1-to-a2-completed? true
+  ]
+  
+  if is-loan-value? value-a2-to-a1
+  [
+    perform-loan-transfer a2 a1 (loan-value-of value-a2-to-a1)
+    set a2-to-a1-completed? true
   ]
   
   if is-nothing? value-a1-to-a2 [set a1-to-a2-completed? true]
