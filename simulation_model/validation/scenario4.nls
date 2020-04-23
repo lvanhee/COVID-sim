@@ -1,0 +1,17 @@
+to-report scenario-4-fitness [post-parameters-pre-setup-update]
+  report scenario-4-no-pandemic-fitness post-parameters-pre-setup-update
+end
+
+to-report scenario-4-no-pandemic-fitness [post-parameters-pre-setup-update]
+  set preset-scenario "default-scenario"
+  set with-infected? false
+  let #times-someone-with-food-safety<0.1 0
+  let duration-trial 500
+  
+  run post-parameters-pre-setup-update
+  setup
+  repeat duration-trial [ go if any? people with [food-safety-satisfaction-level < 1] [set #times-someone-with-food-safety<0.1 #times-someone-with-food-safety<0.1 + (1 / duration-trial)]]
+ 
+ report 1 - #times-someone-with-food-safety<0.1 
+  
+end

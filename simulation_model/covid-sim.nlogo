@@ -11,6 +11,7 @@ globals [
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
+  import-scenario-name
 ]
 
 to go
@@ -1045,7 +1046,7 @@ SWITCH
 70
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -2302,24 +2303,13 @@ price-of-rations-in-non-essential-shops
 NIL
 HORIZONTAL
 
-INPUTBOX
-548
-139
-691
-199
-import-scenario-name
-output/done3.csv
-1
-0
-String
-
 BUTTON
-698
-152
-764
-185
+548
+141
+614
+174
 import
-load-scenario-from-file
+ask-user-for-import-file\nload-scenario-from-file
 NIL
 1
 T
@@ -2331,12 +2321,12 @@ NIL
 1
 
 BUTTON
-769
-152
-838
-185
+619
+141
+688
+174
 export
-save-world-state
+ask-user-for-export-file\nsave-world-state
 NIL
 1
 T
@@ -3576,6 +3566,21 @@ services-luxury-ratio-of-income-when-closed
 1
 0.0
 0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1488
+1830
+1668
+1863
+interest-rate-by-tick
+interest-rate-by-tick
+0
+0.01
+0.001
+0.0001
 1
 NIL
 HORIZONTAL

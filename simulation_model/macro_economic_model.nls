@@ -58,6 +58,9 @@ to run-macro-economics
       ]
     ]
     
+    ;charge interest
+    set debt-with-central-bank debt-with-central-bank + debt-with-central-bank * interest-rate-by-tick
+    
     ;check reserves (minimum)
     let min-amount-of-capital-needed 0
     ask my-out-macro-sector-links
@@ -127,7 +130,10 @@ to run-macro-economics
     [
       let threshold (10 - priority) * drain
       let amount-of-capital-to-fill-reserve (threshold - amount-of-capital-in-the-reserve)
-      set amount-of-capital-to-fill-all-reserves amount-of-capital-to-fill-all-reserves + amount-of-capital-to-fill-reserve
+      if amount-of-capital-to-fill-reserve > 0
+      [
+        set amount-of-capital-to-fill-all-reserves amount-of-capital-to-fill-all-reserves + amount-of-capital-to-fill-reserve
+      ]
     ]
     
     ;fill reserves
@@ -140,14 +146,17 @@ to run-macro-economics
       [
         let threshold (10 - priority) * drain
         let amount-of-capital-to-fill-reserve (threshold - amount-of-capital-in-the-reserve)
-        let amount-of-capital-to-receive (amount-of-capital-to-fill-reserve / amount-of-capital-to-fill-all-reserves) * amount-of-capital-to-go-to-reserves
-        set amount-of-capital-to-receive min (list amount-of-capital-to-receive remaining-capital-to-go-to-reserves)
-        set remaining-capital-to-go-to-reserves remaining-capital-to-go-to-reserves - amount-of-capital-to-receive
-        
-        ;the 'perform-transaction' procedure can't be used in the context of a link
-        ask myself [ set amount-of-capital amount-of-capital - amount-of-capital-to-receive ]
-        set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve + amount-of-capital-to-receive
-        ;perform-transaction myself self (list "nothing") (list "trade" amount-of-capital-to-receive)
+        if amount-of-capital-to-fill-reserve > 0
+        [
+          let amount-of-capital-to-receive (amount-of-capital-to-fill-reserve / amount-of-capital-to-fill-all-reserves) * amount-of-capital-to-go-to-reserves
+          set amount-of-capital-to-receive min (list amount-of-capital-to-receive remaining-capital-to-go-to-reserves)
+          set remaining-capital-to-go-to-reserves remaining-capital-to-go-to-reserves - amount-of-capital-to-receive
+          
+          ;the 'perform-transaction' procedure can't be used in the context of a link
+          ask myself [ set amount-of-capital amount-of-capital - amount-of-capital-to-receive ]
+          set amount-of-capital-in-the-reserve amount-of-capital-in-the-reserve + amount-of-capital-to-receive
+          ;perform-transaction myself self (list "nothing") (list "trade" amount-of-capital-to-receive)
+        ]
       ]
     ]
     

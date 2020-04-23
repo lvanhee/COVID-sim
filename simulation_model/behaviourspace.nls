@@ -1,4 +1,4 @@
-__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_utils.nls"]
+__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_utils.nls" "validation/scenario4.nls"]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;VARIABLES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
