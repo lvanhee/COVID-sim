@@ -14,7 +14,6 @@ globals [
 ]
 
 to go
-
   reset-timer
   tick
   reset-economy-measurements
@@ -3370,7 +3369,6 @@ PENS
 "retired" 1.0 0 -955883 true "" "histogram [my-amount-of-capital] of retireds"
 "student" 1.0 0 -13840069 true "" "histogram [my-amount-of-capital] of students"
 
-
 SLIDER
 694
 705
@@ -3401,16 +3399,6 @@ density-factor-shared-cars
 NIL
 HORIZONTAL
 
-TEXTBOX
-571
-714
-721
-732
-Density factors transport
-9
-0.0
-1
-
 PLOT
 562
 970
@@ -3421,8 +3409,16 @@ Time
 Quality of Life
 0.0
 10.0
-
-
+0.0
+1.0
+true
+true
+"" ""
+PENS
+"Mean" 1.0 0 -13840069 true "" "plot mean [quality-of-life-indicator] of people"
+"Median" 1.0 0 -14454117 true "" "plot median [quality-of-life-indicator] of people"
+"Min" 1.0 0 -2674135 true "" "plot min [quality-of-life-indicator] of people"
+"Max" 1.0 0 -1184463 true "" "plot max [quality-of-life-indicator] of people"
 
 TEXTBOX
 22

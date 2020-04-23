@@ -181,15 +181,16 @@ to update-memory
   ]
   
   
-  
-  let counts-of-my-networks-means-of-transport []
+  let counts-of-my-networks-means-of-transport new-counter
   ask my-network [
-    set counts-of-my-networks-means-of-transport add-activity my-means-of-transportation-I-currently-use counts-of-my-networks-means-of-transport
+    set counts-of-my-networks-means-of-transport add-to-counter counts-of-my-networks-means-of-transport my-means-of-transportation-I-currently-use
   ]
-  let my-networks-means-of-transport (item 0 (reduce [ [x y] -> ifelse-value item 1 x > item 1 y [x] [y] ] counts-of-my-networks-means-of-transport))
+  let my-networks-means-of-transport counter-max-value counts-of-my-networks-means-of-transport
+  
   
   set what-transport-my-network-used lput my-networks-means-of-transport what-transport-my-network-used
   if length what-transport-my-network-used > 28 [
     set what-transport-my-network-used but-first what-transport-my-network-used
   ]
   
+end
