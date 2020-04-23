@@ -247,6 +247,19 @@ to  setup-worker-relation-to-gathering-point
     [
       set target one-of shops
     ]
+    
+    if rand >= probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper and
+    rand < probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper + probability-public-transport-personel
+    [
+      set target one-of public-transport
+    ]
+    
+    if rand >= probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper + probability-public-transport-personel and
+    rand < probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper + probability-public-transport-personel + probability-shared-cars-personel
+    [
+      set target one-of shared-cars
+    ]
+    
     set my-work target
     ask target [set hired-workers (turtle-set hired-workers myself)]
   ]
@@ -255,7 +268,7 @@ end
 
 
 to setup-activities
-  set  hospitals (turtle-set)
+  set hospitals (turtle-set)
   set workplaces (turtle-set)
   set schools (turtle-set)
   set homes (turtle-set)
@@ -264,6 +277,8 @@ to setup-activities
   set universities (turtle-set)
   set public-leisure-points (turtle-set)
   set private-leisure-points (turtle-set)
+  set public-transport (turtle-set)
+  set shared-cars (turtle-set)
 
   create-gathering-points #schools-gp [
     set schools (turtle-set schools self)
@@ -302,13 +317,25 @@ to setup-activities
     set hired-workers (turtle-set)
     set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure-gp + 1)]
 
-
+  create-gathering-points 1 [
+    set public-transport (turtle-set public-transport self)
+    set hired-workers (turtle-set)
+    set gathering-type "public-transport"
+  ]
+  
+  create-gathering-points 1 [
+    set shared-cars (turtle-set shared-cars self)
+    set hired-workers (turtle-set)
+    set gathering-type "shared-cars"
+  ]
+  
   ask gathering-points with [gathering-type = "school"] [set amount-of-capital 100]
   ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]
   ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200 set stock-of-goods 100]
   ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
   ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
   ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital 1000]
+  
   setup-activity-animate-positions
 
   if migration?

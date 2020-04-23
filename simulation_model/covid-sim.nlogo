@@ -242,10 +242,10 @@ Age model
 1
 
 SLIDER
-848
-703
-940
-736
+847
+700
+939
+733
 density-factor-schools
 density-factor-schools
 0
@@ -460,10 +460,10 @@ INPUTBOX
 Number
 
 SLIDER
-754
-703
-849
-736
+755
+700
+850
+733
 density-factor-hospital
 density-factor-hospital
 0
@@ -483,7 +483,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.11
 0.01
 1
 NIL
@@ -1576,7 +1576,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -3360,10 +3360,10 @@ PENS
 "student" 1.0 0 -13840069 true "" "histogram [my-amount-of-capital] of students"
 
 SLIDER
-694
-705
-860
-738
+1639
+702
+1802
+735
 density-factor-public-transport
 density-factor-public-transport
 0
@@ -3375,10 +3375,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-859
-705
-1021
-738
+1640
+671
+1802
+704
 density-factor-shared-cars
 density-factor-shared-cars
 0
@@ -3584,6 +3584,58 @@ interest-rate-by-tick
 1
 NIL
 HORIZONTAL
+
+SLIDER
+920
+510
+1169
+543
+probability-public-transport-personel
+probability-public-transport-personel
+0
+1
+0.02
+0.001
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1179
+509
+1455
+542
+probability-shared-cars-personel
+probability-shared-cars-personel
+0
+1
+0.02
+0.001
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1065
+2005
+1185
+2050
+NIL
+#public-transport-workers
+17
+1
+11
+
+MONITOR
+1205
+2005
+1311
+2050
+NIL
+#shared-cars-workers
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
