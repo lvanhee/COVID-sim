@@ -1,12 +1,16 @@
 __includes ["transport_decision.nls"]
 
-globals [is-busses-overrun? #denied-attempts-due-to-bus-overload
+globals [is-busses-overrun?
+  #denied-attempts-due-to-bus-overload
   list-of-buses
   list-of-shared-cars
   #people-denied-bus
+  #bus-per-timeslot
+  #users-in-buses
 ]
 to travelling-to-activity-phase
   set is-busses-overrun? false
+  set #bus-per-timeslot #public-transport-workers
   
   move-on-display
 
@@ -30,7 +34,7 @@ to travelling-to-activity-phase
   ]
   
   set list-of-buses n-values #bus-per-timeslot [x -> (turtle-set)]
-  let #users-in-buses 0
+  set #users-in-buses 0
   
   ask bus-users [
     if #users-in-buses = max-total-bus-flow-at-current-timestep [

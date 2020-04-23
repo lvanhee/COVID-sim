@@ -349,7 +349,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -498,7 +498,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.03
+0.05
 0.01
 1
 NIL
@@ -701,7 +701,7 @@ probability-unavoidable-death
 probability-unavoidable-death
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
@@ -1046,7 +1046,7 @@ SWITCH
 70
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -2413,7 +2413,7 @@ ratio-worker-public-transport
 ratio-worker-public-transport
 0
 1
-0.4
+1.0
 0.01
 1
 NIL
@@ -2428,7 +2428,7 @@ ratio-worker-shared-car
 ratio-worker-shared-car
 0
 1
-0.15
+0.0
 0.01
 1
 NIL
@@ -2535,23 +2535,12 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-2653
-937
-2809
-997
-#bus-per-timeslot
-10.0
-1
-0
-Number
-
-INPUTBOX
-2653
-992
-2809
-1052
+2652
+991
+2808
+1051
 #max-people-per-bus
-20.0
+50.0
 1
 0
 Number
@@ -3633,6 +3622,28 @@ MONITOR
 2050
 NIL
 #shared-cars-workers
+17
+1
+11
+
+MONITOR
+2665
+937
+2793
+982
+NIL
+#bus-per-timeslot
+17
+1
+11
+
+MONITOR
+2739
+1073
+2857
+1118
+NIL
+#users-in-buses
 17
 1
 11
