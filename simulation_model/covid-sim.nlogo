@@ -499,7 +499,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.034
+0.028
 0.01
 1
 NIL
@@ -514,7 +514,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.005
 0.01
 1
 NIL
@@ -1467,7 +1467,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.05
+0.0
 0.01
 1
 NIL
@@ -1588,7 +1588,7 @@ CHOOSER
 134
 preset-scenario
 preset-scenario
-"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
 0
 
 MONITOR
@@ -1875,7 +1875,7 @@ starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
 100
-76.0
+75.0
 1
 1
 NIL
@@ -2103,7 +2103,7 @@ INPUTBOX
 644
 425
 #households
-400.0
+100.0
 1
 0
 Number
@@ -2125,7 +2125,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-13.0
+10.0
 1
 0
 Number
@@ -3363,7 +3363,7 @@ SWITCH
 477
 make-social-distance-profile-value-based?
 make-social-distance-profile-value-based?
-0
+1
 1
 -1000
 
@@ -3602,7 +3602,7 @@ SWITCH
 779
 prioritize-testing-health-care-and-eduction?
 prioritize-testing-health-care-and-eduction?
-0
+1
 1
 -1000
 
@@ -3630,7 +3630,7 @@ SWITCH
 817
 do-not-test-youth?
 do-not-test-youth?
-0
+1
 1
 -1000
 
@@ -3652,7 +3652,7 @@ SWITCH
 1287
 ask-the-sick-and-family-to-stay-home?
 ask-the-sick-and-family-to-stay-home?
-0
+1
 1
 -1000
 
@@ -3685,7 +3685,7 @@ SWITCH
 1326
 food-delivery-for-isolators?
 food-delivery-for-isolators?
-0
+1
 1
 -1000
 

@@ -41,36 +41,36 @@ to perform-testing
   if slice-of-the-day = "afternoon" [
     set #tests-done-today 0
     let prioritized-people (turtle-set nobody)
-    
+
     if prioritize-testing-health-care-and-eduction? [
       set prioritized-people (turtle-set prioritized-people (workers with [[is-hospital?] of my-work]))
       set prioritized-people (turtle-set prioritized-people (workers with [[is-school? or is-university?] of my-work]))
     ]
-    
+
     ask up-to-n-of #still-available-tests prioritized-people [
       perform-test
     ]
-    
+
     ; Make sure we do not test people twice
     let people-to-test people with [not member? self prioritized-people]
-    
+
     if do-not-test-youth? [
       set people-to-test people-to-test with [not is-young?]
     ]
-    
+
     if only-test-retirees-with-extra-tests? [
       set people-to-test retireds
     ]
-    
+
     ; We cannot test more people than we have tests available
-    let #people-to-test (min (list 
-      (ratio-population-randomly-tested-daily * count people) 
+    let #people-to-test (min (list
+      (ratio-population-randomly-tested-daily * count people)
       #still-available-tests))
-    
+
     ask n-of #people-to-test people-to-test [
       perform-test
     ]
-   
+
     ask n-of (ratio-population-daily-immunity-testing * count people) people [
       perform-immunity-test
     ]
@@ -114,6 +114,7 @@ to-report should-be-isolators
 end
 
 to disable-all-measures
+  ; Closing
   set ratio-omniscious-infected-that-trigger-school-closing-measure 1
   set ratio-omniscious-infected-that-trigger-social-distancing-measure 1
   set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
@@ -121,9 +122,19 @@ to disable-all-measures
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
   set global-confinement-measures "none"
+  set closed-universities? false
+  set closed-workplaces? false
+  ; Testing
+  set ratio-population-randomly-tested-daily 0
+  set ratio-population-daily-immunity-testing 0
   set test-home-of-confirmed-people? false
   set test-workplace-of-confirmed-people? false
-  set ratio-population-randomly-tested-daily 0
-  set closed-universities? false
+  set prioritize-testing-health-care-and-eduction? false
+  set do-not-test-youth? false
+  set only-test-retirees-with-extra-tests? false
+  ; App settings
   set ratio-of-users-of-the-tracking-app 0
+  ; Isolation
+  set ask-the-sick-and-family-to-stay-home? false
+  set food-delivery-for-isolators? false
 end
