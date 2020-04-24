@@ -3497,25 +3497,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-2026
-698
-2213
-731
+1861
+1387
+2048
+1420
 ratio-young-with-phones
 ratio-young-with-phones
 0
 1
-0.1
+0.11
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2026
-666
-2215
-699
+1861
+1423
+2050
+1456
 ratio-retired-with-phones
 ratio-retired-with-phones
 0
@@ -3527,10 +3527,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2233
-647
-2342
-692
+2059
+1387
+2168
+1432
 #phone-owners
 count people with [has-mobile-phone?]
 17
@@ -3538,10 +3538,10 @@ count people with [has-mobile-phone?]
 11
 
 MONITOR
-2233
-691
-2342
-736
+2059
+1431
+2168
+1476
 ratio-phone-owners
 count people with [has-mobile-phone?] / count people
 17
