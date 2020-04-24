@@ -99,7 +99,7 @@ to run-no-measures-experiment
   let total-#-publicleisure-in-first-weekend 0
   let total-number-peak-infected-people -1
 
-  while [any? people with [is-infected?]] [
+  while [any? people with [is-contagious?]] [
     go
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-nonessentialshoppers-in-first-weekend total-#-nonessentialshoppers-in-first-weekend + count people-at-non-essential-shops]
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-publicleisure-in-first-weekend total-#-publicleisure-in-first-weekend + count people with [is-at-public-leisure-place?]]
@@ -124,7 +124,7 @@ to run-closed-schools-and-uni-experiment
   let total-#-publicleisure-in-first-weekend 0
   let total-number-peak-infected-people -1
 
-  while [any? people with [is-infected?]] [
+  while [any? people with [is-contagious?]] [
     go
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-nonessentialshoppers-in-first-weekend total-#-nonessentialshoppers-in-first-weekend + count people-at-non-essential-shops]
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-publicleisure-in-first-weekend total-#-publicleisure-in-first-weekend + count people with [is-at-public-leisure-place?]]
@@ -148,7 +148,7 @@ to run-work-from-home
   let total-#-publicleisure-in-first-weekend 0
   let total-number-peak-infected-people -1
 
-  while [any? people with [is-infected?]] [
+  while [any? people with [is-contagious?]] [
     go
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-nonessentialshoppers-in-first-weekend total-#-nonessentialshoppers-in-first-weekend + count people-at-non-essential-shops]
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-publicleisure-in-first-weekend total-#-publicleisure-in-first-weekend + count people with [is-at-public-leisure-place?]]
@@ -174,7 +174,7 @@ to run-all-closed-experiment
   let total-#-publicleisure-in-first-weekend 0
   let total-number-peak-infected-people -1
 
-  while [any? people with [is-infected?]] [
+  while [any? people with [is-contagious?]] [
     go
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-nonessentialshoppers-in-first-weekend total-#-nonessentialshoppers-in-first-weekend + count people-at-non-essential-shops]
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-publicleisure-in-first-weekend total-#-publicleisure-in-first-weekend + count people with [is-at-public-leisure-place?]]
@@ -233,7 +233,7 @@ to execute-and-save [experiment-name]
     
     let total-number-peak-infected-people -1
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
@@ -252,7 +252,7 @@ to execute-and-save [experiment-name]
     
     let total-number-peak-infected-people -1
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
@@ -272,7 +272,7 @@ to execute-and-save [experiment-name]
     
     let total-number-peak-infected-people -1
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
@@ -295,7 +295,7 @@ to execute-and-save [experiment-name]
     let total-number-peak-infected-people -1
     let total-number-people count people
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
@@ -321,7 +321,7 @@ to execute-and-save [experiment-name]
     let total-number-peak-infected-people -1
     let total-number-people count people
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
@@ -373,7 +373,7 @@ to execute-and-save [experiment-name]
     let total-number-peak-infected-people -1
     let total-number-people count people
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
@@ -399,7 +399,7 @@ to execute-and-save [experiment-name]
     let total-number-peak-infected-people -1
     let total-number-people count people
     
-    while [any? people with [is-infected?]] [
+    while [any? people with [is-contagious?]] [
       go
       ifelse count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]][]
     ]
