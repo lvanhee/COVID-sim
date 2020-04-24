@@ -36,7 +36,11 @@ to-report is-believing-to-be-infected?
 end
 
 to perform-test
+  ; Make sure we don't do more tests than available
+  if #still-available-tests <= 0 [stop]
+  
   set #tests-performed #tests-performed + 1
+  set #tests-done-today #tests-done-today + 1
   
   if not is-infected? and is-believing-to-be-infected? [set epistemic-infection-status "immune"]
   if is-infected? [

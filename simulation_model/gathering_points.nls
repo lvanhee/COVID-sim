@@ -332,3 +332,14 @@ end
 to-report is-family-present-in-current-gathering-point?
   report any? my-relatives with [current-activity = [current-activity] of myself]
 end
+
+to-report home-in-isolation?
+  if not is-home? or not ask-the-sick-and-family-to-stay-home? [
+    report false
+  ]
+  report any? gatherers with [is-believing-to-be-infected?]
+end
+
+to-report homes-in-isolation
+  report homes with [home-in-isolation?]
+end

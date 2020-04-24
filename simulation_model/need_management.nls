@@ -216,13 +216,18 @@ to-report SUA-risk-avoidance [ad]
   report risk-avoidance-increase ad count people with [current-activity = gp]
 end
 
+to-report should-I-stay-home?
+  if is-lockdown-enforced? [report true]
+  if ask-the-sick-and-family-to-stay-home? and [home-in-isolation?] of my-home [report true]
+  report false
+end
+
 to-report SUE-compliance [ad]
   let gp location-of ad
   let motive motive-of ad
 
   let bonus-compliance-to-obligation 0
-  if gp = my-home and is-lockdown-enforced?
-  [
+  if gp = my-home and should-I-stay-home? [
   ;  show "lockdown bonus"
     set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
   ]
@@ -236,7 +241,7 @@ to-report SUE-compliance [ad]
   if (motive = work-motive) and is-I-have-contractual-obligations?
   [
 ;    show "do your work bonus"
-    if not is-lockdown-enforced? and gp != my-home [
+    if not should-I-stay-home? and gp != my-home [
       set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
       if gp = current-activity [
         set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
@@ -249,7 +254,7 @@ to-report SUE-compliance [ad]
   ]
 
   ; Make kids go to school
-  ifelse (motive = "mandatory") and not is-lockdown-enforced? [
+  ifelse (motive = "mandatory") and not should-I-stay-home? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ] [
     if age = "youth" [
@@ -258,19 +263,19 @@ to-report SUE-compliance [ad]
   ]
 
   ; Make students go to university
-  if (motive = "learning") and not is-lockdown-enforced? [
+  if (motive = "learning") and not should-I-stay-home? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
-  if is-lockdown-enforced? and gp != my-home [
+  if should-I-stay-home? and gp != my-home [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
   ]
 
-  if not is-lockdown-enforced? and member? motive ["relaxing" "shopping"] [
+  if not should-I-stay-home? and member? motive ["relaxing" "shopping"] [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
-  if not is-lockdown-enforced? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
+  if not should-I-stay-home? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
     ; Make retired agents do something relaxing every morning
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
@@ -306,6 +311,9 @@ to-report SUE-leisure [ad]
 
   if motive = "relaxing" [
     report 0.4
+  ]
+  if gp = my-home and motive = "rest" [
+    report 0.1
   ]
   report 0
 end
@@ -395,16 +403,26 @@ to-report SUE-financial-survival [ad]
     let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
     
     if is-I-have-contractual-obligations? [
-      if gp = my-work [
+      if gp = my-work and is-working-motive? motive [
         report min (list (my-expected-income / eating-costs) 1)
       ]
       report max (list ((- my-expected-income) / eating-costs) 0)
     ]
     if motive = "essential shopping" [
-      report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
+      let money-left-over my-amount-of-capital - eating-costs
+      ; If we spend all our money, financial-survival will drop to 0
+      if money-left-over < 0 [
+        report (- financial-survival-satisfaction-level)
+      ]
+      report (- min (list (money-left-over / eating-costs) 1))
     ]
     if motive = "shopping" [
-      report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops) / eating-costs) 1))
+      let money-left-over my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops
+      ; If we spend all our money, financial-survival will drop to 0
+      if money-left-over < 0 [
+        report (- financial-survival-satisfaction-level)
+      ]
+      report (- min (list (money-left-over / eating-costs) 1))
     ]
     report 0
   ]
@@ -436,7 +454,6 @@ to-report SUE-financial-safety [ad]
   report 0
 end
 
-
 to-report SUE-health [ad]
   let base 1
   let sd-bonus 0.8
@@ -451,9 +468,9 @@ to-report SUE-health [ad]
       [set base 0]
     ] [
       ifelse is-get-healed-to-hospital-descriptor? ad and (is-currently-allocated-a-bed-in-hospital? or any-free-bed-in-hospital?)
-      [set base .6]
+      [set base .3]
       [ ifelse is-rest-at-home-descriptor? ad
-        [ set base 0.2 ]
+        [ set base 0.3 ]
         [ set base -0.1 ]
       ]
     ]
@@ -519,29 +536,33 @@ to-report global-prevalence-of [ad]
 end
 
 to debug-global-prevalence-of [ad]
-  debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " social-distancing-of ad) 
-    ;Survival needs
-  debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
-  debug-print (word "  Financial-survival:" (SDE-financial-survival ad * importance-weight-financial-survival))
-  debug-print (word "  Sleep:" (SDE-sleep ad * importance-weight-sleep))
-  debug-print (word "  Health:" (SDE-health ad * importance-weight-health))
-  debug-print (word "  Conformity:" (SDE-conformity ad * importance-weight-conformity))
-    ;Safety needs
-  debug-print (word "  Compliance:" (SDE-compliance ad * importance-weight-compliance))
-  debug-print (word "  Risk Avoidance:" (SDE-risk-avoidance ad * importance-weight-risk-avoidance))
-  debug-print (word "  Financial Safety:" (SDE-financial-safety ad * importance-weight-financial-safety))
-    ;Belonging needs
-  debug-print (word "  Belonging:" (SDE-belonging ad * importance-weight-belonging-subneed))
-    ;Esteem needs
-  debug-print (word "  Autonomy:" (SDE-autonomy ad * importance-weight-autonomy))
-  debug-print (word "  Luxury:" (SDE-luxury ad * importance-weight-luxury))
-  debug-print (word "  Leisure:" (SDE-leisure ad * importance-weight-leisure))
-  
-  debug-print (word " Global:" global-prevalence-of ad)
+  if debug? [
+    debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " social-distancing-of ad) 
+      ;Survival needs
+    debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
+    debug-print (word "  Financial-survival:" (SDE-financial-survival ad * importance-weight-financial-survival))
+    debug-print (word "  Sleep:" (SDE-sleep ad * importance-weight-sleep))
+    debug-print (word "  Health:" (SDE-health ad * importance-weight-health))
+    debug-print (word "  Conformity:" (SDE-conformity ad * importance-weight-conformity))
+      ;Safety needs
+    debug-print (word "  Compliance:" (SDE-compliance ad * importance-weight-compliance))
+    debug-print (word "  Risk Avoidance:" (SDE-risk-avoidance ad * importance-weight-risk-avoidance))
+    debug-print (word "  Financial Safety:" (SDE-financial-safety ad * importance-weight-financial-safety))
+      ;Belonging needs
+    debug-print (word "  Belonging:" (SDE-belonging ad * importance-weight-belonging-subneed))
+      ;Esteem needs
+    debug-print (word "  Autonomy:" (SDE-autonomy ad * importance-weight-autonomy))
+    debug-print (word "  Luxury:" (SDE-luxury ad * importance-weight-luxury))
+    debug-print (word "  Leisure:" (SDE-leisure ad * importance-weight-leisure))
+    
+    debug-print (word " Global:" global-prevalence-of ad)
+  ]
 end
 
 to debug-my-preferred-available-activity-descriptor
-  foreach my-available-activity-descriptors debug-global-prevalence-of 
+  if debug? [
+    foreach my-available-activity-descriptors debug-global-prevalence-of
+  ]
 end
 
 ;;; SDE and SDA SURVIVAL NEEDS
