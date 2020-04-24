@@ -2,7 +2,6 @@ __includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls"]
 
 people-own [
   age
-  infection-status
   epistemic-infection-status
   current-activity
   is-moving-outside-for-reaching-current-activity?
@@ -24,13 +23,13 @@ people-own [
   
   previous-contacts-met
   is-user-of-tracking-app?
+  has-mobile-phone?
   
   has-been-tested-infected?
   last-test-tick
 
-  ;;the disease profile records how the person will react to the disease
-  disease-profile
-  duration-current-disease-status
+  ;;infection model
+  infection-state
 
   current-person-I-depend-on
 
@@ -152,7 +151,6 @@ people-own [
   importance-weight-survival
   
   number-of-people-I-infected
-
 ]
 
 to update-people-epistemic-status

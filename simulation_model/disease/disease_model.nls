@@ -1,0 +1,202 @@
+__includes ["disease/disease_profiles.nls" "disease/oxford_disease_model.nls"]
+
+globals [
+  #people-saved-by-hospitalization
+  #people-dying-due-to-lack-of-hospitalization
+  #infected
+   infected-people
+  list-of-dead-people
+]
+
+to set-contaminated-disease-status
+  if  disease-fsm-model = "assocc" [set-infection-status infected-asymptomatic-status]
+  if  disease-fsm-model = "oxford" [set-infection-status just-contaminated-infection-status]
+end
+
+to-report infection-status
+  if is-timed-state? infection-state [report state-of-timed-state infection-state]
+  report infection-state
+end
+
+to-report is-immune?
+  report infection-status = immune-infection-status
+end
+
+to-report is-susceptible?
+  report infection-state = healthy-infection-status
+end
+
+to-report next-infection-state
+  if disease-fsm-model = "assocc" [update-disease-status-assocc] 
+  if disease-fsm-model = "oxford" [report next-state-odm infection-state]
+  error "unimplemented"
+end
+
+to update-disease-status-assocc
+  
+ ;   ifelse random-float 1 < my-probability-to-recover-after-asymptomatic-contagious-infection-status
+;  [
+ ;   set-immune
+;  ]
+ ; ifelse disease-profile = "self-recovery with no symptoms" [set-immune]
+    ;  [
+    ;    set infection-status "infected-symptomatic"
+   ;     set duration-current-disease-status symptomatic-to-critical-or-heal
+;  ]
+  
+ ;  if infection-status = "asymptomatic noncontagious" 
+ ;   [
+  ;    set infection-status "infected-asymptomatic"
+  ;    set duration-current-disease-status  asympomatic-contagiousness-to-symptomatic-contagiousness
+ ;     stop
+ ;   ]
+    
+;    if infection-status = infected-asymptomatic-status
+;    [
+   ;   fsm-infection-transition-after-infected-asymptomatic-infection-status
+  ;    update-within-disease-status     
+  ;    stop
+ ;   ]
+    
+ ;   if infection-status = "infected-symptomatic"
+ ;   [
+  ;    if disease-profile = recovery-if-treated-profile or disease-profile = "unavoidable death"
+  ;    [
+ ;       set infection-status "infected-critical"
+ ;       set duration-current-disease-status critical-to-terminal
+ ;       stop
+ ;    ]
+     ; if disease-profile = "self-recovery with symptoms"[set-immune stop]
+    ;  error (sentence "unimplemented: " disease-profile duration-current-disease-status infection-status)
+ ;   ]
+    
+;    if infection-status = "infected-critical"
+ ;   [
+;      if is-currently-being-treated-at-hospital?; and disease-profile = "recovery if treated" 
+;      [
+;        set-immune
+ ;       set #people-saved-by-hospitalization #people-saved-by-hospitalization + 1
+;        stop
+ ;     ]
+      
+;      set infection-status "infected-terminal"
+;      set duration-current-disease-status terminal-to-death
+;      stop
+ ;   ]
+    
+;    if infection-status = "infected-terminal"
+ ;   [kill-person]
+    
+;   error (sentence "unimplemented")
+ ; ]
+;  [stop]
+error "unimplemented"
+end
+
+to set-immune
+  if is-infected?
+  [
+    set #infected #infected - 1
+  ]
+    set infection-state immune-infection-status
+end
+
+to-report infected-asymptomatic-status
+  report "infected-asymptomatic"
+end
+
+to set-infection-status [infection]
+  if infection = immune-infection-status
+  [set-immune]
+  
+  if not is-infected? and is-infected-infection-status? infection
+  [
+    set #infected #infected + 1
+  ]
+  
+  set infection-state infection
+end
+
+to-report is-infected-infection-status? [in]
+  if is-timed-state? in [report is-infected-infection-status? state-of-timed-state in]
+  if in = "infected"
+  or in = "asymptomatic noncontagious" 
+  or in = "infected-asymptomatic"
+  or in = "infected-symptomatic"
+  or in = "infected-critical"
+  or in = "infected-terminal" 
+  or in = just-contaminated-infection-status
+  or in = symptomatic-severe-infection-status
+  or in = symptomatic-mild-infection-status
+  or in = asymptomatic-to-rec-infection-status
+  or in = mild-to-rec-infection-status
+  or in = severe-to-rec-infection-status
+  or in = severe-to-hospital-infection-status
+  or in =  hospital-to-death-infection-status
+  or in = hospital-to-rec-infection-status
+  [report true]
+  
+  if in = healthy-infection-status 
+  or in = pre-symptomatic-to-mild-infection-status
+  or in = pre-symptomatic-to-severe-infection-status
+  or in = immune-infection-status
+  or in = dead-infection-status
+  [report false]
+  error (sentence "not implemented for:" in)
+end
+
+
+to-report is-observing-critical-symptoms?
+  report infection-status = infected-critical-infection-status
+end
+
+
+
+to kill-person 
+  set infection-state dead-infection-status
+  set #infected #infected - 1
+  set #dead-people #dead-people + 1
+  set list-of-dead-people fput who list-of-dead-people
+  
+  if age = retired-age [ set #dead-retired #dead-retired + 1]
+  die
+  end
+
+to-report is-infected?
+  report is-infected-infection-status? infection-status
+end
+
+;simplification, with a more advanced model, these symptoms might be visible after a few days of incubation
+;might depend on age (e.g. more visible for the elderly, might be undetected for kids)
+to-report has-internally-visible-symptoms?
+  if infection-status = "infected-symptomatic"
+  or infection-status = "infected-critical"
+  or infection-status = "infected-terminal"
+  or infection-status = symptomatic-severe-infection-status
+  or infection-status = symptomatic-mild-infection-status
+  or infection-status = mild-to-rec-infection-status
+  or infection-status = severe-to-rec-infection-status
+  or infection-status = severe-to-hospital-infection-status 
+  or infection-status = hospital-to-death-infection-status
+  or infection-status = hospital-to-rec-infection-status
+  [report true]
+  
+  if infection-status = healthy-infection-status
+  or infection-status = immune-infection-status
+  or infection-status = pre-symptomatic-to-mild-infection-status
+  or infection-status = pre-symptomatic-to-severe-infection-status
+  or infection-status = asymptomatic-to-rec-infection-status
+  or infection-status = dead-infection-status
+  [
+    report false
+  ]
+  
+  error (sentence "not implemented for:" infection-status)
+end
+
+
+to update-within-agent-disease-status
+  ask people [set-infection-status next-infection-state
+    if infection-status = dead-infection-status [kill-person ]
+  ]
+end

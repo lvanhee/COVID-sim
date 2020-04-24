@@ -1,5 +1,5 @@
 extensions [profiler]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "utils.nls" "environment_dynamics.nls" "animation.nls" "behaviourspace.nls"]
+__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "utils.nls" "environment_dynamics.nls" "animation.nls" "behaviourspace.nls" "utils/all_utils.nls"]
 breed [people person]
 
 globals [
@@ -117,7 +117,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.08
+0.15
 0.01
 1
 NIL
@@ -350,7 +350,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-1
+0
 
 PLOT
 10
@@ -702,7 +702,7 @@ probability-unavoidable-death
 probability-unavoidable-death
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
@@ -1047,7 +1047,7 @@ SWITCH
 70
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1577,7 +1577,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -3497,6 +3497,58 @@ NIL
 HORIZONTAL
 
 SLIDER
+2026
+698
+2213
+731
+ratio-young-with-phones
+ratio-young-with-phones
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2026
+666
+2215
+699
+ratio-retired-with-phones
+ratio-retired-with-phones
+0
+1
+0.4
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+2233
+647
+2342
+692
+#phone-owners
+count people with [has-mobile-phone?]
+17
+1
+11
+
+MONITOR
+2233
+691
+2342
+736
+ratio-phone-owners
+count people with [has-mobile-phone?] / count people
+17
+1
+11
+
+SLIDER
 1488
 1830
 1668
@@ -3510,6 +3562,27 @@ interest-rate-by-tick
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+2085
+342
+2223
+387
+disease-fsm-model
+disease-fsm-model
+"assocc" "oxford"
+1
+
+MONITOR
+2085
+404
+2142
+449
+NIL
+r0
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

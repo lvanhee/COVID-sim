@@ -50,39 +50,6 @@ to debug-print [object]
   ]
 end
 
-to dump-system-state-to-file
-  let global_filename (word "description.txt")
-  if file-exists? global_filename[ file-delete global_filename]
-  file-open global_filename
-
-  file-print "{"
-
-  file-print "\"activities\":["
-  ask gathering-points [
-    file-print (word "{\"id_gathering_point\":\"" who "\", \"gathering_type\":\"" gathering-type "\"},")
-    ]
-  file-print "]"
-
-  file-print "\"people\":["
-  ask people [
-    file-print (word "{\"id\":\"" who "\", \"age\":\"" age "\"},")
-    ]
-  file-print "]"
-  file-print "}"
-file-close
-
-
-  let filename (word "snapshot_" ticks ".txt")
-  if file-exists? filename[ file-delete filename]
-  file-open filename
-
-  file-print "{ ["
-  ask people [file-print (word "{\"id\":\"" who "\", \"id_gathering_point\":\"" [who] of current-activity "\", \"infection_status\":\"" infection-status "\"},")
-    ]
-  file-print "]}"
-file-close
-end
-
 to export-profiling
   profiler:stop
   let _fname "report.log"

@@ -1,0 +1,94 @@
+to-report transition-odm [s]
+  if s = healthy-infection-status [report stochastic-fsm-transition (list (list healthy-infection-status 1))]
+  if s = immune-infection-status [report stochastic-fsm-transition (list (list immune-infection-status 1))]
+  if s = dead-infection-status [report stochastic-fsm-transition (list (list dead-infection-status 1))]
+  if s = just-contaminated-infection-status [
+    report stochastic-fsm-transition (list 
+      (list timed-state asymptomatic-to-rec-infection-status tau-a-rec p-asymptomatic-odm )
+      (list timed-state pre-symptomatic-to-mild-infection-status tau-sym p-pre-symptomatic-mild-odm)
+      (list timed-state pre-symptomatic-to-severe-infection-status tau-sym)
+    )
+  ]
+  if is-timed-state? s and time-of-timed-state s > 0 [
+    report stochastic-fsm-transition (list 
+    (list timed-state state-of-timed-state s (time-of-timed-state s - 1)))
+  ]
+  
+  if state-of-timed-state s = asymptomatic-to-rec-infection-status
+  or state-of-timed-state s = mild-to-rec-infection-status
+  or state-of-timed-state s = severe-to-rec-infection-status  
+  or state-of-timed-state s = hospital-to-rec-infection-status
+  [report stochastic-fsm-transition (list (list immune-infection-status 1))]
+  
+  if state-of-timed-state s = hospital-to-death-infection-status[ report stochastic-fsm-transition (list (list dead-infection-status 1))]
+  
+  if state-of-timed-state s = pre-symptomatic-to-mild-infection-status [report stochastic-fsm-transition (list (list timed-state symptomatic-mild-infection-status tau-sym))]
+  if state-of-timed-state s = pre-symptomatic-to-severe-infection-status [report stochastic-fsm-transition (list (list timed-state symptomatic-severe-infection-status tau-sym))]
+  
+  if state-of-timed-state s = symptomatic-severe-infection-status [report stochastic-fsm-transition (list
+    (list timed-state severe-to-hospital-infection-status tau-hosp p-hosp)
+    (list timed-state severe-to-rec-infection-status tau-rec)
+  )]
+  
+  if state-of-timed-state s = symptomatic-mild-infection-status [report stochastic-fsm-transition (list
+    (list timed-state mild-to-rec-infection-status tau-rec)
+  )]
+  
+  if state-of-timed-state s = severe-to-hospital-infection-status [report stochastic-fsm-transition (list
+    (list timed-state hospital-to-rec-infection-status tau-hosp-rec p-survival-in-hospital)
+    (list timed-state hospital-to-death-infection-status tau-hospital-to-death)
+  )]
+  
+  error (sentence "unimplemented" s)
+end
+
+to-report next-state-odm [s]
+  report stochastic-transition-apply transition-odm s
+end
+
+to-report p-asymptomatic-odm 
+ ; if is-retired?
+  ;[]
+  report 0.18  
+end
+
+to-report p-hosp
+  if is-retired? [report 0.8]
+  report 0.1
+end
+
+to-report tau-hosp
+  report 4
+end
+
+to-report tau-hosp-rec
+  report 2
+end
+
+to-report tau-hospital-to-death
+  report 6
+end
+
+to-report p-survival-in-hospital
+  if is-retired? [report 0.6]
+  report 0.9
+end
+  
+
+to-report tau-a-rec
+  report 6
+end
+
+to-report tau-rec
+  report 6
+end
+
+to-report p-pre-symptomatic-mild-odm
+  report 0.48
+end
+
+to-report tau-sym
+  let mean-val 6
+  let variance-val 2.5
+  report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))
+end

@@ -51,15 +51,15 @@ end
 to spread-within-a-set-of-people [ts prox-factor lambda-when-contagion]
   
   let tracked-users ts with [is-user-of-tracking-app?]
-  ask tracked-users
-  [
-    if is-user-of-tracking-app? [set previous-contacts-met (replace-item 0 previous-contacts-met (turtle-set tracked-users last previous-contacts-met))]]
   let contagious-people-in-the-set  ts with [is-contagious?]
-  let number-contagious count contagious-people-in-the-set
-  ;;could be replaced by better maths it time becomes short
-  repeat number-contagious [
-    ask ts [apply-risk-of-contamination one-of other contagious-people-in-the-set prox-factor * contextual-contagion-modificators lambda-when-contagion]
-  ]
+  let susceptible-people ts with [is-susceptible?]
+  ask tracked-users
+ [set previous-contacts-met (replace-item 0 previous-contacts-met (turtle-set tracked-users last previous-contacts-met))]
+  
+  ask contagious-people-in-the-set [
+    ask susceptible-people [
+      apply-risk-of-contamination myself prox-factor * contextual-contagion-modificators lambda-when-contagion]
+]
 end
 
 
@@ -73,13 +73,15 @@ to-report social-distancing-risk-mitigation-factor
 end
 
 
+;; this process is a bit shitty as it does some mathematical merging of probability
 to apply-risk-of-contamination-when-travelling [travellers contagious]
   let #travellers count travellers
-  let #contagious count contagious
+  let ratio-contagion sum [contagion-risk-factor] of contagious
+  if not any? contagious [stop]
   if density-travelling-propagation = 0 [stop]
   if not is-moving-outside-for-reaching-current-activity? [stop]  
    
-  let ratio-contagious #contagious / count people
+  let ratio-contagious ratio-contagion / count people;;this should be related to space
   
   ;;these are "intuitive maths", to be confirmed if relevant
   ;;the squared root represents the risk of two people picking the same item when each pick n items on a n*n space (x*x -> n * 1)
@@ -109,24 +111,58 @@ to apply-risk-of-contamination-when-away
 end
 
 to apply-risk-of-contamination [infector factor lambda-when-contagion]  
-  if  random-float 1 < factor * propagation-risk and infection-status = healthy-infection-status
+  if infector = nobody [error "assertion error"]
+  let contagion-risks factor * propagation-risk * [contagion-risk-factor] of infector
+ ; show (sentence ticks contagion-risks lambda-when-contagion)
+  if  random-float 1 < contagion-risks and infection-status = healthy-infection-status
   [
     run lambda-when-contagion
      contaminate infector
   ]
 end
 
+to-report contagion-risk-factor
+  if infection-status = just-contaminated-infection-status or
+  infection-status = immune-infection-status or
+  infection-status = healthy-infection-status or
+  infection-status = dead-infection-status
+  [report 0]
+  
+  if infection-status = asymptomatic-to-rec-infection-status
+  or infection-status = pre-symptomatic-to-mild-infection-status
+  or infection-status = pre-symptomatic-to-severe-infection-status
+  [report 0.29]
+  
+  if infection-status = symptomatic-mild-infection-status or
+   infection-status = mild-to-rec-infection-status  
+  [report 0.48]
+  
+  if  infection-status = symptomatic-severe-infection-status or
+  infection-status = severe-to-hospital-infection-status or
+  infection-status = severe-to-rec-infection-status or
+  infection-status =  hospital-to-death-infection-status or
+  infection-status = hospital-to-rec-infection-status
+  [report 1]
+  error (sentence "not implemented" infection-status)
+end
+
+;  
+;infected-critical-infection-status  
+;hospital-to-rec-infection-status dead-infection-status
+ 
+
 to contaminate [infector]
   if infector != nobody [
     if any? first-infected-people with [self = infector] [set #infected-by-first-infected-people  #infected-by-first-infected-people + 1]
-    if [not is-infected?] of infector [error "assertion error"]
+    if [not is-contagious?] of infector [error "assertion error"]
     ask infector [set number-of-people-I-infected number-of-people-I-infected + 1]
     create-contagion-link-from infector [hide-link]]
   set-contaminated-disease-status
 end
 
 to-report is-contagious?
-  report not (infection-status = healthy-infection-status) and not (infection-status = "immune")
+  
+  report not (infection-status = healthy-infection-status) and not (infection-status = "immune") and not (infection-status = dead-infection-status)
 end
 
 to-report is-alive?

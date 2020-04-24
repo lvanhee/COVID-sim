@@ -54,11 +54,11 @@ to setup-app-users
   let #people-using-the-app count people * ratio-of-users-of-the-tracking-app
   let #people-selected-for-their-anxiety-level #people-using-the-app * ratio-of-anxiety-avoidance-users
   let #people-randomly-selected #people-using-the-app - #people-selected-for-their-anxiety-level
-
-  ask max-n-of #people-selected-for-their-anxiety-level people [importance-weight-safety +
-importance-weight-risk-avoidance +
-importance-weight-compliance] [set is-user-of-tracking-app? true]
-
+  
+  ask max-n-of #people-selected-for-their-anxiety-level people with [has-mobile-phone?] [importance-weight-safety +
+    importance-weight-risk-avoidance +
+    importance-weight-compliance] [set is-user-of-tracking-app? true]
+  
   ask n-of #people-randomly-selected people with [not is-user-of-tracking-app?][set is-user-of-tracking-app? true]
 
 end
@@ -163,7 +163,6 @@ to setup-person [current-home l-age]
 
     set my-previous-amount-of-capital my-amount-of-capital
     set has-been-tested-immune? false
-    setup-disease-profile
 
     create-gathering-link-to current-home [set features (list "rest" "visit family")]
     set is-moving-outside-for-reaching-current-activity? false
@@ -179,7 +178,7 @@ to setup-person [current-home l-age]
     set current-person-I-depend-on nobody
     set color default-color
     set size 0.5
-    set infection-status "healthy"
+    set infection-state healthy-infection-status
     set epistemic-infection-status "healthy"
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
@@ -188,6 +187,11 @@ to setup-person [current-home l-age]
     set I-know-of-social-distancing? true
     set I-know-of-working-from-home? true
     set what-my-network-did []
+    
+    set has-mobile-phone? false
+    if age = young-age and random-float 1 < ratio-young-with-phones [set has-mobile-phone? true]
+    if age = student-age or age = worker-age [set has-mobile-phone? true]
+    if age = retired-age and random-float 1 < ratio-retired-with-phones[set has-mobile-phone? true]
   ]
 end
 
