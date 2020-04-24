@@ -163,7 +163,7 @@ INPUTBOX
 938
 700
 #schools-gp
-3.0
+2.0
 1
 0
 Number
@@ -174,7 +174,7 @@ INPUTBOX
 1031
 700
 #universities-gp
-10.0
+1.0
 1
 0
 Number
@@ -185,7 +185,7 @@ INPUTBOX
 1123
 702
 #workplaces-gp
-10.0
+34.0
 1
 0
 Number
@@ -206,7 +206,7 @@ INPUTBOX
 1239
 702
 #public-leisure-gp
-1.0
+3.0
 1
 0
 Number
@@ -217,7 +217,7 @@ INPUTBOX
 1358
 702
 #private-leisure-gp
-10.0
+34.0
 1
 0
 Number
@@ -403,7 +403,7 @@ INPUTBOX
 1479
 702
 #essential-shops-gp
-5.0
+17.0
 1
 0
 Number
@@ -444,7 +444,7 @@ INPUTBOX
 1636
 702
 #non-essential-shops-gp
-10.0
+34.0
 1
 0
 Number
@@ -455,7 +455,7 @@ INPUTBOX
 851
 700
 #hospital-gp
-1.0
+3.0
 1
 0
 Number
@@ -904,7 +904,7 @@ SWITCH
 620
 migration?
 migration?
-0
+1
 1
 -1000
 
@@ -1082,7 +1082,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.371
+0.344
 0.01
 1
 NIL
@@ -1180,7 +1180,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.278
+0.309
 0.01
 1
 NIL
@@ -1195,7 +1195,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.315
+0.298
 0.01
 1
 NIL
@@ -1210,7 +1210,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.036
+0.049
 0.01
 1
 NIL
@@ -1456,7 +1456,7 @@ CHOOSER
 household-profiles
 household-profiles
 "none" "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-2
+7
 
 SLIDER
 1929
@@ -1577,7 +1577,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -1589,7 +1589,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
-0
+16
 
 MONITOR
 743
@@ -2103,7 +2103,7 @@ INPUTBOX
 644
 425
 #households
-100.0
+345.0
 1
 0
 Number
@@ -2125,7 +2125,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-10.0
+11.0
 1
 0
 Number
@@ -3363,7 +3363,7 @@ SWITCH
 477
 make-social-distance-profile-value-based?
 make-social-distance-profile-value-based?
-1
+0
 1
 -1000
 
@@ -3602,7 +3602,7 @@ SWITCH
 779
 prioritize-testing-health-care-and-eduction?
 prioritize-testing-health-care-and-eduction?
-1
+0
 1
 -1000
 
@@ -3630,7 +3630,7 @@ SWITCH
 817
 do-not-test-youth?
 do-not-test-youth?
-1
+0
 1
 -1000
 
@@ -3652,7 +3652,7 @@ SWITCH
 1287
 ask-the-sick-and-family-to-stay-home?
 ask-the-sick-and-family-to-stay-home?
-1
+0
 1
 -1000
 
@@ -3685,7 +3685,7 @@ SWITCH
 1326
 food-delivery-for-isolators?
 food-delivery-for-isolators?
-1
+0
 1
 -1000
 

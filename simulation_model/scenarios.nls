@@ -177,14 +177,10 @@ end
 to scenario-9-setup
   load-baseline-scenario
   ; Set households and gathering points
-  set preset-profiles "none"
-  set ratio-adults-homes 0.31
-  set ratio-retired-couple-homes 0.23
-  set ratio-family-homes 0.23
-  set ratio-multi-generational-homes 0.01
+  set household-profiles "Italy"
   load-population-profile-based-on-current-preset-profile
   set set_national_culture "Italy"
-  load-scaled-values 300
+  load-scaled-values 345
   set #universities-gp 1
   set #schools-gp 2
   set migration? false
