@@ -117,7 +117,7 @@ end
 
 
 to run-closed-schools-and-uni-experiment
-  load-no-measures
+  disable-all-measures
   load-closed-schools-and-uni-measures
   setup
   let total-#-nonessentialshoppers-in-first-weekend 0
@@ -140,7 +140,7 @@ end
 
 
 to run-work-from-home
-  load-no-measures
+  disable-all-measures
   set #days-trigger-non-essential-business-closing-measure 0
   setup
   
@@ -166,7 +166,7 @@ end
 
 
 to run-all-closed-experiment
-  load-no-measures
+  disable-all-measures
   load-closed-schools-and-uni-measures
   set #days-trigger-non-essential-business-closing-measure 0
   setup
