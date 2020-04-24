@@ -127,6 +127,7 @@ to disable-all-measures
   ; Testing
   set ratio-population-randomly-tested-daily 0
   set ratio-population-daily-immunity-testing 0
+  set available-tests 10000
   set test-home-of-confirmed-people? false
   set test-workplace-of-confirmed-people? false
   set prioritize-testing-health-care-and-eduction? false
