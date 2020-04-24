@@ -224,26 +224,37 @@ end
 
 to  setup-worker-relation-to-gathering-point
   if is-worker? [
+    let hired false
     let target one-of workplaces
-    let rand random-float 1
-    if rand < probability-hospital-personel [
-      set target one-of hospitals
-    ]
-    if rand >= probability-hospital-personel and rand < probability-hospital-personel + probability-school-personel
+    
+    ask gathering-points with [is-workplace? or is-hospital? or is-school? or is-university? or is-essential-shop? or is-non-essential-shop?]
     [
-      set target one-of schools
+      if not any? hired-workers [ set target self set hired true stop ]
     ]
-
-    if rand >= probability-hospital-personel + probability-school-personel and rand < probability-hospital-personel + probability-school-personel + probability-university-personel
+    
+    if not hired
     [
-      set target one-of universities
+      let rand random-float 1
+      if rand < probability-hospital-personel [
+        set target one-of hospitals
+      ]
+      if rand >= probability-hospital-personel and rand < probability-hospital-personel + probability-school-personel
+      [
+        set target one-of schools
+      ]
+      
+      if rand >= probability-hospital-personel + probability-school-personel and rand < probability-hospital-personel + probability-school-personel + probability-university-personel
+      [
+        set target one-of universities
+      ]
+      
+      if rand >= probability-hospital-personel + probability-school-personel + probability-university-personel and
+      rand < probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper
+      [
+        set target one-of shops
+      ]
     ]
-
-    if rand >= probability-hospital-personel + probability-school-personel + probability-university-personel and
-    rand < probability-hospital-personel + probability-school-personel + probability-university-personel + probability-shopkeeper
-    [
-      set target one-of shops
-    ]
+    
     set my-work target
     ask target [set hired-workers (turtle-set hired-workers myself)]
   ]
