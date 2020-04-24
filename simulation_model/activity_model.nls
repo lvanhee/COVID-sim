@@ -291,6 +291,7 @@ to perform-people-activities
   
   if food-delivery-for-isolators? [
     ask homes-in-isolation [
+      if available-food-rations / [amount-of-rations-I-buy-when-going-to-essential-shops] of one-of gatherers >= 1 [stop]
       ; Find the store with the most stocks
       let possible-stores reduce [[x y] -> (turtle-set x y)] [my-essential-shops] of gatherers 
       let store max-one-of possible-stores [stock-of-goods]
