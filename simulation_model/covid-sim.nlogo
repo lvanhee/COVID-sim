@@ -163,7 +163,7 @@ INPUTBOX
 938
 700
 #schools-gp
-3.0
+2.0
 1
 0
 Number
@@ -174,7 +174,7 @@ INPUTBOX
 1031
 700
 #universities-gp
-10.0
+1.0
 1
 0
 Number
@@ -185,7 +185,7 @@ INPUTBOX
 1123
 702
 #workplaces-gp
-10.0
+34.0
 1
 0
 Number
@@ -206,7 +206,7 @@ INPUTBOX
 1239
 702
 #public-leisure-gp
-1.0
+3.0
 1
 0
 Number
@@ -217,7 +217,7 @@ INPUTBOX
 1358
 702
 #private-leisure-gp
-10.0
+34.0
 1
 0
 Number
@@ -266,7 +266,7 @@ density-factor-universities
 density-factor-universities
 0
 1
-0.2
+0.21
 0.01
 1
 NIL
@@ -281,7 +281,7 @@ density-factor-workplaces
 density-factor-workplaces
 0
 1
-0.21
+0.23
 0.01
 1
 NIL
@@ -296,7 +296,7 @@ density-factor-public-leisure
 density-factor-public-leisure
 0
 1
-0.51
+0.88
 0.01
 1
 NIL
@@ -311,7 +311,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.19
+0.21
 0.01
 1
 NIL
@@ -354,9 +354,9 @@ global-confinement-measures
 
 PLOT
 10
-680
+681
 518
-830
+831
 measures
 NIL
 NIL
@@ -403,7 +403,7 @@ INPUTBOX
 1479
 702
 #essential-shops-gp
-5.0
+17.0
 1
 0
 Number
@@ -417,7 +417,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.19
+0.22
 0.01
 1
 NIL
@@ -444,7 +444,7 @@ INPUTBOX
 1636
 702
 #non-essential-shops-gp
-10.0
+34.0
 1
 0
 Number
@@ -455,7 +455,7 @@ INPUTBOX
 851
 700
 #hospital-gp
-1.0
+3.0
 1
 0
 Number
@@ -469,7 +469,7 @@ density-factor-hospital
 density-factor-hospital
 0
 1
-0.81
+0.82
 0.01
 1
 NIL
@@ -484,7 +484,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.026
 0.01
 1
 NIL
@@ -499,7 +499,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.03
+0.028
 0.01
 1
 NIL
@@ -514,7 +514,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.005
 0.01
 1
 NIL
@@ -592,9 +592,9 @@ NIL
 
 BUTTON
 10
-168
+206
 105
-203
+241
 1 Week Run
 go\nwhile [day-of-the-week != \"monday\" or slice-of-the-day != \"morning\"] [go]
 NIL
@@ -904,7 +904,7 @@ SWITCH
 620
 migration?
 migration?
-0
+1
 1
 -1000
 
@@ -981,7 +981,7 @@ count people with [[gathering-type] of current-activity = \"hospital\"]
 PLOT
 10
 834
-521
+518
 1153
 Average need satisfaction
 time
@@ -1082,7 +1082,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.371
+0.344
 0.01
 1
 NIL
@@ -1180,7 +1180,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.278
+0.309
 0.01
 1
 NIL
@@ -1195,7 +1195,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.315
+0.298
 0.01
 1
 NIL
@@ -1210,7 +1210,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.036
+0.049
 0.01
 1
 NIL
@@ -1456,13 +1456,13 @@ CHOOSER
 household-profiles
 household-profiles
 "none" "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-2
+7
 
 SLIDER
-1931
-745
-2225
-778
+1929
+635
+2216
+668
 ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
@@ -1474,10 +1474,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1928
-822
-2222
-855
+1929
+709
+2219
+742
 test-workplace-of-confirmed-people?
 test-workplace-of-confirmed-people?
 1
@@ -1485,10 +1485,10 @@ test-workplace-of-confirmed-people?
 -1000
 
 SWITCH
-1931
-782
-2224
-815
+1929
+672
+2218
+705
 test-home-of-confirmed-people?
 test-home-of-confirmed-people?
 1
@@ -1496,10 +1496,10 @@ test-home-of-confirmed-people?
 -1000
 
 TEXTBOX
-1931
-720
-2081
-738
+1929
+610
+2079
+628
 Testing
 11
 105.0
@@ -1577,7 +1577,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -1588,8 +1588,8 @@ CHOOSER
 134
 preset-scenario
 preset-scenario
-"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family"
-0
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
+16
 
 MONITOR
 743
@@ -2091,7 +2091,7 @@ mean-social-distance-profile
 mean-social-distance-profile
 0
 1
-0.25
+0.29
 0.01
 1
 NIL
@@ -2103,7 +2103,7 @@ INPUTBOX
 644
 425
 #households
-100.0
+345.0
 1
 0
 Number
@@ -2125,7 +2125,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-13.0
+11.0
 1
 0
 Number
@@ -2681,9 +2681,9 @@ NIL
 
 BUTTON
 10
-210
+248
 102
-245
+283
 1 Month Run
 let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day <= end-day] [ go ]
 NIL
@@ -2704,7 +2704,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-5
+6
 
 SLIDER
 2364
@@ -2715,7 +2715,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-86.0
+75.0
 1
 1
 NIL
@@ -2730,7 +2730,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-71.0
+76.0
 1
 1
 NIL
@@ -2745,7 +2745,7 @@ power-distance
 power-distance
 0
 100
-68.0
+50.0
 1
 1
 NIL
@@ -2760,7 +2760,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-48.0
+30.0
 1
 1
 NIL
@@ -2775,7 +2775,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-43.0
+70.0
 1
 1
 NIL
@@ -2790,7 +2790,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-63.0
+61.0
 1
 1
 NIL
@@ -2903,7 +2903,7 @@ SWITCH
 1166
 is-working-from-home-recommended?
 is-working-from-home-recommended?
-0
+1
 1
 -1000
 
@@ -2957,9 +2957,9 @@ NIL
 
 BUTTON
 10
-250
+288
 103
-285
+323
 go once
 go
 NIL
@@ -2974,9 +2974,9 @@ NIL
 
 BUTTON
 10
-290
+328
 101
-323
+361
 inspect person
 inspect one-of people
 NIL
@@ -3121,7 +3121,7 @@ percentage-of-agents-with-random-link
 percentage-of-agents-with-random-link
 0
 1
-0.1
+0.14
 0.01
 1
 NIL
@@ -3497,25 +3497,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-2026
-698
-2213
-731
+1861
+1387
+2048
+1420
 ratio-young-with-phones
 ratio-young-with-phones
 0
 1
-0.1
+0.11
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2026
-666
-2215
-699
+1861
+1423
+2050
+1456
 ratio-retired-with-phones
 ratio-retired-with-phones
 0
@@ -3527,10 +3527,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2233
-647
-2342
-692
+2059
+1387
+2168
+1432
 #phone-owners
 count people with [has-mobile-phone?]
 17
@@ -3538,10 +3538,10 @@ count people with [has-mobile-phone?]
 11
 
 MONITOR
-2233
-691
-2342
-736
+2059
+1431
+2168
+1476
 ratio-phone-owners
 count people with [has-mobile-phone?] / count people
 17
@@ -3583,6 +3583,140 @@ r0
 17
 1
 11
+
+INPUTBOX
+2367
+850
+2458
+910
+#available-tests
+50.0
+1
+0
+Number
+
+SWITCH
+1929
+746
+2220
+779
+prioritize-testing-health-care-and-eduction?
+prioritize-testing-health-care-and-eduction?
+0
+1
+-1000
+
+BUTTON
+12
+168
+104
+201
+1 Day run
+if slice-of-the-day = \"morning\" [go]\nwhile [slice-of-the-day != \"morning\"] [go]
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SWITCH
+1928
+784
+2220
+817
+do-not-test-youth?
+do-not-test-youth?
+0
+1
+-1000
+
+SWITCH
+1928
+823
+2222
+856
+only-test-retirees-with-extra-tests?
+only-test-retirees-with-extra-tests?
+1
+1
+-1000
+
+SWITCH
+1607
+1254
+1853
+1287
+ask-the-sick-and-family-to-stay-home?
+ask-the-sick-and-family-to-stay-home?
+0
+1
+-1000
+
+MONITOR
+1759
+1340
+1854
+1385
+non isolators
+count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
+17
+1
+11
+
+MONITOR
+1639
+1340
+1755
+1385
+Should be isolating
+count should-be-isolators
+17
+1
+11
+
+SWITCH
+1607
+1293
+1854
+1326
+food-delivery-for-isolators?
+food-delivery-for-isolators?
+0
+1
+-1000
+
+PLOT
+1088
+1180
+1576
+1330
+Self-isolation
+time
+#people
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"Should be isolating" 1.0 0 -16777216 true "" "plot count should-be-isolators"
+"Breaking isolation" 1.0 0 -13345367 true "" "plot count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]"
+
+TEXTBOX
+1678
+1227
+1828
+1245
+Self-isolation
+11
+105.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
