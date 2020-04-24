@@ -281,8 +281,9 @@ to load-nations-hofstede-dimension-scores
     stop
   ]
   
-  file-open "hofstede_cultural_dimensions.csv"
-  let hofstede-list []
+ let country-specific-data-list []
+  file-open "country-specific-data.csv"
+  
 
   while [not file-at-end? ] [
     let csv file-read-line
@@ -298,23 +299,24 @@ to load-nations-hofstede-dimension-scores
       set csv substring csv ($x + 1) length csv  ; remove item and comma 
     ] 
     if first mylist = set_national_culture [
-      set hofstede-list but-first mylist ]
+      set country-specific-data-list but-first mylist ]
   ]
-  if empty? hofstede-list [error "Selected country is not in Hofstede's Dimensions CSV file"]
+  if empty? country-specific-data-list [error "Country is not in country-specific-data file"]
   file-close
-  
-    set power-distance first hofstede-list
-    set hofstede-list but-first hofstede-list
-    set individualism-vs-collectivism first hofstede-list
-    set hofstede-list but-first hofstede-list
-    set masculinity-vs-femininity first hofstede-list
-    set hofstede-list but-first hofstede-list
-    set uncertainty-avoidance first hofstede-list
-    set hofstede-list but-first hofstede-list
-    set long-vs-short-termism first hofstede-list
-    set hofstede-list but-first hofstede-list
-    set indulgence-vs-restraint first hofstede-list
-    set hofstede-list but-first hofstede-list
+  set country-specific-data-list sublist country-specific-data-list 4 10
+  set power-distance first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set individualism-vs-collectivism first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set masculinity-vs-femininity first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set uncertainty-avoidance first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set long-vs-short-termism first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set indulgence-vs-restraint first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list  
+    
   
 end
 

@@ -315,9 +315,8 @@ to load-scenario-4-economic-parameters
 end
 
 
-
 to load-scandinavian-population-default
-  set preset-profiles "scandinavia"
+  set household-profiles "Sweden"
   load-population-profile-based-on-current-preset-profile
 end
 
@@ -330,31 +329,48 @@ end
 
 
 to load-population-profile-based-on-current-preset-profile
-  if preset-profiles = "none"[stop]
-  if preset-profiles = "mediterranea"[
-    set ratio-adults-homes 0.3
-    set ratio-retired-couple-homes 0.42
-    set ratio-family-homes 0.26
-    set ratio-multi-generational-homes 0.02
+  
+  if household-profiles = "custom" [
+    set ratio-adults-homes ratio-adults-homes
+    set ratio-retired-couple-homes ratio-retired-couple-homes
+    set ratio-family-homes ratio-family-homes
+    set ratio-multi-generational-homes ratio-multi-generational-homes
+    stop
   ]
-  if preset-profiles = "scandinavia" [
-    set ratio-adults-homes 0.49
-    set ratio-retired-couple-homes 0.27
-    set ratio-family-homes 0.23
-    set ratio-multi-generational-homes 0.01
+  
+ let country-specific-data-list []
+    file-open "country-specific-data.csv"
+  
+
+  while [not file-at-end? ] [
+    let csv file-read-line
+    set csv word csv ";"  ; add comma for loop termination 
+
+    let mylist []  ; list of values 
+    while [not empty? csv] 
+    [
+      let $x position ";" csv 
+      let $item substring csv 0 $x  ; extract item 
+      carefully [set $item read-from-string $item][] ; convert if number 
+      set mylist lput $item mylist  ; append to list 
+      set csv substring csv ($x + 1) length csv  ; remove item and comma 
+    ] 
+    if first mylist = household-profiles [
+      set country-specific-data-list but-first mylist ]
   ]
-  if preset-profiles = "south-asia" [
-    set ratio-adults-homes 0.15
-    set ratio-retired-couple-homes 0.22
-    set ratio-family-homes 0.51
-    set ratio-multi-generational-homes 0.12
-  ]
-  if preset-profiles = "north-america" [
-    set ratio-adults-homes 0.37
-    set ratio-retired-couple-homes 0.33
-    set ratio-family-homes 0.28
-    set ratio-multi-generational-homes 0.02
-  ]
+  if empty? country-specific-data-list [error "Country is not in country-specific-data file"]
+  file-close
+  
+  set ratio-adults-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list  
+  set ratio-retired-couple-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set ratio-family-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set ratio-multi-generational-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  
+
 end
 
 to load-default-values-needs-parameters

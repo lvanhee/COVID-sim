@@ -1082,7 +1082,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.23
+0.371
 0.01
 1
 NIL
@@ -1180,7 +1180,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.49
+0.278
 0.01
 1
 NIL
@@ -1195,7 +1195,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.27
+0.315
 0.01
 1
 NIL
@@ -1210,7 +1210,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.036
 0.01
 1
 NIL
@@ -1453,9 +1453,9 @@ CHOOSER
 253
 724
 298
-preset-profiles
-preset-profiles
-"none" "mediterranea" "scandinavia" "south-asia" "north-america"
+household-profiles
+household-profiles
+"none" "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
 2
 
 SLIDER
@@ -2704,7 +2704,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-8
+5
 
 SLIDER
 2364
@@ -2715,7 +2715,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-53.0
+86.0
 1
 1
 NIL
@@ -2730,7 +2730,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-80.0
+71.0
 1
 1
 NIL
@@ -2745,7 +2745,7 @@ power-distance
 power-distance
 0
 100
-38.0
+68.0
 1
 1
 NIL
@@ -2760,7 +2760,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-68.0
+48.0
 1
 1
 NIL
@@ -2775,7 +2775,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-14.0
+43.0
 1
 1
 NIL
@@ -2790,7 +2790,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-67.0
+63.0
 1
 1
 NIL

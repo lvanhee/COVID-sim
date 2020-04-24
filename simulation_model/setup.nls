@@ -11,6 +11,7 @@ globals[#min-workers-in-adults-homes
   #min-young-in-multi-generational-homes
   #min-retirees-in-multi-generational-homes
   distribution-control-variable
+  
 ]
 to setup
   reset-timer
@@ -77,7 +78,7 @@ end
 
 
 to create-all-households
-
+  load-population-profile-based-on-current-preset-profile
   let #adults-homes floor (#households * ratio-adults-homes)
   let #retired-couple-homes floor (#households * ratio-retired-couple-homes)
   let #family-homes floor (#households * ratio-family-homes)

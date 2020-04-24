@@ -194,7 +194,7 @@ to execute-and-save [experiment-name]
   if experiment-name = mostly-elderly-household-behaviourspace-experiment-name
   [
     disable-all-measures
-    set preset-profiles "none"
+    set household-profiles "none"
     set ratio-adults-homes 0.05
     set ratio-retired-couple-homes 0.85
     set ratio-family-homes 0.05
@@ -220,7 +220,7 @@ to execute-and-save [experiment-name]
   if experiment-name = mostly-adults-household-behaviourspace-experiment-name
   [
     disable-all-measures
-    set preset-profiles "none"
+    set household-profiles "none"
     set ratio-adults-homes 0.85
     set ratio-retired-couple-homes 0.05
     set ratio-family-homes 0.05
@@ -246,7 +246,7 @@ to execute-and-save [experiment-name]
   if experiment-name = mostly-families-household-behaviourspace-experiment-name
   [
     disable-all-measures
-    set preset-profiles "none"
+    set household-profiles "none"
     set ratio-adults-homes 0.05
     set ratio-retired-couple-homes 0.05
     set ratio-family-homes 0.85
@@ -272,7 +272,7 @@ to execute-and-save [experiment-name]
   if experiment-name = mostly-multigen-household-behaviourspace-experiment-name
   [
     disable-all-measures
-    set preset-profiles "none"
+    set household-profiles "none"
     set ratio-adults-homes 0.05
     set ratio-retired-couple-homes 0.05
     set ratio-family-homes 0.05
@@ -298,7 +298,7 @@ to execute-and-save [experiment-name]
   if experiment-name = evenly-distributed-household-behaviourspace-experiment-name
   [
     disable-all-measures
-    set preset-profiles "none"
+    set household-profiles "none"
     set ratio-adults-homes 0.25
     set ratio-retired-couple-homes 0.25
     set ratio-family-homes 0.25
