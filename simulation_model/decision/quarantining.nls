@@ -1,6 +1,7 @@
-to-report should-be-quarantining?
+to-report is-officially-quarantining?
   report #days-I-should-remain-in-self-quarantining > 0
 end
+
 
 to update-position-regarding-self-quarantining
   if slice-of-the-day = "morning"

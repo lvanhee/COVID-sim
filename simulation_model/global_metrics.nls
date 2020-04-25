@@ -1,6 +1,7 @@
 globals
 [
   #infected-times-ticks
+  #delivered-supply-proposed-this-tick
 ]
 
 to-report ratio-infected
@@ -17,4 +18,5 @@ end
 
 to reset-metrics
   set #admissions-last-tick 0 
+  set  #delivered-supply-proposed-this-tick 0
 end

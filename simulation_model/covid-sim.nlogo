@@ -171,9 +171,9 @@ INPUTBOX
 Number
 
 INPUTBOX
-938
+936
 640
-1031
+1029
 700
 #universities-gp
 40.0
@@ -182,10 +182,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-1030
-642
-1123
-702
+1028
+640
+1121
+700
 #workplaces-gp
 40.0
 1
@@ -203,10 +203,10 @@ Number of units per activity type (sharing a unit incurs a transmission risk: du
 1
 
 INPUTBOX
-1124
-642
-1239
-702
+1120
+640
+1235
+700
 #public-leisure-gp
 4.0
 1
@@ -214,10 +214,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-1240
-642
-1358
-702
+1234
+640
+1352
+700
 #private-leisure-gp
 40.0
 1
@@ -400,10 +400,10 @@ slice-of-the-day
 11
 
 INPUTBOX
-1360
-642
-1479
-702
+1351
+640
+1470
+700
 #essential-shops-gp
 20.0
 1
@@ -441,10 +441,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1484
-642
-1636
-702
+1469
+640
+1598
+700
 #non-essential-shops-gp
 40.0
 1
@@ -2105,7 +2105,7 @@ INPUTBOX
 644
 425
 #households
-100.0
+391.0
 1
 0
 Number
@@ -3652,8 +3652,8 @@ SWITCH
 1293
 1854
 1326
-food-delivery-for-isolators?
-food-delivery-for-isolators?
+food-delivered-to-isolators?
+food-delivered-to-isolators?
 0
 1
 -1000
@@ -3677,7 +3677,8 @@ PENS
 "should be isolating" 1.0 0 -16777216 true "" "plot count should-be-isolators"
 "breaking isolation" 1.0 0 -13345367 true "" "plot count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]"
 "quarantiners" 1.0 0 -12087248 true "" "plot count quarantiners"
-"should quarantine" 1.0 0 -11085214 true "" "plot count people with [should-be-quarantining?]"
+"should quarantine" 1.0 0 -11085214 true "" "plot count people with [is-officially-quarantining?]"
+"online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
 
 TEXTBOX
 1678

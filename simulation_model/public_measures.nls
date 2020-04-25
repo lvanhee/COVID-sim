@@ -147,6 +147,6 @@ to disable-all-measures
   ; Isolation
   set is-infected-and-their-families-requested-to-stay-at-home? false
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
-  set food-delivery-for-isolators? false
+  set food-delivered-to-isolators? false
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
 end

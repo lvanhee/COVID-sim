@@ -168,7 +168,7 @@ end
 
 
 to-report is-currently-actally-quarantining?
-  report should-be-quarantining? and not  is-violating-quarantining?
+  report is-officially-quarantining? and not  is-violating-quarantining?
 end
 
 to update-people-mind
