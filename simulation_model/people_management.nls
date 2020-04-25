@@ -151,18 +151,71 @@ people-own [
   importance-weight-survival
   
   number-of-people-I-infected
+  
+  is-violating-quarantining?
+  #days-remaining-in-quarantine
+  
+  events-to-process
 ]
 
 to update-people-epistemic-status
   ask people [update-epistemic-status]
 end
 
-to-report default-color
-  if age = "young" [report green]
-  if age = "student" [report orange]
-  if age = "worker" [report blue]
-  if age = "retired" [report red]
+to-report just-learned-I-am-infected-event
+  report "just-learned-I-am-infected"
 end
+
+to-report should-be-quarantining?
+  report #days-remaining-in-quarantine > 0
+end
+
+to-report is-currently-actally-quarantining?
+  report should-be-quarantining? and not  is-violating-quarantining?
+end
+
+to update-people-mind
+  update-people-epistemic-status
+  
+  if slice-of-the-day = "morning"
+  [
+    ask people with [is-currently-actally-quarantining?]
+    [
+      if  random-float 1 < daily-dropping-off-of-quarantining
+      [
+        set is-violating-quarantining? true
+        set #days-remaining-in-quarantine 0
+      ]
+    ]
+  ]
+  
+  ask people [
+    set #days-remaining-in-quarantine #days-remaining-in-quarantine - 1
+  ]
+  
+  
+  
+  
+  ask people 
+  [
+    foreach events-to-process [[x]-> 
+      
+      if x = just-learned-I-am-infected-event [
+        if random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic[        set #days-remaining-in-quarantine 7 * #ticks-per-day]
+        
+        if is-infected-and-their-families-requested-to-stay-at-home?
+        [
+          ask ([gatherers] of my-home) with [random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic] 
+          [set #days-remaining-in-quarantine 14 * #ticks-per-day]
+        ]
+        update-people-epistemic-status
+      ]
+      
+    ]
+    set  events-to-process (list)
+  ]
+end
+
 
 to-report has-a-work?
    report any? my-gathering-links with  [member? work-motive features]

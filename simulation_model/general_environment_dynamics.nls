@@ -25,10 +25,9 @@ to update-time
     update-contact-app
     
     update-day-of-the-week
-    
-
   ]
 end
+
 to-report working-day?
   report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
 end
@@ -57,4 +56,8 @@ to update-day-of-the-week
   [set day-of-the-week "sunday" stop]
   if day-of-the-week = "sunday"
   [set day-of-the-week "monday" stop]
+end
+
+to-report #ticks-per-day
+  report 4
 end

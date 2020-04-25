@@ -95,15 +95,70 @@ to load-scenario-specifics
   
   if preset-scenario = "app-test-scenario-5-1K"
   [
-     load-scaled-values (1000 / 2.5)
+    load-scaled-values (1000 / 2.5)
     stop
   ]
+  if is-scenario-6? preset-scenario
+  [ scenario-6-setup stop ]
   if preset-scenario = "scenario-9-smart-testing"
   [
     scenario-9-setup
     stop
   ]
   error "unimplemented"
+end
+
+to scenario-6-setup
+  set ratio-adults-homes 0.38
+  set ratio-family-homes 0.27
+  set ratio-retired-couple-homes 0.35
+  set ratio-multi-generational-homes 0.01
+  ;set #households 391
+  set set_national_culture "Great Britain"
+  set #hospital-gp 4
+  set #schools-gp 12
+  set #universities-gp 40
+  set #workplaces-gp 40
+  set #public-leisure-gp 4
+  set #private-leisure-gp 40
+  set #essential-shops-gp 20
+  set #non-essential-shops-gp 40
+  set #beds-in-hospital 2000
+  
+  set disease-fsm-model "oxford"
+  set propagation-risk 0.4
+  set factor-reduction-probability-transmission-young 0.69
+  set infection-to-asymptomatic-contagiousness 2 * 4
+  set asympomatic-contagiousness-to-symptomatic-contagiousness 4 * 4
+  set symptomatic-to-critical-or-heal 7
+  set critical-to-terminal 2
+  set terminal-to-death 7
+  
+  set density-factor-hospital 0.81
+  set density-factor-essential-shops 0.19
+  set density-factor-non-essential-shops 0.83
+  set density-factor-public-leisure 0.51
+  set density-factor-workplaces 0.21
+  set density-factor-universities 0.20
+  set density-factor-homes 1.00
+  set density-factor-private-leisure 0.19
+  set density-factor-schools 1.00
+  
+  set probability-self-recovery-symptoms 0.60
+  set probability-self-recovery-symptoms-old 0.10
+  set probability-recorvery-if-treated 0.10
+  set probability-recorvery-if-treated-old 0.60
+  set probability-unavoidable-death 0.1
+  set probability-unavoidable-death-old 0.2
+  set probability-hospital-personel 0.03
+  set probability-university-personel 0.04
+  set household-profiles "custom"
+  
+  set ratio-self-quarantining-when-a-family-member-is-symptomatic 0.8
+  set is-infected-and-their-families-requested-to-stay-at-home? true
+  set food-delivery-for-isolators? true
+  set daily-dropping-off-of-quarantining 0.02
+  
 end
 
 to scenario-3-setup
@@ -170,6 +225,10 @@ to-report is-scenario-1? [s]
   report starts-with? s "scenario-1"
 end
 
+to-report is-scenario-6? [s]
+  report starts-with? s "scenario-6"
+end
+
 to-report is-scenario-3? [s]
   report starts-with? s "scenario-3"
 end
@@ -189,7 +248,8 @@ to scenario-9-setup
   set probability-university-personel 0.005
   set prioritize-testing-health-care-and-eduction? true
   set do-not-test-youth? true
-  set ask-the-sick-and-family-to-stay-home? true
+  set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
+  set is-infected-and-their-families-requested-to-stay-at-home? true
   set food-delivery-for-isolators? true
 end
   
@@ -380,7 +440,7 @@ to load-population-profile-based-on-current-preset-profile
     if first mylist = household-profiles [
       set country-specific-data-list but-first mylist ]
   ]
-  if empty? country-specific-data-list [error "Country is not in country-specific-data file"]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" household-profiles)]
   file-close
   
   set ratio-adults-homes first country-specific-data-list

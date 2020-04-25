@@ -37,3 +37,10 @@ to update-people-display
   [set color white]
 
 end
+
+to-report default-color
+  if age = "young" [report green]
+  if age = "student" [report orange]
+  if age = "worker" [report blue]
+  if age = "retired" [report red]
+end

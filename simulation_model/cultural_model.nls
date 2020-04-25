@@ -271,7 +271,7 @@ end
 ;scores taken from https://www.hofstede-insights.com/product/compare-countries/
 to load-nations-hofstede-dimension-scores
 
-  if set_national_culture = "Custom" [
+  if set_national_culture = "custom" [
     set power-distance power-distance
     set individualism-vs-collectivism individualism-vs-collectivism
     set masculinity-vs-femininity masculinity-vs-femininity
@@ -288,6 +288,7 @@ to load-nations-hofstede-dimension-scores
   while [not file-at-end? ] [
     let csv file-read-line
     set csv word csv ";"  ; add comma for loop termination 
+    show csv
 
     let mylist []  ; list of values 
     while [not empty? csv] 
@@ -298,10 +299,11 @@ to load-nations-hofstede-dimension-scores
       set mylist lput $item mylist  ; append to list 
       set csv substring csv ($x + 1) length csv  ; remove item and comma 
     ] 
+    
     if first mylist = set_national_culture [
       set country-specific-data-list but-first mylist ]
   ]
-  if empty? country-specific-data-list [error "Country is not in country-specific-data file"]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" set_national_culture)]
   file-close
   set country-specific-data-list sublist country-specific-data-list 4 10
   set power-distance first country-specific-data-list

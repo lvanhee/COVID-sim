@@ -218,8 +218,12 @@ end
 
 to-report should-I-stay-home?
   if is-lockdown-enforced? [report true]
-  if ask-the-sick-and-family-to-stay-home? and [home-in-isolation?] of my-home [report true]
+  if is-infected-and-their-families-requested-to-stay-at-home? and [home-in-isolation?] of my-home [report true]
   report false
+end
+
+to-report do-I-care-starying-at-home?
+  report should-I-stay-home? and not is-violating-quarantining?
 end
 
 to-report SUE-compliance [ad]
@@ -241,7 +245,7 @@ to-report SUE-compliance [ad]
   if (motive = work-motive) and is-I-have-contractual-obligations?
   [
 ;    show "do your work bonus"
-    if not should-I-stay-home? and gp != my-home [
+    if (not do-I-care-starying-at-home? and gp != my-home) [
       set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
       if gp = current-activity [
         set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
@@ -254,7 +258,7 @@ to-report SUE-compliance [ad]
   ]
 
   ; Make kids go to school
-  ifelse (motive = "mandatory") and not should-I-stay-home? [
+  ifelse (motive = "mandatory") and not do-I-care-starying-at-home? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ] [
     if age = "youth" [
@@ -263,19 +267,19 @@ to-report SUE-compliance [ad]
   ]
 
   ; Make students go to university
-  if (motive = "learning") and not should-I-stay-home? [
+  if (motive = "learning") and not do-I-care-starying-at-home? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
-  if should-I-stay-home? and gp != my-home [
+  if (do-I-care-starying-at-home? and gp != my-home) [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
   ]
 
-  if not should-I-stay-home? and member? motive ["relaxing" "shopping"] [
+  if (not do-I-care-starying-at-home?) and member? motive ["relaxing" "shopping"] [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
-  if not should-I-stay-home? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
+  if not do-I-care-starying-at-home? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
     ; Make retired agents do something relaxing every morning
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
