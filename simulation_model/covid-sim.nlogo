@@ -3676,8 +3676,8 @@ true
 PENS
 "should be isolating" 1.0 0 -16777216 true "" "plot count should-be-isolators"
 "breaking isolation" 1.0 0 -13345367 true "" "plot count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]"
-"quarantiners" 1.0 0 -12087248 true "" "plot count quarantiners"
-"should quarantine" 1.0 0 -11085214 true "" "plot count people with [is-officially-quarantining?]"
+"quarantine-wannabe" 1.0 0 -12087248 true "" "plot count quarantiners-wannabe"
+"of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-quarantining?]"
 "online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
 
 TEXTBOX

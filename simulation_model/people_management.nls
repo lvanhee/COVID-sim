@@ -167,9 +167,7 @@ to-report just-learned-I-am-infected-event
 end
 
 
-to-report is-currently-actally-quarantining?
-  report is-officially-quarantining? and not  is-violating-quarantining?
-end
+
 
 to update-people-mind
   update-people-epistemic-status

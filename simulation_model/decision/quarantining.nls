@@ -6,7 +6,7 @@ end
 to update-position-regarding-self-quarantining
   if slice-of-the-day = "morning"
   [
-    ask people with [is-currently-actally-quarantining?]
+    ask people with [is-wanting-to-quarantine?]
     [
       if  random-float 1 < daily-dropping-off-of-quarantining
       [
@@ -40,6 +40,10 @@ to quarantining-reaction-when-someone-from-household-is-infected
   [include-time-for-quarantining 14 * #ticks-per-day]
 end
 
-to-report quarantiners
-  report people with [is-currently-actally-quarantining?]
+to-report quarantiners-wannabe
+  report people with [is-wanting-to-quarantine?]
+end
+
+to-report is-wanting-to-quarantine?
+  report is-officially-quarantining? and not  is-violating-quarantining?
 end
