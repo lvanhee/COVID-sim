@@ -22,56 +22,49 @@ to-report my-available-activity-descriptors
   if migration? and is-away?
   [
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
-      report (list (list away-gathering-point travelling-reason false))
+      report (list (list away-gathering-point travelling-reason solo-transportation-method false))
     ]
   ]
 
 
-  let activities (list (list my-home "rest"))
+  let activities (list (list my-home "rest" stay-here-transportation-method))
 
   if has-internally-visible-symptoms? or is-believing-to-be-infected?
-  [ set activities lput activity-descriptor my-hospital treatment-motive activities ]
+  [ set activities add-activity-descriptor-with-transport my-hospital treatment-motive activities ]
 
   if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
     [
       if is-child? [
-        set activities (lput (activity-descriptor my-school  "mandatory") activities)
+        set activities add-activity-descriptor-with-transport my-school "mandatory" activities
           ]
       if is-student?
       [
-        set activities (lput (activity-descriptor my-university  "learning") activities)
+        set activities add-activity-descriptor-with-transport my-university  "learning" activities
       ]
 
       if is-worker? [
         if is-allowed-to-work-from-home? and I-know-of-working-from-home? [
-          set activities (lput (activity-descriptor
-            my-home
-            work-motive)
-            activities)
+          set activities add-activity-descriptor-with-transport my-home work-motive activities
         ]
-        
-        set activities (lput (activity-descriptor
-          my-work
-          work-motive)
-          activities)
+        set activities add-activity-descriptor-with-transport my-work work-motive activities
       ]
   ]
   
   if slice-of-the-day = "evening" or not working-day? or age = "retired"
   [
     if age != "young" and slice-of-the-day != "night" [
-      set activities lput (activity-descriptor one-of my-essential-shops "essential shopping") activities
+      set activities add-activity-descriptor-with-transport one-of my-essential-shops "essential shopping" activities
     ]
 
-    set activities lput (activity-descriptor my-public-leisure "relaxing" ) activities
+    set activities add-activity-descriptor-with-transport my-public-leisure "relaxing" activities
     if age != "young" and slice-of-the-day != "night" [
-      set activities lput (activity-descriptor my-non-essential-shop "shopping") activities
+      set activities add-activity-descriptor-with-transport my-non-essential-shop "shopping" activities
     ]
-    set activities lput (activity-descriptor my-private-leisure "relaxing") activities
+    set activities add-activity-descriptor-with-transport my-private-leisure "relaxing" activities
 
   ]
 
-  set activities lput (list my-hospital "get-tested") activities
+  set activities add-activity-descriptor-with-transport my-hospital "get-tested" activities
   set activities filter [ i -> [is-accessible?] of first i] activities
 
   ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
@@ -94,6 +87,17 @@ to-report my-available-activity-descriptors
   report ret
 end
 
+to-report add-activity-descriptor-with-transport [gp mo activities]
+  if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
+  ifelse is-moving-outside-for-reaching-current-activity? [
+    set activities lput (list gp mo public-transportation-method) activities    
+    set activities lput (list gp mo solo-transportation-method) activities
+    set activities lput (list gp mo shared-car-transportation-method) activities
+    report activities
+  ]
+  [ report lput (list gp mo stay-here-transportation-method) activities
+  ] 
+end
 
 to-report is-currently-in-sitation-of-active-dependence?
   report is-child? and closed-schools?

@@ -245,6 +245,10 @@ to-report amount-of-rations-I-buy-when-going-to-shops
 end
 
 to-report social-distancing-of [ad]
+  report item 3 ad
+end
+
+to-report method-of-transportation-of [ad]
   report item 2 ad
 end
 
