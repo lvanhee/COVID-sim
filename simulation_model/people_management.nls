@@ -1,4 +1,4 @@
-__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls"]
+__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" "decision/quarantining.nls"]
 
 people-own [
   age
@@ -153,7 +153,7 @@ people-own [
   number-of-people-I-infected
   
   is-violating-quarantining?
-  #days-remaining-in-quarantine
+  #days-I-should-remain-in-self-quarantining
   
   events-to-process
 ]
@@ -166,9 +166,6 @@ to-report just-learned-I-am-infected-event
   report "just-learned-I-am-infected"
 end
 
-to-report should-be-quarantining?
-  report #days-remaining-in-quarantine > 0
-end
 
 to-report is-currently-actally-quarantining?
   report should-be-quarantining? and not  is-violating-quarantining?
@@ -177,21 +174,12 @@ end
 to update-people-mind
   update-people-epistemic-status
   
-  if slice-of-the-day = "morning"
-  [
-    ask people with [is-currently-actally-quarantining?]
-    [
-      if  random-float 1 < daily-dropping-off-of-quarantining
-      [
-        set is-violating-quarantining? true
-        set #days-remaining-in-quarantine 0
-      ]
-    ]
-  ]
+  update-quarantining-decisions
   
-  ask people [
-    set #days-remaining-in-quarantine #days-remaining-in-quarantine - 1
-  ]
+  update-position-regarding-self-quarantining
+
+  
+
   
   
   
@@ -201,13 +189,11 @@ to update-people-mind
     foreach events-to-process [[x]-> 
       
       if x = just-learned-I-am-infected-event [
-        if random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic[        set #days-remaining-in-quarantine 7 * #ticks-per-day]
+        quarantining-reaction-when-being-infected
         
-        if is-infected-and-their-families-requested-to-stay-at-home?
-        [
-          ask ([gatherers] of my-home) with [random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic] 
-          [set #days-remaining-in-quarantine 14 * #ticks-per-day]
-        ]
+        ask [gatherers] of my-home
+        [quarantining-reaction-when-someone-from-household-is-infected]
+        
         update-people-epistemic-status
       ]
       

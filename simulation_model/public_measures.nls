@@ -1,6 +1,8 @@
 globals [
   was-social-distancing-enforced?
   #tests-done-today
+  has-2%-infected-threshold-been-met?
+  time-start-full-isolation
 ]
 
 to-report is-lockdown-enforced?
@@ -79,6 +81,13 @@ end
 
 to apply-active-measures
   perform-testing
+  
+  if all-self-isolate-for-35-days-when-first-hitting-2%-infected? and ratio-infected > 0.02 and not has-2%-infected-threshold-been-met?
+  [
+    set has-2%-infected-threshold-been-met? true
+    set time-start-full-isolation ticks
+    ask people [include-time-for-quarantining 35 * #ticks-per-day]
+  ]
 
   if was-social-distancing-enforced? != is-social-distancing-measure-active? [
     set was-social-distancing-enforced? is-social-distancing-measure-active?
@@ -139,4 +148,5 @@ to disable-all-measures
   set is-infected-and-their-families-requested-to-stay-at-home? false
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
   set food-delivery-for-isolators? false
+  set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
 end

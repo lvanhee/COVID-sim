@@ -26,6 +26,8 @@ to setup
   set #dead-people 0
   set list-of-dead-people []
   set was-social-distancing-enforced? false
+  set has-2%-infected-threshold-been-met? false
+  set time-start-full-isolation "never"
 
   setup-activities
   create-all-households
@@ -194,7 +196,7 @@ to setup-person [current-home l-age]
     if age = student-age or age = worker-age [set has-mobile-phone? true]
     if age = retired-age and random-float 1 < ratio-retired-with-phones[set has-mobile-phone? true]
     set is-violating-quarantining? false
-    set #days-remaining-in-quarantine 0
+    set #days-I-should-remain-in-self-quarantining 0
     set  events-to-process (list)
   ]
 end

@@ -1,6 +1,7 @@
- globals [#taken-hospital-beds
-#denied-requests-for-hospital-beds
+globals [#taken-hospital-beds
+  #denied-requests-for-hospital-beds
   #max-hospital-beds-taken-at-once
+  #admissions-last-tick
 ]
 
 to release-bed-in-hospital
@@ -11,6 +12,7 @@ end
 
 to  acquire-a-bed-in-hospital
   set  #taken-hospital-beds #taken-hospital-beds + 1
+  set #admissions-last-tick #admissions-last-tick + 1
   set is-currently-allocated-a-bed-in-hospital? true
   if #taken-hospital-beds > #beds-in-hospital [error "assertion error"]
   if #taken-hospital-beds > #max-hospital-beds-taken-at-once [set #max-hospital-beds-taken-at-once #taken-hospital-beds]

@@ -147,7 +147,32 @@ end
 
 
 to-report is-observing-critical-symptoms?
-  report infection-status = infected-critical-infection-status
+  if infection-status = "infected-critical"
+  or infection-status = "infected-terminal" 
+  or infection-status = symptomatic-severe-infection-status
+  or infection-status = severe-to-rec-infection-status
+  or infection-status = severe-to-hospital-infection-status
+  or infection-status =  hospital-to-death-infection-status
+  or infection-status = hospital-to-rec-infection-status
+  [report true]
+  
+  if infection-status = healthy-infection-status 
+  or infection-status = "infected"
+  or infection-status = "asymptomatic noncontagious" 
+  or infection-status = "infected-asymptomatic"
+  or infection-status = "infected-symptomatic"
+  or infection-status = just-contaminated-infection-status
+  or infection-status = symptomatic-mild-infection-status
+  or infection-status = asymptomatic-to-rec-infection-status
+  or infection-status = mild-to-rec-infection-status
+  or infection-status = pre-symptomatic-to-mild-infection-status
+  or infection-status = pre-symptomatic-to-severe-infection-status
+  or infection-status = immune-infection-status
+  or infection-status = dead-infection-status
+  [report false]
+  error (sentence "not implemented for:" infection-status)
+  
+  error "not implemented"
 end
 
 

@@ -18,6 +18,7 @@ to go
 
   reset-timer
   tick
+  reset-metrics
   reset-economy-measurements
   spread-contagion
   update-within-agent-disease-status
@@ -2198,17 +2199,6 @@ NIL
 11
 
 MONITOR
-1580
-285
-1777
-330
-NIL
-#taken-hospital-beds
-17
-1
-11
-
-MONITOR
 1205
 1952
 1310
@@ -2355,23 +2345,12 @@ NIL
 HORIZONTAL
 
 MONITOR
-1579
-332
-1778
-377
+1582
+535
+1739
+580
 NIL
 hospital-effectiveness
-17
-1
-11
-
-MONITOR
-1579
-379
-1783
-424
-NIL
-#beds-available-for-admission
 17
 1
 11
@@ -3697,7 +3676,7 @@ true
 PENS
 "should be isolating" 1.0 0 -16777216 true "" "plot count should-be-isolators"
 "breaking isolation" 1.0 0 -13345367 true "" "plot count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]"
-"actual quarantine" 1.0 0 -12087248 true "" "plot count people with [is-currently-actally-quarantining?]"
+"quarantiners" 1.0 0 -12087248 true "" "plot count quarantiners"
 "should quarantine" 1.0 0 -11085214 true "" "plot count people with [should-be-quarantining?]"
 
 TEXTBOX
@@ -3750,6 +3729,47 @@ is-infected-and-their-families-requested-to-stay-at-home?
 0
 1
 -1000
+
+SWITCH
+1608
+1460
+1800
+1493
+all-self-isolate-for-35-days-when-first-hitting-2%-infected?
+all-self-isolate-for-35-days-when-first-hitting-2%-infected?
+0
+1
+-1000
+
+MONITOR
+1811
+1456
+1949
+1501
+NIL
+time-start-full-isolation
+17
+1
+11
+
+PLOT
+1577
+283
+1763
+422
+hospitals
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"#taken-beds" 1.0 0 -2674135 true "" "plot #taken-hospital-beds"
+"#available-beds" 1.0 0 -10899396 true "" "plot #beds-available-for-admission"
 
 @#$#@#$#@
 ## WHAT IS IT?
