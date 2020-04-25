@@ -12,11 +12,24 @@ people-own [
   my-home
   my-work
   my-essential-shops
+  activities
   
   ;;transportation model
   my-means-of-transportation-I-currently-use
   can-I-perform-solo-transportation?
   stayed-out-queuing-for-bus?
+  do-I-own-a-car?
+  current-transport-method
+  
+  transport-to-my-school
+  transport-to-my-university
+  transport-to-my-work
+  transport-to-my-hospital
+  transport-to-my-non-essential-shop
+  transport-to-my-essential-shops
+  transport-to-my-public-leisure
+  transport-to-my-private-leisure
+  transport-to-my-home
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"

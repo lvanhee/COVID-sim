@@ -130,62 +130,62 @@ end
 
 to-report preferred-type-of-transport-method-to-gathering-point [activity-location]
   
-  if activity-location = my-school
+  if [gathering-type] of activity-location = "school"
   [report transport-to-my-school ]
   
-  if activity-location = my-university
+  if [gathering-type] of activity-location = "university"
   [report transport-to-my-university ]
   
-  if activity-location = my-work
+  if  [gathering-type] of activity-location = "workplace"
   [report transport-to-my-work ]
   
-  if activity-location = my-hospital
+  if  [gathering-type] of activity-location = "hospital"
   [report transport-to-my-hospital ]
   
-  if activity-location = my-non-essential-shop
+  if [gathering-type] of activity-location = "non-essential-shop"
   [report transport-to-my-non-essential-shop ]
   
-  if activity-location = my-essential-shop
+  if  [gathering-type] of activity-location = "essential-shop"
   [report transport-to-my-essential-shops]
-  
-  if activity-location = my-public-leisure
+   
+  if [gathering-type] of activity-location = "public-leisure"
   [report transport-to-my-public-leisure ]
   
-  if activity-location = my-private-leisure
+  if [gathering-type] of activity-location = "private-leisure"
   [report transport-to-my-private-leisure ]
   
-  if activity-location = my-home 
+  if [gathering-type] of activity-location = "home"
   [report transport-to-my-home ]
-  
-  show activity-location
-  
+
   
 end
 
 to-report length-of-list-transport-method [activity-location]
-  let trans []
-  if activity-location = my-home [ set trans (list "none")]
-  if activity-location = current-activity [ set trans (list "none")]
+  
+  if activity-location = my-home [ report length (list "none")]
+  if activity-location = current-activity [ report length (list "none")]
   ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
-  [set trans (list "solo-transport")]
+  [report length (list "solo-transport")]
   [ifelse do-I-own-a-car? = true 
-    [set trans (list "car" "bus" "shared-car")]
-    [set trans (list "bus" "shared-car")]
+    [report length (list "car" "bus" "shared-car")]
+    [report length (list "bus" "shared-car")]
   ]
-  report length trans
+ 
 end
 
 to-report transport-method [activity-location item-in-list ] 
-   let trans []
-  if activity-location = my-home [ set trans (list "none")]
-  if activity-location = current-activity [ set trans (list "none")]
+   
+  if activity-location = my-home [
+    report item item-in-list (list "none")]
+  if activity-location = current-activity [ 
+    report item item-in-list (list "none")]
   ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
-  [set trans (list "solo-transport")]
+  [report item item-in-list (list "solo-transport")]
   [ifelse do-I-own-a-car? = true 
-    [set trans (list "car" "bus" "shared-car")]
-    [set trans (list "bus" "shared-car")]
+    [report item item-in-list (list "car" "bus" "shared-car")]
+    [report item item-in-list (list "bus" "shared-car")]
   ]
-  report item item-in-list trans
+
   
 end
 

@@ -27,6 +27,7 @@ to setup
   set list-of-dead-people []
   set was-social-distancing-enforced? false
 
+
   setup-activities
   create-all-households
   setup-person-values-and-needs
@@ -159,8 +160,8 @@ to setup-person [current-home l-age]
 
     set has-been-tested-infected? false
     set my-amount-of-capital my-starting-amount-of-capital
-    set current-activity current-home
     set my-home current-home
+    set current-activity my-home
 
     set my-previous-amount-of-capital my-amount-of-capital
     set has-been-tested-immune? false

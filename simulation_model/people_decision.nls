@@ -22,56 +22,47 @@ to-report my-available-activity-descriptors
   if migration? and is-away?
   [
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
-      report (list (list away-gathering-point travelling-reason false))
+      report (list (list away-gathering-point travelling-reason "shared car" false))
     ]
   ]
 
 
-  let activities (list (list my-home "rest"))
+  set activities (list (list my-home "rest" "none" ))
 
-  if has-internally-visible-symptoms? or is-believing-to-be-infected?
-  [ set activities lput activity-descriptor my-hospital treatment-motive activities ]
+  if has-internally-visible-symptoms? or is-believing-to-be-infected? [
+    put-my-activities-in-activity-list my-hospital treatment-motive ]
 
   if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
     [
       if is-child? [
-        set activities (lput (activity-descriptor my-school  "mandatory") activities)
+        put-my-activities-in-activity-list my-school  "mandatory"
           ]
       if is-student?
       [
-        set activities (lput (activity-descriptor my-university  "learning") activities)
+        put-my-activities-in-activity-list my-university  "learning"
       ]
 
       if is-worker? [
         if is-allowed-to-work-from-home? and I-know-of-working-from-home? [
-          set activities (lput (activity-descriptor
-            my-home
-            work-motive)
-            activities)
-        ]
+          put-my-activities-in-activity-list my-home work-motive  ]
         
-        set activities (lput (activity-descriptor
-          my-work
-          work-motive)
-          activities)
+        put-my-activities-in-activity-list my-work work-motive
       ]
   ]
   
   if slice-of-the-day = "evening" or not working-day? or age = "retired"
   [
     if age != "young" and slice-of-the-day != "night" [
-      set activities lput (activity-descriptor one-of my-essential-shops "essential shopping") activities
+      put-my-activities-in-activity-list my-essential-shop "essential shopping"
+      put-my-activities-in-activity-list my-non-essential-shop "shopping" 
     ]
 
-    set activities lput (activity-descriptor my-public-leisure "relaxing" ) activities
-    if age != "young" and slice-of-the-day != "night" [
-      set activities lput (activity-descriptor my-non-essential-shop "shopping") activities
-    ]
-    set activities lput (activity-descriptor my-private-leisure "relaxing") activities
+    put-my-activities-in-activity-list my-public-leisure "relaxing" 
+    put-my-activities-in-activity-list my-private-leisure "relaxing" 
 
   ]
 
-  set activities lput (list my-hospital "get-tested") activities
+  put-my-activities-in-activity-list my-hospital "get-tested" 
   set activities filter [ i -> [is-accessible?] of first i] activities
 
   ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
@@ -94,6 +85,16 @@ to-report my-available-activity-descriptors
   report ret
 end
 
+to put-my-activities-in-activity-list [gp mo]
+  let t 0
+  let ltm length-of-list-transport-method gp
+  while [ t < ltm ] [
+   set activities lput (activity-descriptor gp mo transport-method gp t) activities
+    set t t + 1]
+    
+end
+
+
 
 to-report is-currently-in-sitation-of-active-dependence?
   report is-child? and closed-schools?
@@ -106,13 +107,14 @@ to select-activity
   
   ;;select if migration takes over and people move around
   if (migration? and random-float 1 < probability-going-abroad) [
-    set c-a (list away-gathering-point travelling-motive false)
+    set c-a (list away-gathering-point travelling-motive "shared car" false)
   ]
   
   let loc location-of c-a
   select-activity-wtf? loc
   set current-activity loc
   set current-motivation motive-of c-a
+  set current-transport-method transport-method-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
 end
@@ -162,7 +164,7 @@ end
 to update-memory
   let network-activities new-counter
   ask my-network [
-    set network-activities add-to-counter network-activities (list current-motivation is-I-apply-social-distancing?)
+    set network-activities add-to-counter network-activities (list current-motivation current-transport-method is-I-apply-social-distancing?)
   ]
   ; add a nobody to the front of the list to make it work like an activity
   ; to do: switch to gathering point type?

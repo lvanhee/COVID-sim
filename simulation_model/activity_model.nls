@@ -26,9 +26,9 @@ to execute-activity-effect
 
 end
 
-to-report activity-descriptor [gp mo]
-  if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
-  report (list gp mo)
+to-report activity-descriptor [gp mo tr]
+  if not is-gathering-point? gp [error (sentence gp mo tr "should be a gathering point")]
+  report (list gp mo tr)
 end
 
 to-report is-forced-to-be-here?
@@ -111,7 +111,7 @@ to update-resources-based-on-current-activity
   if is-being-away? current-activity [stop]
   if current-motivation = treatment-motive [stop];;let's assume being treated is free for now
 
-  error (sentence "not implemented" [gathering-type] of current-activity current-motivation)
+  error (sentence "not implemented" [gathering-type] of current-activity current-motivation current-transport-method)
 end
 
 to-report is-being-away? [a]
@@ -245,6 +245,10 @@ to-report amount-of-rations-I-buy-when-going-to-shops
 end
 
 to-report social-distancing-of [ad]
+  report item 3 ad
+end
+
+to-report transport-method-of [ad]
   report item 2 ad
 end
 
@@ -313,21 +317,22 @@ to perform-people-activities
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
     select-activity
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation current-transport-method)]
 
     if is-currently-in-sitation-of-active-dependence? and current-person-I-depend-on != nobody
     [
       set current-activity [current-activity] of current-person-I-depend-on
       set current-motivation follow-person-in-charge-motive
+      
     ]
   ]
 
   travelling-to-activity-phase
 
   ask people [
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation current-transport-method)]
     execute-activity-effect
-    update-needs-for-playing (list current-activity current-motivation is-I-apply-social-distancing?)
+    update-needs-for-playing (list current-activity current-motivation current-transport-method is-I-apply-social-distancing?)
   ]
   animate-walk-to-goal
 
