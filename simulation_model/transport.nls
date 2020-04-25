@@ -1,4 +1,6 @@
-globals [is-busses-overrun? #denied-attempts-due-to-bus-overload
+globals [
+  is-busses-overrun? 
+  #denied-attempts-due-to-bus-overload
   list-of-buses
   list-of-shared-cars
   #people-denied-bus
@@ -16,7 +18,6 @@ to travelling-to-activity-phase
   
   ask people [
     if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method stop]
-    set my-means-of-transportation-I-currently-use random-means-of-transportation
     if my-means-of-transportation-I-currently-use = public-transportation-method [set bus-users (turtle-set bus-users self)]
     if my-means-of-transportation-I-currently-use = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
   ]
@@ -60,15 +61,6 @@ to-report stay-here-transportation-method
   report "stay-here"
 end
 
-to-report random-means-of-transportation
-  let rand random-float 1
-  if rand < my-probability-of-taking-the-bus [report public-transportation-method]
-  set rand rand - my-probability-of-taking-the-bus
-  if rand < my-probability-of-taking-a-shared-car [report shared-car-transportation-method]
-  if not can-I-perform-solo-transportation? [report random-means-of-transportation]
-  report solo-transportation-method
-end
-
 to-report solo-transportation-method
   report "solo"
 end
@@ -81,18 +73,120 @@ to-report shared-car-transportation-method
   report "shared-car"
 end
 
-to-report my-probability-of-taking-the-bus
-  if is-child? [report ratio-children-public-transport]
-  if is-retired? [report ratio-retired-public-transport]
-  if is-student? [report ratio-student-public-transport]
-  if is-worker? [report ratio-worker-public-transport]
+
+to-report setup-do-I-own-a-car?
+  
+  if is-child? [
+    ifelse ratio-children-own-cars > random 1
+    [report true ]
+    [report false]
+  ]
+  if is-retired? [
+    ifelse ratio-retired-own-cars > random 1 
+      [report true ]
+    [report false]
+  ]
+  if is-student?  [
+    ifelse ratio-students-own-cars > random 1 
+      [report true ]
+    [report false]
+  ]
+  if is-worker? [
+    ifelse ratio-workers-own-cars > random 1 
+      [report true ]
+    [report false]
+  ]  
 end
 
-to-report my-probability-of-taking-a-shared-car
-  if is-child? [report ratio-children-shared-car]
-  if is-retired? [report ratio-student-shared-car]
-  if is-student? [report ratio-student-shared-car]
-  if is-worker? [report ratio-worker-shared-car]
+to setup-prefered-type-of-transport-method-to-gathering-points
+  
+  ifelse ratio-motorized-transport-to-school > random 1 
+  [set transport-to-my-school "motorized"]
+  [set transport-to-my-school "non-motorized"]
+  ifelse ratio-motorized-transport-to-university > random 1 
+  [set transport-to-my-university "motorized"]
+  [set transport-to-my-university "non-motorized"]
+  ifelse ratio-motorized-transport-to-work > random 1 
+  [set transport-to-my-work "motorized"]
+  [set transport-to-my-work "non-motorized"]
+  ifelse ratio-motorized-transport-to-hospital > random 1 
+  [set transport-to-my-hospital "motorized"]
+  [set transport-to-my-hospital "non-motorized"]
+  ifelse ratio-motorized-transport-to-my-non-essential-shop > random 1 
+  [set transport-to-my-non-essential-shop "motorized"]
+  [set transport-to-my-non-essential-shop "non-motorized"]
+  ifelse ratio-motorized-transport-to-essential-shops > random 1 
+  [set transport-to-my-essential-shops "motorized"]
+  [set transport-to-my-essential-shops "non-motorized"]
+  ifelse ratio-motorized-transport-to-public-leisure > random 1 
+  [set transport-to-my-public-leisure "motorized"]
+  [set transport-to-my-public-leisure "non-motorized"]
+  ifelse ratio-motorized-transport-to-private-leisure > random 1 
+  [set transport-to-my-private-leisure "motorized"]
+  [set transport-to-my-private-leisure "non-motorized"]  
+  set transport-to-my-home "none"
+
+end
+
+to-report preferred-type-of-transport-method-to-gathering-point [activity-location]
+  
+  if activity-location = my-school
+  [report transport-to-my-school ]
+  
+  if activity-location = my-university
+  [report transport-to-my-university ]
+  
+  if activity-location = my-work
+  [report transport-to-my-work ]
+  
+  if activity-location = my-hospital
+  [report transport-to-my-hospital ]
+  
+  if activity-location = my-non-essential-shop
+  [report transport-to-my-non-essential-shop ]
+  
+  if activity-location = my-essential-shop
+  [report transport-to-my-essential-shops]
+  
+  if activity-location = my-public-leisure
+  [report transport-to-my-public-leisure ]
+  
+  if activity-location = my-private-leisure
+  [report transport-to-my-private-leisure ]
+  
+  if activity-location = my-home 
+  [report transport-to-my-home ]
+  
+  show activity-location
+  
+  
+end
+
+to-report length-of-list-transport-method [activity-location]
+  let trans []
+  if activity-location = my-home [ set trans (list "none")]
+  if activity-location = current-activity [ set trans (list "none")]
+  ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
+  [set trans (list "solo-transport")]
+  [ifelse do-I-own-a-car? = true 
+    [set trans (list "car" "bus" "shared-car")]
+    [set trans (list "bus" "shared-car")]
+  ]
+  report length trans
+end
+
+to-report transport-method [activity-location item-in-list ] 
+   let trans []
+  if activity-location = my-home [ set trans (list "none")]
+  if activity-location = current-activity [ set trans (list "none")]
+  ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
+  [set trans (list "solo-transport")]
+  [ifelse do-I-own-a-car? = true 
+    [set trans (list "car" "bus" "shared-car")]
+    [set trans (list "bus" "shared-car")]
+  ]
+  report item item-in-list trans
+  
 end
 
 
