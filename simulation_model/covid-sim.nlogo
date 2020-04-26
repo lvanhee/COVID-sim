@@ -2684,7 +2684,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+6
 
 SLIDER
 2364
@@ -2695,7 +2695,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-35.0
+75.0
 1
 1
 NIL
@@ -2710,7 +2710,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-89.0
+76.0
 1
 1
 NIL
@@ -2725,7 +2725,7 @@ power-distance
 power-distance
 0
 100
-35.0
+50.0
 1
 1
 NIL
@@ -2740,7 +2740,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-69.0
+30.0
 1
 1
 NIL
@@ -2755,7 +2755,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-66.0
+70.0
 1
 1
 NIL
@@ -2770,7 +2770,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-51.0
+61.0
 1
 1
 NIL
@@ -3674,7 +3674,7 @@ true
 true
 "" ""
 PENS
-"breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-asked-to-quarantine? and (current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point)]"
+"breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]"
 "of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-asked-to-quarantine?]"
 "online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
 "sick quarantiners" 1.0 0 -13791810 true "" "plot count people with [is-officially-asked-to-quarantine? and is-believing-to-be-infected?]"

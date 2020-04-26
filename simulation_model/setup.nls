@@ -189,7 +189,9 @@ to setup-person [current-home l-age]
 
     set I-know-of-social-distancing? true
     set I-know-of-working-from-home? true
-    set what-my-network-did []
+    set what-my-network-did-week-day []
+    set what-my-network-did-weekend []
+    set did-my-network-socially-distance? false
     
     set has-mobile-phone? false
     if age = young-age and random-float 1 < ratio-young-with-phones [set has-mobile-phone? true]

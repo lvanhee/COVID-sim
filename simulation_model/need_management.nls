@@ -494,31 +494,54 @@ to-report SUE-health [ad]
   report base * sd-bonus
 end
 
-to-report conformity-increase [ad action]
+to-report conformity-increase [ad network-action]
+  let gp location-of ad
   let motive motive-of ad
   let sd social-distancing-of ad
+  let result 0
   
-  if motive = motive-of action and sd = social-distancing-of action [
-    report 0.4
+  if should-I-stay-home? [
+    ifelse did-my-network-quarantine? = (gp = my-home or (gp = my-hospital and work-motive != motive)) [
+      ; If my quarantine decision is the same as my networks
+      set result result + 0.2
+     ] [
+      ; If my network and I made different decisions
+      set result result - 0.2
+    ]
   ]
-  if motive = motive-of action [
-    report 0.3
+  
+  ifelse [gathering-type] of gp = location-of network-action and motive = motive-of network-action [
+    set result result + 0.4
+  ] [
+    if [gathering-type] of gp = location-of network-action [
+      set result result + 0.15
+    ]
+    if motive = motive-of network-action [
+      set result result + 0.15
+    ]
   ]
-  if sd = social-distancing-of action [
-    report 0.15
+  
+  ifelse sd = did-my-network-socially-distance? [
+    set result result + 0.1
+  ] [
+    set result result - 0.1
   ]
-  report 0
+
+  if result > 1 [ set result 1 ]
+  report result
 end
 
 to-report SUE-conformity [ad]
-  if length what-my-network-did >= 28 [
-    report conformity-increase ad (first what-my-network-did)
+  let relevant-memory ifelse-value working-day? [what-my-network-did-week-day] [what-my-network-did-weekend]
+  if length relevant-memory >= 4 [
+    report conformity-increase ad (first relevant-memory)
   ]
   report 1
 end
 
 to-report SUA-conformity [ad]
-  report conformity-increase ad (last what-my-network-did)
+  let relevant-memory ifelse-value working-day? [what-my-network-did-week-day] [what-my-network-did-weekend]
+  report conformity-increase ad (last relevant-memory)
 end
 
 to-report global-prevalence-of [ad]
