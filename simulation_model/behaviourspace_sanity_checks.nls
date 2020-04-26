@@ -15,7 +15,7 @@ end
 
 ;;the ratio of casualties when closed shools & uni should be ideally twice larger as when everything is closed
 to-report behaviourspace-satisfaction-casualties
-  report bounded-linear-map 0 0.1 0 1 behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name
+  report bounded-linear-map 0 0.1 0 1 behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
 end
 
 

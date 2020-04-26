@@ -1,8 +1,7 @@
-__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls"]
+__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" ]
 
 people-own [
   age
-  infection-status
   epistemic-infection-status
   current-activity
   is-moving-outside-for-reaching-current-activity?
@@ -24,13 +23,13 @@ people-own [
   
   previous-contacts-met
   is-user-of-tracking-app?
+  has-mobile-phone?
   
   has-been-tested-infected?
   last-test-tick
 
-  ;;the disease profile records how the person will react to the disease
-  disease-profile
-  duration-current-disease-status
+  ;;infection model
+  infection-state
 
   current-person-I-depend-on
 
@@ -155,22 +154,47 @@ people-own [
   importance-weight-survival
   
   number-of-people-I-infected
-
+  
+  #days-I-should-remain-in-self-quarantining
+  
+  events-to-process
 ]
 
 to update-people-epistemic-status
   ask people [update-epistemic-status]
 end
 
-to-report default-color
-  if age = "young" [report green]
-  if age = "student" [report orange]
-  if age = "worker" [report blue]
-  if age = "retired" [report red]
+to-report just-learned-I-am-infected-event
+  report "just-learned-I-am-infected"
 end
 
+
+
+
+to update-people-mind
+  update-people-epistemic-status
+  
+  update-quarantining-decisions
+  
+  ask people 
+  [
+    foreach events-to-process [[x]-> 
+      
+      if x = just-learned-I-am-infected-event [
+        quarantining-reaction-when-being-infected
+        ask [gatherers] of my-home
+        [quarantining-reaction-when-someone-from-household-is-infected]
+      ]
+      
+      update-people-epistemic-status
+    ]
+    set  events-to-process (list)
+  ]
+end
+
+
 to-report has-a-work?
-   report any? my-gathering-links with  [member? work-motive features]
+  report any? my-gathering-links with  [member? work-motive features]
  end
 
 to-report homeless-people
@@ -222,4 +246,8 @@ end
 
 to-report app-users
   report people with [is-user-of-tracking-app?]
+end
+
+to-report might-I-be-contagious?
+  report any? ([gatherers] of my-home) with [is-believing-to-be-infected?]
 end

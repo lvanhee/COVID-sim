@@ -1,23 +1,34 @@
 ;;might be worth setting a "min" value here
 to-report behaviourspace-satisfaction-scenario-1 
-  report ;#beds-in-hospital + propagation-risk
-   behaviourspace-satisfaction-scenario-1-1 * 0.5 +
-  behaviourspace-satisfaction-scenario-1-2 * 0.5
+   ;#beds-in-hospital + propagation-risk
+  let s1-vs-s2 0
+  if behaviourspace-satisfaction-scenario-1-1 < behaviourspace-satisfaction-scenario-1-2 [set s1-vs-s2 1]
+  let s3-vs-s2 0
+  if behaviourspace-satisfaction-scenario-1-3 < behaviourspace-satisfaction-scenario-1-2 [set s3-vs-s2 1]
+  let s1-vs-s3 0
+  if behaviourspace-satisfaction-scenario-1-1 < behaviourspace-satisfaction-scenario-1-3 [set s1-vs-s3 1]
+  
+  report (s1-vs-s2 + s1-vs-s2 + s1-vs-s2) / 3.0
 end 
 
-;;the ratio of casualties when no measures should be higher than when schools and uni are closed
 to-report behaviourspace-satisfaction-scenario-1-1
-  let ratio-casualties-closed-schools-and-uni behaviourspace-load-variable "closed-schools-and-uni" ratio-of-casualties-behaviourspace-variable-name
-  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-of-casualties-behaviourspace-variable-name
+  let ratio-casualties-closed-schools-and-uni behaviourspace-load-variable closed-schools-and-uni-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
+  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
   if ratio-casualties-closed-schools-and-uni = 0 [report 0]
-  report bounded-linear-map 1 1.5 0 1 (ratio-casualties-no-measures / ratio-casualties-closed-schools-and-uni)
+  report bounded-linear-map 1 1.2 0 1 (ratio-casualties-closed-schools-and-uni / ratio-casualties-no-measures)
 end
 
-;;the ratio of casualties when closed shools & uni should be ideally twice larger as when everything is closed
 to-report behaviourspace-satisfaction-scenario-1-2
-  let ratio-casualties-all-closed behaviourspace-load-variable "all-closed" ratio-of-casualties-behaviourspace-variable-name
-  let ratio-casualties-closed-schools-and-uni behaviourspace-load-variable "closed-schools-and-uni" "ratio-casualties"
+  let ratio-casualties-work-from-home behaviourspace-load-variable work-from-home-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
+  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
+  if ratio-casualties-work-from-home = 0 [report 0]
+  report bounded-linear-map 1 1.2 0 1 (ratio-casualties-work-from-home / ratio-casualties-no-measures)
+end
+
+to-report behaviourspace-satisfaction-scenario-1-3
+  let ratio-casualties-all-closed behaviourspace-load-variable all-closed-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
+  let ratio-casualties-no-measures behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
   
   if ratio-casualties-all-closed = 0 [report 1]
-  report bounded-linear-map 1 2 0 1 (ratio-casualties-closed-schools-and-uni / ratio-casualties-all-closed)
+  report bounded-linear-map 1 1.2 0 1 (ratio-casualties-all-closed / ratio-casualties-no-measures)
 end

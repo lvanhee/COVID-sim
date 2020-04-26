@@ -30,7 +30,7 @@
 		"presetup-variables":"#random-seed",
 		"setup": "set preset-scenario \"default-scenario\" set-values setup",
 		"postsetup-variables":"propagation-risk",
-		"go": "go",
+		"go": "repeat 50 [go]",
 		"multi-experiment":"parallel-executors",
 		"experiment-executor":"netlogo-executor",
 		"_comment":"as ticks is an input variable, the executer will apply multiple ticks in a row"

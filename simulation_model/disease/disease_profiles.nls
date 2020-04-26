@@ -1,0 +1,63 @@
+to-report recovery-if-treated-profile
+  report "recovery if treated"
+end
+
+to-report just-contaminated-infection-status
+  report "just-contaminated"
+end
+
+to-report asymptomatic-to-rec-infection-status
+  report "asymptomatic-to-recovery"
+end
+
+to-report pre-symptomatic-to-mild-infection-status
+  report "pre-symptomatic-to-mild"
+end
+
+to-report symptomatic-mild-infection-status
+  report "symptomatic-mild"
+end
+
+to-report pre-symptomatic-to-severe-infection-status
+  report "pre-symptomatic-to-severe"
+end
+
+to-report symptomatic-severe-infection-status
+  report "symptomatic-severe"
+end
+
+to-report infected-critical-infection-status
+  report "infected-critical"
+end
+
+to-report immune-infection-status
+  report "immune"
+end
+
+to-report healthy-infection-status
+  report "healthy"
+end
+
+to-report severe-to-hospital-infection-status
+  report "severe-to-hospital"
+end
+
+to-report severe-to-rec-infection-status
+  report "severe-to-rec"
+end
+
+to-report mild-to-rec-infection-status
+  report "mild-to-rec"
+end
+
+to-report hospital-to-death-infection-status
+  report "hospital-to-death"
+end
+
+to-report hospital-to-rec-infection-status
+  report "hospital-to-rec"
+end
+
+to-report dead-infection-status
+  report "dead"
+end

@@ -292,6 +292,31 @@ end
 
 to perform-people-activities
   reset-timer
+  
+  if food-delivered-to-isolators? [
+    let homes-to-be-delivered-food (turtle-set homes-in-isolation [my-home] of people with [is-officially-asked-to-quarantine?]) ; ToDo: Re-evaluate the secdon set
+    
+    
+    ask homes-to-be-delivered-food [
+      set #delivered-supply-proposed-this-tick  #delivered-supply-proposed-this-tick + 1
+      if available-food-rations / [amount-of-rations-I-buy-when-going-to-essential-shops] of one-of gatherers >= 1 [stop]
+      ; Find the store with the most stocks
+      let possible-stores reduce [[x y] -> (turtle-set x y)] [my-essential-shops] of gatherers 
+      let store max-one-of possible-stores [stock-of-goods]
+      ; Find the inhabitant with the most money
+      let buyer max-one-of gatherers [my-amount-of-capital]
+      let old-location [current-activity] of buyer
+      let old-motive [current-motivation] of buyer
+      ; Fake going to the store this round (internet order?)
+      ask buyer [ 
+        set current-activity store
+        set current-motivation "essential shopping"
+        update-resources-based-on-current-activity
+        set current-activity old-location
+        set current-motivation old-motive
+      ]
+    ]
+  ]
 
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]

@@ -14,9 +14,8 @@ to update-epistemic-status
   ]
   [
     let knew-was-infected epistemic-infection-status = "infected"
-    set epistemic-infection-status "infected"
-    set last-day-observed-symptoms current-day
-    
+    set-believed-to-be-infected
+   
     if not knew-was-infected and is-user-of-tracking-app? [perform-test]
     
     if not knew-was-infected and test-home-of-confirmed-people?
@@ -31,20 +30,33 @@ to update-epistemic-status
   ]
 end
 
+to set-believed-to-be-infected 
+  let knew-was-infected epistemic-infection-status = "infected"
+  set epistemic-infection-status "infected"
+  set last-day-observed-symptoms current-day
+  if not knew-was-infected [
+    set events-to-process lput just-learned-I-am-infected-event events-to-process 
+  ]
+end
+
 to-report is-believing-to-be-infected?
   report epistemic-infection-status = "infected" 
+  
 end
 
 to perform-test
+  ; Make sure we don't do more tests than available
+  if #still-available-tests <= 0 [stop]
+  
   set #tests-performed #tests-performed + 1
+  set #tests-done-today #tests-done-today + 1
   
   if not is-infected? and is-believing-to-be-infected? [set epistemic-infection-status "immune"]
   if is-infected? [
     let knew-was-infected? has-been-tested-infected?
     set has-been-tested-infected? true
-    set epistemic-infection-status "infected"
-    set last-day-observed-symptoms current-day
-    
+    set-believed-to-be-infected 
+
     if not knew-was-infected? and is-user-of-tracking-app? [
       ask people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?] [perform-test]
     ]

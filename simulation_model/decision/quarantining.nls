@@ -1,0 +1,29 @@
+to-report is-officially-asked-to-quarantine?
+  report #days-I-should-remain-in-self-quarantining > 0 or is-believing-to-be-infected? or [home-in-isolation?] of my-home
+end
+
+
+to update-quarantining-decisions
+  ask people with [#days-I-should-remain-in-self-quarantining > 0] [
+    set #days-I-should-remain-in-self-quarantining #days-I-should-remain-in-self-quarantining - 1
+  ]
+end
+
+to quarantining-reaction-when-being-infected
+  if random-float 1  < ratio-self-quarantining-when-symptomatic[
+    include-time-for-quarantining 7 * #ticks-per-day
+  ]
+end
+
+to include-time-for-quarantining [t]
+  set #days-I-should-remain-in-self-quarantining max (list t #days-I-should-remain-in-self-quarantining)
+end
+
+to quarantining-reaction-when-someone-from-household-is-infected
+  if is-infected-and-their-families-requested-to-stay-at-home? and random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic
+  [include-time-for-quarantining 14 * #ticks-per-day]
+end
+
+to-report quarantiners-wannabe ; people asked to quarantine? 
+  report people with [ is-officially-asked-to-quarantine? ]
+end

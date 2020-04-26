@@ -1,0 +1,73 @@
+to-report stochastic-fsm-transition [list-of-entries]
+  if length last list-of-entries = 1
+  [
+    let total-proba 0
+    let index 0
+    while [index < length list-of-entries - 1]
+    [set total-proba total-proba + (last (item index list-of-entries)) set index index + 1]
+    
+    let last-item lput (1 - total-proba) last list-of-entries
+    
+    set list-of-entries replace-item (length list-of-entries - 1) list-of-entries last-item
+  ]
+  report list-of-entries
+end
+
+to-report timed-state [state time]
+  report (list state time)
+end
+
+to-report is-timed-state? [s]
+  report is-list? s and length s = 2 and is-number? last s
+end
+
+to tographviz-fsm [s0 trans-fun]
+  let visited-states (list)
+  let states-to-visit (list s0)
+  
+  while [not empty? states-to-visit] [
+    let cur first states-to-visit
+    set states-to-visit but-first states-to-visit
+    if not member? cur visited-states [
+      set visited-states lput cur visited-states
+      let transition (run-result trans-fun cur)
+      let states states-of transition
+      foreach states [[x] ->
+        set states-to-visit lput x states-to-visit
+        print (word (to-dot-string (word "" cur)) "->" (to-dot-string (word "" x)) "[ label=" probability-of-reaching x transition "]")]
+      
+    ]
+  ]
+end
+
+to-report states-of [trans]
+  report map [ [x] -> first x] trans 
+end
+to-report probability-of-reaching [it trans]
+  report last (item (position it states-of trans) trans)
+end
+
+to-report state-of-timed-state [ts]
+  report first ts
+end
+
+to-report time-of-timed-state [ts]
+  report last ts
+end
+
+to-report to-dot-string [s]
+  report remove " " remove "-" remove "]" remove "[" s
+end
+
+
+to-report stochastic-transition-apply [trans]
+  let random-draw random-float 1
+  
+  while [random-draw > last first trans]
+  [ set random-draw random-draw - last first trans
+    set trans but-first trans
+  ]
+  
+  report first first trans
+    
+end

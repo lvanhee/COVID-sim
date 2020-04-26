@@ -1,7 +1,22 @@
+globals
+[
+  #infected-times-ticks
+  #delivered-supply-proposed-this-tick
+]
+
 to-report ratio-infected
   report #infected / count people
 end
 
 to-report total-amount-of-capital-in-the-system
   report sum [my-amount-of-capital] of people + sum [amount-of-capital] of gathering-points + government-reserve-of-capital
+end
+
+to update-metrics
+  set #infected-times-ticks #infected-times-ticks + #infected
+end
+
+to reset-metrics
+  set #admissions-last-tick 0 
+  set  #delivered-supply-proposed-this-tick 0
 end
