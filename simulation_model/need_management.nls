@@ -68,11 +68,22 @@ to decay-satisfaction-level
   set belonging-satisfaction-level belonging-satisfaction-level - belonging-decay
   if belonging-satisfaction-level < 0 [set belonging-satisfaction-level 0]
 
-  set compliance-satisfaction-level compliance-satisfaction-level * 0.8
+  let compliance-decay 0.8
+  let risk-avoidance-decay 0.95
+  let conformity-decay 0.8
+  if should-I-stay-home? [
+    set compliance-decay compliance-decay - (1 - compliance-decay) ; Double the decay
+    set risk-avoidance-decay risk-avoidance-decay - (1 - risk-avoidance-decay)
+    set conformity-decay conformity-decay - (1 - conformity-decay)
+  ]
+  set compliance-satisfaction-level compliance-satisfaction-level * compliance-decay
   if compliance-satisfaction-level < 0 [set compliance-satisfaction-level 0]
   
-  set risk-avoidance-satisfaction-level risk-avoidance-satisfaction-level * 0.95
+  set risk-avoidance-satisfaction-level risk-avoidance-satisfaction-level * risk-avoidance-decay
   if risk-avoidance-satisfaction-level < 0 [set risk-avoidance-satisfaction-level 0]
+  
+  set conformity-satisfaction-level conformity-satisfaction-level * conformity-decay
+  if conformity-satisfaction-level < 0 [set conformity-satisfaction-level 0]
 
   set leisure-satisfaction-level leisure-satisfaction-level * 0.95
   if leisure-satisfaction-level < 0 [set leisure-satisfaction-level 0]
@@ -84,9 +95,6 @@ to decay-satisfaction-level
   set luxury-satisfaction-level luxury-satisfaction-level * 0.98
   if luxury-satisfaction-level < 0 [set luxury-satisfaction-level 0]
   ]
-  
-  set conformity-satisfaction-level conformity-satisfaction-level * 0.8
-  if conformity-satisfaction-level < 0 [set conformity-satisfaction-level 0]
 end
 
 ;Future work:

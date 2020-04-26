@@ -419,7 +419,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.18
+0.17
 0.01
 1
 NIL
@@ -2684,7 +2684,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+4
 
 SLIDER
 2364
@@ -2695,7 +2695,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+35.0
 1
 1
 NIL
@@ -2710,7 +2710,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+89.0
 1
 1
 NIL
@@ -2725,7 +2725,7 @@ power-distance
 power-distance
 0
 100
-50.0
+35.0
 1
 1
 NIL
@@ -2740,7 +2740,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+69.0
 1
 1
 NIL
@@ -2755,7 +2755,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+66.0
 1
 1
 NIL
@@ -2770,7 +2770,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+51.0
 1
 1
 NIL
@@ -3654,7 +3654,7 @@ SWITCH
 1326
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-1
+0
 1
 -1000
 
@@ -3677,6 +3677,7 @@ PENS
 "breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-asked-to-quarantine? and (current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point)]"
 "of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-asked-to-quarantine?]"
 "online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
+"sick quarantiners" 1.0 0 -13791810 true "" "plot count people with [is-officially-asked-to-quarantine? and is-believing-to-be-infected?]"
 
 TEXTBOX
 1678
@@ -3710,7 +3711,7 @@ SWITCH
 1286
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
@@ -3721,7 +3722,7 @@ SWITCH
 1493
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
