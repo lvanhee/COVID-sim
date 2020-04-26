@@ -175,9 +175,7 @@ end
 
 to-report transport-method [activity-location item-in-list ] 
    
-  if activity-location = my-home [
-    report item item-in-list (list "none")]
-  if activity-location = current-activity [ 
+  if activity-location = my-home or activity-location = current-activity [
     report item item-in-list (list "none")]
   ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
   [report item item-in-list (list "solo-transport")]
