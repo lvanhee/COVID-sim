@@ -34,6 +34,9 @@ __includes ["need_definition.nls"]
 
 to update-needs-for-playing [current-activity-descriptor]
   decay-satisfaction-level
+  
+  if length current-activity-descriptor < 4 
+  [show who]
 
   set belonging-satisfaction-level clamp 0 1 (belonging-satisfaction-level + SDA-belonging current-activity-descriptor)
  
@@ -236,7 +239,7 @@ end
 to-report SUA-risk-avoidance [ad]
   let gp location-of ad
   let mt method-of-transportation-of ad
-  report risk-avoidance-increase ad count people with [current-activity = gp] number-of-others-on-transport mt
+  report risk-avoidance-increase ad count people with [current-activity = gp] expected-number-of-others-on-transport mt
 end
 
 
@@ -486,7 +489,7 @@ to-report SUE-financial-safety [ad]
       set result 1
     ]
     if my-previous-amount-of-capital <= 0 [
-      set result -1
+      report -1
     ]
     if motive = "essential shopping" [
       set result (- (eating-costs / my-previous-amount-of-capital))

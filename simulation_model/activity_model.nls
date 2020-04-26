@@ -111,7 +111,7 @@ to update-resources-based-on-current-activity
   if is-being-away? current-activity [stop]
   if current-motivation = treatment-motive [stop];;let's assume being treated is free for now
 
-  error (sentence "not implemented" [gathering-type] of current-activity current-motivation)
+  error (sentence "not implemented" [gathering-type] of current-activity current-motivation current-transport-method)
 end
 
 to-report is-being-away? [a]
@@ -321,19 +321,20 @@ to perform-people-activities
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
     select-activity
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation current-transport-method)]
 
     if is-currently-in-sitation-of-active-dependence? and current-person-I-depend-on != nobody
     [
       set current-activity [current-activity] of current-person-I-depend-on
       set current-motivation follow-person-in-charge-motive
+      
     ]
   ]
 
   travelling-to-activity-phase
 
   ask people [
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation my-means-of-transportation-I-currently-use)]
     execute-activity-effect
     update-needs-for-playing (list current-activity current-motivation my-means-of-transportation-I-currently-use is-I-apply-social-distancing?)
   ]

@@ -910,10 +910,10 @@ migration?
 -1000
 
 SLIDER
-2655
-728
-2903
-761
+2386
+631
+2634
+664
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1459,7 +1459,6 @@ household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
 12
 
-
 SLIDER
 1929
 635
@@ -1695,6 +1694,16 @@ TEXTBOX
 Density factors:\nRelative proximity between individuals within an activity type (impacts contamination risks).
 10
 125.0
+1
+
+TEXTBOX
+2669
+736
+2830
+764
+Transport Model
+14
+35.0
 1
 
 TEXTBOX
@@ -2199,6 +2208,17 @@ NIL
 11
 
 MONITOR
+1580
+285
+1777
+330
+NIL
+#taken-hospital-beds
+17
+1
+11
+
+MONITOR
 1205
 1952
 1310
@@ -2386,10 +2406,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-2658
+2857
 844
-2912
+3111
 877
+ratio-motorized-transport-to-work
+ratio-motorized-transport-to-work
+0
+1
+0.4
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2589
+1046
+2843
+1079
 ratio-worker-public-transport
 ratio-worker-public-transport
 0
@@ -2401,12 +2436,42 @@ NIL
 HORIZONTAL
 
 SLIDER
-2928
-847
-3146
-880
+2632
+848
+2850
+881
+ratio-workers-own-cars
+ratio-workers-own-cars
+0
+1
+0.15
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2856
+1048
+3074
+1081
 ratio-worker-shared-car
 ratio-worker-shared-car
+0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2851
+968
+3069
+1001
+ratio-children-shared-car
+ratio-children-shared-car
 0
 1
 0.0
@@ -2426,40 +2491,40 @@ The rest goes on private/safe transport
 1
 
 SLIDER
-2657
-768
-2911
-801
-ratio-children-public-transport
-ratio-children-public-transport
+2858
+765
+3112
+798
+ratio-motorized-transport-to-school
+ratio-motorized-transport-to-school
 0
 1
-0.75
+0.03
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2923
+2633
 767
-3141
+2851
 800
-ratio-children-shared-car
-ratio-children-shared-car
+ratio-children-own-cars
+ratio-children-own-cars
 0
 1
-0.0
+0.02
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2925
-804
-3143
-837
+2853
+1005
+3071
+1038
 ratio-student-shared-car
 ratio-student-shared-car
 0
@@ -2471,10 +2536,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2928
-884
-3146
-917
+2856
+1085
+3074
+1118
 ratio-retired-shared-car
 ratio-retired-shared-car
 0
@@ -2486,10 +2551,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2657
-807
-2911
-840
+2588
+1009
+2842
+1042
 ratio-student-public-transport
 ratio-student-public-transport
 0
@@ -2501,10 +2566,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2658
-887
-2911
-920
+2589
+1089
+2842
+1122
 ratio-retired-public-transport
 ratio-retired-public-transport
 0
@@ -2515,11 +2580,71 @@ ratio-retired-public-transport
 NIL
 HORIZONTAL
 
+SLIDER
+2632
+805
+2850
+838
+ratio-students-own-cars
+ratio-students-own-cars
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2632
+885
+2850
+918
+ratio-retired-own-cars
+ratio-retired-own-cars
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2858
+804
+3111
+837
+ratio-motorized-transport-to-university
+ratio-motorized-transport-to-university
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2859
+884
+3113
+917
+ratio-motorized-transport-to-hospital
+ratio-motorized-transport-to-hospital
+0
+1
+0.18
+0.01
+1
+NIL
+HORIZONTAL
+
 INPUTBOX
-2652
-991
-2808
-1051
+3141
+1272
+3297
+1332
 #max-people-per-bus
 100.0
 1
@@ -2527,10 +2652,10 @@ INPUTBOX
 Number
 
 MONITOR
-2813
-992
-3008
-1037
+3302
+1273
+3497
+1318
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2538,10 +2663,10 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3022
-934
-3247
-967
+3079
+946
+3304
+979
 density-when-queuing
 density-when-queuing
 0
@@ -2553,10 +2678,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3022
-977
-3247
-1010
+3079
+989
+3304
+1022
 density-in-public-transport
 density-in-public-transport
 0
@@ -2568,25 +2693,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-3023
-1017
-3247
-1050
+3080
+1029
+3304
+1062
 density-in-shared-cars
 density-in-shared-cars
 0
 1
-0.8
+0.79
 0.01
 1
 NIL
 HORIZONTAL
 
 MONITOR
-2813
-938
-2982
-983
+3302
+1219
+3471
+1264
 NIL
 #people-denied-bus
 17
@@ -3215,10 +3340,10 @@ Agent social distancing settings
 1
 
 SLIDER
-3025
-1063
-3211
-1096
+3082
+1075
+3268
+1108
 solo-transport-costs
 solo-transport-costs
 0
@@ -3230,10 +3355,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3025
-1100
-3212
-1133
+3082
+1112
+3269
+1145
 public-transport-costs
 public-transport-costs
 0
@@ -3245,10 +3370,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3027
-1142
-3212
-1175
+3084
+1154
+3269
+1187
 car-sharing-costs
 car-sharing-costs
 0
@@ -3753,10 +3878,10 @@ count should-be-isolators
 11
 
 MONITOR
-2665
-937
-2793
-982
+3154
+1218
+3282
+1263
 NIL
 #bus-per-timeslot
 17
@@ -3764,10 +3889,10 @@ NIL
 11
 
 MONITOR
-2739
-1073
-2857
-1118
+3228
+1354
+3346
+1399
 NIL
 #users-in-buses
 17
@@ -3842,6 +3967,66 @@ is-infected-and-their-families-requested-to-stay-at-home?
 1
 -1000
 
+SLIDER
+3121
+766
+3414
+799
+ratio-motorized-transport-to-my-non-essential-shop
+ratio-motorized-transport-to-my-non-essential-shop
+0
+1
+0.66
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3123
+845
+3415
+878
+ratio-motorized-transport-to-essential-shops
+ratio-motorized-transport-to-essential-shops
+0
+1
+0.39
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3125
+883
+3415
+916
+ratio-motorized-transport-to-public-leisure
+ratio-motorized-transport-to-public-leisure
+0
+1
+0.51
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3123
+806
+3415
+839
+ratio-motorized-transport-to-private-leisure
+ratio-motorized-transport-to-private-leisure
+0
+1
+0.48
+0.01
+1
+NIL
+HORIZONTAL
+
 SWITCH
 1608
 1460
@@ -3910,10 +4095,10 @@ is-hard-lockdown-active?
 11
 
 PLOT
-2675
-1199
-3194
-1441
+2604
+1200
+3123
+1442
 users of transport
 NIL
 NIL
@@ -3931,6 +4116,20 @@ PENS
 "workers bus users" 1.0 0 -2674135 true "" "plot #workers-public-transport"
 "workers solo" 1.0 0 -5825686 true "" "plot #workers-solo-transport"
 
+SLIDER
+2582
+967
+2832
+1000
+ratio-children-public-transport
+ratio-children-public-transport
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
