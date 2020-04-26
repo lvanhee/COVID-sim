@@ -134,11 +134,12 @@ to-report is-infected-infection-status? [in]
   or in = severe-to-hospital-infection-status
   or in =  hospital-to-death-infection-status
   or in = hospital-to-rec-infection-status
+  or in = pre-symptomatic-to-mild-infection-status
+  or in = pre-symptomatic-to-severe-infection-status
   [report true]
   
   if in = healthy-infection-status 
-  or in = pre-symptomatic-to-mild-infection-status
-  or in = pre-symptomatic-to-severe-infection-status
+  
   or in = immune-infection-status
   or in = dead-infection-status
   [report false]

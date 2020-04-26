@@ -5,7 +5,7 @@ globals [
   time-start-full-isolation
 ]
 
-to-report is-lockdown-enforced?
+to-report is-hard-lockdown-active?
   if global-confinement-measures = "total-lockdown" [
     set is-lockdown-active? true
     report true
@@ -149,4 +149,5 @@ to disable-all-measures
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
   set food-delivered-to-isolators? false
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
+  set ratio-self-quarantining-when-symptomatic 0
 end

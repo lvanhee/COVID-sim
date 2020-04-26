@@ -6,7 +6,7 @@ end
 to update-position-regarding-self-quarantining
   if slice-of-the-day = "morning"
   [
-    ask people with [is-wanting-to-quarantine?]
+    ask people with [ is-trying-to-quarantine?]
     [
       if  random-float 1 < daily-dropping-off-of-quarantining
       [
@@ -26,7 +26,7 @@ end
 
 
 to quarantining-reaction-when-being-infected
-  if random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic[
+  if random-float 1  < ratio-self-quarantining-when-symptomatic[
     include-time-for-quarantining 7 * #ticks-per-day
   ]
 end
@@ -36,14 +36,15 @@ to include-time-for-quarantining [t]
 end
 
 to quarantining-reaction-when-someone-from-household-is-infected
+  
   if is-infected-and-their-families-requested-to-stay-at-home? and random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic
   [include-time-for-quarantining 14 * #ticks-per-day]
 end
 
 to-report quarantiners-wannabe
-  report people with [is-wanting-to-quarantine?]
+  report people with [ is-trying-to-quarantine?]
 end
 
-to-report is-wanting-to-quarantine?
+to-report  is-trying-to-quarantine?
   report is-officially-quarantining? and not  is-violating-quarantining?
 end

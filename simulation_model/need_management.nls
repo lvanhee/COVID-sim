@@ -217,13 +217,14 @@ to-report SUA-risk-avoidance [ad]
 end
 
 to-report should-I-stay-home?
-  if is-lockdown-enforced? [report true]
+  if is-hard-lockdown-active? [report true]
   if is-infected-and-their-families-requested-to-stay-at-home? and [home-in-isolation?] of my-home [report true]
+  if is-trying-to-quarantine? [report true]
   report false
 end
 
 to-report do-I-care-starying-at-home?
-  report should-I-stay-home? and not is-violating-quarantining?
+  report should-I-stay-home?
 end
 
 to-report SUE-compliance [ad]
@@ -285,7 +286,7 @@ to-report SUE-compliance [ad]
   ]
 
   ; A passive bonus for compliance in case there is no lockdown
-  if not is-lockdown-enforced? [
+  if not is-hard-lockdown-active? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
@@ -395,7 +396,7 @@ to-report SUE-autonomy [ad]
   ]
   if slice-of-the-day = "night" and [gathering-type] of gp = "home" and motive = "rest"
   [report 0.2 * sd-modifier ]
-  if is-lockdown-enforced? and [gathering-type] of gp != "home"
+  if is-hard-lockdown-active? and [gathering-type] of gp != "home"
   [report 0.1 * sd-modifier ]
   report 0
 end

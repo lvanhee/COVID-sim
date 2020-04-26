@@ -180,7 +180,7 @@ to-report expected-number-of-other-participants
 end
 
 to-report is-accessible?
-  if is-lockdown-enforced? [
+  if is-hard-lockdown-active? [
     report is-open-during-lockdown?
   ]
   if is-workplace? and closed-workplaces? [report false]

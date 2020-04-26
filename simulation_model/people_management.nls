@@ -1,4 +1,4 @@
-__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" "decision/quarantining.nls"]
+__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" ]
 
 people-own [
   age
@@ -177,24 +177,17 @@ to update-people-mind
   update-position-regarding-self-quarantining
 
   
-
-  
-  
-  
-  
   ask people 
   [
     foreach events-to-process [[x]-> 
       
       if x = just-learned-I-am-infected-event [
         quarantining-reaction-when-being-infected
-        
         ask [gatherers] of my-home
         [quarantining-reaction-when-someone-from-household-is-infected]
-        
-        update-people-epistemic-status
       ]
       
+      update-people-epistemic-status
     ]
     set  events-to-process (list)
   ]
@@ -202,7 +195,7 @@ end
 
 
 to-report has-a-work?
-   report any? my-gathering-links with  [member? work-motive features]
+  report any? my-gathering-links with  [member? work-motive features]
  end
 
 to-report homeless-people

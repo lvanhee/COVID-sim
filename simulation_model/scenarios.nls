@@ -159,6 +159,7 @@ to scenario-6-setup
   set food-delivered-to-isolators? true
   set daily-dropping-off-of-quarantining 0.02
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
+  set ratio-self-quarantining-when-symptomatic 0.8
   
 end
 

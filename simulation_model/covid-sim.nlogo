@@ -119,7 +119,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.4
+0.15
 0.01
 1
 NIL
@@ -165,7 +165,7 @@ INPUTBOX
 938
 700
 #schools-gp
-12.0
+3.0
 1
 0
 Number
@@ -176,7 +176,7 @@ INPUTBOX
 1029
 700
 #universities-gp
-40.0
+10.0
 1
 0
 Number
@@ -187,7 +187,7 @@ INPUTBOX
 1121
 700
 #workplaces-gp
-40.0
+10.0
 1
 0
 Number
@@ -208,7 +208,7 @@ INPUTBOX
 1235
 700
 #public-leisure-gp
-4.0
+1.0
 1
 0
 Number
@@ -219,7 +219,7 @@ INPUTBOX
 1352
 700
 #private-leisure-gp
-40.0
+10.0
 1
 0
 Number
@@ -352,7 +352,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+2
 
 PLOT
 10
@@ -405,7 +405,7 @@ INPUTBOX
 1470
 700
 #essential-shops-gp
-20.0
+5.0
 1
 0
 Number
@@ -446,7 +446,7 @@ INPUTBOX
 1598
 700
 #non-essential-shops-gp
-40.0
+10.0
 1
 0
 Number
@@ -457,7 +457,7 @@ INPUTBOX
 851
 700
 #hospital-gp
-4.0
+1.0
 1
 0
 Number
@@ -486,7 +486,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.026
 0.01
 1
 NIL
@@ -516,7 +516,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.005
 0.01
 1
 NIL
@@ -1084,7 +1084,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.419
 0.01
 1
 NIL
@@ -1182,7 +1182,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.295
 0.01
 1
 NIL
@@ -1197,7 +1197,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.27
 0.01
 1
 NIL
@@ -1212,7 +1212,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.016
 0.01
 1
 NIL
@@ -1458,7 +1458,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+12
 
 SLIDER
 1929
@@ -1591,7 +1591,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
-14
+0
 
 MONITOR
 743
@@ -2105,7 +2105,7 @@ INPUTBOX
 644
 425
 #households
-391.0
+100.0
 1
 0
 Number
@@ -2127,7 +2127,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-2000.0
+11.0
 1
 0
 Number
@@ -2684,7 +2684,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+6
 
 SLIDER
 2364
@@ -2695,7 +2695,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-35.0
+75.0
 1
 1
 NIL
@@ -2710,7 +2710,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-89.0
+76.0
 1
 1
 NIL
@@ -2725,7 +2725,7 @@ power-distance
 power-distance
 0
 100
-35.0
+50.0
 1
 1
 NIL
@@ -2740,7 +2740,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-69.0
+30.0
 1
 1
 NIL
@@ -2755,7 +2755,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-66.0
+70.0
 1
 1
 NIL
@@ -2770,7 +2770,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-51.0
+61.0
 1
 1
 NIL
@@ -3654,7 +3654,7 @@ SWITCH
 1326
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-0
+1
 1
 -1000
 
@@ -3674,11 +3674,11 @@ true
 true
 "" ""
 PENS
-"should be isolating" 1.0 0 -16777216 true "" "plot count should-be-isolators"
-"breaking isolation" 1.0 0 -13345367 true "" "plot count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]"
-"quarantine-wannabe" 1.0 0 -12087248 true "" "plot count quarantiners-wannabe"
+"breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-quarantining? and (current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point)]"
+"quarantine-wannabe" 1.0 0 -14730904 true "" "plot count quarantiners-wannabe"
 "of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-quarantining?]"
 "online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
+"supporters" 1.0 0 -5509967 true "" "plot count people - count people with [is-violating-quarantining?] + 5"
 
 TEXTBOX
 1678
@@ -3699,7 +3699,7 @@ daily-dropping-off-of-quarantining
 daily-dropping-off-of-quarantining
 0
 1
-0.02
+0.0
 0.01
 1
 NIL
@@ -3714,7 +3714,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3727,7 +3727,7 @@ SWITCH
 1286
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -3738,7 +3738,7 @@ SWITCH
 1493
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3771,6 +3771,32 @@ true
 PENS
 "#taken-beds" 1.0 0 -2674135 true "" "plot #taken-hospital-beds"
 "#available-beds" 1.0 0 -10899396 true "" "plot #beds-available-for-admission"
+
+SLIDER
+2229
+1446
+2510
+1479
+ratio-self-quarantining-when-symptomatic
+ratio-self-quarantining-when-symptomatic
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
+
+MONITOR
+2387
+949
+2537
+994
+NIL
+is-hard-lockdown-active?
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
