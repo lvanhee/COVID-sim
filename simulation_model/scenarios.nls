@@ -157,7 +157,6 @@ to scenario-6-setup
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0.8
   set is-infected-and-their-families-requested-to-stay-at-home? true
   set food-delivered-to-isolators? true
-  set daily-dropping-off-of-quarantining 0.02
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
   set ratio-self-quarantining-when-symptomatic 0.8
   
@@ -296,6 +295,8 @@ to load-baseline-scenario
   load-default-economic-parameters
   load-default-values-needs-parameters
   disable-all-measures
+  set ratio-self-quarantining-when-symptomatic 1
+  set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
 end
 
 to load-default-transport-model

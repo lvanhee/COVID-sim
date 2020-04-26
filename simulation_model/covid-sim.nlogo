@@ -298,7 +298,7 @@ density-factor-public-leisure
 density-factor-public-leisure
 0
 1
-0.51
+0.68
 0.01
 1
 NIL
@@ -313,7 +313,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.19
+0.23
 0.01
 1
 NIL
@@ -352,7 +352,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-2
+0
 
 PLOT
 10
@@ -419,7 +419,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.19
+0.18
 0.01
 1
 NIL
@@ -3674,11 +3674,9 @@ true
 true
 "" ""
 PENS
-"breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-quarantining? and (current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point)]"
-"quarantine-wannabe" 1.0 0 -14730904 true "" "plot count quarantiners-wannabe"
-"of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-quarantining?]"
+"breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-asked-to-quarantine? and (current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point)]"
+"of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-asked-to-quarantine?]"
 "online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
-"supporters" 1.0 0 -5509967 true "" "plot count people - count people with [is-violating-quarantining?] + 5"
 
 TEXTBOX
 1678
@@ -3691,21 +3689,6 @@ Self-isolation
 1
 
 SLIDER
-1609
-1389
-1848
-1422
-daily-dropping-off-of-quarantining
-daily-dropping-off-of-quarantining
-0
-1
-0.0
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
 1607
 1422
 1785
@@ -3714,7 +3697,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.0
+1.0
 0.01
 1
 NIL

@@ -195,7 +195,6 @@ to setup-person [current-home l-age]
     if age = young-age and random-float 1 < ratio-young-with-phones [set has-mobile-phone? true]
     if age = student-age or age = worker-age [set has-mobile-phone? true]
     if age = retired-age and random-float 1 < ratio-retired-with-phones[set has-mobile-phone? true]
-    set is-violating-quarantining? false
     set #days-I-should-remain-in-self-quarantining 0
     set  events-to-process (list)
   ]

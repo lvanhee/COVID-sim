@@ -152,7 +152,6 @@ people-own [
   
   number-of-people-I-infected
   
-  is-violating-quarantining?
   #days-I-should-remain-in-self-quarantining
   
   events-to-process
@@ -173,9 +172,6 @@ to update-people-mind
   update-people-epistemic-status
   
   update-quarantining-decisions
-  
-  update-position-regarding-self-quarantining
-
   
   ask people 
   [
@@ -247,4 +243,8 @@ end
 
 to-report app-users
   report people with [is-user-of-tracking-app?]
+end
+
+to-report might-I-be-contagious?
+  report any? ([gatherers] of my-home) with [is-believing-to-be-infected?]
 end

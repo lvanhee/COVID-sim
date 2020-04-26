@@ -48,7 +48,7 @@ to update-needs-for-playing [current-activity-descriptor]
   set sleep-satisfaction-level clamp 0 1 (sleep-satisfaction-level + SDE-sleep current-activity-descriptor)
   
   if age != "young" [
-  set luxury-satisfaction-level clamp 0 1 (luxury-satisfaction-level + SDA-luxury current-activity-descriptor)
+    set luxury-satisfaction-level clamp 0 1 (luxury-satisfaction-level + SDA-luxury current-activity-descriptor)
   ]
 
   set conformity-satisfaction-level clamp 0 1 (conformity-satisfaction-level + SDA-conformity current-activity-descriptor)
@@ -196,6 +196,9 @@ to-report risk-avoidance-increase [ad others]
       if others < 10 [set result 0.05 ]
       ifelse others < 20 [set result 0]
       [set result -0.1]
+      if might-I-be-contagious? [
+        set result result - 0.1
+      ]
     ]
   ]
 
@@ -218,8 +221,7 @@ end
 
 to-report should-I-stay-home?
   if is-hard-lockdown-active? [report true]
-  if is-infected-and-their-families-requested-to-stay-at-home? and [home-in-isolation?] of my-home [report true]
-  if is-trying-to-quarantine? [report true]
+  if is-officially-asked-to-quarantine? [report true]
   report false
 end
 

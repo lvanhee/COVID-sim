@@ -1,29 +1,13 @@
-to-report is-officially-quarantining?
-  report #days-I-should-remain-in-self-quarantining > 0
+to-report is-officially-asked-to-quarantine?
+  report #days-I-should-remain-in-self-quarantining > 0 or is-believing-to-be-infected? or [home-in-isolation?] of my-home
 end
 
-
-to update-position-regarding-self-quarantining
-  if slice-of-the-day = "morning"
-  [
-    ask people with [ is-trying-to-quarantine?]
-    [
-      if  random-float 1 < daily-dropping-off-of-quarantining
-      [
-        set is-violating-quarantining? true
-      ]
-    ]
-  ]
-end
 
 to update-quarantining-decisions
-  update-position-regarding-self-quarantining
-  
   ask people with [#days-I-should-remain-in-self-quarantining > 0] [
     set #days-I-should-remain-in-self-quarantining #days-I-should-remain-in-self-quarantining - 1
   ]
 end
-
 
 to quarantining-reaction-when-being-infected
   if random-float 1  < ratio-self-quarantining-when-symptomatic[
@@ -36,15 +20,10 @@ to include-time-for-quarantining [t]
 end
 
 to quarantining-reaction-when-someone-from-household-is-infected
-  
   if is-infected-and-their-families-requested-to-stay-at-home? and random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic
   [include-time-for-quarantining 14 * #ticks-per-day]
 end
 
-to-report quarantiners-wannabe
-  report people with [ is-trying-to-quarantine?]
-end
-
-to-report  is-trying-to-quarantine?
-  report is-officially-quarantining? and not  is-violating-quarantining?
+to-report quarantiners-wannabe ; people asked to quarantine? 
+  report people with [ is-officially-asked-to-quarantine? ]
 end
