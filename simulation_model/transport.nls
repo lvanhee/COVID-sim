@@ -98,30 +98,30 @@ to-report setup-do-I-own-a-car?
   ]  
 end
 
-to setup-prefered-type-of-transport-method-to-gathering-points
+to setup-preferred-type-of-transport-method-to-gathering-points
   
-  ifelse ratio-motorized-transport-to-school > random 1 
+  ifelse ratio-motorized-transport-to-school > random-float 1 
   [set transport-to-my-school "motorized"]
   [set transport-to-my-school "non-motorized"]
-  ifelse ratio-motorized-transport-to-university > random 1 
+  ifelse ratio-motorized-transport-to-university > random-float 1 
   [set transport-to-my-university "motorized"]
   [set transport-to-my-university "non-motorized"]
-  ifelse ratio-motorized-transport-to-work > random 1 
+  ifelse ratio-motorized-transport-to-work > random-float 1 
   [set transport-to-my-work "motorized"]
   [set transport-to-my-work "non-motorized"]
-  ifelse ratio-motorized-transport-to-hospital > random 1 
+  ifelse ratio-motorized-transport-to-hospital > random-float 1 
   [set transport-to-my-hospital "motorized"]
   [set transport-to-my-hospital "non-motorized"]
-  ifelse ratio-motorized-transport-to-my-non-essential-shop > random 1 
+  ifelse ratio-motorized-transport-to-my-non-essential-shop > random-float 1 
   [set transport-to-my-non-essential-shop "motorized"]
   [set transport-to-my-non-essential-shop "non-motorized"]
-  ifelse ratio-motorized-transport-to-essential-shops > random 1 
+  ifelse ratio-motorized-transport-to-essential-shops > random-float 1 
   [set transport-to-my-essential-shops "motorized"]
   [set transport-to-my-essential-shops "non-motorized"]
-  ifelse ratio-motorized-transport-to-public-leisure > random 1 
+  ifelse ratio-motorized-transport-to-public-leisure > random-float 1 
   [set transport-to-my-public-leisure "motorized"]
   [set transport-to-my-public-leisure "non-motorized"]
-  ifelse ratio-motorized-transport-to-private-leisure > random 1 
+  ifelse ratio-motorized-transport-to-private-leisure > random-float 1 
   [set transport-to-my-private-leisure "motorized"]
   [set transport-to-my-private-leisure "non-motorized"]  
   set transport-to-my-home "none"

@@ -185,6 +185,8 @@ to setup-person [current-home l-age]
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
     set stayed-out-queuing-for-bus? false
+    set do-I-own-a-car? setup-do-I-own-a-car? 
+    setup-preferred-type-of-transport-method-to-gathering-points
 
     set I-know-of-social-distancing? true
     set I-know-of-working-from-home? true

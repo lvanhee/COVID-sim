@@ -910,15 +910,15 @@ migration?
 -1000
 
 SLIDER
-2655
-728
-2903
-761
+3264
+932
+3512
+965
 density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -1697,12 +1697,12 @@ Density factors:\nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-2923
-728
-3084
-756
-Risks of becoming sick when travelling locally
-11
+2669
+736
+2830
+764
+Transport Model
+14
 35.0
 1
 
@@ -2407,10 +2407,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2658
-844
-2912
-877
+2891
+845
+3145
+878
 ratio-motorized-transport-to-work
 ratio-motorized-transport-to-work
 0
@@ -2422,10 +2422,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2928
-847
-3146
-880
+2654
+848
+2872
+881
 ratio-workers-own-cars
 ratio-workers-own-cars
 0
@@ -2447,24 +2447,24 @@ The rest goes on private/safe transport
 1
 
 SLIDER
-2657
-768
-2911
-801
+2890
+769
+3144
+802
 ratio-motorized-transport-to-school
 ratio-motorized-transport-to-school
 0
 1
-0.75
+0.03
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2923
+2655
 767
-3141
+2873
 800
 ratio-children-own-cars
 ratio-children-own-cars
@@ -2477,10 +2477,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2925
-804
-3143
-837
+2654
+805
+2872
+838
 ratio-students-own-cars
 ratio-students-own-cars
 0
@@ -2492,10 +2492,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2928
-884
-3146
-917
+2654
+885
+2872
+918
 ratio-retired-own-cars
 ratio-retired-own-cars
 0
@@ -2507,10 +2507,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2657
-807
-2927
-840
+2890
+808
+3143
+841
 ratio-motorized-transport-to-university
 ratio-motorized-transport-to-university
 0
@@ -2522,15 +2522,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-2658
-887
-2916
-920
+2891
+888
+3145
+921
 ratio-motorized-transport-to-hospital
 ratio-motorized-transport-to-hospital
 0
 1
-0.2
+0.18
 0.01
 1
 NIL
@@ -3752,30 +3752,30 @@ is-infected-and-their-families-requested-to-stay-at-home?
 -1000
 
 SLIDER
-3172
-775
-3508
-808
+3166
+771
+3459
+804
 ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
 1
-1.0
+0.66
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3199
-847
-3495
-880
+3168
+850
+3460
+883
 ratio-motorized-transport-to-essential-shops
 ratio-motorized-transport-to-essential-shops
 0
 1
-1.0
+0.39
 0.01
 1
 NIL
@@ -3783,29 +3783,29 @@ HORIZONTAL
 
 SLIDER
 3170
-900
-3452
-933
+888
+3460
+921
 ratio-motorized-transport-to-public-leisure
 ratio-motorized-transport-to-public-leisure
 0
 1
-1.0
+0.51
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3189
-825
-3479
-858
+3168
+811
+3460
+844
 ratio-motorized-transport-to-private-leisure
 ratio-motorized-transport-to-private-leisure
 0
 1
-0.99
+0.48
 0.01
 1
 NIL
