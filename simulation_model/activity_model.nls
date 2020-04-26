@@ -290,7 +290,7 @@ to perform-people-activities
   reset-timer
   
   if food-delivered-to-isolators? [
-    let homes-to-be-delivered-food (turtle-set homes-in-isolation [my-home] of people with [is-officially-quarantining?])
+    let homes-to-be-delivered-food (turtle-set homes-in-isolation [my-home] of people with [is-officially-asked-to-quarantine?]) ; ToDo: Re-evaluate the secdon set
     
     
     ask homes-to-be-delivered-food [
