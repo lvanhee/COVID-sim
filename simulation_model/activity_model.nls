@@ -26,9 +26,9 @@ to execute-activity-effect
 
 end
 
-to-report activity-descriptor [gp mo]
+to-report activity-descriptor [gp mo mt]
   if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
-  report (list gp mo)
+  report (list gp mo mt)
 end
 
 to-report is-forced-to-be-here?
@@ -310,7 +310,7 @@ to perform-people-activities
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
     execute-activity-effect
-    update-needs-for-playing (list current-activity current-motivation is-I-apply-social-distancing?)
+    update-needs-for-playing (list current-activity current-motivation my-means-of-transportation-I-currently-use is-I-apply-social-distancing?)
   ]
   animate-walk-to-goal
 

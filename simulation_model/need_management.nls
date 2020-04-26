@@ -39,7 +39,7 @@ to update-needs-for-playing [current-activity-descriptor]
  
   set compliance-satisfaction-level clamp 0 1 (compliance-satisfaction-level + SDE-compliance current-activity-descriptor)
 
-  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDA-risk-avoidance current-activity-descriptor + SDE-risk-avoidance-transport my-means-of-transportation-I-currently-use)
+  set risk-avoidance-satisfaction-level  clamp 0 1 (risk-avoidance-satisfaction-level + SDA-risk-avoidance current-activity-descriptor)
 
   set leisure-satisfaction-level clamp 0 1 (leisure-satisfaction-level + SDE-leisure current-activity-descriptor)
   
@@ -51,7 +51,7 @@ to update-needs-for-playing [current-activity-descriptor]
   set luxury-satisfaction-level clamp 0 1 (luxury-satisfaction-level + SDA-luxury current-activity-descriptor)
   ]
 
-  set conformity-satisfaction-level clamp 0 1 (conformity-satisfaction-level + SDA-conformity current-activity-descriptor + SDA-conformity-transport my-means-of-transportation-I-currently-use)
+  set conformity-satisfaction-level clamp 0 1 (conformity-satisfaction-level + SDA-conformity current-activity-descriptor)
 end
 
 
@@ -176,9 +176,10 @@ to-report SUA-belonging [ad]
   report base * network-bonus * social-distancing-cut
 end
 
-to-report risk-avoidance-increase [ad others]
+to-report risk-avoidance-increase [ad others others-transport]
   let gp location-of ad
   let motive motive-of ad
+  let mt method-of-transportation-of ad
   let result 0.1
 
   ifelse is-believing-to-be-infected? or has-internally-visible-symptoms? [
@@ -198,6 +199,15 @@ to-report risk-avoidance-increase [ad others]
       [set result -0.1]
     ]
   ]
+  
+  ;transport
+  if mt != "stay-here" [
+    if others-transport = 0 [set result result + 0.2 ]
+    if others-transport < 5 [set result result + 0.1 ]
+    if others-transport < 10 [set result result + 0.05 ]
+    ifelse others-transport < 20 [set result result + 0]
+    [set result result + -0.1]
+  ]
 
   ifelse social-distancing-of ad
     [ set result result + 0.1 ]
@@ -207,14 +217,17 @@ to-report risk-avoidance-increase [ad others]
 end
 
 to-report SUE-risk-avoidance [ad]
-  let gp location-of ad
-  report risk-avoidance-increase ad [expected-number-of-other-participants] of gp
+  let gp location-of ad  
+  let mt method-of-transportation-of ad
+  report risk-avoidance-increase ad [expected-number-of-other-participants] of gp expected-number-of-others-on-transport mt
 end
 
 to-report SUA-risk-avoidance [ad]
   let gp location-of ad
-  report risk-avoidance-increase ad count people with [current-activity = gp]
+  let mt method-of-transportation-of ad
+  report risk-avoidance-increase ad count people with [current-activity = gp] number-of-others-on-transport mt
 end
+
 
 to-report SUE-compliance [ad]
   let gp location-of ad
@@ -392,48 +405,76 @@ to-report SUE-financial-survival [ad]
   if age != "young" [
     let gp location-of ad
     let motive motive-of ad
+    let mt method-of-transportation-of ad
     let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
+    let result 0
     
     if is-I-have-contractual-obligations? [
       if gp = my-work [
-        report min (list (my-expected-income / eating-costs) 1)
+        set result min (list (my-expected-income / eating-costs) 1)
       ]
-      report max (list ((- my-expected-income) / eating-costs) 0)
+      set result max (list ((- my-expected-income) / eating-costs) 0)
     ]
     if motive = "essential shopping" [
-      report (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
+      set result (- min (list ((my-amount-of-capital - eating-costs) / eating-costs) 1))
     ]
     if motive = "shopping" [
-      report (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops) / eating-costs) 1))
+      set result (- min (list ((my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops) / eating-costs) 1))
     ]
-    report 0
+    
+    ;additions for transportation
+    if mt = "solo" [
+      set result result + (- min (list ((my-amount-of-capital - solo-transport-costs) / eating-costs) 1))
+    ]
+    if mt = "public" [
+      set result result + (- min (list ((my-amount-of-capital - public-transport-costs) / eating-costs) 1))
+    ]
+    if mt = "shared-car" [
+      set result result + (- min (list ((my-amount-of-capital - car-sharing-costs) / eating-costs) 1))
+    ]
+    
+    report result
   ]
-  report 0
+  report 0  
 end
 
 to-report SUE-financial-safety [ad]
   if age != "young" [
-  let gp location-of ad
-  let motive motive-of ad
-  let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
-
-  if is-I-have-contractual-obligations? and gp = my-work [
-    if my-previous-amount-of-capital > 0
-    [report clamp 0 1 (my-expected-income / my-previous-amount-of-capital)]
-    report 1
-  ]
-  if my-previous-amount-of-capital <= 0 [
-    report -1
-  ]
-  if motive = "essential shopping" [
-    report (- (eating-costs / my-previous-amount-of-capital))
-  ]
-  if motive = "shopping" [
-    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-previous-amount-of-capital))
-  ]
-    report 0
+    let gp location-of ad
+    let motive motive-of ad
+    let mt method-of-transportation-of ad
+    let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
+    let result 0
+    
+    if is-I-have-contractual-obligations? and gp = my-work [
+      if my-previous-amount-of-capital > 0
+      [set result clamp 0 1 (my-expected-income / my-previous-amount-of-capital)]
+      set result 1
+    ]
+    if my-previous-amount-of-capital <= 0 [
+      set result -1
+    ]
+    if motive = "essential shopping" [
+      set result (- (eating-costs / my-previous-amount-of-capital))
+    ]
+    if motive = "shopping" [
+      set result (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-previous-amount-of-capital))
+    ]
+    
+    ;additional effect of transport
+    if mt = "solo" [
+      set result result + (- (solo-transport-costs / my-previous-amount-of-capital))
+    ]
+    if mt = "public" [
+      set result result + (- (public-transport-costs / my-previous-amount-of-capital))
+    ]
+    if mt = "shared-car" [
+      set result result + (- (car-sharing-costs / my-previous-amount-of-capital))
+    ]
+    report result
   ]
   report 0
+
 end
 
 
@@ -465,24 +506,30 @@ end
 to-report conformity-increase [ad action]
   let motive motive-of ad
   let sd social-distancing-of ad
+  let mt method-of-transportation-of ad
+  let result 0
   
   if motive = motive-of action and sd = social-distancing-of action [
-    report 0.4
+    set result 0.4
   ]
   if motive = motive-of action [
-    report 0.3
+    set result 0.3
   ]
   if sd = social-distancing-of action [
-    report 0.15
+    set result 0.15
   ]
-  report 0
+  if mt = method-of-transportation-of action [
+    set result result + 0.1
+  ]
+  
+  report result
 end
 
 to-report SUE-conformity [ad]
   if length what-my-network-did >= 28 [
     report conformity-increase ad (first what-my-network-did)
   ]
-  report 1
+  report 1  
 end
 
 to-report SUA-conformity [ad]

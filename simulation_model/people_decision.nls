@@ -39,7 +39,7 @@ to-report my-available-activity-descriptors
           ]
       if is-student?
       [
-        set activities add-activity-descriptor-with-transport my-university  "learning" activities
+        set activities add-activity-descriptor-with-transport my-university "learning" activities
       ]
 
       if is-worker? [
@@ -73,10 +73,10 @@ to-report my-available-activity-descriptors
   if any? people-that-depend-on-me with [ (current-person-I-depend-on = nobody or current-person-I-depend-on = myself)
     and is-currently-in-sitation-of-active-dependence?]
   [
-
     ask people-that-depend-on-me [ set current-person-I-depend-on myself]
     set activities filter [ i -> can-be-done-with-a-dependable-person? i] activities
   ]
+  
   let ret []
   foreach activities [ activity ->
     set ret fput (lput false activity) ret
@@ -89,7 +89,7 @@ end
 
 to-report add-activity-descriptor-with-transport [gp mo activities]
   if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
-  ifelse is-moving-outside-for-reaching-current-activity? [
+  ifelse gp != current-activity [
     set activities lput (list gp mo public-transportation-method) activities    
     set activities lput (list gp mo solo-transportation-method) activities
     set activities lput (list gp mo shared-car-transportation-method) activities
@@ -110,7 +110,7 @@ to select-activity
   
   ;;select if migration takes over and people move around
   if (migration? and random-float 1 < probability-going-abroad) [
-    set c-a (list away-gathering-point travelling-motive false)
+    set c-a (list away-gathering-point travelling-motive solo-transportation-method false)
   ]
   
   let loc location-of c-a
@@ -166,7 +166,7 @@ end
 to update-memory
   let network-activities new-counter
   ask my-network [
-    set network-activities add-to-counter network-activities (list current-motivation is-I-apply-social-distancing?)
+    set network-activities add-to-counter network-activities (list current-motivation my-means-of-transportation-I-currently-use is-I-apply-social-distancing?)
   ]
 
   ; add a nobody to the front of the list to make it work like an activity
@@ -183,7 +183,6 @@ to update-memory
   if length what-transport-I-used > 28 [
    set what-transport-I-used but-first what-transport-I-used
   ]
-  
   
   let counts-of-my-networks-means-of-transport new-counter
   ask my-network [

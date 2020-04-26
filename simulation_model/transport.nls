@@ -7,6 +7,10 @@ globals [is-busses-overrun?
   #people-denied-bus
   #bus-per-timeslot
   #users-in-buses
+  #users-in-shared-cars
+  #users-solo
+  #workers-public-transport
+  #workers-solo-transport
 ]
 to travelling-to-activity-phase
   set is-busses-overrun? false
@@ -25,11 +29,9 @@ to travelling-to-activity-phase
     set my-means-of-transportation-I-currently-use determine-means-of-transport
     if my-means-of-transportation-I-currently-use = public-transportation-method [
       set bus-users (turtle-set bus-users self)
-      ;set what-transport-I-used
     ]
     if my-means-of-transportation-I-currently-use = shared-car-transportation-method [
       set shared-car-users (turtle-set shared-car-users self)
-      ;set what-transport-I-used 
     ]
   ]
   
@@ -61,9 +63,15 @@ to travelling-to-activity-phase
     ]
     set ongoing-set (turtle-set self ongoing-set)
     set my-transport-number (length list-of-shared-cars)
+    set #users-in-shared-cars #users-in-shared-cars + 1
   ]
   if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
   
+  
+  set #users-solo count people with [my-means-of-transportation-I-currently-use = solo-transportation-method]
+  
+  set #workers-public-transport count people with [my-means-of-transportation-I-currently-use = public-transportation-method and age = worker-age]
+  set #workers-solo-transport count people with [my-means-of-transportation-I-currently-use = solo-transportation-method and age = worker-age]
   
 end
 
@@ -121,6 +129,19 @@ to-report my-probability-of-taking [mt]
   ]
 end
 
+to-report expected-number-of-others-on-transport [mt]
+  let others 0 ;for solo/stay-here/stay-home
+  if mt = "public" [set others #max-people-per-bus] 
+  if mt = "shared-car" [set others 5]
+  report others
+end
+
+to-report number-of-others-on-transport [mt]
+  let others 0 ;for solo/stay-here/stay-home
+  if mt = "public" [set others (count item my-transport-number list-of-buses) - 1] 
+  if mt = "shared-car" [set others (count item my-transport-number list-of-shared-cars) - 1]
+  report others
+end
 
 to move-on-display 
   if not animate? [

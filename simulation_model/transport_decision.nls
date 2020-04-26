@@ -2,7 +2,7 @@
 
 ;youth do not have capital because they do not participate in the economic model
 
-to-report SUE-financial-safety-transport [mt]
+to-report SUE-financial-safety-transport [mt] ;transfered to need_management
   if age != "young" [
     if my-previous-amount-of-capital <= 0 [
       report -1
@@ -20,7 +20,7 @@ to-report SUE-financial-safety-transport [mt]
   report 0
 end
 
-to-report SUE-financial-survival-transport [mt]
+to-report SUE-financial-survival-transport [mt] ;transfered to need_management
   if age != "young" [
     let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
     if mt = "solo" [
@@ -36,7 +36,7 @@ to-report SUE-financial-survival-transport [mt]
   report 0
 end
 
-to-report SUE-conformity-transport [mt]
+to-report SUE-conformity-transport [mt] ;transfered to need_management
   if length what-my-network-did >= 28 [
     if mt = first what-transport-my-network-used [report 0.4]
     report 0
@@ -44,7 +44,7 @@ to-report SUE-conformity-transport [mt]
   report 1
 end
 
-to-report risk-avoidance-increase-transport [mt others]
+to-report risk-avoidance-increase-transport [mt others] ;transfered to need_management
   let result 0.1
   if others = 0 [set result 0.2 ]
   if others < 5 [set result 0.1 ]
@@ -59,7 +59,7 @@ to-report risk-avoidance-increase-transport [mt others]
   report result  
 end
 
-to-report SUE-risk-avoidance-transport [mt]
+to-report SUE-risk-avoidance-transport [mt] ;transfered to need_management
   ;solo is 0, pt is #max-people-per-bus, shared car is 5 max
   if mt = "solo" [report risk-avoidance-increase-transport mt 0]
   if mt = "public" [report risk-avoidance-increase-transport mt #max-people-per-bus]
@@ -123,8 +123,8 @@ to-report SUA-risk-avoidance-transport [mt]
 end
 
 
-to-report SDA-risk-avoidance-transport [ad]
-  let expected-increase SUA-risk-avoidance-transport ad
+to-report SDA-risk-avoidance-transport [mt]
+  let expected-increase SUA-risk-avoidance-transport mt
   let discounted-increase expected-increase * (1 - risk-avoidance-satisfaction-level)
   report discounted-increase
 end
@@ -156,11 +156,11 @@ to-report report-habit-satisfaction [mt]
     if length what-transport-I-used >= 28 [
       let my-preferred-means-of-transport determine-my-preferred-means-of-transport
       if my-preferred-means-of-transport = mt [
-        report 1
+        report 0.01
       ]
       report 0
     ]
-    report 1
+    report 0.01
   ]
   report 0
 end
@@ -182,7 +182,7 @@ to-report expected-global-prevalence-of [mt]
     (report-habit-satisfaction mt)
     
     ;Calibration probability
-    (my-probability-of-taking mt)
+    (my-probability-of-taking mt / 10)
   )
   report total-satisfaction
 end

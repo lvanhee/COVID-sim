@@ -1455,7 +1455,7 @@ CHOOSER
 preset-profiles
 preset-profiles
 "none" "mediterranea" "scandinavia" "south-asia" "north-america"
-2
+0
 
 SLIDER
 1931
@@ -2413,7 +2413,7 @@ ratio-worker-public-transport
 ratio-worker-public-transport
 0
 1
-1.0
+0.51
 0.01
 1
 NIL
@@ -2528,7 +2528,7 @@ ratio-retired-public-transport
 ratio-retired-public-transport
 0
 1
-0.2
+0.42
 0.01
 1
 NIL
@@ -2540,7 +2540,7 @@ INPUTBOX
 2808
 1051
 #max-people-per-bus
-50.0
+100.0
 1
 0
 Number
@@ -2863,7 +2863,7 @@ owning-solo-transportation-probability
 owning-solo-transportation-probability
 0
 1
-1.0
+0.95
 0.01
 1
 NIL
@@ -3234,10 +3234,10 @@ Agent social distancing settings
 1
 
 SLIDER
-1470
-533
-1656
-566
+3025
+1063
+3211
+1096
 solo-transport-costs
 solo-transport-costs
 0
@@ -3249,10 +3249,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1470
-566
-1657
-599
+3025
+1100
+3212
+1133
 public-transport-costs
 public-transport-costs
 0
@@ -3264,10 +3264,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1471
-599
-1656
-632
+3027
+1142
+3212
+1175
 car-sharing-costs
 car-sharing-costs
 0
@@ -3647,6 +3647,28 @@ NIL
 17
 1
 11
+
+PLOT
+2675
+1199
+3194
+1441
+users of transport
+NIL
+NIL
+0.0
+100.0
+0.0
+300.0
+true
+true
+"" ""
+PENS
+"total bus users" 1.0 0 -11221820 true "" "plot #users-in-buses"
+"total shared cars users" 1.0 0 -10899396 true "" "plot #users-in-shared-cars"
+"total solo transport users" 1.0 0 -8431303 true "" "plot #users-solo"
+"workers bus users" 1.0 0 -2674135 true "" "plot #workers-public-transport"
+"workers solo" 1.0 0 -5825686 true "" "plot #workers-solo-transport"
 
 @#$#@#$#@
 ## WHAT IS IT?
