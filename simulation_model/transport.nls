@@ -45,6 +45,8 @@ to travelling-to-activity-phase
     set #users-in-buses #users-in-buses + 1
   ] 
   
+  set #users-in-shared-cars 0
+  
   set list-of-shared-cars (list)
   let ongoing-set (turtle-set)
   ask shared-car-users [
