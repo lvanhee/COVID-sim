@@ -910,10 +910,10 @@ migration?
 -1000
 
 SLIDER
-2386
-631
-2634
-664
+2946
+628
+3194
+661
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1083,7 +1083,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.419
+0.432
 0.01
 1
 NIL
@@ -1181,7 +1181,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.295
+0.272
 0.01
 1
 NIL
@@ -1196,7 +1196,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.27
+0.276
 0.01
 1
 NIL
@@ -1211,7 +1211,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.016
+0.02
 0.01
 1
 NIL
@@ -1457,7 +1457,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-12
+8
 
 SLIDER
 1929
@@ -2435,16 +2435,6 @@ ratio-workers-own-cars
 NIL
 HORIZONTAL
 
-TEXTBOX
-2938
-610
-3190
-639
-The rest goes on private/safe transport
-11
-35.0
-1
-
 SLIDER
 2858
 765
@@ -2541,7 +2531,7 @@ INPUTBOX
 2788
 1295
 #max-people-per-bus
-100.0
+20.0
 1
 0
 Number
@@ -2596,7 +2586,7 @@ density-in-shared-cars
 density-in-shared-cars
 0
 1
-0.79
+0.8
 0.01
 1
 NIL
@@ -2693,7 +2683,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+8
 
 SLIDER
 2364
@@ -2704,7 +2694,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+53.0
 1
 1
 NIL
@@ -2719,7 +2709,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+80.0
 1
 1
 NIL
@@ -2734,7 +2724,7 @@ power-distance
 power-distance
 0
 100
-50.0
+38.0
 1
 1
 NIL
@@ -2749,7 +2739,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+68.0
 1
 1
 NIL
@@ -2764,7 +2754,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+14.0
 1
 1
 NIL
@@ -2779,7 +2769,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+67.0
 1
 1
 NIL
@@ -2854,21 +2844,6 @@ Cultural Model
 14
 83.0
 1
-
-SLIDER
-2938
-630
-3246
-663
-owning-solo-transportation-probability
-owning-solo-transportation-probability
-0
-1
-0.95
-0.01
-1
-NIL
-HORIZONTAL
 
 SLIDER
 1862
@@ -3621,7 +3596,7 @@ interest-rate-by-tick
 interest-rate-by-tick
 0
 0.01
-0.001
+0.0014
 0.0001
 1
 NIL
@@ -3871,7 +3846,7 @@ ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
 1
-0.42
+0.464
 0.01
 1
 NIL
@@ -3929,7 +3904,7 @@ SWITCH
 1493
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 

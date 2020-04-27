@@ -178,8 +178,6 @@ to setup-person [current-home l-age]
     setup-relation-to-gathering-points
     set previous-contacts-met n-values #days-tracking [(turtle-set)]
 
-    set can-I-perform-solo-transportation? random-float 1  <  owning-solo-transportation-probability
-
     set current-person-I-depend-on nobody
     set color default-color
     set size 0.5
@@ -196,7 +194,6 @@ to setup-person [current-home l-age]
     set what-my-network-did-week-day []
     set what-my-network-did-weekend []
     set what-transport-I-used []
-    set what-transport-my-network-used []
     set did-my-network-socially-distance? false
     
     set has-mobile-phone? false
