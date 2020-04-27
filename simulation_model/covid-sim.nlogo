@@ -1707,10 +1707,10 @@ Transport Model
 1
 
 TEXTBOX
-2923
-728
-3084
-756
+3128
+724
+3289
+752
 Risks of becoming sick when travelling locally
 11
 35.0
@@ -2414,7 +2414,7 @@ ratio-motorized-transport-to-work
 ratio-motorized-transport-to-work
 0
 1
-0.4
+0.618
 0.01
 1
 NIL
@@ -2444,7 +2444,7 @@ ratio-workers-own-cars
 ratio-workers-own-cars
 0
 1
-0.15
+0.45
 0.01
 1
 NIL
@@ -2499,7 +2499,7 @@ ratio-motorized-transport-to-school
 ratio-motorized-transport-to-school
 0
 1
-0.03
+0.194
 0.01
 1
 NIL
@@ -2514,7 +2514,7 @@ ratio-children-own-cars
 ratio-children-own-cars
 0
 1
-0.02
+0.0
 0.01
 1
 NIL
@@ -2589,7 +2589,7 @@ ratio-students-own-cars
 ratio-students-own-cars
 0
 1
-0.1
+0.558
 0.01
 1
 NIL
@@ -2604,7 +2604,7 @@ ratio-retired-own-cars
 ratio-retired-own-cars
 0
 1
-0.5
+0.109
 0.01
 1
 NIL
@@ -2619,7 +2619,7 @@ ratio-motorized-transport-to-university
 ratio-motorized-transport-to-university
 0
 1
-0.6
+0.304
 0.01
 1
 NIL
@@ -2634,7 +2634,7 @@ ratio-motorized-transport-to-hospital
 ratio-motorized-transport-to-hospital
 0
 1
-0.18
+1.0
 0.01
 1
 NIL
@@ -3976,7 +3976,7 @@ ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
 1
-0.66
+0.464
 0.01
 1
 NIL
@@ -3991,7 +3991,7 @@ ratio-motorized-transport-to-essential-shops
 ratio-motorized-transport-to-essential-shops
 0
 1
-0.39
+0.464
 0.01
 1
 NIL
@@ -4006,7 +4006,7 @@ ratio-motorized-transport-to-public-leisure
 ratio-motorized-transport-to-public-leisure
 0
 1
-0.51
+0.49
 0.01
 1
 NIL
@@ -4021,7 +4021,7 @@ ratio-motorized-transport-to-private-leisure
 ratio-motorized-transport-to-private-leisure
 0
 1
-0.48
+0.49
 0.01
 1
 NIL
@@ -4130,6 +4130,16 @@ ratio-children-public-transport
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+2796
+713
+2959
+758
+Transport-parameters-of
+Transport-parameters-of
+"custom" "Netherlands"
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
