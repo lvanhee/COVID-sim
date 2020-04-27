@@ -1707,10 +1707,10 @@ Transport Model
 1
 
 TEXTBOX
-3128
-724
-3289
-752
+3193
+1082
+3354
+1110
 Risks of becoming sick when travelling locally
 11
 35.0
@@ -2536,10 +2536,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-3141
-1272
-3297
-1332
+2632
+1235
+2788
+1295
 #max-people-per-bus
 100.0
 1
@@ -2547,10 +2547,10 @@ INPUTBOX
 Number
 
 MONITOR
-3302
-1273
-3497
-1318
+2890
+1186
+3055
+1231
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2558,10 +2558,10 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3079
-946
-3304
-979
+3180
+929
+3405
+962
 density-when-queuing
 density-when-queuing
 0
@@ -2573,10 +2573,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3079
-989
-3304
-1022
+3180
+972
+3405
+1005
 density-in-public-transport
 density-in-public-transport
 0
@@ -2588,10 +2588,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3080
-1029
-3304
-1062
+3181
+1012
+3405
+1045
 density-in-shared-cars
 density-in-shared-cars
 0
@@ -2603,10 +2603,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3302
-1219
-3471
-1264
+2763
+1186
+2887
+1231
 NIL
 #people-denied-bus
 17
@@ -3235,10 +3235,10 @@ Agent social distancing settings
 1
 
 SLIDER
-3082
-1075
-3268
-1108
+3189
+1118
+3375
+1151
 solo-transport-costs
 solo-transport-costs
 0
@@ -3250,10 +3250,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3082
-1112
-3269
-1145
+3189
+1155
+3376
+1188
 public-transport-costs
 public-transport-costs
 0
@@ -3265,10 +3265,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3084
-1154
-3269
-1187
+3191
+1197
+3376
+1230
 car-sharing-costs
 car-sharing-costs
 0
@@ -3660,7 +3660,7 @@ HORIZONTAL
 MONITOR
 1065
 2005
-1185
+1195
 2050
 NIL
 #public-transport-workers
@@ -3773,10 +3773,10 @@ count should-be-isolators
 11
 
 MONITOR
-3154
-1218
-3282
-1263
+2633
+1186
+2761
+1231
 NIL
 #bus-per-timeslot
 17
@@ -3784,10 +3784,10 @@ NIL
 11
 
 MONITOR
-3228
-1354
-3346
-1399
+3057
+1187
+3175
+1232
 NIL
 #users-in-buses
 17
@@ -3871,7 +3871,7 @@ ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
 1
-0.464
+0.42
 0.01
 1
 NIL
@@ -3990,10 +3990,10 @@ is-hard-lockdown-active?
 11
 
 PLOT
-2604
-1200
-3123
-1442
+2634
+927
+3153
+1169
 users of transport
 NIL
 NIL
@@ -4020,6 +4020,17 @@ Transport-parameters-of
 Transport-parameters-of
 "custom" "Netherlands"
 1
+
+MONITOR
+1207
+2006
+1308
+2051
+NIL
+#shared-cars-workers
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
