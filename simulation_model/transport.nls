@@ -87,27 +87,6 @@ to-report shared-car-transportation-method
   report "shared-car"
 end
 
-to-report my-probability-of-taking [mt]
-  if mt = "public" [
-    if is-child? [report ratio-children-public-transport]
-    if is-retired? [report ratio-retired-public-transport]
-    if is-student? [report ratio-student-public-transport]
-    if is-worker? [report ratio-worker-public-transport]
-  ]
-  if mt = "shared-car" [
-    if is-child? [report ratio-children-shared-car]
-    if is-retired? [report ratio-student-shared-car]
-    if is-student? [report ratio-student-shared-car]
-    if is-worker? [report ratio-worker-shared-car]
-  ]
-  if mt = "solo" [
-     if is-child? [report ((1 - ratio-children-shared-car) - ratio-children-public-transport)]
-    if is-retired? [report ((1 - ratio-student-shared-car) - ratio-retired-public-transport)]
-    if is-student? [report ((1 - ratio-student-shared-car) - ratio-student-public-transport)]
-    if is-worker? [report ((1 - ratio-worker-shared-car) - ratio-worker-public-transport)]
-  ]
-end
-
 to-report expected-number-of-others-on-transport [mt]
   let others 0 ;for solo/stay-here/stay-home
   if mt = "public" [set others #max-people-per-bus] 

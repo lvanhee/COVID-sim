@@ -300,16 +300,6 @@ to load-baseline-scenario
 end
 
 to load-default-transport-model
-  set ratio-children-public-transport 0.75
-  set ratio-student-public-transport 0.6
-  set ratio-worker-public-transport 0.4
-  set ratio-retired-public-transport 0.2
-  
-  set ratio-children-shared-car 0
-  set ratio-student-shared-car .1
-  set ratio-worker-shared-car .15
-  set ratio-retired-shared-car .5
-  
   set #max-people-per-bus 20
   set density-when-queuing 0.6
   set density-in-public-transport 0.5
