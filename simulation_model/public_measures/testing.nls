@@ -3,7 +3,6 @@ to perform-daily-testing-public-measure
   if not is-daily-testing-public-measure-active? [stop]
   ; Only test once a day
   if slice-of-the-day = "afternoon" [
-    set #tests-done-today 0
     let prioritized-people (turtle-set nobody)
 
     if prioritize-testing-health-care-and-eduction? [
@@ -38,7 +37,6 @@ to perform-daily-testing-public-measure
     ]
 
     ask n-of (ratio-population-daily-immunity-testing * count people) people [
-      set #tests-used-by-daily-testing #tests-used-by-daily-testing + 1
       perform-immunity-test
     ]
   ]

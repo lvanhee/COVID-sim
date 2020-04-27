@@ -2106,7 +2106,7 @@ INPUTBOX
 644
 425
 #households
-500.0
+100.0
 1
 0
 Number
@@ -2871,7 +2871,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-1.0
+0.0
 0.01
 1
 NIL
@@ -3791,7 +3791,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine"
-1
+2
 
 SWITCH
 2229
@@ -3834,7 +3834,7 @@ CHOOSER
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+0
 
 MONITOR
 2242
