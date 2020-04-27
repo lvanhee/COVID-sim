@@ -433,44 +433,47 @@ to-report SUE-financial-survival [ad]
     let motive motive-of ad
     let mt method-of-transportation-of ad
     let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
-    let result 0
+    let transport-costs 0
+    let money-left-over my-amount-of-capital
     
-    if is-I-have-contractual-obligations? [
-
-      if gp = my-work and is-working-motive? motive [
-        report min (list (my-expected-income / eating-costs) 1)
-      ]
-      set result max (list ((- my-expected-income) / eating-costs) 0)
-    ]
-    if motive = "essential shopping" [
-      let money-left-over my-amount-of-capital - eating-costs
-      ; If we spend all our money, financial-survival will drop to 0
-      if money-left-over < 0 [
-        report (- financial-survival-satisfaction-level)
-      ]
-      report (- min (list (money-left-over / eating-costs) 1))
-    ]
-    if motive = "shopping" [
-      let money-left-over my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops
-      ; If we spend all our money, financial-survival will drop to 0
-      if money-left-over < 0 [
-        report (- financial-survival-satisfaction-level)
-      ]
-      report (- min (list (money-left-over / eating-costs) 1))
-    ]
-    
-    ;additions for transportation
+       ;additions for transportation
     if mt = "solo" [
-      set result result + (- min (list ((my-amount-of-capital - solo-transport-costs) / eating-costs) 1))
+      set money-left-over money-left-over - solo-transport-costs
+      set transport-costs solo-transport-costs
     ]
     if mt = "public" [
-      set result result + (- min (list ((my-amount-of-capital - public-transport-costs) / eating-costs) 1))
+      set money-left-over money-left-over - public-transport-costs
+      set transport-costs public-transport-costs
     ]
     if mt = "shared-car" [
-      set result result + (- min (list ((my-amount-of-capital - car-sharing-costs) / eating-costs) 1))
+      set money-left-over money-left-over - car-sharing-costs
+      set transport-costs car-sharing-costs
     ]
     
-    report result
+    if is-I-have-contractual-obligations? [
+      if gp = my-work and is-working-motive? motive [
+        report min (list ( (my-expected-income - transport-costs)  / eating-costs) 1)
+      ]
+      set money-left-over money-left-over - my-expected-income
+    ]
+    
+    if motive = "essential shopping" [
+      set money-left-over money-left-over - eating-costs
+      ; If we spend all our money, financial-survival will drop to 0
+      if money-left-over < 0 [
+        report (- financial-survival-satisfaction-level)
+      ]
+    ]
+    
+    if motive = "shopping" [
+      set money-left-over money-left-over - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops 
+      ; If we spend all our money, financial-survival will drop to 0
+      if money-left-over < 0 [
+        report (- financial-survival-satisfaction-level)
+      ]
+    ]
+    
+    report (- min (list (money-left-over / eating-costs) 1))
   ]
   report 0  
 end
