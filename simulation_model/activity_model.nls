@@ -111,7 +111,7 @@ to update-resources-based-on-current-activity
   if is-being-away? current-activity [stop]
   if current-motivation = treatment-motive [stop];;let's assume being treated is free for now
 
-  error (sentence "not implemented" [gathering-type] of current-activity current-motivation current-transport-method)
+  error (sentence "not implemented" [gathering-type] of current-activity current-motivation)
 end
 
 to-report is-being-away? [a]
@@ -321,7 +321,7 @@ to perform-people-activities
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
     select-activity
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation current-transport-method)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
 
     if is-currently-in-sitation-of-active-dependence? and current-person-I-depend-on != nobody
     [

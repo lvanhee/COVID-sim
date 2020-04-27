@@ -14,11 +14,14 @@ people-own [
   my-essential-shops
   
   ;;transportation model
+  current-means-of-transport
   my-means-of-transportation-I-currently-use
   can-I-perform-solo-transportation?
   stayed-out-queuing-for-bus?
   do-I-own-a-car?
-  current-transport-method
+  what-transport-I-used
+  what-transport-my-network-used
+  my-transport-number
   
   transport-to-my-school
   transport-to-my-university
@@ -54,10 +57,10 @@ people-own [
   I-know-of-working-from-home?
   ; Memory of the network's actions
   ; The memory is a list with a max lenght of 28 (for all the ticks in a week). New events get added to the end, so the first event should always be what most people in your network did one week ago
-  what-my-network-did
-  what-transport-I-used
-  my-transport-number
-  what-transport-my-network-used
+  what-my-network-did-week-day
+  what-my-network-did-weekend
+  did-my-network-socially-distance?
+  did-my-network-quarantine?
   
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
   ;"needs" are a relevant concept for accounting for the reasons that can push an agent for violating guidelines, in spite of generally complying to them
