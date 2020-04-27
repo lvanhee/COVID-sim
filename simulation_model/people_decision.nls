@@ -194,9 +194,16 @@ to update-memory
   ]
   
   ;;transport memory
-  set what-transport-I-used lput current-means-of-transport what-transport-I-used
-  if length what-transport-I-used > 4 [
-   set what-transport-I-used but-first what-transport-I-used
+  ifelse working-day? [
+    set what-transport-I-used-week-day lput current-means-of-transport what-transport-I-used-week-day
+    if length what-transport-I-used-week-day > 4 [
+      set what-transport-I-used-week-day but-first what-transport-I-used-week-day
+    ]
+  ] [
+    set what-transport-I-used-weekend lput current-means-of-transport what-transport-I-used-weekend
+    if length what-transport-I-used-weekend > 4 [
+      set what-transport-I-used-weekend but-first what-transport-I-used-weekend
+    ]
   ]
   
  

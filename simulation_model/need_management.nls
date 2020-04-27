@@ -402,7 +402,7 @@ to-report SUE-autonomy [ad]
     set sd-modifier (1 - social-distance-profile)
   ]
   
-  let relevant-memory what-transport-I-used
+  let relevant-memory ifelse-value working-day? [what-transport-I-used-week-day] [what-transport-I-used-weekend]
   if length relevant-memory >= 4 [
     ifelse mt = (first relevant-memory) [set transport-bonus 0.1][set transport-bonus 0.1]
   ]

@@ -193,7 +193,8 @@ to setup-person [current-home l-age]
     set I-know-of-working-from-home? true
     set what-my-network-did-week-day []
     set what-my-network-did-weekend []
-    set what-transport-I-used []
+    set what-transport-I-used-week-day []
+    set what-transport-I-used-weekend []
     set did-my-network-socially-distance? false
     
     set has-mobile-phone? false
