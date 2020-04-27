@@ -141,6 +141,64 @@ to-report number-of-others-on-transport [mt]
   report others
 end
 
+to setup-country-based-transport-parameters
+  if Transport-parameters-of = "custom" [
+    set ratio-children-own-cars ratio-children-own-cars
+    set ratio-retired-own-cars ratio-retired-own-cars 
+    set ratio-students-own-cars ratio-students-own-cars
+    set ratio-workers-own-cars ratio-workers-own-cars 
+    set ratio-motorized-transport-to-school ratio-motorized-transport-to-school
+    set ratio-motorized-transport-to-university ratio-motorized-transport-to-university 
+    set ratio-motorized-transport-to-work ratio-motorized-transport-to-work
+    set ratio-motorized-transport-to-hospital ratio-motorized-transport-to-hospital
+    set ratio-motorized-transport-to-my-non-essential-shop ratio-motorized-transport-to-my-non-essential-shop
+    set ratio-motorized-transport-to-essential-shops ratio-motorized-transport-to-essential-shops 
+    set ratio-motorized-transport-to-public-leisure ratio-motorized-transport-to-public-leisure
+    set ratio-motorized-transport-to-private-leisure ratio-motorized-transport-to-private-leisure
+    stop
+  ]
+ 
+  let country-specific-data-list []
+  file-open "country-specific-data.csv"
+  
+  
+  while [not file-at-end? ] [
+    let csv file-read-line
+    set csv word csv ";"  ; add comma for loop termination 
+    
+    let mylist []  ; list of values 
+    while [not empty? csv] 
+    [
+      let $x position ";" csv 
+      let $item substring csv 0 $x  ; extract item 
+      carefully [set $item read-from-string $item][] ; convert if number 
+      set mylist lput $item mylist  ; append to list 
+      set csv substring csv ($x + 1) length csv  ; remove item and comma 
+    ] 
+    if first mylist = Transport-parameters-of [
+      set country-specific-data-list but-first mylist ]
+  ]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" household-profiles)]
+  file-close
+  
+  
+  set ratio-children-own-cars item 10 country-specific-data-list
+  set ratio-retired-own-cars item 11 country-specific-data-list
+  set ratio-students-own-cars item 12 country-specific-data-list 
+  set ratio-workers-own-cars item 13 country-specific-data-list
+  set ratio-motorized-transport-to-work item 14 country-specific-data-list
+  set ratio-motorized-transport-to-essential-shops item 15 country-specific-data-list
+  set ratio-motorized-transport-to-my-non-essential-shop item 16 country-specific-data-list
+  set ratio-motorized-transport-to-school item 17 country-specific-data-list
+  set ratio-motorized-transport-to-university item 18 country-specific-data-list
+  set ratio-motorized-transport-to-private-leisure item 19 country-specific-data-list
+  set ratio-motorized-transport-to-public-leisure item 20 country-specific-data-list
+  set ratio-motorized-transport-to-hospital item 21 country-specific-data-list
+  
+  
+end
+
+
 to-report setup-do-I-own-a-car?
   
   if is-child? [
