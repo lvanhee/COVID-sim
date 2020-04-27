@@ -104,7 +104,6 @@ to-report is-currently-in-sitation-of-active-dependence?
 end
 
 
-
 to select-activity
   let c-a my-preferred-available-activity-descriptor
   
@@ -117,6 +116,7 @@ to select-activity
   select-activity-wtf? loc
   set current-activity loc
   set current-motivation motive-of c-a
+  set current-means-of-transport method-of-transportation-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
 end
@@ -189,14 +189,14 @@ to update-memory
   ]
   
   ;;transport memory
-  set what-transport-I-used lput my-means-of-transportation-I-currently-use what-transport-I-used
+  set what-transport-I-used lput current-means-of-transport what-transport-I-used
   if length what-transport-I-used > 28 [
    set what-transport-I-used but-first what-transport-I-used
   ]
   
   let counts-of-my-networks-means-of-transport new-counter
   ask my-network [
-    set counts-of-my-networks-means-of-transport add-to-counter counts-of-my-networks-means-of-transport my-means-of-transportation-I-currently-use
+    set counts-of-my-networks-means-of-transport add-to-counter counts-of-my-networks-means-of-transport current-means-of-transport
   ]
   let my-networks-means-of-transport counter-max-value counts-of-my-networks-means-of-transport
   

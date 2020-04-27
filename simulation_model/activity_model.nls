@@ -334,9 +334,9 @@ to perform-people-activities
   travelling-to-activity-phase
 
   ask people [
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation my-means-of-transportation-I-currently-use)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation current-means-of-transport)]
     execute-activity-effect
-    update-needs-for-playing (list current-activity current-motivation my-means-of-transportation-I-currently-use is-I-apply-social-distancing?)
+    update-needs-for-playing (list current-activity current-motivation current-means-of-transport is-I-apply-social-distancing?)
   ]
   animate-walk-to-goal
 

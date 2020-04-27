@@ -23,14 +23,8 @@ to travelling-to-activity-phase
   let shared-car-users (turtle-set)
   
   ask people [
-    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method stop]
-    set my-means-of-transportation-I-currently-use current-means-of-transport
-    if my-means-of-transportation-I-currently-use = public-transportation-method [
-      set bus-users (turtle-set bus-users self)
-    ]
-    if my-means-of-transportation-I-currently-use = shared-car-transportation-method [
-      set shared-car-users (turtle-set shared-car-users self)
-    ]
+    if current-means-of-transport = public-transportation-method [set bus-users (turtle-set bus-users self)]
+    if current-means-of-transport = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
   ]
   
   set list-of-buses n-values #bus-per-timeslot [x -> (turtle-set)]
@@ -66,10 +60,10 @@ to travelling-to-activity-phase
   if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
   
   
-  set #users-solo count people with [my-means-of-transportation-I-currently-use = solo-transportation-method]
+  set #users-solo count people with [current-means-of-transport = solo-transportation-method]
   
-  set #workers-public-transport count people with [my-means-of-transportation-I-currently-use = public-transportation-method and age = worker-age]
-  set #workers-solo-transport count people with [my-means-of-transportation-I-currently-use = solo-transportation-method and age = worker-age]
+  set #workers-public-transport count people with [current-means-of-transport = public-transportation-method and age = worker-age]
+  set #workers-solo-transport count people with [current-means-of-transport = solo-transportation-method and age = worker-age]
   
 end
 
@@ -79,19 +73,6 @@ end
 
 to-report stay-here-transportation-method
   report "stay-here"
-end
-
-
-
-to-report random-means-of-transportation
-  let rand random-float 1
-  let my-probability-of-taking-the-bus my-probability-of-taking "public"
-  let my-probability-of-taking-a-shared-car my-probability-of-taking "shared-car"
-  if rand < my-probability-of-taking-the-bus [report public-transportation-method]
-  set rand rand - my-probability-of-taking-the-bus
-  if rand < my-probability-of-taking-a-shared-car [report shared-car-transportation-method]
-  if not can-I-perform-solo-transportation? [report random-means-of-transportation]
-  report solo-transportation-method
 end
 
 to-report solo-transportation-method
