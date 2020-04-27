@@ -239,7 +239,7 @@ end
 to-report SUA-risk-avoidance [ad]
   let gp location-of ad
   let mt method-of-transportation-of ad
-  report risk-avoidance-increase ad count people with [current-activity = gp] expected-number-of-others-on-transport mt
+  report risk-avoidance-increase ad count people with [current-activity = gp] number-of-others-on-transport mt
 end
 
 
@@ -392,14 +392,21 @@ end
 to-report SUE-autonomy [ad]
   let gp location-of ad
   let motive motive-of ad
+  let mt method-of-transportation-of ad
   let social-distancing social-distancing-of ad
   let base 0
   let sd-modifier 1
+  let transport-bonus 0
   
   if social-distancing [
     set sd-modifier (1 - social-distance-profile)
   ]
-
+  
+  let relevant-memory what-transport-I-used
+  if length relevant-memory >= 4 [
+    ifelse mt = (first relevant-memory) [set transport-bonus 0.1][set transport-bonus 0.1]
+  ]
+  
   if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
       ifelse [gathering-type] of gp = "school"
