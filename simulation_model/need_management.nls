@@ -514,7 +514,6 @@ to-report SUE-financial-safety [ad]
     report result
   ]
   report 0
-
 end
 
 to-report SUE-health [ad]
@@ -545,6 +544,7 @@ end
 to-report conformity-increase [ad network-action]
   let gp location-of ad
   let motive motive-of ad
+  let mt method-of-transportation-of ad
   let sd social-distancing-of ad
   let result 0
   
@@ -570,6 +570,12 @@ to-report conformity-increase [ad network-action]
   ]
   
   ifelse sd = did-my-network-socially-distance? [
+    set result result + 0.1
+  ] [
+    set result result - 0.1
+  ]
+  
+  ifelse mt = method-of-transportation-of network-action [
     set result result + 0.1
   ] [
     set result result - 0.1

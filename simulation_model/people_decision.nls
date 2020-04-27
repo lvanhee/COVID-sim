@@ -165,13 +165,15 @@ end
 
 to update-memory
   let network-activities new-counter
+  let network-means-of-transport-list new-counter
   ask my-network [
     set network-activities add-to-counter network-activities (list [gathering-type] of current-activity current-motivation)
+    set network-means-of-transport-list add-to-counter network-means-of-transport-list current-means-of-transport
   ]
 
-  ; add a nobody to the front of the list to make it work like an activity
-  ; to do: switch to gathering point type?
-  let network-activity fput nobody counter-max-value network-activities
+  let network-activity counter-max-value network-activities
+  set network-activity lput (counter-max-value network-means-of-transport-list) network-activity
+  
   ifelse working-day? [
     set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
     if length what-my-network-did-week-day > 4 [
@@ -193,20 +195,9 @@ to update-memory
   
   ;;transport memory
   set what-transport-I-used lput current-means-of-transport what-transport-I-used
-  if length what-transport-I-used > 28 [
+  if length what-transport-I-used > 4 [
    set what-transport-I-used but-first what-transport-I-used
   ]
   
-  let counts-of-my-networks-means-of-transport new-counter
-  ask my-network [
-    set counts-of-my-networks-means-of-transport add-to-counter counts-of-my-networks-means-of-transport current-means-of-transport
-  ]
-  let my-networks-means-of-transport counter-max-value counts-of-my-networks-means-of-transport
-  
-  
-  set what-transport-my-network-used lput my-networks-means-of-transport what-transport-my-network-used
-  if length what-transport-my-network-used > 28 [
-    set what-transport-my-network-used but-first what-transport-my-network-used
-  ]
-  
+ 
 end
