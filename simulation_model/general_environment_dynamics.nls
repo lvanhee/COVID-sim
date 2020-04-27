@@ -12,6 +12,8 @@ to-report is-global-condition-met? [cond]
     ticks > end-tick-of-global-quarantine - 7 * #ticks-per-day]
   if cond = "always"[report true]
   if cond = "never"[report false]
-  if cond = "at-the-end-of-quarantine"[report ticks > end-tick-of-global-quarantine]
+  if cond = "at-end-of-global-quarantine"[
+    if start-tick-of-global-quarantine = "never" [report false]
+    report ticks > end-tick-of-global-quarantine]
   error (sentence "not implemented" cond)
 end

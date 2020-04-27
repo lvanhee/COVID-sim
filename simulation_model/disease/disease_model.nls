@@ -117,6 +117,10 @@ to set-infection-status [infection]
   set infection-state infection
 end
 
+to-report is-asymptomatic?
+  report is-infected-infection-status? infection-status and not has-internally-visible-symptoms?
+end
+
 to-report is-infected-infection-status? [in]
   if is-timed-state? in [report is-infected-infection-status? state-of-timed-state in]
   if in = "infected"

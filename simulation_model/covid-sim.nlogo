@@ -3847,6 +3847,17 @@ NIL
 1
 11
 
+MONITOR
+1803
+533
+2011
+578
+NIL
+#infected-by-asymptomatic-people
+17
+1
+11
+
 @#$#@#$#@
 ## WHAT IS IT?
 
