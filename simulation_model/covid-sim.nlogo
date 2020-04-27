@@ -3790,7 +3790,7 @@ CHOOSER
 1347
 when-is-tracing-app-active?
 when-is-tracing-app-active?
-"always" "never" "7-days-before-end-of-global-quarantine"
+"always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
 2
 
 SWITCH
@@ -3834,7 +3834,7 @@ CHOOSER
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-0
+3
 
 MONITOR
 2242

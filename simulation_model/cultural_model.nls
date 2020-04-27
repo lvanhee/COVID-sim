@@ -288,7 +288,6 @@ to load-nations-hofstede-dimension-scores
   while [not file-at-end? ] [
     let csv file-read-line
     set csv word csv ";"  ; add comma for loop termination 
-    show csv
 
     let mylist []  ; list of values 
     while [not empty? csv] 
