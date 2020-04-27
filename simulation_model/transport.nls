@@ -176,63 +176,35 @@ to setup-preferred-type-of-transport-method-to-gathering-points
 
 end
 
-to-report preferred-type-of-transport-method-to-gathering-point [activity-location]
+to-report do-I-need-motorized-transport [activity-location]
   
   if [gathering-type] of activity-location = "school"
-  [report transport-to-my-school ]
+  [report transport-to-my-school = "motorized" ]
   
   if [gathering-type] of activity-location = "university"
-  [report transport-to-my-university ]
+  [report transport-to-my-university = "motorized" ]
   
   if  [gathering-type] of activity-location = "workplace"
-  [report transport-to-my-work ]
+  [report transport-to-my-work = "motorized" ]
   
   if  [gathering-type] of activity-location = "hospital"
-  [report transport-to-my-hospital ]
+  [report transport-to-my-hospital = "motorized" ]
   
   if [gathering-type] of activity-location = "non-essential-shop"
-  [report transport-to-my-non-essential-shop ]
+  [report transport-to-my-non-essential-shop = "motorized" ]
   
   if  [gathering-type] of activity-location = "essential-shop"
-  [report transport-to-my-essential-shops]
+  [report transport-to-my-essential-shops = "motorized"]
    
   if [gathering-type] of activity-location = "public-leisure"
-  [report transport-to-my-public-leisure ]
+  [report transport-to-my-public-leisure = "motorized" ]
   
   if [gathering-type] of activity-location = "private-leisure"
-  [report transport-to-my-private-leisure ]
+  [report transport-to-my-private-leisure = "motorized" ]
   
   if [gathering-type] of activity-location = "home"
-  [report transport-to-my-home ]
-
-  
-end
-
-to-report length-of-list-transport-method [activity-location]
-  
-  if activity-location = my-home [ report length (list "none")]
-  if activity-location = current-activity [ report length (list "none")]
-  ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
-  [report length (list "solo-transport")]
-  [ifelse do-I-own-a-car? = true 
-    [report length (list "car" "bus" "shared-car")]
-    [report length (list "bus" "shared-car")]
-  ]
- 
-end
-
-to-report transport-method [activity-location item-in-list ] 
-   
-  if activity-location = my-home or activity-location = current-activity [
-    report item item-in-list (list "none")]
-  ifelse preferred-type-of-transport-method-to-gathering-point activity-location = "non-motorized"
-  [report item item-in-list (list "solo-transport")]
-  [ifelse do-I-own-a-car? = true 
-    [report item item-in-list (list "car" "bus" "shared-car")]
-    [report item item-in-list (list "bus" "shared-car")]
-  ]
-
-  
+  [report transport-to-my-home  = "motorized"]
+  report false
 end
 
 

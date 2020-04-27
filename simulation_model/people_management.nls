@@ -15,7 +15,7 @@ people-own [
   
   ;;transportation model
   current-means-of-transport
-  my-means-of-transportation-I-currently-use
+  
   can-I-perform-solo-transportation?
   stayed-out-queuing-for-bus?
   do-I-own-a-car?
