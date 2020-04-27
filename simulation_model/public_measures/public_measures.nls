@@ -1,8 +1,8 @@
+__includes["public_measures/global_quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls"]
+
 globals [
   was-social-distancing-enforced?
   #tests-done-today
-  has-2%-infected-threshold-been-met?
-  time-start-full-isolation
 ]
 
 to-report is-hard-lockdown-active?
@@ -38,56 +38,12 @@ to-report closed-schools?
   #days-trigger-school-closing-measure <= current-day
 end
 
-to perform-testing
-  ; Only test once a day
-  if slice-of-the-day = "afternoon" [
-    set #tests-done-today 0
-    let prioritized-people (turtle-set nobody)
 
-    if prioritize-testing-health-care-and-eduction? [
-      set prioritized-people (turtle-set prioritized-people (workers with [[is-hospital?] of my-work]))
-      set prioritized-people (turtle-set prioritized-people (workers with [[is-school? or is-university?] of my-work]))
-    ]
-
-    ask up-to-n-of #still-available-tests prioritized-people [
-      perform-test
-    ]
-
-    ; Make sure we do not test people twice
-    let people-to-test people with [not member? self prioritized-people]
-
-    if do-not-test-youth? [
-      set people-to-test people-to-test with [not is-young?]
-    ]
-
-    if only-test-retirees-with-extra-tests? [
-      set people-to-test retireds
-    ]
-
-    ; We cannot test more people than we have tests available
-    let #people-to-test (min (list
-      (ratio-population-randomly-tested-daily * count people)
-      #still-available-tests))
-
-    ask n-of #people-to-test people-to-test [
-      perform-test
-    ]
-
-    ask n-of (ratio-population-daily-immunity-testing * count people) people [
-      perform-immunity-test
-    ]
-  ]
-end
 
 to apply-active-measures
-  perform-testing
-  
-  if all-self-isolate-for-35-days-when-first-hitting-2%-infected? and ratio-infected > 0.02 and not has-2%-infected-threshold-been-met?
-  [
-    set has-2%-infected-threshold-been-met? true
-    set time-start-full-isolation ticks
-    ask people [include-time-for-quarantining 35 * #ticks-per-day]
-  ]
+  perform-daily-testing-public-measure
+  update-global-quarantine-measure
+  update-tracing-app-public-measure
 
   if was-social-distancing-enforced? != is-social-distancing-measure-active? [
     set was-social-distancing-enforced? is-social-distancing-measure-active?
@@ -103,13 +59,6 @@ to-report is-social-distancing-measure-active?
   report ratio-omniscious-infected-that-trigger-social-distancing-measure < ratio-infected
 end
 
-to-report people-recorded-by-my-recording-app
-  report reduce [[x y] -> (turtle-set x y)] previous-contacts-met
-end
-
-to-report average-number-of-people-recorded-by-recording-apps
-  report mean [count people-recorded-by-my-recording-app] of people with [is-user-of-tracking-app?]
-end
 
 to inform-people-of-measures
   ask n-of (count people * percentage-news-watchers) people [
@@ -143,12 +92,15 @@ to disable-all-measures
   set do-not-test-youth? false
   set only-test-retirees-with-extra-tests? false
   ; App settings
-  set ratio-of-users-of-the-tracking-app 0
+  set ratio-of-people-using-the-tracking-app 0
   ; Isolation
   set is-infected-and-their-families-requested-to-stay-at-home? false
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
   set food-delivered-to-isolators? false
-  set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
+  
   set ratio-self-quarantining-when-symptomatic 0
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
+  disable-global-quarantine-measure
+  disable-tracing-app-measure
+  disable-daily-testing-measure
 end

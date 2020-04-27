@@ -1,4 +1,4 @@
-extensions [profiler]
+extensions [profiler table]
 __includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "behaviourspace.nls" "utils/all_utils.nls"]
 breed [people person]
 
@@ -27,8 +27,9 @@ to go
   perform-people-activities
   run-economic-cycle
   update-display
-  update-time
+  increment-time
   apply-active-measures
+  update-metrics
 end
 
 to go-profile
@@ -119,7 +120,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.15
+0.4
 0.01
 1
 NIL
@@ -165,7 +166,7 @@ INPUTBOX
 938
 700
 #schools-gp
-3.0
+12.0
 1
 0
 Number
@@ -176,7 +177,7 @@ INPUTBOX
 1029
 700
 #universities-gp
-10.0
+40.0
 1
 0
 Number
@@ -187,7 +188,7 @@ INPUTBOX
 1121
 700
 #workplaces-gp
-10.0
+40.0
 1
 0
 Number
@@ -208,7 +209,7 @@ INPUTBOX
 1235
 700
 #public-leisure-gp
-1.0
+4.0
 1
 0
 Number
@@ -219,7 +220,7 @@ INPUTBOX
 1352
 700
 #private-leisure-gp
-10.0
+40.0
 1
 0
 Number
@@ -298,7 +299,7 @@ density-factor-public-leisure
 density-factor-public-leisure
 0
 1
-0.68
+0.51
 0.01
 1
 NIL
@@ -313,7 +314,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.23
+0.19
 0.01
 1
 NIL
@@ -405,7 +406,7 @@ INPUTBOX
 1470
 700
 #essential-shops-gp
-5.0
+20.0
 1
 0
 Number
@@ -419,7 +420,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.17
+0.19
 0.01
 1
 NIL
@@ -446,7 +447,7 @@ INPUTBOX
 1598
 700
 #non-essential-shops-gp
-10.0
+40.0
 1
 0
 Number
@@ -457,7 +458,7 @@ INPUTBOX
 851
 700
 #hospital-gp
-1.0
+4.0
 1
 0
 Number
@@ -486,7 +487,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.026
+0.03
 0.01
 1
 NIL
@@ -516,7 +517,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.005
+0.04
 0.01
 1
 NIL
@@ -906,7 +907,7 @@ SWITCH
 620
 migration?
 migration?
-0
+1
 1
 -1000
 
@@ -1084,7 +1085,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.419
+0.27
 0.01
 1
 NIL
@@ -1182,7 +1183,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.295
+0.38
 0.01
 1
 NIL
@@ -1197,7 +1198,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.27
+0.35
 0.01
 1
 NIL
@@ -1212,7 +1213,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.016
+0.01
 0.01
 1
 NIL
@@ -1458,7 +1459,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-12
+0
 
 SLIDER
 1929
@@ -1469,7 +1470,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+0.1
 0.01
 1
 NIL
@@ -1591,7 +1592,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
-0
+14
 
 MONITOR
 743
@@ -1642,7 +1643,7 @@ TEXTBOX
 915
 1848
 933
-Schools\n
+Closing schools\n
 11
 105.0
 1
@@ -1652,7 +1653,7 @@ TEXTBOX
 913
 2082
 931
-Workplaces
+Closing workplaces
 11
 105.0
 1
@@ -1732,7 +1733,7 @@ TEXTBOX
 916
 2354
 937
-Global
+Closing global
 11
 105.0
 1
@@ -1788,7 +1789,7 @@ probability-going-abroad
 probability-going-abroad
 0
 1
-0.02
+0.03
 0.01
 1
 NIL
@@ -1914,10 +1915,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2146
-1060
-2519
-1093
+2207
+1065
+2562
+1098
 probably-contagion-mitigation-from-social-distancing
 probably-contagion-mitigation-from-social-distancing
 0
@@ -1929,20 +1930,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2153
-1002
-2303
-1020
+2211
+1015
+2361
+1033
 Social distancing
 10
 105.0
 1
 
 SLIDER
-2147
-1022
-2520
-1055
+2207
+1032
+2561
+1065
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
@@ -1954,10 +1955,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2150
-1103
-2382
-1148
+2207
+1098
+2361
+1143
 NIL
 is-social-distancing-measure-active?
 17
@@ -2105,7 +2106,7 @@ INPUTBOX
 644
 425
 #households
-100.0
+500.0
 1
 0
 Number
@@ -2127,7 +2128,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-11.0
+2000.0
 1
 0
 Number
@@ -2247,10 +2248,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2149
-1157
-2385
-1202
+2360
+1098
+2458
+1143
 #social-distancing
 count people with [is-I-apply-social-distancing? = true]
 17
@@ -2684,7 +2685,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+4
 
 SLIDER
 2364
@@ -2695,7 +2696,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+35.0
 1
 1
 NIL
@@ -2710,7 +2711,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+89.0
 1
 1
 NIL
@@ -2725,7 +2726,7 @@ power-distance
 power-distance
 0
 100
-50.0
+35.0
 1
 1
 NIL
@@ -2740,7 +2741,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+69.0
 1
 1
 NIL
@@ -2755,7 +2756,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+66.0
 1
 1
 NIL
@@ -2770,7 +2771,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+51.0
 1
 1
 NIL
@@ -2866,11 +2867,11 @@ SLIDER
 1293
 2170
 1326
-ratio-of-users-of-the-tracking-app
-ratio-of-users-of-the-tracking-app
+ratio-of-people-using-the-tracking-app
+ratio-of-people-using-the-tracking-app
 0
 1
-0.0
+1.0
 0.01
 1
 NIL
@@ -2918,7 +2919,7 @@ INPUTBOX
 1234
 2480
 1294
-#days-tracking
+#days-recording-tracking
 14.0
 1
 0
@@ -3168,7 +3169,7 @@ MONITOR
 1347
 anxiety-avoidance of app users
 mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of app-users
-17
+3
 1
 11
 
@@ -3485,7 +3486,7 @@ ratio-young-with-phones
 ratio-young-with-phones
 0
 1
-0.11
+1.0
 0.01
 1
 NIL
@@ -3500,7 +3501,7 @@ ratio-retired-with-phones
 ratio-retired-with-phones
 0
 1
-0.4
+1.0
 0.01
 1
 NIL
@@ -3698,7 +3699,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-1.0
+0.8
 0.01
 1
 NIL
@@ -3729,10 +3730,10 @@ all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 MONITOR
 1811
 1456
-1949
+1863
 1501
 NIL
-time-start-full-isolation
+start-tick-of-global-quarantine
 17
 1
 11
@@ -3765,7 +3766,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-1.0
+0.8
 0.01
 1
 NIL
@@ -3778,6 +3779,70 @@ MONITOR
 994
 NIL
 is-hard-lockdown-active?
+17
+1
+11
+
+CHOOSER
+2424
+1302
+2584
+1347
+when-is-tracing-app-active?
+when-is-tracing-app-active?
+"always" "never" "7-days-before-end-of-global-quarantine"
+1
+
+SWITCH
+2229
+1413
+2511
+1446
+is-tracking-app-testing-immediately-recursive?
+is-tracking-app-testing-immediately-recursive?
+0
+1
+-1000
+
+MONITOR
+2434
+1360
+2567
+1405
+NIL
+is-tracing-app-active?
+17
+1
+11
+
+MONITOR
+2486
+1248
+2586
+1293
+#people-ever-recorded-as-positive-in-the-app
+count people-having-ever-been-recorded-as-positive-in-the-app
+17
+1
+11
+
+CHOOSER
+2297
+693
+2568
+738
+when-is-daily-testing-applied?
+when-is-daily-testing-applied?
+"always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
+2
+
+MONITOR
+2242
+640
+2414
+685
+NIL
+#tests-used-by-daily-testing
 17
 1
 11

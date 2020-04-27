@@ -1,0 +1,90 @@
+globals [
+  people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive
+  people-having-ever-been-recorded-as-positive-in-the-app
+  #tests-performed-by-tracking-app
+]
+to-report is-tracing-app-active?
+  report is-global-condition-met? when-is-tracing-app-active?
+end
+
+to-report people-recorded-by-my-recording-app
+  report reduce [[x y] -> (turtle-set x y)] list-of-people-met-per-day-as-recorded-by-the-tracking-app
+end
+
+to-report average-number-of-people-recorded-by-recording-apps
+  if not any? tracing-app-users [report 0]
+  report mean [count people-recorded-by-my-recording-app] of tracing-app-users
+end
+
+
+to update-tracing-app-public-measure
+  perform-testing-from-tracing-app-public-measure
+  ask tracing-app-users
+  [
+    while [(length list-of-people-met-per-day-as-recorded-by-the-tracking-app) >= #ticks-recorded-tracking]
+    [set list-of-people-met-per-day-as-recorded-by-the-tracking-app  (but-last list-of-people-met-per-day-as-recorded-by-the-tracking-app)]
+    
+    if length list-of-people-met-per-day-as-recorded-by-the-tracking-app < #ticks-recorded-tracking
+    [set list-of-people-met-per-day-as-recorded-by-the-tracking-app (fput (turtle-set) list-of-people-met-per-day-as-recorded-by-the-tracking-app)]
+  ]
+  set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive (list)
+end
+
+to-report #ticks-recorded-tracking
+  report #days-recording-tracking * #ticks-per-day
+end
+
+to-report tracing-app-users
+  report people with [is-user-of-tracking-app?]
+end
+
+to perform-testing-from-tracing-app-public-measure
+  if not is-tracing-app-active? [stop]
+  
+  let people-initiating-tests (turtle-set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive)
+  set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive (list)
+  
+  let people-to-test (turtle-set [people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?]] of people-initiating-tests)
+  ask people-to-test [perform-test 
+    set #tests-performed-by-tracking-app #tests-performed-by-tracking-app + 1]
+  
+  if is-tracking-app-testing-immediately-recursive? and any? people-to-test [perform-testing-from-tracing-app-public-measure]
+  
+end
+  
+
+to report-to-tracking-app [pers status]
+  if not is-tracing-app-active? [stop]
+  if status =  tested-positive-tracking-app-notification
+  [ set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive
+    lput pers people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive
+    set people-having-ever-been-recorded-as-positive-in-the-app (turtle-set people-having-ever-been-recorded-as-positive-in-the-app pers)
+    stop
+  ]
+  error "not implemented"
+end
+
+to-report tested-positive-tracking-app-notification
+  report "tested-positive"
+end
+
+to update-contacts-of-a-set-of-people-in-contact-tracing-app-public-measure [ts]
+  if not is-tracing-app-active? [stop]
+  let tracked-users ts with [is-user-of-tracking-app?]
+  ask tracked-users
+  [add-to-traced-contacts-tracing-app-public-measure tracked-users]
+  
+end
+
+to add-to-traced-contacts-tracing-app-public-measure [t-s]
+  if is-tracing-app-active?
+  [
+    let next-first-item (turtle-set first list-of-people-met-per-day-as-recorded-by-the-tracking-app  t-s)
+    set list-of-people-met-per-day-as-recorded-by-the-tracking-app 
+    (replace-item 0 list-of-people-met-per-day-as-recorded-by-the-tracking-app next-first-item)
+  ]
+end
+
+to disable-tracing-app-measure
+  set when-is-tracing-app-active? "never"
+end

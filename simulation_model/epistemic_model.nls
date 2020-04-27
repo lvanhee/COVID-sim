@@ -58,12 +58,10 @@ to perform-test
     set-believed-to-be-infected 
 
     if not knew-was-infected? and is-user-of-tracking-app? [
-      ask people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?] [perform-test]
+      report-to-tracking-app self tested-positive-tracking-app-notification
     ]
   ]
 end
-
-
 
 to-report is-believing-to-be-immune?
   report  has-been-tested-immune? or has-had-symptoms-long-ago?
@@ -76,7 +74,6 @@ end
 to-report  had-symptoms-long-ago-infection-status
   report "had-symptoms-long-ago"
 end
-
 
 to perform-immunity-test
     if is-immune? [

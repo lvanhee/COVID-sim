@@ -1,0 +1,51 @@
+ to increment-time
+  if slice-of-the-day = "morning"
+  [set slice-of-the-day "afternoon" stop]
+
+  if slice-of-the-day = "afternoon"
+  [set slice-of-the-day "evening" stop]
+
+  if slice-of-the-day = "evening"
+  [set slice-of-the-day "night" stop]
+
+  if slice-of-the-day = "night" [
+    set slice-of-the-day "morning"
+    set current-day current-day + 1
+    ask homes [
+      if available-food-rations > 0 [
+        set available-food-rations available-food-rations - min (list (count gatherers) available-food-rations)
+      ]
+    ]
+    
+    ;;A bit ugly and has not much to do here.
+   ;;Proposed fix: record when was the last day (tick?) where relatives were seen for the last time and a reporter for deducing how long they have not been seen
+    ask people [
+      set days-since-seen-relatives days-since-seen-relatives + 1
+      set days-since-seen-colleagues days-since-seen-colleagues + 1
+      set days-since-seen-friends days-since-seen-friends + 1
+    ]
+    
+    increment-day-of-the-week
+  ]
+end
+
+to increment-day-of-the-week
+  if day-of-the-week = "monday"
+  [set day-of-the-week "tuesday" stop]
+  if day-of-the-week = "tuesday"
+  [set day-of-the-week "wednesday" stop]
+  if day-of-the-week = "wednesday"
+  [set day-of-the-week "thursday" stop]
+  if day-of-the-week = "thursday"
+  [set day-of-the-week "friday" stop]
+  if day-of-the-week = "friday"
+  [set day-of-the-week "saturday" stop]
+  if day-of-the-week = "saturday"
+  [set day-of-the-week "sunday" stop]
+  if day-of-the-week = "sunday"
+  [set day-of-the-week "monday" stop]
+end
+
+to-report #ticks-per-day
+  report 4
+end

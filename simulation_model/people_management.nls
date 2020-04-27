@@ -21,7 +21,7 @@ people-own [
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
   
-  previous-contacts-met
+  list-of-people-met-per-day-as-recorded-by-the-tracking-app
   is-user-of-tracking-app?
   has-mobile-phone?
   

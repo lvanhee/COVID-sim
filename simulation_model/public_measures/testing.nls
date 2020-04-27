@@ -1,0 +1,53 @@
+globals [#tests-used-by-daily-testing]
+to perform-daily-testing-public-measure
+  if not is-daily-testing-public-measure-active? [stop]
+  ; Only test once a day
+  if slice-of-the-day = "afternoon" [
+    set #tests-done-today 0
+    let prioritized-people (turtle-set nobody)
+
+    if prioritize-testing-health-care-and-eduction? [
+      set prioritized-people (turtle-set prioritized-people (workers with [[is-hospital?] of my-work]))
+      set prioritized-people (turtle-set prioritized-people (workers with [[is-school? or is-university?] of my-work]))
+    ]
+
+    ask up-to-n-of #still-available-tests prioritized-people [
+      set #tests-used-by-daily-testing #tests-used-by-daily-testing + 1
+      perform-test
+    ]
+
+    ; Make sure we do not test people twice
+    let people-to-test people with [not member? self prioritized-people]
+
+    if do-not-test-youth? [
+      set people-to-test people-to-test with [not is-young?]
+    ]
+
+    if only-test-retirees-with-extra-tests? [
+      set people-to-test people-to-test with [is-retired?]
+    ]
+
+    ; We cannot test more people than we have tests available
+    let #people-to-test (min (list
+      (ratio-population-randomly-tested-daily * count people)
+      #still-available-tests))
+
+    ask n-of #people-to-test people-to-test [
+     set #tests-used-by-daily-testing #tests-used-by-daily-testing + 1 
+      perform-test
+    ]
+
+    ask n-of (ratio-population-daily-immunity-testing * count people) people [
+      set #tests-used-by-daily-testing #tests-used-by-daily-testing + 1
+      perform-immunity-test
+    ]
+  ]
+end 
+
+to-report is-daily-testing-public-measure-active?
+  report is-global-condition-met? when-is-daily-testing-applied?
+end
+
+to disable-daily-testing-measure
+  set when-is-daily-testing-applied? "never"
+end
