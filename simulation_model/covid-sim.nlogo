@@ -3713,7 +3713,7 @@ SWITCH
 1286
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -4954,6 +4954,7 @@ setup</setup>
     <metric>#dead-people</metric>
     <metric>count people with [is-officially-asked-to-quarantine?]</metric>
     <metric>count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]</metric>
+    <metric>#tests-performed</metric>
     <metric>r0</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
