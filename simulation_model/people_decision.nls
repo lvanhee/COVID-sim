@@ -91,7 +91,9 @@ to-report add-activity-descriptor-with-transport [gp mo activities]
   if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
   ifelse gp != current-activity [
     set activities lput (list gp mo public-transportation-method) activities
-    set activities lput (list gp mo shared-car-transportation-method) activities
+    if not is-child? [
+      set activities lput (list gp mo shared-car-transportation-method) activities
+    ]
     ifelse do-I-need-motorized-transport gp [
       if do-I-own-a-car? [set activities lput (list gp mo solo-transportation-method) activities]
     ]
