@@ -3738,17 +3738,6 @@ count should-be-isolators
 11
 
 MONITOR
-2633
-1186
-2761
-1231
-NIL
-#bus-per-timeslot
-17
-1
-11
-
-MONITOR
 3057
 1187
 3175
@@ -4071,6 +4060,17 @@ NIL
 17
 1
 11
+
+INPUTBOX
+2635
+1185
+2755
+1245
+#buses-per-timeslot
+0.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
