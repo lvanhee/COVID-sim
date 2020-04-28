@@ -12,7 +12,6 @@ globals [is-busses-overrun?
 ]
 to travelling-to-activity-phase
   set is-busses-overrun? false
-  set #bus-per-timeslot #public-transport-workers
   
   move-on-display
 
@@ -98,8 +97,12 @@ end
 
 to-report number-of-others-on-transport [mt]
   let others 0 ;for solo/stay-here/stay-home
-  if mt = "public" [set others ((count (item my-transport-number list-of-buses)) - 1)] 
-  if mt = "shared-car" [set others (count item my-transport-number list-of-shared-cars) - 1]
+  if not empty? list-of-buses [
+    if mt = "public" [set others ((count (item my-transport-number list-of-buses)) - 1)] 
+  ]
+  if not empty? list-of-shared-cars [
+    if mt = "shared-car" [set others (count item my-transport-number list-of-shared-cars) - 1]
+  ]
   report others
 end
 
