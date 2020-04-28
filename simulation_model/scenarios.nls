@@ -160,6 +160,9 @@ to scenario-6-setup
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
   set ratio-self-quarantining-when-symptomatic 0.8
   
+  set migration? false
+  set when-is-tracing-app-active? "7-days-before-end-of-global-quarantine"
+  
 end
 
 to scenario-3-setup
@@ -173,19 +176,19 @@ to scenario-3-setup
   if preset-scenario = "scenario-3-app-test-60"
     [
       load-baseline-scenario
-      set ratio-of-users-of-the-tracking-app 0.6
+      set ratio-of-people-using-the-tracking-app 0.6
       stop
   ]
   if preset-scenario = "scenario-3-app-test-80"
     [
       load-baseline-scenario
-      set ratio-of-users-of-the-tracking-app 0.8
+      set ratio-of-people-using-the-tracking-app 0.8
       stop
   ]
   if preset-scenario = "scenario-3-app-test-100"
     [
       load-baseline-scenario
-      set ratio-of-users-of-the-tracking-app 1
+      set ratio-of-people-using-the-tracking-app 1
       stop
   ]
 end

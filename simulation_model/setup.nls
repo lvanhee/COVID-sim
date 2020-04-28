@@ -26,8 +26,8 @@ to setup
   set #dead-people 0
   set list-of-dead-people []
   set was-social-distancing-enforced? false
-  set has-2%-infected-threshold-been-met? false
-  set time-start-full-isolation "never"
+  set when-has-2%-infected-threshold-first-been-met? "never"
+  set start-tick-of-global-quarantine "never"
 
 
   setup-activities
@@ -55,17 +55,34 @@ to setup
 end
 
 to setup-app-users
-  ask people [set is-user-of-tracking-app? false]
-  let #people-using-the-app count people * ratio-of-users-of-the-tracking-app
+  ask people [
+    set is-user-of-tracking-app? false
+    set has-mobile-phone? false
+    if age = young-age and random-float 1 < ratio-young-with-phones [set has-mobile-phone? true]
+    if age = student-age or age = worker-age [set has-mobile-phone? true]
+    if age = retired-age and random-float 1 < ratio-retired-with-phones [set has-mobile-phone? true]
+  ]
+  let #people-using-the-app count people * ratio-of-people-using-the-tracking-app
   let #people-selected-for-their-anxiety-level #people-using-the-app * ratio-of-anxiety-avoidance-users
-  let #people-randomly-selected #people-using-the-app - #people-selected-for-their-anxiety-level
+  let #people-randomly-selected #people-using-the-app - #people-selected-for-their-anxiety-level 
   
   ask max-n-of #people-selected-for-their-anxiety-level people with [has-mobile-phone?] [importance-weight-safety +
     importance-weight-risk-avoidance +
-    importance-weight-compliance] [set is-user-of-tracking-app? true]
+    importance-weight-compliance] [
+    setup-as-an-app-user
+  ]
   
-  ask n-of #people-randomly-selected people with [not is-user-of-tracking-app?][set is-user-of-tracking-app? true]
+  ask n-of #people-randomly-selected people with [has-mobile-phone? and not is-user-of-tracking-app?]
+  [
+    setup-as-an-app-user
+  ]
+  set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive (list)
+  set people-having-ever-been-recorded-as-positive-in-the-app (turtle-set)
+end
 
+to setup-as-an-app-user
+  set is-user-of-tracking-app? true
+  set list-of-people-met-per-day-as-recorded-by-the-tracking-app n-values #ticks-recorded-tracking [(turtle-set)]
 end
 
 to check-parameters
@@ -176,7 +193,7 @@ to setup-person [current-home l-age]
     set is-currently-allocated-a-bed-in-hospital? false
 
     setup-relation-to-gathering-points
-    set previous-contacts-met n-values #days-tracking [(turtle-set)]
+    
 
     set current-person-I-depend-on nobody
     set color default-color
@@ -197,14 +214,12 @@ to setup-person [current-home l-age]
     set what-transport-I-used-weekend []
     set did-my-network-socially-distance? false
     
-    set has-mobile-phone? false
-    if age = young-age and random-float 1 < ratio-young-with-phones [set has-mobile-phone? true]
-    if age = student-age or age = worker-age [set has-mobile-phone? true]
-    if age = retired-age and random-float 1 < ratio-retired-with-phones[set has-mobile-phone? true]
     set #days-I-should-remain-in-self-quarantining 0
     set  events-to-process (list)
   ]
 end
+
+
 
 to setup-relation-to-gathering-points
 

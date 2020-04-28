@@ -2,6 +2,7 @@ globals
 [
   #infected-times-ticks
   #delivered-supply-proposed-this-tick
+  when-has-2%-infected-threshold-first-been-met?
 ]
 
 to-report ratio-infected
@@ -14,6 +15,9 @@ end
 
 to update-metrics
   set #infected-times-ticks #infected-times-ticks + #infected
+  
+  if ratio-infected > 0.02 and when-has-2%-infected-threshold-first-been-met? = "never"
+  [set when-has-2%-infected-threshold-first-been-met? ticks]
 end
 
 to reset-metrics

@@ -7,6 +7,7 @@ globals [
   first-infected-people
   #first-infected-people;;needed as infected people can die
   #infected-by-first-infected-people
+  #infected-by-asymptomatic-people
 ]
 
 directed-link-breed [contagion-links contagion-link]
@@ -50,16 +51,15 @@ end
 
 to spread-within-a-set-of-people [ts prox-factor lambda-when-contagion]
   
-  let tracked-users ts with [is-user-of-tracking-app?]
-  let contagious-people-in-the-set  ts with [is-contagious?]
-  let susceptible-people ts with [is-susceptible?]
-  ask tracked-users
- [set previous-contacts-met (replace-item 0 previous-contacts-met (turtle-set tracked-users last previous-contacts-met))]
+  ;;quite ugly solution. Contact points should be stored in different structures & processes
+  update-contacts-of-a-set-of-people-in-contact-tracing-app-public-measure ts
   
+  let susceptible-people ts with [is-susceptible?]
+  let contagious-people-in-the-set  ts with [is-contagious?] 
   ask contagious-people-in-the-set [
     ask susceptible-people [
       apply-risk-of-contamination myself prox-factor * contextual-contagion-modificators lambda-when-contagion]
-]
+  ]
 end
 
 
@@ -153,6 +153,7 @@ end
 
 to contaminate [infector]
   if infector != nobody [
+    if [is-asymptomatic?] of infector [set #infected-by-asymptomatic-people #infected-by-asymptomatic-people + 1]
     if any? first-infected-people with [self = infector] [set #infected-by-first-infected-people  #infected-by-first-infected-people + 1]
     if [not is-contagious?] of infector [error "assertion error"]
     ask infector [set number-of-people-I-infected number-of-people-I-infected + 1]

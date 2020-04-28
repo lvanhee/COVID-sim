@@ -1,0 +1,24 @@
+globals[
+  start-tick-of-global-quarantine
+] 
+
+to update-global-quarantine-measure
+  if when-has-2%-infected-threshold-first-been-met? != "never" and when-has-2%-infected-threshold-first-been-met? < ticks and  start-tick-of-global-quarantine = "never"
+  [
+    set start-tick-of-global-quarantine ticks
+    ask people [include-time-for-quarantining duration-global-quarantine]
+  ]
+end
+
+to disable-global-quarantine-measure
+  set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
+end
+
+to-report duration-global-quarantine
+  report 35 * #ticks-per-day
+end
+
+to-report end-tick-of-global-quarantine
+  if start-tick-of-global-quarantine = "never" [report "never"]
+  report start-tick-of-global-quarantine + duration-global-quarantine
+end
