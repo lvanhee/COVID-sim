@@ -120,7 +120,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.15
+0.4
 0.01
 1
 NIL
@@ -167,7 +167,7 @@ INPUTBOX
 938
 700
 #schools-gp
-2.0
+12.0
 1
 0
 Number
@@ -178,7 +178,7 @@ INPUTBOX
 1029
 700
 #universities-gp
-1.0
+40.0
 1
 0
 Number
@@ -189,7 +189,7 @@ INPUTBOX
 1121
 700
 #workplaces-gp
-34.0
+40.0
 1
 0
 Number
@@ -210,7 +210,7 @@ INPUTBOX
 1235
 700
 #public-leisure-gp
-3.0
+4.0
 1
 0
 Number
@@ -221,7 +221,7 @@ INPUTBOX
 1352
 700
 #private-leisure-gp
-34.0
+40.0
 1
 0
 Number
@@ -407,7 +407,7 @@ INPUTBOX
 1470
 700
 #essential-shops-gp
-17.0
+20.0
 1
 0
 Number
@@ -448,7 +448,7 @@ INPUTBOX
 1598
 700
 #non-essential-shops-gp
-34.0
+40.0
 1
 0
 Number
@@ -459,7 +459,7 @@ INPUTBOX
 851
 700
 #hospital-gp
-3.0
+4.0
 1
 0
 Number
@@ -488,7 +488,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.026
+0.03
 0.01
 1
 NIL
@@ -518,7 +518,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.005
+0.04
 0.01
 1
 NIL
@@ -1086,7 +1086,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.344
+0.27
 0.01
 1
 NIL
@@ -1184,7 +1184,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.309
+0.38
 0.01
 1
 NIL
@@ -1199,7 +1199,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.298
+0.35
 0.01
 1
 NIL
@@ -1214,7 +1214,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.049
+0.01
 0.01
 1
 NIL
@@ -1460,7 +1460,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+0
 
 SLIDER
 1928
@@ -1471,7 +1471,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.05
+0.0
 0.01
 1
 NIL
@@ -1581,7 +1581,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1593,7 +1593,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
-17
+14
 
 MONITOR
 743
@@ -2107,7 +2107,7 @@ INPUTBOX
 644
 425
 #households
-345.0
+391.0
 1
 0
 Number
@@ -2129,7 +2129,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-11.0
+2000.0
 1
 0
 Number
@@ -2686,7 +2686,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+4
 
 SLIDER
 2364
@@ -2697,7 +2697,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+35.0
 1
 1
 NIL
@@ -2712,7 +2712,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+89.0
 1
 1
 NIL
@@ -2727,7 +2727,7 @@ power-distance
 power-distance
 0
 100
-50.0
+35.0
 1
 1
 NIL
@@ -2742,7 +2742,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+69.0
 1
 1
 NIL
@@ -2757,7 +2757,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+66.0
 1
 1
 NIL
@@ -2772,7 +2772,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+51.0
 1
 1
 NIL
@@ -3572,7 +3572,7 @@ INPUTBOX
 2458
 910
 #available-tests
-50.0
+10000.0
 1
 0
 Number
@@ -3584,7 +3584,7 @@ SWITCH
 748
 prioritize-testing-health-care?
 prioritize-testing-health-care?
-0
+1
 1
 -1000
 
@@ -3612,7 +3612,7 @@ SWITCH
 817
 do-not-test-youth?
 do-not-test-youth?
-0
+1
 1
 -1000
 
@@ -3700,7 +3700,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-1.0
+0.8
 0.01
 1
 NIL
@@ -3713,7 +3713,7 @@ SWITCH
 1286
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
@@ -3724,7 +3724,7 @@ SWITCH
 1493
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
@@ -3767,7 +3767,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-1.0
+0.8
 0.01
 1
 NIL
@@ -3792,7 +3792,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-1
+2
 
 SWITCH
 2229
@@ -3866,7 +3866,7 @@ SWITCH
 783
 prioritize-testing-education?
 prioritize-testing-education?
-0
+1
 1
 -1000
 
@@ -4956,6 +4956,9 @@ setup</setup>
     <metric>count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
+    <metric>#taken-beds</metric>
+    <metric>#available-beds</metric>
+    <metric>hospital-effectiveness</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
       <value value="false"/>
@@ -5299,7 +5302,7 @@ setup</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#beds-in-hospital">
-      <value value="11"/>
+      <value value="2000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
       <value value="0.1"/>
