@@ -250,11 +250,14 @@ to scenario-9-setup
   set probability-hospital-personel 0.026
   set probability-school-personel 0.028
   set probability-university-personel 0.005
-  set prioritize-testing-health-care-and-eduction? true
+  set prioritize-testing-health-care? true
+  set prioritize-testing-education? true
   set do-not-test-youth? true
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
   set is-infected-and-their-families-requested-to-stay-at-home? true
   set food-delivered-to-isolators? true
+  set ratio-population-randomly-tested-daily 0.05
+  set #available-tests 50
 end
   
 

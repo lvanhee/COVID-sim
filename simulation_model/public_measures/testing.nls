@@ -6,10 +6,10 @@ to perform-daily-testing-public-measure
     set #tests-done-today 0
     let prioritized-people (turtle-set nobody)
 
-    if prioritize-testing-health-care-and-eduction? [
-      set prioritized-people (turtle-set prioritized-people (workers with [[is-hospital?] of my-work]))
-      set prioritized-people (turtle-set prioritized-people (workers with [[is-school? or is-university?] of my-work]))
-    ]
+    if prioritize-testing-health-care?
+      [ set prioritized-people (turtle-set prioritized-people (workers with [[is-hospital?] of my-work])) ]
+    if prioritize-testing-education?
+      [ set prioritized-people (turtle-set prioritized-people (workers with [[is-school? or is-university?] of my-work])) ]
 
     ask up-to-n-of #still-available-tests prioritized-people [
       set #tests-used-by-daily-testing #tests-used-by-daily-testing + 1
