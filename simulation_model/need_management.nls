@@ -216,11 +216,10 @@ to-report risk-avoidance-increase [ad others others-transport]
   
   ;transport
   if mt != "stay-here" [
-    if others-transport = 0 [set result result + 0.2 ]
-    if others-transport < 5 [set result result + 0.1 ]
-    if others-transport < 10 [set result result + 0.05 ]
-    ifelse others-transport < 20 [set result result + 0]
-    [set result result + -0.1]
+    if others-transport = 0 [set result result + 0.1 ]
+    if others-transport < 5 [set result result + 0.05 ]
+    if others-transport < 10 [set result result + 0.025 ]
+    if others-transport >= 20 [set result result - 0.1]
   ]
 
   ifelse social-distancing-of ad
