@@ -4956,8 +4956,8 @@ setup</setup>
     <metric>count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
-    <metric>#taken-beds</metric>
-    <metric>#available-beds</metric>
+    <metric>#taken-hospital-beds</metric>
+    <metric>#beds-available-for-admission</metric>
     <metric>hospital-effectiveness</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
