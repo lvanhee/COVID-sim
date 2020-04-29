@@ -2864,10 +2864,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1862
-1293
-2170
-1326
+1600
+1264
+1834
+1297
 ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
@@ -2905,22 +2905,22 @@ NIL
 HORIZONTAL
 
 MONITOR
-1863
-1339
-2168
-1384
-#recorded-contacts-in-proximity-app
+1834
+1365
+1967
+1410
+#recorded-contacts-in-tracing-app
 average-number-of-people-recorded-by-recording-apps
 17
 1
 11
 
 INPUTBOX
-2325
-1234
-2480
-1294
-#days-recording-tracking
+1600
+1370
+1755
+1430
+#days-recording-tracing
 14.0
 1
 0
@@ -3110,12 +3110,12 @@ NIL
 HORIZONTAL
 
 SLIDER
-1865
-1253
-2162
-1286
-ratio-of-anxiety-avoidance-users
-ratio-of-anxiety-avoidance-users
+1600
+1232
+1835
+1265
+ratio-of-anxiety-avoidancetracing-app-users
+ratio-of-anxiety-avoidancetracing-app-users
 0
 1
 0.0
@@ -3142,35 +3142,13 @@ NIL
 0
 
 MONITOR
-2183
-1250
-2311
-1295
-#app-users
+1834
+1233
+1969
+1278
+#tracing-app-users
 count people with [is-user-of-tracking-app?]
 17
-1
-11
-
-MONITOR
-2183
-1353
-2423
-1398
-standard anxiety avoidance of people
-mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of people
-4
-1
-11
-
-MONITOR
-2187
-1302
-2422
-1347
-anxiety-avoidance of app users
-mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of app-users
-3
 1
 11
 
@@ -3329,11 +3307,11 @@ ASSOCC
 1
 
 TEXTBOX
-1942
-1228
-2157
-1254
-Smartphone apps
+1688
+1214
+1750
+1232
+Tracing app
 11
 105.0
 1
@@ -3479,10 +3457,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1861
-1387
-2048
-1420
+1600
+1427
+1831
+1460
 ratio-young-with-phones
 ratio-young-with-phones
 0
@@ -3494,10 +3472,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1861
-1423
-2050
-1456
+1600
+1459
+1830
+1492
 ratio-retired-with-phones
 ratio-retired-with-phones
 0
@@ -3509,10 +3487,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2059
-1387
-2168
-1432
+1833
+1410
+1942
+1455
 #phone-owners
 count people with [has-mobile-phone?]
 17
@@ -3520,10 +3498,10 @@ count people with [has-mobile-phone?]
 11
 
 MONITOR
-2059
-1431
-2168
-1476
+1833
+1454
+1942
+1499
 ratio-phone-owners
 count people with [has-mobile-phone?] / count people
 17
@@ -3628,10 +3606,10 @@ only-test-retirees-with-extra-tests?
 -1000
 
 MONITOR
-1759
-1340
-1854
-1385
+2318
+1413
+2413
+1458
 non isolators
 count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
 17
@@ -3639,10 +3617,10 @@ count should-be-isolators with [current-activity != my-home and current-activity
 11
 
 MONITOR
-1639
-1340
-1755
-1385
+2198
+1413
+2314
+1458
 Should be isolating
 count should-be-isolators
 17
@@ -3650,10 +3628,10 @@ count should-be-isolators
 11
 
 SWITCH
-1607
-1293
-1854
-1326
+2090
+1316
+2270
+1349
 food-delivered-to-isolators?
 food-delivered-to-isolators?
 0
@@ -3661,11 +3639,11 @@ food-delivered-to-isolators?
 -1000
 
 PLOT
-1088
-1180
-1576
-1330
-Self-isolation
+2451
+1263
+2763
+1413
+Quarantining & isolation
 time
 #people
 0.0
@@ -3682,20 +3660,20 @@ PENS
 "sick quarantiners" 1.0 0 -13791810 true "" "plot count people with [is-officially-asked-to-quarantine? and is-believing-to-be-infected?]"
 
 TEXTBOX
-1678
-1227
-1828
-1245
+2225
+1221
+2375
+1242
 Self-isolation
 11
 105.0
 1
 
 SLIDER
-1607
-1422
-1785
-1455
+2198
+1381
+2376
+1414
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
@@ -3707,10 +3685,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1609
-1253
-1854
-1286
+2198
+1243
+2443
+1276
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
 0
@@ -3718,10 +3696,10 @@ is-infected-and-their-families-requested-to-stay-at-home?
 -1000
 
 SWITCH
-1608
-1460
-1800
-1493
+1993
+1241
+2185
+1274
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 0
@@ -3729,10 +3707,10 @@ all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 -1000
 
 MONITOR
-1811
-1456
-1863
-1501
+1992
+1273
+2185
+1318
 NIL
 start-tick-of-global-quarantine
 17
@@ -3759,10 +3737,10 @@ PENS
 "#available-beds" 1.0 0 -10899396 true "" "plot #beds-available-for-admission"
 
 SLIDER
-2229
-1446
-2510
-1479
+2198
+1349
+2431
+1382
 ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
@@ -3785,20 +3763,20 @@ is-hard-lockdown-active?
 11
 
 CHOOSER
-2424
-1302
-2584
-1347
+1599
+1295
+1834
+1340
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
 2
 
 SWITCH
-2229
-1413
-2511
-1446
+1600
+1338
+1835
+1371
 is-tracking-app-testing-immediately-recursive?
 is-tracking-app-testing-immediately-recursive?
 0
@@ -3806,10 +3784,10 @@ is-tracking-app-testing-immediately-recursive?
 -1000
 
 MONITOR
-2434
-1360
-2567
-1405
+1834
+1321
+1967
+1366
 NIL
 is-tracing-app-active?
 17
@@ -3817,10 +3795,10 @@ is-tracing-app-active?
 11
 
 MONITOR
-2486
-1248
-2586
-1293
+1834
+1277
+1968
+1322
 #people-ever-recorded-as-positive-in-the-app
 count people-having-ever-been-recorded-as-positive-in-the-app
 17
@@ -3869,6 +3847,27 @@ prioritize-testing-education?
 1
 1
 -1000
+
+SWITCH
+2198
+1275
+2443
+1308
+is-psychorigidly-staying-at-home-when-quarantining?
+is-psychorigidly-staying-at-home-when-quarantining?
+1
+1
+-1000
+
+TEXTBOX
+2041
+1221
+2191
+1239
+Global quarantine
+11
+105.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
