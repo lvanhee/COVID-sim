@@ -568,13 +568,13 @@ to-report global-prevalence-of [ad]
     (SDE-luxury ad * importance-weight-luxury) 
     (SDE-leisure ad * importance-weight-leisure)) 
   
-  debug-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " social-distancing-of ad " " total-satisfaction)
+  if log-preferred-activity-decision? [log-file-print (sentence "Global prevalence of:" [gathering-type] of location-of ad " " motive-of ad " " social-distancing-of ad " " total-satisfaction)]
   report total-satisfaction
   
 end
 
 to debug-global-prevalence-of [ad]
-  if debug? [
+  if log? [
     debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " social-distancing-of ad) 
       ;Survival needs
     debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
@@ -598,7 +598,7 @@ to debug-global-prevalence-of [ad]
 end
 
 to debug-my-preferred-available-activity-descriptor
-  if debug? [
+  if log? [
     foreach my-available-activity-descriptors debug-global-prevalence-of
   ]
 end

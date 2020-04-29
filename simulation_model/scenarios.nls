@@ -326,6 +326,7 @@ to load-baseline-parameter-settings
   disable-all-measures
   set ratio-self-quarantining-when-symptomatic 1
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
+  set is-psychorigidly-staying-at-home-when-quarantining? false
 end
 
 ;How are these probabilities determined!?
