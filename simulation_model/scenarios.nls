@@ -307,9 +307,13 @@ end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to load-baseline-parameter-settings
+  ;set general simulation settings to their default states
   set static-seed? true
   set #households 100
-  
+  set log? false
+  set log-contamination? false
+  set log-preferred-activity-decision? false
+
   ;load default settings for each submodel
   load-default-household-profiles
   load-number-of-gathering-points-based-on-number-of-households #households
@@ -321,12 +325,14 @@ to load-baseline-parameter-settings
   load-default-agent-values-and-needs-parameters
   load-default-social-network-model
   load-default-worker-distribution-settings
+  load-default-intervention-measures-settings
   
-  ;by default: disable all measures aimed at minimizing the spread & mortality of the corona virus
+  ;by default: disable all measures aimed at minimizing the spread & mortality of the coronavirus
   disable-all-measures
-  set ratio-self-quarantining-when-symptomatic 1
-  set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
-  set is-psychorigidly-staying-at-home-when-quarantining? false
+end
+
+to load-default-intervention-measures-settings
+  set percentage-news-watchers 0.75
 end
 
 ;How are these probabilities determined!?
@@ -378,14 +384,19 @@ to load-default-transport-model
   
   set #bus-per-timeslot 10
   set #max-people-per-bus 20
+  
+  set density-travelling-propagation 0.05
   set density-when-queuing 0.6
   set density-in-public-transport 0.5
   set density-in-shared-cars 0.8
 end
 
 to load-default-migration-model
-  set migration? true
+  set migration? false
   set probability-infection-when-abroad 0.0
+  set probability-going-abroad 0
+  set probability-getting-back-when-abroad 0
+  set owning-solo-transportation-probability 1
 end
 
 to load-default-social-network-model
