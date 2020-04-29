@@ -217,6 +217,7 @@ to-report has-internally-visible-symptoms?
   or infection-status = pre-symptomatic-to-severe-infection-status
   or infection-status = asymptomatic-to-rec-infection-status
   or infection-status = dead-infection-status
+  or infection-status = just-contaminated-infection-status
   [
     report false
   ]
