@@ -1,4 +1,4 @@
-__includes["public_measures/global_quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls"]
+__includes["public_measures/global_quarantine.nls" "public_measures/quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls"]
 
 globals [
   was-social-distancing-enforced?

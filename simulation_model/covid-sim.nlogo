@@ -3855,7 +3855,7 @@ SWITCH
 1308
 is-psychorigidly-staying-at-home-when-quarantining?
 is-psychorigidly-staying-at-home-when-quarantining?
-1
+0
 1
 -1000
 

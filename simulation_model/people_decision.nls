@@ -25,7 +25,7 @@ to-report my-available-activity-descriptors
       report (list (list away-gathering-point travelling-reason false))
     ]
   ]
-
+  
 
   let activities (list (list my-home "rest"))
 
@@ -91,6 +91,12 @@ to-report my-available-activity-descriptors
       set ret fput (lput true activity) ret
     ]
   ]
+  
+  if is-officially-asked-to-quarantine? and is-psychorigidly-staying-at-home-when-quarantining?
+  [
+    set ret filter [[x] -> location-of x = my-home] ret
+  ]
+
   report ret
 end
 
