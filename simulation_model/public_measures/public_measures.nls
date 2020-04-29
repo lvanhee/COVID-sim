@@ -92,15 +92,16 @@ to disable-all-measures
   set prioritize-testing-education? false
   set do-not-test-youth? false
   set only-test-retirees-with-extra-tests? false
-  ; App settings
+  set when-is-daily-testing-applied? "never"
+  ; Tracing (Smartphone App) settings
   set ratio-of-people-using-the-tracking-app 0
   ; Isolation
   set is-infected-and-their-families-requested-to-stay-at-home? false
-  set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
   set food-delivered-to-isolators? false
-  
+  set is-psychorigidly-staying-at-home-when-quarantining? false
   set ratio-self-quarantining-when-symptomatic 0
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
+  
   disable-global-quarantine-measure
   disable-tracing-app-measure
   disable-daily-testing-measure
