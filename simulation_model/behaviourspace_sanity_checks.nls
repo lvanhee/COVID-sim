@@ -20,7 +20,7 @@ end
 
 
 to-report check-r0-works
-  set preset-scenario "default-scenario" set-values
+  set preset-scenario "default-scenario" load-scenario-specific-parameter-settings
   set propagation-risk 0
   setup repeat 50 [go]
   let r0-no-spread r0

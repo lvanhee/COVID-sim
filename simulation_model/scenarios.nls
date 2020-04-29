@@ -1,13 +1,21 @@
-to load-preset-parameters
+to load-scenario-specific-parameter-settings
   load-scenario
   load-population-profile-based-on-current-preset-profile
+  load-nations-hofstede-dimension-scores
 end
 
-to set-values
-  load-scenario
-  load-population-profile-based-on-current-preset-profile
-  
-  load-nations-hofstede-dimension-scores
+to load-scenario
+  if preset-scenario = "none" [stop]
+ 
+  if is-test-scenario? preset-scenario
+  [
+    load-test-scenario
+    stop
+  ]
+  ;the general process lies in adapting your scenario from the baseline
+  load-baseline-parameter-settings
+  ;optionally overwrite baseline parameter settings with scenario specific adjustments to model parameter settings
+  load-scenario-specifics
 end
 
 to-report is-test-scenario? [s]
@@ -22,26 +30,12 @@ to load-test-scenario
   ]
 end
 
-to load-scenario
-  if preset-scenario = "none" [stop]
-  if is-test-scenario? preset-scenario
-  [
-    load-test-scenario
-    stop
-  ]
-  ;;the general process lies in adapting your scenario from the baseline
-  load-baseline-scenario
-
-  
-  load-scenario-specifics
-end
-
 to load-scenario-specifics    
   if preset-scenario = "default-scenario" [stop]  
   
   if preset-scenario = "uninfected-scandinavia"
   [
-    load-scandinavian-population-default
+    load-default-household-profiles
     set with-infected? false
     set probability-infection-when-abroad 0
     stop
@@ -88,24 +82,53 @@ to load-scenario-specifics
   
   if preset-scenario = "no-action-scandinavia-2.5K"
   [
-    load-scandinavian-population-default
-    load-scaled-values 1000
+    load-default-household-profiles
+    load-number-of-gathering-points-based-on-number-of-households 1000
     stop
   ]
   
   if preset-scenario = "app-test-scenario-5-1K"
   [
-    load-scaled-values (1000 / 2.5)
+    load-number-of-gathering-points-based-on-number-of-households (1000 / 2.5)
     stop
   ]
-  if is-scenario-6? preset-scenario
-  [ scenario-6-setup stop ]
+  
+  if is-scenario-6? preset-scenario [ 
+    scenario-6-setup stop 
+  ]
+  
   if preset-scenario = "scenario-9-smart-testing"
   [
     scenario-9-setup
     stop
   ]
-  error "unimplemented"
+  
+  if preset-scenario = "scenario-7-cultural-model" [
+    load-scenario-7-cultural-model
+    stop
+  ]
+  
+  error "ERROR: scenario-specific calibration of model parameters failed"
+end
+
+to load-scenario-1-baseline-economic-parameters
+  set #non-essential-shops-gp 5
+  set with-infected? false
+end
+
+to load-scenario-2-economic-parameters
+  set with-infected? true
+end
+
+to load-scenario-3-economic-parameters
+  set with-infected? true
+  set global-confinement-measures "total-lockdown"
+end
+
+to load-scenario-4-economic-parameters
+  set with-infected? true
+  set global-confinement-measures "total-lockdown"
+  set government-pays-wages? true
 end
 
 to scenario-6-setup
@@ -168,26 +191,26 @@ end
 to scenario-3-setup
   if preset-scenario = "scenario-3-random-test-20"
   [
-    load-baseline-scenario
+    load-baseline-parameter-settings
     set ratio-population-randomly-tested-daily 0.2
     stop
   ]
   
   if preset-scenario = "scenario-3-app-test-60"
     [
-      load-baseline-scenario
+      load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 0.6
       stop
   ]
   if preset-scenario = "scenario-3-app-test-80"
     [
-      load-baseline-scenario
+      load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 0.8
       stop
   ]
   if preset-scenario = "scenario-3-app-test-100"
     [
-      load-baseline-scenario
+      load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 1
       stop
   ]
@@ -201,11 +224,10 @@ to scenario-1-setup
   
   if preset-scenario = "scenario-1-zero-action-scandinavia"
     [
-      load-scandinavian-population-default
+      load-default-household-profiles
       stop
   ]
-  
-  
+    
   if preset-scenario = "scenario-1-closing-schools-and-uni"
   [
     load-closed-schools-and-uni-measures
@@ -238,12 +260,12 @@ to-report is-scenario-3? [s]
 end
   
 to scenario-9-setup
-  load-baseline-scenario
-  ; Set households and gathering points
+  load-baseline-parameter-settings
+  ;Set households and gathering points
   set household-profiles "Italy"
   load-population-profile-based-on-current-preset-profile
   set set_national_culture "Italy"
-  load-scaled-values 345
+  load-number-of-gathering-points-based-on-number-of-households 345
   set #universities-gp 1
   set #schools-gp 2
   set migration? false
@@ -259,9 +281,62 @@ to scenario-9-setup
   set ratio-population-randomly-tested-daily 0.05
   set #available-tests 50
 end
-  
 
-to load-scaled-values [#hld]
+to load-scenario-minimal
+  set #hospital-gp 1
+  set #schools-gp 1
+  set #universities-gp 1
+  set #workplaces-gp 1
+end
+
+
+to load-scenario-7-cultural-model  
+  ;overwrite some of the baseline settings according to what we judge as proper for the cultural scenario
+  set #households 400
+  load-number-of-gathering-points-based-on-number-of-households #households
+  ;Country specified in cultural setting must be the same for calibrating household profiles
+  ;'set_national_culture' will be manipulated within behaviorspace
+  set household-profiles set_national_culture
+  set migration? false
+end
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;; DEFINE DEFAULT ASSOCC MODEL PARAMETER SETTINGS ;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;; KEEP THESE UP TO DATE! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to load-baseline-parameter-settings
+  set static-seed? true
+  set #households 100
+  
+  ;load default settings for each submodel
+  load-default-household-profiles
+  load-number-of-gathering-points-based-on-number-of-households #households
+  load-default-disease-model
+  load-default-migration-model
+  load-default-contagion-model
+  load-default-transport-model
+  load-default-economic-parameters
+  load-default-agent-values-and-needs-parameters
+  load-default-social-network-model
+  load-default-worker-distribution-settings
+  
+  ;by default: disable all measures aimed at minimizing the spread & mortality of the corona virus
+  disable-all-measures
+  set ratio-self-quarantining-when-symptomatic 1
+  set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
+end
+
+;How are these probabilities determined!?
+to load-default-worker-distribution-settings
+  set probability-hospital-personel 0.04
+  set probability-school-personel 0.03 
+  set probability-university-personel 0.03
+  set probability-shopkeeper 0.04
+end
+
+to load-number-of-gathering-points-based-on-number-of-households [#hld]
   set #beds-in-hospital floor (#hld / 30)
   load-scaled-gathering-point-distribution #hld
 end
@@ -289,22 +364,6 @@ to load-all-closed-measures
   set closed-universities? true
 end
 
-to load-baseline-scenario
-  set static-seed? true
-  set #households 100
-  load-scandinavian-population-default
-  load-default-city-layout-model
-  load-default-disease-model
-  load-default-migration-model
-  load-default-contagion-model
-  load-default-transport-model
-  load-default-economic-parameters
-  load-default-values-needs-parameters
-  disable-all-measures
-  set ratio-self-quarantining-when-symptomatic 1
-  set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
-end
-
 to load-default-transport-model
   set ratio-children-public-transport 0.75
   set ratio-student-public-transport 0.6
@@ -328,8 +387,13 @@ to load-default-migration-model
   set probability-infection-when-abroad 0.0
 end
 
+to load-default-social-network-model
+  set network-generation-method "value-similarity"
+  set peer-group-friend-links 7
+  set percentage-of-agents-with-random-link 0.14
+end
 
-
+;Is this still needed? why isn't "load-number-of-gathering-points-based-on-number-of-households" used instead of this command?
 to load-default-city-layout-model
   set #hospital-gp 1
   set #schools-gp 3
@@ -394,39 +458,10 @@ to load-default-economic-parameters
   set government-initial-reserve-of-capital 10000
 end
 
-to load-scenario-1-baseline-economic-parameters
-  set #non-essential-shops-gp 5
-  set with-infected? false
-end
-
-to load-scenario-2-economic-parameters
-  set with-infected? true
-end
-
-to load-scenario-3-economic-parameters
-  set with-infected? true
-  set global-confinement-measures "total-lockdown"
-end
-
-to load-scenario-4-economic-parameters
-  set with-infected? true
-  set global-confinement-measures "total-lockdown"
-  set government-pays-wages? true
-end
-
-
-to load-scandinavian-population-default
+to load-default-household-profiles
   set household-profiles "Sweden"
   load-population-profile-based-on-current-preset-profile
 end
-
-to load-scenario-minimal
-  set #hospital-gp 1
-  set #schools-gp 1
-  set #universities-gp 1
-  set #workplaces-gp 1
-end
-
 
 to load-population-profile-based-on-current-preset-profile
   
@@ -473,7 +508,7 @@ to load-population-profile-based-on-current-preset-profile
 
 end
 
-to load-default-values-needs-parameters
+to load-default-agent-values-and-needs-parameters
   ; Values
   set value-system-calibration-factor 25
   set value-std-dev 10
@@ -481,4 +516,9 @@ to load-default-values-needs-parameters
   set survival-multiplier 2.5
   set maslow-multiplier 0
   set weight-survival-needs 0.5
+  ; Social distancing variables
+  set make-social-distance-profile-value-based? true
+  set mean-social-distance-profile 0.5
+  set std-dev-social-distance-profile 0.1
 end
+
