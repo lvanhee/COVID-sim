@@ -108,10 +108,7 @@ end
 
 to setup-country-based-transport-parameters
   if Transport-parameters-of = "custom" [
-    set ratio-children-own-cars ratio-children-own-cars
-    set ratio-retired-own-cars ratio-retired-own-cars 
-    set ratio-students-own-cars ratio-students-own-cars
-    set ratio-workers-own-cars ratio-workers-own-cars 
+    set ratio-workers-and-retired-owning-cars ratio-workers-and-retired-owning-cars
     set ratio-motorized-transport-to-school ratio-motorized-transport-to-school
     set ratio-motorized-transport-to-university ratio-motorized-transport-to-university 
     set ratio-motorized-transport-to-work ratio-motorized-transport-to-work
@@ -120,6 +117,11 @@ to setup-country-based-transport-parameters
     set ratio-motorized-transport-to-essential-shops ratio-motorized-transport-to-essential-shops 
     set ratio-motorized-transport-to-public-leisure ratio-motorized-transport-to-public-leisure
     set ratio-motorized-transport-to-private-leisure ratio-motorized-transport-to-private-leisure
+    
+    ask people [
+      set do-I-own-a-car? setup-do-I-own-a-car? 
+      setup-preferred-type-of-transport-method-to-gathering-points
+    ]
     stop
   ]
  
@@ -147,18 +149,20 @@ to setup-country-based-transport-parameters
   file-close
   
   
-  set ratio-children-own-cars item 10 country-specific-data-list
-  set ratio-retired-own-cars item 11 country-specific-data-list
-  set ratio-students-own-cars item 12 country-specific-data-list 
-  set ratio-workers-own-cars item 13 country-specific-data-list
-  set ratio-motorized-transport-to-work item 14 country-specific-data-list
-  set ratio-motorized-transport-to-essential-shops item 15 country-specific-data-list
-  set ratio-motorized-transport-to-my-non-essential-shop item 16 country-specific-data-list
-  set ratio-motorized-transport-to-school item 17 country-specific-data-list
-  set ratio-motorized-transport-to-university item 18 country-specific-data-list
-  set ratio-motorized-transport-to-private-leisure item 19 country-specific-data-list
-  set ratio-motorized-transport-to-public-leisure item 20 country-specific-data-list
-  set ratio-motorized-transport-to-hospital item 21 country-specific-data-list
+  set ratio-workers-and-retired-owning-cars item 10 country-specific-data-list
+  set ratio-motorized-transport-to-work item 11 country-specific-data-list
+  set ratio-motorized-transport-to-essential-shops item 12 country-specific-data-list
+  set ratio-motorized-transport-to-my-non-essential-shop item 13 country-specific-data-list
+  set ratio-motorized-transport-to-school item 14 country-specific-data-list
+  set ratio-motorized-transport-to-university item 15 country-specific-data-list
+  set ratio-motorized-transport-to-private-leisure item 16 country-specific-data-list
+  set ratio-motorized-transport-to-public-leisure item 17 country-specific-data-list
+  set ratio-motorized-transport-to-hospital item 18 country-specific-data-list
+  
+  ask people [
+    set do-I-own-a-car? setup-do-I-own-a-car? 
+    setup-preferred-type-of-transport-method-to-gathering-points
+  ]
   
   
 end
@@ -166,26 +170,14 @@ end
 
 to-report setup-do-I-own-a-car?
   
-  if is-child? [
-    ifelse ratio-children-own-cars > random 1
-    [report true ]
-    [report false]
-  ]
-  if is-retired? [
-    ifelse ratio-retired-own-cars > random 1 
+  let ratio-workers-retired (count people with [is-retired? or is-worker?] ) / count people
+  let ratio-workers-retired-owning-cars clamp 0 1 (ratio-workers-and-retired-owning-cars / ratio-workers-retired)
+    
+  ifelse is-worker? or is-retired? [
+    if ratio-workers-retired-owning-cars > random 1 
       [report true ]
-    [report false]
   ]
-  if is-student?  [
-    ifelse ratio-students-own-cars > random 1 
-      [report true ]
-    [report false]
-  ]
-  if is-worker? [
-    ifelse ratio-workers-own-cars > random 1 
-      [report true ]
-    [report false]
-  ]  
+  [report false]  
 end
 
 to setup-preferred-type-of-transport-method-to-gathering-points

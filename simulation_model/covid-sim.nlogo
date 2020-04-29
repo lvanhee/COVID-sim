@@ -872,10 +872,10 @@ Migration model
 1
 
 SLIDER
-2653
-627
-2927
-660
+2933
+587
+3190
+620
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -887,10 +887,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2942
-670
-3239
-703
+2933
+628
+3191
+661
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -913,10 +913,10 @@ migration?
 -1000
 
 SLIDER
-2655
-728
-2903
-761
+3640
+623
+3888
+656
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1459,8 +1459,8 @@ CHOOSER
 298
 household-profiles
 household-profiles
-"custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+"custom" "Belgium" "Canada" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom" "U.S.A."
+5
 
 SLIDER
 1928
@@ -1792,10 +1792,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2655
-667
-2930
-700
+2708
+628
+2914
+661
 probability-going-abroad
 probability-going-abroad
 0
@@ -2398,10 +2398,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2857
-844
-3111
-877
+2654
+847
+2908
+880
 ratio-motorized-transport-to-work
 ratio-motorized-transport-to-work
 0
@@ -2413,25 +2413,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2632
-848
-2850
-881
-ratio-workers-own-cars
-ratio-workers-own-cars
-0
-1
-0.45
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2858
-765
-3112
-798
+2655
+768
+2909
+801
 ratio-motorized-transport-to-school
 ratio-motorized-transport-to-school
 0
@@ -2443,55 +2428,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-2633
-767
-2851
-800
-ratio-children-own-cars
-ratio-children-own-cars
+2964
+727
+3212
+760
+ratio-workers-and-retired-owning-cars
+ratio-workers-and-retired-owning-cars
 0
 1
-0.0
+0.478
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2632
-805
-2850
-838
-ratio-students-own-cars
-ratio-students-own-cars
-0
-1
-0.558
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2632
-885
-2850
-918
-ratio-retired-own-cars
-ratio-retired-own-cars
-0
-1
-0.109
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2858
-804
-3111
-837
+2655
+807
+2908
+840
 ratio-motorized-transport-to-university
 ratio-motorized-transport-to-university
 0
@@ -2503,10 +2458,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2859
-884
-3113
-917
+2656
+887
+2910
+920
 ratio-motorized-transport-to-hospital
 ratio-motorized-transport-to-hospital
 0
@@ -2674,8 +2629,8 @@ CHOOSER
 80
 set_national_culture
 set_national_culture
-"Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+"Custom" "Belgium" "Canada" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom" "U.S.A."
+5
 
 SLIDER
 2364
@@ -3819,10 +3774,10 @@ is-infected-and-their-families-requested-to-stay-at-home?
 -1000
 
 SLIDER
-3121
-766
-3414
-799
+2917
+769
+3210
+802
 ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
@@ -3834,10 +3789,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3123
-845
-3415
-878
+2919
+848
+3211
+881
 ratio-motorized-transport-to-essential-shops
 ratio-motorized-transport-to-essential-shops
 0
@@ -3849,10 +3804,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3125
-883
-3415
-916
+2922
+886
+3212
+919
 ratio-motorized-transport-to-public-leisure
 ratio-motorized-transport-to-public-leisure
 0
@@ -3864,10 +3819,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3123
-806
-3415
-839
+2919
+809
+3211
+842
 ratio-motorized-transport-to-private-leisure
 ratio-motorized-transport-to-private-leisure
 0
@@ -4054,14 +4009,14 @@ PENS
 "workers solo" 1.0 0 -5825686 true "" "plot #workers-solo-transport"
 
 CHOOSER
-2796
-713
-2959
-758
+2788
+715
+2951
+760
 Transport-parameters-of
 Transport-parameters-of
-"custom" "Netherlands"
-1
+"custom" "Belgium" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom"
+3
 
 MONITOR
 1207
