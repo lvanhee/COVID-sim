@@ -120,7 +120,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.4
+0.15
 0.01
 1
 NIL
@@ -167,7 +167,7 @@ INPUTBOX
 938
 700
 #schools-gp
-12.0
+2.0
 1
 0
 Number
@@ -178,7 +178,7 @@ INPUTBOX
 1029
 700
 #universities-gp
-40.0
+1.0
 1
 0
 Number
@@ -189,7 +189,7 @@ INPUTBOX
 1121
 700
 #workplaces-gp
-40.0
+34.0
 1
 0
 Number
@@ -210,7 +210,7 @@ INPUTBOX
 1235
 700
 #public-leisure-gp
-4.0
+3.0
 1
 0
 Number
@@ -221,7 +221,7 @@ INPUTBOX
 1352
 700
 #private-leisure-gp
-40.0
+34.0
 1
 0
 Number
@@ -407,7 +407,7 @@ INPUTBOX
 1470
 700
 #essential-shops-gp
-20.0
+17.0
 1
 0
 Number
@@ -448,7 +448,7 @@ INPUTBOX
 1598
 700
 #non-essential-shops-gp
-40.0
+34.0
 1
 0
 Number
@@ -459,7 +459,7 @@ INPUTBOX
 851
 700
 #hospital-gp
-4.0
+3.0
 1
 0
 Number
@@ -488,7 +488,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.026
 0.01
 1
 NIL
@@ -518,7 +518,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.005
 0.01
 1
 NIL
@@ -872,10 +872,10 @@ Migration model
 1
 
 SLIDER
-2653
-627
-2927
-660
+2933
+587
+3190
+620
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -887,10 +887,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2942
-670
-3239
-703
+2933
+628
+3191
+661
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -913,10 +913,10 @@ migration?
 -1000
 
 SLIDER
-2655
-728
-2903
-761
+3640
+623
+3888
+656
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1086,7 +1086,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.344
 0.01
 1
 NIL
@@ -1184,7 +1184,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.309
 0.01
 1
 NIL
@@ -1199,7 +1199,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.298
 0.01
 1
 NIL
@@ -1214,7 +1214,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.049
 0.01
 1
 NIL
@@ -1459,8 +1459,8 @@ CHOOSER
 298
 household-profiles
 household-profiles
-"custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+"custom" "Belgium" "Canada" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom" "U.S.A."
+5
 
 SLIDER
 1928
@@ -1471,7 +1471,7 @@ ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
 1
-0.0
+0.05
 0.01
 1
 NIL
@@ -1581,7 +1581,7 @@ SWITCH
 81
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -1593,7 +1593,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
-14
+17
 
 MONITOR
 743
@@ -1792,10 +1792,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2655
-667
-2930
-700
+2708
+628
+2914
+661
 probability-going-abroad
 probability-going-abroad
 0
@@ -2117,7 +2117,7 @@ INPUTBOX
 644
 425
 #households
-391.0
+345.0
 1
 0
 Number
@@ -2139,7 +2139,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-2000.0
+11.0
 1
 0
 Number
@@ -2398,10 +2398,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2857
-844
-3111
-877
+2654
+847
+2908
+880
 ratio-motorized-transport-to-work
 ratio-motorized-transport-to-work
 0
@@ -2413,25 +2413,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2632
-848
-2850
-881
-ratio-workers-own-cars
-ratio-workers-own-cars
-0
-1
-0.45
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2858
-765
-3112
-798
+2655
+768
+2909
+801
 ratio-motorized-transport-to-school
 ratio-motorized-transport-to-school
 0
@@ -2443,55 +2428,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-2633
-767
-2851
-800
-ratio-children-own-cars
-ratio-children-own-cars
+2964
+727
+3212
+760
+ratio-workers-and-retired-owning-cars
+ratio-workers-and-retired-owning-cars
 0
 1
-0.0
+0.478
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2632
-805
-2850
-838
-ratio-students-own-cars
-ratio-students-own-cars
-0
-1
-0.558
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2632
-885
-2850
-918
-ratio-retired-own-cars
-ratio-retired-own-cars
-0
-1
-0.109
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2858
-804
-3111
-837
+2655
+807
+2908
+840
 ratio-motorized-transport-to-university
 ratio-motorized-transport-to-university
 0
@@ -2503,10 +2458,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2859
-884
-3113
-917
+2656
+887
+2910
+920
 ratio-motorized-transport-to-hospital
 ratio-motorized-transport-to-hospital
 0
@@ -2674,8 +2629,8 @@ CHOOSER
 80
 set_national_culture
 set_national_culture
-"Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+"Custom" "Belgium" "Canada" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom" "U.S.A."
+5
 
 SLIDER
 2364
@@ -2686,7 +2641,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-35.0
+75.0
 1
 1
 NIL
@@ -2701,7 +2656,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-89.0
+76.0
 1
 1
 NIL
@@ -2716,7 +2671,7 @@ power-distance
 power-distance
 0
 100
-35.0
+50.0
 1
 1
 NIL
@@ -2731,7 +2686,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-69.0
+30.0
 1
 1
 NIL
@@ -2746,7 +2701,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-66.0
+70.0
 1
 1
 NIL
@@ -2761,7 +2716,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-51.0
+61.0
 1
 1
 NIL
@@ -3662,7 +3617,7 @@ INPUTBOX
 2458
 910
 #available-tests
-10000.0
+50.0
 1
 0
 Number
@@ -3674,7 +3629,7 @@ SWITCH
 748
 prioritize-testing-health-care?
 prioritize-testing-health-care?
-1
+0
 1
 -1000
 
@@ -3702,7 +3657,7 @@ SWITCH
 817
 do-not-test-youth?
 do-not-test-youth?
-1
+0
 1
 -1000
 
@@ -3801,7 +3756,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+1.0
 0.01
 1
 NIL
@@ -3814,15 +3769,15 @@ SWITCH
 1286
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
 SLIDER
-3121
-766
-3414
-799
+2917
+769
+3210
+802
 ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
@@ -3834,10 +3789,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3123
-845
-3415
-878
+2919
+848
+3211
+881
 ratio-motorized-transport-to-essential-shops
 ratio-motorized-transport-to-essential-shops
 0
@@ -3849,10 +3804,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3125
-883
-3415
-916
+2922
+886
+3212
+919
 ratio-motorized-transport-to-public-leisure
 ratio-motorized-transport-to-public-leisure
 0
@@ -3864,10 +3819,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3123
-806
-3415
-839
+2919
+809
+3211
+842
 ratio-motorized-transport-to-private-leisure
 ratio-motorized-transport-to-private-leisure
 0
@@ -3885,7 +3840,7 @@ SWITCH
 1493
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3928,7 +3883,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.8
+1.0
 0.01
 1
 NIL
@@ -3953,7 +3908,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+1
 
 SWITCH
 2229
@@ -4027,7 +3982,7 @@ SWITCH
 783
 prioritize-testing-education?
 prioritize-testing-education?
-1
+0
 1
 -1000
 
@@ -4054,14 +4009,14 @@ PENS
 "workers solo" 1.0 0 -5825686 true "" "plot #workers-solo-transport"
 
 CHOOSER
-2796
-713
-2959
-758
+2788
+715
+2951
+760
 Transport-parameters-of
 Transport-parameters-of
-"custom" "Netherlands"
-1
+"custom" "Belgium" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom"
+3
 
 MONITOR
 1207
@@ -5171,9 +5126,6 @@ setup</setup>
     <metric>count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
-    <metric>#taken-hospital-beds</metric>
-    <metric>#beds-available-for-admission</metric>
-    <metric>hospital-effectiveness</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
       <value value="false"/>
@@ -5517,7 +5469,7 @@ setup</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#beds-in-hospital">
-      <value value="2000"/>
+      <value value="11"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
       <value value="0.1"/>
