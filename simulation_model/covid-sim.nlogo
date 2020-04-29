@@ -95,10 +95,10 @@ NIL
 1
 
 BUTTON
-12
-128
-104
-163
+10
+126
+105
+161
 go
 go\nif not any? people with [is-contagious?]\n[stop]
 T
@@ -120,7 +120,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.15
+0.4
 0.01
 1
 NIL
@@ -167,7 +167,7 @@ INPUTBOX
 938
 700
 #schools-gp
-13.0
+12.0
 1
 0
 Number
@@ -178,7 +178,7 @@ INPUTBOX
 1029
 700
 #universities-gp
-8.0
+40.0
 1
 0
 Number
@@ -242,7 +242,7 @@ TEXTBOX
 814
 361
 Age model
-11
+10
 53.0
 1
 
@@ -337,20 +337,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1785
-798
-2030
-836
+1672
+770
+1917
+808
 Measures (Interventions) Model
 14
 105.0
 1
 
 CHOOSER
-2289
-966
-2504
-1011
+2143
+939
+2358
+984
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
@@ -428,10 +428,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1479
+1482
 705
-1603
-739
+1636
+738
 density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
@@ -488,7 +488,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -503,7 +503,7 @@ probability-school-personel
 probability-school-personel
 0
 1
-0.03
+0.028
 0.01
 1
 NIL
@@ -518,7 +518,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -540,10 +540,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1964
-1068
-2234
-1101
+1851
+1040
+2121
+1073
 closed-workplaces?
 closed-workplaces?
 1
@@ -551,10 +551,10 @@ closed-workplaces?
 -1000
 
 SWITCH
-1723
-1188
-1945
-1221
+1609
+1160
+1831
+1193
 closed-universities?
 closed-universities?
 1
@@ -595,10 +595,10 @@ NIL
 11
 
 BUTTON
-13
-209
-107
-244
+10
+206
+105
+241
 1 Week Run
 go\nwhile [day-of-the-week != \"monday\" or slice-of-the-day != \"morning\"] [go]
 NIL
@@ -612,13 +612,13 @@ NIL
 1
 
 SWITCH
-662
-48
-765
-81
-debug?
-debug?
-1
+9
+484
+112
+517
+log?
+log?
+0
 1
 -1000
 
@@ -862,20 +862,20 @@ count houses-hosting-multiple-generations
 11
 
 TEXTBOX
-2877
-703
-3032
-743
+2663
+592
+2818
+632
 Migration model
 14
 35.0
 1
 
 SLIDER
-2867
-738
-3141
-771
+2653
+627
+2927
+660
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -887,10 +887,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3155
-782
-3452
-815
+2942
+670
+3239
+703
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -902,10 +902,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-3015
-698
-3127
-731
+2802
+587
+2914
+620
 migration?
 migration?
 1
@@ -913,10 +913,10 @@ migration?
 -1000
 
 SLIDER
-3229
-1085
-3479
-1118
+2655
+728
+2903
+761
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1056,10 +1056,10 @@ with-infected?
 -1000
 
 MONITOR
-1723
-1110
-1949
-1155
+1610
+1082
+1836
+1127
 NIL
 closed-schools?
 17
@@ -1067,10 +1067,10 @@ closed-schools?
 11
 
 SWITCH
-1725
-1070
-1947
-1103
+1612
+1042
+1834
+1075
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1086,17 +1086,17 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.163
+0.27
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1725
-967
-1953
-1000
+1612
+938
+1840
+971
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1108,21 +1108,41 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1725
-1004
-1951
-1065
+1612
+976
+1838
+1037
 #days-trigger-school-closing-measure
 10000.0
 1
 0
 Number
 
+TEXTBOX
+1543
+945
+1637
+963
+Triggers:
+11
+105.0
+1
+
+TEXTBOX
+1524
+970
+1633
+1023
+(fired when any condition is met)
+9
+105.0
+1
+
 SLIDER
-1965
-967
-2233
-1000
+1852
+938
+2120
+971
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
@@ -1134,10 +1154,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1967
-1005
-2236
-1066
+1853
+977
+2122
+1038
 #days-trigger-non-essential-business-closing-measure
 10000.0
 1
@@ -1145,10 +1165,10 @@ INPUTBOX
 Number
 
 MONITOR
-1964
-1108
-2237
-1153
+1851
+1079
+2124
+1124
 NIL
 closed-non-essential?
 17
@@ -1164,7 +1184,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.352
+0.38
 0.01
 1
 NIL
@@ -1179,7 +1199,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.431
+0.35
 0.01
 1
 NIL
@@ -1194,7 +1214,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.054
+0.01
 0.01
 1
 NIL
@@ -1259,10 +1279,10 @@ PENS
 "school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
 
 PLOT
-1084
-1494
-1546
-1644
+1088
+1338
+1550
+1488
 Total amount of capital available in the system
 NIL
 NIL
@@ -1344,7 +1364,7 @@ TEXTBOX
 1382
 Taxes charged by the government
 11
-25.0
+23.0
 1
 
 TEXTBOX
@@ -1354,7 +1374,7 @@ TEXTBOX
 1337
 Distribution of government subsidy
 11
-25.0
+23.0
 1
 
 SLIDER
@@ -1433,20 +1453,20 @@ NIL
 HORIZONTAL
 
 CHOOSER
-565
-248
-725
-293
+564
+253
+724
+298
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-7
+0
 
 SLIDER
-2042
-633
-2329
-666
+1928
+604
+2215
+637
 ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
@@ -1458,10 +1478,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-2042
-707
-2332
-740
+1928
+678
+2218
+711
 test-workplace-of-confirmed-people?
 test-workplace-of-confirmed-people?
 1
@@ -1469,10 +1489,10 @@ test-workplace-of-confirmed-people?
 -1000
 
 SWITCH
-2042
-669
-2331
-702
+1928
+641
+2217
+674
 test-home-of-confirmed-people?
 test-home-of-confirmed-people?
 1
@@ -1480,10 +1500,10 @@ test-home-of-confirmed-people?
 -1000
 
 TEXTBOX
-2043
-608
-2193
-626
+1930
+580
+2080
+598
 Testing
 11
 105.0
@@ -1555,10 +1575,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-768
-48
-897
-81
+903
+10
+1016
+43
 static-seed?
 static-seed?
 0
@@ -1572,8 +1592,8 @@ CHOOSER
 134
 preset-scenario
 preset-scenario
-"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-18
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing"
+14
 
 MONITOR
 743
@@ -1620,30 +1640,30 @@ count retireds
 11
 
 TEXTBOX
-1812
-943
-1962
-961
+1698
+915
+1848
+933
 Closing schools\n
 11
 105.0
 1
 
 TEXTBOX
-2045
-942
-2195
-960
+1932
+913
+2082
+931
 Closing workplaces
 11
 105.0
 1
 
 TEXTBOX
-1793
-1164
-1943
-1182
+1679
+1136
+1829
+1154
 Universities
 11
 105.0
@@ -1652,10 +1672,10 @@ Universities
 TEXTBOX
 922
 342
-1220
-368
-Worker distribution (relevant for economic model)
-11
+1072
+360
+Worker distribution
+10
 53.0
 1
 
@@ -1670,50 +1690,50 @@ Distribution of disease evolution
 1
 
 TEXTBOX
-578
-634
-743
-709
+557
+635
+756
+710
 Density factors:\nRelative proximity between individuals within an activity type (impacts contamination risks).
 10
 125.0
 1
 
 TEXTBOX
-3232
-1053
-3540
-1081
-Density parameters influence risks of becoming sick when travelling locally (link with contagion model)
+2923
+728
+3084
+756
+Risks of becoming sick when travelling locally
 11
-65.0
+35.0
 1
 
 TEXTBOX
-2352
-784
-2527
-815
+2238
+756
+2413
+787
 All people at home are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2350
+2237
+794
+2419
 823
-2532
-852
 All people at work are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2318
-944
-2468
-965
+2204
+916
+2354
+937
 Closing global
 11
 105.0
@@ -1724,18 +1744,18 @@ TEXTBOX
 1165
 710
 1183
-Economic model
+Economy model
 14
-25.0
+23.0
 1
 
 BUTTON
 808
 97
-1013
-131
-calibrate parameter settings
-load-scenario-specific-parameter-settings
+897
+130
+NIL
+set-values
 NIL
 1
 T
@@ -1762,10 +1782,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2868
-778
-3143
-811
+2655
+667
+2930
+700
 probability-going-abroad
 probability-going-abroad
 0
@@ -1896,10 +1916,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2321
-1096
-2739
-1129
+2207
+1065
+2562
+1098
 probably-contagion-mitigation-from-social-distancing
 probably-contagion-mitigation-from-social-distancing
 0
@@ -1911,20 +1931,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2324
-1043
-2474
-1061
+2211
+1015
+2361
+1033
 Social distancing
 10
 105.0
 1
 
 SLIDER
-2320
-1060
-2738
-1093
+2207
+1032
+2561
+1065
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
@@ -1936,10 +1956,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2322
-1133
-2541
-1178
+2207
+1098
+2361
+1143
 NIL
 is-social-distancing-measure-active?
 17
@@ -1947,10 +1967,10 @@ is-social-distancing-measure-active?
 11
 
 PLOT
-1085
-1652
-1451
-1802
+1089
+1496
+1455
+1646
 Velocity of money in total system
 NIL
 NIL
@@ -1965,10 +1985,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot velocity-of-money-in-total-system"
 
 PLOT
-1085
-1815
-1452
-1965
+1089
+1659
+1456
+1809
 Goods production of total system
 NIL
 NIL
@@ -1983,10 +2003,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot goods-production-of-total-system"
 
 PLOT
-1484
-1660
-1894
-1810
+1486
+1503
+1896
+1653
 Number of adult people out of capital
 NIL
 NIL
@@ -2004,10 +2024,10 @@ PENS
 "student" 1.0 0 -10899396 true "" "plot #students-out-of-capital"
 
 PLOT
-1484
-1822
-1895
-1972
+1486
+1665
+1897
+1815
 Number of gathering points out of capital
 NIL
 NIL
@@ -2075,7 +2095,7 @@ mean-social-distance-profile
 mean-social-distance-profile
 0
 1
-0.5
+0.29
 0.01
 1
 NIL
@@ -2087,7 +2107,7 @@ INPUTBOX
 644
 425
 #households
-400.0
+391.0
 1
 0
 Number
@@ -2109,7 +2129,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-13.0
+2000.0
 1
 0
 Number
@@ -2126,10 +2146,10 @@ NIL
 11
 
 MONITOR
-1200
-2055
-1313
-2100
+1205
+1899
+1318
+1944
 NIL
 #hospital-workers
 17
@@ -2137,10 +2157,10 @@ NIL
 11
 
 MONITOR
-1060
-2002
-1193
-2047
+1065
+1846
+1198
+1891
 NIL
 #essential-shop-workers
 17
@@ -2148,10 +2168,10 @@ NIL
 11
 
 MONITOR
-1200
-2002
-1375
-2047
+1205
+1846
+1380
+1891
 NIL
 #non-essential-shop-workers
 17
@@ -2170,10 +2190,10 @@ NIL
 11
 
 MONITOR
-1060
-2055
-1192
-2100
+1065
+1899
+1197
+1944
 NIL
 #university-workers
 17
@@ -2181,10 +2201,10 @@ NIL
 11
 
 MONITOR
-1200
-2108
-1305
-2153
+1205
+1952
+1310
+1997
 NIL
 #school-workers
 17
@@ -2203,10 +2223,10 @@ NIL
 11
 
 MONITOR
-1064
-2108
-1195
-2153
+1068
+1952
+1199
+1997
 NIL
 #workplace-workers
 17
@@ -2229,10 +2249,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2549
-1134
-2696
-1179
+2360
+1098
+2458
+1143
 #social-distancing
 count people with [is-I-apply-social-distancing? = true]
 17
@@ -2312,10 +2332,10 @@ NIL
 1
 
 SLIDER
-1964
-1203
-2246
-1236
+1851
+1175
+2133
+1208
 productivity-factor-when-not-at-work
 productivity-factor-when-not-at-work
 0
@@ -2327,9 +2347,9 @@ NIL
 HORIZONTAL
 
 MONITOR
-1684
+1582
 535
-1864
+1739
 580
 NIL
 hospital-effectiveness
@@ -2338,10 +2358,10 @@ hospital-effectiveness
 11
 
 SLIDER
-2042
-890
-2336
-923
+1928
+862
+2222
+895
 ratio-population-daily-immunity-testing
 ratio-population-daily-immunity-testing
 0
@@ -2368,10 +2388,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2948
-1012
-3202
-1045
+2658
+844
+2912
+877
 ratio-worker-public-transport
 ratio-worker-public-transport
 0
@@ -2383,10 +2403,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3215
-973
-3433
-1006
+2928
+847
+3146
+880
 ratio-worker-shared-car
 ratio-worker-shared-car
 0
@@ -2398,20 +2418,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-3152
-722
-3404
-751
+2938
+610
+3190
+639
 The rest goes on private/safe transport
 11
 35.0
 1
 
 SLIDER
-2947
-935
-3201
-968
+2657
+768
+2911
+801
 ratio-children-public-transport
 ratio-children-public-transport
 0
@@ -2423,10 +2443,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3210
-893
-3428
-926
+2923
+767
+3141
+800
 ratio-children-shared-car
 ratio-children-shared-car
 0
@@ -2438,10 +2458,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3212
-930
-3430
-963
+2925
+804
+3143
+837
 ratio-student-shared-car
 ratio-student-shared-car
 0
@@ -2453,10 +2473,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3215
-1010
-3433
-1043
+2928
+884
+3146
+917
 ratio-retired-shared-car
 ratio-retired-shared-car
 0
@@ -2468,10 +2488,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2947
-973
-3201
-1006
+2657
+807
+2911
+840
 ratio-student-public-transport
 ratio-student-public-transport
 0
@@ -2483,10 +2503,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2948
-1053
-3201
-1086
+2658
+887
+2911
+920
 ratio-retired-public-transport
 ratio-retired-public-transport
 0
@@ -2498,10 +2518,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-2869
-1104
-3025
-1164
+2653
+937
+2809
+997
 #bus-per-timeslot
 10.0
 1
@@ -2509,10 +2529,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-2869
-1174
-3025
-1234
+2653
+992
+2809
+1052
 #max-people-per-bus
 20.0
 1
@@ -2520,10 +2540,10 @@ INPUTBOX
 Number
 
 MONITOR
-3033
-1182
-3210
-1227
+2813
+992
+3008
+1037
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2531,10 +2551,10 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3230
-1123
-3479
-1156
+3022
+934
+3247
+967
 density-when-queuing
 density-when-queuing
 0
@@ -2546,10 +2566,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3229
-1159
-3479
-1192
+3022
+977
+3247
+1010
 density-in-public-transport
 density-in-public-transport
 0
@@ -2561,10 +2581,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3229
-1198
-3480
-1231
+3023
+1017
+3247
+1050
 density-in-shared-cars
 density-in-shared-cars
 0
@@ -2576,10 +2596,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3033
-1109
-3211
-1154
+2813
+938
+2982
+983
 NIL
 #people-denied-bus
 17
@@ -2587,10 +2607,10 @@ NIL
 11
 
 MONITOR
-1892
-279
-2116
-324
+1788
+285
+2012
+330
 NIL
 #people-infected-in-pubtrans
 17
@@ -2598,10 +2618,10 @@ NIL
 11
 
 MONITOR
-1890
-328
-2113
-373
+1787
+333
+2010
+378
 NIL
 #people-infected-in-shared-cars
 17
@@ -2609,10 +2629,10 @@ NIL
 11
 
 MONITOR
-1890
-379
-2113
-424
+1787
+385
+2010
+430
 NIL
 #people-infected-when-queuing
 17
@@ -2620,10 +2640,10 @@ NIL
 11
 
 MONITOR
-1890
-432
-2114
-477
+1787
+437
+2011
+482
 NIL
 #people-infected-in-activities
 17
@@ -2631,10 +2651,10 @@ NIL
 11
 
 MONITOR
-1890
-484
-2115
-529
+1787
+489
+2012
+534
 NIL
 #people-infected-in-general-travel
 17
@@ -2642,10 +2662,10 @@ NIL
 11
 
 BUTTON
-13
-252
-105
-287
+10
+248
+102
+283
 1 Month Run
 let starting-day current-day\nlet end-day starting-day + 28\nwhile [current-day <= end-day] [ go ]
 NIL
@@ -2666,7 +2686,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-7
+4
 
 SLIDER
 2364
@@ -2677,7 +2697,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-85.0
+35.0
 1
 1
 NIL
@@ -2692,7 +2712,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-18.0
+89.0
 1
 1
 NIL
@@ -2707,7 +2727,7 @@ power-distance
 power-distance
 0
 100
-60.0
+35.0
 1
 1
 NIL
@@ -2722,7 +2742,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-29.0
+69.0
 1
 1
 NIL
@@ -2737,7 +2757,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-39.0
+66.0
 1
 1
 NIL
@@ -2752,7 +2772,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-100.0
+51.0
 1
 1
 NIL
@@ -2829,10 +2849,10 @@ Cultural Model
 1
 
 SLIDER
-3152
-742
-3460
-775
+2938
+630
+3246
+663
 owning-solo-transportation-probability
 owning-solo-transportation-probability
 0
@@ -2844,10 +2864,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1989
-1327
-2297
-1360
+1600
+1264
+1834
+1297
 ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
@@ -2859,10 +2879,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1964
-1162
-2242
-1195
+1851
+1133
+2129
+1166
 is-working-from-home-recommended?
 is-working-from-home-recommended?
 1
@@ -2870,10 +2890,10 @@ is-working-from-home-recommended?
 -1000
 
 SLIDER
-1803
-890
-2029
-923
+1689
+862
+1915
+895
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -2885,32 +2905,32 @@ NIL
 HORIZONTAL
 
 MONITOR
-1991
-1373
-2296
-1418
-#recorded-contacts-in-proximity-app
+1834
+1365
+1967
+1410
+#recorded-contacts-in-tracing-app
 average-number-of-people-recorded-by-recording-apps
 17
 1
 11
 
 INPUTBOX
-2452
-1268
-2607
-1328
-#days-recording-tracking
+1600
+1370
+1755
+1430
+#days-recording-tracing
 14.0
 1
 0
 Number
 
 MONITOR
-2345
-878
-2473
-923
+2232
+849
+2360
+894
 NIL
 #tests-performed
 17
@@ -2918,10 +2938,10 @@ NIL
 11
 
 BUTTON
-13
-292
-106
-327
+10
+288
+103
+323
 go once
 go
 NIL
@@ -2935,10 +2955,10 @@ NIL
 1
 
 BUTTON
-12
-335
-107
-369
+10
+328
+101
+361
 inspect person
 inspect one-of people
 NIL
@@ -2952,10 +2972,10 @@ NIL
 1
 
 BUTTON
-1804
-842
-2027
-877
+1690
+823
+1913
+858
 NIL
 inform-people-of-measures
 NIL
@@ -3014,10 +3034,10 @@ Agent need system settings
 1
 
 INPUTBOX
-908
-30
-1021
-90
+903
+42
+1016
+102
 #random-seed
 1.0
 1
@@ -3090,12 +3110,12 @@ NIL
 HORIZONTAL
 
 SLIDER
-1992
-1287
-2289
-1320
-ratio-of-anxiety-avoidance-users
-ratio-of-anxiety-avoidance-users
+1600
+1232
+1835
+1265
+ratio-of-anxiety-avoidancetracing-app-users
+ratio-of-anxiety-avoidancetracing-app-users
 0
 1
 0.0
@@ -3107,9 +3127,9 @@ HORIZONTAL
 BUTTON
 2797
 194
-2979
+2954
 227
-Write network as .dot file
+Write network as dot
 write-network-to-file user-new-file
 NIL
 1
@@ -3122,35 +3142,13 @@ NIL
 0
 
 MONITOR
-2311
-1283
-2439
-1328
-#app-users
+1834
+1233
+1969
+1278
+#tracing-app-users
 count people with [is-user-of-tracking-app?]
 17
-1
-11
-
-MONITOR
-2311
-1387
-2551
-1432
-standard anxiety avoidance of people
-mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of people
-4
-1
-11
-
-MONITOR
-2314
-1335
-2549
-1380
-anxiety-avoidance of app users
-mean [importance-weight-safety + \nimportance-weight-risk-avoidance +\nimportance-weight-compliance] of app-users
-3
 1
 11
 
@@ -3172,10 +3170,10 @@ NIL
 1
 
 PLOT
-1677
-1987
-2253
-2183
+1678
+1829
+2254
+2025
 Macro Economic Model - Capital Flow
 NIL
 NIL
@@ -3208,10 +3206,10 @@ Agent social distancing settings
 1
 
 PLOT
-1484
-2189
-1942
-2339
+1486
+2032
+1944
+2182
 Macro Economic Model - International Sector
 NIL
 NIL
@@ -3226,10 +3224,10 @@ PENS
 "international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
 
 SWITCH
-1449
-2025
+1490
+1867
 1668
-2059
+1900
 close-services-luxury?
 close-services-luxury?
 1
@@ -3237,10 +3235,10 @@ close-services-luxury?
 -1000
 
 PLOT
-1899
-1660
-2239
-1810
+1901
+1503
+2241
+1653
 Number of adult people in poverty
 NIL
 NIL
@@ -3258,10 +3256,10 @@ PENS
 "students" 1.0 0 -13840069 true "" "plot count students with [is-in-poverty?]"
 
 PLOT
-1899
-1822
-2227
-1972
+1901
+1665
+2229
+1815
 Histogram of available capital
 my-amount-of-capital
 counts
@@ -3309,11 +3307,11 @@ ASSOCC
 1
 
 TEXTBOX
-2069
-1262
-2284
-1288
-Smartphone apps
+1688
+1214
+1750
+1232
+Tracing app
 11
 105.0
 1
@@ -3330,10 +3328,10 @@ make-social-distance-profile-value-based?
 -1000
 
 MONITOR
-1680
-430
-1864
-475
+1580
+434
+1764
+479
 NIL
 #healthy-hospital-personel
 17
@@ -3341,10 +3339,10 @@ NIL
 11
 
 MONITOR
-1683
-484
-1866
-529
+1582
+488
+1745
+533
 NIL
 #sick-hospital-personel
 17
@@ -3352,10 +3350,10 @@ NIL
 11
 
 SLIDER
-1447
-2134
-1667
-2167
+1448
+1977
+1668
+2010
 government-sector-subsidy-ratio
 government-sector-subsidy-ratio
 0
@@ -3367,10 +3365,10 @@ NIL
 HORIZONTAL
 
 PLOT
-1949
-2189
-2384
-2339
+1951
+2032
+2386
+2182
 Macro Economic Model - Central Bank
 NIL
 NIL
@@ -3386,10 +3384,10 @@ PENS
 "total-credit" 1.0 0 -13345367 true "" "plot sum [total-credit] of central-banks"
 
 PLOT
-2265
-1987
-2804
-2181
+2267
+1830
+2806
+2024
 Macro Economic Model - Debt
 NIL
 NIL
@@ -3411,10 +3409,10 @@ PENS
 "households-sector" 1.0 0 -6459832 true "" "plot total-debt-households-sector"
 
 PLOT
-2393
-2189
-2805
-2339
+2395
+2032
+2807
+2182
 Macro Economic Model - Government Debt
 NIL
 NIL
@@ -3429,10 +3427,10 @@ PENS
 "debt" 1.0 0 -16777216 true "" "plot total-debt-government-sector"
 
 SLIDER
-1362
-2060
-1667
-2093
+1363
+1903
+1668
+1936
 services-luxury-ratio-of-expenditures-when-closed
 services-luxury-ratio-of-expenditures-when-closed
 0
@@ -3444,10 +3442,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1365
-2097
-1666
-2130
+1367
+1940
+1668
+1973
 services-luxury-ratio-of-income-when-closed
 services-luxury-ratio-of-income-when-closed
 0
@@ -3459,10 +3457,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1988
-1420
-2175
-1453
+1600
+1427
+1831
+1460
 ratio-young-with-phones
 ratio-young-with-phones
 0
@@ -3474,10 +3472,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1988
-1457
-2177
-1490
+1600
+1459
+1830
+1492
 ratio-retired-with-phones
 ratio-retired-with-phones
 0
@@ -3489,10 +3487,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2187
-1420
-2296
-1465
+1833
+1410
+1942
+1455
 #phone-owners
 count people with [has-mobile-phone?]
 17
@@ -3500,10 +3498,10 @@ count people with [has-mobile-phone?]
 11
 
 MONITOR
-2187
-1464
-2296
-1509
+1833
+1454
+1942
+1499
 ratio-phone-owners
 count people with [has-mobile-phone?] / count people
 17
@@ -3511,10 +3509,10 @@ count people with [has-mobile-phone?] / count people
 11
 
 SLIDER
-1448
-1988
+1488
+1830
 1668
-2022
+1863
 interest-rate-by-tick
 interest-rate-by-tick
 0
@@ -3526,20 +3524,20 @@ NIL
 HORIZONTAL
 
 CHOOSER
-2159
-300
-2297
-345
+2085
+342
+2223
+387
 disease-fsm-model
 disease-fsm-model
 "assocc" "oxford"
 1
 
 MONITOR
-2159
-363
-2216
-408
+2085
+404
+2142
+449
 NIL
 r0
 17
@@ -3547,10 +3545,10 @@ r0
 11
 
 INPUTBOX
-2480
-878
-2571
-938
+2367
+850
+2458
+910
 #available-tests
 10000.0
 1
@@ -3558,10 +3556,10 @@ INPUTBOX
 Number
 
 SWITCH
-2042
-743
-2333
-776
+1928
+715
+2219
+748
 prioritize-testing-health-care?
 prioritize-testing-health-care?
 1
@@ -3586,10 +3584,10 @@ NIL
 1
 
 SWITCH
-2042
-813
-2334
-846
+1928
+784
+2220
+817
 do-not-test-youth?
 do-not-test-youth?
 1
@@ -3597,10 +3595,10 @@ do-not-test-youth?
 -1000
 
 SWITCH
-2042
-852
-2336
-885
+1928
+823
+2222
+856
 only-test-retirees-with-extra-tests?
 only-test-retirees-with-extra-tests?
 1
@@ -3608,44 +3606,44 @@ only-test-retirees-with-extra-tests?
 -1000
 
 MONITOR
-1846
-1368
-1950
+2318
 1413
-#Non isolators
+2413
+1458
+non isolators
 count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
 17
 1
 11
 
 MONITOR
-1695
-1368
-1834
+2198
 1413
-#Should be isolating
+2314
+1458
+Should be isolating
 count should-be-isolators
 17
 1
 11
 
 SWITCH
-1720
-1322
-1967
-1355
+2090
+1316
+2270
+1349
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-1
+0
 1
 -1000
 
 PLOT
-1084
-1335
-1572
-1485
-Self-isolation
+2451
+1263
+2763
+1413
+Quarantining & isolation
 time
 #people
 0.0
@@ -3662,57 +3660,57 @@ PENS
 "sick quarantiners" 1.0 0 -13791810 true "" "plot count people with [is-officially-asked-to-quarantine? and is-believing-to-be-infected?]"
 
 TEXTBOX
-1792
-1255
-1942
-1273
+2225
+1221
+2375
+1242
 Self-isolation
 11
 105.0
 1
 
 SLIDER
-1700
-1426
-1965
-1459
+2198
+1381
+2376
+1414
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-1.0
+0.8
 0.01
 1
 NIL
 HORIZONTAL
 
 SWITCH
-1723
-1282
-1968
-1315
+2198
+1243
+2443
+1276
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
 SWITCH
-1700
-1468
-1965
-1501
+1993
+1241
+2185
+1274
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
 MONITOR
-1700
-1509
-1905
-1554
+1992
+1273
+2185
+1318
 NIL
 start-tick-of-global-quarantine
 17
@@ -3722,8 +3720,8 @@ start-tick-of-global-quarantine
 PLOT
 1577
 283
-1867
-423
+1763
+422
 hospitals
 NIL
 NIL
@@ -3739,25 +3737,25 @@ PENS
 "#available-beds" 1.0 0 -10899396 true "" "plot #beds-available-for-admission"
 
 SLIDER
-2357
-1479
-2638
-1512
+2198
+1349
+2431
+1382
 ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-1.0
+0.8
 0.01
 1
 NIL
 HORIZONTAL
 
 MONITOR
-2513
-968
-2663
-1013
+2387
+949
+2537
+994
 NIL
 is-hard-lockdown-active?
 17
@@ -3765,20 +3763,20 @@ is-hard-lockdown-active?
 11
 
 CHOOSER
-2552
-1335
-2712
-1380
+1599
+1295
+1834
+1340
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-1
+2
 
 SWITCH
-2357
-1447
-2639
-1480
+1600
+1338
+1835
+1371
 is-tracking-app-testing-immediately-recursive?
 is-tracking-app-testing-immediately-recursive?
 0
@@ -3786,10 +3784,10 @@ is-tracking-app-testing-immediately-recursive?
 -1000
 
 MONITOR
-2562
-1393
-2695
-1438
+1834
+1321
+1967
+1366
 NIL
 is-tracing-app-active?
 17
@@ -3797,10 +3795,10 @@ is-tracing-app-active?
 11
 
 MONITOR
-2613
-1282
-2713
-1327
+1834
+1277
+1968
+1322
 #people-ever-recorded-as-positive-in-the-app
 count people-having-ever-been-recorded-as-positive-in-the-app
 17
@@ -3808,20 +3806,20 @@ count people-having-ever-been-recorded-as-positive-in-the-app
 11
 
 CHOOSER
-2351
-721
-2622
-766
+2297
+693
+2568
+738
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
 1
 
 MONITOR
-2355
-668
-2527
-713
+2242
+640
+2414
+685
 NIL
 #tests-used-by-daily-testing
 17
@@ -3829,10 +3827,10 @@ NIL
 11
 
 MONITOR
-1892
-534
-2120
-579
+1803
+533
+2011
+578
 NIL
 #infected-by-asymptomatic-people
 17
@@ -3840,25 +3838,58 @@ NIL
 11
 
 SWITCH
-2040
-778
-2332
-811
+1927
+750
+2219
+783
 prioritize-testing-education?
 prioritize-testing-education?
 1
 1
 -1000
 
-TEXTBOX
-2978
-908
-3128
-926
-Transport Model
-14
-65.0
+SWITCH
+2198
+1275
+2443
+1308
+is-psychorigidly-staying-at-home-when-quarantining?
+is-psychorigidly-staying-at-home-when-quarantining?
+0
 1
+-1000
+
+TEXTBOX
+2041
+1221
+2191
+1239
+Global quarantine
+11
+105.0
+1
+
+SWITCH
+111
+484
+270
+517
+log-contamination?
+log-contamination?
+0
+1
+-1000
+
+SWITCH
+269
+483
+473
+516
+log-preferred-activity-decision?
+log-preferred-activity-decision?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -5395,458 +5426,6 @@ setup</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-university-personel">
       <value value="0.005"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
-      <value value="10000"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="cultural-model-7.1-baseline" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>count turtles</metric>
-    <enumeratedValueSet variable="prioritize-testing-education?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-recording-tracking">
-      <value value="14"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
-      <value value="2.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#max-people-per-bus">
-      <value value="20"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
-      <value value="0.69"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="goods-produced-by-work-performed">
-      <value value="12"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
-      <value value="500"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="preset-scenario">
-      <value value="&quot;scenario-6-default&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-private-leisure">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-getting-back-when-abroad">
-      <value value="0.13"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="critical-to-terminal">
-      <value value="2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="with-infected?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="indulgence-vs-restraint">
-      <value value="69"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="static-seed?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="set_national_culture">
-      <value value="&quot;Great Britain&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
-      <value value="0.52"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-school-subsidy">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="value-system-calibration-factor">
-      <value value="25"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-self-recovery-symptoms">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-multi-generational-homes">
-      <value value="0.01"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#households">
-      <value value="391"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="global-confinement-measures">
-      <value value="&quot;none&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-public-leisure">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#universities-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="std-dev-social-distance-profile">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="value-std-dev">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="close-services-luxury?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="individualism-vs-collectivism">
-      <value value="89"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-student-public-transport">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="uncertainty-avoidance">
-      <value value="35"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
-      <value value="8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-family-homes">
-      <value value="0.27"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-sector-subsidy-ratio">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="debug?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-hospital-personel">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="weight-survival-needs">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="migration?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="masculinity-vs-femininity">
-      <value value="66"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
-      <value value="2.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="terminal-to-death">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="percentage-news-watchers">
-      <value value="0.76"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-workplaces">
-      <value value="0.55"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="food-delivered-to-isolators?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="owning-solo-transportation-probability">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-children-public-transport">
-      <value value="0.75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="survival-multiplier">
-      <value value="2.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-unavoidable-death-old">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="long-vs-short-termism">
-      <value value="51"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="disease-fsm-model">
-      <value value="&quot;oxford&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="mean-social-distance-profile">
-      <value value="0.29"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-with-phones">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retirees-subsidy">
-      <value value="0.34"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-users">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="prioritize-testing-health-care?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-shared-car">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="do-not-test-youth?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-worker-public-transport">
-      <value value="0.4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#hospital-gp">
-      <value value="4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
-      <value value="0.08"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-working-from-home-recommended?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="when-is-tracing-app-active?">
-      <value value="&quot;7-days-before-end-of-global-quarantine&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="household-profiles">
-      <value value="&quot;custom&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="interest-rate-by-tick">
-      <value value="0.001"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
-      <value value="16"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-student-shared-car">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-students-subsidy">
-      <value value="0.34"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-hospital">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="maslow-multiplier">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="days-of-rations-bought">
-      <value value="3"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-schools">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-adults-homes">
-      <value value="0.38"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-unavoidable-death">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-hospital-subsidy">
-      <value value="0.21"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-shopkeeper">
-      <value value="0.04"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-essential-shops">
-      <value value="0.3"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="workers-wages">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-in-shared-cars">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-school-personel">
-      <value value="0.028"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-worker-shared-car">
-      <value value="0.15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-workplaces">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-young-with-phones">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-universities">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-university-subsidy">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-infection-when-abroad">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#beds-in-hospital">
-      <value value="2000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="power-distance">
-      <value value="35"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-non-essential-shops">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="peer-group-friend-links">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
-      <value value="0.52"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-children-shared-car">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="productivity-factor-when-not-at-work">
-      <value value="0.79"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="unit-price-of-goods">
-      <value value="1.7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="network-generation-method">
-      <value value="&quot;value-similarity&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-homes">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="when-is-daily-testing-applied?">
-      <value value="&quot;never&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#random-seed">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="propagation-risk">
-      <value value="0.4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-travelling-propagation">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#available-tests">
-      <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#schools-gp">
-      <value value="12"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="closed-universities?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-initial-reserve-of-capital">
-      <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-pays-wages?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-workers">
-      <value value="0.41"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="animate?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-recorvery-if-treated">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-couple-homes">
-      <value value="0.35"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
-      <value value="0.14"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="closed-workplaces?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
-      <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="test-home-of-confirmed-people?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-when-queuing">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-public-transport">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-in-public-transport">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-university-personel">
-      <value value="0.04"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-trigger-school-closing-measure">
       <value value="10000"/>
