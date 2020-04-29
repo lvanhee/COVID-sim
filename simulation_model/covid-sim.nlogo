@@ -4034,7 +4034,7 @@ INPUTBOX
 1185
 2755
 1245
-#buses-per-timeslot
+#bus-per-timeslot
 0.0
 1
 0
