@@ -8,7 +8,7 @@ to update-global-quarantine-measure
     set start-tick-of-global-quarantine ticks
     ask people [include-time-for-quarantining duration-global-quarantine]
   ]
-end
+end 
 
 to disable-global-quarantine-measure
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
