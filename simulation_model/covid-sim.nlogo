@@ -612,13 +612,13 @@ NIL
 1
 
 SWITCH
-662
-48
-765
-81
-debug?
-debug?
-1
+9
+484
+112
+517
+log?
+log?
+0
 1
 -1000
 
@@ -1575,10 +1575,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-768
-48
-897
-81
+903
+10
+1016
+43
 static-seed?
 static-seed?
 0
@@ -3034,10 +3034,10 @@ Agent need system settings
 1
 
 INPUTBOX
-914
-38
-1027
-98
+903
+42
+1016
+102
 #random-seed
 1.0
 1
@@ -3868,6 +3868,28 @@ Global quarantine
 11
 105.0
 1
+
+SWITCH
+111
+484
+270
+517
+log-contamination?
+log-contamination?
+0
+1
+-1000
+
+SWITCH
+269
+483
+473
+516
+log-preferred-activity-decision?
+log-preferred-activity-decision?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

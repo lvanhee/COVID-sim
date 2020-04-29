@@ -2,7 +2,7 @@ __includes ["need_management.nls" "cultural_model.nls" "decision/quarantining.nl
 
 ;reports a string, which can be related to a gathering point and a concrete activity
 to-report my-preferred-available-activity-descriptor 
-  debug-file-print (sentence "Person " who " " age)
+  if log-preferred-activity-decision? [ log-file-print (sentence "Person " who " " age)]
   report item 0 reduce [[x y] -> ifelse-value item 1 x > item 1 y [x] [y]] (map [x -> (list x (global-prevalence-of x))] my-available-activity-descriptors)
   ;report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
 end

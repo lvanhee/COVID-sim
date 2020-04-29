@@ -14,12 +14,12 @@ globals[#min-workers-in-adults-homes
   
 ]
 to setup
-  reset-timer
   clear-all
-  if debug? [print "debug mode active; this dramatically slows down computation speed"]
+  reset-ticks
+  if log? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
   set-default-shape people "circle"
-  if debug? or static-seed?[  random-seed #random-seed ]
+  if log? or static-seed?[  random-seed #random-seed ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
@@ -38,7 +38,7 @@ to setup
 
   if with-infected? [
     set  first-infected-people n-of (min list 3 count people) people
-    ask first-infected-people [contaminate nobody]
+    ask first-infected-people [contaminate nobody (list)]
     set #first-infected-people count first-infected-people
   ]
 
@@ -49,7 +49,7 @@ to setup
   set is-lockdown-active? false
   set list-of-buses (list)
   set list-of-shared-cars (list)
-  reset-ticks
+  
 end
 
 to setup-app-users

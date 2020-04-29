@@ -303,6 +303,7 @@ to load-baseline-scenario
   disable-all-measures
   set ratio-self-quarantining-when-symptomatic 1
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
+  set is-psychorigidly-staying-at-home-when-quarantining? false
 end
 
 to load-default-transport-model

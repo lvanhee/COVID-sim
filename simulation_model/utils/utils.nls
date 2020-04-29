@@ -22,33 +22,7 @@ to-report clamp [low high number]
   report number
 end
 
-to debug-file-show [object]
-  if debug? [
-    file-open "debug.log"
-    file-show object
-    file-close
-  ]
-end
 
-to debug-file-print [object]
-  if debug? [
-    file-open "debug.log"
-    file-print object
-    file-close
-  ]
-end
-
-to debug-show [object]
-  if debug? [
-    show object
-  ]
-end
-
-to debug-print [object]
-  if debug? [
-    print object
-  ]
-end
 
 to export-profiling
   profiler:stop
