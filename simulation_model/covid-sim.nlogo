@@ -808,10 +808,10 @@ Simulation management
 1
 
 TEXTBOX
-588
-358
-796
-396
+593
+344
+801
+382
 Demographics Model
 14
 53.0

@@ -72,7 +72,7 @@ to-report should-be-isolators
 end
 
 to disable-all-measures
-  ; Closing
+  ; Keep open schools, universities, workplaces
   set ratio-omniscious-infected-that-trigger-school-closing-measure 1
   set ratio-omniscious-infected-that-trigger-social-distancing-measure 1
   set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
@@ -82,7 +82,7 @@ to disable-all-measures
   set global-confinement-measures "none"
   set closed-universities? false
   set closed-workplaces? false
-  ; Testing
+  ; Disable testing measures
   set ratio-population-randomly-tested-daily 0
   set ratio-population-daily-immunity-testing 0
   set #available-tests 10000
@@ -90,12 +90,12 @@ to disable-all-measures
   set test-workplace-of-confirmed-people? false
   set prioritize-testing-health-care? false
   set prioritize-testing-education? false
-  set do-not-test-youth? false
+  set do-not-test-youth? true
   set only-test-retirees-with-extra-tests? false
   set when-is-daily-testing-applied? "never"
-  ; Tracing (Smartphone App) settings
+  ; Disable tracing (smartphone app) settings
   set ratio-of-people-using-the-tracking-app 0
-  ; Isolation
+  ; Disable isolation (quarantine) measures
   set is-infected-and-their-families-requested-to-stay-at-home? false
   set food-delivered-to-isolators? false
   set is-psychorigidly-staying-at-home-when-quarantining? false

@@ -298,6 +298,9 @@ to load-scenario-7-cultural-model
   ;'set_national_culture' will be manipulated within behaviorspace
   set household-profiles set_national_culture
   set migration? false
+  
+  ;specify which governmental interventions (i.e public measures) to activate
+  
 end
 
 
@@ -327,12 +330,12 @@ to load-baseline-parameter-settings
   load-default-worker-distribution-settings
   load-default-intervention-measures-settings
   
-  ;by default: disable all measures aimed at minimizing the spread & mortality of the coronavirus
-  disable-all-measures
 end
 
 to load-default-intervention-measures-settings
   set percentage-news-watchers 0.75
+  ;by default: disable all measures aimed at minimizing the spread & mortality of the coronavirus (see public_measures.nls)
+  disable-all-measures
 end
 
 ;How are these probabilities determined!?
