@@ -22,33 +22,7 @@ to-report clamp [low high number]
   report number
 end
 
-to debug-file-show [object]
-  if debug? [
-    file-open "debug.log"
-    file-show object
-    file-close
-  ]
-end
 
-to debug-file-print [object]
-  if debug? [
-    file-open "debug.log"
-    file-print object
-    file-close
-  ]
-end
-
-to debug-show [object]
-  if debug? [
-    show object
-  ]
-end
-
-to debug-print [object]
-  if debug? [
-    print object
-  ]
-end
 
 to export-profiling
   profiler:stop
@@ -96,6 +70,20 @@ end
 ; Creates a simple object counter for counting how often each object appears in a list. Should work on any object that supports =
 to-report new-counter
   report []
+end
+
+; Counts occurances in a given list, and returns the resulting counter
+to-report count-in-list [l]
+  let counter new-counter
+  foreach l [ elem ->
+    set counter add-to-counter counter elem
+  ]
+  report counter
+end
+
+; Sort a counter based on the elements in the counter
+to-report counter-sort-on-element [counter]
+  report sort-by [ [x y] -> item 0 x < item 0 y] counter
 end
 
 ; Add the object `obj` to a given `counter` and return the new counter. 

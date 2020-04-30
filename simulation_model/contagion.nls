@@ -28,11 +28,11 @@ to spread-by-travelling
   ]
   
   foreach list-of-buses [
-    x -> spread-within-a-set-of-people x density-in-public-transport [ [] -> set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1]
+    x -> spread-within-a-set-of-people x density-in-public-transport [ [] -> set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1] "bus"
   ]
   
   foreach list-of-shared-cars [
-    x -> spread-within-a-set-of-people x density-in-shared-cars [ [] -> set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1]
+    x -> spread-within-a-set-of-people x density-in-shared-cars [ [] -> set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1] "cars"
   ]
   
   let people-waiting-for-bus people with [stayed-out-queuing-for-bus?]
@@ -40,16 +40,17 @@ to spread-by-travelling
   * (sqrt count people-waiting-for-bus / count people);;this last factor represents the relative density of people waiting for buses
                                                     ;; which further reduces the risk of getting sick when queuing
   [ [] -> set #people-infected-when-queuing #people-infected-when-queuing + 1]
+  "queue-waiting-for-bus"
 end
 
 to spread-by-activity-proximity
   ask gathering-points with [not (self = away-gathering-point)]
   [
-    spread-within-a-set-of-people current-gatherers proximity-factor [ [] -> set #people-infected-in-activities #people-infected-in-activities + 1]
+    spread-within-a-set-of-people current-gatherers proximity-factor [ [] -> set #people-infected-in-activities #people-infected-in-activities + 1] (word "gp" [who] of self)
   ]
 end
 
-to spread-within-a-set-of-people [ts prox-factor lambda-when-contagion]
+to spread-within-a-set-of-people [ts prox-factor lambda-when-contagion context]
   
   ;;quite ugly solution. Contact points should be stored in different structures & processes
   update-contacts-of-a-set-of-people-in-contact-tracing-app-public-measure ts
@@ -58,7 +59,7 @@ to spread-within-a-set-of-people [ts prox-factor lambda-when-contagion]
   let contagious-people-in-the-set  ts with [is-contagious?] 
   ask contagious-people-in-the-set [
     ask susceptible-people [
-      apply-risk-of-contamination myself prox-factor * contextual-contagion-modificators lambda-when-contagion]
+      apply-risk-of-contamination myself prox-factor * contextual-contagion-modificators lambda-when-contagion context]
   ]
 end
 
@@ -96,6 +97,7 @@ to apply-risk-of-contamination-when-travelling [travellers contagious]
   ;;could be fastened with a bit of math, like 1-(1-p)^k
   let was-sick? is-infected?
   apply-risk-of-contamination one-of contagious probability-getting-sick * density-travelling-propagation * contextual-contagion-modificators [ [] -> set #people-infected-in-general-travel #people-infected-in-general-travel + 1]
+  "travelling outside"
   if not was-sick? and is-infected? [set #who-became-sick-while-travelling-locally #who-became-sick-while-travelling-locally + 1]
 end
 
@@ -106,18 +108,18 @@ end
 to apply-risk-of-contamination-when-away
   if random-float 1 < probability-infection-when-abroad * contextual-contagion-modificators and infection-status = healthy-infection-status
   [
-    contaminate nobody
+    contaminate nobody "away"
   ]
 end
 
-to apply-risk-of-contamination [infector factor lambda-when-contagion]  
+to apply-risk-of-contamination [infector factor lambda-when-contagion context]  
   if infector = nobody [error "assertion error"]
   let contagion-risks factor * propagation-risk * [contagion-risk-factor] of infector
  ; show (sentence ticks contagion-risks lambda-when-contagion)
   if  random-float 1 < contagion-risks and infection-status = healthy-infection-status
   [
     run lambda-when-contagion
-     contaminate infector
+     contaminate infector context
   ]
 end
 
@@ -151,7 +153,9 @@ end
 ;hospital-to-rec-infection-status dead-infection-status
  
 
-to contaminate [infector]
+to contaminate [infector context]
+  if log? and log-contamination? [let infector-str "nobody"if infector != nobody [set infector-str [who] of infector] log-file-print (word "infection(" ticks "," who "," infector-str "," context ")")]
+  
   if infector != nobody [
     if [is-asymptomatic?] of infector [set #infected-by-asymptomatic-people #infected-by-asymptomatic-people + 1]
     if any? first-infected-people with [self = infector] [set #infected-by-first-infected-people  #infected-by-first-infected-people + 1]

@@ -226,7 +226,7 @@ to execute-and-save [experiment-name]
   
   if experiment-name = no-random-testing-behaviorspace-experiment-name
   [
-    load-baseline-scenario
+    load-baseline-parameter-settings
     disable-all-measures
     set ratio-population-randomly-tested-daily 0
     setup
@@ -245,7 +245,7 @@ to execute-and-save [experiment-name]
   
   if experiment-name = part-random-testing-behaviorspace-experiment-name
   [
-    load-baseline-scenario
+    load-baseline-parameter-settings
     disable-all-measures
     set ratio-population-randomly-tested-daily 0.1
     setup
@@ -265,7 +265,7 @@ to execute-and-save [experiment-name]
    
   if experiment-name = full-random-testing-behaviorspace-experiment-name
   [
-    load-baseline-scenario
+    load-baseline-parameter-settings
     disable-all-measures
     set ratio-population-randomly-tested-daily 1
     setup

@@ -14,12 +14,12 @@ globals[#min-workers-in-adults-homes
   
 ]
 to setup
-  reset-timer
   clear-all
-  if debug? [print "debug mode active; this dramatically slows down computation speed"]
+  reset-ticks
+  if log? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
   set-default-shape people "circle"
-  if debug? or static-seed?[  random-seed #random-seed ]
+  if log? or static-seed?[  random-seed #random-seed ]
   set slice-of-the-day "morning"
   set day-of-the-week "monday"
   set current-day 0
@@ -40,7 +40,7 @@ to setup
 
   if with-infected? [
     set  first-infected-people n-of (min list 3 count people) people
-    ask first-infected-people [contaminate nobody]
+    ask first-infected-people [contaminate nobody (list)]
     set #first-infected-people count first-infected-people
   ]
 
@@ -51,7 +51,7 @@ to setup
   set is-lockdown-active? false
   set list-of-buses (list)
   set list-of-shared-cars (list)
-  reset-ticks
+  
 end
 
 to setup-app-users
@@ -63,7 +63,7 @@ to setup-app-users
     if age = retired-age and random-float 1 < ratio-retired-with-phones [set has-mobile-phone? true]
   ]
   let #people-using-the-app count people * ratio-of-people-using-the-tracking-app
-  let #people-selected-for-their-anxiety-level #people-using-the-app * ratio-of-anxiety-avoidance-users
+  let #people-selected-for-their-anxiety-level #people-using-the-app * ratio-of-anxiety-avoidance-tracing-app-users
   let #people-randomly-selected #people-using-the-app - #people-selected-for-their-anxiety-level 
   
   ask max-n-of #people-selected-for-their-anxiety-level people with [has-mobile-phone?] [importance-weight-safety +

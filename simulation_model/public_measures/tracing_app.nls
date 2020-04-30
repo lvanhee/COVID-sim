@@ -31,7 +31,7 @@ to update-tracing-app-public-measure
 end
 
 to-report #ticks-recorded-tracking
-  report #days-recording-tracking * #ticks-per-day
+  report #days-recording-tracing * #ticks-per-day
 end
 
 to-report tracing-app-users
