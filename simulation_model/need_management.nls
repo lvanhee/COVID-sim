@@ -626,7 +626,7 @@ to-report global-prevalence-of [ad]
 end
 
 to debug-global-prevalence-of [ad]
-  if debug? [
+  ;if debug? [
     debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " method-of-transportation-of ad " " social-distancing-of ad) 
       ;Survival needs
     debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
@@ -646,7 +646,7 @@ to debug-global-prevalence-of [ad]
     debug-print (word "  Leisure:" (SDE-leisure ad * importance-weight-leisure))
     
     debug-print (word " Global:" global-prevalence-of ad)
-  ]
+  ;]
 end
 
 to debug-my-preferred-available-activity-descriptor

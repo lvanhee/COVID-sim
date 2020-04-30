@@ -385,7 +385,6 @@ to load-default-migration-model
   set probability-infection-when-abroad 0.0
   set probability-going-abroad 0
   set probability-getting-back-when-abroad 0
-  set owning-solo-transportation-probability 1
 end
 
 to load-default-social-network-model
