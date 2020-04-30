@@ -72,6 +72,20 @@ to-report new-counter
   report []
 end
 
+; Counts occurances in a given list, and returns the resulting counter
+to-report count-in-list [l]
+  let counter new-counter
+  foreach l [ elem ->
+    set counter add-to-counter counter elem
+  ]
+  report counter
+end
+
+; Sort a counter based on the elements in the counter
+to-report counter-sort-on-element [counter]
+  report sort-by [ [x y] -> item 0 x < item 0 y] counter
+end
+
 ; Add the object `obj` to a given `counter` and return the new counter. 
 to-report add-to-counter [counter obj]
   let index 0
