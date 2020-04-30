@@ -21,7 +21,7 @@ end
 
 to setup-social-networks-random
   ask children with [any? [gatherers with [is-adult?]] of my-home ][create-dependable-adult-link-to one-of [gatherers with [is-adult?]] of my-home ]
-;  ask workers [  create-workplace-colleague-links-to other workers with [my-workplace = [my-workplace] of myself]]
+  ;  ask workers [  create-workplace-colleague-links-to other workers with [my-workplace = [my-workplace] of myself]]
   ask people [
     ; Its up to n so this does not throw an error if there are a lot of leisure places and not enough agents to become friends with
     create-my-friends-links-with up-to-n-of peer-group-friend-links possible-friends
@@ -56,7 +56,16 @@ to setup-social-networks-value-similarity
       ]
     ]
   ]
-  [setup-social-networks-random]
+  [
+    setup-social-networks-random
+  ]
+  
+  ;Due to stochastic nature of this procedure, it can occur that sometimes there exists an agent that has not been linked with any other agent.
+  ;If this is the case, the agent is identified and told to link up with a randomly selected agent within the simulated environment.
+  ask people with [count link-neighbors = 0] [
+    create-link-with one-of other people
+  ]
+  
 end
 
 to-report my-relatives
@@ -69,9 +78,9 @@ to-report my-colleagues
   ;report workplace-colleague-link-neighbors
   ;let my-wp  my-workplace
   ;if my-wp != nobody [
- ;   report other [gatherers with [my-workplace = my-wp]] of my-wp
- ; ]
- ; report (turtle-set nobody)
+  ;   report other [gatherers with [my-workplace = my-wp]] of my-wp
+  ; ]
+  ; report (turtle-set nobody)
 end
 
 to-report my-friends
