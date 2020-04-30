@@ -46,7 +46,7 @@ end
 to spread-by-activity-proximity
   ask gathering-points with [not (self = away-gathering-point)]
   [
-    spread-within-a-set-of-people current-gatherers proximity-factor [ [] -> set #people-infected-in-activities #people-infected-in-activities + 1] (word "gp" [who] of self)
+    spread-within-a-set-of-people current-gatherers proximity-factor [ [] -> set #people-infected-in-activities #people-infected-in-activities + 1] (word "gp(" who "," gathering-type ")")
   ]
 end
 

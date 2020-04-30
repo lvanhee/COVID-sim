@@ -17,7 +17,6 @@ globals [
 to go
 
   reset-timer
-  tick
   reset-metrics
   reset-economy-measurements
   spread-contagion
@@ -30,6 +29,9 @@ to go
   increment-time
   apply-active-measures
   update-metrics
+  
+  ; Tick goes at the end of the go procedure for better plot updating
+  tick
 end
 
 to go-profile
@@ -4008,6 +4010,44 @@ INPUTBOX
 1
 0
 Number
+
+SWITCH
+550
+269
+663
+302
+log-setup?
+log-setup?
+1
+1
+-1000
+
+SLIDER
+2547
+377
+2719
+410
+financial-safety-learning-rate
+financial-safety-learning-rate
+0
+1
+0.99
+0.01
+1
+NIL
+HORIZONTAL
+
+
+SWITCH
+836
+240
+999
+273
+clear-log-on-setup?
+clear-log-on-setup?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

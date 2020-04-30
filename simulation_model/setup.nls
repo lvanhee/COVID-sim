@@ -18,6 +18,7 @@ globals[#min-workers-in-adults-homes
 to setup
   clear-all
   reset-ticks
+  if clear-log-on-setup? [clear-logfile]
   if log? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
   set-default-shape people "circle"
@@ -54,6 +55,8 @@ to setup
   set list-of-buses (list)
   set list-of-shared-cars (list)
   
+  if log-setup? [foreach sort gathering-points [[x]-> log-file-print [(word "description_gathering_poing(" who "," gathering-type ")")] of x]]
+  reset-ticks
   set solo-transport-costs 0
   
 end
@@ -187,7 +190,7 @@ to setup-person [current-home l-age]
     set my-home current-home
     set current-activity my-home
 
-    set my-previous-amount-of-capital my-amount-of-capital
+    set my-target-amount-of-capital my-amount-of-capital
     set has-been-tested-immune? false
 
     create-gathering-link-to current-home [set features (list "rest" "visit family")]

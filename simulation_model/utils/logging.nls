@@ -25,3 +25,7 @@ to debug-print [object]
     print object
   ]
 end
+
+to clear-logfile
+  if file-exists? "debug.log" [file-delete "debug.log"]
+end
