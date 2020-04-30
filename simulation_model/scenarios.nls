@@ -528,6 +528,7 @@ to load-default-agent-values-and-needs-parameters
   set survival-multiplier 2.5
   set maslow-multiplier 0
   set weight-survival-needs 0.5
+  set financial-safety-learning-rate 0.05
   ; Social distancing variables
   set make-social-distance-profile-value-based? true
   set mean-social-distance-profile 0.5
