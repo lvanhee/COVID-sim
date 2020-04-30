@@ -164,27 +164,29 @@ end
 
 to update-memory
   let network-activities new-counter
-  ask my-network [
-    set network-activities add-to-counter network-activities (list [gathering-type] of current-activity current-motivation)
-  ]
-
-  let network-activity counter-max-value network-activities
-  ifelse working-day? [
-    set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
-    if length what-my-network-did-week-day > 4 [
-      set what-my-network-did-week-day but-first what-my-network-did-week-day
+  if count my-network > 0 [
+    ask my-network [
+      set network-activities add-to-counter network-activities (list [gathering-type] of current-activity current-motivation)
     ]
-  ] [
-    set what-my-network-did-weekend lput network-activity what-my-network-did-weekend
-    if length what-my-network-did-weekend > 4 [
-      set what-my-network-did-weekend but-first what-my-network-did-weekend
+  
+    let network-activity counter-max-value network-activities
+    ifelse working-day? [
+      set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
+      if length what-my-network-did-week-day > 4 [
+        set what-my-network-did-week-day but-first what-my-network-did-week-day
+      ]
+    ] [
+      set what-my-network-did-weekend lput network-activity what-my-network-did-weekend
+      if length what-my-network-did-weekend > 4 [
+        set what-my-network-did-weekend but-first what-my-network-did-weekend
+      ]
     ]
-  ]
-  set did-my-network-socially-distance? 2 * count (my-network with [is-I-apply-social-distancing?]) >= count my-network
-  let quarantine-network my-network with [is-officially-asked-to-quarantine?]
-  ifelse any? quarantine-network [
-    set did-my-network-quarantine? 2 * count (quarantine-network with [is-in-quarantine?]) >= count quarantine-network
-  ] [
-    set did-my-network-quarantine? false
+    set did-my-network-socially-distance? 2 * count (my-network with [is-I-apply-social-distancing?]) >= count my-network
+    let quarantine-network my-network with [is-officially-asked-to-quarantine?]
+    ifelse any? quarantine-network [
+      set did-my-network-quarantine? 2 * count (quarantine-network with [is-in-quarantine?]) >= count quarantine-network
+    ] [
+      set did-my-network-quarantine? false
+    ]
   ]
 end
