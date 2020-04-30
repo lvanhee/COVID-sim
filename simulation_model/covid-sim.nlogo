@@ -17,7 +17,6 @@ globals [
 to go
 
   reset-timer
-  tick
   reset-metrics
   reset-economy-measurements
   spread-contagion
@@ -30,6 +29,9 @@ to go
   increment-time
   apply-active-measures
   update-metrics
+
+  ; Tick goes at the end of the go procedure for better plot updating
+  tick
 end
 
 to go-profile

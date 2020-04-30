@@ -15,7 +15,7 @@ globals[#min-workers-in-adults-homes
 ]
 to setup
   clear-all
-  reset-ticks
+  
   if log? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
   set-default-shape people "circle"
@@ -50,6 +50,8 @@ to setup
   set list-of-buses (list)
   set list-of-shared-cars (list)
   
+  ; Reset ticks goes at the end of the setup (see netlogo dictionary)
+  reset-ticks
 end
 
 to setup-app-users
