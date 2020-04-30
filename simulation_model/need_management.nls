@@ -233,10 +233,6 @@ to-report should-I-stay-home?
   report false
 end
 
-to-report do-I-care-starying-at-home?
-  report should-I-stay-home?
-end
-
 to-report SUE-compliance [ad]
   let gp location-of ad
   let motive motive-of ad
@@ -256,7 +252,7 @@ to-report SUE-compliance [ad]
   if (motive = work-motive) and is-I-have-contractual-obligations?
   [
 ;    show "do your work bonus"
-    if (not do-I-care-starying-at-home? and gp != my-home) [
+    if (not should-I-stay-home? and gp != my-home) [
       set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
       if gp = current-activity [
         set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
@@ -269,7 +265,7 @@ to-report SUE-compliance [ad]
   ]
 
   ; Make kids go to school
-  ifelse (motive = "mandatory") and not do-I-care-starying-at-home? [
+  ifelse (motive = "mandatory") and not should-I-stay-home? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ] [
     if age = "youth" [
@@ -278,19 +274,19 @@ to-report SUE-compliance [ad]
   ]
 
   ; Make students go to university
-  if (motive = "learning") and not do-I-care-starying-at-home? [
+  if (motive = "learning") and not should-I-stay-home? [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
-  if (do-I-care-starying-at-home? and gp != my-home) [
+  if (should-I-stay-home? and gp != my-home) [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
   ]
 
-  if (not do-I-care-starying-at-home?) and member? motive ["relaxing" "shopping"] [
+  if (not should-I-stay-home?) and member? motive ["relaxing" "shopping"] [
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
 
-  if not do-I-care-starying-at-home? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
+  if not should-I-stay-home? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
     ; Make retired agents do something relaxing every morning
     set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
   ]
