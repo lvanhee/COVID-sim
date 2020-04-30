@@ -294,8 +294,8 @@ to perform-people-activities
     
     
     ask homes-to-be-delivered-food [
-      set #delivered-supply-proposed-this-tick  #delivered-supply-proposed-this-tick + 1
       if available-food-rations / [amount-of-rations-I-buy-when-going-to-essential-shops] of one-of gatherers >= 1 [stop]
+      set #delivered-supply-proposed-this-tick  #delivered-supply-proposed-this-tick + 1
       ; Find the store with the most stocks
       let possible-stores reduce [[x y] -> (turtle-set x y)] [my-essential-shops] of gatherers 
       let store max-one-of possible-stores [stock-of-goods]

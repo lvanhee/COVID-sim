@@ -238,9 +238,13 @@ to-report SUE-compliance [ad]
   let motive motive-of ad
 
   let bonus-compliance-to-obligation 0
-  if gp = my-home and should-I-stay-home? [
+  if should-I-stay-home? [
   ;  show "lockdown bonus"
-    set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
+    ifelse gp = my-home [
+      set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
+    ] [
+      set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.05
+    ]
   ]
 
   if is-social-distancing-measure-active? and I-know-of-social-distancing? [

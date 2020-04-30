@@ -15,7 +15,6 @@ globals[#min-workers-in-adults-homes
 ]
 to setup
   clear-all
-  reset-ticks
   if clear-log-on-setup? [clear-logfile]
   if log? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
