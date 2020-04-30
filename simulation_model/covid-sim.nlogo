@@ -3867,6 +3867,17 @@ log-setup?
 1
 -1000
 
+SWITCH
+836
+240
+999
+273
+clear-log-on-setup?
+clear-log-on-setup?
+1
+1
+-1000
+
 @#$#@#$#@
 ## WHAT IS IT?
 

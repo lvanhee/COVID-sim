@@ -16,6 +16,7 @@ globals[#min-workers-in-adults-homes
 to setup
   clear-all
   reset-ticks
+  if clear-log-on-setup? [clear-logfile]
   if log? [print "debug mode active; this dramatically slows down computation speed"]
   check-parameters
   set-default-shape people "circle"
@@ -49,6 +50,8 @@ to setup
   set is-lockdown-active? false
   set list-of-buses (list)
   set list-of-shared-cars (list)
+  
+  if log-setup? [foreach sort gathering-points [[x]-> log-file-print [(word "description_gathering_poing(" who "," gathering-type ")")] of x]]
   
 end
 
