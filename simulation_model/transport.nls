@@ -175,8 +175,9 @@ to-report setup-do-I-own-a-car?
   let ratio-workers-retired-owning-cars clamp 0 1 (ratio-workers-and-retired-owning-cars / ratio-workers-retired)
     
   ifelse is-worker? or is-retired? [
-    if ratio-workers-retired-owning-cars > random 1 
-      [report true ]
+    ifelse ratio-workers-retired-owning-cars > random 1 
+    [report true ]
+    [report false]
   ]
   [report false]  
 end
