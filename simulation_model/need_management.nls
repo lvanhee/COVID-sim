@@ -465,18 +465,14 @@ to-report SUE-financial-survival [ad]
     
     if motive = "essential shopping" [
       set money-left-over money-left-over - eating-costs
-      ; If we spend all our money, financial-survival will drop to 0
-      if money-left-over < 0 [
-        report (- financial-survival-satisfaction-level)
-      ]
     ]
     
     if motive = "shopping" [
       set money-left-over money-left-over - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops 
-      ; If we spend all our money, financial-survival will drop to 0
-      if money-left-over < 0 [
-        report (- financial-survival-satisfaction-level)
-      ]
+    ]
+    
+    if money-left-over < 0 [
+      report (- financial-survival-satisfaction-level)
     ]
     
     report (- min (list (money-left-over / eating-costs) 1))
