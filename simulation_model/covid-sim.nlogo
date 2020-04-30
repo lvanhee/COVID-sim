@@ -1001,14 +1001,14 @@ PENS
 "belonging" 1.0 0 -16777216 true "" "plot mean [belonging-satisfaction-level] of people"
 "risk avoidance" 1.0 0 -13345367 true "" "plot mean [risk-avoidance-satisfaction-level] of people"
 "autonomy" 1.0 0 -955883 true "" "plot mean [autonomy-satisfaction-level] of people"
-"luxury" 1.0 0 -8330359 true "" "plot mean [luxury-satisfaction-level] of people"
+"luxury" 1.0 0 -8330359 true "" "plot mean [luxury-satisfaction-level] of people with [not is-child?]"
 "health" 1.0 0 -2674135 true "" "plot mean [health-satisfaction-level] of people"
 "sleep" 1.0 0 -7500403 true "" "plot mean [sleep-satisfaction-level] of people"
 "compliance" 1.0 0 -6459832 true "" "plot mean [compliance-satisfaction-level] of people"
-"financial-safety" 1.0 0 -1184463 true "" "plot mean [financial-safety-satisfaction-level] of people"
+"financial-safety" 1.0 0 -1184463 true "" "plot mean [financial-safety-satisfaction-level] of people with [not is-child?]"
 "food-safety" 1.0 0 -14439633 true "" "plot mean [food-safety-satisfaction-level] of people"
 "leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
-"financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people"
+"financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people with [not is-child?]"
 "conformity" 1.0 0 -12345184 true "" "plot mean [conformity-satisfaction-level] of people"
 
 MONITOR
@@ -2822,7 +2822,7 @@ SLIDER
 1729
 1333
 2044
-1368
+1366
 ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
@@ -3068,7 +3068,7 @@ SLIDER
 1726
 1293
 2046
-1328
+1326
 ratio-of-anxiety-avoidance-tracing-app-users
 ratio-of-anxiety-avoidance-tracing-app-users
 0
@@ -3564,7 +3564,7 @@ MONITOR
 2828
 1496
 2933
-1542
+1541
 #Non isolators
 count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
 17
@@ -3575,7 +3575,7 @@ MONITOR
 2943
 1499
 3083
-1545
+1544
 #Should be isolating
 count should-be-isolators
 17
@@ -3586,7 +3586,7 @@ SWITCH
 2233
 1423
 2471
-1457
+1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
 1
@@ -3628,7 +3628,7 @@ SLIDER
 2485
 1455
 2803
-1489
+1488
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
@@ -3643,7 +3643,7 @@ SWITCH
 2485
 1329
 2799
-1363
+1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
 1
@@ -3654,7 +3654,7 @@ SWITCH
 2232
 1329
 2476
-1363
+1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 1
@@ -3695,7 +3695,7 @@ SLIDER
 2485
 1415
 2800
-1449
+1448
 ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
@@ -3721,7 +3721,7 @@ CHOOSER
 1729
 1373
 2039
-1419
+1418
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
@@ -3807,7 +3807,7 @@ SWITCH
 2485
 1372
 2798
-1406
+1405
 is-psychorigidly-staying-at-home-when-quarantining?
 is-psychorigidly-staying-at-home-when-quarantining?
 1
