@@ -12,6 +12,8 @@ globals[#min-workers-in-adults-homes
   #min-retirees-in-multi-generational-homes
   distribution-control-variable
   
+  solo-transport-costs
+  
 ]
 to setup
   clear-all
@@ -51,6 +53,8 @@ to setup
   set is-lockdown-active? false
   set list-of-buses (list)
   set list-of-shared-cars (list)
+  
+  set solo-transport-costs 0
   
 end
 

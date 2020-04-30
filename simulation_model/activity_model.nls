@@ -38,8 +38,17 @@ end
 
 
 to update-resources-based-on-current-activity
+  
   if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
   if current-activity = 0 [error "failed to select an activity"]
+  
+  if current-means-of-transport = public-transportation-method [
+    perform-transaction self one-of public-transport (list "nothing") (list "payment" public-transport-costs)
+  ]
+  
+  if current-means-of-transport = shared-car-transportation-method [
+    perform-transaction self one-of shared-cars (list "nothing") (list "payment" car-sharing-costs)
+  ]
 
   if current-motivation = follow-person-in-charge-motive [stop]
 
