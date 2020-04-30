@@ -126,6 +126,7 @@ end
 ;;this function is the main bottleneck of the whole application!
 ;;it draws 0.2ms per call 
 to select-activity-wtf? [loc]
+  
  ; set is-moving-outside-for-reaching-current-activity? not (current-activity = location-of c-a)
   set is-moving-outside-for-reaching-current-activity? not (current-activity = loc)
 end
