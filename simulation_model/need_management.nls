@@ -447,18 +447,18 @@ to-report SUE-financial-safety [ad]
   let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
 
   if is-I-have-contractual-obligations? and gp = my-work [
-    if my-previous-amount-of-capital > 0
-    [report clamp 0 1 (my-expected-income / my-previous-amount-of-capital)]
+    if my-target-amount-of-capital > 0
+    [report clamp 0 1 (my-expected-income / my-target-amount-of-capital)]
     report 1
   ]
-  if my-previous-amount-of-capital <= 0 [
+  if my-target-amount-of-capital <= 0 [
     report -1
   ]
   if motive = "essential shopping" [
-    report (- (eating-costs / my-previous-amount-of-capital))
+    report (- (eating-costs / my-target-amount-of-capital))
   ]
   if motive = "shopping" [
-    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-previous-amount-of-capital))
+    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-target-amount-of-capital))
   ]
     report 0
   ]

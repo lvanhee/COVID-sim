@@ -183,7 +183,7 @@ to setup-person [current-home l-age]
     set current-activity current-home
     set my-home current-home
 
-    set my-previous-amount-of-capital my-amount-of-capital
+    set my-target-amount-of-capital my-amount-of-capital
     set has-been-tested-immune? false
 
     create-gathering-link-to current-home [set features (list "rest" "visit family")]

@@ -3869,6 +3869,21 @@ log-setup?
 1
 -1000
 
+SLIDER
+2547
+377
+2719
+410
+financial-safety-learning-rate
+financial-safety-learning-rate
+0
+1
+0.99
+0.01
+1
+NIL
+HORIZONTAL
+
 @#$#@#$#@
 ## WHAT IS IT?
 
