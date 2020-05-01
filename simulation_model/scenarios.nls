@@ -185,6 +185,7 @@ to scenario-6-setup
   
   set migration? false
   set when-is-tracing-app-active? "7-days-before-end-of-global-quarantine"
+  set #bus-per-timeslot 30
   
 end
 
