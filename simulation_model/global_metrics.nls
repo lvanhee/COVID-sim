@@ -3,7 +3,6 @@ globals
   #infected-times-ticks
   #delivered-supply-proposed-this-tick
   when-has-2%-infected-threshold-first-been-met?
-  #contacts-last-tick
 ]
 
 to-report ratio-infected
@@ -24,5 +23,4 @@ end
 to reset-metrics
   set #admissions-last-tick 0 
   set  #delivered-supply-proposed-this-tick 0
-  set #contacts-last-tick 0
 end
