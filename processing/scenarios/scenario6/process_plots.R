@@ -4,10 +4,12 @@
 rm(list=ls())
 #MANUAL INPUT (if not working from a script)
 #args <- commandArgs(trailingOnly=TRUE)
-args[1] <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+#args[1] <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+args <- commandArgs(trailingOnly=TRUE)
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
 }
+#args[1]
 
 # #then install packages (NOTE: this only needs to be done once for new users of RStudio!)
 #install.packages("ggplot2")
@@ -22,14 +24,21 @@ getwd()
 
 ### MANUAL INPUT: specify and set working directory ###
 
+"allocating to args"
 
-workdirec <- args[1]
+workdirec <- args
+
 if(substr(workdirec, nchar(workdirec)-1+1, nchar(workdirec)) != '/')
   {
   workdirec <- paste(workdirec,"/", sep="")
-  }
+}
+
+workdirec
 
 setwd(workdirec)
+
+
+
 # "C://Users//Maarten//Google Drive//Corona-Research//Program//RProgramming"
 functionFileLocation <- paste(workdirec,"behaviorspace_table_output_handling_functions.r", sep="")
 source(functionFileLocation)
@@ -107,7 +116,7 @@ clean_df <- df
 # PLOTTING -----------------------------------------------------
 clean_df$app_user_ratio <- as.factor(clean_df$app_user_ratio)
 
-export_pdf = FALSE;
+export_pdf = TRUE;
 if (export_pdf) {
   pdf(file=paste(filesNames, " Combined plots.pdf", sep=""), width=9, height=6);
 }
