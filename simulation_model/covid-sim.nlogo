@@ -2829,7 +2829,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-0.0
+0.9
 0.01
 1
 NIL
@@ -2996,7 +2996,7 @@ INPUTBOX
 914
 87
 #random-seed
-1.0
+2.0
 1
 0
 Number
@@ -7401,10 +7401,10 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Scenario 6 - Test" repetitions="1" runMetricsEveryStep="true">
+  <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="500"/>
+    <timeLimit steps="10"/>
     <metric>count people with [is-infected?]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
