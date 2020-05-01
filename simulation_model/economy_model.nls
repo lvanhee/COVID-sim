@@ -14,7 +14,7 @@ to reset-economy-measurements
   
   ask people [   
     set my-current-income 0
-    set my-target-amount-of-capital my-target-amount-of-capital + financial-safety-learning-rate * (my-amount-of-capital - my-target-amount-of-capital)]
+    set my-target-amount-of-capital precision (my-target-amount-of-capital + financial-safety-learning-rate * (my-amount-of-capital - my-target-amount-of-capital) ) 12]
   
   ;;weird, shouldn't people expected to be pain only when they plan on working?
   ;;e.g. lower pay when working from home; or no/less pay when staying at home taking care of a child? (holiday leave)
