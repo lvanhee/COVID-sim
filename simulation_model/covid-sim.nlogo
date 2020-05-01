@@ -122,7 +122,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.15
+0.4
 0.01
 1
 NIL
@@ -169,7 +169,7 @@ INPUTBOX
 922
 855
 #schools-gp
-13.0
+12.0
 1
 0
 Number
@@ -180,7 +180,7 @@ INPUTBOX
 1012
 855
 #universities-gp
-8.0
+40.0
 1
 0
 Number
@@ -490,7 +490,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -520,7 +520,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -620,7 +620,7 @@ SWITCH
 222
 log?
 log?
-1
+0
 1
 -1000
 
@@ -1088,7 +1088,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.163
+0.27
 0.01
 1
 NIL
@@ -1166,7 +1166,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.352
+0.38
 0.01
 1
 NIL
@@ -1181,7 +1181,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.431
+0.35
 0.01
 1
 NIL
@@ -1196,7 +1196,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.054
+0.01
 0.01
 1
 NIL
@@ -1442,7 +1442,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-7
+0
 
 SLIDER
 2149
@@ -1575,7 +1575,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-18
+14
 
 MONITOR
 760
@@ -2089,7 +2089,7 @@ INPUTBOX
 662
 558
 #households
-400.0
+391.0
 1
 0
 Number
@@ -2111,7 +2111,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-13.0
+2000.0
 1
 0
 Number
@@ -2480,7 +2480,7 @@ INPUTBOX
 3074
 773
 #bus-per-timeslot
-10.0
+30.0
 1
 0
 Number
@@ -2643,7 +2643,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-7
+4
 
 SLIDER
 2364
@@ -2654,7 +2654,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-85.0
+35.0
 1
 1
 NIL
@@ -2669,7 +2669,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-18.0
+89.0
 1
 1
 NIL
@@ -2684,7 +2684,7 @@ power-distance
 power-distance
 0
 100
-60.0
+35.0
 1
 1
 NIL
@@ -2699,7 +2699,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-29.0
+69.0
 1
 1
 NIL
@@ -2714,7 +2714,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-39.0
+66.0
 1
 1
 NIL
@@ -2729,7 +2729,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-100.0
+51.0
 1
 1
 NIL
@@ -2829,7 +2829,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-0.0
+0.6
 0.01
 1
 NIL
@@ -3547,7 +3547,7 @@ SWITCH
 856
 do-not-test-youth?
 do-not-test-youth?
-1
+0
 1
 -1000
 
@@ -3591,7 +3591,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-1
+0
 1
 -1000
 
@@ -3635,7 +3635,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3648,7 +3648,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
@@ -3659,7 +3659,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
@@ -3702,7 +3702,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3727,7 +3727,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-1
+2
 
 SWITCH
 1719
@@ -3833,7 +3833,7 @@ SWITCH
 223
 log-contamination?
 log-contamination?
-1
+0
 1
 -1000
 
@@ -3878,7 +3878,7 @@ financial-safety-learning-rate
 financial-safety-learning-rate
 0
 1
-0.99
+0.05
 0.01
 1
 NIL
@@ -3891,9 +3891,27 @@ SWITCH
 273
 clear-log-on-setup?
 clear-log-on-setup?
-1
+0
 1
 -1000
+
+PLOT
+1386
+529
+1586
+679
+contacts
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot  #contacts-last-tick"
 
 @#$#@#$#@
 ## WHAT IS IT?
