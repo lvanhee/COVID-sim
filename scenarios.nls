@@ -1,0 +1,529 @@
+to load-scenario-specific-parameter-settings
+  load-scenario
+  load-population-profile-based-on-current-preset-profile
+  load-nations-hofstede-dimension-scores
+end
+
+to load-scenario
+  if preset-scenario = "none" [stop]
+ 
+  if is-test-scenario? preset-scenario
+  [
+    load-test-scenario
+    stop
+  ]
+  ;the general process lies in adapting your scenario from the baseline
+  load-baseline-parameter-settings
+  ;optionally overwrite baseline parameter settings with scenario specific adjustments to model parameter settings
+  load-scenario-specifics
+end
+
+to-report is-test-scenario? [s]
+  report s = "kidsland" or s = "one-family"
+end
+
+to load-test-scenario  
+  if preset-scenario = "one-family"
+  [
+    set #households 1
+    stop
+  ]
+end
+
+to load-scenario-specifics    
+  if preset-scenario = "default-scenario" [stop]  
+  
+  if preset-scenario = "uninfected-scandinavia"
+  [
+    load-default-household-profiles
+    set with-infected? false
+    set probability-infection-when-abroad 0
+    stop
+  ]
+  
+  if is-scenario-1? preset-scenario
+  [
+    scenario-1-setup
+    stop
+  ]
+  
+  if is-scenario-3? preset-scenario
+  [
+    scenario-3-setup
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-1-baseline"
+  [
+    load-scenario-1-baseline-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-2-infections"
+  [
+    load-scenario-1-baseline-economic-parameters
+    load-scenario-2-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-3-lockdown"
+  [
+    load-scenario-1-baseline-economic-parameters
+    load-scenario-3-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "economic-scenario-4-wages"
+  [
+    load-scenario-1-baseline-economic-parameters
+    load-scenario-4-economic-parameters
+    stop
+  ]
+  
+  if preset-scenario = "no-action-scandinavia-2.5K"
+  [
+    load-default-household-profiles
+    load-number-of-gathering-points-based-on-number-of-households 1000
+    stop
+  ]
+  
+  if preset-scenario = "app-test-scenario-5-1K"
+  [
+    load-number-of-gathering-points-based-on-number-of-households (1000 / 2.5)
+    stop
+  ]
+  
+  if is-scenario-6? preset-scenario [ 
+    scenario-6-setup stop 
+  ]
+  
+  if preset-scenario = "scenario-9-smart-testing"
+  [
+    scenario-9-setup
+    stop
+  ]
+  
+  if preset-scenario = "scenario-7-cultural-model" [
+    load-scenario-7-cultural-model
+    stop
+  ]
+  
+  error "ERROR: scenario-specific calibration of model parameters failed"
+end
+
+to load-scenario-1-baseline-economic-parameters
+  set #non-essential-shops-gp 5
+  set with-infected? false
+end
+
+to load-scenario-2-economic-parameters
+  set with-infected? true
+end
+
+to load-scenario-3-economic-parameters
+  set with-infected? true
+  set global-confinement-measures "total-lockdown"
+end
+
+to load-scenario-4-economic-parameters
+  set with-infected? true
+  set global-confinement-measures "total-lockdown"
+  set government-pays-wages? true
+end
+
+to scenario-6-setup
+  set ratio-adults-homes 0.38
+  set ratio-family-homes 0.27
+  set ratio-retired-couple-homes 0.35
+  set ratio-multi-generational-homes 0.01
+  set #households 391
+  set set_national_culture "Great Britain"
+  set #hospital-gp 4
+  set #schools-gp 12
+  set #universities-gp 40
+  set #workplaces-gp 40
+  set #public-leisure-gp 4
+  set #private-leisure-gp 40
+  set #essential-shops-gp 20
+  set #non-essential-shops-gp 40
+  set #beds-in-hospital 2000
+  
+  set disease-fsm-model "oxford"
+  set propagation-risk 0.4
+  set factor-reduction-probability-transmission-young 0.69
+  set infection-to-asymptomatic-contagiousness 2 * 4
+  set asympomatic-contagiousness-to-symptomatic-contagiousness 4 * 4
+  set symptomatic-to-critical-or-heal 7
+  set critical-to-terminal 2
+  set terminal-to-death 7
+  
+  set probability-self-recovery-symptoms 0.60
+  set probability-self-recovery-symptoms-old 0.10
+  set probability-recorvery-if-treated 0.10
+  set probability-recorvery-if-treated-old 0.60
+  set probability-unavoidable-death 0.1
+  set probability-unavoidable-death-old 0.2
+  set probability-hospital-personel 0.03
+  set probability-university-personel 0.04
+  set household-profiles "custom"
+  
+  set ratio-self-quarantining-when-a-family-member-is-symptomatic 0.8
+  set is-infected-and-their-families-requested-to-stay-at-home? true
+  set food-delivered-to-isolators? true
+  set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
+  set ratio-self-quarantining-when-symptomatic 0.8
+  
+  set migration? false
+  set when-is-tracing-app-active? "7-days-before-end-of-global-quarantine"
+  set #bus-per-timeslot 30
+  set #days-recording-tracing 7
+  
+end
+
+to scenario-3-setup
+  if preset-scenario = "scenario-3-random-test-20"
+  [
+    load-baseline-parameter-settings
+    set ratio-population-randomly-tested-daily 0.2
+    stop
+  ]
+  
+  if preset-scenario = "scenario-3-app-test-60"
+    [
+      load-baseline-parameter-settings
+      set ratio-of-people-using-the-tracking-app 0.6
+      stop
+  ]
+  if preset-scenario = "scenario-3-app-test-80"
+    [
+      load-baseline-parameter-settings
+      set ratio-of-people-using-the-tracking-app 0.8
+      stop
+  ]
+  if preset-scenario = "scenario-3-app-test-100"
+    [
+      load-baseline-parameter-settings
+      set ratio-of-people-using-the-tracking-app 1
+      stop
+  ]
+end
+
+to scenario-1-setup
+  set probability-hospital-personel 0.04
+  set probability-school-personel 0.03 
+  set probability-university-personel 0.03
+  set probability-shopkeeper 0.04
+  
+  if preset-scenario = "scenario-1-zero-action-scandinavia"
+    [
+      load-default-household-profiles
+      stop
+  ]
+    
+  if preset-scenario = "scenario-1-closing-schools-and-uni"
+  [
+    load-closed-schools-and-uni-measures
+    stop
+  ]
+  
+  if preset-scenario = "scenario-1-work-at-home-only"
+  [
+    set #days-trigger-non-essential-business-closing-measure 0
+    stop
+  ]
+  
+  if preset-scenario = "scenario-1-closing-all"
+  [
+    load-all-closed-measures
+    stop
+  ]
+end
+
+to-report is-scenario-1? [s]
+  report starts-with? s "scenario-1"
+end
+
+to-report is-scenario-6? [s]
+  report starts-with? s "scenario-6"
+end
+
+to-report is-scenario-3? [s]
+  report starts-with? s "scenario-3"
+end
+  
+to scenario-9-setup
+  load-baseline-parameter-settings
+  ;Set households and gathering points
+  set household-profiles "Italy"
+  load-population-profile-based-on-current-preset-profile
+  set set_national_culture "Italy"
+  load-number-of-gathering-points-based-on-number-of-households 345
+  set #universities-gp 1
+  set #schools-gp 2
+  set migration? false
+  set probability-hospital-personel 0.026
+  set probability-school-personel 0.028
+  set probability-university-personel 0.005
+  set prioritize-testing-health-care? true
+  set prioritize-testing-education? true
+  set do-not-test-youth? true
+  set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
+  set is-infected-and-their-families-requested-to-stay-at-home? true
+  set food-delivered-to-isolators? true
+  set ratio-population-randomly-tested-daily 0.05
+  set #available-tests 50
+end
+
+to load-scenario-minimal
+  set #hospital-gp 1
+  set #schools-gp 1
+  set #universities-gp 1
+  set #workplaces-gp 1
+end
+
+
+to load-scenario-7-cultural-model  
+  ;overwrite some of the baseline settings according to what we judge as proper for the cultural scenario
+  set #households 400
+  load-number-of-gathering-points-based-on-number-of-households #households
+  ;Country specified in cultural setting must be the same for calibrating household profiles
+  ;'set_national_culture' will be manipulated within behaviorspace
+  set household-profiles set_national_culture
+  set migration? false
+end
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;; DEFINE DEFAULT ASSOCC MODEL PARAMETER SETTINGS ;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;; KEEP THESE UP TO DATE! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to load-baseline-parameter-settings
+  ;set general simulation settings to their default states
+  set static-seed? true
+  set #households 100
+  set log? false
+  set log-contamination? false
+  set log-preferred-activity-decision? false
+
+  ;load default settings for each submodel
+  load-default-household-profiles
+  load-number-of-gathering-points-based-on-number-of-households #households
+  load-default-disease-model
+  load-default-migration-model
+  load-default-contagion-model
+  load-default-transport-model
+  load-default-economic-parameters
+  load-default-agent-values-and-needs-parameters
+  load-default-social-network-model
+  load-default-worker-distribution-settings
+  load-default-intervention-measures-settings
+  
+end
+
+to load-default-intervention-measures-settings
+  set percentage-news-watchers 0.75
+  ;by default: disable all measures aimed at minimizing the spread & mortality of the coronavirus
+  disable-all-measures
+end
+
+;How are these probabilities determined!?
+to load-default-worker-distribution-settings
+  set probability-hospital-personel 0.04
+  set probability-school-personel 0.03 
+  set probability-university-personel 0.03
+  set probability-shopkeeper 0.04
+end
+
+to load-number-of-gathering-points-based-on-number-of-households [#hld]
+  set #beds-in-hospital floor (#hld / 30)
+  load-scaled-gathering-point-distribution #hld
+end
+
+to load-scaled-gathering-point-distribution [#hld]
+  set #hospital-gp floor (#hld / 100)
+  set #schools-gp floor (#hld / 30)
+  set #universities-gp floor (#hld / 50)
+  set #workplaces-gp floor (#hld / 10)
+  set #public-leisure-gp floor (#hld / 100)
+  set #private-leisure-gp floor (#hld / 10)
+  set #essential-shops-gp floor (#hld / 20)
+  set #non-essential-shops-gp floor (#hld / 10)
+  set #households #hld
+end
+
+to load-closed-schools-and-uni-measures
+  set #days-trigger-school-closing-measure 0
+  set closed-universities? true
+end
+
+to load-all-closed-measures
+  set #days-trigger-non-essential-business-closing-measure 0
+  set #days-trigger-school-closing-measure 0
+  set closed-universities? true
+end
+
+to load-default-transport-model
+  set ratio-children-public-transport 0.75
+  set ratio-student-public-transport 0.6
+  set ratio-worker-public-transport 0.4
+  set ratio-retired-public-transport 0.2
+  
+  set ratio-children-shared-car 0
+  set ratio-student-shared-car .1
+  set ratio-worker-shared-car .15
+  set ratio-retired-shared-car .5
+  
+  set #bus-per-timeslot 10
+  set #max-people-per-bus 20
+  
+  set density-travelling-propagation 0.05
+  set density-when-queuing 0.6
+  set density-in-public-transport 0.5
+  set density-in-shared-cars 0.8
+end
+
+to load-default-migration-model
+  set migration? false
+  set probability-infection-when-abroad 0.0
+  set probability-going-abroad 0
+  set probability-getting-back-when-abroad 0
+  set owning-solo-transportation-probability 1
+end
+
+to load-default-social-network-model
+  set network-generation-method "value-similarity"
+  set peer-group-friend-links 7
+  set percentage-of-agents-with-random-link 0.14
+end
+
+;Is this still needed? why isn't "load-number-of-gathering-points-based-on-number-of-households" used instead of this command?
+to load-default-city-layout-model
+  set #hospital-gp 1
+  set #schools-gp 3
+  set #universities-gp 10
+  set #workplaces-gp 10
+  set #public-leisure-gp 1
+  set #private-leisure-gp 10
+  set #essential-shops-gp 5
+  set #non-essential-shops-gp 10
+end
+
+to load-default-disease-model
+  set with-infected? true
+  set propagation-risk 0.15
+  set critical-to-terminal 2
+  set probability-recorvery-if-treated-old 0.6
+  set probability-unavoidable-death-old 0.2
+  set probability-self-recovery-symptoms-old 0.1
+  set probability-unavoidable-death 0.1
+  set probability-recorvery-if-treated 0.1
+  set probability-self-recovery-symptoms 0.6
+end
+
+
+to load-default-contagion-model
+  set density-factor-hospital 0.80
+  set density-factor-essential-shops 0.30
+  set density-factor-non-essential-shops 0.60
+  set density-factor-public-leisure 0.05
+  set density-factor-workplaces 0.20
+  set density-factor-universities 0.20
+  set density-factor-homes 1.00
+  set density-factor-private-leisure 0.20
+  set density-factor-schools 1.00
+end
+
+to load-default-economic-parameters
+  set productivity-at-home 1
+  set workers-wages 10
+  set price-of-rations-in-essential-shops 2.2
+  set price-of-rations-in-non-essential-shops 2.2
+  set days-of-rations-bought 3
+  set ratio-tax-on-essential-shops 0.52
+  set ratio-tax-on-non-essential-shops 0.52
+  set ratio-tax-on-workplaces 0.55
+  set ratio-tax-on-workers 0.41
+  set goods-produced-by-work-performed 12
+  set unit-price-of-goods 1.7
+  set max-stock-of-goods-in-a-shop 500
+  set starting-amount-of-capital-workers 75
+  set starting-amount-of-capital-retired 40
+  set starting-amount-of-capital-students 30
+  
+  set ratio-school-subsidy 0.03
+  set ratio-hospital-subsidy 0.21
+  set ratio-university-subsidy 0.03
+  set ratio-retirees-subsidy 0.34
+  set ratio-students-subsidy 0.34
+  
+  set government-pays-wages? false
+  set ratio-of-wage-paid-by-the-government 0.8
+  set government-initial-reserve-of-capital 10000
+end
+
+to load-default-household-profiles
+  set household-profiles "Sweden"
+  load-population-profile-based-on-current-preset-profile
+end
+
+to load-population-profile-based-on-current-preset-profile
+  
+  if household-profiles = "custom" [
+    set ratio-adults-homes ratio-adults-homes
+    set ratio-retired-couple-homes ratio-retired-couple-homes
+    set ratio-family-homes ratio-family-homes
+    set ratio-multi-generational-homes ratio-multi-generational-homes
+    stop
+  ]
+  
+ let country-specific-data-list []
+    file-open "country-specific-data.csv"
+  
+
+  while [not file-at-end? ] [
+    let csv file-read-line
+    set csv word csv ";"  ; add comma for loop termination 
+
+    let mylist []  ; list of values 
+    while [not empty? csv] 
+    [
+      let $x position ";" csv 
+      let $item substring csv 0 $x  ; extract item 
+      carefully [set $item read-from-string $item][] ; convert if number 
+      set mylist lput $item mylist  ; append to list 
+      set csv substring csv ($x + 1) length csv  ; remove item and comma 
+    ] 
+    if first mylist = household-profiles [
+      set country-specific-data-list but-first mylist ]
+  ]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" household-profiles)]
+  file-close
+  
+  set ratio-adults-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list  
+  set ratio-retired-couple-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set ratio-family-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set ratio-multi-generational-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  
+
+end
+
+to load-default-agent-values-and-needs-parameters
+  ; Values
+  set value-system-calibration-factor 25
+  set value-std-dev 10
+  ; Needs
+  set survival-multiplier 2.5
+  set maslow-multiplier 0
+  set weight-survival-needs 0.5
+  set financial-safety-learning-rate 0.05
+  ; Social distancing variables
+  set make-social-distance-profile-value-based? true
+  set mean-social-distance-profile 0.5
+  set std-dev-social-distance-profile 0.1
+end
+
