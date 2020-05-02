@@ -1,0 +1,35 @@
+ to-report hospital-gathering-type
+  report "hospital"
+end
+
+to-report workplace-gathering-type
+  report "workplace"
+end
+
+to-report home-gathering-type
+  report "home"
+end
+
+to-report public-leisure-gathering-type
+  report "public-leisure"
+end
+
+to-report private-leisure-gathering-type
+  report "private-leisure"
+end
+
+to-report school-gathering-type
+  report "school"
+end
+
+to-report university-gathering-type
+  report "university"
+end
+
+to-report essential-shop-gathering-type
+  report "essential-shop"
+end
+
+to-report non-essential-shop-gathering-type
+  report "non-essential-shop"
+end

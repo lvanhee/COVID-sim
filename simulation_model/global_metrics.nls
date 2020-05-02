@@ -4,6 +4,48 @@ globals
   #delivered-supply-proposed-this-tick
   when-has-2%-infected-threshold-first-been-met?
   #contacts-last-tick
+  
+  first-infected-people
+  #first-infected-people;;needed as infected people can die
+  #infected-by-first-infected-people
+  #infected-by-asymptomatic-people
+  #people-infected-in-pubtrans
+  #people-infected-in-shared-cars
+  #people-infected-when-queuing
+  #people-infected-in-general-travel
+  #people-infected-in-hospitals
+  #people-infected-in-workplaces
+  #people-infected-in-homes
+  #people-infected-in-public-leisure
+  #people-infected-in-private-leisure
+  #people-infected-in-schools
+  #people-infected-in-universities
+  #people-infected-in-essential-shops
+  #people-infected-in-non-essential-shops
+  
+  #contacts-in-pubtrans
+  #contacts-in-shared-cars
+  #contacts-in-queuing
+  #contacts-in-general-travel
+  #contacts-in-hospitals
+  #contacts-in-workplaces
+  #contacts-in-homes
+  #contacts-in-public-leisure
+  #contacts-in-private-leisure
+  #contacts-in-schools
+  #contacts-in-universities
+  #contacts-in-essential-shops
+  #contacts-in-non-essential-shops
+  
+  #young-infected
+  #student-infected
+  #worker-infected
+  #retired-infected
+  
+  #young-infector
+  #student-infector
+  #worker-infector
+  #retired-infector
 ]
 
 to-report ratio-infected
@@ -25,4 +67,81 @@ to reset-metrics
   set #admissions-last-tick 0 
   set  #delivered-supply-proposed-this-tick 0
   set #contacts-last-tick 0
+  
+  set #contacts-in-pubtrans 0
+  set #contacts-in-shared-cars 0
+  set #contacts-in-queuing 0
+  set #contacts-in-general-travel 0
+  set #contacts-in-hospitals 0
+  set #contacts-in-workplaces 0
+  set #contacts-in-homes 0
+  set #contacts-in-public-leisure 0
+  set #contacts-in-private-leisure 0
+  set #contacts-in-schools 0
+  set #contacts-in-universities 0
+  set #contacts-in-essential-shops 0
+  set #contacts-in-non-essential-shops 0
+end
+
+to increment-age-inection-information-metrics [infected infector]
+  if [age = young-age] of infected [set #young-infected #young-infected + 1]
+  if [age = student-age] of infected [set #student-infected #student-infected + 1]
+  if [age = worker-age] of infected [set #worker-infected #worker-infected + 1]
+  if [age = retired-age] of infected [set #retired-infected #retired-infected + 1]
+  
+  if [age = young-age] of infector [set #young-infector #young-infector + 1]
+  if [age = student-age] of infector [set #student-infector #student-infector + 1]
+  if [age = worker-age] of infector [set #worker-infector #worker-infector + 1]
+  if [age = retired-age] of infector [set #retired-infector #retired-infector + 1]  
+end
+
+to increment-infection-metrics-from [context infected infector]
+  increment-age-inection-information-metrics infected infector
+
+  
+    if substring context 0 3 = "gp(" [
+    let gt substring context (position "," context + 1) (length context - 1) 
+    if gt = hospital-gathering-type [set #people-infected-in-hospitals #people-infected-in-hospitals + 1 stop]
+    if gt = workplace-gathering-type [set #people-infected-in-workplaces  #people-infected-in-workplaces + 1 stop]
+    if gt = home-gathering-type [set #people-infected-in-homes #people-infected-in-homes + 1 stop]
+    if gt = public-leisure-gathering-type [set #people-infected-in-public-leisure #people-infected-in-public-leisure + 1 stop]
+    if gt = private-leisure-gathering-type [set #people-infected-in-private-leisure #people-infected-in-private-leisure + 1 stop]  
+    if gt = school-gathering-type [set #people-infected-in-schools #people-infected-in-schools + 1 stop]  
+    if gt = university-gathering-type [set #people-infected-in-universities #people-infected-in-universities + 1 stop]  
+    if gt = essential-shop-gathering-type [set #people-infected-in-essential-shops #people-infected-in-essential-shops + 1 stop]  
+    if gt = non-essential-shop-gathering-type [set #people-infected-in-non-essential-shops #people-infected-in-non-essential-shops + 1 stop]
+  ]
+  
+  if context = "bus" [set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1 stop]
+  if context = "queue-waiting-for-bus" [set #people-infected-when-queuing #people-infected-when-queuing + 1 stop]
+  if context = "cars" [set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1 stop]
+  if context = "travelling outside" [set #people-infected-in-general-travel #people-infected-in-general-travel + 1 stop]
+  error (sentence "unimplemented for" context)
+end
+
+to  increment-contact-metrics-given [context #contacts-now]
+    if substring context 0 3 = "gp(" [
+    let gt substring context (position "," context + 1) (length context - 1) 
+    if gt = hospital-gathering-type [set #contacts-in-hospitals #contacts-in-hospitals + #contacts-now stop]
+    if gt = workplace-gathering-type [set #contacts-in-workplaces  #contacts-in-workplaces + #contacts-now stop]
+    if gt = home-gathering-type [set #contacts-in-homes #contacts-in-homes + #contacts-now stop]
+    if gt = public-leisure-gathering-type [set #contacts-in-public-leisure #contacts-in-public-leisure + #contacts-now stop]
+    if gt = private-leisure-gathering-type [set #contacts-in-private-leisure #contacts-in-private-leisure + #contacts-now stop]  
+    if gt = school-gathering-type [set #contacts-in-schools #contacts-in-schools + #contacts-now stop]  
+    if gt = university-gathering-type [set #contacts-in-universities #contacts-in-universities + #contacts-now stop]  
+    if gt = essential-shop-gathering-type [set #contacts-in-essential-shops #contacts-in-essential-shops + #contacts-now stop]  
+    if gt = non-essential-shop-gathering-type [set #contacts-in-non-essential-shops #contacts-in-non-essential-shops + #contacts-now stop]  
+  ]
+  
+  if context = "bus" [set #contacts-in-pubtrans #contacts-in-pubtrans + 1 stop]
+  if context = "queue-waiting-for-bus" [set #contacts-in-queuing #contacts-in-queuing + 1 stop]
+  if context = "cars" [set #contacts-in-shared-cars #contacts-in-shared-cars + 1 stop]
+  if context = "travelling outside" [set #contacts-in-general-travel #contacts-in-general-travel + 1 stop]
+  
+  error (sentence "unimplemented for" context)
+end
+
+to-report ratio-quarantiners-currently-complying-to-quarantine
+  if count people with [is-officially-asked-to-quarantine?] = 0 [report 0]
+  report count people with [is-officially-asked-to-quarantine? and is-in-quarantine?] / count people with [is-officially-asked-to-quarantine?]
 end

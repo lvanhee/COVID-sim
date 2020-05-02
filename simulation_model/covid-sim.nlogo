@@ -2587,31 +2587,9 @@ NIL
 
 MONITOR
 1868
-389
-2091
-434
-NIL
-#people-infected-when-queuing
-17
-1
-11
-
-MONITOR
-1868
-440
-2092
-485
-NIL
-#people-infected-in-activities
-17
-1
-11
-
-MONITOR
-1868
-493
+435
 2093
-538
+480
 NIL
 #people-infected-in-general-travel
 17
@@ -3075,7 +3053,7 @@ ratio-of-anxiety-avoidance-tracing-app-users
 ratio-of-anxiety-avoidance-tracing-app-users
 0
 1
-0.0
+1.0
 0.01
 1
 NIL
@@ -3785,9 +3763,9 @@ NIL
 
 MONITOR
 1866
-543
+485
 2098
-588
+530
 NIL
 #infected-by-asymptomatic-people
 17
@@ -3896,10 +3874,10 @@ clear-log-on-setup?
 -1000
 
 PLOT
-1386
-529
-1586
-679
+1374
+350
+1574
+587
 contacts
 NIL
 NIL
@@ -3908,10 +3886,108 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot  #contacts-last-tick"
+"hospitals" 1.0 0 -16777216 true "" "plot  #contacts-in-hospitals"
+"workplaces" 1.0 0 -7500403 true "" "plot  #contacts-in-workplaces"
+"homes" 1.0 0 -2674135 true "" "plot  #contacts-in-homes"
+"pub-lei" 1.0 0 -955883 true "" "plot  #contacts-in-public-leisure"
+"pri-lei" 1.0 0 -6459832 true "" "plot  #contacts-in-private-leisure"
+"schools" 1.0 0 -1184463 true "" "plot  #contacts-in-schools"
+"univ" 1.0 0 -10899396 true "" " plot #contacts-in-universities"
+"e-shops" 1.0 0 -13840069 true "" "plot  #contacts-in-essential-shops"
+"ne-shops" 1.0 0 -14835848 true "" " plot #contacts-in-non-essential-shops"
+"pub-trans" 1.0 0 -11221820 true "" "plot  #contacts-in-pubtrans"
+"priv-trans" 1.0 0 -13791810 true "" " plot #contacts-in-shared-cars"
+"queuing" 1.0 0 -13345367 true "" "plot  #contacts-in-queuing"
+
+MONITOR
+2136
+477
+2324
+522
+NIL
+#people-infected-in-workplaces
+17
+1
+11
+
+MONITOR
+1784
+588
+1848
+633
+ne-shops
+#people-infected-in-non-essential-shops
+17
+1
+11
+
+PLOT
+1867
+531
+2098
+764
+#people infected in
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"hospitals" 1.0 0 -16777216 true "" "plot #people-infected-in-hospitals"
+"workplaces" 1.0 0 -7500403 true "" "plot #people-infected-in-workplaces"
+"homes" 1.0 0 -2674135 true "" "plot #people-infected-in-homes"
+"public-leisure" 1.0 0 -955883 true "" "plot #people-infected-in-public-leisure"
+"private-leisure" 1.0 0 -6459832 true "" "plot #people-infected-in-private-leisure"
+"schools" 1.0 0 -1184463 true "" "plot #people-infected-in-schools"
+"universities" 1.0 0 -10899396 true "" "plot #people-infected-in-universities"
+"e-shops" 1.0 0 -13840069 true "" "plot #people-infected-in-essential-shops"
+"ne-shops" 1.0 0 -14835848 true "" "plot #people-infected-in-non-essential-shops"
+"pub-trans" 1.0 0 -11221820 true "" "plot #people-infected-in-pubtrans"
+"priv-trans" 1.0 0 -13791810 true "" "plot #people-infected-in-shared-cars"
+"queuing" 1.0 0 -13345367 true "" "plot #people-infected-when-queuing"
+
+PLOT
+1377
+585
+1664
+765
+infection per age
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"R-Y" 1.0 0 -8053223 true "" "plot #young-infected"
+"R-S" 1.0 0 -7171555 true "" "plot #student-infected"
+"R-W" 1.0 0 -15040220 true "" "plot #worker-infected"
+"R-R" 1.0 0 -13403783 true "" "plot #retired-infected"
+"S-Y" 1.0 0 -2139308 true "" "plot #young-infector"
+"S-S" 1.0 0 -987046 true "" "plot #student-infector"
+"S-W" 1.0 0 -8732573 true "" "plot #worker-infector"
+"S-R" 1.0 0 -11033397 true "" "plot #retired-infector"
+
+MONITOR
+2878
+1561
+3185
+1606
+NIL
+ratio-quarantiners-currently-complying-to-quarantine
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -7404,7 +7480,7 @@ setup</setup>
   <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="300"/>
+    <timeLimit steps="400"/>
     <metric>count people with [is-infected?]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
@@ -7415,6 +7491,55 @@ setup</setup>
     <metric>r0</metric>
     <metric>count should-be-isolators</metric>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>#contacts-last-tick</metric>
+    <metric>#people-infected-in-hospitals</metric>
+    <metric>#people-infected-in-workplaces</metric>
+    <metric>#people-infected-in-homes</metric>
+    <metric>#people-infected-in-public-leisure</metric>
+    <metric>#people-infected-in-private-leisure</metric>
+    <metric>#people-infected-in-schools</metric>
+    <metric>#people-infected-in-universities</metric>
+    <metric>#people-infected-in-essential-shops</metric>
+    <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-shared-cars</metric>
+    <metric>#contacts-in-queuing</metric>
+    <metric>#contacts-in-general-travel</metric>
+    <metric>#contacts-in-hospitals</metric>
+    <metric>#contacts-in-workplaces</metric>
+    <metric>#contacts-in-homes</metric>
+    <metric>#contacts-in-public-leisure</metric>
+    <metric>#contacts-in-private-leisure</metric>
+    <metric>#contacts-in-schools</metric>
+    <metric>#contacts-in-universities</metric>
+    <metric>#contacts-in-essential-shops</metric>
+    <metric>#contacts-in-non-essential-shops</metric>
+    <metric>#young-infected</metric>
+    <metric>#student-infected</metric>
+    <metric>#worker-infected</metric>
+    <metric>#retired-infected</metric>
+    <metric>#young-infector</metric>
+    <metric>#student-infector</metric>
+    <metric>#worker-infector</metric>
+    <metric>#retired-infector</metric>
+    <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="0"/>
+      <value value="0.5"/>
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+      <value value="0.3"/>
+      <value value="0.6"/>
+      <value value="0.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="1"/>
+      <value value="2"/>
+      <value value="3"/>
+      <value value="4"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="false"/>
     </enumeratedValueSet>
@@ -7561,12 +7686,6 @@ setup</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="terminal-to-death">
       <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
-      <value value="0"/>
-      <value value="0.3"/>
-      <value value="0.6"/>
-      <value value="0.9"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
       <value value="false"/>
@@ -7805,12 +7924,6 @@ setup</setup>
     <enumeratedValueSet variable="probability-recorvery-if-treated-old">
       <value value="0.6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="#random-seed">
-      <value value="1"/>
-      <value value="2"/>
-      <value value="3"/>
-      <value value="4"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.4"/>
     </enumeratedValueSet>
@@ -7855,9 +7968,6 @@ setup</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
       <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
-      <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>

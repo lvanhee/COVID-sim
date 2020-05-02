@@ -4,7 +4,7 @@
 rm(list=ls())
 #MANUAL INPUT (if not working from a script)
 #args <- commandArgs(trailingOnly=TRUE)
-#args[1] <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+#args <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
 args <- commandArgs(trailingOnly=TRUE)
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
@@ -126,10 +126,10 @@ r_str = "(r=PUT NUMBER OF RUNS)"
 
 colors <- c("red", "red3", "red4", "gray10")
 p <- ggplot(data=clean_df, aes(x=tick, y=infected, fill=app_user_ratio))
-p + geom_smooth(aes(colour=app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5,se=TRUE, fullrange=FALSE, level=0.95) +
+p + geom_smooth(aes(colour=app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5,se=TRUE, fullrange=FALSE, level=0.95,  span = 0.1,) +
   scale_fill_manual(values=colors) +
   scale_colour_manual(values=colors) +
-  xlim(0, 50) + 
+ # xlim(0, 50) + 
   ylim(0, 50) +
   #aesthetics for the legend
   guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +

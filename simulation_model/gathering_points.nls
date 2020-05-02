@@ -1,4 +1,4 @@
-__includes ["hospitals.nls"]
+__includes ["hospitals.nls" "gathering_points/gathering_types.nls"]
 globals
 [
   hospitals
@@ -36,16 +36,18 @@ to-report ratio-personnel-here
   report count hired-workers with [current-activity = myself and current-motivation = work-motive] / count hired-workers
 end
 
+
+
 to-report proximity-factor
-  if gathering-type = "hospital" [report density-factor-hospital]
-  if gathering-type = "school"[report density-factor-schools]
-  if gathering-type = "university"[report density-factor-universities]
-  if gathering-type = "workplace"[report density-factor-workplaces]
-  if gathering-type = "public-leisure"[report density-factor-public-leisure]
-  if gathering-type = "private-leisure"[report density-factor-private-leisure]
-  if gathering-type = "home"[report density-factor-homes]
-  if gathering-type = "essential-shop" [report density-factor-essential-shops]
-  if gathering-type = "non-essential-shop" [report density-factor-non-essential-shops]
+  if gathering-type = hospital-gathering-type [report density-factor-hospital]
+  if gathering-type = school-gathering-type[report density-factor-schools]
+  if gathering-type = university-gathering-type[report density-factor-universities]
+  if gathering-type = workplace-gathering-type [report density-factor-workplaces]
+  if gathering-type = public-leisure-gathering-type[report density-factor-public-leisure]
+  if gathering-type = private-leisure-gathering-type[report density-factor-private-leisure]
+  if gathering-type = home-gathering-type[report density-factor-homes]
+  if gathering-type = essential-shop-gathering-type [report density-factor-essential-shops]
+  if gathering-type = non-essential-shop-gathering-type [report density-factor-non-essential-shops]
   error (word gathering-type " not defined")
 end
 
