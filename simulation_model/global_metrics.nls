@@ -23,6 +23,23 @@ globals
   #people-infected-in-essential-shops
   #people-infected-in-non-essential-shops
   
+  #youngs-infected-by-youngs
+  #youngs-infected-by-students
+  #youngs-infected-by-workers
+  #youngs-infected-by-retireds
+  #students-infected-by-youngs
+  #students-infected-by-students
+  #students-infected-by-workers
+  #students-infected-by-retireds
+  #workers-infected-by-youngs
+  #workers-infected-by-students
+  #workers-infected-by-workers
+  #workers-infected-by-retireds
+  #retireds-infected-by-youngs
+  #retireds-infected-by-students
+  #retireds-infected-by-workers
+  #retireds-infected-by-retireds
+  
   #contacts-in-pubtrans
   #contacts-in-shared-cars
   #contacts-in-queuing
@@ -47,7 +64,7 @@ globals
   #cumulative-workers-infector
   #cumulative-retireds-infector
   
-  #young-at-start
+  #youngs-at-start
   #students-at-start
   #workers-at-start
   #retireds-at-start
@@ -63,7 +80,7 @@ to-report ratio-infected
 end
 
 to-report ratio-infected-youngs
-  if #young-at-start > 0[  report #cumulative-youngs-infected / #young-at-start]
+  if #youngs-at-start > 0[  report #cumulative-youngs-infected / #youngs-at-start]
   report 0
 end
 
@@ -137,9 +154,122 @@ to increment-hospitalizations-global-metrics
   if age = retired-age [set #hospitalizations-retired-this-tick #hospitalizations-retired-this-tick + 1]
 end
 
-to increment-infection-metrics-from [context infected infector]
-  increment-age-inection-information-metrics infected infector
+to-report #people-at-start
+  report #youngs-at-start + #workers-at-start + #students-at-start + #retireds-at-start
+end
 
+to-report ratio-of-workers-at-start
+  report #workers-at-start / #people-at-start
+end
+
+to-report ratio-of-students-at-start
+  report #students-at-start / #people-at-start
+end
+
+to-report ratio-of-retireds-at-start
+  report #retireds-at-start / #people-at-start
+end
+  
+
+to-report ratio-of-youngs-at-start
+  report #youngs-at-start / #people-at-start
+end
+
+to-report ratio-young-contaminated-by-young
+  report #youngs-infected-by-youngs / count youngs / ratio-of-youngs-at-start
+end
+
+to-report ratio-young-contaminated-by-workers
+  report #youngs-infected-by-workers / count youngs / ratio-of-workers-at-start
+end
+
+to-report ratio-young-contaminated-by-students
+  report #youngs-infected-by-students / count youngs / ratio-of-students-at-start
+end
+
+to-report ratio-young-contaminated-by-retireds
+  report #youngs-infected-by-retireds / count youngs / ratio-of-retireds-at-start
+end
+
+to-report ratio-workers-contaminated-by-young
+  report #workers-infected-by-youngs / count workers / ratio-of-youngs-at-start
+end
+
+to-report ratio-workers-contaminated-by-workers
+  report #workers-infected-by-workers / count workers / ratio-of-workers-at-start
+end
+
+to-report ratio-workers-contaminated-by-students
+  report #workers-infected-by-students / count workers / ratio-of-students-at-start
+end
+
+to-report ratio-workers-contaminated-by-retireds
+  report #workers-infected-by-retireds / count workers / ratio-of-retireds-at-start
+end
+
+to-report ratio-students-contaminated-by-young
+  report #students-infected-by-youngs / count students / ratio-of-youngs-at-start
+end
+
+to-report ratio-students-contaminated-by-workers
+  report #students-infected-by-workers / count students / ratio-of-workers-at-start
+end
+
+to-report ratio-students-contaminated-by-students
+  report #students-infected-by-students / count students / ratio-of-students-at-start
+end
+
+to-report ratio-students-contaminated-by-retireds
+  report #students-infected-by-retireds / count students / ratio-of-retireds-at-start
+end
+
+to-report ratio-retireds-contaminated-by-young
+  report #retireds-infected-by-youngs / count retireds / ratio-of-youngs-at-start
+end
+
+to-report ratio-retireds-contaminated-by-workers
+  report #retireds-infected-by-workers / count retireds / ratio-of-workers-at-start
+end
+
+to-report ratio-retireds-contaminated-by-students
+  report #retireds-infected-by-students / count retireds / ratio-of-students-at-start
+end
+
+to-report ratio-retireds-contaminated-by-retireds
+  report #retireds-infected-by-retireds / count retireds / ratio-of-retireds-at-start
+end
+
+to increment-contagion-metrics-from [context infected infector]
+  increment-age-inection-information-metrics infected infector
+  
+  if [is-young?] of infected [
+    if [is-young?] of infector [set #youngs-infected-by-youngs #youngs-infected-by-youngs + 1]
+    if [is-student?] of infector [set #youngs-infected-by-students #youngs-infected-by-students + 1]
+    if [is-worker?] of infector [set #youngs-infected-by-workers #youngs-infected-by-workers + 1]
+    if [is-retired?] of infector [set #youngs-infected-by-retireds #youngs-infected-by-retireds + 1]
+  ]
+  
+  if [is-student?] of infected [
+    if [is-young?] of infector [set #students-infected-by-youngs #students-infected-by-youngs + 1]
+    if [is-student?] of infector [set #students-infected-by-students #students-infected-by-students + 1]
+    if [is-worker?] of infector [set #students-infected-by-workers #students-infected-by-workers + 1]
+    if [is-retired?] of infector [set #students-infected-by-retireds #students-infected-by-retireds + 1]
+  ]
+  
+  if [is-worker?] of infected [
+    if [is-young?] of infector [set #workers-infected-by-youngs #workers-infected-by-youngs + 1]
+    if [is-student?] of infector [set #workers-infected-by-students #workers-infected-by-students + 1]
+    if [is-worker?] of infector [set #workers-infected-by-workers #workers-infected-by-workers + 1]
+    if [is-retired?] of infector [set #workers-infected-by-retireds #workers-infected-by-retireds + 1]
+  ]
+  
+  if [is-retired?] of infected [
+    if [is-young?] of infector [set #retireds-infected-by-youngs #retireds-infected-by-youngs + 1]
+    if [is-student?] of infector [set #retireds-infected-by-students #retireds-infected-by-students + 1]
+    if [is-worker?] of infector [set #retireds-infected-by-workers #retireds-infected-by-workers + 1]
+    if [is-retired?] of infector [set #retireds-infected-by-retireds #retireds-infected-by-retireds + 1]
+  ]
+  
   
     if substring context 0 3 = "gp(" [
     let gt substring context (position "," context + 1) (length context - 1) 

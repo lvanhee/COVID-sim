@@ -7523,6 +7523,22 @@ setup</setup>
     <metric>#hospitalizations-students-this-tick</metric>
     <metric>#hospitalizations-workers-this-tick</metric>
     <metric>#hospitalizations-retired-this-tick</metric>
+    <metric>ratio-young-contaminated-by-young</metric>
+    <metric>ratio-young-contaminated-by-workers</metric>
+    <metric>ratio-young-contaminated-by-students</metric>
+    <metric>ratio-young-contaminated-by-retireds</metric>
+    <metric>ratio-workers-contaminated-by-young</metric>
+    <metric>ratio-workers-contaminated-by-workers</metric>
+    <metric>ratio-workers-contaminated-by-students</metric>
+    <metric>ratio-workers-contaminated-by-retireds</metric>
+    <metric>ratio-students-contaminated-by-young</metric>
+    <metric>ratio-students-contaminated-by-workers</metric>
+    <metric>ratio-students-contaminated-by-students</metric>
+    <metric>ratio-students-contaminated-by-retireds</metric>
+    <metric>ratio-retireds-contaminated-by-young</metric>
+    <metric>ratio-retireds-contaminated-by-workers</metric>
+    <metric>ratio-retireds-contaminated-by-students</metric>
+    <metric>ratio-retireds-contaminated-by-retireds</metric>
     <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
       <value value="0"/>
       <value value="0.5"/>

@@ -110,7 +110,7 @@ to apply-risk-of-contamination [infector factor context]
   ; show (sentence ticks contagion-risks lambda-when-contagion)
   if  random-float 1 < contagion-risks and infection-status = healthy-infection-status
   [
-    increment-infection-metrics-from context self infector
+    increment-contagion-metrics-from context self infector
     contaminate infector context
   ]
 end

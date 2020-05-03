@@ -53,7 +53,7 @@ to setup
   
   if log-setup? [foreach sort gathering-points [[x]-> log-file-print [(word "description_gathering_poing(" who "," gathering-type ")")] of x]]
   
-  set #young-at-start count youngs
+  set #youngs-at-start count youngs
   set #students-at-start count students
   set #workers-at-start count workers
   set #retireds-at-start count retireds
