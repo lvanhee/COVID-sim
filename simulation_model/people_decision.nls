@@ -121,7 +121,7 @@ to select-activity
   set current-motivation motive-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
-  if log-violating-quarantine? and is-violating-quarantine?[log-file-print (word "violating_quarantine(" ticks "," day-of-the-week "," who "," [who] of current-activity "," [gathering-type] of current-activity "," current-motivation ")")]
+  if log-violating-quarantine? [ process-quarantine-violation-event]
 end
 
 ;;this function is the main bottleneck of the whole application!

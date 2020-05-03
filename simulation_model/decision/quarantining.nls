@@ -35,3 +35,7 @@ end
 to-report is-violating-quarantine?
   report is-officially-asked-to-quarantine? and not is-in-quarantine?
 end
+
+to process-quarantine-violation-event
+    if is-violating-quarantine?[log-file-print (word "violating_quarantine(" ticks "," day-of-the-week "," who "," [who] of current-activity "," [gathering-type] of current-activity "," current-motivation ")")]
+end
