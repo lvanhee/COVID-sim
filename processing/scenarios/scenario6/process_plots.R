@@ -48,7 +48,7 @@ source(functionFileLocation)
 filesPath = workdirec
 #temp = list.files(pattern="*.csv")
 #myfiles = lapply(temp, read.delim)
-filesNames <- c("output.csv");
+filesNames <- c("output2.csv");
 
 # READ DATA ---------------------------------------------------------------
 

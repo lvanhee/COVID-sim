@@ -91,7 +91,7 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
   {
     p<-p +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[7]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))  }
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))  }
   if(length(list_of_y_variables_to_compare) >= 5)
   {
     p<-p +  geom_smooth(aes(x=!!val_x,
@@ -103,6 +103,21 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
                             y=!!sym(list_of_y_variables_to_compare[9]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])))  }
   if(length(list_of_y_variables_to_compare) >= 9)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[9]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])))  }
+  if(length(list_of_y_variables_to_compare) >= 10)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[10]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))  }
+  if(length(list_of_y_variables_to_compare) >= 11)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[11]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))  }
+  if(length(list_of_y_variables_to_compare) >= 12)
   {stop("Not defined for more than 9 lines:")}
   
   p<-p+assocc_processing.get_title(x_var_name, y_var_name, name_independent_variables_to_display,
@@ -185,6 +200,12 @@ assocc_processing.get_display_name <- function(a)
     "#contacts public leisure"
   else if(strcmp(a,"X.contacts.in.private.leisure"))
     "#contacts private leisure"
+  else if(strcmp(a,"X.contacts.in.pubtrans"))
+    "#contacts public transport"
+  else if(strcmp(a,"X.contacts.in.shared.cars"))
+    "#contacts shared cars"
+  else if(strcmp(a,"X.contacts.in.queuing"))
+    "#contacts queuing"
   else if(strcmp(a,"X.contacts.in.schools"))
     "#contacts schools"
   else if(strcmp(a,"X.contacts.in.universities"))

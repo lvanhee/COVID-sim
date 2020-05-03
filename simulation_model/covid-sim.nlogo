@@ -3947,14 +3947,14 @@ true
 true
 "" ""
 PENS
-"R-Y" 1.0 0 -8053223 true "" "plot #young-infected"
-"R-S" 1.0 0 -7171555 true "" "plot #student-infected"
-"R-W" 1.0 0 -15040220 true "" "plot #worker-infected"
-"R-R" 1.0 0 -13403783 true "" "plot #retired-infected"
-"S-Y" 1.0 0 -2139308 true "" "plot #young-infector"
-"S-S" 1.0 0 -987046 true "" "plot #student-infector"
-"S-W" 1.0 0 -8732573 true "" "plot #worker-infector"
-"S-R" 1.0 0 -11033397 true "" "plot #retired-infector"
+"R-Y" 1.0 0 -8053223 true "" "plot #cumulative-youngs-infected"
+"R-S" 1.0 0 -7171555 true "" "plot #cumulative-students-infected"
+"R-W" 1.0 0 -15040220 true "" "plot #cumulative-workers-infected"
+"R-R" 1.0 0 -13403783 true "" "plot #cumulative-retireds-infected"
+"S-Y" 1.0 0 -2139308 true "" "plot #cumulative-youngs-infector"
+"S-S" 1.0 0 -987046 true "" "plot #cumulative-students-infector"
+"S-W" 1.0 0 -8732573 true "" "plot #cumulative-workers-infector"
+"S-R" 1.0 0 -11033397 true "" "plot #cumulative-retireds-infector"
 
 MONITOR
 2878
@@ -7506,14 +7506,14 @@ setup</setup>
     <metric>#contacts-in-universities</metric>
     <metric>#contacts-in-essential-shops</metric>
     <metric>#contacts-in-non-essential-shops</metric>
-    <metric>#young-infected</metric>
-    <metric>#student-infected</metric>
-    <metric>#worker-infected</metric>
-    <metric>#retired-infected</metric>
-    <metric>#young-infector</metric>
-    <metric>#student-infector</metric>
-    <metric>#worker-infector</metric>
-    <metric>#retired-infector</metric>
+    <metric>#cumulative-youngs-infected</metric>
+    <metric>#cumulative-students-infected</metric>
+    <metric>#cumulative-workers-infected</metric>
+    <metric>#cumulative-retireds-infected</metric>
+    <metric>#cumulative-youngs-infector</metric>
+    <metric>#cumulative-students-infector</metric>
+    <metric>#cumulative-workers-infector</metric>
+    <metric>#cumulative-retireds-infector</metric>
     <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
     <metric>ratio-infected-youngs</metric>
     <metric>ratio-infected-students</metric>
@@ -7530,7 +7530,6 @@ setup</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
       <value value="0"/>
-      <value value="0.3"/>
       <value value="0.6"/>
       <value value="0.9"/>
     </enumeratedValueSet>
