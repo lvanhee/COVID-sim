@@ -17,7 +17,7 @@ to-report peak-infected-behaviourspace-variable-name
 end
 
 to-report #-tests-behaviourspace-variable-name
-	report "#-tests"
+	report "#-tests" 
 end
 
 to-report #max-hospital-beds-taken-behaviourspace-variable-name
