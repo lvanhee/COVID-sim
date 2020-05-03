@@ -1563,7 +1563,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -3031,7 +3031,7 @@ ratio-of-anxiety-avoidance-tracing-app-users
 ratio-of-anxiety-avoidance-tracing-app-users
 0
 1
-1.0
+0.0
 0.01
 1
 NIL

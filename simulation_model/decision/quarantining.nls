@@ -37,5 +37,5 @@ to-report is-violating-quarantine?
 end
 
 to process-quarantine-violation-event
-    if is-violating-quarantine?[log-file-print (word "violating_quarantine(" ticks "," day-of-the-week "," who "," [who] of current-activity "," [gathering-type] of current-activity "," current-motivation ")")]
+    if is-violating-quarantine?[log-file-print (word "violating_quarantine(" ticks "," day-of-the-week "," who "," age "," [who] of current-activity "," [gathering-type] of current-activity "," current-motivation ")")]
 end
