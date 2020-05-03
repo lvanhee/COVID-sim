@@ -31,3 +31,7 @@ end
 to-report is-in-quarantine?
   report is-officially-asked-to-quarantine? and (current-activity = my-home or (current-activity = my-hospital and work-motive != current-motivation) or current-activity = away-gathering-point)
 end
+
+to-report is-violating-quarantine?
+  report is-officially-asked-to-quarantine? and not is-in-quarantine?
+end

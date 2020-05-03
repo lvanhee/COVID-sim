@@ -620,7 +620,7 @@ SWITCH
 222
 log?
 log?
-1
+0
 1
 -1000
 
@@ -2785,7 +2785,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-0.9
+0.6
 0.01
 1
 NIL
@@ -2952,7 +2952,7 @@ INPUTBOX
 914
 87
 #random-seed
-2.0
+3.0
 1
 0
 Number
@@ -3929,7 +3929,7 @@ PENS
 "ne-shops" 1.0 0 -14835848 true "" "plot #people-infected-in-non-essential-shops"
 "pub-trans" 1.0 0 -11221820 true "" "plot #people-infected-in-pubtrans"
 "priv-trans" 1.0 0 -13791810 true "" "plot #people-infected-in-shared-cars"
-"queuing" 1.0 0 -13345367 true "" "plot #people-infected-when-queuing"
+"queuing" 1.0 0 -13345367 true "" "plot #people-infected-in-queuing"
 
 PLOT
 1377
@@ -3966,6 +3966,17 @@ ratio-quarantiners-currently-complying-to-quarantine
 17
 1
 11
+
+SWITCH
+839
+189
+1010
+222
+log-violating-quarantine?
+log-violating-quarantine?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
