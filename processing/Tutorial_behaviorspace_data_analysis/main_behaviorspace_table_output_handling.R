@@ -14,16 +14,15 @@ library(plotly)
 library(tidyr)
 
 ### MANUAL INPUT: specify and set working directory ###
-workdirec <- "~/Desktop/ASSOCC Behaviorspace/tutorial"
+workdirec <- "C:/Users/loisv/git/COVID-sim/processing/Tutorial_behaviorspace_data_analysis"
 setwd(workdirec)
-source("functions_behaviorspace_table_output_handling.r")
+source("functions_behaviorspace_table_output_handling.R")
 
 ### MANUAL INPUT: Optionally specify filepath (i.e. where the behaviorspace csv is situated) ###
 #NOTE: if csv files are placed in the workdirec, then leave filesPath unchanged
-filesPath <- ""
+filesPath <- "C:/Users/loisv/Desktop/"
 ### MANUAL INPUT: specify filenames ###
-filesNames <- c("ASSOCC-Dummy-Data-NL-v1.csv",
-                "ASSOCC-Dummy-Data-Italy-v1.csv")
+filesNames <- c("S62.csv")
 
 # READ DATA ---------------------------------------------------------------
 
@@ -32,8 +31,8 @@ df <- loadData(filesPath, filesNames)
 # REMOVE INVALID RUNS ---------------------------------------------------------------
 #runs that have a lower amount of maximum infected are seen as invalid and are therefore removed
 #specify the minimum number of infected people for a run to be considered as valid (5 person by default)
-#the next will fail if the number of infected is not in the data as -> count.people.with..is.infected..
-df <- cleanData(df, 0)
+# the next will fail if the number of infected is not in the data as -> count.people.with..is.infected..
+df <- cleanData(df, 1)
 
 # REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------
 
@@ -47,64 +46,26 @@ printColumnNames(df)
 ### MANUAL INPUT: specify new (easy-to-work-with) variable names ###
 new_variable_names <- list(
   "run_number",
-  "country",
-  "IVR",
-  "global_confinement_measures",
-  "IDV",
-  "UAI",
-  "MAS",
-  "LTO",
-  "working_from_home_recommended",
-  "trigger_ratio_social_distancing",
-  "PDI",
-  "network_generation_method",
+  "app_user_ratio",
+  "psychorigid",
   "tick",
-  "infected_people",
-  "dead_people",
-  "social_distancing_people",
-  "people_at_home",
-  "people_working_at_home",
-  "workers",
-  "retired_people",
-  "students",
-  "children",
-  "people_in_school",
-  "people_in_hospital",
-  "people_at_work",
-  "people_at_public_leisure",
-  "people_at_essential_shops",
-  "people_at_private_leisure",
-  "mean_sleep_satisfaction",
-  "mean_conformity_satisfaction",
-  "mean_risk_avoidance_satisfaction",
-  "mean_compliance_satisfaction",
-  "mean_belonging_satisfaction",
-  "mean_leisure_satisfaction",
-  "mean_luxury_satisfaction",
-  "mean_autonomy_satisfaction",
-  "mean_QoL",
-  "median_QoL",
-  "max_QoL",
-  "min_QoL"
+  "infected",
+  "dead",
+  "officially quarantining",
+  "actually quarantining",
+  "tests_performed",
+  "r0"
 )
 
-#change variable names
-variable_names <- names(df)
-if (length(variable_names) == length(new_variable_names)) {
-  clean_df <- changeColumnNames(df, new_variable_names)
-} else {
-  print("ERROR: the number of variable names you specified is not the same as the number of variables present within the dataframe; please check again")
-}
-#remove redundant objects from working memory
-rm(list = "df", "new_variable_names")
-
+clean_df <- changeColumnNames(df, new_variable_names)
 
 # TRANSFORM DATAFRAME -----------------------------------------------------
 
-#Create a long format dataframe: long dataframes enable you to plot multiple y-variables in one single graph
+#transform wide dataframe into long format dataframe (in order to make it ggplot compatible)
 ### MANUAL INPUT: make sure that you specify which variables are to be considered as metrics (i.e. dependent variables)
-#Note that you need to specify the range of outcome variables! (see the last input to the 'gather' function)
-df_long <- gather(clean_df, variable, measurement, infected_people:min_QoL)
+#As can be seen in clean_df, the dependent variables are (by default) called "infected", "aware_of_infected" and "tests_performed" ...
+#...therefore the dataframe transformation revolves around pivoting infected:tests_performed 
+df_long <- gather(clean_df, variable, measurement, infected:tests_performed)
 
 # SPECIFY VARIABLE MEASUREMENT SCALES -----------------------------------------------------
 ### MANUAL INPUT: in order for ggplot and plotly to work, one must specify the following: ###
@@ -120,34 +81,140 @@ df_long$measurement <- as.numeric(df_long$measurement)
 df_long$measurement <- round(df_long$measurement, 4)
 #convert categorical variables to factors (as to avoid ggplot errors)
 df_long$run_number <- as.factor(df_long$run_number)
+df_long$app_user_ratio <- as.factor(df_long$app_user_ratio)
 df_long$variable <- as.factor(df_long$variable)
+#perform some small checks to see whether everything is OK
+str(df_long)
 
 # PLOTTING -----------------------------------------------------
+clean_df$app_user_ratio <- as.factor(clean_df$app_user_ratio)
 
-# Below you can find some ggplot commands for building useful visualizations
-# If you would like to build something different, check out the world wide web! :-)
-# You can also contact Kurt or Maarten if you're stuck!
-# http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html
+export_pdf = TRUE;
+if (export_pdf) {
+  pdf(file="Scenario 6 - Combined plots.pdf", width=9, height=6);
+  par(mfcol=c(2,3))
+}
 
-#TIMESERIES PLOT WITH CONTINUOUS Z VARIABLE: Line Plot
-ggplot(clean_df, aes(x = tick, y = infected_people, group = run_number)) + 
-  geom_line(size=0.5,alpha=0.3,aes(color=IDV)) + 
-  xlab("ticks [4ticks = 1 day]") +
-  ylab("number of infected persons") + 
-  labs(title="Infection-Rate Plot",
-       subtitle="Number of infected people over time for individualistic (high IDV) versus collectivistic (low IDV) cultural profiles", 
+#infected plot with trendline
+ggplot(clean_df, aes(x=tick, y=infected, fill=app_user_ratio)) +
+  # geom_point(size = 1, alpha = 0) +
+  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
+  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  scale_fill_manual(values=c("red1","gray10")) +
+  scale_colour_manual(values=c("red1","gray10")) +
+  xlim(0, 500) + 
+  ylim(0, 700) +
+  #aesthetics for the legend
+  guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
+  xlab("Ticks [4 ticks = 1 day]") +
+  ylab("Number of Infected People") + 
+  labs(title="Infection Plot",
+       subtitle="Infected People & Proportion of App Users", 
        caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
   theme_bw()
 
-#TIMESERIES PLOT WITH DISCRETE Z: Scatter Plot with Trendline
-ggplot(dplyr::sample_frac(clean_df,0.33), aes(x=tick, y=dead_people)) +
-  geom_point(size=0.1,alpha=0.2,aes(group=run_number, color=global_confinement_measures)) +
-  geom_smooth(aes(color = global_confinement_measures, linetype=global_confinement_measures),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
-  scale_colour_manual(values=c("red1","gray10")) +
+#aware_of_infected plot with trendline
+ggplot(clean_df, aes(x=tick, y=dead, fill=app_user_ratio)) +
+  # geom_point(size = 1, alpha = 0) +
+  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
+  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  scale_fill_manual(values=c("orange1","gray10")) +
+  scale_colour_manual(values=c("orange1","gray10")) +
+  xlim(0, 500) + 
+  ylim(0, 700) +
+  #aesthetics for the legend
+  guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
+  xlab("Ticks [4 ticks = 1 day]") +
+  ylab("Number of dead") + 
+  labs(title="#dead Infection Plot",
+       subtitle="#dead & Proportion of App Users", 
+       caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
+  theme_bw()
+
+#hospital_admissions plot with trendline
+ggplot(clean_df, aes(x=tick, y=hospital_admissions, fill=app_user_ratio)) +
+  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
+  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  scale_fill_manual(values=c("pink1","gray10")) +
+  scale_colour_manual(values=c("pink1","gray10")) +
+  xlim(0, 500) + 
+  ylim(0, 20) +
+  #aesthetics for the legend
+  guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
+  xlab("Ticks [4 ticks = 1 day]") +
+  ylab("Number of People Hospitalized") + 
+  labs(title="Hospitalization Plot",
+       subtitle="Hospitalization & Proportion of App Users", 
+       caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
+  theme_bw()
+
+#taken_hospital_beds plot with trendline
+ggplot(clean_df, aes(x=tick, y=taken_hospital_beds, fill=app_user_ratio)) +
+  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
+  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  scale_fill_manual(values=c("purple1","gray10")) +
+  scale_colour_manual(values=c("purple1","gray10")) +
+  xlim(0, 500) + 
+  ylim(0, 200) +
+  #aesthetics for the legend
+  guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
+  xlab("Ticks [4 ticks = 1 day]") +
+  ylab("Occupied Hospital Beds") + 
+  labs(title="Occupied Hospital Beds Plot",
+       subtitle="Occupied Hospital Beds & Proportion of App Users", 
+       caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
+  theme_bw()
+
+#cumulative_deaths plot with trendline
+ggplot(clean_df, aes(x=tick, y=cumulative_deaths, fill=app_user_ratio)) +
+  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
+  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  scale_fill_manual(values=c("gray50","gray10")) +
+  scale_colour_manual(values=c("gray50","gray10")) +
+  xlim(0, 500) + 
+  ylim(0, 50) +
+  #aesthetics for the legend
   guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
   xlab("Ticks [4 ticks = 1 day]") +
   ylab("Number of Deaths") + 
-  labs(title="Mortality Plot",
-       subtitle="Deaths & Lockdown Measures", 
+  labs(title="Number of Deaths Plot",
+       subtitle="Number of Deaths & Proportion of App Users", 
        caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
   theme_bw()
+
+#tests_performed plot with trendline
+ggplot(clean_df, aes(x=tick, y=tests_performed, fill=app_user_ratio)) +
+  # geom_point(size = 1, alpha = 0) +
+  geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
+  geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
+  # scale_colour_gradient(low = "red", high = "gray20") +
+  scale_fill_manual(values=c("blue1","gray10")) +
+  scale_colour_manual(values=c("blue1","gray10")) +
+  xlim(0, 500) + 
+  ylim(0, 15000) +
+  #aesthetics for the legend
+  guides(colour = guide_legend(override.aes = list(size=5, alpha=1))) +
+  xlab("Ticks [4 ticks = 1 day]") +
+  ylab("Number of Tests") + 
+  labs(title="Number of Tests Plot",
+       subtitle="Tests & Proportion of App Users", 
+       caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
+  theme_bw()
+
+# Ending of export to pdf
+if (export_pdf) {
+  dev.off();
+}
+
+#line plot
+#ggplot(data = clean_df, mapping = aes(x = tick, y = infected, group = run_number)) + 
+#  scale_colour_gradient(low = "red", high = "red4") +
+#  geom_line(size=1,alpha=1,aes(color=app_user_ratio)) + 
+#  xlab("x-label") +
+#  ylab("y-label") + 
+#  ggtitle("some title") +
+#  labs(title="Title",
+#       subtitle="Subtitle", 
+#       caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
+#  theme_linedraw()
+

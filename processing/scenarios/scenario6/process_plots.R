@@ -131,6 +131,7 @@ if (export_pdf) {
 #X11()
 foreach(i = splitted_by_ratio_anxiety_df) %do% 
   {
+    
     input_variables_to_display = 
       list ("ratio.of.anxiety.avoidance.tracing.app.users")
     
@@ -139,42 +140,101 @@ foreach(i = splitted_by_ratio_anxiety_df) %do%
     linesVarName = "app_user_ratio"
     local_df = i
 
-    assocc_processing.plot(
+    print(assocc_processing.plot(
       xDataName = xDataName,
       yDataName = yDataName,
       linesVarName = linesVarName,
       input_variables_to_display = input_variables_to_display,
       local_df = i
-    )
+    ))
+    Sys.sleep(1)
+    
+    print(assocc_processing.plot(
+      xDataName = xDataName,
+      yDataName = "ratio.quarantiners.currently.complying.to.quarantine",
+      linesVarName = linesVarName,
+      input_variables_to_display = input_variables_to_display,
+      local_df = i
+    ))
+    Sys.sleep(1)
   }
 
-foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do% 
+
+
+
+list_of_y_variables_to_compare <-
+  c("X.people.infected.in.hospitals",
+    "X.people.infected.in.homes",
+    "X.people.infected.in.non.essential.shops",
+    "X.people.infected.in.public.leisure",
+    "X.people.infected.in.private.leisure",
+    "X.people.infected.in.schools",
+    "X.people.infected.in.universities",
+    "X.people.infected.in.essential.shops")
+
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "app_user_ratio")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
-    input_variables_to_display = 
-      list ("ratio.of.anxiety.avoidance.tracing.app.users", "app_user_ratio")
-    
-    xDataName = "tick"
-    yDataName = "infected"
-    ####THIS IS WHERE THINGS ARE NOT WORKING GREAT
-    ###I want to have 5 lines, 
-    ###-each relying on a different Y value
-    ###-sharing all the same X value (ticks)
-    ###e.g. a line showing "people.infected.in.hospitals"; 
-    ###another line showing "people.infected.in.homes"; etc
-    ###Currently what I have is differences in displaying the same Y value
-    ###where the various lines are drawn given the value of a single variable.
-    
-    
-    linesVarName = "people.infected.in.hospitals"
-    local_df = i
-    
-    assocc_processing.plot(
-      xDataName = xDataName,
-      yDataName = yDataName,
-      linesVarName = linesVarName,
-      input_variables_to_display = input_variables_to_display,
-      local_df = i
-    )
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+list_of_y_variables_to_compare <-
+  c("X.contacts.in.hospitals",
+    "X.contacts.in.homes",
+    "X.contacts.in.non.essential.shops",
+    "X.contacts.in.public.leisure",
+    "X.contacts.in.private.leisure",
+    "X.contacts.in.schools",
+    "X.contacts.in.universities",
+    "X.contacts.in.essential.shops",
+    "X.contacts.in.pubtrans",
+    "X.contacts.in.queuing",
+    "X.contacts.in.shared.cars")
+
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "app_user_ratio")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#contacts",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+
+
+
+list_of_y_variables_to_compare <-
+  c("X.young.infected",
+"X.young.infector",
+"X.student.infected",
+"X.student.infector",
+"X.retired.infected",
+"X.retired.infector",
+"X.worker.infected",
+"X.worker.infector")
+
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "app_user_ratio")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
   }
 
 if (export_pdf) {

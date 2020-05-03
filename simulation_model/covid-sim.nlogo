@@ -2564,28 +2564,6 @@ NIL
 11
 
 MONITOR
-1867
-283
-2091
-328
-NIL
-#people-infected-in-pubtrans
-17
-1
-11
-
-MONITOR
-1868
-338
-2091
-383
-NIL
-#people-infected-in-shared-cars
-17
-1
-11
-
-MONITOR
 1868
 435
 2093
@@ -7501,10 +7479,13 @@ setup</setup>
     <metric>#people-infected-in-universities</metric>
     <metric>#people-infected-in-essential-shops</metric>
     <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#people-infected-in-pubtrans</metric>
+    <metric>#people-infected-in-shared-cars</metric>
+    <metric>#people-infected-in-queuing</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
-    <metric>#contacts-in-general-travel</metric>
+    <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-hospitals</metric>
     <metric>#contacts-in-workplaces</metric>
     <metric>#contacts-in-homes</metric>
@@ -7534,12 +7515,7 @@ setup</setup>
       <value value="0.6"/>
       <value value="0.9"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="#random-seed">
-      <value value="1"/>
-      <value value="2"/>
-      <value value="3"/>
-      <value value="4"/>
-    </enumeratedValueSet>
+    <steppedValueSet variable="#random-seed" first="1" step="1" last="5"/>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="false"/>
     </enumeratedValueSet>

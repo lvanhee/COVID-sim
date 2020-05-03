@@ -11,7 +11,7 @@ globals
   #infected-by-asymptomatic-people
   #people-infected-in-pubtrans
   #people-infected-in-shared-cars
-  #people-infected-when-queuing
+  #people-infected-in-queuing
   #people-infected-in-general-travel
   #people-infected-in-hospitals
   #people-infected-in-workplaces
@@ -113,7 +113,7 @@ to increment-infection-metrics-from [context infected infector]
   ]
   
   if context = "bus" [set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1 stop]
-  if context = "queue-waiting-for-bus" [set #people-infected-when-queuing #people-infected-when-queuing + 1 stop]
+  if context = "queue-waiting-for-bus" [set #people-infected-in-queuing #people-infected-in-queuing + 1 stop]
   if context = "cars" [set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1 stop]
   if context = "travelling outside" [set #people-infected-in-general-travel #people-infected-in-general-travel + 1 stop]
   error (sentence "unimplemented for" context)
