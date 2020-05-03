@@ -1,0 +1,3 @@
+to-report youngs
+  report people with [is-young?]
+end

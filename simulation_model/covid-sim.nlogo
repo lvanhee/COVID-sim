@@ -7469,8 +7469,8 @@ setup</setup>
   <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="400"/>
-    <metric>count people with [is-infected?]</metric>
+    <timeLimit steps="500"/>
+    <metric>#infected</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
     <metric>#taken-hospital-beds</metric>
@@ -7515,6 +7515,14 @@ setup</setup>
     <metric>#worker-infector</metric>
     <metric>#retired-infector</metric>
     <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <metric>ratio-infected-youngs</metric>
+    <metric>ratio-infected-students</metric>
+    <metric>ratio-infected-workers</metric>
+    <metric>ratio-infected-retireds</metric>
+    <metric>#hospitalizations-youngs-this-tick</metric>
+    <metric>#hospitalizations-students-this-tick</metric>
+    <metric>#hospitalizations-workers-this-tick</metric>
+    <metric>#hospitalizations-retired-this-tick</metric>
     <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
       <value value="0"/>
       <value value="0.5"/>

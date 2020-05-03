@@ -1,4 +1,4 @@
-__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" ]
+__includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" "people/classes.nls" "people/ages.nls"]
 
 people-own [
   age
@@ -228,21 +228,7 @@ to-report young-average-amount-of-capital
   report (sum [my-amount-of-capital] of people with [age = "young"]) / (count people with [age = "young"])
 end
 
-to-report worker-age
-  report "worker"
-end
 
-to-report student-age
-  report "student"
-end
-
-to-report retired-age
-  report "retired"
-end
-
-to-report young-age
-  report "young"
-end
 
 to-report app-users
   report people with [is-user-of-tracking-app?]

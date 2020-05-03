@@ -37,19 +37,49 @@ globals
   #contacts-in-essential-shops
   #contacts-in-non-essential-shops
   
-  #young-infected
-  #student-infected
-  #worker-infected
-  #retired-infected
+  #cumulative-youngs-infected
+  #cumulative-students-infected
+  #cumulative-workers-infected
+  #cumulative-retireds-infected
   
-  #young-infector
-  #student-infector
-  #worker-infector
-  #retired-infector
+  #cumulative-youngs-infector
+  #cumulative-students-infector
+  #cumulative-workers-infector
+  #cumulative-retireds-infector
+  
+  #young-at-start
+  #students-at-start
+  #workers-at-start
+  #retireds-at-start
+  
+  #hospitalizations-youngs-this-tick
+  #hospitalizations-students-this-tick
+  #hospitalizations-workers-this-tick
+  #hospitalizations-retired-this-tick
 ]
 
 to-report ratio-infected
   report #infected / count people
+end
+
+to-report ratio-infected-youngs
+  if #young-at-start > 0[  report #cumulative-youngs-infected / #young-at-start]
+  report 0
+end
+
+to-report ratio-infected-students
+  if #students-at-start > 0 [report #cumulative-students-infected / #students-at-start]
+  report 0
+end
+
+to-report ratio-infected-workers
+  if #workers-at-start > 0 [report #cumulative-workers-infected / #workers-at-start]
+  report 0
+end
+
+to-report ratio-infected-retireds
+  if #retireds-at-start > 0 [report #cumulative-retireds-infected / #retireds-at-start]
+  report 0
 end
 
 to-report total-amount-of-capital-in-the-system
@@ -81,18 +111,30 @@ to reset-metrics
   set #contacts-in-universities 0
   set #contacts-in-essential-shops 0
   set #contacts-in-non-essential-shops 0
+  
+  set #hospitalizations-youngs-this-tick 0
+  set #hospitalizations-students-this-tick 0
+  set #hospitalizations-workers-this-tick 0
+  set #hospitalizations-retired-this-tick 0
 end
 
 to increment-age-inection-information-metrics [infected infector]
-  if [age = young-age] of infected [set #young-infected #young-infected + 1]
-  if [age = student-age] of infected [set #student-infected #student-infected + 1]
-  if [age = worker-age] of infected [set #worker-infected #worker-infected + 1]
-  if [age = retired-age] of infected [set #retired-infected #retired-infected + 1]
+  if [age = young-age] of infected [set #cumulative-youngs-infected #cumulative-youngs-infected + 1]
+  if [age = student-age] of infected [set #cumulative-students-infected #cumulative-students-infected + 1]
+  if [age = worker-age] of infected [set #cumulative-workers-infected #cumulative-workers-infected + 1]
+  if [age = retired-age] of infected [set #cumulative-retireds-infected #cumulative-retireds-infected + 1]
   
-  if [age = young-age] of infector [set #young-infector #young-infector + 1]
-  if [age = student-age] of infector [set #student-infector #student-infector + 1]
-  if [age = worker-age] of infector [set #worker-infector #worker-infector + 1]
-  if [age = retired-age] of infector [set #retired-infector #retired-infector + 1]  
+  if [age = young-age] of infector [set #cumulative-youngs-infector #cumulative-youngs-infector + 1]
+  if [age = student-age] of infector [set #cumulative-students-infector #cumulative-students-infector + 1]
+  if [age = worker-age] of infector [set #cumulative-workers-infector #cumulative-workers-infector + 1]
+  if [age = retired-age] of infector [set #cumulative-retireds-infector #cumulative-retireds-infector + 1]  
+end
+
+to increment-hospitalizations-global-metrics
+  if age = young-age [set #hospitalizations-youngs-this-tick #hospitalizations-youngs-this-tick + 1]
+  if age = student-age [set #hospitalizations-students-this-tick #hospitalizations-students-this-tick + 1]
+  if age = worker-age [set #hospitalizations-workers-this-tick #hospitalizations-workers-this-tick + 1]
+  if age = retired-age [set #hospitalizations-retired-this-tick #hospitalizations-retired-this-tick + 1]
 end
 
 to increment-infection-metrics-from [context infected infector]

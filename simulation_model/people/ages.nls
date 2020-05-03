@@ -1,0 +1,15 @@
+to-report worker-age
+  report "worker"
+end
+
+to-report student-age
+  report "student"
+end
+
+to-report retired-age
+  report "retired"
+end
+
+to-report young-age
+  report "young"
+end
