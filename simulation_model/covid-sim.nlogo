@@ -2785,7 +2785,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-0.9
+0.0
 0.01
 1
 NIL
@@ -3519,22 +3519,22 @@ only-test-retirees-with-extra-tests?
 -1000
 
 MONITOR
-2828
-1496
-2933
-1541
-#Non isolators
+2827
+1485
+2937
+1530
+#Violating quarantine
 count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
 17
 1
 11
 
 MONITOR
-2943
-1499
-3083
-1544
-#Should be isolating
+2936
+1485
+3076
+1530
+#Quarantiners
 count should-be-isolators
 17
 1
@@ -3847,7 +3847,7 @@ SWITCH
 273
 clear-log-on-setup?
 clear-log-on-setup?
-0
+1
 1
 -1000
 
@@ -3957,10 +3957,10 @@ PENS
 "S-R" 1.0 0 -11033397 true "" "plot #cumulative-retireds-infector"
 
 MONITOR
-2878
-1561
-3185
-1606
+2827
+1528
+3134
+1573
 NIL
 ratio-quarantiners-currently-complying-to-quarantine
 17
@@ -3974,6 +3974,17 @@ SWITCH
 222
 log-violating-quarantine?
 log-violating-quarantine?
+1
+1
+-1000
+
+SWITCH
+2233
+1456
+2471
+1489
+keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
+keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 0
 1
 -1000
@@ -7539,6 +7550,26 @@ setup</setup>
     <metric>ratio-retireds-contaminated-by-workers</metric>
     <metric>ratio-retireds-contaminated-by-students</metric>
     <metric>ratio-retireds-contaminated-by-retireds</metric>
+    <metric>age-group-to-age-group-#contacts young-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age retired-age</metric>
+    <metric>#youngs-at-start</metric>
+    <metric>#students-at-start</metric>
+    <metric>#workers-at-start</metric>
+    <metric>#retireds-at-start</metric>
     <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
       <value value="0"/>
       <value value="0.5"/>

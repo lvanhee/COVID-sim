@@ -177,6 +177,7 @@ to scenario-6-setup
   set when-is-tracing-app-active? "7-days-before-end-of-global-quarantine"
   set #bus-per-timeslot 30
   set #days-recording-tracing 7
+  set keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure? true
   
 end
 

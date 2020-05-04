@@ -37,8 +37,9 @@ to setup
   setup-app-users
   setup-economic-model
 
+
   if with-infected? [
-    set  first-infected-people n-of (min list 3 count people) people
+    set first-infected-people n-of (min list 3 count people) people
     ask first-infected-people [contaminate nobody (list)]
     set #first-infected-people count first-infected-people
   ]
@@ -52,11 +53,25 @@ to setup
   set list-of-shared-cars (list)
   
   if log-setup? [foreach sort gathering-points [[x]-> log-file-print [(word "description_gathering_poing(" who "," gathering-type ")")] of x]]
+
+  ;;must be in the end
+  setup-global-metrics
+  
+end
+
+to setup-global-metrics
+  set number-of-people-per-age-having-ever-reached-severe-table table:make
+  table:put number-of-people-per-age-having-ever-reached-severe-table young-age 0
+  table:put number-of-people-per-age-having-ever-reached-severe-table student-age 0
+  table:put number-of-people-per-age-having-ever-reached-severe-table worker-age 0
+  table:put number-of-people-per-age-having-ever-reached-severe-table retired-age 0
   
   set #youngs-at-start count youngs
   set #students-at-start count students
   set #workers-at-start count workers
-  set #retireds-at-start count retireds
+  set #retireds-at-start count retireds  
+  
+  set age-group-to-age-group-#contacts-table table:make
   
 end
 

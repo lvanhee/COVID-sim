@@ -114,7 +114,40 @@ to set-infection-status [infection]
     set #infected #infected + 1
   ]
   
+  if not is-severe-infection-state? infection-state and is-severe-infection-state? infection
+  [
+    increase-people-being-severe-event-global-metrics self
+  ]
+  
   set infection-state infection
+end
+
+to-report is-severe-infection-state? [in]
+  if is-timed-state? in [report is-infected-infection-status? state-of-timed-state in]
+  if in = symptomatic-severe-infection-status
+  [report true]
+  
+  if in = healthy-infection-status 
+  or in = "infected"
+  or in = "asymptomatic noncontagious" 
+  or in = "infected-asymptomatic"
+  or in = "infected-symptomatic"
+  or in = "infected-critical"
+  or in = "infected-terminal" 
+  or in = just-contaminated-infection-status
+  or in = immune-infection-status
+  or in = dead-infection-status
+  or in = symptomatic-mild-infection-status
+  or in = asymptomatic-to-rec-infection-status
+  or in = mild-to-rec-infection-status
+  or in = severe-to-rec-infection-status
+  or in = severe-to-hospital-infection-status
+  or in =  hospital-to-death-infection-status
+  or in = hospital-to-rec-infection-status
+  or in = pre-symptomatic-to-mild-infection-status
+  or in = pre-symptomatic-to-severe-infection-status
+  [report false]
+  error (sentence "not implemented for:" in)
 end
 
 to-report is-asymptomatic?

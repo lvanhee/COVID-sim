@@ -2,7 +2,6 @@ to-report is-officially-asked-to-quarantine?
   report #days-I-should-remain-in-self-quarantining > 0 or is-believing-to-be-infected? or [home-in-isolation?] of my-home
 end
 
-
 to update-quarantining-decisions
   ask people with [#days-I-should-remain-in-self-quarantining > 0] [
     set #days-I-should-remain-in-self-quarantining #days-I-should-remain-in-self-quarantining - 1

@@ -1,3 +1,5 @@
+;;this contagion model should be revised by making contacts explicit and making contagion as a side-effect of contacts
+
 directed-link-breed [contagion-links contagion-link]
 
 to spread-contagion
@@ -40,10 +42,12 @@ end
 
 to spread-within-a-set-of-people [ts prox-factor context]
   if log? and log-contamination? [
-    log-file-print (word "contacts(" ticks "," ts ","  context ")")]
+    log-file-print (word "contacts(" ticks "," ts ","  context "," [age] of ts ")")]
   let #contacts-now (count ts * ((count ts) - 1)) / 2
   set #contacts-last-tick #contacts-last-tick + #contacts-now
-  increment-contact-metrics-given context #contacts-now
+  
+ 
+  process-contacts-within-group-event ts context
   
   ;;quite ugly solution. Contact points should be stored in different structures & processes
   update-contacts-of-a-set-of-people-in-contact-tracing-app-public-measure ts
@@ -54,6 +58,10 @@ to spread-within-a-set-of-people [ts prox-factor context]
     ask susceptible-people [
       apply-risk-of-contamination myself prox-factor * contextual-contagion-modificators context]
   ]
+end
+
+to process-contacts-within-group-event [ts context]
+  increment-contacts-due-to-group-gathering-global-metrics ts context
 end
 
 
