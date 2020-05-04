@@ -620,7 +620,7 @@ SWITCH
 222
 log?
 log?
-0
+1
 1
 -1000
 
@@ -1563,7 +1563,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -2785,7 +2785,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-0.6
+0.9
 0.01
 1
 NIL
@@ -2952,7 +2952,7 @@ INPUTBOX
 914
 87
 #random-seed
-3.0
+2.0
 1
 0
 Number
@@ -3031,7 +3031,7 @@ ratio-of-anxiety-avoidance-tracing-app-users
 ratio-of-anxiety-avoidance-tracing-app-users
 0
 1
-0.0
+1.0
 0.01
 1
 NIL
