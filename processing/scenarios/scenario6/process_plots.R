@@ -244,6 +244,117 @@ if (export_pdf) {
 
 
 
+
+
+#Visualization of daily hospitalization per age group
+
+export_pdf = TRUE;
+if (export_pdf) {
+  pdf(file=paste(filesNames, " Combined plots.pdf", sep=""), width=9, height=6);
+}
+
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "app_user_ratio")
+
+list_of_y_variables_to_compare <-
+  c("X.hospitalizations.retired.this.tick",
+    "X.hospitalizations.students.this.tick",
+    "X.hospitalizations.workers.this.tick",
+    "X.hospitalizations.youngs.this.tick")
+
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+list_of_y_variables_to_compare <-
+  c("X.cumu.hospitalisations.retired",
+    "X.cumu.hospitalisations.students",
+    "X.cumu.hospitalisations.workers",
+    "X.cumu.hospitalisations.youngs")
+
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+list_of_y_variables_to_compare <-
+  c("X.cumu.hospitalisations.students",
+    "X.cumulative.students.infected")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+list_of_y_variables_to_compare <-
+  c("X.cumu.hospitalisations.workers",
+    "X.cumulative.workers.infected")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+list_of_y_variables_to_compare <-
+  c("X.cumu.hospitalisations.youngs",
+    "X.cumulative.youngs.infected")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+list_of_y_variables_to_compare <-
+  c("X.cumu.hospitalisations.retired",
+    "X.cumulative.retireds.infected")
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+
+if (export_pdf) {
+  dev.off();
+}
+
+
+
+
+
 #line plot
 #ggplot(data = clean_df, mapping = aes(x = tick, y = infected, group = run_number)) + 
 #  scale_colour_gradient(low = "red", high = "red4") +
