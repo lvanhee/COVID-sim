@@ -482,29 +482,29 @@ to-report SUE-financial-safety [ad]
     let result 0
     
     if is-I-have-contractual-obligations? and gp = my-work [
-      if my-previous-amount-of-capital > 0
-      [set result clamp 0 1 (my-expected-income / my-previous-amount-of-capital)]
+      if my-target-amount-of-capital > 0
+      [set result clamp 0 1 (my-expected-income / my-target-amount-of-capital)]
       set result 1
     ]
-    if my-previous-amount-of-capital <= 0 [
+    if my-target-amount-of-capital <= 0 [
       report -1
     ]
     if motive = "essential shopping" [
-      set result (- (eating-costs / my-previous-amount-of-capital))
+      set result (- (eating-costs / my-target-amount-of-capital))
     ]
     if motive = "shopping" [
-      set result (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-previous-amount-of-capital))
+      set result (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-target-amount-of-capital))
     ]
     
     ;additional effect of transport
     if mt = "solo" [
-      set result result + (- (solo-transport-costs / my-previous-amount-of-capital))
+      set result result + (- (solo-transport-costs / my-target-amount-of-capital))
     ]
     if mt = "public" [
-      set result result + (- (public-transport-costs / my-previous-amount-of-capital))
+      set result result + (- (public-transport-costs / my-target-amount-of-capital))
     ]
     if mt = "shared-car" [
-      set result result + (- (car-sharing-costs / my-previous-amount-of-capital))
+      set result result + (- (car-sharing-costs / my-target-amount-of-capital))
     ]
     report result
   ]
