@@ -175,21 +175,15 @@ end
 to update-memory
   let network-activities new-counter
   let network-means-of-transport-list new-counter
-  ask my-network [
-    set network-activities add-to-counter network-activities (list [gathering-type] of current-activity current-motivation)
-    set network-means-of-transport-list add-to-counter network-means-of-transport-list current-means-of-transport
-  ]
-
-  let network-activity counter-max-value network-activities
-  set network-activity lput (counter-max-value network-means-of-transport-list) network-activity
-  
-  ifelse working-day? [
-    set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
-    if length what-my-network-did-week-day > 4 [
-      set what-my-network-did-week-day but-first what-my-network-did-week-day
+  if count my-network > 0 [
+    ask my-network [
+      set network-activities add-to-counter network-activities (list [gathering-type] of current-activity current-motivation)
+      set network-means-of-transport-list add-to-counter network-means-of-transport-list current-means-of-transport
     ]
-  
+    
     let network-activity counter-max-value network-activities
+    set network-activity lput (counter-max-value network-means-of-transport-list) network-activity
+
     ifelse working-day? [
       set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
       if length what-my-network-did-week-day > 4 [
@@ -201,6 +195,7 @@ to update-memory
         set what-my-network-did-weekend but-first what-my-network-did-weekend
       ]
     ]
+    
     set did-my-network-socially-distance? 2 * count (my-network with [is-I-apply-social-distancing?]) >= count my-network
     let quarantine-network my-network with [is-officially-asked-to-quarantine?]
     ifelse any? quarantine-network [
@@ -222,6 +217,4 @@ to update-memory
       set what-transport-I-used-weekend but-first what-transport-I-used-weekend
     ]
   ]
-  
- 
 end
