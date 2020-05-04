@@ -13,7 +13,7 @@ to-report ratio-infected-behaviourspace-variable-name
 end
 
 to-report peak-infected-behaviourspace-variable-name
-	report "peak-infected-people"
+	report "peak-infected-people" 
 end
 
 to-report #-tests-behaviourspace-variable-name
