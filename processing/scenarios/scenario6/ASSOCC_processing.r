@@ -136,105 +136,144 @@ assocc_processing.plotCompareAlongDifferentY_matrix <- function(x_var_name,
   val_x <- sym(x_var_name) 
   
   
-  p <- ggplot(df)
+ 
   
   if(length(list_of_y_variables_to_compare) >= 1)
   {
+    p <- ggplot(df)
     p<-p +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[1]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))  }
   if(length(list_of_y_variables_to_compare) >= 2)
   {
-    p<-p +  geom_smooth(aes(x=!!val_x,
+    p1 <- ggplot(df)
+    p1<-p1 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[2]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
   }
   if(length(list_of_y_variables_to_compare) >= 3)
   {
-    p<-p +  geom_smooth(aes(x=!!val_x,
+    p2 <- ggplot(df)
+    p2<-p2 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[3]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3])))  }
   if(length(list_of_y_variables_to_compare) >= 4)
   {
-    p<-p +  geom_smooth(aes(x=!!val_x,
+    p3 <- ggplot(df)
+    p3<-p3 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[4]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))  }
   if(length(list_of_y_variables_to_compare) >= 5)
   {
-    p2 <- ggplot(df)
-    p2<-p2 +  geom_smooth(aes(x=!!val_x,
+    p4 <- ggplot(df)
+    p4<-p4 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[5]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))  }
   if(length(list_of_y_variables_to_compare) >= 6)
   {
-    p2<-p2 +  geom_smooth(aes(x=!!val_x,
+    p5 <- ggplot(df)
+    p5<-p5 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[6]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))  }
   if(length(list_of_y_variables_to_compare) >= 7)
   {
-    p2<-p2 +  geom_smooth(aes(x=!!val_x,
+    p6 <- ggplot(df)
+    p6<-p6 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[7]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))  }
   if(length(list_of_y_variables_to_compare) >= 8)
   {
-    p2<-p2 +  geom_smooth(aes(x=!!val_x,
+    p7 <- ggplot(df)
+    p7<-p7 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[8]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))  }
   if(length(list_of_y_variables_to_compare) >= 9)
   {
-    p3 <- ggplot(df)
-    p3<-p3 +  geom_smooth(aes(x=!!val_x,
+    p8 <- ggplot(df)
+    p8<-p8 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[9]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])))  }
   if(length(list_of_y_variables_to_compare) >= 10)
   {
-    p3<-p3 +  geom_smooth(aes(x=!!val_x,
+    p9 <- ggplot(df)
+    p9<-p9 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[10]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))  }
   if(length(list_of_y_variables_to_compare) >= 11)
   {
-    p3<-p3 +  geom_smooth(aes(x=!!val_x,
+    p10 <- ggplot(df)
+    p10<-p10 +  geom_smooth(aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[11]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))  }
   if(length(list_of_y_variables_to_compare) >= 12)
   {
-    p3<-p3 +  geom_smooth(aes(x=!!val_x,
+    p11 <- ggplot(df)
+    p11<-p11 +  geom_smooth(aes(x=!!val_x,
                               y=!!sym(list_of_y_variables_to_compare[12]),
                               colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))  }
   if(length(list_of_y_variables_to_compare) >= 13)
   {
-    p4 <- ggplot(df)
-    p4<-p4 +  geom_smooth(aes(x=!!val_x,
+    p12 <- ggplot(df)
+    p12<-p12 +  geom_smooth(aes(x=!!val_x,
                               y=!!sym(list_of_y_variables_to_compare[13]),
                               colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13])))  }
   if(length(list_of_y_variables_to_compare) >= 14)
   {
-    p4<-p4 +  geom_smooth(aes(x=!!val_x,
+    p13 <- ggplot(df)
+    p13<-p13 +  geom_smooth(aes(x=!!val_x,
                               y=!!sym(list_of_y_variables_to_compare[14]),
                               colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14])))  }
   if(length(list_of_y_variables_to_compare) >= 15)
   {
-    p4<-p4 +  geom_smooth(aes(x=!!val_x,
+    p14 <- ggplot(df)
+    p14<-p14 +  geom_smooth(aes(x=!!val_x,
                               y=!!sym(list_of_y_variables_to_compare[15]),
                               colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15])))  }
   if(length(list_of_y_variables_to_compare) >= 16)
   {
-    p4<-p4 +  geom_smooth(aes(x=!!val_x,
+    p15 <- ggplot(df)
+    p15<-p15 +  geom_smooth(aes(x=!!val_x,
                               y=!!sym(list_of_y_variables_to_compare[16]),
                               colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16])))  }
   if(length(list_of_y_variables_to_compare) >= 17)
   {stop("Not defined for more than 16 lines:")}
   
-  p<-p+assocc_processing.get_title2(x_var_name, "ratio young infected by", c(),
-                                   df)+ theme(plot.title = element_text(size = 8)) 
-  p2<-p2+assocc_processing.get_title2(x_var_name, "ratio workers infected by", c(),
-                                   df)+ theme(plot.title = element_text(size = 8))
-  p3<-p3+assocc_processing.get_title2(x_var_name, "ratio retireds infected by", c(),
-                                     df)+ theme(plot.title = element_text(size = 8))
-  p4<-p4+assocc_processing.get_title2(x_var_name, "ratio students infected by", c(),
-                                     df)+ theme(plot.title = element_text(size = 8))
-
-  figure <- ggarrange(p, p2, p3, p4, ncol = 2, nrow = 2, common.legend = TRUE)
+  p<-p+assocc_processing.get_title2(x_var_name, "young infected by young", c(),
+                                   df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p1<-p1+assocc_processing.get_title2(x_var_name, "young infected by workers", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p2<-p2+assocc_processing.get_title2(x_var_name, "young infected by students", c(),
+                                   df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p3<-p3+assocc_processing.get_title2(x_var_name, "young infected by retireds", c(),
+                                     df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p4<-p4+assocc_processing.get_title2(x_var_name, "workers infected by young", c(),
+                                     df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p5<-p5+assocc_processing.get_title2(x_var_name, "workers infected by workers", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p6<-p6+assocc_processing.get_title2(x_var_name, "workers infected by students", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p7<-p7+assocc_processing.get_title2(x_var_name, "workers infected by retireds", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+ 
+  p8<-p8+assocc_processing.get_title2(x_var_name, "students infected by young", c(),
+                                        df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p9<-p9+assocc_processing.get_title2(x_var_name, "students infected by workers", c(),
+                                        df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p10<-p10+assocc_processing.get_title2(x_var_name, "students infected by students", c(),
+                                        df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p11<-p11+assocc_processing.get_title2(x_var_name, "students infected by retireds", c(),
+                                        df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  
+   p12<-p12+assocc_processing.get_title2(x_var_name, "retireds infected by young", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p13<-p13+assocc_processing.get_title2(x_var_name, "retireds infected by workers", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p14<-p14+assocc_processing.get_title2(x_var_name, "retireds infected by students", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p15<-p15+assocc_processing.get_title2(x_var_name, "retireds infected by retireds", c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+ 
+  figure <- ggarrange(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, ncol = 4, nrow = 4)
   
   firstRound <-TRUE
   parametersString <- ""
@@ -315,7 +354,7 @@ assocc_processing.get_title2 <- function(
       paste(y_var_name, sep =""),
     colour = "variables",
     x=x_var_name, 
-    y=y_var_name
+    y="ratio"
   )
 }
 

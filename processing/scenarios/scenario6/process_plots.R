@@ -5,7 +5,7 @@ rm(list=ls())
 #MANUAL INPUT (if not working from a script)
 #args <- commandArgs(trailingOnly=TRUE)
 args <- commandArgs(trailingOnly=TRUE)
-args <- "C:/Users/Fabian/Desktop/assocc_r/2020-05-04"
+args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
 }
@@ -375,14 +375,14 @@ list_of_y_variables_to_compare <-
     "ratio.workers.contaminated.by.workers",
     "ratio.workers.contaminated.by.students",
     "ratio.workers.contaminated.by.retireds",
-    "ratio.retireds.contaminated.by.young",
-    "ratio.retireds.contaminated.by.workers",
-    "ratio.retireds.contaminated.by.students",
-    "ratio.retireds.contaminated.by.retireds",
     "ratio.students.contaminated.by.young",
     "ratio.students.contaminated.by.workers",
     "ratio.students.contaminated.by.students",
-    "ratio.students.contaminated.by.retireds")
+    "ratio.students.contaminated.by.retireds",
+    "ratio.retireds.contaminated.by.young",
+    "ratio.retireds.contaminated.by.workers",
+    "ratio.retireds.contaminated.by.students",
+    "ratio.retireds.contaminated.by.retireds")
 
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
