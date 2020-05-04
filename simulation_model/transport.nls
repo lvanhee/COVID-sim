@@ -108,7 +108,7 @@ to-report number-of-others-on-transport [mt]
 end
 
 to setup-country-based-transport-parameters
-  if Transport-parameters-of = "custom" [
+  if Transport-parameters-of = "Custom" [
     set ratio-workers-and-retired-owning-cars ratio-workers-and-retired-owning-cars
     set ratio-motorized-transport-to-school ratio-motorized-transport-to-school
     set ratio-motorized-transport-to-university ratio-motorized-transport-to-university 
@@ -146,7 +146,7 @@ to setup-country-based-transport-parameters
     if first mylist = Transport-parameters-of [
       set country-specific-data-list but-first mylist ]
   ]
-  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" household-profiles)]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" Transport-parameters-of)]
   file-close
   
   

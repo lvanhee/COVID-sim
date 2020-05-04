@@ -271,7 +271,7 @@ end
 ;scores taken from https://www.hofstede-insights.com/product/compare-countries/
 to load-nations-hofstede-dimension-scores
 
-  if set_national_culture = "custom" [
+  if set_national_culture = "Custom" [
     set power-distance power-distance
     set individualism-vs-collectivism individualism-vs-collectivism
     set masculinity-vs-femininity masculinity-vs-femininity

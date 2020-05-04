@@ -1441,7 +1441,7 @@ CHOOSER
 424
 household-profiles
 household-profiles
-"custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
+"custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
 0
 
 SLIDER
@@ -2552,8 +2552,8 @@ CHOOSER
 80
 set_national_culture
 set_national_culture
-"Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+"Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
+0
 
 SLIDER
 2364
@@ -2684,7 +2684,7 @@ survival-multiplier
 survival-multiplier
 0
 3
-2.5
+2.1
 0.1
 1
 NIL
@@ -3942,8 +3942,8 @@ CHOOSER
 761
 Transport-parameters-of
 Transport-parameters-of
-"custom" "Belgium" "Germany" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "United Kingdom"
-3
+"Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
+0
 
 MONITOR
 1207
