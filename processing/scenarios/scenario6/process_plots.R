@@ -5,7 +5,7 @@ rm(list=ls())
 #MANUAL INPUT (if not working from a script)
 #args <- commandArgs(trailingOnly=TRUE)
 args <- commandArgs(trailingOnly=TRUE)
-args <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+args <- "C:/Users/Fabian/Desktop/assocc_r/2020-05-04"
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
 }
@@ -24,6 +24,7 @@ library(plotly)
 library(tidyr)
 library(foreach)
 library(pracma)
+library(ggpubr)
 getwd()
 
 ### MANUAL INPUT: specify and set working directory ###
@@ -48,7 +49,7 @@ source(functionFileLocation)
 filesPath = workdirec
 #temp = list.files(pattern="*.csv")
 #myfiles = lapply(temp, read.delim)
-filesNames <- c("output2.csv");
+filesNames <- c("output.csv");
 
 # READ DATA ---------------------------------------------------------------
 
@@ -58,7 +59,7 @@ df <- df %>%
     run_number = X.run.number.,
     app_user_ratio = ratio.of.people.using.the.tracking.app,
     tick = X.step.,
-    infected = count.people.with..is.infected..
+    infected = count.people.with..epistemic.infection.status....infected..
   # "aware_of_infected", "hospital_admissions","taken_hospital_beds","cumulative_deaths",
   #  "tests_performed","r0","Isolators","Non_isolators"
     
@@ -353,6 +354,51 @@ if (export_pdf) {
 
 
 
+
+
+
+
+export_pdf = TRUE;
+if (export_pdf) {
+  pdf(file=paste(filesNames, " Combined plots.pdf", sep=""), width=9, height=6);
+}
+
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "app_user_ratio")
+
+list_of_y_variables_to_compare <-
+  c("ratio.young.contaminated.by.young",
+    "ratio.young.contaminated.by.workers",
+    "ratio.young.contaminated.by.students",
+    "ratio.young.contaminated.by.retireds",
+    "ratio.workers.contaminated.by.young",
+    "ratio.workers.contaminated.by.workers",
+    "ratio.workers.contaminated.by.students",
+    "ratio.workers.contaminated.by.retireds",
+    "ratio.retireds.contaminated.by.young",
+    "ratio.retireds.contaminated.by.workers",
+    "ratio.retireds.contaminated.by.students",
+    "ratio.retireds.contaminated.by.retireds",
+    "ratio.students.contaminated.by.young",
+    "ratio.students.contaminated.by.workers",
+    "ratio.students.contaminated.by.students",
+    "ratio.students.contaminated.by.retireds")
+
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="tick",
+                                                       y_var_name="#infections",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i))
+    Sys.sleep(1)
+  }
+
+
+if (export_pdf) {
+  dev.off();
+}
 
 
 #line plot
