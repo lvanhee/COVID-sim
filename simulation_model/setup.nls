@@ -56,9 +56,13 @@ to setup
   set list-of-shared-cars (list)
   
   if log-setup? [foreach sort gathering-points [[x]-> log-file-print [(word "description_gathering_poing(" who "," gathering-type ")")] of x]]
-  reset-ticks
-  set solo-transport-costs 0
   
+  set #youngs-at-start count youngs
+  set #students-at-start count students
+  set #workers-at-start count workers
+  set #retireds-at-start count retireds
+  
+  set solo-transport-costs 0
 end
 
 to setup-app-users

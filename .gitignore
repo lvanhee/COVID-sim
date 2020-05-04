@@ -7,3 +7,6 @@ processing/*.csv
 output/
 processing/behaviousearch/*.csv
 tmp_*.csv
+*.Rhistory
+*.csv
+*.pdf

@@ -157,16 +157,6 @@ to scenario-6-setup
   set critical-to-terminal 2
   set terminal-to-death 7
   
-;  set density-factor-hospital 0.81
-;  set density-factor-essential-shops 0.19
-;  set density-factor-non-essential-shops 0.83
-;  set density-factor-public-leisure 0.51
-;  set density-factor-workplaces 0.21
-;  set density-factor-universities 0.20
-;  set density-factor-homes 1.00
-;  set density-factor-private-leisure 0.19
-;  set density-factor-schools 1.00
-  
   set probability-self-recovery-symptoms 0.60
   set probability-self-recovery-symptoms-old 0.10
   set probability-recorvery-if-treated 0.10
@@ -185,6 +175,8 @@ to scenario-6-setup
   
   set migration? false
   set when-is-tracing-app-active? "7-days-before-end-of-global-quarantine"
+  set #bus-per-timeslot 30
+  set #days-recording-tracing 7
   
 end
 

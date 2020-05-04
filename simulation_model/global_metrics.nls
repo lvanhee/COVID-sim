@@ -3,10 +3,100 @@ globals
   #infected-times-ticks
   #delivered-supply-proposed-this-tick
   when-has-2%-infected-threshold-first-been-met?
+  #contacts-last-tick
+  
+  first-infected-people
+  #first-infected-people;;needed as infected people can die
+  #infected-by-first-infected-people
+  #infected-by-asymptomatic-people
+  #people-infected-in-pubtrans
+  #people-infected-in-shared-cars
+  #people-infected-in-queuing
+  #people-infected-in-general-travel
+  #people-infected-in-hospitals
+  #people-infected-in-workplaces
+  #people-infected-in-homes
+  #people-infected-in-public-leisure
+  #people-infected-in-private-leisure
+  #people-infected-in-schools
+  #people-infected-in-universities
+  #people-infected-in-essential-shops
+  #people-infected-in-non-essential-shops
+  
+  #youngs-infected-by-youngs
+  #youngs-infected-by-students
+  #youngs-infected-by-workers
+  #youngs-infected-by-retireds
+  #students-infected-by-youngs
+  #students-infected-by-students
+  #students-infected-by-workers
+  #students-infected-by-retireds
+  #workers-infected-by-youngs
+  #workers-infected-by-students
+  #workers-infected-by-workers
+  #workers-infected-by-retireds
+  #retireds-infected-by-youngs
+  #retireds-infected-by-students
+  #retireds-infected-by-workers
+  #retireds-infected-by-retireds
+  
+  #contacts-in-pubtrans
+  #contacts-in-shared-cars
+  #contacts-in-queuing
+  #contacts-in-general-travel
+  #contacts-in-hospitals
+  #contacts-in-workplaces
+  #contacts-in-homes
+  #contacts-in-public-leisure
+  #contacts-in-private-leisure
+  #contacts-in-schools
+  #contacts-in-universities
+  #contacts-in-essential-shops
+  #contacts-in-non-essential-shops
+  
+  #cumulative-youngs-infected
+  #cumulative-students-infected
+  #cumulative-workers-infected
+  #cumulative-retireds-infected
+  
+  #cumulative-youngs-infector
+  #cumulative-students-infector
+  #cumulative-workers-infector
+  #cumulative-retireds-infector
+  
+  #youngs-at-start
+  #students-at-start
+  #workers-at-start
+  #retireds-at-start
+  
+  #hospitalizations-youngs-this-tick
+  #hospitalizations-students-this-tick
+  #hospitalizations-workers-this-tick
+  #hospitalizations-retired-this-tick
 ]
 
 to-report ratio-infected
   report #infected / count people
+end
+
+to-report ratio-infected-youngs
+  if #youngs-at-start > 0[  report #cumulative-youngs-infected / #youngs-at-start]
+  report 0
+end
+
+to-report ratio-infected-students
+  if #students-at-start > 0 [report #cumulative-students-infected / #students-at-start]
+  report 0
+end
+
+to-report ratio-infected-workers
+  if #workers-at-start > 0 [report #cumulative-workers-infected / #workers-at-start]
+  report 0
+end
+
+to-report ratio-infected-retireds
+  if #retireds-at-start > 0 [report #cumulative-retireds-infected / #retireds-at-start]
+  report 0
 end
 
 to-report total-amount-of-capital-in-the-system
@@ -23,4 +113,207 @@ end
 to reset-metrics
   set #admissions-last-tick 0 
   set  #delivered-supply-proposed-this-tick 0
+  set #contacts-last-tick 0
+  
+  set #contacts-in-pubtrans 0
+  set #contacts-in-shared-cars 0
+  set #contacts-in-queuing 0
+  set #contacts-in-general-travel 0
+  set #contacts-in-hospitals 0
+  set #contacts-in-workplaces 0
+  set #contacts-in-homes 0
+  set #contacts-in-public-leisure 0
+  set #contacts-in-private-leisure 0
+  set #contacts-in-schools 0
+  set #contacts-in-universities 0
+  set #contacts-in-essential-shops 0
+  set #contacts-in-non-essential-shops 0
+  
+  set #hospitalizations-youngs-this-tick 0
+  set #hospitalizations-students-this-tick 0
+  set #hospitalizations-workers-this-tick 0
+  set #hospitalizations-retired-this-tick 0
+end
+
+to increment-age-inection-information-metrics [infected infector]
+  if [age = young-age] of infected [set #cumulative-youngs-infected #cumulative-youngs-infected + 1]
+  if [age = student-age] of infected [set #cumulative-students-infected #cumulative-students-infected + 1]
+  if [age = worker-age] of infected [set #cumulative-workers-infected #cumulative-workers-infected + 1]
+  if [age = retired-age] of infected [set #cumulative-retireds-infected #cumulative-retireds-infected + 1]
+  
+  if [age = young-age] of infector [set #cumulative-youngs-infector #cumulative-youngs-infector + 1]
+  if [age = student-age] of infector [set #cumulative-students-infector #cumulative-students-infector + 1]
+  if [age = worker-age] of infector [set #cumulative-workers-infector #cumulative-workers-infector + 1]
+  if [age = retired-age] of infector [set #cumulative-retireds-infector #cumulative-retireds-infector + 1]  
+end
+
+to increment-hospitalizations-global-metrics
+  if age = young-age [set #hospitalizations-youngs-this-tick #hospitalizations-youngs-this-tick + 1]
+  if age = student-age [set #hospitalizations-students-this-tick #hospitalizations-students-this-tick + 1]
+  if age = worker-age [set #hospitalizations-workers-this-tick #hospitalizations-workers-this-tick + 1]
+  if age = retired-age [set #hospitalizations-retired-this-tick #hospitalizations-retired-this-tick + 1]
+end
+
+to-report #people-at-start
+  report #youngs-at-start + #workers-at-start + #students-at-start + #retireds-at-start
+end
+
+to-report ratio-of-workers-at-start
+  report #workers-at-start / #people-at-start
+end
+
+to-report ratio-of-students-at-start
+  report #students-at-start / #people-at-start
+end
+
+to-report ratio-of-retireds-at-start
+  report #retireds-at-start / #people-at-start
+end
+  
+
+to-report ratio-of-youngs-at-start
+  report #youngs-at-start / #people-at-start
+end
+
+to-report ratio-young-contaminated-by-young
+  report #youngs-infected-by-youngs / count youngs / ratio-of-youngs-at-start
+end
+
+to-report ratio-young-contaminated-by-workers
+  report #youngs-infected-by-workers / count youngs / ratio-of-workers-at-start
+end
+
+to-report ratio-young-contaminated-by-students
+  report #youngs-infected-by-students / count youngs / ratio-of-students-at-start
+end
+
+to-report ratio-young-contaminated-by-retireds
+  report #youngs-infected-by-retireds / count youngs / ratio-of-retireds-at-start
+end
+
+to-report ratio-workers-contaminated-by-young
+  report #workers-infected-by-youngs / count workers / ratio-of-youngs-at-start
+end
+
+to-report ratio-workers-contaminated-by-workers
+  report #workers-infected-by-workers / count workers / ratio-of-workers-at-start
+end
+
+to-report ratio-workers-contaminated-by-students
+  report #workers-infected-by-students / count workers / ratio-of-students-at-start
+end
+
+to-report ratio-workers-contaminated-by-retireds
+  report #workers-infected-by-retireds / count workers / ratio-of-retireds-at-start
+end
+
+to-report ratio-students-contaminated-by-young
+  report #students-infected-by-youngs / count students / ratio-of-youngs-at-start
+end
+
+to-report ratio-students-contaminated-by-workers
+  report #students-infected-by-workers / count students / ratio-of-workers-at-start
+end
+
+to-report ratio-students-contaminated-by-students
+  report #students-infected-by-students / count students / ratio-of-students-at-start
+end
+
+to-report ratio-students-contaminated-by-retireds
+  report #students-infected-by-retireds / count students / ratio-of-retireds-at-start
+end
+
+to-report ratio-retireds-contaminated-by-young
+  report #retireds-infected-by-youngs / count retireds / ratio-of-youngs-at-start
+end
+
+to-report ratio-retireds-contaminated-by-workers
+  report #retireds-infected-by-workers / count retireds / ratio-of-workers-at-start
+end
+
+to-report ratio-retireds-contaminated-by-students
+  report #retireds-infected-by-students / count retireds / ratio-of-students-at-start
+end
+
+to-report ratio-retireds-contaminated-by-retireds
+  report #retireds-infected-by-retireds / count retireds / ratio-of-retireds-at-start
+end
+
+to increment-contagion-metrics-from [context infected infector]
+  increment-age-inection-information-metrics infected infector
+  
+  if [is-young?] of infected [
+    if [is-young?] of infector [set #youngs-infected-by-youngs #youngs-infected-by-youngs + 1]
+    if [is-student?] of infector [set #youngs-infected-by-students #youngs-infected-by-students + 1]
+    if [is-worker?] of infector [set #youngs-infected-by-workers #youngs-infected-by-workers + 1]
+    if [is-retired?] of infector [set #youngs-infected-by-retireds #youngs-infected-by-retireds + 1]
+  ]
+  
+  if [is-student?] of infected [
+    if [is-young?] of infector [set #students-infected-by-youngs #students-infected-by-youngs + 1]
+    if [is-student?] of infector [set #students-infected-by-students #students-infected-by-students + 1]
+    if [is-worker?] of infector [set #students-infected-by-workers #students-infected-by-workers + 1]
+    if [is-retired?] of infector [set #students-infected-by-retireds #students-infected-by-retireds + 1]
+  ]
+  
+  if [is-worker?] of infected [
+    if [is-young?] of infector [set #workers-infected-by-youngs #workers-infected-by-youngs + 1]
+    if [is-student?] of infector [set #workers-infected-by-students #workers-infected-by-students + 1]
+    if [is-worker?] of infector [set #workers-infected-by-workers #workers-infected-by-workers + 1]
+    if [is-retired?] of infector [set #workers-infected-by-retireds #workers-infected-by-retireds + 1]
+  ]
+  
+  if [is-retired?] of infected [
+    if [is-young?] of infector [set #retireds-infected-by-youngs #retireds-infected-by-youngs + 1]
+    if [is-student?] of infector [set #retireds-infected-by-students #retireds-infected-by-students + 1]
+    if [is-worker?] of infector [set #retireds-infected-by-workers #retireds-infected-by-workers + 1]
+    if [is-retired?] of infector [set #retireds-infected-by-retireds #retireds-infected-by-retireds + 1]
+  ]
+  
+  
+    if substring context 0 3 = "gp(" [
+    let gt substring context (position "," context + 1) (length context - 1) 
+    if gt = hospital-gathering-type [set #people-infected-in-hospitals #people-infected-in-hospitals + 1 stop]
+    if gt = workplace-gathering-type [set #people-infected-in-workplaces  #people-infected-in-workplaces + 1 stop]
+    if gt = home-gathering-type [set #people-infected-in-homes #people-infected-in-homes + 1 stop]
+    if gt = public-leisure-gathering-type [set #people-infected-in-public-leisure #people-infected-in-public-leisure + 1 stop]
+    if gt = private-leisure-gathering-type [set #people-infected-in-private-leisure #people-infected-in-private-leisure + 1 stop]  
+    if gt = school-gathering-type [set #people-infected-in-schools #people-infected-in-schools + 1 stop]  
+    if gt = university-gathering-type [set #people-infected-in-universities #people-infected-in-universities + 1 stop]  
+    if gt = essential-shop-gathering-type [set #people-infected-in-essential-shops #people-infected-in-essential-shops + 1 stop]  
+    if gt = non-essential-shop-gathering-type [set #people-infected-in-non-essential-shops #people-infected-in-non-essential-shops + 1 stop]
+  ]
+  
+  if context = "bus" [set #people-infected-in-pubtrans #people-infected-in-pubtrans + 1 stop]
+  if context = "queue-waiting-for-bus" [set #people-infected-in-queuing #people-infected-in-queuing + 1 stop]
+  if context = "cars" [set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1 stop]
+  if context = "travelling outside" [set #people-infected-in-general-travel #people-infected-in-general-travel + 1 stop]
+  error (sentence "unimplemented for" context)
+end
+
+to  increment-contact-metrics-given [context #contacts-now]
+    if substring context 0 3 = "gp(" [
+    let gt substring context (position "," context + 1) (length context - 1) 
+    if gt = hospital-gathering-type [set #contacts-in-hospitals #contacts-in-hospitals + #contacts-now stop]
+    if gt = workplace-gathering-type [set #contacts-in-workplaces  #contacts-in-workplaces + #contacts-now stop]
+    if gt = home-gathering-type [set #contacts-in-homes #contacts-in-homes + #contacts-now stop]
+    if gt = public-leisure-gathering-type [set #contacts-in-public-leisure #contacts-in-public-leisure + #contacts-now stop]
+    if gt = private-leisure-gathering-type [set #contacts-in-private-leisure #contacts-in-private-leisure + #contacts-now stop]  
+    if gt = school-gathering-type [set #contacts-in-schools #contacts-in-schools + #contacts-now stop]  
+    if gt = university-gathering-type [set #contacts-in-universities #contacts-in-universities + #contacts-now stop]  
+    if gt = essential-shop-gathering-type [set #contacts-in-essential-shops #contacts-in-essential-shops + #contacts-now stop]  
+    if gt = non-essential-shop-gathering-type [set #contacts-in-non-essential-shops #contacts-in-non-essential-shops + #contacts-now stop]  
+  ]
+  
+  if context = "bus" [set #contacts-in-pubtrans #contacts-in-pubtrans + 1 stop]
+  if context = "queue-waiting-for-bus" [set #contacts-in-queuing #contacts-in-queuing + 1 stop]
+  if context = "cars" [set #contacts-in-shared-cars #contacts-in-shared-cars + 1 stop]
+  if context = "travelling outside" [set #contacts-in-general-travel #contacts-in-general-travel + 1 stop]
+  
+  error (sentence "unimplemented for" context)
+end
+
+to-report ratio-quarantiners-currently-complying-to-quarantine
+  if count people with [is-officially-asked-to-quarantine?] = 0 [report 0]
+  report count people with [is-officially-asked-to-quarantine? and is-in-quarantine?] / count people with [is-officially-asked-to-quarantine?]
 end

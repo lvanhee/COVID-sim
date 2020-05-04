@@ -11,6 +11,7 @@ to release-bed-in-hospital
 end
 
 to  acquire-a-bed-in-hospital
+  process-bed-acquired-event
   set  #taken-hospital-beds #taken-hospital-beds + 1
   set #admissions-last-tick #admissions-last-tick + 1
   set is-currently-allocated-a-bed-in-hospital? true
@@ -49,4 +50,8 @@ end
 
 to-report #sick-hospital-personel
   report sum [#sick-personel] of hospitals
+end
+
+to process-bed-acquired-event
+  increment-hospitalizations-global-metrics
 end

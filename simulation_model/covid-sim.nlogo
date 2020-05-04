@@ -29,7 +29,7 @@ to go
   increment-time
   apply-active-measures
   update-metrics
-  
+
   ; Tick goes at the end of the go procedure for better plot updating
   tick
 end
@@ -122,7 +122,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.15
+0.4
 0.01
 1
 NIL
@@ -169,7 +169,7 @@ INPUTBOX
 922
 855
 #schools-gp
-13.0
+12.0
 1
 0
 Number
@@ -180,7 +180,7 @@ INPUTBOX
 1012
 855
 #universities-gp
-8.0
+40.0
 1
 0
 Number
@@ -191,7 +191,7 @@ INPUTBOX
 1105
 855
 #workplaces-gp
-34.0
+40.0
 1
 0
 Number
@@ -461,7 +461,7 @@ INPUTBOX
 835
 855
 #hospital-gp
-3.0
+4.0
 1
 0
 Number
@@ -490,7 +490,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -520,7 +520,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -620,7 +620,7 @@ SWITCH
 222
 log?
 log?
-1
+0
 1
 -1000
 
@@ -923,7 +923,7 @@ density-travelling-propagation
 density-travelling-propagation
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1088,7 +1088,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.163
+0.27
 0.01
 1
 NIL
@@ -1166,7 +1166,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.352
+0.38
 0.01
 1
 NIL
@@ -1181,7 +1181,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.431
+0.35
 0.01
 1
 NIL
@@ -1196,7 +1196,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.054
+0.01
 0.01
 1
 NIL
@@ -1442,7 +1442,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-7
+0
 
 SLIDER
 2149
@@ -1563,7 +1563,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -1575,7 +1575,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-18
+14
 
 MONITOR
 760
@@ -2099,7 +2099,7 @@ INPUTBOX
 662
 558
 #households
-400.0
+391.0
 1
 0
 Number
@@ -2121,7 +2121,7 @@ INPUTBOX
 1570
 348
 #beds-in-hospital
-13.0
+2000.0
 1
 0
 Number
@@ -2518,54 +2518,10 @@ NIL
 11
 
 MONITOR
-1867
-283
-2091
-328
-NIL
-#people-infected-in-pubtrans
-17
-1
-11
-
-MONITOR
 1868
-338
-2091
-383
-NIL
-#people-infected-in-shared-cars
-17
-1
-11
-
-MONITOR
-1868
-389
-2091
-434
-NIL
-#people-infected-when-queuing
-17
-1
-11
-
-MONITOR
-1868
-440
-2092
-485
-NIL
-#people-infected-in-activities
-17
-1
-11
-
-MONITOR
-1868
-493
+435
 2093
-538
+480
 NIL
 #people-infected-in-general-travel
 17
@@ -2597,7 +2553,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-7
+4
 
 SLIDER
 2364
@@ -2608,7 +2564,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-85.0
+35.0
 1
 1
 NIL
@@ -2623,7 +2579,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-18.0
+89.0
 1
 1
 NIL
@@ -2638,7 +2594,7 @@ power-distance
 power-distance
 0
 100
-60.0
+35.0
 1
 1
 NIL
@@ -2653,7 +2609,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-29.0
+69.0
 1
 1
 NIL
@@ -2668,7 +2624,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-39.0
+66.0
 1
 1
 NIL
@@ -2683,7 +2639,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-100.0
+51.0
 1
 1
 NIL
@@ -2768,7 +2724,7 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-0.0
+0.6
 0.01
 1
 NIL
@@ -2817,7 +2773,7 @@ INPUTBOX
 1793
 1531
 #days-recording-tracing
-14.0
+7.0
 1
 0
 Number
@@ -2935,7 +2891,7 @@ INPUTBOX
 914
 87
 #random-seed
-1.0
+3.0
 1
 0
 Number
@@ -3587,7 +3543,7 @@ SWITCH
 856
 do-not-test-youth?
 do-not-test-youth?
-1
+0
 1
 -1000
 
@@ -3642,7 +3598,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-1
+0
 1
 -1000
 
@@ -3686,7 +3642,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3699,7 +3655,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
@@ -3770,7 +3726,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
@@ -3813,7 +3769,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3838,7 +3794,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-1
+2
 
 SWITCH
 1719
@@ -3896,9 +3852,9 @@ NIL
 
 MONITOR
 1866
-543
+485
 2098
-588
+530
 NIL
 #infected-by-asymptomatic-people
 17
@@ -4031,12 +3987,11 @@ financial-safety-learning-rate
 financial-safety-learning-rate
 0
 1
-0.99
+0.05
 0.01
 1
 NIL
 HORIZONTAL
-
 
 SWITCH
 836
@@ -4045,7 +4000,134 @@ SWITCH
 273
 clear-log-on-setup?
 clear-log-on-setup?
+0
 1
+-1000
+
+PLOT
+1374
+350
+1574
+587
+contacts
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"hospitals" 1.0 0 -16777216 true "" "plot  #contacts-in-hospitals"
+"workplaces" 1.0 0 -7500403 true "" "plot  #contacts-in-workplaces"
+"homes" 1.0 0 -2674135 true "" "plot  #contacts-in-homes"
+"pub-lei" 1.0 0 -955883 true "" "plot  #contacts-in-public-leisure"
+"pri-lei" 1.0 0 -6459832 true "" "plot  #contacts-in-private-leisure"
+"schools" 1.0 0 -1184463 true "" "plot  #contacts-in-schools"
+"univ" 1.0 0 -10899396 true "" " plot #contacts-in-universities"
+"e-shops" 1.0 0 -13840069 true "" "plot  #contacts-in-essential-shops"
+"ne-shops" 1.0 0 -14835848 true "" " plot #contacts-in-non-essential-shops"
+"pub-trans" 1.0 0 -11221820 true "" "plot  #contacts-in-pubtrans"
+"priv-trans" 1.0 0 -13791810 true "" " plot #contacts-in-shared-cars"
+"queuing" 1.0 0 -13345367 true "" "plot  #contacts-in-queuing"
+
+MONITOR
+2136
+477
+2324
+522
+NIL
+#people-infected-in-workplaces
+17
+1
+11
+
+MONITOR
+1784
+588
+1848
+633
+ne-shops
+#people-infected-in-non-essential-shops
+17
+1
+11
+
+PLOT
+1867
+531
+2098
+764
+#people infected in
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"hospitals" 1.0 0 -16777216 true "" "plot #people-infected-in-hospitals"
+"workplaces" 1.0 0 -7500403 true "" "plot #people-infected-in-workplaces"
+"homes" 1.0 0 -2674135 true "" "plot #people-infected-in-homes"
+"public-leisure" 1.0 0 -955883 true "" "plot #people-infected-in-public-leisure"
+"private-leisure" 1.0 0 -6459832 true "" "plot #people-infected-in-private-leisure"
+"schools" 1.0 0 -1184463 true "" "plot #people-infected-in-schools"
+"universities" 1.0 0 -10899396 true "" "plot #people-infected-in-universities"
+"e-shops" 1.0 0 -13840069 true "" "plot #people-infected-in-essential-shops"
+"ne-shops" 1.0 0 -14835848 true "" "plot #people-infected-in-non-essential-shops"
+"pub-trans" 1.0 0 -11221820 true "" "plot #people-infected-in-pubtrans"
+"priv-trans" 1.0 0 -13791810 true "" "plot #people-infected-in-shared-cars"
+"queuing" 1.0 0 -13345367 true "" "plot #people-infected-in-queuing"
+
+PLOT
+1377
+585
+1664
+765
+infection per age
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"R-Y" 1.0 0 -8053223 true "" "plot #cumulative-youngs-infected"
+"R-S" 1.0 0 -7171555 true "" "plot #cumulative-students-infected"
+"R-W" 1.0 0 -15040220 true "" "plot #cumulative-workers-infected"
+"R-R" 1.0 0 -13403783 true "" "plot #cumulative-retireds-infected"
+"S-Y" 1.0 0 -2139308 true "" "plot #cumulative-youngs-infector"
+"S-S" 1.0 0 -987046 true "" "plot #cumulative-students-infector"
+"S-W" 1.0 0 -8732573 true "" "plot #cumulative-workers-infector"
+"S-R" 1.0 0 -11033397 true "" "plot #cumulative-retireds-infector"
+
+MONITOR
+2878
+1561
+3185
+1606
+NIL
+ratio-quarantiners-currently-complying-to-quarantine
+17
+1
+11
+
+SWITCH
+839
+189
+1010
+222
+log-violating-quarantine?
+log-violating-quarantine?
+0
 1
 -1000
 
@@ -5584,6 +5666,2492 @@ setup</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-university-personel">
       <value value="0.005"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="S7_1-social-distancing-tracking-tracing-testing-isolating" repetitions="10" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>output-print (word "Execution of run " behaviorspace-run-number " finished in " timer " seconds")</final>
+    <timeLimit steps="500"/>
+    <metric>count people with [is-infected?]</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-working-at-home?]</metric>
+    <metric>count people with [[is-school?] of current-activity]</metric>
+    <metric>count people with [[is-hospital?] of current-activity]</metric>
+    <metric>count people with [[is-university?] of current-activity = "university"]</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [[is-public-leisure?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[is-essential-shop?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity]</metric>
+    <metric>mean [sleep-satisfaction-level] of people</metric>
+    <metric>mean [conformity-satisfaction-level] of people</metric>
+    <metric>mean [risk-avoidance-satisfaction-level] of people</metric>
+    <metric>mean [compliance-satisfaction-level] of people</metric>
+    <metric>mean [belonging-satisfaction-level] of people</metric>
+    <metric>mean [leisure-satisfaction-level] of people</metric>
+    <metric>mean [luxury-satisfaction-level] of people</metric>
+    <metric>mean [autonomy-satisfaction-level] of people</metric>
+    <metric>mean [quality-of-life-indicator] of people</metric>
+    <enumeratedValueSet variable="set_national_culture">
+      <value value="&quot;Korea South&quot;"/>
+      <value value="&quot;Singapore&quot;"/>
+      <value value="&quot;Germany&quot;"/>
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="preset-scenario">
+      <value value="&quot;scenario-7-cultural-model&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="29"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-school-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.054"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="85"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.163"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="39"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.55"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retirees-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;always&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;Korea South&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-students-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospital">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.352"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-hospital-subsidy">
+      <value value="0.21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-university-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;always&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-travelling-propagation">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.41"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.431"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-when-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-public-transport">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="S7_1-social-distancing-lockdown" repetitions="10" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>output-print (word "Execution of run " behaviorspace-run-number " finished in " timer " seconds")</final>
+    <timeLimit steps="500"/>
+    <metric>count people with [is-infected?]</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-working-at-home?]</metric>
+    <metric>count people with [[is-school?] of current-activity]</metric>
+    <metric>count people with [[is-hospital?] of current-activity]</metric>
+    <metric>count people with [[is-university?] of current-activity = "university"]</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [[is-public-leisure?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[is-essential-shop?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity]</metric>
+    <metric>mean [sleep-satisfaction-level] of people</metric>
+    <metric>mean [conformity-satisfaction-level] of people</metric>
+    <metric>mean [risk-avoidance-satisfaction-level] of people</metric>
+    <metric>mean [compliance-satisfaction-level] of people</metric>
+    <metric>mean [belonging-satisfaction-level] of people</metric>
+    <metric>mean [leisure-satisfaction-level] of people</metric>
+    <metric>mean [luxury-satisfaction-level] of people</metric>
+    <metric>mean [autonomy-satisfaction-level] of people</metric>
+    <metric>mean [quality-of-life-indicator] of people</metric>
+    <enumeratedValueSet variable="set_national_culture">
+      <value value="&quot;Korea South&quot;"/>
+      <value value="&quot;Singapore&quot;"/>
+      <value value="&quot;Germany&quot;"/>
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="preset-scenario">
+      <value value="&quot;scenario-7-cultural-model&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="29"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-school-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.054"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;total-lockdown&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="85"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.163"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="39"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.55"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retirees-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;Korea South&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-students-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospital">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.352"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-hospital-subsidy">
+      <value value="0.21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-university-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-travelling-propagation">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.41"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.431"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-when-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-public-transport">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="S7_1-only-social-distancing" repetitions="10" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>output-print (word "Execution of run " behaviorspace-run-number " finished in " timer " seconds")</final>
+    <timeLimit steps="500"/>
+    <metric>count people with [is-infected?]</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-working-at-home?]</metric>
+    <metric>count people with [[is-school?] of current-activity]</metric>
+    <metric>count people with [[is-hospital?] of current-activity]</metric>
+    <metric>count people with [[is-university?] of current-activity = "university"]</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [[is-public-leisure?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[is-essential-shop?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity]</metric>
+    <metric>mean [sleep-satisfaction-level] of people</metric>
+    <metric>mean [conformity-satisfaction-level] of people</metric>
+    <metric>mean [risk-avoidance-satisfaction-level] of people</metric>
+    <metric>mean [compliance-satisfaction-level] of people</metric>
+    <metric>mean [belonging-satisfaction-level] of people</metric>
+    <metric>mean [leisure-satisfaction-level] of people</metric>
+    <metric>mean [luxury-satisfaction-level] of people</metric>
+    <metric>mean [autonomy-satisfaction-level] of people</metric>
+    <metric>mean [quality-of-life-indicator] of people</metric>
+    <enumeratedValueSet variable="set_national_culture">
+      <value value="&quot;Korea South&quot;"/>
+      <value value="&quot;Singapore&quot;"/>
+      <value value="&quot;Germany&quot;"/>
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="preset-scenario">
+      <value value="&quot;scenario-7-cultural-model&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="29"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-school-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.054"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="85"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.163"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="39"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.55"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retirees-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;Korea South&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-students-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospital">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.352"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-hospital-subsidy">
+      <value value="0.21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-university-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-travelling-propagation">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.41"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.431"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-when-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-public-transport">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="S7_1-no-public-measures" repetitions="10" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>output-print (word "Execution of run " behaviorspace-run-number " finished in " timer " seconds")</final>
+    <timeLimit steps="500"/>
+    <metric>count people with [is-infected?]</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-working-at-home?]</metric>
+    <metric>count people with [[is-school?] of current-activity]</metric>
+    <metric>count people with [[is-hospital?] of current-activity]</metric>
+    <metric>count people with [[is-university?] of current-activity = "university"]</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [[is-public-leisure?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[is-essential-shop?] of current-activity]</metric>
+    <metric>count people with [[is-private-leisure?] of current-activity]</metric>
+    <metric>mean [sleep-satisfaction-level] of people</metric>
+    <metric>mean [conformity-satisfaction-level] of people</metric>
+    <metric>mean [risk-avoidance-satisfaction-level] of people</metric>
+    <metric>mean [compliance-satisfaction-level] of people</metric>
+    <metric>mean [belonging-satisfaction-level] of people</metric>
+    <metric>mean [leisure-satisfaction-level] of people</metric>
+    <metric>mean [luxury-satisfaction-level] of people</metric>
+    <metric>mean [autonomy-satisfaction-level] of people</metric>
+    <metric>mean [quality-of-life-indicator] of people</metric>
+    <enumeratedValueSet variable="set_national_culture">
+      <value value="&quot;Korea South&quot;"/>
+      <value value="&quot;Singapore&quot;"/>
+      <value value="&quot;Germany&quot;"/>
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="preset-scenario">
+      <value value="&quot;scenario-7-cultural-model&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="29"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-school-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.054"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="18"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="85"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.163"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="39"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.55"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retirees-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;Korea South&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-students-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospital">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.352"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-hospital-subsidy">
+      <value value="0.21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-university-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-travelling-propagation">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="13"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.41"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.431"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-when-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-public-transport">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="500"/>
+    <metric>#infected</metric>
+    <metric>count people with [epistemic-infection-status = "infected"]</metric>
+    <metric>#admissions-last-tick</metric>
+    <metric>#taken-hospital-beds</metric>
+    <metric>#denied-requests-for-hospital-beds</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>#contacts-last-tick</metric>
+    <metric>#people-infected-in-hospitals</metric>
+    <metric>#people-infected-in-workplaces</metric>
+    <metric>#people-infected-in-homes</metric>
+    <metric>#people-infected-in-public-leisure</metric>
+    <metric>#people-infected-in-private-leisure</metric>
+    <metric>#people-infected-in-schools</metric>
+    <metric>#people-infected-in-universities</metric>
+    <metric>#people-infected-in-essential-shops</metric>
+    <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#people-infected-in-pubtrans</metric>
+    <metric>#people-infected-in-shared-cars</metric>
+    <metric>#people-infected-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-shared-cars</metric>
+    <metric>#contacts-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-hospitals</metric>
+    <metric>#contacts-in-workplaces</metric>
+    <metric>#contacts-in-homes</metric>
+    <metric>#contacts-in-public-leisure</metric>
+    <metric>#contacts-in-private-leisure</metric>
+    <metric>#contacts-in-schools</metric>
+    <metric>#contacts-in-universities</metric>
+    <metric>#contacts-in-essential-shops</metric>
+    <metric>#contacts-in-non-essential-shops</metric>
+    <metric>#cumulative-youngs-infected</metric>
+    <metric>#cumulative-students-infected</metric>
+    <metric>#cumulative-workers-infected</metric>
+    <metric>#cumulative-retireds-infected</metric>
+    <metric>#cumulative-youngs-infector</metric>
+    <metric>#cumulative-students-infector</metric>
+    <metric>#cumulative-workers-infector</metric>
+    <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <metric>ratio-infected-youngs</metric>
+    <metric>ratio-infected-students</metric>
+    <metric>ratio-infected-workers</metric>
+    <metric>ratio-infected-retireds</metric>
+    <metric>#hospitalizations-youngs-this-tick</metric>
+    <metric>#hospitalizations-students-this-tick</metric>
+    <metric>#hospitalizations-workers-this-tick</metric>
+    <metric>#hospitalizations-retired-this-tick</metric>
+    <metric>ratio-young-contaminated-by-young</metric>
+    <metric>ratio-young-contaminated-by-workers</metric>
+    <metric>ratio-young-contaminated-by-students</metric>
+    <metric>ratio-young-contaminated-by-retireds</metric>
+    <metric>ratio-workers-contaminated-by-young</metric>
+    <metric>ratio-workers-contaminated-by-workers</metric>
+    <metric>ratio-workers-contaminated-by-students</metric>
+    <metric>ratio-workers-contaminated-by-retireds</metric>
+    <metric>ratio-students-contaminated-by-young</metric>
+    <metric>ratio-students-contaminated-by-workers</metric>
+    <metric>ratio-students-contaminated-by-students</metric>
+    <metric>ratio-students-contaminated-by-retireds</metric>
+    <metric>ratio-retireds-contaminated-by-young</metric>
+    <metric>ratio-retireds-contaminated-by-workers</metric>
+    <metric>ratio-retireds-contaminated-by-students</metric>
+    <metric>ratio-retireds-contaminated-by-retireds</metric>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="0"/>
+      <value value="0.5"/>
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+      <value value="0.6"/>
+      <value value="0.9"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="#random-seed" first="1" step="1" last="5"/>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="preset-scenario">
+      <value value="&quot;scenario-6-default&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="set_national_culture">
+      <value value="&quot;Great Britain&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-school-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.01"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="391"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="89"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="35"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="clear-log-on-setup?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.27"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="financial-safety-learning-rate">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="66"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="2.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.55"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-setup?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retirees-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;7-days-before-end-of-global-quarantine&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;custom&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-students-subsidy">
+      <value value="0.34"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospital">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.38"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-hospital-subsidy">
+      <value value="0.21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-university-subsidy">
+      <value value="0.03"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="2000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="35"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.52"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-travelling-propagation">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.41"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.35"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-when-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-in-public-transport">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.04"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-trigger-school-closing-measure">
       <value value="10000"/>

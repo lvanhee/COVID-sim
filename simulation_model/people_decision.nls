@@ -130,6 +130,7 @@ to select-activity
   set current-means-of-transport method-of-transportation-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
+  if log-violating-quarantine? [ process-quarantine-violation-event]
 end
 
 ;;this function is the main bottleneck of the whole application!
@@ -187,18 +188,26 @@ to update-memory
     if length what-my-network-did-week-day > 4 [
       set what-my-network-did-week-day but-first what-my-network-did-week-day
     ]
-  ] [
-    set what-my-network-did-weekend lput network-activity what-my-network-did-weekend
-    if length what-my-network-did-weekend > 4 [
-      set what-my-network-did-weekend but-first what-my-network-did-weekend
+  
+    let network-activity counter-max-value network-activities
+    ifelse working-day? [
+      set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
+      if length what-my-network-did-week-day > 4 [
+        set what-my-network-did-week-day but-first what-my-network-did-week-day
+      ]
+    ] [
+      set what-my-network-did-weekend lput network-activity what-my-network-did-weekend
+      if length what-my-network-did-weekend > 4 [
+        set what-my-network-did-weekend but-first what-my-network-did-weekend
+      ]
     ]
-  ]
-  set did-my-network-socially-distance? 2 * count (my-network with [is-I-apply-social-distancing?]) >= count my-network
-  let quarantine-network my-network with [is-officially-asked-to-quarantine?]
-  ifelse any? quarantine-network [
-    set did-my-network-quarantine? 2 * count (quarantine-network with [is-in-quarantine?]) >= count quarantine-network
-  ] [
-    set did-my-network-quarantine? false
+    set did-my-network-socially-distance? 2 * count (my-network with [is-I-apply-social-distancing?]) >= count my-network
+    let quarantine-network my-network with [is-officially-asked-to-quarantine?]
+    ifelse any? quarantine-network [
+      set did-my-network-quarantine? 2 * count (quarantine-network with [is-in-quarantine?]) >= count quarantine-network
+    ] [
+      set did-my-network-quarantine? false
+    ]
   ]
   
   ;;transport memory
