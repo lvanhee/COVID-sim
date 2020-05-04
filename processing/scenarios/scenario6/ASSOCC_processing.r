@@ -232,6 +232,38 @@ assocc_processing.get_display_name <- function(a)
     "#infected" 
   else if(strcmp(a,"ratio.quarantiners.currently.complying.to.quarantine"))
       "ratio compliant quarantiners"
+  else if(strcmp(a,"X.hospitalizations.retired.this.tick"))
+    "newly hospitalized retired" 
+  else if(strcmp(a,"X.hospitalizations.students.this.tick"))
+    "newly hospitalized students" 
+  else if(strcmp(a,"X.hospitalizations.workers.this.tick"))
+    "newly hospitalized workers" 
+  else if(strcmp(a,"X.hospitalizations.youngs.this.tick"))
+    "newly hospitalized youngs" 
+  else if(strcmp(a,"X.newly.retired.infected"))
+    "newly infected retired" 
+  else if(strcmp(a,"X.newly.students.infected"))
+    "newly infected students" 
+  else if(strcmp(a,"X.newly.workers.infected"))
+    "newly infected workers" 
+  else if(strcmp(a,"X.newly.youngs.infected"))
+    "newly infected youngs" 
+  else if(strcmp(a,"X.cumulative.retireds.infected"))
+    "cumulative infected retireds" 
+  else if(strcmp(a,"X.cumulative.students.infected"))
+    "cumulative infected students" 
+  else if(strcmp(a,"X.cumulative.workers.infected"))
+    "cumulative infected workers" 
+  else if(strcmp(a,"X.cumulative.youngs.infected"))
+    "cumulative infected youngs"
+  else if(strcmp(a,"X.cumu.hospitalisations.workers"))
+    "cumulative hospitalisations workers" 
+  else if(strcmp(a,"X.cumu.hospitalisations.youngs"))
+    "cumulative hospitalisations youngs" 
+  else if(strcmp(a,"X.cumu.hospitalisations.retired"))
+    "cumulative hospitalisations retired" 
+  else if(strcmp(a,"X.cumu.hospitalisations.students"))
+    "cumulative hospitalisations students" 
   else 
     stop(paste("No name defined for:",a))
 }
