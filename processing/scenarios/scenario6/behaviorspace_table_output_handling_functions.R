@@ -26,12 +26,12 @@ cleanData <- function(p_df, p_infected_max_below_remove) {
   # remove all invalid runs, 1) for every run
   p_clean_df <- p_df
   r_removed <- 0
-  print(paste("Removing runs that are killed in the egg: infected <",p_infected_max_below_remove))
-  for(i in 1:max(p_df$run_number)) {
-    # 2) get maximum number of infected and compare with infected_max_below_remove
-    if (max(p_df[p_df$run_number==i, ]$infected) < p_infected_max_below_remove) {
-      p_clean_df <- p_clean_df[p_clean_df$run_number!=i, ]
-      print(paste(".. removed run", i, ", infected ", max(p_df[p_df$run_number==i, ]$infected), "<", p_infected_max_below_remove))
+  print(paste("Removing runs that are killed in the egg: X.infected <",p_infected_max_below_remove))
+  for(i in 1:max(p_df$X.run.number.)) {
+    # 2) get maximum number of X.infected and compare with infected_max_below_remove
+    if (max(p_df[p_df$X.run.number.==i, ]$X.infected) < p_infected_max_below_remove) {
+      p_clean_df <- p_clean_df[p_clean_df$X.run.number.!=i, ]
+      print(paste(".. removed run", i, ", X.infected ", max(p_df[p_df$X.run.number.==i, ]$X.infected), "<", p_infected_max_below_remove))
       r_removed <- r_removed + 1
     }
   }

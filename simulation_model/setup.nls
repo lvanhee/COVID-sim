@@ -72,6 +72,8 @@ to setup-global-metrics
   set #retireds-at-start count retireds  
   
   set age-group-to-age-group-#contacts-table table:make
+  set age-group-to-age-group-#infections-last-tick-table table:make
+  reset-metrics
   
 end
 

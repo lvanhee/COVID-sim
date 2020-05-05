@@ -2952,7 +2952,7 @@ INPUTBOX
 914
 87
 #random-seed
-2.0
+1.0
 1
 0
 Number
@@ -3031,7 +3031,7 @@ ratio-of-anxiety-avoidance-tracing-app-users
 ratio-of-anxiety-avoidance-tracing-app-users
 0
 1
-1.0
+0.0
 0.01
 1
 NIL
@@ -3847,7 +3847,7 @@ SWITCH
 273
 clear-log-on-setup?
 clear-log-on-setup?
-1
+0
 1
 -1000
 
@@ -7534,22 +7534,22 @@ setup</setup>
     <metric>#hospitalizations-students-this-tick</metric>
     <metric>#hospitalizations-workers-this-tick</metric>
     <metric>#hospitalizations-retired-this-tick</metric>
-    <metric>ratio-young-contaminated-by-young</metric>
-    <metric>ratio-young-contaminated-by-workers</metric>
-    <metric>ratio-young-contaminated-by-students</metric>
-    <metric>ratio-young-contaminated-by-retireds</metric>
-    <metric>ratio-workers-contaminated-by-young</metric>
-    <metric>ratio-workers-contaminated-by-workers</metric>
-    <metric>ratio-workers-contaminated-by-students</metric>
-    <metric>ratio-workers-contaminated-by-retireds</metric>
-    <metric>ratio-students-contaminated-by-young</metric>
-    <metric>ratio-students-contaminated-by-workers</metric>
-    <metric>ratio-students-contaminated-by-students</metric>
-    <metric>ratio-students-contaminated-by-retireds</metric>
-    <metric>ratio-retireds-contaminated-by-young</metric>
-    <metric>ratio-retireds-contaminated-by-workers</metric>
-    <metric>ratio-retireds-contaminated-by-students</metric>
-    <metric>ratio-retireds-contaminated-by-retireds</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age retired-age</metric>
     <metric>age-group-to-age-group-#contacts young-age young-age</metric>
     <metric>age-group-to-age-group-#contacts young-age student-age</metric>
     <metric>age-group-to-age-group-#contacts young-age worker-age</metric>

@@ -46,10 +46,24 @@ to-report next-state-odm [s]
   report stochastic-transition-apply transition-odm s
 end
 
+;these numbers are made up from general statistics as we don't have the oxford model. I.e. most children are asymptomatic
+;altogether we have young: 0.6 asymptomatic; 0.3 mild; 0.1 severe [among which 0.1 will die]
+;altogether we have student & worker: 0.3 asymptomatic; 0.6 mild; 0.1 severe [among which 0.1 will die]
+;altogether we have young: 0.1 asymptomatic; 0.3 mild; 0.6 severe [among which 0.4 will die]
 to-report p-asymptomatic-odm 
- ; if is-retired?
+  if is-young? [report 0.6]
+  if is-student? or is-worker? [report 0.3]
+  if is-retired? [report 0.18]
   ;[]
-  report 0.18  
+  report 0.1
+end
+
+;these numbers are made up from general statistics as we don't have the oxford model. I.e. most children are asymptomatic
+to-report p-pre-symptomatic-mild-odm
+  if is-young? [report 0.3] 
+  if is-young? [report 0.6] 
+  
+  report 0.3
 end
 
 to-report p-hosp
@@ -81,10 +95,6 @@ end
 
 to-report tau-rec
   report 6 * #ticks-per-day
-end
-
-to-report p-pre-symptomatic-mild-odm
-  report 0.48
 end
 
 to-report tau-sym

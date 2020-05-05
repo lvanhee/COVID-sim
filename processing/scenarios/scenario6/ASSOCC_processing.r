@@ -50,10 +50,31 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
                                                          y_var_name,
                                                          list_of_y_variables_to_compare,
                                                          name_independent_variables_to_display,
-                                                         df) 
+                                                         df,
+                                                         cumulative=FALSE) 
 {
+  if(cumulative)
+  {
+    list_of_variables_to_save <- c("X.run.number.", "X.step.", list_of_y_variables_to_compare)
+    list_of_all_variables_to_remember <- c(list_of_variables_to_save, name_independent_variables_to_display)
+    df_tmp <- df[list_of_variables_to_save]
+    df_res <- df[list_of_all_variables_to_remember]
+    foreach(name = list_of_y_variables_to_compare) %do% 
+      {
+        var_name = sym(name)
+        
+        df_tmp <- 
+          df_tmp %>% 
+          group_by(!!sym("X.run.number.")) %>% 
+          arrange(!!sym("X.step.")) %>% 
+          mutate(cs = cumsum(!!sym(name))
+          )
+        df_res[[name]] <- df_tmp$cs
+      }
+    #df <- df_tmp[ , -which(names(df_tmp) %in% list_of_y_variables_to_compare)]
+    df <- df_res
+  }
   val_x <- sym(x_var_name) 
-  
   
   p <- ggplot(df)
   
@@ -122,7 +143,7 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
   {stop("Not defined for more than 9 lines:")}
   
   p<-p+assocc_processing.get_title(x_var_name, y_var_name, name_independent_variables_to_display,
-                                   df)
+                                   df, cumulative)
   p
 }
 
@@ -301,12 +322,12 @@ assocc_processing.plotCompareAlongDifferentY_matrix <- function(x_var_name,
 
 assocc_processing.get_title <- function(
   x_var_name, y_var_name, name_independent_variables_to_display,
-  df
+  df, cumulative
   )
 {
   ##number of times the experiment was repeated
-  number_of_repetitions<-length(table(df$X.random.seed))
-  
+  number_of_repetitions<-length(table(df$X.run.number.))
+ 
   firstRound <-TRUE
   parametersString <- ""
 
@@ -322,15 +343,21 @@ assocc_processing.get_title <- function(
       
       parametersString <- paste(parametersString,assocc_processing.get_display_name(name),
                                 ": ", value_of_occurrence, sep = "")
+      
     }
+  start <-""
+  if(cumulative)start <- "Cumulative "
   
+  text <- paste(start, assocc_processing.get_display_name(y_var_name)," over ", 
+                assocc_processing.get_display_name(x_var_name), " (",
+                parametersString,", ",
+                "N=",number_of_repetitions,
+                ")"
+                , sep ="")
+  text
   labs(
-  title = 
-    paste(y_var_name," over ", x_var_name, " (",
-                   parametersString,", ",
-                   "N=",number_of_repetitions,
-                   ")"
-                   , sep =""),
+  title =  text
+    ,
        caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
        colours = assocc_processing.get_display_name(name),
        colour = "variables",
@@ -365,7 +392,7 @@ assocc_processing.get_display_name <- function(a)
 
   if(strcmp(a,"ratio.of.anxiety.avoidance.tracing.app.users"))
     "Anx.Avoid.App"
-  else if(strcmp(a,"app_user_ratio"))
+  else if(strcmp(a,"app_user_ratio")||strcmp(a,"ratio.of.people.using.the.tracking.app"))
     "ratio app-users"
   else if(strcmp(a,"X.people.infected.in.essential.shops"))
     "#infected ess-shops"
@@ -405,23 +432,23 @@ assocc_processing.get_display_name <- function(a)
     "#contacts universities"
   else if(strcmp(a,"contacts.in.hospitals") ||strcmp(a,"X.contacts.in.hospitals"))
     "#contacts hospitals"
-  else if(strcmp(a,"X.young.infected") )
+  else if(strcmp(a,"X.young.infected")||strcmp(a,"X.cumulative.youngs.infected") )
       "#young infected"
-  else if(strcmp(a,"X.young.infector") )
+  else if(strcmp(a,"X.young.infector")||strcmp(a,"X.cumulative.youngs.infector"))
     "#young infector"
-  else if(strcmp(a,"X.student.infected") )
+  else if(strcmp(a,"X.student.infected")||strcmp(a,"X.cumulative.students.infected") )
     "#student infected"
-  else if(strcmp(a,"X.student.infector") )
+  else if(strcmp(a,"X.student.infector")||strcmp(a,"X.cumulative.students.infector") )
     "#student infector"
-  else if(strcmp(a,"X.retired.infected") )
+  else if(strcmp(a,"X.retired.infected")||strcmp(a,"X.cumulative.retireds.infected") )
     "#retired infected"
-  else if(strcmp(a,"X.retired.infector"))
+  else if(strcmp(a,"X.retired.infector")||strcmp(a,"X.cumulative.retireds.infector"))
     "#retired infector"
-  else if(strcmp(a,"X.worker.infected") )
+  else if(strcmp(a,"X.worker.infected")||strcmp(a,"X.cumulative.workers.infected") )
     "#worker infected"
-  else if(strcmp(a,"X.worker.infector"))
+  else if(strcmp(a,"X.worker.infector")||strcmp(a,"X.cumulative.workers.infector"))
     "#worker infector" 
-  else if(strcmp(a,"infected"))
+  else if(strcmp(a,"infected") || strcmp(a,"X.infected"))
     "#infected" 
   else if(strcmp(a,"ratio.quarantiners.currently.complying.to.quarantine"))
       "ratio compliant quarantiners"
@@ -433,6 +460,8 @@ assocc_processing.get_display_name <- function(a)
     "newly hospitalized workers" 
   else if(strcmp(a,"X.hospitalizations.youngs.this.tick"))
     "newly hospitalized youngs" 
+  else if(strcmp(a,"X.step."))
+    "ticks"
   else if(strcmp(a,"X.newly.retired.infected"))
     "newly infected retired" 
   else if(strcmp(a,"X.newly.students.infected"))
@@ -465,6 +494,8 @@ assocc_processing.get_display_name <- function(a)
     "by students" 
   else if(strcmp(a,"ratio.young.contaminated.by.retireds"))
     "by retireds" 
+  else if(strcmp(a,"X.contacts.last.tick"))
+      "contacts per tick"
   else if(strcmp(a,"ratio.workers.contaminated.by.young"))
     "by young" 
   else if(strcmp(a,"ratio.workers.contaminated.by.workers"))
@@ -489,8 +520,165 @@ assocc_processing.get_display_name <- function(a)
     "by students" 
   else if(strcmp(a,"ratio.students.contaminated.by.retireds"))
     "by retireds" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.young.age"))
+    "y -> y" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.young.age"))
+    "s->y" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.young.age"))
+    "w->y" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.young.age"))
+    "r->y" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.student.age"))
+    "y->s" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.student.age"))
+    "s->s" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.student.age"))
+    "w->s" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.student.age"))
+    "r->s" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.worker.age"))
+    "y->w" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.worker.age"))
+    "s->w" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.worker.age"))
+    "w->w" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.worker.age"))
+    "r->w" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.retired.age"))
+    "y->r" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.retired.age"))
+    "s->r" 
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.retired.age"))
+    "w->r"   
+  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.retired.age"))
+    "r->r" 
+
+  
+  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.young.age"))
+    "y -> y" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.young.age"))
+    "s->y" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.young.age"))
+    "w->y" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.young.age"))
+    "r->y" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.student.age"))
+    "y->s" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.student.age"))
+    "s->s" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.student.age"))
+    "w->s" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.student.age"))
+    "r->s" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.worker.age"))
+    "y->w" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.worker.age"))
+    "s->w" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.worker.age"))
+    "w->w" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.worker.age"))
+    "r->w" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.retired.age"))
+    "y->r" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.retired.age"))
+    "s->r" 
+  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.retired.age"))
+    "w->r"   
+  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.retired.age"))
+    "r->r"   
   else 
     stop(paste("No name defined for:",a))
 }
 
+assocc_processing.init_and_prepare_data <- function(path)
+{
+  #args[1]
+  
+  # #then install packages (NOTE: this only needs to be done once for new users of RStudio!)
+  #install.packages("ggplot2")
+  #install.packages("plotly")
+  #install.packages("tidyr")
+  #install.packages("foreach")
+  #install.packages("pracma")
+  #install.packages("ggpubr")
+  #install.packages("dplyr")
+  
+  #then load relevant libraries
+  library(ggplot2)
+  library(plotly)
+  library(tidyr)
+  library(foreach)
+  library(pracma)
+  library(ggpubr)
+  library(dplyr)
+  getwd()
+  
+  ### MANUAL INPUT: specify and set working directory ###
+  setwd(workdirec)
+  # "C://Users//Maarten//Google Drive//Corona-Research//Program//RProgramming"
+  functionFileLocation <- paste(workdirec,"behaviorspace_table_output_handling_functions.r", sep="")
+  source(functionFileLocation)
+
+  filesPath = workdirec
+  #temp = list.files(pattern="*.csv")
+  #myfiles = lapply(temp, read.delim)
+  filesNames <- c("output.csv");
+  
+  # READ DATA ---------------------------------------------------------------
+  
+  df <- loadData(filesPath, filesNames)
+  
+  
+  
+  # REMOVE INVALID RUNS ---------------------------------------------------------------
+  #runs that have a lower amount of maximum infected are seen as invalid and are therefore removed
+  #specify the minimum number of infected people for a run to be considered as valid (5 person by default)
+  # the next will fail if the number of infected is not in the data as -> count.people.with..is.infected..
+  df <- cleanData(df, 1)
+  # REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------
+  
+  #Loop through dataframe and identify variables that do NOT vary (i.e. that are FIXED)
+  #Unfixed variables are either independent or dependent and therefore relevant to include in the analysis
+  #df <- removeVariables(df)
+  #it did break some cases where some variable always remain set to 0
+  
+  # RENAME VARIABLES ---------------------------------------------------------------
+  #printColumnNames(df)
+  
+  ### MANUAL INPUT: specify new (easy-to-work-with) variable names ###
+  new_variable_names <- list(
+    
+  )
+  df
+
+  # TRANSFORM DATAFRAME -----------------------------------------------------
+  ##Seems to work without... Weird! I believe this is to be atuned for specific plots rather
+  ##than making it needed to go through
+  
+  #transform wide dataframe into long format dataframe (in order to make it ggplot compatible)
+  ### MANUAL INPUT: make sure that you specify which variables are to be considered as metrics (i.e. dependent variables)
+  #As can be seen in clean_df, the dependent variables are (by default) called "infected", "aware_of_infected" and "tests_performed" ...
+  #...therefore the dataframe transformation revolves around pivoting infected:tests_performed 
+  #df_long <- gather(clean_df, variable, measurement, infected:tests_performed)
+  
+  # SPECIFY VARIABLE MEASUREMENT SCALES -----------------------------------------------------
+  ### MANUAL INPUT: in order for ggplot and plotly to work, one must specify the following: ###
+  #-> continuous decimal (floating) variables as 'numeric'
+  #-> continuous integer variables as 'integer'
+  #-> discrete (or categorical) variables as 'factor'
+  
+  #print an overview of variables and their measurement scales
+  #str(df_long)
+  #transform 'measurement' variable to numeric (as to avoid ggplot errors)
+  #df_long$measurement <- as.numeric(df_long$measurement)
+  #round 'measurement' variable to 4 decimals
+  #df_long$measurement <- round(df_long$measurement, 4)
+  #convert categorical variables to factors (as to avoid ggplot errors)
+  #df_long$run_number <- as.factor(df_long$run_number)
+  #df_long$app_user_ratio <- as.factor(df_long$app_user_ratio)
+  #df_long$variable <- as.factor(df_long$variable)
+  #perform some small checks to see whether everything is OK
+  #str(df_long)
+  
+}
 

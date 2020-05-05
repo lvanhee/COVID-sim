@@ -5,127 +5,30 @@ rm(list=ls())
 #MANUAL INPUT (if not working from a script)
 #args <- commandArgs(trailingOnly=TRUE)
 args <- commandArgs(trailingOnly=TRUE)
-args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
+#args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
+args <-"C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
 }
-#args[1]
-
-# #then install packages (NOTE: this only needs to be done once for new users of RStudio!)
-#install.packages("ggplot2")
-#install.packages("plotly")
-#install.packages("tidyr")
-#install.packages("foreach")
-#install.packages("pracma")
-
-#then load relevant libraries
-library(ggplot2)
-library(plotly)
-library(tidyr)
-library(foreach)
-library(pracma)
-library(ggpubr)
-getwd()
-
-### MANUAL INPUT: specify and set working directory ###
-
-"allocating to args"
-
 workdirec <- args
 
 if(substr(workdirec, nchar(workdirec)-1+1, nchar(workdirec)) != '/')
-  {
   workdirec <- paste(workdirec,"/", sep="")
-}
 
-workdirec
-setwd(workdirec)
-# "C://Users//Maarten//Google Drive//Corona-Research//Program//RProgramming"
-functionFileLocation <- paste(workdirec,"behaviorspace_table_output_handling_functions.r", sep="")
-source(functionFileLocation)
-functionFileLocation <- paste(workdirec,"ASSOCC_processing.r", sep="")
-source(functionFileLocation)
+source(paste(workdirec,"ASSOCC_processing.r", sep=""))
 
-filesPath = workdirec
-#temp = list.files(pattern="*.csv")
-#myfiles = lapply(temp, read.delim)
-filesNames <- c("output.csv");
-
-# READ DATA ---------------------------------------------------------------
-
-df <- loadData(filesPath, filesNames)
-df <- df %>% 
-  rename(
-    run_number = X.run.number.,
-    app_user_ratio = ratio.of.people.using.the.tracking.app,
-    tick = X.step.,
-    infected = count.people.with..epistemic.infection.status....infected..
-  # "aware_of_infected", "hospital_admissions","taken_hospital_beds","cumulative_deaths",
-  #  "tests_performed","r0","Isolators","Non_isolators"
-    
-  )
+df<-assocc_processing.init_and_prepare_data(args)
+splitted_by_ratio_anxiety_df <- split(df, df$ratio.of.anxiety.avoidance.tracing.app.users)
+splitted_by_ratio_anxiety_and_ratio_users_df <- split(df, list(df$ratio.of.anxiety.avoidance.tracing.app.users, df$ratio.of.people.using.the.tracking.app))
 
 
-
-# REMOVE INVALID RUNS ---------------------------------------------------------------
-#runs that have a lower amount of maximum infected are seen as invalid and are therefore removed
-#specify the minimum number of infected people for a run to be considered as valid (5 person by default)
-# the next will fail if the number of infected is not in the data as -> count.people.with..is.infected..
-df <- cleanData(df, 1)
-# REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------
-
-#Loop through dataframe and identify variables that do NOT vary (i.e. that are FIXED)
-#Unfixed variables are either independent or dependent and therefore relevant to include in the analysis
-df <- removeVariables(df)
-
-# RENAME VARIABLES ---------------------------------------------------------------
-printColumnNames(df)
-
-### MANUAL INPUT: specify new (easy-to-work-with) variable names ###
-new_variable_names <- list(
-
-)
-clean_df <- df
-
-split(clean_df, clean_df$ratio.of.anxiety.avoidance.tracing.app.users)
-
-splitted_by_ratio_anxiety_df <- split(clean_df, clean_df$ratio.of.anxiety.avoidance.tracing.app.users)
-splitted_by_ratio_anxiety_and_ratio_users_df <- split(clean_df, list(clean_df$ratio.of.anxiety.avoidance.tracing.app.users, clean_df$app_user_ratio))
-
-# TRANSFORM DATAFRAME -----------------------------------------------------
-##Seems to work without... Weird! I believe this is to be atuned for specific plots rather
-##than making it needed to go through
-
-#transform wide dataframe into long format dataframe (in order to make it ggplot compatible)
-### MANUAL INPUT: make sure that you specify which variables are to be considered as metrics (i.e. dependent variables)
-#As can be seen in clean_df, the dependent variables are (by default) called "infected", "aware_of_infected" and "tests_performed" ...
-#...therefore the dataframe transformation revolves around pivoting infected:tests_performed 
-#df_long <- gather(clean_df, variable, measurement, infected:tests_performed)
-
-# SPECIFY VARIABLE MEASUREMENT SCALES -----------------------------------------------------
-### MANUAL INPUT: in order for ggplot and plotly to work, one must specify the following: ###
-#-> continuous decimal (floating) variables as 'numeric'
-#-> continuous integer variables as 'integer'
-#-> discrete (or categorical) variables as 'factor'
-
-#print an overview of variables and their measurement scales
-#str(df_long)
-#transform 'measurement' variable to numeric (as to avoid ggplot errors)
-#df_long$measurement <- as.numeric(df_long$measurement)
-#round 'measurement' variable to 4 decimals
-#df_long$measurement <- round(df_long$measurement, 4)
-#convert categorical variables to factors (as to avoid ggplot errors)
-#df_long$run_number <- as.factor(df_long$run_number)
-#df_long$app_user_ratio <- as.factor(df_long$app_user_ratio)
-#df_long$variable <- as.factor(df_long$variable)
-#perform some small checks to see whether everything is OK
-#str(df_long)
 
 # PLOTTING -----------------------------------------------------
 export_pdf = TRUE;
 if (export_pdf) {
-  pdf(file=paste(filesNames, " Combined plots.pdf", sep=""), width=9, height=6);
+  pdf(file="Combined plots.pdf", width=9, height=6);
 }
+
 
 
 
@@ -136,9 +39,9 @@ foreach(i = splitted_by_ratio_anxiety_df) %do%
     input_variables_to_display = 
       list ("ratio.of.anxiety.avoidance.tracing.app.users")
     
-    xDataName = "tick"
-    yDataName = "infected"
-    linesVarName = "app_user_ratio"
+    xDataName = "X.step."
+    yDataName = "X.infected"
+    linesVarName = "ratio.of.people.using.the.tracking.app"
     local_df = i
 
     print(assocc_processing.plot(
@@ -178,8 +81,9 @@ name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.ap
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
+    print(assocc_processing.plotCompareAlongDifferentY(
+      x_var_name="X.step.",
+                                                       y_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
                                                        df = i))
@@ -200,62 +104,65 @@ list_of_y_variables_to_compare <-
     "X.contacts.in.shared.cars")
 
 name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
-                                          "app_user_ratio")
+                                          "ratio.of.people.using.the.tracking.app")
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#contacts",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+                                                       y_var_name="X.contacts.last.tick",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
                                                        df = i))
     Sys.sleep(1)
   }
-
 
 
 
 list_of_y_variables_to_compare <-
-  c("X.young.infected",
-"X.young.infector",
-"X.student.infected",
-"X.student.infector",
-"X.retired.infected",
-"X.retired.infector",
-"X.worker.infected",
-"X.worker.infector")
+  c("X.cumulative.youngs.infected",
+"X.cumulative.youngs.infector",
+"X.cumulative.students.infected",
+"X.cumulative.students.infector",
+"X.cumulative.workers.infected",
+"X.cumulative.workers.infector",
+"X.cumulative.retireds.infected",
+"X.cumulative.retireds.infector")
 
 name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
-                                          "app_user_ratio")
+                                          "ratio.of.people.using.the.tracking.app")
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+                                                       y_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
                                                        df = i))
     Sys.sleep(1)
   }
 
-if (export_pdf) {
-  dev.off();
-}
-
-
-
-
-
-
-#Visualization of daily hospitalization per age group
-
-export_pdf = TRUE;
-if (export_pdf) {
-  pdf(file=paste(filesNames, " Combined plots.pdf", sep=""), width=9, height=6);
-}
-
 name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
-                                          "app_user_ratio")
+                                          "ratio.of.people.using.the.tracking.app")
+
+list_of_y_variables_to_compare <-
+  c("X.hospitalizations.retired.this.tick",
+    "X.hospitalizations.students.this.tick",
+    "X.hospitalizations.workers.this.tick",
+    "X.hospitalizations.youngs.this.tick")
+
+
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    x_var_name="X.step."
+    y_var_name="X.infected"
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+                                                       y_var_name="X.infected",
+                                                       list_of_y_variables_to_compare,
+                                                       name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       df = i, cumulative = TRUE))
+    Sys.sleep(1)
+  }
 
 list_of_y_variables_to_compare <-
   c("X.hospitalizations.retired.this.tick",
@@ -266,134 +173,144 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+                                                       y_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
                                                        df = i))
     Sys.sleep(1)
   }
 
-list_of_y_variables_to_compare <-
-  c("X.cumu.hospitalisations.retired",
-    "X.cumu.hospitalisations.students",
-    "X.cumu.hospitalisations.workers",
-    "X.cumu.hospitalisations.youngs")
-
-
-foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
-  {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
-                                                       list_of_y_variables_to_compare,
-                                                       name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
-    Sys.sleep(1)
-  }
-
-list_of_y_variables_to_compare <-
-  c("X.cumu.hospitalisations.students",
-    "X.cumulative.students.infected")
-
-foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
-  {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
-                                                       list_of_y_variables_to_compare,
-                                                       name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
-    Sys.sleep(1)
-  }
-
-list_of_y_variables_to_compare <-
-  c("X.cumu.hospitalisations.workers",
-    "X.cumulative.workers.infected")
-
-foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
-  {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
-                                                       list_of_y_variables_to_compare,
-                                                       name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
-    Sys.sleep(1)
-  }
-
-list_of_y_variables_to_compare <-
-  c("X.cumu.hospitalisations.youngs",
-    "X.cumulative.youngs.infected")
-
-foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
-  {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
-                                                       list_of_y_variables_to_compare,
-                                                       name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
-    Sys.sleep(1)
-  }
-
-list_of_y_variables_to_compare <-
-  c("X.cumu.hospitalisations.retired",
-    "X.cumulative.retireds.infected")
-
-foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
-  {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="tick",
-                                                       y_var_name="#infections",
-                                                       list_of_y_variables_to_compare,
-                                                       name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
-    Sys.sleep(1)
-  }
-
-
-if (export_pdf) {
-  dev.off();
-}
+##################################TO BE FIXED BY ADDING ACCUMULATED VALUES HERE##################
+# list_of_y_variables_to_compare <-
+#   c("X.cumu.hospitalisations.students",
+#     "X.cumulative.students.infected")
+# 
+# foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+#   {
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#                                                        y_var_name="X.infected",
+#                                                        list_of_y_variables_to_compare,
+#                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+#                                                        df = i))
+#     Sys.sleep(1)
+#   }
+# 
+# list_of_y_variables_to_compare <-
+#   c("X.cumu.hospitalisations.workers",
+#     "X.cumulative.workers.infected")
+# 
+# foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+#   {
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#                                                        y_var_name="X.infected",
+#                                                        list_of_y_variables_to_compare,
+#                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+#                                                        df = i))
+#     Sys.sleep(1)
+#   }
+# 
+# list_of_y_variables_to_compare <-
+#   c("X.cumu.hospitalisations.youngs",
+#     "X.cumulative.youngs.infected")
+# 
+# foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+#   {
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#                                                        y_var_name="X.infected",
+#                                                        list_of_y_variables_to_compare,
+#                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+#                                                        df = i))
+#     Sys.sleep(1)
+#   }
+# 
+# list_of_y_variables_to_compare <-
+#   c("X.cumu.hospitalisations.retired",
+#     "X.cumulative.retireds.infected")
+# 
+# foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+#   {
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#                                                        y_var_name="X.infected",
+#                                                        list_of_y_variables_to_compare,
+#                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+#                                                        df = i))
+#     Sys.sleep(1)
+#   }
 
 
 
-
-
-
-
-export_pdf = TRUE;
-if (export_pdf) {
-  pdf(file=paste(filesNames, " Combined plots.pdf", sep=""), width=9, height=6);
-}
 
 name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
-                                          "app_user_ratio")
+                                          "ratio.of.people.using.the.tracking.app")
 
 list_of_y_variables_to_compare <-
-  c("ratio.young.contaminated.by.young",
-    "ratio.young.contaminated.by.workers",
-    "ratio.young.contaminated.by.students",
-    "ratio.young.contaminated.by.retireds",
-    "ratio.workers.contaminated.by.young",
-    "ratio.workers.contaminated.by.workers",
-    "ratio.workers.contaminated.by.students",
-    "ratio.workers.contaminated.by.retireds",
-    "ratio.students.contaminated.by.young",
-    "ratio.students.contaminated.by.workers",
-    "ratio.students.contaminated.by.students",
-    "ratio.students.contaminated.by.retireds",
-    "ratio.retireds.contaminated.by.young",
-    "ratio.retireds.contaminated.by.workers",
-    "ratio.retireds.contaminated.by.students",
-    "ratio.retireds.contaminated.by.retireds")
+  c(
+    
+    "ratio.age.group.to.age.group..infections.young.age.young.age",
+    "ratio.age.group.to.age.group..infections.student.age.young.age",
+    "ratio.age.group.to.age.group..infections.worker.age.young.age",
+    "ratio.age.group.to.age.group..infections.retired.age.young.age",
+    "ratio.age.group.to.age.group..infections.young.age.student.age",
+    "ratio.age.group.to.age.group..infections.student.age.student.age",
+    "ratio.age.group.to.age.group..infections.worker.age.student.age",
+    "ratio.age.group.to.age.group..infections.retired.age.student.age",
+    "ratio.age.group.to.age.group..infections.young.age.worker.age",
+    "ratio.age.group.to.age.group..infections.student.age.worker.age",
+    "ratio.age.group.to.age.group..infections.worker.age.worker.age",
+    "ratio.age.group.to.age.group..infections.retired.age.worker.age",
+    "ratio.age.group.to.age.group..infections.young.age.retired.age",
+    "ratio.age.group.to.age.group..infections.student.age.retired.age",
+    "ratio.age.group.to.age.group..infections.worker.age.retired.age",
+    "ratio.age.group.to.age.group..infections.retired.age.retired.age"
+    )
+
 
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="tick",
-                                                       y_var_name="#infections",
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
+                                                       y_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
                                                        df = i))
     Sys.sleep(1)
   }
+
+list_of_y_variables_to_compare <-
+  c(
+    
+    "age.group.to.age.group..contacts.young.age.young.age",
+    "age.group.to.age.group..contacts.student.age.young.age",
+    "age.group.to.age.group..contacts.worker.age.young.age",
+    "age.group.to.age.group..contacts.retired.age.young.age",
+    "age.group.to.age.group..contacts.young.age.student.age",
+    "age.group.to.age.group..contacts.student.age.student.age",
+    "age.group.to.age.group..contacts.worker.age.student.age",
+    "age.group.to.age.group..contacts.retired.age.student.age",
+    "age.group.to.age.group..contacts.young.age.worker.age",
+    "age.group.to.age.group..contacts.student.age.worker.age",
+    "age.group.to.age.group..contacts.worker.age.worker.age",
+    "age.group.to.age.group..contacts.retired.age.worker.age",
+    "age.group.to.age.group..contacts.young.age.retired.age",
+    "age.group.to.age.group..contacts.student.age.retired.age",
+    "age.group.to.age.group..contacts.worker.age.retired.age",
+    "age.group.to.age.group..contacts.retired.age.retired.age"
+  )
+
+
+
+foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
+  {
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
+                                                              y_var_name="number of contacts",
+                                                              list_of_y_variables_to_compare,
+                                                              name_independent_variables_to_display = name_independent_variables_to_display,
+                                                              df = i))
+    Sys.sleep(1)
+  }
+
+
 
 
 if (export_pdf) {
@@ -402,7 +319,7 @@ if (export_pdf) {
 
 
 #line plot
-#ggplot(data = clean_df, mapping = aes(x = tick, y = infected, group = run_number)) + 
+#ggplot(data = df, mapping = aes(x = tick, y = infected, group = run_number)) + 
 #  scale_colour_gradient(low = "red", high = "red4") +
 #  geom_line(size=1,alpha=1,aes(color=app_user_ratio)) + 
 #  xlab("x-label") +
@@ -435,18 +352,18 @@ if (export_pdf) {
 # 
 # 
 # 
-# clean_df$app_user_ratio <- as.factor(clean_df$app_user_ratio)
+# df$app_user_ratio <- as.factor(df$app_user_ratio)
 # 
 # 
 # 
 # r_str = "(r=PUT NUMBER OF RUNS)"
-# p <- ggplot(data=clean_df, aes(x=tick, y=infected, fill=app_user_ratio))
+# p <- ggplot(data=df, aes(x=tick, y=infected, fill=app_user_ratio))
 # p + geom_smooth(aes(colour=app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5,se=TRUE, fullrange=FALSE, level=0.95,  span = 0.1)
 # 
 # #) +
 # 
 # colors <- c("red", "red3", "red4", "gray10")
-# p <- ggplot(data=clean_df, aes(x=tick, y=infected, fill=app_user_ratio))
+# p <- ggplot(data=df, aes(x=tick, y=infected, fill=app_user_ratio))
 # p + geom_smooth(aes(colour=app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5,se=TRUE, fullrange=FALSE, level=0.95,  span = 0.1) +
 #   scale_fill_manual(values=colors) +
 #   scale_colour_manual(values=colors) +
@@ -471,7 +388,7 @@ if (export_pdf) {
 # stop("R-Script Completed!", call.=TRUE)
 # 
 # #infected plot with trendline
-# ggplot(clean_df, aes(x=tick, y=infected, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=infected, fill=app_user_ratio)) +
 #   # geom_point(size = 1, alpha = 0) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
@@ -491,7 +408,7 @@ if (export_pdf) {
 # 
 # colors <- c("orange", "orange3", "orange4", "gray10")
 # #aware_of_infected plot with trendline
-# ggplot(clean_df, aes(x=tick, y=aware_of_infected, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=aware_of_infected, fill=app_user_ratio)) +
 #   # geom_point(size = 1, alpha = 0) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
@@ -510,7 +427,7 @@ if (export_pdf) {
 # 
 # colors <- c("pink", "pink3", "pink4", "gray10")
 # #hospital_admissions plot with trendline
-# ggplot(clean_df, aes(x=tick, y=hospital_admissions, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=hospital_admissions, fill=app_user_ratio)) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
 #   scale_fill_manual(values=colors) +
@@ -528,7 +445,7 @@ if (export_pdf) {
 # 
 # colors <- c("purple", "purple3", "purple4", "gray10")
 # #taken_hospital_beds plot with trendline
-# ggplot(clean_df, aes(x=tick, y=taken_hospital_beds, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=taken_hospital_beds, fill=app_user_ratio)) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
 #   scale_fill_manual(values=colors) +
@@ -546,7 +463,7 @@ if (export_pdf) {
 # 
 # colors <- c("gray90", "gray50", "gray25", "gray0")
 # #cumulative_deaths plot with trendline
-# ggplot(clean_df, aes(x=tick, y=cumulative_deaths, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=cumulative_deaths, fill=app_user_ratio)) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
 #   scale_fill_manual(values=colors) +
@@ -564,7 +481,7 @@ if (export_pdf) {
 # 
 # colors <- c("cadetblue","cadetblue3", "cadetblue4", "gray10")
 # #tests_performed plot with trendline
-# ggplot(clean_df, aes(x=tick, y=tests_performed, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=tests_performed, fill=app_user_ratio)) +
 #   # geom_point(size = 1, alpha = 0) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
@@ -584,7 +501,7 @@ if (export_pdf) {
 # 
 # colors <- c("red","red3", "red4", "gray10")
 # #infected plot with trendline
-# ggplot(clean_df, aes(x=tick, y=r0, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=r0, fill=app_user_ratio)) +
 #   # geom_point(size = 1, alpha = 0) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
@@ -603,7 +520,7 @@ if (export_pdf) {
 # 
 # colors <- c("green","green3", "green4", "gray10")
 # #infected plot with trendline
-# ggplot(clean_df, aes(x=tick, y=Isolators, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=Isolators, fill=app_user_ratio)) +
 #   # geom_point(size = 1, alpha = 0) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
@@ -622,7 +539,7 @@ if (export_pdf) {
 # 
 # colors <- c("olivedrab","olivedrab3", "olivedrab4", "gray10")
 # #infected plot with trendline
-# ggplot(clean_df, aes(x=tick, y=Non_isolators, fill=app_user_ratio)) +
+# ggplot(df, aes(x=tick, y=Non_isolators, fill=app_user_ratio)) +
 #   # geom_point(size = 1, alpha = 0) +
 #   #geom_line(size=0.75,alpha=0.35,aes(group=run_number, color=app_user_ratio, linetype=app_user_ratio)) +
 #   geom_smooth(aes(color = app_user_ratio, linetype=app_user_ratio),method="loess",size=1.5, span = 0.1, se=TRUE, fullrange=FALSE, level=0.95) +
