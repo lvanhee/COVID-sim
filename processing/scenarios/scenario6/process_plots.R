@@ -6,7 +6,7 @@ rm(list=ls())
 #args <- commandArgs(trailingOnly=TRUE)
 args <- commandArgs(trailingOnly=TRUE)
 #args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
-args <-"C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+args <-"D:/absoluteNewCVOID/COVID-sim/processing/scenarios/scenario6"
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
 }

@@ -296,30 +296,64 @@ assocc_processing.plotCompareAlongDifferentY_matrix <- function(x_var_name,
  
   figure <- ggarrange(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, ncol = 4, nrow = 4)
   
-  firstRound <-TRUE
-  parametersString <- ""
-  foreach(name = name_independent_variables_to_display) %do% 
-    {
-      
-      number_occurrences <- length(table(df[[name]][1]))
-      if(number_occurrences > 1)
-        stop(paste("Wrong number of occurrences for",name))
-      value_of_occurrence <- names(table(df[[name]][1]))[1]
-      if(firstRound){firstRound = FALSE}
-      else
-        parametersString <- paste(parametersString,", ", sep = "")
-      
-      parametersString <- paste(parametersString,assocc_processing.get_display_name(name),
-                                ": ", value_of_occurrence, sep = "")
-    }
- 
- annotate_figure(figure,
-                 top = text_grob(parametersString, color = "red", face = "bold", size = 14),
-                 bottom = text_grob("Agent-based Social Simulation of Corona Crisis (ASSOCC)", color = "blue",
-                                    hjust = 1, x = 1, face = "italic", size = 10)
- )
+  
 }
 
+#Stacked bar plot#####################################################################
+loop.vector <- c(1:9)
+
+for (i in loop.vector){
+  run1df <- subset(df, X.run.number. == i)
+  young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.retired.age))
+  students <- c(sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.retired.age))
+  workers <- c(sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.workers.age.retired.age))
+  retired <- c(sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.retired.age))
+  rowNames <- c("young", "students", "workers", "retired")
+  
+  toPlotdf <- data.frame(young, students, workers, retired, row.names = rowNames)
+  
+  toPlotdf$age <-rowNames
+  
+  library(reshape2)
+  toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
+  names(toPlotdfLong)[2] <-paste("age_group") 
+  
+  ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = age)) + 
+    geom_bar(position="stack", stat="identity")
+  
+}
+
+
+
+
+
+
+
+
+
+#######################################################################################
+firstRound <-TRUE
+parametersString <- ""
+foreach(name = name_independent_variables_to_display) %do% 
+  {
+    
+    number_occurrences <- length(table(df[[name]][1]))
+    if(number_occurrences > 1)
+      stop(paste("Wrong number of occurrences for",name))
+    value_of_occurrence <- names(table(df[[name]][1]))[1]
+    if(firstRound){firstRound = FALSE}
+    else
+      parametersString <- paste(parametersString,", ", sep = "")
+    
+    parametersString <- paste(parametersString,assocc_processing.get_display_name(name),
+                              ": ", value_of_occurrence, sep = "")
+  }
+
+annotate_figure(figure,
+                top = text_grob(parametersString, color = "red", face = "bold", size = 14),
+                bottom = text_grob("Agent-based Social Simulation of Corona Crisis (ASSOCC)", color = "blue",
+                                   hjust = 1, x = 1, face = "italic", size = 10)
+)
 assocc_processing.get_title <- function(
   x_var_name, y_var_name, name_independent_variables_to_display,
   df, cumulative
