@@ -864,20 +864,20 @@ count houses-hosting-multiple-generations
 11
 
 TEXTBOX
-2960
-306
-3115
-346
+3039
+355
+3194
+395
 Migration model
 14
 35.0
 1
 
 SLIDER
-2950
-340
-3224
-373
+3029
+389
+3303
+422
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -889,10 +889,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3236
-382
-3533
-415
+3315
+431
+3612
+464
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -904,10 +904,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-3099
-300
-3211
-333
+3178
+349
+3290
+382
 migration?
 migration?
 1
@@ -1764,10 +1764,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2950
-380
-3225
-413
+3029
+429
+3304
+462
 probability-going-abroad
 probability-going-abroad
 0
@@ -2069,10 +2069,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2364
-484
-2589
-517
+2365
+399
+2590
+432
 mean-social-distance-profile
 mean-social-distance-profile
 0
@@ -2216,10 +2216,10 @@ NIL
 11
 
 SLIDER
-2597
-484
-2855
-517
+2598
+399
+2856
+432
 std-dev-social-distance-profile
 std-dev-social-distance-profile
 0
@@ -2594,10 +2594,10 @@ NIL
 CHOOSER
 2360
 35
-2510
+2577
 80
-set_national_culture
-set_national_culture
+load-country-specific-settings
+load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
 4
 
@@ -2632,10 +2632,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2365
-153
-2537
-186
+2366
+149
+2538
+182
 power-distance
 power-distance
 0
@@ -2647,10 +2647,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2547
-157
-2736
-190
+2546
+148
+2735
+181
 indulgence-vs-restraint
 indulgence-vs-restraint
 0
@@ -2662,10 +2662,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2365
-202
-2539
-235
+2363
+186
+2537
+219
 masculinity-vs-femininity
 masculinity-vs-femininity
 0
@@ -2677,10 +2677,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2550
-202
-2736
-235
+2548
+186
+2734
+219
 long-vs-short-termism
 long-vs-short-termism
 0
@@ -2692,40 +2692,40 @@ NIL
 HORIZONTAL
 
 SLIDER
-2599
-267
-2722
-300
+3001
+65
+3124
+98
 value-std-dev
 value-std-dev
 0
-20
-10.0
+10
+5.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2367
-268
-2590
-301
+2772
+64
+2995
+97
 value-system-calibration-factor
 value-system-calibration-factor
 0
 40
-25.0
+30.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2365
-336
-2537
-369
+2366
+251
+2538
+284
 survival-multiplier
 survival-multiplier
 0
@@ -2737,10 +2737,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2547
-336
-2719
-369
+2548
+251
+2720
+284
 maslow-multiplier
 maslow-multiplier
 0
@@ -2752,20 +2752,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2362
-13
-2483
-37
-Cultural Model
+2364
+10
+2809
+39
+Country-Specific Features Model: Culture, Values, Needs
 14
 83.0
 1
 
 SLIDER
-3233
-343
-3541
-376
+3312
+392
+3620
+425
 owning-solo-transportation-probability
 owning-solo-transportation-probability
 0
@@ -2902,10 +2902,10 @@ NIL
 1
 
 SLIDER
-2365
-376
-2538
-409
+2366
+291
+2539
+324
 weight-survival-needs
 weight-survival-needs
 0
@@ -2927,20 +2927,20 @@ Hofstede dimension settings
 1
 
 TEXTBOX
-2367
-248
-2564
-278
+2772
+44
+2969
+74
 Agent value system settings
 11
 83.0
 1
 
 TEXTBOX
-2370
-313
-2560
-331
+2371
+230
+2561
+248
 Agent need system settings
 11
 83.0
@@ -2958,30 +2958,30 @@ INPUTBOX
 Number
 
 CHOOSER
-2794
-63
-2996
-108
+3246
+77
+3448
+122
 network-generation-method
 network-generation-method
 "random" "value-similarity"
 1
 
 TEXTBOX
-2798
-27
-2986
-65
+3250
+41
+3438
+79
 Social Network Model
 14
 115.0
 1
 
 SLIDER
-2794
-113
-3038
-146
+3246
+127
+3490
+160
 peer-group-friend-links
 peer-group-friend-links
 1
@@ -3008,10 +3008,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2794
-154
-3082
-187
+3246
+168
+3534
+201
 percentage-of-agents-with-random-link
 percentage-of-agents-with-random-link
 0
@@ -3038,10 +3038,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-2796
-198
-2953
-231
+3248
+212
+3405
+245
 Write network as dot
 write-network-to-file user-new-file
 NIL
@@ -3109,10 +3109,10 @@ PENS
 "government-sector" 1.0 0 -5825686 true "" "plot total-capital-government-sector"
 
 TEXTBOX
-2370
-425
-2642
-455
+2371
+340
+2643
+370
 Agent social distancing settings
 11
 83.0
@@ -3230,10 +3230,10 @@ Tracing (smartphone app)
 1
 
 SWITCH
-2365
-444
-2689
-477
+2366
+359
+2690
+392
 make-social-distance-profile-value-based?
 make-social-distance-profile-value-based?
 0
@@ -3826,10 +3826,10 @@ log-setup?
 -1000
 
 SLIDER
-2547
-377
-2719
-410
+2548
+292
+2720
+325
 financial-safety-learning-rate
 financial-safety-learning-rate
 0
@@ -3988,6 +3988,66 @@ keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 0
 1
 -1000
+
+SLIDER
+2772
+105
+3005
+138
+influence-of-age-on-value-system
+influence-of-age-on-value-system
+0
+25
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2772
+145
+3066
+178
+influence-of-comorbidity-on-value-system
+influence-of-comorbidity-on-value-system
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2772
+186
+3065
+219
+influence-of-gender-on-value-system
+influence-of-gender-on-value-system
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2772
+226
+3114
+259
+strength-of-link-between-agent-values-and-wealth
+strength-of-link-between-agent-values-and-wealth
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -89,7 +89,7 @@ people-own [
   importance-given-to-achievement-value
   
   ;IMPORTANCE of BELONGING needs
-  ;*** NOTE: the belonging only contains 1x subneed (subneeds will be added to this category at a later stage) ***
+  ;*** NOTE: the belonging only contains 1x subneed (more subneeds might be added to this category at a later stage) ***
   importance-weight-belonging-subneed
 
   ;IMPORTANCE of SURVIVAL needs
@@ -147,16 +147,9 @@ people-own [
   my-current-income
   my-expected-income
   
-  ;FOR STANDARD (i.e. NON-CULTURAL) NEEDS MODEL:
-  importance-weight-safety 
-  importance-weight-self-esteem 
-  importance-weight-belonging  
-  importance-weight-survival
-  
+  ;Other variables
   number-of-people-I-infected
-  
   #days-I-should-remain-in-self-quarantining
-  
   events-to-process
 ]
 
