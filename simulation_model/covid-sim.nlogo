@@ -1053,7 +1053,7 @@ SWITCH
 58
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1088,7 +1088,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.432
 0.01
 1
 NIL
@@ -1166,7 +1166,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.272
 0.01
 1
 NIL
@@ -1181,7 +1181,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.276
 0.01
 1
 NIL
@@ -1196,7 +1196,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.02
 0.01
 1
 NIL
@@ -1442,7 +1442,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+8
 
 SLIDER
 2149
@@ -2160,10 +2160,10 @@ NIL
 11
 
 MONITOR
-1199
-2002
-1374
-2047
+1200
+2000
+1314
+2045
 NIL
 #non-essential-shop-workers
 17
@@ -2403,7 +2403,7 @@ ratio-workers-and-retired-owning-cars
 ratio-workers-and-retired-owning-cars
 0
 1
-0.478
+0.494
 0.01
 1
 NIL
@@ -2553,7 +2553,7 @@ CHOOSER
 set_national_culture
 set_national_culture
 "Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+8
 
 SLIDER
 2364
@@ -2564,7 +2564,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-35.0
+53.0
 1
 1
 NIL
@@ -2579,7 +2579,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-89.0
+80.0
 1
 1
 NIL
@@ -2594,7 +2594,7 @@ power-distance
 power-distance
 0
 100
-35.0
+38.0
 1
 1
 NIL
@@ -2609,7 +2609,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-69.0
+68.0
 1
 1
 NIL
@@ -2624,7 +2624,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-66.0
+14.0
 1
 1
 NIL
@@ -2639,7 +2639,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-51.0
+67.0
 1
 1
 NIL
@@ -3466,10 +3466,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1065
-2005
-1195
-2050
+1063
+2159
+1193
+2204
 NIL
 #public-transport-workers
 17
@@ -3943,13 +3943,13 @@ CHOOSER
 Transport-parameters-of
 Transport-parameters-of
 "Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+8
 
 MONITOR
-1207
-2006
-1308
-2051
+1200
+2163
+1301
+2208
 NIL
 #shared-cars-workers
 17
@@ -3962,7 +3962,7 @@ INPUTBOX
 2941
 1255
 #bus-per-timeslot
-3.0
+100.0
 1
 0
 Number
