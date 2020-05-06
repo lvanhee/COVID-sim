@@ -437,26 +437,26 @@ end
 
 to load-default-economic-parameters
   set productivity-at-home 1
-  set workers-wages 10
-  set price-of-rations-in-essential-shops 2.2
-  set price-of-rations-in-non-essential-shops 2.2
+  set workers-wages 9
+  set price-of-rations-in-essential-shops 2.8
+  set price-of-rations-in-non-essential-shops 2.68
   set days-of-rations-bought 3
   set ratio-tax-on-essential-shops 0.52
   set ratio-tax-on-non-essential-shops 0.52
   set ratio-tax-on-workplaces 0.55
-  set ratio-tax-on-workers 0.41
+  set ratio-tax-on-workers 0.37
   set goods-produced-by-work-performed 12
-  set unit-price-of-goods 1.7
+  set unit-price-of-goods 2.5
   set max-stock-of-goods-in-a-shop 500
   set starting-amount-of-capital-workers 75
   set starting-amount-of-capital-retired 40
   set starting-amount-of-capital-students 30
   
   set ratio-school-subsidy 0.03
-  set ratio-hospital-subsidy 0.21
+  set ratio-hospital-subsidy 0.04
   set ratio-university-subsidy 0.03
-  set ratio-retirees-subsidy 0.34
-  set ratio-students-subsidy 0.34
+  set ratio-retirees-subsidy 0.73
+  set ratio-students-subsidy 0.24
   
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8
