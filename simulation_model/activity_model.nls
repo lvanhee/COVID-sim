@@ -167,6 +167,14 @@ to-report #workers-working-at-school
   report count workers with [is-working? and [gathering-type] of my-work = "school"]
 end
 
+to-report #workers-working-at-public-transport
+  report count workers with [is-working? and [gathering-type] of my-work = "public-transport"]
+end
+
+to-report #workers-working-at-shared-cars
+  report count workers with [is-working? and [gathering-type] of my-work = "shared-cars"]
+end
+
 to-report follow-person-in-charge-motive
   report "follow person in charge"
 end
