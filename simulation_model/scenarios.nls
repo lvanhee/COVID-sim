@@ -479,7 +479,7 @@ to load-population-profile-based-on-current-preset-profile
   ]
   
  let country-specific-data-list []
-    file-open "country-specific-data.csv"
+    file-open "country_specific_features/country-specific-data.csv"
   
 
   while [not file-at-end? ] [
@@ -498,7 +498,7 @@ to load-population-profile-based-on-current-preset-profile
     if first mylist = household-profiles [
       set country-specific-data-list but-first mylist ]
   ]
-  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" household-profiles)]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data.csv file" household-profiles)]
   file-close
   
   set ratio-adults-homes first country-specific-data-list
