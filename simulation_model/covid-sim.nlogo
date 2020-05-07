@@ -114,10 +114,10 @@ NIL
 1
 
 SLIDER
-1577
-23
-1771
-56
+1679
+73
+1873
+106
 propagation-risk
 propagation-risk
 0
@@ -154,20 +154,20 @@ PENS
 "Healthy" 1.0 0 -12087248 true "" "plot count people with [infection-status = \"healthy\" or infection-status = \"immune\"]"
 
 TEXTBOX
-559
-699
-709
-717
+565
+689
+843
+735
 Proxemics model
-14
+16
 125.0
 1
 
 INPUTBOX
-833
-795
-922
-855
+829
+805
+918
+865
 #schools-gp
 12.0
 1
@@ -175,10 +175,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-919
-795
-1012
-855
+916
+805
+1009
+865
 #universities-gp
 40.0
 1
@@ -186,10 +186,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-1012
-795
-1105
-855
+1008
+805
+1101
+865
 #workplaces-gp
 40.0
 1
@@ -197,20 +197,20 @@ INPUTBOX
 Number
 
 TEXTBOX
-743
-769
-1496
-789
+739
+779
+1492
+799
 Number of units per activity type (sharing a unit incurs a transmission risk: due to contact)
 11
 125.0
 1
 
 INPUTBOX
-1103
-795
-1218
-855
+1099
+805
+1214
+865
 #public-leisure-gp
 4.0
 1
@@ -218,25 +218,15 @@ INPUTBOX
 Number
 
 INPUTBOX
-1219
-795
-1337
-855
+1216
+805
+1334
+865
 #private-leisure-gp
 40.0
 1
 0
 Number
-
-TEXTBOX
-559
-726
-1508
-769
-Proxemics is represented as \"meeting spaces\" people can move into and be infected or spread infection.\nAs simplifications: each person relates to a fix set of spaces over time (same school, bus, bar) and gets in contact with everyone sharing this space; no contamination due to left germs.
-10
-125.0
-1
 
 TEXTBOX
 682
@@ -249,10 +239,10 @@ Age model
 1
 
 SLIDER
-832
-859
-924
-892
+828
+869
+920
+902
 density-factor-schools
 density-factor-schools
 0
@@ -264,10 +254,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-922
-859
-1014
-892
+918
+869
+1010
+902
 density-factor-universities
 density-factor-universities
 0
@@ -279,10 +269,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1013
-859
-1105
-892
+1009
+869
+1101
+902
 density-factor-workplaces
 density-factor-workplaces
 0
@@ -294,10 +284,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1109
-859
-1221
-892
+1106
+869
+1218
+902
 density-factor-public-leisure
 density-factor-public-leisure
 0
@@ -309,10 +299,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1223
-860
-1338
-893
+1219
+869
+1334
+902
 density-factor-private-leisure
 density-factor-private-leisure
 0
@@ -324,10 +314,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-556
-858
-731
-891
+553
+868
+728
+901
 density-factor-homes
 density-factor-homes
 0
@@ -339,20 +329,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1845
-785
-2153
-831
+2240
+842
+2548
+888
 Measures (Interventions) Model
 16
 105.0
 1
 
 CHOOSER
-2473
-985
-2688
-1030
+2822
+1023
+3037
+1068
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
@@ -382,10 +372,10 @@ PENS
 "kids@home" 1.0 0 -10899396 true "" "plot count children with [is-at-home?] / count children"
 
 MONITOR
-928
-992
-1046
-1037
+1189
+1008
+1307
+1053
 NIL
 day-of-the-week
 17
@@ -393,10 +383,10 @@ day-of-the-week
 11
 
 MONITOR
-1046
-992
-1162
-1037
+1189
+1063
+1305
+1108
 NIL
 slice-of-the-day
 17
@@ -404,10 +394,10 @@ slice-of-the-day
 11
 
 INPUTBOX
-1335
-795
-1454
-855
+1332
+805
+1451
+865
 #essential-shops-gp
 20.0
 1
@@ -415,10 +405,10 @@ INPUTBOX
 Number
 
 SLIDER
-1340
-860
-1459
-893
+1336
+869
+1455
+902
 density-factor-essential-shops
 density-factor-essential-shops
 0
@@ -430,10 +420,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1460
-860
-1585
-893
+1456
+869
+1581
+902
 density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
@@ -445,10 +435,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1453
-795
-1582
-855
+1449
+805
+1578
+865
 #non-essential-shops-gp
 40.0
 1
@@ -456,10 +446,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-739
-795
-835
-855
+736
+805
+832
+865
 #hospital-gp
 4.0
 1
@@ -467,10 +457,10 @@ INPUTBOX
 Number
 
 SLIDER
-739
-859
-834
-892
+736
+869
+831
+902
 density-factor-hospital
 density-factor-hospital
 0
@@ -542,10 +532,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1957
-1084
-2227
-1117
+2283
+1135
+2553
+1168
 closed-workplaces?
 closed-workplaces?
 1
@@ -553,10 +543,10 @@ closed-workplaces?
 -1000
 
 SWITCH
-2235
-983
-2457
-1016
+2583
+1022
+2805
+1055
 closed-universities?
 closed-universities?
 1
@@ -575,10 +565,10 @@ animate?
 -1000
 
 MONITOR
-559
-988
-651
-1033
+549
+993
+666
+1038
 NIL
 #dead-people
 17
@@ -586,10 +576,10 @@ NIL
 11
 
 MONITOR
-662
-991
-754
-1036
+673
+992
+776
+1037
 NIL
 #dead-retired
 17
@@ -625,30 +615,30 @@ log?
 -1000
 
 TEXTBOX
-1254
-32
-1421
-59
+1765
+31
+1932
+58
 Disease Model
-14
+16
 15.0
 1
 
 TEXTBOX
-1233
-70
-1527
-103
+1246
+98
+1540
+131
 Time between transitions
 11
 15.0
 1
 
 INPUTBOX
-1199
-92
-1442
-152
+1212
+121
+1455
+181
 infection-to-asymptomatic-contagiousness
 8.0
 1
@@ -656,10 +646,10 @@ infection-to-asymptomatic-contagiousness
 Number
 
 INPUTBOX
-1447
-93
-1784
-153
+1459
+122
+1796
+182
 asympomatic-contagiousness-to-symptomatic-contagiousness
 16.0
 1
@@ -667,10 +657,10 @@ asympomatic-contagiousness-to-symptomatic-contagiousness
 Number
 
 INPUTBOX
-1787
-92
-1974
-152
+1799
+121
+1986
+181
 symptomatic-to-critical-or-heal
 7.0
 1
@@ -678,10 +668,10 @@ symptomatic-to-critical-or-heal
 Number
 
 INPUTBOX
-1982
-93
-2094
-153
+1995
+122
+2107
+182
 critical-to-terminal
 2.0
 1
@@ -689,10 +679,10 @@ critical-to-terminal
 Number
 
 INPUTBOX
-2104
-92
-2223
-152
+2116
+121
+2235
+181
 terminal-to-death
 7.0
 1
@@ -700,55 +690,55 @@ terminal-to-death
 Number
 
 SLIDER
-2008
-199
-2253
+1400
+393
+1645
+426
+probability-unavoidable-death
+probability-unavoidable-death
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1403
+189
+1668
+222
+probability-self-recovery-symptoms
+probability-self-recovery-symptoms
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1402
+309
+1671
+342
+probability-recorvery-if-treated
+probability-recorvery-if-treated
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1402
 232
-probability-unavoidable-death
-probability-unavoidable-death
-0
-1
-0.1
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1378
-159
-1643
-192
-probability-self-recovery-symptoms
-probability-self-recovery-symptoms
-0
-1
-0.6
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1735
-200
-2004
-233
-probability-recorvery-if-treated
-probability-recorvery-if-treated
-0
-1
-0.1
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1377
-202
-1730
-235
+1755
+265
 probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
@@ -760,10 +750,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1735
-238
-2008
-271
+1402
+352
+1675
+385
 probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
@@ -775,10 +765,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2012
-238
-2275
-271
+1399
+433
+1662
+466
 probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
@@ -790,32 +780,22 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1658
-162
-2130
-219
-Probabilities of each line should be <1\nExtra probability counts as \"recovery without symptoms\"
-11
-15.0
-1
-
-TEXTBOX
 547
 13
 779
 53
 Simulation management
-14
+16
 0.0
 1
 
 TEXTBOX
-588
-358
-796
-396
+589
+346
+797
+384
 Demographics Model
-14
+16
 53.0
 1
 
@@ -853,10 +833,10 @@ count houses-hosting-family
 11
 
 MONITOR
-1138
-420
-1313
-465
+1142
+422
+1317
+467
 Multi-generational living
 count houses-hosting-multiple-generations
 17
@@ -864,20 +844,20 @@ count houses-hosting-multiple-generations
 11
 
 TEXTBOX
-2960
-306
-3115
-346
+3423
+958
+3578
+998
 Migration model
-14
+16
 35.0
 1
 
 SLIDER
-2950
-340
-3224
-373
+3450
+996
+3724
+1029
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -889,10 +869,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3236
-382
-3533
-415
+3735
+1038
+4032
+1071
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -904,10 +884,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-3099
-300
-3211
-333
+3599
+956
+3711
+989
 migration?
 migration?
 1
@@ -915,10 +895,10 @@ migration?
 -1000
 
 SLIDER
-3293
-756
-3537
-789
+3689
+732
+3933
+765
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1047,10 +1027,10 @@ count people with [[gathering-type] of current-activity = \"non-essential-shop\"
 11
 
 SWITCH
-1423
-25
-1562
-58
+1526
+75
+1665
+108
 with-infected?
 with-infected?
 0
@@ -1058,10 +1038,10 @@ with-infected?
 -1000
 
 MONITOR
-1715
-1130
-1941
-1175
+2042
+1180
+2268
+1225
 NIL
 closed-schools?
 17
@@ -1069,10 +1049,10 @@ closed-schools?
 11
 
 SWITCH
-1717
-1090
-1939
-1123
+2043
+1140
+2265
+1173
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1095,10 +1075,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1717
-988
-1945
-1021
+2043
+1039
+2271
+1072
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1110,10 +1090,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1717
-1025
-1943
-1086
+2043
+1076
+2269
+1137
 #days-trigger-school-closing-measure
 10000.0
 1
@@ -1121,10 +1101,10 @@ INPUTBOX
 Number
 
 SLIDER
-1957
-983
-2225
-1016
+2283
+1035
+2551
+1068
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
@@ -1136,10 +1116,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1959
-1020
-2228
-1081
+2286
+1070
+2555
+1131
 #days-trigger-non-essential-business-closing-measure
 10000.0
 1
@@ -1147,10 +1127,10 @@ INPUTBOX
 Number
 
 MONITOR
-1957
-1124
-2230
-1169
+2283
+1175
+2556
+1220
 NIL
 closed-non-essential?
 17
@@ -1203,10 +1183,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1377
-240
-1731
-273
+1402
+269
+1756
+302
 factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
@@ -1445,10 +1425,10 @@ household-profiles
 0
 
 SLIDER
-2149
-642
-2436
-675
+2548
+686
+2835
+719
 ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
@@ -1460,10 +1440,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-2148
-717
-2438
-750
+2546
+760
+2836
+793
 test-workplace-of-confirmed-people?
 test-workplace-of-confirmed-people?
 1
@@ -1471,10 +1451,10 @@ test-workplace-of-confirmed-people?
 -1000
 
 SWITCH
-2148
-679
-2437
-712
+2546
+723
+2835
+756
 test-home-of-confirmed-people?
 test-home-of-confirmed-people?
 1
@@ -1482,10 +1462,10 @@ test-home-of-confirmed-people?
 -1000
 
 TEXTBOX
-2264
-612
-2414
-630
+2662
+656
+2812
+674
 Testing
 11
 105.0
@@ -1622,30 +1602,30 @@ count retireds
 11
 
 TEXTBOX
-1797
-963
-1947
-981
+2123
+1015
+2273
+1033
 Closing schools\n
 11
 105.0
 1
 
 TEXTBOX
-2037
-958
-2187
-976
+2363
+1009
+2513
+1027
 Closing workplaces
 11
 105.0
 1
 
 TEXTBOX
-2305
-959
-2455
-977
+2653
+998
+2803
+1016
 Closing universities
 11
 105.0
@@ -1662,16 +1642,6 @@ Worker distribution (relevant for economic model)
 1
 
 TEXTBOX
-1233
-167
-1368
-210
-Distribution of disease evolution
-11
-15.0
-1
-
-TEXTBOX
 563
 788
 723
@@ -1682,40 +1652,40 @@ Density factors:\nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-3293
-708
-3548
-763
+3689
+683
+3944
+738
 Density settings influence risk of becoming sick when travelling locally (is related with contagion model)
 11
 65.0
 1
 
 TEXTBOX
-2458
-794
-2633
-825
+2856
+838
+3031
+869
 All people at home are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2457
-833
-2639
-862
+2855
+878
+3037
+907
 All people at work are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2495
-960
-2690
-988
+2843
+998
+3038
+1026
 General Lockdown Measures
 11
 105.0
@@ -1725,9 +1695,9 @@ TEXTBOX
 560
 1165
 710
-1183
+1191
 Economic Model
-14
+16
 25.0
 1
 
@@ -1764,10 +1734,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2950
-380
-3225
-413
+3450
+1036
+3725
+1069
 probability-going-abroad
 probability-going-abroad
 0
@@ -1779,10 +1749,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1036
-1095
-1093
-1140
+1084
+995
+1141
+1040
 #away
 count people with [is-away?]
 17
@@ -1790,10 +1760,10 @@ count people with [is-away?]
 11
 
 MONITOR
-766
-992
-909
-1037
+788
+995
+1068
+1040
 NIL
 #who-became-sick-while-travelling-locally
 17
@@ -1898,10 +1868,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2264
-1175
-2703
-1208
+2612
+1213
+3051
+1246
 probably-contagion-mitigation-from-social-distancing
 probably-contagion-mitigation-from-social-distancing
 0
@@ -1913,20 +1883,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2417
-1112
-2567
-1130
+2765
+1150
+2915
+1168
 Social distancing
 11
 105.0
 1
 
 SLIDER
-2265
-1139
-2700
-1172
+2613
+1178
+3048
+1211
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
@@ -1938,10 +1908,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2267
-1215
-2519
-1260
+2615
+1253
+2867
+1298
 NIL
 is-social-distancing-measure-active?
 17
@@ -2069,10 +2039,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2364
-484
-2589
-517
+2817
+425
+3042
+458
 mean-social-distance-profile
 mean-social-distance-profile
 0
@@ -2106,10 +2076,10 @@ count people
 11
 
 INPUTBOX
-1375
-288
-1570
-348
+2248
+42
+2443
+102
 #beds-in-hospital
 2000.0
 1
@@ -2117,9 +2087,9 @@ INPUTBOX
 Number
 
 MONITOR
-559
+549
 943
-652
+774
 988
 NIL
 #people-saved-by-hospitalization
@@ -2161,9 +2131,9 @@ NIL
 11
 
 MONITOR
-662
+782
 943
-752
+1020
 988
 NIL
 #denied-requests-for-hospital-beds
@@ -2194,10 +2164,10 @@ NIL
 11
 
 MONITOR
-765
-941
-913
-986
+1030
+942
+1312
+987
 NIL
 #people-dying-due-to-lack-of-hospitalization
 17
@@ -2216,10 +2186,10 @@ NIL
 11
 
 SLIDER
-2597
-484
-2855
-517
+3050
+425
+3308
+458
 std-dev-social-distance-profile
 std-dev-social-distance-profile
 0
@@ -2231,10 +2201,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2527
-1215
-2684
-1260
+2875
+1253
+3032
+1298
 #social-distancing
 count people with [is-I-apply-social-distancing? = true]
 17
@@ -2314,10 +2284,10 @@ NIL
 1
 
 MONITOR
-1656
-539
-1836
-584
+2559
+212
+2739
+257
 NIL
 hospital-effectiveness
 17
@@ -2325,10 +2295,10 @@ hospital-effectiveness
 11
 
 SLIDER
-2148
-900
-2442
-933
+2546
+943
+2840
+976
 ratio-population-daily-immunity-testing
 ratio-population-daily-immunity-testing
 0
@@ -2340,10 +2310,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1779
-25
-2129
-58
+1882
+75
+2232
+108
 daily-risk-believe-experiencing-fake-symptoms
 daily-risk-believe-experiencing-fake-symptoms
 0
@@ -2355,10 +2325,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3052
-616
-3306
-649
+3448
+592
+3702
+625
 ratio-worker-public-transport
 ratio-worker-public-transport
 0
@@ -2370,10 +2340,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3322
-618
-3540
-651
+3718
+593
+3936
+626
 ratio-worker-shared-car
 ratio-worker-shared-car
 0
@@ -2385,10 +2355,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3050
-539
-3304
-572
+3446
+515
+3700
+548
 ratio-children-public-transport
 ratio-children-public-transport
 0
@@ -2400,10 +2370,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3318
-538
-3536
-571
+3715
+513
+3933
+546
 ratio-children-shared-car
 ratio-children-shared-car
 0
@@ -2415,10 +2385,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3318
-576
-3536
-609
+3715
+552
+3933
+585
 ratio-student-shared-car
 ratio-student-shared-car
 0
@@ -2430,10 +2400,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3322
-656
-3540
-689
+3718
+632
+3936
+665
 ratio-retired-shared-car
 ratio-retired-shared-car
 0
@@ -2445,10 +2415,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3050
-578
-3304
-611
+3446
+553
+3700
+586
 ratio-student-public-transport
 ratio-student-public-transport
 0
@@ -2460,10 +2430,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3052
-658
-3305
-691
+3448
+633
+3701
+666
 ratio-retired-public-transport
 ratio-retired-public-transport
 0
@@ -2475,10 +2445,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-2918
-713
-3074
-773
+3315
+688
+3471
+748
 #bus-per-timeslot
 30.0
 1
@@ -2486,10 +2456,10 @@ INPUTBOX
 Number
 
 INPUTBOX
-2916
-780
-3072
-840
+3312
+755
+3468
+815
 #max-people-per-bus
 20.0
 1
@@ -2497,10 +2467,10 @@ INPUTBOX
 Number
 
 MONITOR
-3078
-789
-3273
-834
+3475
+765
+3670
+810
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2508,10 +2478,10 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3293
-799
-3540
-832
+3689
+775
+3936
+808
 density-when-queuing
 density-when-queuing
 0
@@ -2523,10 +2493,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3296
-842
-3540
-875
+3692
+818
+3936
+851
 density-in-public-transport
 density-in-public-transport
 0
@@ -2538,10 +2508,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3298
-882
-3545
-915
+3695
+858
+3942
+891
 density-in-shared-cars
 density-in-shared-cars
 0
@@ -2553,10 +2523,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3080
-723
-3269
-768
+3476
+698
+3665
+743
 NIL
 #people-denied-bus
 17
@@ -2564,10 +2534,10 @@ NIL
 11
 
 MONITOR
-1868
-435
-2093
-480
+2130
+320
+2355
+365
 NIL
 #people-infected-in-general-travel
 17
@@ -2592,20 +2562,20 @@ NIL
 1
 
 CHOOSER
-2360
-35
-2510
-80
-set_national_culture
-set_national_culture
+2810
+60
+3027
+105
+load-country-specific-settings
+load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+0
 
 SLIDER
-2364
-112
-2538
-145
+2815
+137
+2989
+170
 uncertainty-avoidance
 uncertainty-avoidance
 0
@@ -2617,10 +2587,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2547
-110
-2736
-143
+2999
+135
+3188
+168
 individualism-vs-collectivism
 individualism-vs-collectivism
 0
@@ -2632,10 +2602,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2365
-153
-2537
-186
+2819
+175
+2991
+208
 power-distance
 power-distance
 0
@@ -2647,10 +2617,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2547
-157
-2736
-190
+2999
+174
+3188
+207
 indulgence-vs-restraint
 indulgence-vs-restraint
 0
@@ -2662,10 +2632,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2365
-202
-2539
-235
+2814
+212
+2988
+245
 masculinity-vs-femininity
 masculinity-vs-femininity
 0
@@ -2677,10 +2647,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2550
-202
-2736
-235
+3000
+212
+3186
+245
 long-vs-short-termism
 long-vs-short-termism
 0
@@ -2692,40 +2662,40 @@ NIL
 HORIZONTAL
 
 SLIDER
-2599
-267
-2722
-300
+3459
+90
+3582
+123
 value-std-dev
 value-std-dev
 0
-20
-10.0
+10
+5.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2367
-268
-2590
-301
+3223
+90
+3446
+123
 value-system-calibration-factor
 value-system-calibration-factor
 0
 40
-25.0
+30.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2365
-336
-2537
-369
+2819
+275
+2991
+308
 survival-multiplier
 survival-multiplier
 0
@@ -2737,10 +2707,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2547
-336
-2719
-369
+3000
+275
+3172
+308
 maslow-multiplier
 maslow-multiplier
 0
@@ -2752,20 +2722,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2362
-13
-2483
-37
-Cultural Model
-14
+2815
+35
+3261
+56
+Country-Specific Features Model: Culture, Values, Needs
+16
 83.0
 1
 
 SLIDER
-3233
-343
-3541
-376
+3732
+999
+4040
+1032
 owning-solo-transportation-probability
 owning-solo-transportation-probability
 0
@@ -2792,10 +2762,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1957
-1178
-2235
-1211
+2283
+1229
+2561
+1262
 is-working-from-home-recommended?
 is-working-from-home-recommended?
 1
@@ -2803,10 +2773,10 @@ is-working-from-home-recommended?
 -1000
 
 SLIDER
-1872
-894
-2098
-927
+2199
+945
+2425
+978
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -2840,10 +2810,10 @@ INPUTBOX
 Number
 
 MONITOR
-2458
-876
-2586
+2856
 921
+2984
+966
 NIL
 #tests-performed
 17
@@ -2885,10 +2855,10 @@ NIL
 1
 
 BUTTON
-1872
-850
-2095
-885
+2199
+901
+2422
+936
 NIL
 inform-people-of-measures
 NIL
@@ -2902,10 +2872,10 @@ NIL
 1
 
 SLIDER
-2365
-376
-2538
-409
+2819
+315
+2992
+348
 weight-survival-needs
 weight-survival-needs
 0
@@ -2917,30 +2887,30 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2364
-88
-2698
-115
+2815
+114
+3149
+141
 Hofstede dimension settings
 11
 83.0
 1
 
 TEXTBOX
-2367
-248
-2564
-278
+3223
+70
+3420
+100
 Agent value system settings
 11
 83.0
 1
 
 TEXTBOX
-2370
-313
-2560
-331
+2823
+255
+3013
+273
 Agent need system settings
 11
 83.0
@@ -2958,30 +2928,30 @@ INPUTBOX
 Number
 
 CHOOSER
-2794
-63
-2996
-108
+3705
+65
+3907
+110
 network-generation-method
 network-generation-method
 "random" "value-similarity"
 1
 
 TEXTBOX
-2798
-27
-2986
-65
+3709
+29
+3945
+75
 Social Network Model
-14
+16
 115.0
 1
 
 SLIDER
-2794
-113
-3038
-146
+3705
+115
+3949
+148
 peer-group-friend-links
 peer-group-friend-links
 1
@@ -3008,10 +2978,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2794
-154
-3082
-187
+3705
+156
+3993
+189
 percentage-of-agents-with-random-link
 percentage-of-agents-with-random-link
 0
@@ -3038,10 +3008,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-2796
-198
-2953
-231
+3708
+200
+3865
+233
 Write network as dot
 write-network-to-file user-new-file
 NIL
@@ -3109,10 +3079,10 @@ PENS
 "government-sector" 1.0 0 -5825686 true "" "plot total-capital-government-sector"
 
 TEXTBOX
-2370
-425
-2642
-455
+2823
+365
+3095
+395
 Agent social distancing settings
 11
 83.0
@@ -3230,10 +3200,10 @@ Tracing (smartphone app)
 1
 
 SWITCH
-2365
-444
-2689
-477
+2819
+385
+3143
+418
 make-social-distance-profile-value-based?
 make-social-distance-profile-value-based?
 0
@@ -3241,10 +3211,10 @@ make-social-distance-profile-value-based?
 -1000
 
 MONITOR
-1652
-439
-1836
-484
+2558
+109
+2742
+154
 NIL
 #healthy-hospital-personel
 17
@@ -3252,10 +3222,10 @@ NIL
 11
 
 MONITOR
-1656
-489
-1838
-534
+2559
+162
+2741
+207
 NIL
 #sick-hospital-personel
 17
@@ -3437,20 +3407,20 @@ NIL
 HORIZONTAL
 
 CHOOSER
-2122
-335
-2260
-380
+1933
+15
+2071
+60
 disease-fsm-model
 disease-fsm-model
 "assocc" "oxford"
 1
 
 MONITOR
-2122
-398
-2179
-443
+2095
+15
+2180
+60
 NIL
 r0
 17
@@ -3458,10 +3428,10 @@ r0
 11
 
 INPUTBOX
-2606
-866
-2724
-927
+3005
+911
+3123
+972
 #available-tests
 10000.0
 1
@@ -3469,10 +3439,10 @@ INPUTBOX
 Number
 
 SWITCH
-2148
-753
-2439
-786
+2546
+798
+2837
+831
 prioritize-testing-health-care?
 prioritize-testing-health-care?
 1
@@ -3497,10 +3467,10 @@ NIL
 1
 
 SWITCH
-2148
-823
-2440
-856
+2546
+868
+2838
+901
 do-not-test-youth?
 do-not-test-youth?
 0
@@ -3508,10 +3478,10 @@ do-not-test-youth?
 -1000
 
 SWITCH
-2148
-862
-2442
-895
+2546
+906
+2840
+939
 only-test-retirees-with-extra-tests?
 only-test-retirees-with-extra-tests?
 1
@@ -3631,10 +3601,10 @@ start-tick-of-global-quarantine
 11
 
 PLOT
-1579
-289
-1847
-429
+2249
+110
+2551
+250
 hospitals
 NIL
 NIL
@@ -3665,10 +3635,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2474
-1040
-2687
-1085
+2822
+1078
+3035
+1123
 NIL
 is-hard-lockdown-active?
 17
@@ -3719,20 +3689,20 @@ count people-having-ever-been-recorded-as-positive-in-the-app
 11
 
 CHOOSER
-2453
-700
-2724
-745
+2852
+743
+3123
+788
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
 1
 
 MONITOR
-2453
-644
-2625
-689
+2852
+688
+3024
+733
 NIL
 #tests-used-by-daily-testing
 17
@@ -3740,10 +3710,10 @@ NIL
 11
 
 MONITOR
-1866
-485
-2098
-530
+2132
+375
+2364
+420
 NIL
 #infected-by-asymptomatic-people
 17
@@ -3751,10 +3721,10 @@ NIL
 11
 
 SWITCH
-2147
-788
-2439
-821
+2545
+832
+2837
+865
 prioritize-testing-education?
 prioritize-testing-education?
 1
@@ -3805,12 +3775,12 @@ log-preferred-activity-decision?
 -1000
 
 TEXTBOX
-3179
-506
-3367
-529
+3566
+465
+3754
+488
 Transport Model
-14
+16
 65.0
 1
 
@@ -3826,10 +3796,10 @@ log-setup?
 -1000
 
 SLIDER
-2547
-377
-2719
-410
+3000
+317
+3172
+350
 financial-safety-learning-rate
 financial-safety-learning-rate
 0
@@ -3852,10 +3822,10 @@ clear-log-on-setup?
 -1000
 
 PLOT
-1374
-350
-1574
-587
+1778
+193
+2106
+431
 contacts
 NIL
 NIL
@@ -3881,10 +3851,10 @@ PENS
 "queuing" 1.0 0 -13345367 true "" "plot  #contacts-in-queuing"
 
 MONITOR
-2136
-477
-2324
-522
+2125
+267
+2357
+312
 NIL
 #people-infected-in-workplaces
 17
@@ -3892,21 +3862,21 @@ NIL
 11
 
 MONITOR
-1784
-588
-1848
-633
-ne-shops
+2129
+434
+2404
+479
+#people-infected-in-non-essential-shops
 #people-infected-in-non-essential-shops
 17
 1
 11
 
 PLOT
-1867
-531
-2098
-764
+1775
+626
+2112
+866
 #people infected in
 NIL
 NIL
@@ -3932,10 +3902,10 @@ PENS
 "queuing" 1.0 0 -13345367 true "" "plot #people-infected-in-queuing"
 
 PLOT
-1377
-585
-1664
-765
+1776
+438
+2108
+618
 infection per age
 NIL
 NIL
@@ -3988,6 +3958,76 @@ keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 0
 1
 -1000
+
+SLIDER
+3223
+130
+3456
+163
+influence-of-age-on-value-system
+influence-of-age-on-value-system
+0
+25
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3223
+170
+3517
+203
+influence-of-comorbidity-on-value-system
+influence-of-comorbidity-on-value-system
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3223
+212
+3516
+245
+influence-of-gender-on-value-system
+influence-of-gender-on-value-system
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3223
+252
+3565
+285
+strength-of-link-between-agent-values-and-wealth
+strength-of-link-between-agent-values-and-wealth
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+559
+726
+1125
+766
+Proxemics is represented as \"meeting spaces\" people can move into and be infected or spread infection.\nAs simplifications: each person relates to a fix set of spaces over time (same school, bus, bar) and gets in contact with everyone sharing this space; no contamination due to left germs.
+10
+125.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
