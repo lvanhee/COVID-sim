@@ -4128,6 +4128,10 @@ ratio-tax-on-shared-cars
 0
 1
 0.4
+0.01
+1
+NIL
+HORIZONTAL
 
 SLIDER
 3223
@@ -4169,6 +4173,10 @@ ratio-public-transport-subsidy
 0
 1
 0.07
+0.01
+1
+NIL
+HORIZONTAL
 
 SLIDER
 3223
