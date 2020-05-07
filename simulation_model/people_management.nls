@@ -28,6 +28,7 @@ people-own [
   transport-to-my-public-leisure
   transport-to-my-private-leisure
   transport-to-my-home
+  cost-of-essential-transport
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"

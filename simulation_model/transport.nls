@@ -163,6 +163,7 @@ to setup-country-based-transport-parameters
   ask people [
     set do-I-own-a-car? setup-do-I-own-a-car? 
     setup-preferred-type-of-transport-method-to-gathering-points
+    set cost-of-essential-transport calculate-cost-of-essential-transport
   ]
   
   
@@ -210,6 +211,20 @@ to setup-preferred-type-of-transport-method-to-gathering-points
   [set transport-to-my-private-leisure "non-motorized"]  
   set transport-to-my-home "none"
 
+end
+
+to-report calculate-cost-of-essential-transport
+  let cost 0
+  let max-costs max (list car-sharing-costs public-transport-costs)
+  if not do-I-own-a-car? [
+    if transport-to-my-essential-shops = "motorized" [
+      set cost cost + max-costs
+    ]
+    if transport-to-my-work = "motorized" [
+      set cost cost + (days-of-rations-bought * max-costs)
+    ]
+  ]
+  report cost
 end
 
 to-report do-I-need-motorized-transport [activity-location]
