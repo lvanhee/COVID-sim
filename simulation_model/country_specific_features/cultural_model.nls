@@ -81,6 +81,7 @@ to set-social-distance-profile
       ;if social-distance-profile is not value based? then set it according to the relevant slider settings
       set social-distance-profile clamp 0 1 random-normal mean-social-distance-profile std-dev-social-distance-profile
     ]
+    set is-I-apply-social-distancing? false
   ]
 end
 
@@ -355,7 +356,7 @@ end
 ;scores taken from https://www.hofstede-insights.com/product/compare-countries/
 to load-nations-hofstede-dimension-scores
 
-  if load-country-specific-settings = "custom" [
+  if load-country-specific-settings = "Custom" [
     set power-distance power-distance
     set individualism-vs-collectivism individualism-vs-collectivism
     set masculinity-vs-femininity masculinity-vs-femininity

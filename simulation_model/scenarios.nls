@@ -255,9 +255,6 @@ end
 to scenario-9-setup
   load-baseline-parameter-settings
   ;Set households and gathering points
-  set household-profiles "Italy"
-  load-population-profile-based-on-current-preset-profile
-  set load-country-specific-settings "Italy"
   load-number-of-gathering-points-based-on-number-of-households 345
   set #universities-gp 1
   set #schools-gp 2
@@ -271,7 +268,7 @@ to scenario-9-setup
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 1
   set is-infected-and-their-families-requested-to-stay-at-home? true
   set food-delivered-to-isolators? true
-  set ratio-population-randomly-tested-daily 0.05
+  set ratio-population-randomly-tested-daily 1
   set #available-tests 50
 end
 
@@ -467,7 +464,7 @@ to load-population-profile-based-on-current-preset-profile
   ]
   
  let country-specific-data-list []
-    file-open "country_specific_features/country-specific-data.csv"
+    file-open "country-specific-data.csv"
   
 
   while [not file-at-end? ] [
