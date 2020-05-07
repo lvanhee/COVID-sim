@@ -844,20 +844,20 @@ count houses-hosting-multiple-generations
 11
 
 TEXTBOX
-3423
-958
-3578
-998
+3314
+751
+3469
+791
 Migration model
 16
 35.0
 1
 
 SLIDER
-3450
-996
-3724
-1029
+3341
+789
+3615
+822
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -869,10 +869,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3735
-1038
-4032
-1071
+3626
+831
+3923
+864
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -884,10 +884,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-3599
-956
-3711
-989
+3490
+749
+3602
+782
 migration?
 migration?
 1
@@ -895,10 +895,10 @@ migration?
 -1000
 
 SLIDER
-3689
-732
-3933
-765
+3629
+785
+3873
+818
 density-travelling-propagation
 density-travelling-propagation
 0
@@ -1068,7 +1068,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.344
+0.432
 0.01
 1
 NIL
@@ -1146,7 +1146,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.309
+0.272
 0.01
 1
 NIL
@@ -1161,7 +1161,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.298
+0.276
 0.01
 1
 NIL
@@ -1176,7 +1176,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.049
+0.02
 0.01
 1
 NIL
@@ -1424,7 +1424,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+8
 
 SLIDER
 2548
@@ -1654,23 +1654,13 @@ Density factors:\nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-2917
-737
-3078
-765
+3476
+1040
+3637
+1068
 Transport Model
 14
 35.0
-1
-
-TEXTBOX
-3383
-941
-3544
-969
-Risks of becoming sick when travelling locally
-11
-65.0
 1
 
 TEXTBOX
@@ -1746,10 +1736,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3450
-1036
-3725
-1069
+3341
+829
+3616
+862
 probability-going-abroad
 probability-going-abroad
 0
@@ -2073,7 +2063,7 @@ INPUTBOX
 662
 558
 #households
-400.0
+200.0
 1
 0
 Number
@@ -2341,10 +2331,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2902
-849
-3156
-882
+3761
+1538
+4015
+1571
 ratio-motorized-transport-to-work
 ratio-motorized-transport-to-work
 0
@@ -2356,10 +2346,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2903
-769
-3157
-802
+3762
+1458
+4016
+1491
 ratio-motorized-transport-to-school
 ratio-motorized-transport-to-school
 0
@@ -2371,10 +2361,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3212
-728
-3460
-761
+3632
+1089
+3880
+1122
 ratio-workers-and-retired-owning-cars
 ratio-workers-and-retired-owning-cars
 0
@@ -2386,10 +2376,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2903
-808
-3156
-841
+3762
+1497
+4015
+1530
 ratio-motorized-transport-to-university
 ratio-motorized-transport-to-university
 0
@@ -2401,10 +2391,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2904
-889
-3158
-922
+3763
+1578
+4017
+1611
 ratio-motorized-transport-to-hospital
 ratio-motorized-transport-to-hospital
 0
@@ -2416,10 +2406,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-2950
-1246
-3106
-1306
+3454
+1441
+3610
+1501
 #max-people-per-bus
 20.0
 1
@@ -2427,10 +2417,10 @@ INPUTBOX
 Number
 
 MONITOR
-3076
-1196
-3241
-1241
+3585
+1389
+3750
+1434
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2438,10 +2428,10 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3374
-979
-3599
-1012
+3991
+1147
+4216
+1180
 density-when-queuing
 density-when-queuing
 0
@@ -2453,10 +2443,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3374
-1022
-3599
-1055
+3991
+1190
+4216
+1223
 density-in-public-transport
 density-in-public-transport
 0
@@ -2468,10 +2458,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3373
-1064
-3597
-1097
+3990
+1232
+4214
+1265
 density-in-shared-cars
 density-in-shared-cars
 0
@@ -2483,10 +2473,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2949
-1196
-3073
-1241
+3453
+1391
+3577
+1436
 NIL
 #people-denied-bus
 17
@@ -3134,10 +3124,10 @@ PENS
 "student" 1.0 0 -13840069 true "" "histogram [my-amount-of-capital] of students"
 
 SLIDER
-1639
-702
-1802
-735
+1384
+943
+1547
+976
 density-factor-public-transport
 density-factor-public-transport
 0
@@ -3149,10 +3139,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1640
-671
-1802
-704
+1385
+912
+1547
+945
 density-factor-shared-cars
 density-factor-shared-cars
 0
@@ -3557,10 +3547,10 @@ count should-be-isolators
 11
 
 MONITOR
-3243
-1197
-3361
-1242
+3752
+1390
+3870
+1435
 NIL
 #users-in-buses
 17
@@ -3636,10 +3626,10 @@ is-infected-and-their-families-requested-to-stay-at-home?
 -1000
 
 SLIDER
-3165
-770
-3458
-803
+4024
+1459
+4317
+1492
 ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
@@ -3651,10 +3641,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3167
-850
-3459
-883
+4026
+1539
+4318
+1572
 ratio-motorized-transport-to-essential-shops
 ratio-motorized-transport-to-essential-shops
 0
@@ -3666,10 +3656,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3170
-888
-3460
-921
+4029
+1577
+4319
+1610
 ratio-motorized-transport-to-public-leisure
 ratio-motorized-transport-to-public-leisure
 0
@@ -3681,10 +3671,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3167
-810
-3459
-843
+4026
+1499
+4318
+1532
 ratio-motorized-transport-to-private-leisure
 ratio-motorized-transport-to-private-leisure
 0
@@ -3806,10 +3796,10 @@ count people-having-ever-been-recorded-as-positive-in-the-app
 11
 
 CHOOSER
-2852
-743
-3123
-788
+2849
+767
+3120
+812
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
@@ -3892,10 +3882,10 @@ log-preferred-activity-decision?
 -1000
 
 PLOT
-2820
-937
-3339
-1179
+3455
+1136
+3974
+1378
 users of transport
 NIL
 NIL
@@ -3912,14 +3902,14 @@ PENS
 "total solo transport users" 1.0 0 -8431303 true "" "plot #users-solo"
 
 CHOOSER
-3036
-716
-3199
-761
+3456
+1077
+3619
+1122
 Transport-parameters-of
 Transport-parameters-of
 "Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+8
 
 MONITOR
 906
@@ -3933,12 +3923,12 @@ NIL
 11
 
 INPUTBOX
-2821
-1195
-2941
-1255
+3616
+1440
+3736
+1500
 #bus-per-timeslot
-3.0
+100.0
 1
 0
 Number
