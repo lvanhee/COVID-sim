@@ -13,3 +13,7 @@ end
 to-report young-age
   report "young"
 end
+
+to-report all-ages
+  report (list young-age student-age worker-age retired-age)
+end

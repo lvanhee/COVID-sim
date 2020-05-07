@@ -23,22 +23,8 @@ globals
   #people-infected-in-essential-shops
   #people-infected-in-non-essential-shops
   
-  #youngs-infected-by-youngs
-  #youngs-infected-by-students
-  #youngs-infected-by-workers
-  #youngs-infected-by-retireds
-  #students-infected-by-youngs
-  #students-infected-by-students
-  #students-infected-by-workers
-  #students-infected-by-retireds
-  #workers-infected-by-youngs
-  #workers-infected-by-students
-  #workers-infected-by-workers
-  #workers-infected-by-retireds
-  #retireds-infected-by-youngs
-  #retireds-infected-by-students
-  #retireds-infected-by-workers
-  #retireds-infected-by-retireds
+  age-group-to-age-group-#contacts-table
+  age-group-to-age-group-#infections-last-tick-table
   
   #contacts-in-pubtrans
   #contacts-in-shared-cars
@@ -73,6 +59,8 @@ globals
   #hospitalizations-students-this-tick
   #hospitalizations-workers-this-tick
   #hospitalizations-retired-this-tick
+  
+  number-of-people-per-age-having-ever-reached-severe-table
 ]
 
 to-report ratio-infected
@@ -133,6 +121,12 @@ to reset-metrics
   set #hospitalizations-students-this-tick 0
   set #hospitalizations-workers-this-tick 0
   set #hospitalizations-retired-this-tick 0
+  
+  ;;reset age-group-to-age-group-#contacts-table
+  foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#contacts-table (list x y) 0]]
+  foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#infections-last-tick-table (list x y) 0]]
+  
+  
 end
 
 to increment-age-inection-information-metrics [infected infector]
@@ -175,101 +169,17 @@ to-report ratio-of-youngs-at-start
   report #youngs-at-start / #people-at-start
 end
 
-to-report ratio-young-contaminated-by-young
-  report #youngs-infected-by-youngs / count youngs / ratio-of-youngs-at-start
+
+to-report ratio-age-group-to-age-group-#infections [infector-age infected-age]
+  report table:get age-group-to-age-group-#infections-last-tick-table (list infector-age infected-age) / #initial-people-with-age infected-age
 end
 
-to-report ratio-young-contaminated-by-workers
-  report #youngs-infected-by-workers / count youngs / ratio-of-workers-at-start
-end
-
-to-report ratio-young-contaminated-by-students
-  report #youngs-infected-by-students / count youngs / ratio-of-students-at-start
-end
-
-to-report ratio-young-contaminated-by-retireds
-  report #youngs-infected-by-retireds / count youngs / ratio-of-retireds-at-start
-end
-
-to-report ratio-workers-contaminated-by-young
-  report #workers-infected-by-youngs / count workers / ratio-of-youngs-at-start
-end
-
-to-report ratio-workers-contaminated-by-workers
-  report #workers-infected-by-workers / count workers / ratio-of-workers-at-start
-end
-
-to-report ratio-workers-contaminated-by-students
-  report #workers-infected-by-students / count workers / ratio-of-students-at-start
-end
-
-to-report ratio-workers-contaminated-by-retireds
-  report #workers-infected-by-retireds / count workers / ratio-of-retireds-at-start
-end
-
-to-report ratio-students-contaminated-by-young
-  report #students-infected-by-youngs / count students / ratio-of-youngs-at-start
-end
-
-to-report ratio-students-contaminated-by-workers
-  report #students-infected-by-workers / count students / ratio-of-workers-at-start
-end
-
-to-report ratio-students-contaminated-by-students
-  report #students-infected-by-students / count students / ratio-of-students-at-start
-end
-
-to-report ratio-students-contaminated-by-retireds
-  report #students-infected-by-retireds / count students / ratio-of-retireds-at-start
-end
-
-to-report ratio-retireds-contaminated-by-young
-  report #retireds-infected-by-youngs / count retireds / ratio-of-youngs-at-start
-end
-
-to-report ratio-retireds-contaminated-by-workers
-  report #retireds-infected-by-workers / count retireds / ratio-of-workers-at-start
-end
-
-to-report ratio-retireds-contaminated-by-students
-  report #retireds-infected-by-students / count retireds / ratio-of-students-at-start
-end
-
-to-report ratio-retireds-contaminated-by-retireds
-  report #retireds-infected-by-retireds / count retireds / ratio-of-retireds-at-start
-end
 
 to increment-contagion-metrics-from [context infected infector]
   increment-age-inection-information-metrics infected infector
   
-  if [is-young?] of infected [
-    if [is-young?] of infector [set #youngs-infected-by-youngs #youngs-infected-by-youngs + 1]
-    if [is-student?] of infector [set #youngs-infected-by-students #youngs-infected-by-students + 1]
-    if [is-worker?] of infector [set #youngs-infected-by-workers #youngs-infected-by-workers + 1]
-    if [is-retired?] of infector [set #youngs-infected-by-retireds #youngs-infected-by-retireds + 1]
-  ]
-  
-  if [is-student?] of infected [
-    if [is-young?] of infector [set #students-infected-by-youngs #students-infected-by-youngs + 1]
-    if [is-student?] of infector [set #students-infected-by-students #students-infected-by-students + 1]
-    if [is-worker?] of infector [set #students-infected-by-workers #students-infected-by-workers + 1]
-    if [is-retired?] of infector [set #students-infected-by-retireds #students-infected-by-retireds + 1]
-  ]
-  
-  if [is-worker?] of infected [
-    if [is-young?] of infector [set #workers-infected-by-youngs #workers-infected-by-youngs + 1]
-    if [is-student?] of infector [set #workers-infected-by-students #workers-infected-by-students + 1]
-    if [is-worker?] of infector [set #workers-infected-by-workers #workers-infected-by-workers + 1]
-    if [is-retired?] of infector [set #workers-infected-by-retireds #workers-infected-by-retireds + 1]
-  ]
-  
-  if [is-retired?] of infected [
-    if [is-young?] of infector [set #retireds-infected-by-youngs #retireds-infected-by-youngs + 1]
-    if [is-student?] of infector [set #retireds-infected-by-students #retireds-infected-by-students + 1]
-    if [is-worker?] of infector [set #retireds-infected-by-workers #retireds-infected-by-workers + 1]
-    if [is-retired?] of infector [set #retireds-infected-by-retireds #retireds-infected-by-retireds + 1]
-  ]
-  
+  let key (list [age] of infector [age] of infected)
+  table:put age-group-to-age-group-#infections-last-tick-table key table:get age-group-to-age-group-#infections-last-tick-table key + 1  
   
     if substring context 0 3 = "gp(" [
     let gt substring context (position "," context + 1) (length context - 1) 
@@ -291,8 +201,9 @@ to increment-contagion-metrics-from [context infected infector]
   error (sentence "unimplemented for" context)
 end
 
-to  increment-contact-metrics-given [context #contacts-now]
-    if substring context 0 3 = "gp(" [
+to increment-age-per-gathering-type-global-metrics [ts context]
+  let #contacts-now (count ts * (count ts - 1)) / 2
+  if substring context 0 3 = "gp(" [
     let gt substring context (position "," context + 1) (length context - 1) 
     if gt = hospital-gathering-type [set #contacts-in-hospitals #contacts-in-hospitals + #contacts-now stop]
     if gt = workplace-gathering-type [set #contacts-in-workplaces  #contacts-in-workplaces + #contacts-now stop]
@@ -304,16 +215,49 @@ to  increment-contact-metrics-given [context #contacts-now]
     if gt = essential-shop-gathering-type [set #contacts-in-essential-shops #contacts-in-essential-shops + #contacts-now stop]  
     if gt = non-essential-shop-gathering-type [set #contacts-in-non-essential-shops #contacts-in-non-essential-shops + #contacts-now stop]  
   ]
-  
-  if context = "bus" [set #contacts-in-pubtrans #contacts-in-pubtrans + 1 stop]
-  if context = "queue-waiting-for-bus" [set #contacts-in-queuing #contacts-in-queuing + 1 stop]
-  if context = "cars" [set #contacts-in-shared-cars #contacts-in-shared-cars + 1 stop]
-  if context = "travelling outside" [set #contacts-in-general-travel #contacts-in-general-travel + 1 stop]
-  
+  if context = "bus" [set #contacts-in-pubtrans #contacts-in-pubtrans + #contacts-now stop]
+  if context = "queue-waiting-for-bus" [set #contacts-in-queuing #contacts-in-queuing + #contacts-now stop]
+  if context = "cars" [set #contacts-in-shared-cars #contacts-in-shared-cars + #contacts-now stop]
+  if context = "travelling outside" [set #contacts-in-general-travel #contacts-in-general-travel + #contacts-now stop]
   error (sentence "unimplemented for" context)
+end
+
+to  increment-contacts-due-to-group-gathering-global-metrics [ts context]
+  
+  increment-age-per-gathering-type-global-metrics ts context
+  
+  ask ts [
+    ask other ts [
+      let key (list [age] of myself age)
+      ;if age = young-age and [age] of myself = young-age [show "hey!"]
+      table:put age-group-to-age-group-#contacts-table key table:get age-group-to-age-group-#contacts-table key + 1
+    ]
+  ]
+  
+  
+ 
 end
 
 to-report ratio-quarantiners-currently-complying-to-quarantine
   if count people with [is-officially-asked-to-quarantine?] = 0 [report 0]
   report count people with [is-officially-asked-to-quarantine? and is-in-quarantine?] / count people with [is-officially-asked-to-quarantine?]
+end
+
+to increase-people-being-severe-event-global-metrics [p]
+  table:put number-of-people-per-age-having-ever-reached-severe-table [age] of p (table:get number-of-people-per-age-having-ever-reached-severe-table [age] of p + 1)
+end
+
+to-report ratio-people-having-ever-reached-severe-infection-status [a]
+  report table:get number-of-people-per-age-having-ever-reached-severe-table a / #initial-people-with-age a
+end
+
+to-report #initial-people-with-age [a]
+  if a = young-age [report    #youngs-at-start]
+  if a = student-age [report    #students-at-start]
+  if a = worker-age [report    #workers-at-start]
+  if a = retired-age [report    #retireds-at-start]
+end
+
+to-report age-group-to-age-group-#contacts [infector-age infected-age]
+  report table:get age-group-to-age-group-#contacts-table (list infector-age infected-age)
 end

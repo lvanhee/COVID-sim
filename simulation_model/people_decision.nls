@@ -1,4 +1,4 @@
-__includes ["need_management.nls" "cultural_model.nls" "decision/quarantining.nls"]
+__includes ["need_management.nls" "country_specific_features/cultural_model.nls" "decision/quarantining.nls"]
 
 ;reports a string, which can be related to a gathering point and a concrete activity
 to-report my-preferred-available-activity-descriptor 

@@ -7,11 +7,14 @@ to update-global-quarantine-measure
   [
     set start-tick-of-global-quarantine ticks
     ask people [include-time-for-quarantining duration-global-quarantine]
+    if keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
+    [ ask retireds [include-time-for-quarantining 10000]]
   ]
 end
 
 to disable-global-quarantine-measure
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
+  set keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure? false
 end
 
 to-report duration-global-quarantine
