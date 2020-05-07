@@ -2569,7 +2569,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+0
 
 SLIDER
 2815
@@ -2725,7 +2725,7 @@ TEXTBOX
 2815
 35
 3261
-177
+56
 Country-Specific Features Model: Culture, Values, Needs
 16
 83.0
