@@ -1,0 +1,31 @@
+to-report behaviourspace-satisfaction-scenario-9 
+   ;#beds-in-hospital + propagation-risk
+  let satisfactions (list
+    behaviourspace-satisfaction-scenario-9-isolation
+    behaviourspace-satisfaction-scenario-9-food-delivery
+    )
+  report sum satisfactions / length satisfactions
+end 
+
+to-report behaviourspace-satisfaction-scenario-9-isolation
+  let ratio-infected-no-family behaviourspace-load-variable no-family-isolation-behaviourspace-experiment-name ratio-infected-behaviourspace-variable-name
+  let ratio-infected-family behaviourspace-load-variable    family-isolation-behaviourspace-experiment-name    ratio-infected-behaviourspace-variable-name
+  let ratio-isolation-no-family behaviourspace-load-variable no-family-isolation-behaviourspace-experiment-name ratio-isolators-behaviourspace-variable-name
+  let ratio-isolation-family behaviourspace-load-variable    family-isolation-behaviourspace-experiment-name    ratio-isolators-behaviourspace-variable-name
+  
+  ; We need to adjust for the number of infected, since everyone that is infected is also in isolation
+  let isolators-per-infected-family (ratio-isolation-family / ratio-infected-family)
+  let isolators-per-infected-no-family (ratio-isolation-no-family / ratio-infected-no-family)
+  
+  let satisfaction-infection bounded-linear-map 1 2 0 1 (ratio-infected-no-family / ratio-infected-family)
+  let satisfaction-isolation bounded-linear-map 1 2 0 1 (isolators-per-infected-family / isolators-per-infected-no-family)
+  
+  report (satisfaction-infection + satisfaction-isolation) / 2
+end
+
+to-report behaviourspace-satisfaction-scenario-9-food-delivery
+  let ratio-isolation-no-fd behaviourspace-load-variable no-food-delivery-behaviourspace-experiment-name ratio-breaking-isolation-behaviourspace-variable-name
+  let ratio-isolation-fd behaviourspace-load-variable    food-delivery-behaviourspace-experiment-name    ratio-breaking-isolation-behaviourspace-variable-name
+  
+  report bounded-linear-map 1 2 0 1 (ratio-isolation-no-fd / ratio-isolation-fd)
+end

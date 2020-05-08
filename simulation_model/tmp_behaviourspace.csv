@@ -1,6 +1,0 @@
-no-random-testing peak-infected-people 144
-no-random-testing #-tests 0
-part-random-testing peak-infected-people 76
-part-random-testing #-tests 6502
-full-random-testing peak-infected-people 3
-full-random-testing #-tests 8250
