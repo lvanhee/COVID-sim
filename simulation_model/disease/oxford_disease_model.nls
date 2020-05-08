@@ -75,15 +75,23 @@ to-report p-hosp
 end
 
 to-report tau-hosp
-  report 4 * #ticks-per-day
+  let mean-val 5.14
+  let variance-val 2.5
+  report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))  * #ticks-per-day
 end
 
 to-report tau-hosp-rec
-  report 2 * #ticks-per-day
+  let mean-val 15
+  let variance-val 5
+  report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))  * #ticks-per-day
+
 end
 
 to-report tau-hospital-to-death
-  report 6 * #ticks-per-day
+  let mean-val 4 + 6
+  let variance-val 2
+  report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))  * #ticks-per-day
+
 end
 
 to-report p-survival-in-hospital
@@ -99,11 +107,17 @@ end
   
 
 to-report tau-a-rec
-  report 6 * #ticks-per-day
+    let mean-val 15 
+  let variance-val 5
+  report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))  * #ticks-per-day
+
 end
 
 to-report tau-rec
-  report 6 * #ticks-per-day
+  let mean-val 12
+  let variance-val 5
+  report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))  * #ticks-per-day
+
 end
 
 to-report tau-sym

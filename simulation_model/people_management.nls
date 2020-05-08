@@ -2,7 +2,12 @@ __includes ["people_decision.nls"  "epistemic_model.nls" "social_networks.nls" "
 
 people-own [
   age
+  
+  ;;disease model
+  time-when-infected
   epistemic-infection-status
+  
+  ;;
   current-activity
   is-moving-outside-for-reaching-current-activity?
   current-motivation

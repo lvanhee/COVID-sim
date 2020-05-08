@@ -11,6 +11,7 @@ globals [
 to set-contaminated-disease-status
   if  disease-fsm-model = "assocc" [set-infection-status infected-asymptomatic-status]
   if  disease-fsm-model = "oxford" [set-infection-status just-contaminated-infection-status]
+  set time-when-infected ticks
 end
 
 to-report infection-status
