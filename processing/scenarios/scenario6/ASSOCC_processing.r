@@ -341,7 +341,7 @@ normalize <- function(x) {x/sum(x)}
 # dev.off()
 
 pdf("NormalizedInfectionsAgeGroupStackedBarChart.pdf")
-for (j in 1:9){
+for (j in 1:max(df$X.run.number.)){
   run1df <- subset(df, X.run.number. == j)
   young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age))
   students <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.student.age))
@@ -365,16 +365,65 @@ for (j in 1:9){
   toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
   names(toPlotdfLong)[2] <-paste("age_group") 
   
-  q = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = age)) + 
+  q = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = factor(age, levels = rev(rowNames)))) + 
     geom_bar(position="stack", stat="identity") +   labs(
       title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
-      caption = "ASSOCC"
+      caption = "ASSOCC", fill = "age"
     )
   print(q)
 }
 dev.off()
 
 #######################################################################################
+
+#######ContactsPerAgeGroup#############################################################
+generalPurpose <- "Contacted by age group -\n"
+anxietyUsersTemplate <- "Ratio anxiety users" 
+appUsersTemplate <- "+ Ratio app users"
+plot_list = list()
+plot_list2 = list()
+library(reshape2)
+normalize <- function(x) {x/sum(x)}
+
+pdf("NonNormalizedContactsPerAgeGroup.pdf")
+for (k in 1:max(df$X.run.number.)){
+  run1df <- subset(df, X.run.number. == k)
+  young <- c(sum (run1df$age.group.to.age.group..contacts.young.age.young.age), sum (run1df$age.group.to.age.group..contacts.student.age.young.age), sum (run1df$age.group.to.age.group..contacts.worker.age.young.age), sum (run1df$age.group.to.age.group..contacts.retired.age.young.age))
+  students <- c(sum (run1df$age.group.to.age.group..contacts.young.age.student.age), sum (run1df$age.group.to.age.group..contacts.student.age.student.age), sum (run1df$age.group.to.age.group..contacts.worker.age.student.age), sum (run1df$age.group.to.age.group..contacts.retired.age.student.age))
+  workers <- c(sum (run1df$age.group.to.age.group..contacts.young.age.worker.age), sum (run1df$age.group.to.age.group..contacts.student.age.worker.age), sum (run1df$age.group.to.age.group..contacts.worker.age.worker.age), sum (run1df$age.group.to.age.group..contacts.retired.age.worker.age))
+  retired <- c(sum (run1df$age.group.to.age.group..contacts.young.age.retired.age), sum (run1df$age.group.to.age.group..contacts.student.age.retired.age), sum (run1df$age.group.to.age.group..contacts.worker.age.retired.age), sum (run1df$age.group.to.age.group..contacts.retired.age.retired.age))
+  rowNames <- c("young", "students", "workers", "retired")
+  
+  #young <- normalize(young)
+  #students <- normalize(students)
+  #workers <- normalize(workers)
+  #retired <- normalize(retired)
+  
+  ratioAnxietyUsers <- toString(run1df[1,2])
+  ratioAppUsers <- toString(run1df[1,3])
+  
+  toPlotdf <- data.frame(young, students, workers, retired, row.names = rowNames)
+  
+  toPlotdf$age <-rowNames
+  
+  library(reshape2)
+  toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
+  names(toPlotdfLong)[2] <-paste("age_group")
+  names(toPlotdfLong)[3] <-paste("amount")
+  
+  u = ggplot(toPlotdfLong, aes( y=amount, x=age_group, fill = factor(age, levels = rev(rowNames)))) + 
+    geom_bar(position="stack", stat="identity") +   labs(
+      title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
+      caption = "ASSOCC", fill = "age"
+    )
+  print(u)
+}
+dev.off()
+
+
+
+########################################################################################
+
 firstRound <-TRUE
 parametersString <- ""
 foreach(name = name_independent_variables_to_display) %do% 
