@@ -5,10 +5,6 @@ globals [is-busses-overrun?
   #people-denied-bus
   #users-in-buses
   #users-in-shared-cars
-  #users-solo
-  #workers-public-transport
-  #workers-solo-transport
-  #workers-shared-cars
 ]
 to travelling-to-activity-phase
   set is-busses-overrun? false
@@ -59,13 +55,6 @@ to travelling-to-activity-phase
     set #users-in-shared-cars #users-in-shared-cars + 1
   ]
   if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
-  
-  
-  set #users-solo count people with [current-means-of-transport = solo-transportation-method]
-  
-  set #workers-public-transport count people with [current-means-of-transport = public-transportation-method and age = worker-age]
-  set #workers-solo-transport count people with [current-means-of-transport = solo-transportation-method and age = worker-age]
-  set #workers-shared-cars count people with [current-means-of-transport = shared-car-transportation-method and age = worker-age]
   
 end
 
@@ -176,7 +165,7 @@ to-report setup-do-I-own-a-car?
   let ratio-workers-retired-owning-cars clamp 0 1 (ratio-workers-and-retired-owning-cars / ratio-workers-retired)
     
   ifelse is-worker? or is-retired? [
-    ifelse ratio-workers-retired-owning-cars > random 1 
+    ifelse ratio-workers-retired-owning-cars > random-float 1 
     [report true ]
     [report false]
   ]
@@ -220,7 +209,7 @@ to-report calculate-cost-of-essential-transport
     if transport-to-my-essential-shops = "motorized" [
       set cost cost + max-costs
     ]
-    if transport-to-my-work = "motorized" [
+    if transport-to-my-work = "motorized" and has-a-work? [
       set cost cost + (days-of-rations-bought * max-costs)
     ]
   ]
