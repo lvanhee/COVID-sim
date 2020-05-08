@@ -454,6 +454,7 @@ to load-default-economic-parameters
   set ratio-university-subsidy 0.03
   set ratio-retirees-subsidy 0.73
   set ratio-students-subsidy 0.24
+  set ratio-parents-subsidy 0.1
   
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8

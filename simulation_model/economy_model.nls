@@ -449,6 +449,7 @@ to perform-government-actions
   let university-subsidy taxes-collected * ratio-university-subsidy
   let retirees-subsidy taxes-collected * ratio-retirees-subsidy
   let students-subsidy taxes-collected * ratio-students-subsidy
+  let parents-subsidy taxes-collected * ratio-parents-subsidy
   
   let n-of-schools count gathering-points with [gathering-type = "school"]
   ask gathering-points with [gathering-type = "school"]
@@ -483,6 +484,22 @@ to perform-government-actions
   [
     let subsidy students-subsidy / n-of-students
     perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
+  ]
+  
+  ;parents subsidy
+  let n-of-parents 0
+  ask people with [age = "young"]
+  [
+    let my-n-of-parents count my-relatives with [age = "worker"]
+    set n-of-parents n-of-parents + my-n-of-parents
+  ]
+  ask people with [age = "young"]
+  [
+    let subsidy parents-subsidy / n-of-parents
+    ask my-relatives with [age = "worker"]
+    [
+      perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
+    ]
   ]
 end
 
