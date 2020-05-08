@@ -306,38 +306,41 @@ appUsersTemplate <- "+ Ratio app users"
 plot_list = list()
 plot_list2 = list()
 library(reshape2)
-pdf("plotsStudentYoung.pdf")
+normalize <- function(x) {x/sum(x)}
 
-for (i in 1:9){
- 
-  run1df <- subset(df, df$X.run.number. == i)
-  young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.retired.age))
-  students <- c(sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.retired.age))
-  workers <- c(sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.retired.age))
-  retired <- c(sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.retired.age))
-  rowNames <- c("young", "students", "workers", "retired")
-  
-  ratioAnxietyUsers <- toString(run1df[1,2])
-  ratioAppUsers <- toString(run1df[1,3])
-  
-  toPlotdf <- data.frame(young, students, workers, retired, row.names = rowNames)
-  toPlotdf$age <-rowNames
-  
-  
-  toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
-  names(toPlotdfLong)[2] <-paste("age_group") 
-  
-  p = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = age)) + 
-    geom_bar(position="stack", stat="identity") +   labs(
-      title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
-      subtitle = "Calculation students infected by young: ratio.age.group.to.age.group..infections.student.age.young.age",
-      caption = "ASSOCC"
-    )
-  print(p)
-}
-dev.off()
 
-pdf("plotsYoungStudent.pdf")
+# pdf("plotsStudentYoung.pdf")
+# 
+# for (i in 1:9){
+#  
+#   run1df <- subset(df, df$X.run.number. == i)
+#   young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.young.age.retired.age))
+#   students <- c(sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.retired.age))
+#   workers <- c(sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.retired.age))
+#   retired <- c(sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.retired.age))
+#   rowNames <- c("young", "students", "workers", "retired")
+#   
+#   ratioAnxietyUsers <- toString(run1df[1,2])
+#   ratioAppUsers <- toString(run1df[1,3])
+#   
+#   toPlotdf <- data.frame(young, students, workers, retired, row.names = rowNames)
+#   toPlotdf$age <-rowNames
+#   
+#   
+#   toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
+#   names(toPlotdfLong)[2] <-paste("age_group") 
+#   
+#   p = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = age)) + 
+#     geom_bar(position="stack", stat="identity") +   labs(
+#       title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
+#       subtitle = "Calculation students infected by young: ratio.age.group.to.age.group..infections.student.age.young.age",
+#       caption = "ASSOCC"
+#     )
+#   print(p)
+# }
+# dev.off()
+
+pdf("NormalizedInfectionsAgeGroupStackedBarChart.pdf")
 for (j in 1:9){
   run1df <- subset(df, X.run.number. == j)
   young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age))
@@ -345,6 +348,11 @@ for (j in 1:9){
   workers <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.worker.age))
   retired <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.retired.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.retired.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.retired.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.retired.age))
   rowNames <- c("young", "students", "workers", "retired")
+  
+  young <- normalize(young)
+  students <- normalize(students)
+  workers <- normalize(workers)
+  retired <- normalize(retired)
   
   ratioAnxietyUsers <- toString(run1df[1,2])
   ratioAppUsers <- toString(run1df[1,3])
@@ -360,7 +368,6 @@ for (j in 1:9){
   q = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = age)) + 
     geom_bar(position="stack", stat="identity") +   labs(
       title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
-      subtitle = "Calculation students infected by young: ratio.age.group.to.age.group..infections.young.age.student.age",
       caption = "ASSOCC"
     )
   print(q)
