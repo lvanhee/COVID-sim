@@ -1654,10 +1654,10 @@ Density factors:\nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-3476
-1040
-3637
-1068
+3272
+1045
+3433
+1073
 Transport Model
 14
 35.0
@@ -2331,10 +2331,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3761
-1538
-4015
-1571
+3249
+1215
+3503
+1248
 ratio-motorized-transport-to-work
 ratio-motorized-transport-to-work
 0
@@ -2346,10 +2346,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3762
-1458
-4016
-1491
+3250
+1135
+3504
+1168
 ratio-motorized-transport-to-school
 ratio-motorized-transport-to-school
 0
@@ -2361,10 +2361,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3632
-1089
-3880
-1122
+3428
+1094
+3676
+1127
 ratio-workers-and-retired-owning-cars
 ratio-workers-and-retired-owning-cars
 0
@@ -2376,10 +2376,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3762
-1497
-4015
-1530
+3250
+1174
+3503
+1207
 ratio-motorized-transport-to-university
 ratio-motorized-transport-to-university
 0
@@ -2391,10 +2391,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3763
-1578
-4017
-1611
+3251
+1255
+3505
+1288
 ratio-motorized-transport-to-hospital
 ratio-motorized-transport-to-hospital
 0
@@ -2406,10 +2406,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-3454
-1441
-3610
-1501
+3924
+1359
+4051
+1419
 #max-people-per-bus
 20.0
 1
@@ -2417,10 +2417,10 @@ INPUTBOX
 Number
 
 MONITOR
-3585
+3752
+1344
+3917
 1389
-3750
-1434
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2428,12 +2428,12 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3991
-1147
-4216
-1180
-density-when-queuing
-density-when-queuing
+3815
+1175
+4046
+1208
+density-factor-queuing
+density-factor-queuing
 0
 1
 0.6
@@ -2443,12 +2443,12 @@ NIL
 HORIZONTAL
 
 SLIDER
-3991
-1190
-4216
-1223
-density-in-public-transport
-density-in-public-transport
+3814
+1215
+4045
+1248
+density-factor-public-transports
+density-factor-public-transports
 0
 1
 0.5
@@ -2458,25 +2458,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-3990
-1232
-4214
-1265
-density-in-shared-cars
-density-in-shared-cars
+3815
+1254
+4045
+1287
+density-factor-shared-cars
+density-factor-shared-cars
 0
 1
-0.8
+0.5
 0.01
 1
 NIL
 HORIZONTAL
 
 MONITOR
-3453
-1391
-3577
-1436
+3754
+1393
+3916
+1438
 NIL
 #people-denied-bus
 17
@@ -3548,9 +3548,9 @@ count should-be-isolators
 
 MONITOR
 3752
-1390
-3870
-1435
+1295
+3918
+1340
 NIL
 #users-in-buses
 17
@@ -3626,10 +3626,10 @@ is-infected-and-their-families-requested-to-stay-at-home?
 -1000
 
 SLIDER
-4024
-1459
-4317
-1492
+3512
+1136
+3805
+1169
 ratio-motorized-transport-to-my-non-essential-shop
 ratio-motorized-transport-to-my-non-essential-shop
 0
@@ -3641,10 +3641,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-4026
-1539
-4318
-1572
+3514
+1216
+3806
+1249
 ratio-motorized-transport-to-essential-shops
 ratio-motorized-transport-to-essential-shops
 0
@@ -3656,10 +3656,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-4029
-1577
-4319
-1610
+3517
+1254
+3807
+1287
 ratio-motorized-transport-to-public-leisure
 ratio-motorized-transport-to-public-leisure
 0
@@ -3671,10 +3671,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-4026
-1499
-4318
-1532
+3514
+1176
+3806
+1209
 ratio-motorized-transport-to-private-leisure
 ratio-motorized-transport-to-private-leisure
 0
@@ -3882,10 +3882,10 @@ log-preferred-activity-decision?
 -1000
 
 PLOT
-3455
-1136
-3974
-1378
+3249
+1293
+3748
+1502
 users of transport
 NIL
 NIL
@@ -3901,10 +3901,10 @@ PENS
 "total shared cars users" 1.0 0 -10899396 true "" "plot count people with [current-means-of-transport = \"shared-cars\"]"
 
 CHOOSER
-3456
-1077
-3619
-1122
+3252
+1082
+3415
+1127
 Transport-parameters-of
 Transport-parameters-of
 "Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
@@ -3922,10 +3922,10 @@ NIL
 11
 
 INPUTBOX
-3616
-1440
-3736
-1500
+3923
+1294
+4051
+1354
 #bus-per-timeslot
 100.0
 1
@@ -4249,7 +4249,7 @@ count people with [is-officially-asked-to-quarantine?]
 SLIDER
 967
 1330
-1004
+1000
 1481
 ratio-parents-subsidy
 ratio-parents-subsidy
@@ -4260,6 +4260,21 @@ ratio-parents-subsidy
 1
 NIL
 VERTICAL
+
+SLIDER
+3814
+1136
+4046
+1169
+density-walking-outside
+density-walking-outside
+0
+1
+0.05
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
