@@ -487,15 +487,12 @@ to perform-government-actions
   ]
   
   ;parents subsidy
-  let n-of-parents 0
+  let n-of-children count people with [age = "young"]
   ask people with [age = "young"]
   [
-    let my-n-of-parents count my-relatives with [age = "worker"]
-    set n-of-parents n-of-parents + my-n-of-parents
-  ]
-  ask people with [age = "young"]
-  [
-    let subsidy parents-subsidy / n-of-parents
+    let subsidy parents-subsidy / n-of-children
+    let n-of-my-parents count my-relatives with [age = "worker"]
+    set subsidy subsidy / n-of-my-parents
     ask my-relatives with [age = "worker"]
     [
       perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
