@@ -360,7 +360,7 @@ to-report SUE-luxury [ad]
     let motive motive-of ad
     
     if motive = "shopping" [
-      report 0.4
+      report amount-of-rations-I-buy-when-going-to-shops * 0.06
     ]
     report 0
   ]
@@ -368,7 +368,7 @@ to-report SUE-luxury [ad]
 end
 
 to-report SUA-luxury [ad]
-  let result min (list (amount-of-last-luxury-items-bought / 7) 1) * 0.4
+  let result amount-of-last-luxury-items-bought * 0.06
   set amount-of-last-luxury-items-bought 0
   report result
 end

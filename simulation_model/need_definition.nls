@@ -26,11 +26,11 @@ end
 
 
 to-report financial-survival-satisfaction-level
-  report clamp 0 1 (my-amount-of-capital / (price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops))
+  report clamp-soft (my-amount-of-capital / (price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops))
 end
 
 to-report financial-safety-satisfaction-level
-  report ifelse-value my-target-amount-of-capital > 0 [clamp 0 1 (my-amount-of-capital / my-target-amount-of-capital)] [0]
+  report ifelse-value my-target-amount-of-capital > 0 [clamp-soft (my-amount-of-capital / my-target-amount-of-capital)] [0]
 end
 
 
