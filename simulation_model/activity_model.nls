@@ -257,10 +257,6 @@ to-report amount-of-rations-I-buy-when-going-to-essential-shops
   report days-of-rations-bought * count [gatherers] of my-home
 end
 
-to-report amount-of-rations-I-buy-when-going-to-shops
-  report 7
-end
-
 to-report social-distancing-of [ad]
   report item 3 ad
 end

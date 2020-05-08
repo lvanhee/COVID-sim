@@ -987,7 +987,7 @@ PENS
 "health" 1.0 0 -2674135 true "" "plot mean [health-satisfaction-level] of people"
 "sleep" 1.0 0 -7500403 true "" "plot mean [sleep-satisfaction-level] of people"
 "compliance" 1.0 0 -6459832 true "" "plot mean [compliance-satisfaction-level] of people"
-"financial-safety" 1.0 0 -1184463 true "" "plot mean [financial-safety-satisfaction-level] of people with [not is-child?]"
+"financial-stability" 1.0 0 -1184463 true "" "plot mean [financial-stability-satisfaction-level] of people with [not is-child?]"
 "food-safety" 1.0 0 -14439633 true "" "plot mean [food-safety-satisfaction-level] of people"
 "leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
 "financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people with [not is-child?]"
@@ -1474,10 +1474,10 @@ Testing
 1
 
 SLIDER
-549
-1239
-761
-1272
+551
+1190
+763
+1223
 price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
@@ -1694,10 +1694,10 @@ General Lockdown Measures
 1
 
 TEXTBOX
-560
-1165
-710
-1191
+562
+1116
+712
+1142
 Economic Model
 16
 25.0
@@ -1721,10 +1721,10 @@ NIL
 1
 
 SLIDER
-549
-1277
-745
-1310
+551
+1228
+747
+1261
 days-of-rations-bought
 days-of-rations-bought
 1
@@ -2028,10 +2028,10 @@ PENS
 "@NE-Shop" 1.0 0 -5825686 true "" "plot count people-at-non-essential-shops"
 
 SLIDER
-549
-1200
-721
-1233
+551
+1151
+723
+1184
 workers-wages
 workers-wages
 0
@@ -2241,10 +2241,10 @@ PENS
 "shared-cars" 1.0 0 -6459832 true "" "plot #workers-working-at-shared-cars"
 
 SLIDER
-549
-1315
-775
-1348
+550
+1275
+776
+1308
 price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
@@ -3946,10 +3946,10 @@ log-setup?
 SLIDER
 3000
 317
-3172
+3252
 350
-financial-safety-learning-rate
-financial-safety-learning-rate
+financial-stability-learning-rate
+financial-stability-learning-rate
 0
 1
 0.05
@@ -4272,6 +4272,21 @@ density-walking-outside
 1
 0.05
 0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+549
+1315
+777
+1348
+amount-of-rations-I-buy-when-going-to-shops
+amount-of-rations-I-buy-when-going-to-shops
+0
+10
+7.0
+1
 1
 NIL
 HORIZONTAL
