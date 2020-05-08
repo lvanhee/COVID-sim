@@ -630,7 +630,7 @@ end
 
 to debug-global-prevalence-of [ad]
   if log? [
-    debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " social-distancing-of ad) 
+    debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " method-of-transportation-of ad " " social-distancing-of ad) 
       ;Survival needs
     debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
     debug-print (word "  Financial-survival:" (SDE-financial-survival ad * importance-weight-financial-survival))
