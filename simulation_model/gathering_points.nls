@@ -41,7 +41,7 @@ end
 
 
 to-report proximity-factor
-  if gathering-type = hospital-gathering-type [report density-factor-hospital]
+  if gathering-type = hospital-gathering-type [report density-factor-hospitals]
   if gathering-type = school-gathering-type[report density-factor-schools]
   if gathering-type = university-gathering-type[report density-factor-universities]
   if gathering-type = workplace-gathering-type [report density-factor-workplaces]

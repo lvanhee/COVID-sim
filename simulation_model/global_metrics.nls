@@ -181,8 +181,8 @@ to increment-contagion-metrics-from [context infected infector]
   let key (list [age] of infector [age] of infected)
   table:put age-group-to-age-group-#infections-last-tick-table key table:get age-group-to-age-group-#infections-last-tick-table key + 1  
   
-    if substring context 0 3 = "gp(" [
-    let gt substring context (position "," context + 1) (length context - 1) 
+    if is-gathering-point? context [
+    let gt [gathering-type] of context
     if gt = hospital-gathering-type [set #people-infected-in-hospitals #people-infected-in-hospitals + 1 stop]
     if gt = workplace-gathering-type [set #people-infected-in-workplaces  #people-infected-in-workplaces + 1 stop]
     if gt = home-gathering-type [set #people-infected-in-homes #people-infected-in-homes + 1 stop]
@@ -203,8 +203,8 @@ end
 
 to increment-age-per-gathering-type-global-metrics [ts context]
   let #contacts-now (count ts * (count ts - 1)) / 2
-  if substring context 0 3 = "gp(" [
-    let gt substring context (position "," context + 1) (length context - 1) 
+  if is-gathering-point? context [
+    let gt [gathering-type] of context
     if gt = hospital-gathering-type [set #contacts-in-hospitals #contacts-in-hospitals + #contacts-now stop]
     if gt = workplace-gathering-type [set #contacts-in-workplaces  #contacts-in-workplaces + #contacts-now stop]
     if gt = home-gathering-type [set #contacts-in-homes #contacts-in-homes + #contacts-now stop]

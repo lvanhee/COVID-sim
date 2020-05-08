@@ -122,7 +122,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.15
+0.4
 0.01
 1
 NIL
@@ -169,7 +169,7 @@ INPUTBOX
 918
 865
 #schools-gp
-13.0
+12.0
 1
 0
 Number
@@ -180,7 +180,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-8.0
+40.0
 1
 0
 Number
@@ -459,10 +459,10 @@ Number
 SLIDER
 736
 869
-831
+922
 902
-density-factor-hospital
-density-factor-hospital
+density-factor-hospitals
+density-factor-hospitals
 0
 1
 0.8
@@ -480,7 +480,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -510,7 +510,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -1146,7 +1146,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.272
+0.38
 0.01
 1
 NIL
@@ -1161,7 +1161,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.276
+0.35
 0.01
 1
 NIL
@@ -1176,7 +1176,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.02
+0.01
 0.01
 1
 NIL
@@ -1221,7 +1221,7 @@ PLOT
 12
 1370
 524
-1541
+1520
 Amount of capital per gathering point
 NIL
 NIL
@@ -1315,7 +1315,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.37
+0.41
 0.01
 1
 NIL
@@ -1350,7 +1350,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.04
+0.21
 0.01
 1
 NIL
@@ -1380,7 +1380,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.73
+0.34
 0.01
 1
 NIL
@@ -1395,7 +1395,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.24
+0.34
 0.01
 1
 NIL
@@ -1424,7 +1424,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-8
+0
 
 SLIDER
 2548
@@ -1482,7 +1482,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-2.8
+2.2
 0.1
 1
 NIL
@@ -1532,7 +1532,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-2.5
+1.7
 0.1
 1
 NIL
@@ -1557,7 +1557,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-18
+14
 
 MONITOR
 760
@@ -2036,7 +2036,7 @@ workers-wages
 workers-wages
 0
 30
-9.0
+10.0
 0.5
 1
 NIL
@@ -2063,7 +2063,7 @@ INPUTBOX
 662
 558
 #households
-200.0
+391.0
 1
 0
 Number
@@ -2085,7 +2085,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-13.0
+2000.0
 1
 0
 Number
@@ -2249,7 +2249,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-2.68
+2.2
 0.1
 1
 NIL
@@ -2519,7 +2519,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+4
 
 SLIDER
 2815
@@ -2530,7 +2530,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+35.0
 1
 1
 NIL
@@ -2545,7 +2545,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+89.0
 1
 1
 NIL
@@ -2560,7 +2560,7 @@ power-distance
 power-distance
 0
 100
-50.0
+35.0
 1
 1
 NIL
@@ -2575,7 +2575,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+69.0
 1
 1
 NIL
@@ -2590,7 +2590,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+66.0
 1
 1
 NIL
@@ -2605,7 +2605,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+51.0
 1
 1
 NIL
@@ -2620,7 +2620,7 @@ value-std-dev
 value-std-dev
 0
 10
-5.0
+10.0
 1
 1
 NIL
@@ -2936,7 +2936,7 @@ ratio-of-anxiety-avoidance-tracing-app-users
 ratio-of-anxiety-avoidance-tracing-app-users
 0
 1
-0.0
+1.0
 0.01
 1
 NIL
@@ -3564,7 +3564,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-1
+0
 1
 -1000
 
@@ -3608,7 +3608,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3621,7 +3621,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
@@ -3692,7 +3692,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
@@ -3735,7 +3735,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3760,7 +3760,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-1
+2
 
 SWITCH
 1719
@@ -4103,7 +4103,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-1
+0
 1
 -1000
 
@@ -4206,6 +4206,60 @@ Proxemics is represented as \"meeting spaces\" people can move into and be infec
 10
 125.0
 1
+
+CHOOSER
+1546
+581
+1684
+626
+contagion-model
+contagion-model
+"oxford"
+0
+
+PLOT
+1111
+236
+1311
+386
+avg-infectiousity per person
+NIL
+NIL
+0.0
+1.0
+0.0
+0.01
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "ifelse not any? people with [is-infected?] [plot 0]\n[plot mean [oxford-contagion-factor-between self (one-of people) (one-of gathering-points)] of people with [is-infected?]]"
+
+MONITOR
+1374
+528
+1522
+573
+NIL
+count people with [is-officially-asked-to-quarantine?]
+17
+1
+11
+
+SLIDER
+967
+1330
+1004
+1481
+ratio-parents-subsidy
+ratio-parents-subsidy
+0
+1
+0.1
+0.01
+1
+NIL
+VERTICAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -7270,7 +7324,7 @@ setup</setup>
   <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="500"/>
+    <timeLimit steps="1500"/>
     <metric>#infected</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
@@ -7361,14 +7415,12 @@ setup</setup>
     <metric>#workers-at-start</metric>
     <metric>#retireds-at-start</metric>
     <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
-      <value value="0"/>
-      <value value="0.5"/>
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
       <value value="0"/>
       <value value="0.6"/>
-      <value value="0.9"/>
+      <value value="1"/>
     </enumeratedValueSet>
     <steppedValueSet variable="#random-seed" first="1" step="1" last="5"/>
     <enumeratedValueSet variable="prioritize-testing-education?">
@@ -7641,7 +7693,7 @@ setup</setup>
     <enumeratedValueSet variable="ratio-students-subsidy">
       <value value="0.34"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-hospital">
+    <enumeratedValueSet variable="density-factor-hospitals">
       <value value="0.8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
@@ -7680,7 +7732,7 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-essential-shops">
       <value value="0.3"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-in-shared-cars">
+    <enumeratedValueSet variable="density-factor-shared-cars">
       <value value="0.8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-school-personel">
@@ -7758,7 +7810,7 @@ setup</setup>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.4"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-travelling-propagation">
+    <enumeratedValueSet variable="density-walking-outside">
       <value value="0.05"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#available-tests">
@@ -7812,10 +7864,10 @@ setup</setup>
     <enumeratedValueSet variable="ratio-retired-public-transport">
       <value value="0.2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-when-queuing">
+    <enumeratedValueSet variable="density-factor-queuing">
       <value value="0.6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-in-public-transport">
+    <enumeratedValueSet variable="density-factor-public-transports">
       <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-university-personel">

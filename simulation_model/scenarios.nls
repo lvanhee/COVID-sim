@@ -364,10 +364,10 @@ end
 to load-default-transport-model
   set #max-people-per-bus 20
   
-  set density-travelling-propagation 0.05
-  set density-when-queuing 0.6
-  set density-in-public-transport 0.5
-  set density-in-shared-cars 0.8
+  set density-walking-outside 0.05
+  set density-factor-queuing 0.6
+  set density-factor-public-transports 0.5
+  set density-factor-shared-cars 0.8
 end
 
 to load-default-migration-model
@@ -409,7 +409,7 @@ end
 
 
 to load-default-contagion-model
-  set density-factor-hospital 0.80
+  set density-factor-hospitals 0.80
   set density-factor-essential-shops 0.30
   set density-factor-non-essential-shops 0.60
   set density-factor-public-leisure 0.05
@@ -442,6 +442,7 @@ to load-default-economic-parameters
   set ratio-university-subsidy 0.03
   set ratio-retirees-subsidy 0.73
   set ratio-students-subsidy 0.24
+  set ratio-parents-subsidy 0.1
   
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8

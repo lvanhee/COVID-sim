@@ -1,4 +1,4 @@
-__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_utils.nls" "validation/scenario4.nls"]
+__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_scenario_9_checks.nls" "behaviourspace_utils.nls" "validation/scenario4.nls"]
 
 ;;change counts to non-essential + public leisure (or count seperate and sum up later) as closing non-essential will make them go to public leisure
 ;; add work-from-home scenario
@@ -31,6 +31,15 @@ end
 to-report #-publicleisure-in-first-weekend-variable-name
   report "#-publicleisure-in-first-weekend"
 end
+
+to-report ratio-isolators-behaviourspace-variable-name
+  report "ratio-isolating-people"
+end
+
+to-report ratio-breaking-isolation-behaviourspace-variable-name
+  report "ratio-breaking-isolation"
+end
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;EXPERIMENT NAMES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to-report mostly-elderly-household-behaviourspace-experiment-name
@@ -79,6 +88,22 @@ end
 
 to-report work-from-home-behaviourspace-experiment-name
   report "work-from-home"
+end
+
+to-report no-family-isolation-behaviourspace-experiment-name
+  report "no-family-isolation"
+end
+
+to-report family-isolation-behaviourspace-experiment-name
+  report "family-isolation"
+end
+
+to-report food-delivery-behaviourspace-experiment-name
+  report "food-delivery"
+end
+
+to-report no-food-delivery-behaviourspace-experiment-name
+  report "no-food-delivery"
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;EXPERIMENTS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -186,6 +211,65 @@ to run-all-closed-experiment
   save-on-file all-closed-behaviourspace-experiment-name #-nonessentialshoppers-in-first-weekend-variable-name total-#-nonessentialshoppers-in-first-weekend
   save-on-file all-closed-behaviourspace-experiment-name #-publicleisure-in-first-weekend-variable-name total-#-publicleisure-in-first-weekend
   save-on-file all-closed-behaviourspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+end
+
+to run-family-isolation-experiment [experiment-name family-isolation]
+  load-baseline-parameter-settings
+  disable-all-measures
+  
+  set food-delivered-to-isolators? true
+  set is-infected-and-their-families-requested-to-stay-at-home? family-isolation
+  set ratio-population-randomly-tested-daily 1
+  
+  setup
+  set #available-tests count people
+  
+  let total-number-peak-infected-people -1
+  let total-number-people count people
+  let total-number-isolators -1
+  
+  while [any? people with [is-contagious?]] [
+    go
+    if count people with [is-infected?] > total-number-peak-infected-people [
+      set total-number-peak-infected-people count people with [is-infected?]
+    ]
+    if count people with [is-officially-asked-to-quarantine?] > total-number-isolators [
+      set total-number-isolators count people with [is-officially-asked-to-quarantine?]
+    ]
+  ]
+  let total-number-dead-people #dead-people
+  let ratio-casualties-people  total-number-dead-people / total-number-people 
+  let ratio-infected-people  total-number-peak-infected-people / total-number-people
+  let ratio-isolators  total-number-isolators / total-number-people
+  
+  save-on-file experiment-name ratio-casualties-behaviourspace-variable-name ratio-casualties-people
+  save-on-file experiment-name ratio-infected-behaviourspace-variable-name ratio-infected-people
+  save-on-file experiment-name ratio-isolators-behaviourspace-variable-name ratio-isolators
+end
+
+to run-food-delivery-experiment [experiment-name food-delivery]
+  load-baseline-parameter-settings
+  disable-all-measures
+  
+  set food-delivered-to-isolators? food-delivery
+  set is-infected-and-their-families-requested-to-stay-at-home? true
+  set ratio-population-randomly-tested-daily 1
+  
+  setup
+  set #available-tests count people
+  
+  let total-number-people count people
+  let total-number-breaking-isolation -1
+  
+  while [any? people with [is-contagious? or is-officially-asked-to-quarantine?]] [
+    go
+    if count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?] > total-number-breaking-isolation [
+      set total-number-breaking-isolation count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]
+    ]
+  ]
+  let ratio-isolators  total-number-breaking-isolation / total-number-people
+  
+  save-on-file experiment-name ratio-breaking-isolation-behaviourspace-variable-name ratio-isolators
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;GLOBAL FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -412,7 +496,28 @@ to execute-and-save [experiment-name]
     stop
   ] 
 ;===================================================================
+
+  if experiment-name = no-family-isolation-behaviourspace-experiment-name
+  [
+    run-family-isolation-experiment experiment-name false
+    stop
+  ]
+  if experiment-name = family-isolation-behaviourspace-experiment-name
+  [
+    run-family-isolation-experiment experiment-name true
+    stop
+  ]
   
+  if experiment-name = no-food-delivery-behaviourspace-experiment-name
+  [
+    run-food-delivery-experiment experiment-name false
+    stop
+  ]
+  if experiment-name = food-delivery-behaviourspace-experiment-name
+  [
+    run-food-delivery-experiment experiment-name true
+    stop
+  ]
   error (sentence "unimplemented for:" experiment-name)
 end
 
