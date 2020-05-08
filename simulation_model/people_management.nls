@@ -105,7 +105,7 @@ people-own [
   importance-weight-conformity
 
   ;IMPORTANCE of SAFETY needs
-  importance-weight-financial-safety
+  importance-weight-financial-stability
   importance-weight-risk-avoidance
   importance-weight-compliance
 
@@ -115,7 +115,7 @@ people-own [
   importance-weight-autonomy
 
   ;Need satisfaction levels (i.e. level of watertanks)
-  ;The need satisfaction levels of food-safety, financial-survival, health, and financial-safety are reporters (see need_definition.nls)
+  ;The need satisfaction levels of food-safety, financial-survival, health, and financial-stability are reporters (see need_definition.nls)
 
   ;SURVIVAL:
   sleep-satisfaction-level

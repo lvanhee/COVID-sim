@@ -987,7 +987,7 @@ PENS
 "health" 1.0 0 -2674135 true "" "plot mean [health-satisfaction-level] of people"
 "sleep" 1.0 0 -7500403 true "" "plot mean [sleep-satisfaction-level] of people"
 "compliance" 1.0 0 -6459832 true "" "plot mean [compliance-satisfaction-level] of people"
-"financial-safety" 1.0 0 -1184463 true "" "plot mean [financial-safety-satisfaction-level] of people with [not is-child?]"
+"financial-stability" 1.0 0 -1184463 true "" "plot mean [financial-stability-satisfaction-level] of people with [not is-child?]"
 "food-safety" 1.0 0 -14439633 true "" "plot mean [food-safety-satisfaction-level] of people"
 "leisure" 1.0 0 -865067 true "" "plot mean [leisure-satisfaction-level] of people"
 "financial-survival" 1.0 0 -7858858 true "" "plot mean [financial-survival-satisfaction-level] of people with [not is-child?]"
@@ -3798,10 +3798,10 @@ log-setup?
 SLIDER
 3000
 317
-3172
+3252
 350
-financial-safety-learning-rate
-financial-safety-learning-rate
+financial-stability-learning-rate
+financial-stability-learning-rate
 0
 1
 0.05
@@ -4071,7 +4071,7 @@ count people with [is-officially-asked-to-quarantine?]
 SLIDER
 967
 1330
-1004
+1000
 1481
 ratio-parents-subsidy
 ratio-parents-subsidy

@@ -444,7 +444,7 @@ to-report SUE-financial-survival [ad]
   report 0
 end
 
-to-report SUE-financial-safety [ad]
+to-report SUE-financial-stability [ad]
   if age != "young" [
   let gp location-of ad
   let motive motive-of ad
@@ -562,7 +562,7 @@ to-report global-prevalence-of [ad]
     ;Safety needs
     (SDE-compliance ad * importance-weight-compliance) 
     (SDE-risk-avoidance ad * importance-weight-risk-avoidance) 
-    (SDE-financial-safety ad * importance-weight-financial-safety) 
+    (SDE-financial-stability ad * importance-weight-financial-stability) 
     ;Belonging needs
     (SDE-belonging ad * importance-weight-belonging-subneed)
     ;Esteem needs
@@ -587,7 +587,7 @@ to debug-global-prevalence-of [ad]
       ;Safety needs
     debug-print (word "  Compliance:" (SDE-compliance ad * importance-weight-compliance))
     debug-print (word "  Risk Avoidance:" (SDE-risk-avoidance ad * importance-weight-risk-avoidance))
-    debug-print (word "  Financial Safety:" (SDE-financial-safety ad * importance-weight-financial-safety))
+    debug-print (word "  Financial Stability:" (SDE-financial-stability ad * importance-weight-financial-stability))
       ;Belonging needs
     debug-print (word "  Belonging:" (SDE-belonging ad * importance-weight-belonging-subneed))
       ;Esteem needs
@@ -645,9 +645,9 @@ end
 
 ;;; SDE and SDA SAFETY NEEDS
 
-to-report SDE-financial-safety [ad]
-  let expected-increase SUE-financial-safety ad
-  let discounted-increase expected-increase * (1 - financial-safety-satisfaction-level)
+to-report SDE-financial-stability [ad]
+  let expected-increase SUE-financial-stability ad
+  let discounted-increase expected-increase * (1 - financial-stability-satisfaction-level)
   report discounted-increase
 end
 
