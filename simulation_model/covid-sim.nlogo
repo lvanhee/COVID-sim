@@ -3898,8 +3898,7 @@ true
 "" ""
 PENS
 "total bus users" 1.0 0 -11221820 true "" "plot #users-in-buses"
-"total shared cars users" 1.0 0 -10899396 true "" "plot #users-in-shared-cars"
-"total solo transport users" 1.0 0 -8431303 true "" "plot #users-solo"
+"total shared cars users" 1.0 0 -10899396 true "" "plot count people with [current-means-of-transport = \"shared-cars\"]"
 
 CHOOSER
 3456
