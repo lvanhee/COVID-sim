@@ -4068,6 +4068,21 @@ count people with [is-officially-asked-to-quarantine?]
 1
 11
 
+SLIDER
+967
+1330
+1004
+1481
+ratio-parents-subsidy
+ratio-parents-subsidy
+0
+1
+0.1
+0.01
+1
+NIL
+VERTICAL
+
 @#$#@#$#@
 ## WHAT IS IT?
 
