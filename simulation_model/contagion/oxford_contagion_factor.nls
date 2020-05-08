@@ -1,0 +1,242 @@
+to-report oxford-contagion-factor-between [infector susceptible context]
+  let t [(ticks - time-when-infected)] of infector
+  
+  let I-a-s average-expected-number-of-interactions-for-age [age] of susceptible
+  let integral gamma-interal (t / 4) ((t + 1) / 4)
+  let R 5.75
+  let s-a-s infection-scale-factor-per-age [age] of susceptible
+  let a-s-i relative-infection-rate-of-infection-status [infection-status] of infector
+  let B-n infection-rate-of context
+  
+  
+  let lambda R * S-a-s * A-s-i * B-n * integral / I-a-s
+  
+  let result 1 - exp (- lambda)
+  
+ ; show (sentence "R" R "sas" s-a-s "asi" a-s-i "b" b-n "int" integral "ias" i-a-s "result" result "t" t)
+  report result
+end 
+
+
+to-report infection-scale-factor-per-age [ag]
+  if ag = young-age [ report mean (list 0.71  0.74)]
+  if ag = student-age [ report mean (list 0.79)]
+  if ag = worker-age [ report mean (list 0.87 0.98 1.11 1.26)]
+  if ag = retired-age [ report mean (list 1.45 1.66)]
+end
+
+to-report average-expected-number-of-interactions-for-age [age-factor]
+  report 3 ;we won't break our head on it
+end
+  
+
+to-report gamma-interal [start ending]
+  report cdf-gamma-value-means-6-sd-2.5 start - cdf-gamma-value-means-6-sd-2.5 ending
+end
+
+to-report cdf-gamma-value-means-6-sd-2.5 [t]
+  
+  if(0 = t) [report 1
+  ]
+  if(0.25 = t) [report 0.99999952
+  ]
+  if(0.5 = t) [report 0.9999787769
+  ]
+  if(0.75 = t) [report 0.9998208529
+  ]
+  if(1 = t) [report 0.9992318769
+  ]
+  if(1.25 = t) [report 0.9977265693
+  ]
+  if(1.5 = t) [report 0.9946751346
+  ]
+  if(1.75 = t) [report 0.9893835886
+  ]
+  if(2 = t) [report 0.9811808911
+  ]
+  if(2.25 = t) [report 0.9694945567
+  ]
+  if(2.5 = t) [report 0.9539051153
+  ]
+  if(2.75 = t) [report 0.9341766172
+  ]
+  if(3 = t) [report 0.9102648686
+  ]
+  if(3.25 = t) [report 0.8823075516
+  ]
+  if(3.5 = t) [report 0.8506013278
+  ]
+  if(3.75 = t) [report 0.8155709667
+  ]
+  if(4 = t) [report 0.7777349018
+  ]
+  if(4.25 = t) [report 0.7376707105
+  ]
+  if(4.5 = t) [report 0.6959830498
+  ]
+  if(4.75 = t) [report 0.6532756844
+  ]
+  if(5 = t) [report 0.6101284863
+  ]
+  if(5.25 = t) [report 0.5670796886
+  ]
+  if(5.5 = t) [report 0.5246132414
+  ]
+  if(5.75 = t) [report 0.4831508224
+  ]
+  if(6 = t) [report 0.4430478848
+  ]
+  if(6.25 = t) [report 0.4045930424
+  ]
+  if(6.5 = t) [report 0.3680100849
+  ]
+  if(6.75 = t) [report 0.3334619506
+  ]
+  if(7 = t) [report 0.3010560541
+  ]
+  if(7.25 = t) [report 0.2708504484
+  ]
+  if(7.5 = t) [report 0.2428603918
+  ]
+  if(7.75 = t) [report 0.2170649765
+  ]
+  if(8 = t) [report 0.1934135598
+  ]
+  if(8.25 = t) [report 0.1718318087
+  ]
+  if(8.5 = t) [report 0.1522272327
+  ]
+  if(8.75 = t) [report 0.1344941315
+  ]
+  if(9 = t) [report 0.118517922
+  ]
+  if(9.25 = t) [report 0.1041788457
+  ]
+  if(9.5 = t) [report 0.09135507564
+  ]
+  if(9.75 = t) [report 0.07992526273
+  ]
+  if(10 = t) [report 0.06977056927
+  ]
+  if(10.25 = t) [report 0.06077624376
+  ]
+  if(10.5 = t) [report 0.052832794
+  ]
+  if(10.75 = t) [report 0.0458368143
+  ]
+  if(11 = t) [report 0.03969152078
+  ]
+  if(11.25 = t) [report 0.0343070442
+  ]
+  if(11.5 = t) [report 0.02960052627
+  ]
+  if(11.75 = t) [report 0.02549605967
+  ]
+  if(12 = t) [report 0.02192450712
+  ]
+  if(12.25 = t) [report 0.01882323022
+  ]
+  if(12.5 = t) [report 0.01613575393
+  ]
+  if(12.75 = t) [report 0.01381138788
+  ]
+  if(13 = t) [report 0.01180482258
+  ]
+  if(13.25 = t) [report 0.01007571441
+  ]
+  if(13.5 = t) [report 0.008588270621
+  ]
+  if(13.75 = t) [report 0.00731084306
+  ]
+  if(14 = t) [report 0.006215536686
+  ]
+  if(14.25 = t) [report 0.005277837741
+  ]
+  if(14.5 = t) [report 0.004476264353
+  ]
+  if(14.75 = t) [report 0.003792041541
+  ]
+  if(15 = t) [report 0.003208801394
+  ]
+  if(15.25 = t) [report 0.002712308511
+  ]
+  if(15.5 = t) [report 0.002290210255
+  ]
+  if(15.75 = t) [report 0.001931810893
+  ]
+  if(16 = t) [report 0.001627868409
+  ]
+  if(16.25 = t) [report 0.001370412633
+  ]
+  if(16.5 = t) [report 0.001152583122]
+  
+  if(16.75 = t) [ report 9.684852789E-4
+  ]
+  if(17 = t) [ report 8.130631037E-4
+  ]
+  if(17.25 = t) [ report 6.819870591E-4
+  ]
+  if(17.5 = t) [ report 5.715555806E-4
+  ]
+  if(17.75 = t) [ report 4.78608819E-4
+  ]
+  if(18 = t) [ report 4.004533241E-4
+  ]
+  if(18.25 = t) [ report 3.347964494E-4
+  ]
+  if(18.5 = t) [ report 2.796893666E-4
+  ]
+  if(18.75 = t) [ report 2.334776825E-4
+  ]
+  if(19 = t) [ report 1.947587354E-4
+  ]
+  if(19.25 = t) [ report 1.623447478E-4
+  ]
+  if(19.5 = t) [ report 1.352310979E-4
+  ]
+  if(19.75 = t) [ report 1.12569049E-4
+  ]
+  if(20 = t) [ report 9.364235547E-5
+  ]
+  if(20.25 = t) [ report 7.784722941E-5
+  ]
+  if(20.5 = t) [ report 6.467521175E-5
+  ]
+  if(20.75 = t) [ report 5.369855334E-5
+  ]
+  if(21 = t) [ report 4.455775469E-5
+  ]
+  if(21.25 = t) [ report 3.695096311E-5
+  ]
+  if(21.5 = t) [ report 3.062496221E-5
+  ]
+  if(21.75 = t) [ report 2.536752515E-5
+  ]
+  if(22 = t) [ report 2.100093412E-5
+  ]
+  if(22.25 = t) [ report 1.737649478E-5
+  ]
+  if(22.5 = t) [ report 1.436989853E-5
+  ]
+  if(22.75 = t) [ report 1.187730646E-5
+  ]
+  if(23 = t) [ report 9.812046109E-6
+  ]
+  if(23.25 = t) [ report 8.101828413E-6
+  ]
+  if(23.5 = t) [ report 6.686405302E-6
+  ]
+  if(23.75 = t) [ report 5.515600168E-6
+  ]
+  if(24 = t) [ report 4.547653619E-6
+  ]
+  if(24.25 = t) [ report 3.747835228E-6
+  ]
+  if(24.5 = t) [ report 3.087279711E-6
+  ]
+  if(24.75 = t) [ report 2.542012077E-6
+  ]
+  if(25 = t) [ report 2.092131782E-6]
+    if t > 25 [ report 0]
+    error (sentence "unimplemented for" t)
+end

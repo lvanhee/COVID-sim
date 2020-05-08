@@ -22,6 +22,11 @@ to-report clamp [low high number]
   report number
 end
 
+; Clamps a number between 0 and 1, but doesn't let it reach either value
+; Based on a Gompertz function
+to-report clamp-soft [number]
+  report exp(-5 * exp(-4 * number))
+end
 
 
 to export-profiling

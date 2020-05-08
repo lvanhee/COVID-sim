@@ -177,7 +177,7 @@ to calibrate-importance-weights-of-needs
     
 
     ;Set importance weights of subneeds of SAFETY
-    set importance-weight-financial-safety (importance-given-to-power-value / 100) * weight-safety-needs-category
+    set importance-weight-financial-stability (importance-given-to-power-value / 100) * weight-safety-needs-category
     set importance-weight-risk-avoidance (importance-given-to-security-value / 100) * weight-safety-needs-category
     set importance-weight-compliance ((importance-given-to-conformity-tradition-value + importance-given-to-security-value) / (2 * 100)) * weight-safety-needs-category
     set importance-weight-conformity (importance-given-to-conformity-tradition-value / 100) * weight-safety-needs-category
@@ -196,7 +196,7 @@ to calibrate-importance-weights-of-needs
       importance-weight-health
       importance-weight-sleep
       importance-weight-conformity
-      importance-weight-financial-safety
+      importance-weight-financial-stability
       importance-weight-risk-avoidance
       importance-weight-compliance
       importance-weight-belonging-subneed
@@ -210,7 +210,7 @@ to calibrate-importance-weights-of-needs
     set importance-weight-health (importance-weight-health / total-sum-of-weights)
     set importance-weight-sleep (importance-weight-sleep / total-sum-of-weights)
     set importance-weight-conformity (importance-weight-conformity / total-sum-of-weights)
-    set importance-weight-financial-safety (importance-weight-financial-safety / total-sum-of-weights)
+    set importance-weight-financial-stability (importance-weight-financial-stability / total-sum-of-weights)
     set importance-weight-risk-avoidance (importance-weight-risk-avoidance / total-sum-of-weights)
     set importance-weight-compliance (importance-weight-compliance / total-sum-of-weights)
     set importance-weight-belonging-subneed (importance-weight-belonging-subneed / total-sum-of-weights)

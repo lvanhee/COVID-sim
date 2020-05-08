@@ -26,11 +26,11 @@ end
 
 
 to-report financial-survival-satisfaction-level
-  report clamp 0 1 (my-amount-of-capital / (price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops))
+  report clamp-soft (my-amount-of-capital / (price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops))
 end
 
-to-report financial-safety-satisfaction-level
-  report ifelse-value my-target-amount-of-capital > 0 [clamp 0 1 (my-amount-of-capital / my-target-amount-of-capital)] [0]
+to-report financial-stability-satisfaction-level
+  report ifelse-value my-target-amount-of-capital > 0 [clamp-soft (my-amount-of-capital / my-target-amount-of-capital)] [0]
 end
 
 
@@ -59,8 +59,8 @@ to-report SDE-safety [ad]
   let importances-psychological-needs (list importance-weight-compliance importance-weight-risk-avoidance)
 
   if age != "young" [ ; The young te taken care of by their parents, so do not worry about finances
-    set psychological-needs fput (SDE-financial-safety ad) psychological-needs
-    set importances-psychological-needs fput importance-weight-financial-safety importances-psychological-needs
+    set psychological-needs fput (SDE-financial-stability ad) psychological-needs
+    set importances-psychological-needs fput importance-weight-financial-stability importances-psychological-needs
   ]
 
   report weighted-mean psychological-needs importances-psychological-needs
@@ -92,7 +92,7 @@ to-report quality-of-life-indicator
     ;Safety needs
     (compliance-satisfaction-level * importance-weight-compliance) 
     (risk-avoidance-satisfaction-level * importance-weight-risk-avoidance) 
-    (financial-safety-satisfaction-level * importance-weight-financial-safety) 
+    (financial-stability-satisfaction-level * importance-weight-financial-stability) 
     ;Belonging needs
     (belonging-satisfaction-level * importance-weight-belonging-subneed)
     ;Esteem needs

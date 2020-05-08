@@ -14,7 +14,7 @@ to reset-economy-measurements
   
   ask people [   
     set my-current-income 0
-    set my-target-amount-of-capital precision (my-target-amount-of-capital + financial-safety-learning-rate * (my-amount-of-capital - my-target-amount-of-capital) ) 12]
+    set my-target-amount-of-capital precision (my-target-amount-of-capital + financial-stability-learning-rate * (my-amount-of-capital - my-target-amount-of-capital) ) 12]
   
   ;;weird, shouldn't people expected to be pain only when they plan on working?
   ;;e.g. lower pay when working from home; or no/less pay when staying at home taking care of a child? (holiday leave)
@@ -449,6 +449,7 @@ to perform-government-actions
   let university-subsidy taxes-collected * ratio-university-subsidy
   let retirees-subsidy taxes-collected * ratio-retirees-subsidy
   let students-subsidy taxes-collected * ratio-students-subsidy
+  let parents-subsidy taxes-collected * ratio-parents-subsidy
   
   let n-of-schools count gathering-points with [gathering-type = "school"]
   ask gathering-points with [gathering-type = "school"]
@@ -483,6 +484,19 @@ to perform-government-actions
   [
     let subsidy students-subsidy / n-of-students
     perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
+  ]
+  
+  ;parents subsidy
+  let n-of-children count people with [age = "young"]
+  ask people with [age = "young"]
+  [
+    let subsidy parents-subsidy / n-of-children
+    let n-of-my-parents count my-relatives with [age = "worker"]
+    set subsidy subsidy / n-of-my-parents
+    ask my-relatives with [age = "worker"]
+    [
+      perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
+    ]
   ]
 end
 
