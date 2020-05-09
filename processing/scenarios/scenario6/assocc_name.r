@@ -33,6 +33,8 @@ assocc_processing.get_display_name <- function(a)
     "#contacts n.ess-shops"
   else if(strcmp(a,"X.contacts.in.homes"))
     "#contacts homes"
+  else if(strcmp(a,"X.contacts.in.workplaces"))
+    "#contacts workplaces"
   else if(strcmp(a,"X.contacts.in.public.leisure"))
     "#contacts public leisure"
   else if(strcmp(a,"X.contacts.in.private.leisure"))

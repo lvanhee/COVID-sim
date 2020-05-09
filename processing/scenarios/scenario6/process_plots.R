@@ -1,4 +1,4 @@
-#Made by Maarten Jensen (Umeå University) & Kurt Kreulen (TU Delft) for ASSOCC
+#Made by Maarten Jensen (Ume? University) & Kurt Kreulen (TU Delft) for ASSOCC
 
 #first empty working memory
 rm(list=ls())
@@ -136,6 +136,7 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
 list_of_y_variables_to_compare <-
   c("X.contacts.in.hospitals",
     "X.contacts.in.homes",
+    "X.contacts.in.workplaces",
     "X.contacts.in.non.essential.shops",
     "X.contacts.in.public.leisure",
     "X.contacts.in.private.leisure",
