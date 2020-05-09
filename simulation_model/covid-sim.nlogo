@@ -6029,9 +6029,6 @@ setup</setup>
     <enumeratedValueSet variable="ratio-family-homes">
       <value value="0.27"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="financial-safety-learning-rate">
-      <value value="0.05"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.03"/>
     </enumeratedValueSet>
