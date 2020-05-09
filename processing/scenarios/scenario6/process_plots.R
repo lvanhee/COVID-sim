@@ -6,7 +6,9 @@ rm(list=ls())
 #args <- commandArgs(trailingOnly=TRUE)
 args <- commandArgs(trailingOnly=TRUE)
 #args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
-args <-"D:/absoluteNewCVOID/COVID-sim/processing/scenarios/scenario6"
+#args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
+args <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+#args <-"D:/absoluteNewCVOID/COVID-sim/processing/scenarios/scenario6"
 if (length(args)==0) {
   stop("At least one argument must be supplied (working directory).n", call.=FALSE)
 }
@@ -17,8 +19,9 @@ if(substr(workdirec, nchar(workdirec)-1+1, nchar(workdirec)) != '/')
 
 source(paste(workdirec,"ASSOCC_processing.r", sep=""))
 
-df<-assocc_processing.init_and_prepare_data(args)
+df<-assocc_processing.init_and_prepare_data(workdirec)
 splitted_by_ratio_anxiety_df <- split(df, df$ratio.of.anxiety.avoidance.tracing.app.users)
+splitted_by_app_user_ratio_df <- split(df, df$ratio.of.people.using.the.tracking.app)
 splitted_by_ratio_anxiety_and_ratio_users_df <- split(df, list(df$ratio.of.anxiety.avoidance.tracing.app.users, df$ratio.of.people.using.the.tracking.app))
 
 
@@ -29,10 +32,50 @@ if (export_pdf) {
   pdf(file="Combined plots.pdf", width=9, height=6);
 }
 
+last_tick <- max(df$X.step.)
 
+foreach(r = splitted_by_app_user_ratio_df) %do%
+  {
+    local_df <- r
+    get_variable_name_crossing_x_y <- function (x_name,y_name)
+    {
+      paste("ratio.age.group.to.age.group..infections.",x_name,".age.",y_name,".age", sep="")
+    }
+    
+    print(assocc_processing.plot_stacked_bar_chart2(
+      df=local_df,
+      values = c("young", "student", "worker", "retired"),
+      x_output_name="infectee",
+      y_output_name="ratio",
+      linesVarName= "infector",
+      get_variable_name_crossing_x_y= get_variable_name_crossing_x_y,
+      title_constants=paste("(ratio tracking app:",r$ratio.of.people.using.the.tracking.app,")",sep="")
+    ))
+    Sys.sleep(1)
+    
+  }
 
+foreach(r = splitted_by_app_user_ratio_df) %do%
+  {
+    local_df <- r
+    get_variable_name_crossing_x_y <- function (x_name,y_name)
+    {
+      paste("age.group.to.age.group..contacts.",x_name,".age.",y_name,".age", sep="")
+    }
+    
+    print(
+    assocc_processing.plot_stacked_bar_chart2(
+      df=local_df,
+      values = c("young", "student", "worker", "retired"),
+      x_output_name="contacted",
+      y_output_name="#contacts",
+      linesVarName= "contactors",
+      get_variable_name_crossing_x_y= get_variable_name_crossing_x_y,
+      title_constants=paste("(ratio tracking app:",r$ratio.of.people.using.the.tracking.app,")",sep="")
+    ))
+    Sys.sleep(1)
+  }
 
-#X11()
 foreach(i = splitted_by_ratio_anxiety_df) %do% 
   {
     
@@ -279,7 +322,6 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
 
 list_of_y_variables_to_compare <-
   c(
-    
     "age.group.to.age.group..contacts.young.age.young.age",
     "age.group.to.age.group..contacts.student.age.young.age",
     "age.group.to.age.group..contacts.worker.age.young.age",
@@ -298,8 +340,6 @@ list_of_y_variables_to_compare <-
     "age.group.to.age.group..contacts.retired.age.retired.age"
   )
 
-
-
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
     print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
@@ -309,9 +349,6 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
                                                               df = i))
     Sys.sleep(1)
   }
-
-
-
 
 if (export_pdf) {
   dev.off();
