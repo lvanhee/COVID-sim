@@ -357,6 +357,8 @@ assocc_processing.plot_stacked_bar_chart2 <- function (
 
 assocc_processing.plot_stacked_bar_chart <- function ()
 {
+  ########WAS NOT DEFINED, QUICK BUGFIX###########
+  name_independent_variables_to_display <- c()
 #Stacked bar plot#####################################################################
 generalPurpose <- "Infected by age group -"
 anxietyUsersTemplate <- "Ratio anxiety users" 

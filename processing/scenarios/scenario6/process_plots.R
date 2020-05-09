@@ -34,6 +34,8 @@ if (export_pdf) {
 
 last_tick <- max(df$X.step.)
 
+assocc_processing.plot_stacked_bar_chart()
+
 foreach(r = splitted_by_app_user_ratio_df) %do%
   {
     local_df <- r
