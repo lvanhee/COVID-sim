@@ -9,13 +9,6 @@
 ; ... (i.e. values placed closer to one another in the circumplex correlate positively, while values placed further apart in the circumplex correlate negatively)
 ;load-nations-hofstede-dimension-scores: calibrate Hofstede dimensions based on a nation's Hofstede dimension scorecard
 
-to setup-person-values-and-needs-OLD
-  load-nations-hofstede-dimension-scores
-  set-values-based-on-culture
-  calibrate-importance-weights-of-needs
-  set-initial-need-satisfaction-levels
-end
-
 to setup-person-values-and-needs
   load-nations-hofstede-dimension-scores
   calibrate-agent-value-systems
