@@ -35,12 +35,16 @@ end
 to spread-by-activity-proximity
   ask gathering-points with [not (self = away-gathering-point) and any? current-gatherers]
   [
+
     spread-within-a-set-of-people current-gatherers self
   ]
 end
 
 
 to spread-within-a-set-of-people [ts context]
+  
+  
+    
   if log? and log-contamination? [
     log-file-print (word "contacts(" ticks "," ts ","  context "," [age] of ts ")")]
   let #contacts-now (count ts * ((count ts) - 1)) / 2

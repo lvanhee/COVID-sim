@@ -259,39 +259,43 @@ assocc_processing.plotCompareAlongDifferentY_matrix <- function(x_var_name,
   if(length(list_of_y_variables_to_compare) >= 17)
   {stop("Not defined for more than 16 lines:")}
   
-  p<-p+assocc_processing.get_title2(x_var_name, "young infected by young", c(),
+  p<-p+assocc_processing.get_title2(x_var_name, 
+                                    x_var_name = 
+                                      paste(y_var_name, 
+                                    "young -> young"), c(),
+                                   df)+
+                                     theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p1<-p1+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "young -> workers"), c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p2<-p2+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "young -> students"), c(),
                                    df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p1<-p1+assocc_processing.get_title2(x_var_name, "young infected by workers", c(),
-                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p2<-p2+assocc_processing.get_title2(x_var_name, "young infected by students", c(),
-                                   df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p3<-p3+assocc_processing.get_title2(x_var_name, "young infected by retireds", c(),
+  p3<-p3+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "young -> retireds"), c(),
                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p4<-p4+assocc_processing.get_title2(x_var_name, "workers infected by young", c(),
+  p4<-p4+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "workers -> young"), c(),
                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p5<-p5+assocc_processing.get_title2(x_var_name, "workers infected by workers", c(),
+  p5<-p5+assocc_processing.get_title2(x_var_name, paste(y_var_name,  "workers -> workers"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p6<-p6+assocc_processing.get_title2(x_var_name, "workers infected by students", c(),
+  p6<-p6+assocc_processing.get_title2(x_var_name, paste(y_var_name,  "workers -> students"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p7<-p7+assocc_processing.get_title2(x_var_name, "workers infected by retireds", c(),
+  p7<-p7+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "workers -> retireds"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
  
-  p8<-p8+assocc_processing.get_title2(x_var_name, "students infected by young", c(),
+  p8<-p8+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> young"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p9<-p9+assocc_processing.get_title2(x_var_name, "students infected by workers", c(),
+  p9<-p9+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> workers"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p10<-p10+assocc_processing.get_title2(x_var_name, "students infected by students", c(),
+  p10<-p10+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> students"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p11<-p11+assocc_processing.get_title2(x_var_name, "students infected by retireds", c(),
+  p11<-p11+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> retireds"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
   
-   p12<-p12+assocc_processing.get_title2(x_var_name, "retireds infected by young", c(),
+   p12<-p12+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> young"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p13<-p13+assocc_processing.get_title2(x_var_name, "retireds infected by workers", c(),
+  p13<-p13+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> workers"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p14<-p14+assocc_processing.get_title2(x_var_name, "retireds infected by students", c(),
+  p14<-p14+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> students"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p15<-p15+assocc_processing.get_title2(x_var_name, "retireds infected by retireds", c(),
+  p15<-p15+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> retireds"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
  
   figure <- ggarrange(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, ncol = 4, nrow = 4)

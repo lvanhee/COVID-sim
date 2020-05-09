@@ -201,10 +201,11 @@ to increment-contagion-metrics-from [context infected infector]
   error (sentence "unimplemented for" context)
 end
 
-to increment-age-per-gathering-type-global-metrics [ts context]
+to increment-#contacts-per-gathering-type-global-metrics [ts context]
   let #contacts-now (count ts * (count ts - 1)) / 2
   if is-gathering-point? context [
     let gt [gathering-type] of context
+    
     if gt = hospital-gathering-type [set #contacts-in-hospitals #contacts-in-hospitals + #contacts-now stop]
     if gt = workplace-gathering-type [set #contacts-in-workplaces  #contacts-in-workplaces + #contacts-now stop]
     if gt = home-gathering-type [set #contacts-in-homes #contacts-in-homes + #contacts-now stop]
@@ -224,7 +225,7 @@ end
 
 to  increment-contacts-due-to-group-gathering-global-metrics [ts context]
   
-  increment-age-per-gathering-type-global-metrics ts context
+  increment-#contacts-per-gathering-type-global-metrics ts context
   
   ask ts [
     ask other ts [
