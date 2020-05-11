@@ -5746,7 +5746,7 @@ setup</setup>
     <metric>#infected</metric>
     <metric>count people with [has-been-tested-immune? = true]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
-    <metric>count people with [epistemic-infection-status "immune"]</metric>
+    <metric>count people with [epistemic-infection-status = "immune"]</metric>
     <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
@@ -6313,7 +6313,7 @@ setup</setup>
     <metric>#infected</metric>
     <metric>count people with [has-been-tested-immune? = true]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
-    <metric>count people with [epistemic-infection-status "immune"]</metric>
+    <metric>count people with [epistemic-infection-status = "immune"]</metric>
     <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
@@ -6880,7 +6880,7 @@ setup</setup>
     <metric>#infected</metric>
     <metric>count people with [has-been-tested-immune? = true]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
-    <metric>count people with [epistemic-infection-status "immune"]</metric>
+    <metric>count people with [epistemic-infection-status = "immune"]</metric>
     <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
@@ -7447,7 +7447,7 @@ setup</setup>
     <metric>#infected</metric>
     <metric>count people with [has-been-tested-immune? = true]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
-    <metric>count people with [epistemic-infection-status "immune"]</metric>
+    <metric>count people with [epistemic-infection-status = "immune"]</metric>
     <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
