@@ -382,6 +382,8 @@ to setup-activities
     set private-leisure-points (turtle-set private-leisure-points self)
     set hired-workers (turtle-set)
     set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure-gp + 1)]
+  
+  ask gathering-points [set hired-workers (turtle-set)]
 
   create-gathering-points 1 [
     set public-transport (turtle-set public-transport self)

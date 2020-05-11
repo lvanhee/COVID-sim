@@ -259,39 +259,43 @@ assocc_processing.plotCompareAlongDifferentY_matrix <- function(x_var_name,
   if(length(list_of_y_variables_to_compare) >= 17)
   {stop("Not defined for more than 16 lines:")}
   
-  p<-p+assocc_processing.get_title2(x_var_name, "young infected by young", c(),
+  p<-p+assocc_processing.get_title2(x_var_name, 
+                                    x_var_name = 
+                                      paste(y_var_name, 
+                                    "young -> young"), c(),
+                                   df)+
+                                     theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p1<-p1+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "young -> workers"), c(),
+                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
+  p2<-p2+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "young -> students"), c(),
                                    df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p1<-p1+assocc_processing.get_title2(x_var_name, "young infected by workers", c(),
-                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p2<-p2+assocc_processing.get_title2(x_var_name, "young infected by students", c(),
-                                   df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p3<-p3+assocc_processing.get_title2(x_var_name, "young infected by retireds", c(),
+  p3<-p3+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "young -> retireds"), c(),
                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p4<-p4+assocc_processing.get_title2(x_var_name, "workers infected by young", c(),
+  p4<-p4+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "workers -> young"), c(),
                                      df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p5<-p5+assocc_processing.get_title2(x_var_name, "workers infected by workers", c(),
+  p5<-p5+assocc_processing.get_title2(x_var_name, paste(y_var_name,  "workers -> workers"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p6<-p6+assocc_processing.get_title2(x_var_name, "workers infected by students", c(),
+  p6<-p6+assocc_processing.get_title2(x_var_name, paste(y_var_name,  "workers -> students"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p7<-p7+assocc_processing.get_title2(x_var_name, "workers infected by retireds", c(),
+  p7<-p7+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "workers -> retireds"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
  
-  p8<-p8+assocc_processing.get_title2(x_var_name, "students infected by young", c(),
+  p8<-p8+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> young"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p9<-p9+assocc_processing.get_title2(x_var_name, "students infected by workers", c(),
+  p9<-p9+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> workers"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p10<-p10+assocc_processing.get_title2(x_var_name, "students infected by students", c(),
+  p10<-p10+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> students"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p11<-p11+assocc_processing.get_title2(x_var_name, "students infected by retireds", c(),
+  p11<-p11+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "students -> retireds"), c(),
                                         df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
   
-   p12<-p12+assocc_processing.get_title2(x_var_name, "retireds infected by young", c(),
+   p12<-p12+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> young"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p13<-p13+assocc_processing.get_title2(x_var_name, "retireds infected by workers", c(),
+  p13<-p13+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> workers"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p14<-p14+assocc_processing.get_title2(x_var_name, "retireds infected by students", c(),
+  p14<-p14+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> students"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
-  p15<-p15+assocc_processing.get_title2(x_var_name, "retireds infected by retireds", c(),
+  p15<-p15+assocc_processing.get_title2(x_var_name,  paste(y_var_name, "retireds -> retireds"), c(),
                                       df)+ theme(plot.title = element_text(size = 8), legend.position = "none") +  ylim(0, 2)
  
   figure <- ggarrange(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, ncol = 4, nrow = 4)
@@ -299,6 +303,62 @@ assocc_processing.plotCompareAlongDifferentY_matrix <- function(x_var_name,
   
 }
 
+
+assocc_processing.plot_stacked_bar_chart2 <- function (
+  df,
+  values,
+  x_output_name,
+  y_output_name,
+  linesVarName,
+  get_variable_name_crossing_x_y,
+  title_constants
+  )
+{
+  list_of_columns <- c()
+  local_df <- c()
+  foreach(xval = values ) %do%
+    {
+      values_xval <- c()
+      foreach(yval = values ) %do%
+        {
+          values_xval <- c(values_xval, sum(df[[get_variable_name_crossing_x_y(xval,yval)]]))
+        }
+      local_df[[xval]]<- values_xval
+    }
+
+  local_df <- data.frame(local_df, row.names = values)
+  local_df$y <- values
+  
+  toPlotdfLong <- melt(local_df, id.vars = c("y"), value.name = y_output_name)
+  names(toPlotdfLong)[2] <-paste("x") 
+  
+  title <- paste(y_output_name, linesVarName, "per",  x_output_name, title_constants)
+  
+ 
+  
+ # factored <- factor(df$y, levels = rev(values))
+  factored <- c(toPlotdfLong$y)
+  x_list <- c(toPlotdfLong$x)
+  y_list <- c(toPlotdfLong[[y_output_name]])
+  
+  var_y <- sym(y_output_name)
+  
+  ggplot(toPlotdfLong, aes( x=x, y=!!var_y,
+                            #fill = factored
+                            fill = factor(y,levels = values)
+                            )) + 
+    geom_bar(position="fill", stat="identity") +   
+    labs(
+      title =title,
+      caption = "ASSOCC", fill = linesVarName, x=x_output_name, y = y_output_name
+    )
+}
+  
+
+assocc_processing.plot_stacked_bar_chart <- function ()
+{
+  ########WAS NOT DEFINED, QUICK BUGFIX###########
+  name_independent_variables_to_display <- c()
 #Stacked bar plot#####################################################################
 generalPurpose <- "Infected by age group -"
 anxietyUsersTemplate <- "Ratio anxiety users" 
@@ -308,6 +368,39 @@ plot_list2 = list()
 library(reshape2)
 normalize <- function(x) {x/sum(x)}
 
+
+for (j in 1:max(df$X.run.number.))
+{
+  
+  run1df <- subset(df, X.run.number. == j)
+  young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age))
+  students <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.student.age))
+  workers <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.worker.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.worker.age))
+  retired <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.retired.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.retired.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.retired.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.retired.age))
+  rowNames <- c("young", "students", "workers", "retired")
+  
+  young <- normalize(young)
+  students <- normalize(students)
+  workers <- normalize(workers)
+  retired <- normalize(retired)
+  
+  ratioAnxietyUsers <- toString(run1df[1,2])
+  ratioAppUsers <- toString(run1df[1,3])
+  
+  toPlotdf <- data.frame(young, students, workers, retired, row.names = rowNames)
+  
+  toPlotdf$age <-rowNames
+  
+  
+  toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
+  names(toPlotdfLong)[2] <-paste("age_group") 
+}
+q = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = factor(age, levels = rev(rowNames)))) + 
+  geom_bar(position="stack", stat="identity") +   labs(
+    title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
+    caption = "ASSOCC", fill = "age"
+  )
+q
 
 # pdf("plotsStudentYoung.pdf")
 # 
@@ -341,7 +434,7 @@ normalize <- function(x) {x/sum(x)}
 # dev.off()
 
 pdf("NormalizedInfectionsAgeGroupStackedBarChart.pdf")
-for (j in 1:9){
+for (j in 1:max(df$X.run.number.)){
   run1df <- subset(df, X.run.number. == j)
   young <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.young.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.young.age))
   students <- c(sum (run1df$ratio.age.group.to.age.group..infections.young.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.student.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.worker.age.student.age), sum (run1df$ratio.age.group.to.age.group..infections.retired.age.student.age))
@@ -365,16 +458,67 @@ for (j in 1:9){
   toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
   names(toPlotdfLong)[2] <-paste("age_group") 
   
-  q = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = age)) + 
+}
+  q = ggplot(toPlotdfLong, aes( y=proportion, x=age_group, fill = factor(age, levels = rev(rowNames)))) + 
     geom_bar(position="stack", stat="identity") +   labs(
       title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
-      caption = "ASSOCC"
+      caption = "ASSOCC", fill = "age"
     )
   print(q)
-}
+  Sys.sleep(3)
+
 dev.off()
 
 #######################################################################################
+
+#######ContactsPerAgeGroup#############################################################
+generalPurpose <- "Contacted by age group -\n"
+anxietyUsersTemplate <- "Ratio anxiety users" 
+appUsersTemplate <- "+ Ratio app users"
+plot_list = list()
+plot_list2 = list()
+library(reshape2)
+normalize <- function(x) {x/sum(x)}
+
+pdf("NonNormalizedContactsPerAgeGroup.pdf")
+for (k in 1:max(df$X.run.number.)){
+  run1df <- subset(df, X.run.number. == k)
+  young <- c(sum (run1df$age.group.to.age.group..contacts.young.age.young.age), sum (run1df$age.group.to.age.group..contacts.student.age.young.age), sum (run1df$age.group.to.age.group..contacts.worker.age.young.age), sum (run1df$age.group.to.age.group..contacts.retired.age.young.age))
+  students <- c(sum (run1df$age.group.to.age.group..contacts.young.age.student.age), sum (run1df$age.group.to.age.group..contacts.student.age.student.age), sum (run1df$age.group.to.age.group..contacts.worker.age.student.age), sum (run1df$age.group.to.age.group..contacts.retired.age.student.age))
+  workers <- c(sum (run1df$age.group.to.age.group..contacts.young.age.worker.age), sum (run1df$age.group.to.age.group..contacts.student.age.worker.age), sum (run1df$age.group.to.age.group..contacts.worker.age.worker.age), sum (run1df$age.group.to.age.group..contacts.retired.age.worker.age))
+  retired <- c(sum (run1df$age.group.to.age.group..contacts.young.age.retired.age), sum (run1df$age.group.to.age.group..contacts.student.age.retired.age), sum (run1df$age.group.to.age.group..contacts.worker.age.retired.age), sum (run1df$age.group.to.age.group..contacts.retired.age.retired.age))
+  rowNames <- c("young", "students", "workers", "retired")
+  
+  #young <- normalize(young)
+  #students <- normalize(students)
+  #workers <- normalize(workers)
+  #retired <- normalize(retired)
+  
+  ratioAnxietyUsers <- toString(run1df[1,2])
+  ratioAppUsers <- toString(run1df[1,3])
+  
+  toPlotdf <- data.frame(young, students, workers, retired, row.names = rowNames)
+  
+  toPlotdf$age <-rowNames
+  
+  library(reshape2)
+  toPlotdfLong <- melt(toPlotdf, id.vars =c("age"), value.name = "proportion")
+  names(toPlotdfLong)[2] <-paste("age_group")
+  names(toPlotdfLong)[3] <-paste("amount")
+  
+  u = ggplot(toPlotdfLong, aes( y=amount, x=age_group, fill = factor(age, levels = rev(rowNames)))) + 
+    geom_bar(position="stack", stat="identity") +   labs(
+      title = paste(generalPurpose, anxietyUsersTemplate, ratioAnxietyUsers, appUsersTemplate, ratioAppUsers, sep= " "),
+      caption = "ASSOCC", fill = "age"
+    )
+  print(u)
+}
+dev.off()
+
+
+
+########################################################################################
+
 firstRound <-TRUE
 parametersString <- ""
 foreach(name = name_independent_variables_to_display) %do% 
@@ -397,6 +541,8 @@ annotate_figure(figure,
                 bottom = text_grob("Agent-based Social Simulation of Corona Crisis (ASSOCC)", color = "blue",
                                    hjust = 1, x = 1, face = "italic", size = 10)
 )
+}
+
 assocc_processing.get_title <- function(
   x_var_name, y_var_name, name_independent_variables_to_display,
   df, cumulative
@@ -407,6 +553,7 @@ assocc_processing.get_title <- function(
  
   firstRound <-TRUE
   parametersString <- ""
+  name <- ""
 
   foreach(name = name_independent_variables_to_display) %do% 
     {
@@ -431,12 +578,14 @@ assocc_processing.get_title <- function(
                 "N=",number_of_repetitions,
                 ")"
                 , sep ="")
-  text
+  
+  colours_name <- assocc_processing.get_display_name(a = name)
+  
   labs(
   title =  text
     ,
        caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
-       colours = assocc_processing.get_display_name(name),
+       colours = colours_name,
        colour = "variables",
        x=x_var_name, 
        y=y_var_name
@@ -464,210 +613,9 @@ assocc_processing.get_title2 <- function(
 
 
 
-assocc_processing.get_display_name <- function(a)
-{
 
-  if(strcmp(a,"ratio.of.anxiety.avoidance.tracing.app.users"))
-    "Anx.Avoid.App"
-  else if(strcmp(a,"app_user_ratio")||strcmp(a,"ratio.of.people.using.the.tracking.app"))
-    "ratio app-users"
-  else if(strcmp(a,"X.people.infected.in.essential.shops"))
-    "#infected ess-shops"
-  else if(strcmp(a,"X.people.infected.in.non.essential.shops"))
-    "#infected n.ess-shops"
-  else if(strcmp(a,"X.people.infected.in.homes"))
-    "#infected homes"
-  else if(strcmp(a,"X.people.infected.in.public.leisure"))
-    "#infected public leisure"
-  else if(strcmp(a,"X.people.infected.in.private.leisure"))
-    "#infected private leisure"
-  else if(strcmp(a,"X.people.infected.in.schools"))
-    "#infected schools"
-  else if(strcmp(a,"X.people.infected.in.universities"))
-    "#infected universities"
-  else if(strcmp(a,"people.infected.in.hospitals") ||strcmp(a,"X.people.infected.in.hospitals"))
-    "#infected hospitals"
-  else if(strcmp(a,"X.contacts.in.essential.shops"))
-    "#contacts ess-shops"
-  else if(strcmp(a,"X.contacts.in.non.essential.shops"))
-    "#contacts n.ess-shops"
-  else if(strcmp(a,"X.contacts.in.homes"))
-    "#contacts homes"
-  else if(strcmp(a,"X.contacts.in.public.leisure"))
-    "#contacts public leisure"
-  else if(strcmp(a,"X.contacts.in.private.leisure"))
-    "#contacts private leisure"
-  else if(strcmp(a,"X.contacts.in.pubtrans"))
-    "#contacts public transport"
-  else if(strcmp(a,"X.contacts.in.shared.cars"))
-    "#contacts shared cars"
-  else if(strcmp(a,"X.contacts.in.queuing"))
-    "#contacts queuing"
-  else if(strcmp(a,"X.contacts.in.schools"))
-    "#contacts schools"
-  else if(strcmp(a,"X.contacts.in.universities"))
-    "#contacts universities"
-  else if(strcmp(a,"contacts.in.hospitals") ||strcmp(a,"X.contacts.in.hospitals"))
-    "#contacts hospitals"
-  else if(strcmp(a,"X.young.infected")||strcmp(a,"X.cumulative.youngs.infected") )
-      "#young infected"
-  else if(strcmp(a,"X.young.infector")||strcmp(a,"X.cumulative.youngs.infector"))
-    "#young infector"
-  else if(strcmp(a,"X.student.infected")||strcmp(a,"X.cumulative.students.infected") )
-    "#student infected"
-  else if(strcmp(a,"X.student.infector")||strcmp(a,"X.cumulative.students.infector") )
-    "#student infector"
-  else if(strcmp(a,"X.retired.infected")||strcmp(a,"X.cumulative.retireds.infected") )
-    "#retired infected"
-  else if(strcmp(a,"X.retired.infector")||strcmp(a,"X.cumulative.retireds.infector"))
-    "#retired infector"
-  else if(strcmp(a,"X.worker.infected")||strcmp(a,"X.cumulative.workers.infected") )
-    "#worker infected"
-  else if(strcmp(a,"X.worker.infector")||strcmp(a,"X.cumulative.workers.infector"))
-    "#worker infector" 
-  else if(strcmp(a,"infected") || strcmp(a,"X.infected"))
-    "#infected" 
-  else if(strcmp(a,"ratio.quarantiners.currently.complying.to.quarantine"))
-      "ratio compliant quarantiners"
-  else if(strcmp(a,"X.hospitalizations.retired.this.tick"))
-    "newly hospitalized retired" 
-  else if(strcmp(a,"X.hospitalizations.students.this.tick"))
-    "newly hospitalized students" 
-  else if(strcmp(a,"X.hospitalizations.workers.this.tick"))
-    "newly hospitalized workers" 
-  else if(strcmp(a,"X.hospitalizations.youngs.this.tick"))
-    "newly hospitalized youngs" 
-  else if(strcmp(a,"X.step."))
-    "ticks"
-  else if(strcmp(a,"X.newly.retired.infected"))
-    "newly infected retired" 
-  else if(strcmp(a,"X.newly.students.infected"))
-    "newly infected students" 
-  else if(strcmp(a,"X.newly.workers.infected"))
-    "newly infected workers" 
-  else if(strcmp(a,"X.newly.youngs.infected"))
-    "newly infected youngs" 
-  else if(strcmp(a,"X.cumulative.retireds.infected"))
-    "cumulative infected retireds" 
-  else if(strcmp(a,"X.cumulative.students.infected"))
-    "cumulative infected students" 
-  else if(strcmp(a,"X.cumulative.workers.infected"))
-    "cumulative infected workers" 
-  else if(strcmp(a,"X.cumulative.youngs.infected"))
-    "cumulative infected youngs"
-  else if(strcmp(a,"X.cumu.hospitalisations.workers"))
-    "cumulative hospitalisations workers" 
-  else if(strcmp(a,"X.cumu.hospitalisations.youngs"))
-    "cumulative hospitalisations youngs" 
-  else if(strcmp(a,"X.cumu.hospitalisations.retired"))
-    "cumulative hospitalisations retired" 
-  else if(strcmp(a,"X.cumu.hospitalisations.students"))
-    "cumulative hospitalisations students" 
-  else if(strcmp(a,"ratio.young.contaminated.by.young"))
-    "by young" 
-  else if(strcmp(a,"ratio.young.contaminated.by.workers"))
-    "by workers" 
-  else if(strcmp(a,"ratio.young.contaminated.by.students"))
-    "by students" 
-  else if(strcmp(a,"ratio.young.contaminated.by.retireds"))
-    "by retireds" 
-  else if(strcmp(a,"X.contacts.last.tick"))
-      "contacts per tick"
-  else if(strcmp(a,"ratio.workers.contaminated.by.young"))
-    "by young" 
-  else if(strcmp(a,"ratio.workers.contaminated.by.workers"))
-    "by workers" 
-  else if(strcmp(a,"ratio.workers.contaminated.by.students"))
-    "by students" 
-  else if(strcmp(a,"ratio.workers.contaminated.by.retireds"))
-    "by retireds" 
-  else if(strcmp(a,"ratio.retireds.contaminated.by.young"))
-    "by young" 
-  else if(strcmp(a,"ratio.retireds.contaminated.by.workers"))
-    "by workers" 
-  else if(strcmp(a,"ratio.retireds.contaminated.by.students"))
-    "by students" 
-  else if(strcmp(a,"ratio.retireds.contaminated.by.retireds"))
-    "by retireds" 
-  else if(strcmp(a,"ratio.students.contaminated.by.young"))
-    "by young" 
-  else if(strcmp(a,"ratio.students.contaminated.by.workers"))
-    "by workers" 
-  else if(strcmp(a,"ratio.students.contaminated.by.students"))
-    "by students" 
-  else if(strcmp(a,"ratio.students.contaminated.by.retireds"))
-    "by retireds" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.young.age"))
-    "y -> y" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.young.age"))
-    "s->y" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.young.age"))
-    "w->y" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.young.age"))
-    "r->y" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.student.age"))
-    "y->s" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.student.age"))
-    "s->s" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.student.age"))
-    "w->s" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.student.age"))
-    "r->s" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.worker.age"))
-    "y->w" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.worker.age"))
-    "s->w" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.worker.age"))
-    "w->w" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.worker.age"))
-    "r->w" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.young.age.retired.age"))
-    "y->r" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.student.age.retired.age"))
-    "s->r" 
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.worker.age.retired.age"))
-    "w->r"   
-  else if(strcmp(a,"ratio.age.group.to.age.group..infections.retired.age.retired.age"))
-    "r->r" 
 
-  
-  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.young.age"))
-    "y -> y" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.young.age"))
-    "s->y" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.young.age"))
-    "w->y" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.young.age"))
-    "r->y" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.student.age"))
-    "y->s" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.student.age"))
-    "s->s" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.student.age"))
-    "w->s" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.student.age"))
-    "r->s" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.worker.age"))
-    "y->w" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.worker.age"))
-    "s->w" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.worker.age"))
-    "w->w" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.worker.age"))
-    "r->w" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.young.age.retired.age"))
-    "y->r" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.student.age.retired.age"))
-    "s->r" 
-  else if(strcmp(a,"age.group.to.age.group..contacts.worker.age.retired.age"))
-    "w->r"   
-  else if(strcmp(a,"age.group.to.age.group..contacts.retired.age.retired.age"))
-    "r->r"   
-  else 
-    stop(paste("No name defined for:",a))
-}
-
-assocc_processing.init_and_prepare_data <- function(path)
+assocc_processing.init_and_prepare_data <- function(workdirec)
 {
   #args[1]
   
@@ -679,6 +627,7 @@ assocc_processing.init_and_prepare_data <- function(path)
   #install.packages("pracma")
   #install.packages("ggpubr")
   #install.packages("dplyr")
+  #install.packages("sets")
   
   #then load relevant libraries
   library(ggplot2)
@@ -688,13 +637,17 @@ assocc_processing.init_and_prepare_data <- function(path)
   library(pracma)
   library(ggpubr)
   library(dplyr)
-  getwd()
-  
+  library(reshape2)
+  #library(sets)
+
   ### MANUAL INPUT: specify and set working directory ###
   setwd(workdirec)
   # "C://Users//Maarten//Google Drive//Corona-Research//Program//RProgramming"
   functionFileLocation <- paste(workdirec,"behaviorspace_table_output_handling_functions.r", sep="")
   source(functionFileLocation)
+  functionFileLocation <- paste(workdirec,"assocc_name.r", sep="")
+  source(functionFileLocation)
+  
 
   filesPath = workdirec
   #temp = list.files(pattern="*.csv")

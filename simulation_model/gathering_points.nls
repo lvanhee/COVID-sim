@@ -222,7 +222,9 @@ to-report gatherers
 end
 
 to-report current-gatherers
-  report in-gathering-link-neighbors with [current-activity = myself] 
+  let w hired-workers
+  if not is-turtle-set? w [set w (turtle-set)]
+  report (turtle-set in-gathering-link-neighbors w) with [current-activity = myself]
 end
 
 to-report empty-houses
