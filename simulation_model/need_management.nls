@@ -184,9 +184,10 @@ to-report SUA-belonging [ad]
   report base * network-bonus * social-distancing-cut
 end
 
-to-report risk-avoidance-increase [ad others]
+to-report risk-avoidance-increase [ad others others-transport]
   let gp location-of ad
   let motive motive-of ad
+  let mt method-of-transportation-of ad
   let result 0.1
 
   ifelse is-believing-to-be-infected? or has-internally-visible-symptoms? [
@@ -209,6 +210,14 @@ to-report risk-avoidance-increase [ad others]
       ]
     ]
   ]
+  
+  ;transport
+  if mt != "stay-here" [
+    if others-transport = 0 [set result result + 0.1 ]
+    if others-transport < 5 [set result result + 0.05 ]
+    if others-transport < 10 [set result result + 0.025 ]
+    if others-transport >= 20 [set result result - 0.1]
+  ]
 
   ifelse social-distancing-of ad
     [ set result result + 0.1 ]
@@ -218,14 +227,17 @@ to-report risk-avoidance-increase [ad others]
 end
 
 to-report SUE-risk-avoidance [ad]
-  let gp location-of ad
-  report risk-avoidance-increase ad [expected-number-of-other-participants] of gp
+  let gp location-of ad  
+  let mt method-of-transportation-of ad
+  report risk-avoidance-increase ad [expected-number-of-other-participants] of gp expected-number-of-others-on-transport mt
 end
 
 to-report SUA-risk-avoidance [ad]
   let gp location-of ad
-  report risk-avoidance-increase ad count people with [current-activity = gp]
+  let mt method-of-transportation-of ad
+  report risk-avoidance-increase ad count people with [current-activity = gp] number-of-others-on-transport mt
 end
+
 
 to-report should-I-stay-home?
   if is-hard-lockdown-active? [report true]
@@ -376,14 +388,21 @@ end
 to-report SUE-autonomy [ad]
   let gp location-of ad
   let motive motive-of ad
+  let mt method-of-transportation-of ad
   let social-distancing social-distancing-of ad
   let base 0
   let sd-modifier 1
+  let transport-bonus 0
   
   if social-distancing [
     set sd-modifier (1 - social-distance-profile)
   ]
-
+  
+  let relevant-memory ifelse-value working-day? [what-transport-I-used-week-day] [what-transport-I-used-weekend]
+  if length relevant-memory >= 4 [
+    ifelse mt = (first relevant-memory) [set transport-bonus 0.1][set transport-bonus 0.1]
+  ]
+  
   if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
       ifelse [gathering-type] of gp = "school"
@@ -415,56 +434,83 @@ to-report SUE-financial-survival [ad]
   if age != "young" [
     let gp location-of ad
     let motive motive-of ad
+    let mt method-of-transportation-of ad
     let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
+    let transport-costs 0
+    let money-left-over my-amount-of-capital
+    
+       ;additions for transportation
+    if mt = "solo" [
+      set money-left-over money-left-over - solo-transport-costs
+      set transport-costs solo-transport-costs
+    ]
+    if mt = "public" [
+      set money-left-over money-left-over - public-transport-costs
+      set transport-costs public-transport-costs
+    ]
+    if mt = "shared-car" [
+      set money-left-over money-left-over - car-sharing-costs
+      set transport-costs car-sharing-costs
+    ]
     
     if is-I-have-contractual-obligations? [
       if gp = my-work and is-working-motive? motive [
-        report min (list (my-expected-income / eating-costs) 1)
+        report min (list ( (my-expected-income - transport-costs)  / eating-costs) 1)
       ]
-      report max (list ((- my-expected-income) / eating-costs) 0)
+      set money-left-over money-left-over - my-expected-income
     ]
+    
     if motive = "essential shopping" [
-      let money-left-over my-amount-of-capital - eating-costs
-      ; If we spend all our money, financial-survival will drop to 0
-      if money-left-over < 0 [
-        report (- financial-survival-satisfaction-level)
-      ]
-      report (- min (list (money-left-over / eating-costs) 1))
+      set money-left-over money-left-over - eating-costs
     ]
+    
     if motive = "shopping" [
-      let money-left-over my-amount-of-capital - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops
-      ; If we spend all our money, financial-survival will drop to 0
-      if money-left-over < 0 [
-        report (- financial-survival-satisfaction-level)
-      ]
-      report (- min (list (money-left-over / eating-costs) 1))
+      set money-left-over money-left-over - amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops 
     ]
-    report 0
+    
+    if money-left-over < 0 [
+      report (- financial-survival-satisfaction-level)
+    ]
+    
+    report (- min (list (money-left-over / eating-costs) 1))
   ]
-  report 0
+  report 0  
 end
 
 to-report SUE-financial-stability [ad]
   if age != "young" [
-  let gp location-of ad
-  let motive motive-of ad
-  let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
-
-  if is-I-have-contractual-obligations? and gp = my-work [
-    if my-target-amount-of-capital > 0
-    [report clamp 0 1 (my-expected-income / my-target-amount-of-capital)]
-    report 1
-  ]
-  if my-target-amount-of-capital <= 0 [
-    report -1
-  ]
-  if motive = "essential shopping" [
-    report (- (eating-costs / my-target-amount-of-capital))
-  ]
-  if motive = "shopping" [
-    report (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-target-amount-of-capital))
-  ]
-    report 0
+    let gp location-of ad
+    let motive motive-of ad
+    let mt method-of-transportation-of ad
+    let eating-costs price-of-rations-in-essential-shops * amount-of-rations-I-buy-when-going-to-essential-shops
+    let result 0
+    
+    if is-I-have-contractual-obligations? and gp = my-work [
+      if my-target-amount-of-capital > 0
+      [set result clamp 0 1 (my-expected-income / my-target-amount-of-capital)]
+      set result 1
+    ]
+    if my-target-amount-of-capital <= 0 [
+      report -1
+    ]
+    if motive = "essential shopping" [
+      set result (- (eating-costs / my-target-amount-of-capital))
+    ]
+    if motive = "shopping" [
+      set result (- (amount-of-rations-I-buy-when-going-to-shops * price-of-rations-in-non-essential-shops / my-target-amount-of-capital))
+    ]
+    
+    ;additional effect of transport
+    if mt = "solo" [
+      set result result + (- (solo-transport-costs / my-target-amount-of-capital))
+    ]
+    if mt = "public" [
+      set result result + (- (public-transport-costs / my-target-amount-of-capital))
+    ]
+    if mt = "shared-car" [
+      set result result + (- (car-sharing-costs / my-target-amount-of-capital))
+    ]
+    report result
   ]
   report 0
 end
@@ -497,6 +543,7 @@ end
 to-report conformity-increase [ad network-action]
   let gp location-of ad
   let motive motive-of ad
+  let mt method-of-transportation-of ad
   let sd social-distancing-of ad
   let result 0
   
@@ -526,6 +573,12 @@ to-report conformity-increase [ad network-action]
   ] [
     set result result - 0.1
   ]
+  
+  ifelse mt = method-of-transportation-of network-action [
+    set result result + 0.1
+  ] [
+    set result result - 0.1
+  ]
 
   if result > 1 [ set result 1 ]
   report result
@@ -537,7 +590,7 @@ to-report SUE-conformity [ad]
   if length relevant-memory >= 4 [
     report conformity-increase ad (first relevant-memory)
   ]
-  report 1
+  report 1  
 end
 
 to-report SUA-conformity [ad]
@@ -577,7 +630,7 @@ end
 
 to debug-global-prevalence-of [ad]
   if log? [
-    debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " social-distancing-of ad) 
+    debug-print (sentence [gathering-type] of (location-of ad) " " motive-of ad " " method-of-transportation-of ad " " social-distancing-of ad) 
       ;Survival needs
     debug-print (word "  Food Safety:" (SDE-food-safety ad * importance-weight-food-safety))
     debug-print (word "  Financial-survival:" (SDE-financial-survival ad * importance-weight-financial-survival))

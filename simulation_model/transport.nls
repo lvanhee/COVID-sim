@@ -1,7 +1,10 @@
-globals [is-busses-overrun? #denied-attempts-due-to-bus-overload
+globals [is-busses-overrun?
+  #denied-attempts-due-to-bus-overload
   list-of-buses
   list-of-shared-cars
   #people-denied-bus
+  #users-in-buses
+  #users-in-shared-cars
 ]
 to travelling-to-activity-phase
   set is-busses-overrun? false
@@ -15,17 +18,15 @@ to travelling-to-activity-phase
   let shared-car-users (turtle-set)
   
   ask people [
-    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method stop]
-    set my-means-of-transportation-I-currently-use random-means-of-transportation
-    if my-means-of-transportation-I-currently-use = public-transportation-method [set bus-users (turtle-set bus-users self)]
-    if my-means-of-transportation-I-currently-use = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
+    if current-means-of-transport = public-transportation-method [set bus-users (turtle-set bus-users self)]
+    if current-means-of-transport = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
   ]
   
   set list-of-buses n-values #bus-per-timeslot [x -> (turtle-set)]
-  let #users-in-buses 0
+  set #users-in-buses 0
   
   ask bus-users [
-    if #users-in-buses >= max-total-bus-flow-at-current-timestep - 1 [
+    if #users-in-buses = max-total-bus-flow-at-current-timestep [
       set #people-denied-bus #people-denied-bus + 1 
       set stayed-out-queuing-for-bus? true stop]
     let random-item random length list-of-buses
@@ -35,20 +36,25 @@ to travelling-to-activity-phase
     [set random-item (random-item + 1) mod length list-of-buses]
     
     set list-of-buses replace-item random-item list-of-buses (turtle-set self (item random-item list-of-buses))
+    set my-transport-number random-item
     set #users-in-buses #users-in-buses + 1
   ] 
+  
+  set #users-in-shared-cars 0
   
   set list-of-shared-cars (list)
   let ongoing-set (turtle-set)
   ask shared-car-users [
+    ;currently amount people per car is 5, if changed also change SUE-risk-avoidance-transport!
     if count ongoing-set = 5 [
       set list-of-shared-cars lput ongoing-set list-of-shared-cars
       set ongoing-set (turtle-set)
     ]
     set ongoing-set (turtle-set self ongoing-set)
+    set my-transport-number (length list-of-shared-cars)
+    set #users-in-shared-cars #users-in-shared-cars + 1
   ]
   if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
-  
   
 end
 
@@ -60,46 +66,192 @@ to-report stay-here-transportation-method
   report "stay-here"
 end
 
-to-report random-means-of-transportation
-  let rand random-float 1
-  if rand < my-probability-of-taking-the-bus [report public-transportation-method]
-  set rand rand - my-probability-of-taking-the-bus
-  if rand < my-probability-of-taking-a-shared-car [report shared-car-transportation-method]
-  if not can-I-perform-solo-transportation? [report random-means-of-transportation]
-  report solo-transportation-method
-end
-
 to-report solo-transportation-method
   report "solo"
 end
 
 to-report public-transportation-method
-  report "public"
+  report "public-transport"
 end
 
 to-report shared-car-transportation-method
-  report "shared-car"
+  report "shared-cars"
 end
 
-to-report my-probability-of-taking-the-bus
-  if is-child? [report ratio-children-public-transport]
-  if is-retired? [report ratio-retired-public-transport]
-  if is-student? [report ratio-student-public-transport]
-  if is-worker? [report ratio-worker-public-transport]
+to-report expected-number-of-others-on-transport [mt]
+  let others 0 ;for solo/stay-here/stay-home
+  if mt = "public-transport" [set others #max-people-per-bus] 
+  if mt = "shared-cars" [set others 5]
+  report others
 end
 
-to-report my-probability-of-taking-a-shared-car
-  if is-child? [report ratio-children-shared-car]
-  if is-retired? [report ratio-student-shared-car]
-  if is-student? [report ratio-student-shared-car]
-  if is-worker? [report ratio-worker-shared-car]
+to-report number-of-others-on-transport [mt]
+  let others 0 ;for solo/stay-here/stay-home
+  if not empty? list-of-buses [
+    if mt = "public-transport" [set others ((count (item my-transport-number list-of-buses)) - 1)] 
+  ]
+  if not empty? list-of-shared-cars [
+    if mt = "shared-cars" [set others (count item my-transport-number list-of-shared-cars) - 1]
+  ]
+  report others
+end
+
+to setup-country-based-transport-parameters
+  if Transport-parameters-of = "Custom" [
+    set ratio-workers-and-retired-owning-cars ratio-workers-and-retired-owning-cars
+    set ratio-motorized-transport-to-school ratio-motorized-transport-to-school
+    set ratio-motorized-transport-to-university ratio-motorized-transport-to-university 
+    set ratio-motorized-transport-to-work ratio-motorized-transport-to-work
+    set ratio-motorized-transport-to-hospital ratio-motorized-transport-to-hospital
+    set ratio-motorized-transport-to-my-non-essential-shop ratio-motorized-transport-to-my-non-essential-shop
+    set ratio-motorized-transport-to-essential-shops ratio-motorized-transport-to-essential-shops 
+    set ratio-motorized-transport-to-public-leisure ratio-motorized-transport-to-public-leisure
+    set ratio-motorized-transport-to-private-leisure ratio-motorized-transport-to-private-leisure
+    
+    ask people [
+      set do-I-own-a-car? setup-do-I-own-a-car? 
+      setup-preferred-type-of-transport-method-to-gathering-points
+    ]
+    stop
+  ]
+ 
+  let country-specific-data-list []
+  file-open "country-specific-data.csv"
+  
+  
+  while [not file-at-end? ] [
+    let csv file-read-line
+    set csv word csv ";"  ; add comma for loop termination 
+    
+    let mylist []  ; list of values 
+    while [not empty? csv] 
+    [
+      let $x position ";" csv 
+      let $item substring csv 0 $x  ; extract item 
+      carefully [set $item read-from-string $item][] ; convert if number 
+      set mylist lput $item mylist  ; append to list 
+      set csv substring csv ($x + 1) length csv  ; remove item and comma 
+    ] 
+    if first mylist = Transport-parameters-of [
+      set country-specific-data-list but-first mylist ]
+  ]
+  if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" Transport-parameters-of)]
+  file-close
+  
+  
+  set ratio-workers-and-retired-owning-cars item 10 country-specific-data-list
+  set ratio-motorized-transport-to-work item 11 country-specific-data-list
+  set ratio-motorized-transport-to-essential-shops item 12 country-specific-data-list
+  set ratio-motorized-transport-to-my-non-essential-shop item 13 country-specific-data-list
+  set ratio-motorized-transport-to-school item 14 country-specific-data-list
+  set ratio-motorized-transport-to-university item 15 country-specific-data-list
+  set ratio-motorized-transport-to-private-leisure item 16 country-specific-data-list
+  set ratio-motorized-transport-to-public-leisure item 17 country-specific-data-list
+  set ratio-motorized-transport-to-hospital item 18 country-specific-data-list
+  
+  ask people [
+    set do-I-own-a-car? setup-do-I-own-a-car? 
+    setup-preferred-type-of-transport-method-to-gathering-points
+    set cost-of-essential-transport calculate-cost-of-essential-transport
+  ]
+  
+  
+end
+
+
+to-report setup-do-I-own-a-car?
+  
+  let ratio-workers-retired (count people with [is-retired? or is-worker?] ) / count people
+  let ratio-workers-retired-owning-cars clamp 0 1 (ratio-workers-and-retired-owning-cars / ratio-workers-retired)
+    
+  ifelse is-worker? or is-retired? [
+    ifelse ratio-workers-retired-owning-cars > random-float 1 
+    [report true ]
+    [report false]
+  ]
+  [report false]  
+end
+
+to setup-preferred-type-of-transport-method-to-gathering-points
+  
+  ifelse ratio-motorized-transport-to-school > random-float 1 
+  [set transport-to-my-school "motorized"]
+  [set transport-to-my-school "non-motorized"]
+  ifelse ratio-motorized-transport-to-university > random-float 1 
+  [set transport-to-my-university "motorized"]
+  [set transport-to-my-university "non-motorized"]
+  ifelse ratio-motorized-transport-to-work > random-float 1 
+  [set transport-to-my-work "motorized"]
+  [set transport-to-my-work "non-motorized"]
+  ifelse ratio-motorized-transport-to-hospital > random-float 1 
+  [set transport-to-my-hospital "motorized"]
+  [set transport-to-my-hospital "non-motorized"]
+  ifelse ratio-motorized-transport-to-my-non-essential-shop > random-float 1 
+  [set transport-to-my-non-essential-shop "motorized"]
+  [set transport-to-my-non-essential-shop "non-motorized"]
+  ifelse ratio-motorized-transport-to-essential-shops > random-float 1 
+  [set transport-to-my-essential-shops "motorized"]
+  [set transport-to-my-essential-shops "non-motorized"]
+  ifelse ratio-motorized-transport-to-public-leisure > random-float 1 
+  [set transport-to-my-public-leisure "motorized"]
+  [set transport-to-my-public-leisure "non-motorized"]
+  ifelse ratio-motorized-transport-to-private-leisure > random-float 1 
+  [set transport-to-my-private-leisure "motorized"]
+  [set transport-to-my-private-leisure "non-motorized"]  
+  set transport-to-my-home "none"
+
+end
+
+to-report calculate-cost-of-essential-transport
+  let cost 0
+  let max-costs max (list car-sharing-costs public-transport-costs)
+  if not do-I-own-a-car? [
+    if transport-to-my-essential-shops = "motorized" [
+      set cost cost + max-costs
+    ]
+    if transport-to-my-work = "motorized" and has-a-work? [
+      set cost cost + (days-of-rations-bought * max-costs)
+    ]
+  ]
+  report cost
+end
+
+to-report do-I-need-motorized-transport [activity-location]
+  
+  if [gathering-type] of activity-location = "school"
+  [report transport-to-my-school = "motorized" ]
+  
+  if [gathering-type] of activity-location = "university"
+  [report transport-to-my-university = "motorized" ]
+  
+  if  [gathering-type] of activity-location = "workplace"
+  [report transport-to-my-work = "motorized" ]
+  
+  if  [gathering-type] of activity-location = "hospital"
+  [report transport-to-my-hospital = "motorized" ]
+  
+  if [gathering-type] of activity-location = "non-essential-shop"
+  [report transport-to-my-non-essential-shop = "motorized" ]
+  
+  if  [gathering-type] of activity-location = "essential-shop"
+  [report transport-to-my-essential-shops = "motorized"]
+   
+  if [gathering-type] of activity-location = "public-leisure"
+  [report transport-to-my-public-leisure = "motorized" ]
+  
+  if [gathering-type] of activity-location = "private-leisure"
+  [report transport-to-my-private-leisure = "motorized" ]
+  
+  if [gathering-type] of activity-location = "home"
+  [report transport-to-my-home  = "motorized"]
+  report false
 end
 
 
 to move-on-display 
-  ask people
-  [
-    if not animate? [
+  if not animate? [
+    ask people
+    [
       move-to one-of [patches in-radius 3  with [pxcor > [pxcor] of myself]] of current-activity
       set heading towards current-activity
     ]

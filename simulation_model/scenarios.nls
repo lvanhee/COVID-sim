@@ -362,17 +362,6 @@ to load-all-closed-measures
 end
 
 to load-default-transport-model
-  set ratio-children-public-transport 0.75
-  set ratio-student-public-transport 0.6
-  set ratio-worker-public-transport 0.4
-  set ratio-retired-public-transport 0.2
-  
-  set ratio-children-shared-car 0
-  set ratio-student-shared-car .1
-  set ratio-worker-shared-car .15
-  set ratio-retired-shared-car .5
-  
-  set #bus-per-timeslot 10
   set #max-people-per-bus 20
   
   set density-walking-outside 0.05
@@ -386,7 +375,6 @@ to load-default-migration-model
   set probability-infection-when-abroad 0.0
   set probability-going-abroad 0
   set probability-getting-back-when-abroad 0
-  set owning-solo-transportation-probability 1
 end
 
 to load-default-social-network-model
@@ -499,14 +487,11 @@ to load-population-profile-based-on-current-preset-profile
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data.csv file" household-profiles)]
   file-close
   
-  set ratio-adults-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list  
-  set ratio-retired-couple-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list
-  set ratio-family-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list
-  set ratio-multi-generational-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list
+  set ratio-adults-homes item 0 country-specific-data-list
+  set ratio-retired-couple-homes item 1 country-specific-data-list
+  set ratio-family-homes item 2 country-specific-data-list
+  set ratio-multi-generational-homes item 3 country-specific-data-list
+
   
 
 end
