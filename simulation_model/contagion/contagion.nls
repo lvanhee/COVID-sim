@@ -1,7 +1,6 @@
 __includes ["contagion/oxford_contagion_factor.nls" "contagion/assocc_contagion_factors.nls"]
   ;;this contagion model should be revised by making contacts explicit and making contagion as a side-effect of contacts
 
-directed-link-breed [contagion-links contagion-link]
 
 to spread-contagion
   spread-by-travelling
@@ -180,7 +179,9 @@ to contaminate [infector context]
     if any? first-infected-people with [self = infector] [set #infected-by-first-infected-people  #infected-by-first-infected-people + 1]
     if [not is-contagious?] of infector [error "assertion error"]
     ask infector [set number-of-people-I-infected number-of-people-I-infected + 1]
-    create-contagion-link-from infector [hide-link]]
+  ]
+  
+  add-to-contagion-tree infector self context
   set-contaminated-disease-status
 end
 
@@ -202,7 +203,7 @@ to-report r0
 end
 
 to export-contagion-graph-to-graphviz
- export-to-graphviz [[] -> out-contagion-link-neighbors]
+  export-to-graphviz-util [ [] -> ifelse-value (not table:has-key? contation-network-table who) [(turtle-set)] [(turtle-set map [x -> turtle first x] table:get contation-network-table who)]]
 end
 
 to-report infection-rate-of [context]

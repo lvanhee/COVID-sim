@@ -143,7 +143,7 @@ to-report cp-increase [pair]
   report (list (cp-object pair) (cp-count pair + 1))
 end
 
-to export-to-graphviz [neighbour-function]
+to export-to-graphviz-util [neighbour-function]
   ask turtles [ ask run-result neighbour-function [print (word [who] of myself "->" who)]]
 end
 

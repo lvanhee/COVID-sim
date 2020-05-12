@@ -61,6 +61,7 @@ globals
   #hospitalizations-retired-this-tick
   
   number-of-people-per-age-having-ever-reached-severe-table
+  contation-network-table
 ]
 
 to-report ratio-infected
@@ -125,8 +126,7 @@ to reset-metrics
   ;;reset age-group-to-age-group-#contacts-table
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#contacts-table (list x y) 0]]
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#infections-last-tick-table (list x y) 0]]
-  
-  
+    
 end
 
 to increment-age-inection-information-metrics [infected infector]
@@ -172,6 +172,15 @@ end
 
 to-report ratio-age-group-to-age-group-#infections [infector-age infected-age]
   report table:get age-group-to-age-group-#infections-last-tick-table (list infector-age infected-age) / #initial-people-with-age infected-age
+end
+
+to add-to-contagion-tree [infector infectee context]
+  if contation-network-table = 0 [set contation-network-table table:make]
+  if infector != nobody 
+  [
+    if not table:has-key? contation-network-table [who] of infector [table:put contation-network-table [who] of infector (list)]
+    table:put contation-network-table [who] of infector lput (list [who] of infectee ticks context)  table:get contation-network-table [who] of infector
+  ]
 end
 
 
