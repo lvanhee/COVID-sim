@@ -203,7 +203,7 @@ to-report r0
 end
 
 to export-contagion-graph-to-graphviz
-  export-to-graphviz-util [ [] -> ifelse-value (not table:has-key? contation-network-table who) [(turtle-set)] [(turtle-set map [x -> turtle first x] table:get contation-network-table who)]]
+  export-to-graphviz-util [ [] -> ifelse-value (not table:has-key? contamination-network-table who) [(turtle-set)] [(turtle-set map [x -> turtle first x] table:get contamination-network-table who)]]
 end
 
 to-report infection-rate-of [context]

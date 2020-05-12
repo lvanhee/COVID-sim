@@ -61,7 +61,7 @@ globals
   #hospitalizations-retired-this-tick
   
   number-of-people-per-age-having-ever-reached-severe-table
-  contation-network-table
+  contamination-network-table
 ]
 
 to-report ratio-infected
@@ -175,12 +175,14 @@ to-report ratio-age-group-to-age-group-#infections [infector-age infected-age]
 end
 
 to add-to-contagion-tree [infector infectee context]
-  if contation-network-table = 0 [set contation-network-table table:make]
-  if infector != nobody 
-  [
-    if not table:has-key? contation-network-table [who] of infector [table:put contation-network-table [who] of infector (list)]
-    table:put contation-network-table [who] of infector lput (list [who] of infectee ticks context)  table:get contation-network-table [who] of infector
-  ]
+  if contamination-network-table = 0 [set contamination-network-table table:make] 
+  let key infector
+  ifelse infector != nobody 
+  [set key [who] of infector]
+  [set key "nobody"]
+  
+  if not table:has-key? contamination-network-table key [table:put contamination-network-table key (list)]
+  table:put contamination-network-table key lput (list [who] of infectee ticks context)  table:get contamination-network-table key
 end
 
 
