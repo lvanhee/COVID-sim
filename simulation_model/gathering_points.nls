@@ -10,8 +10,6 @@ globals
   universities
   essential-shops
   non-essential-shops
-  public-transport
-  shared-cars
 ]
 breed [gathering-points gathering-point]
 gathering-points-own [gathering-type
@@ -50,8 +48,6 @@ to-report proximity-factor
   if gathering-type = home-gathering-type[report density-factor-homes]
   if gathering-type = essential-shop-gathering-type [report density-factor-essential-shops]
   if gathering-type = non-essential-shop-gathering-type [report density-factor-non-essential-shops]
-  if gathering-type = public-transport-gathering-type [report density-factor-public-transport]
-  if gathering-type = shared-cars-gathering-type [report density-factor-shared-cars]
   error (word gathering-type " not defined")
 end
 
@@ -59,8 +55,7 @@ end
 to-report is-practicable-at-home?
   if gathering-type = "school" or gathering-type = "university" or gathering-type = "workplace" or gathering-type = "home"
   [report true]
-  if gathering-type = "public-leisure" or gathering-type = "private-leisure" or gathering-type = "essential-shop" or gathering-type = "non-essential-shop" or gathering-type = "hospital"
-  or gathering-type = "public-transport" or gathering-type = "shared-cars"
+  if gathering-type = "public-leisure" or gathering-type = "private-leisure" or gathering-type = "essential-shop" or gathering-type = "non-essential-shop" or gathering-type = "hospital" 
   [report false]
 end
 
@@ -117,14 +112,6 @@ end
 
 to-report is-private-leisure?
   report gathering-type = "private-leisure"
-end
-
-to-report is-public-transport?
-  report gathering-type = "public-transport"
-end
-
-to-report is-shared-cars?
-  report gathering-type = "shared-cars"
 end
 
 to-report is-at-private-leisure-place?
@@ -212,7 +199,6 @@ to-report is-open-during-lockdown?
   
   report (sentence "unimplemented for:" [gathering-type] of self)
 end
-
 to-report is-university?
   report gathering-type = "university"
 end
@@ -303,14 +289,6 @@ to-report workplace-amount-of-capital
   report sum [amount-of-capital] of gathering-points with [gathering-type = "workplace"]
 end
 
-to-report public-transport-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "public-transport"]
-end
-
-to-report shared-cars-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "shared-cars"]
-end
-
 to-report essential-shop-amount-of-goods-in-stock
   report sum [stock-of-goods] of gathering-points with [gathering-type = "essential-shop"]
 end
@@ -353,14 +331,6 @@ end
 
 to-report #school-workers
   report count workers with [[gathering-type] of my-work = "school"]
-end
-
-to-report #public-transport-workers
-  report count workers with [[gathering-type] of my-work = "public-transport"]
-end
-
-to-report #shared-cars-workers
-  report count workers with [[gathering-type] of my-work = "shared-cars"]
 end
 
 to-report is-family-present-in-current-gathering-point?

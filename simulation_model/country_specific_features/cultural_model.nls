@@ -382,14 +382,19 @@ to load-nations-hofstede-dimension-scores
   ]
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" load-country-specific-settings)]
   file-close
-
-  set power-distance item 4 country-specific-data-list
-  set individualism-vs-collectivism item 5 country-specific-data-list
-  set masculinity-vs-femininity item 6 country-specific-data-list
-  set uncertainty-avoidance item 7 country-specific-data-list
-  set long-vs-short-termism item 8 country-specific-data-list
-  set indulgence-vs-restraint item 9 country-specific-data-list
- 
+  set country-specific-data-list sublist country-specific-data-list 4 10
+  set power-distance first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set individualism-vs-collectivism first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set masculinity-vs-femininity first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set uncertainty-avoidance first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set long-vs-short-termism first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set indulgence-vs-restraint first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list  
     
   
 end

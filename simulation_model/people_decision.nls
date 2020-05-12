@@ -22,49 +22,56 @@ to-report my-available-activity-descriptors
   if migration? and is-away?
   [
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
-      report (list (list away-gathering-point travelling-reason solo-transportation-method false))
+      report (list (list away-gathering-point travelling-reason false))
     ]
   ]
   
 
-  let activities (list (list my-home "rest" stay-here-transportation-method))
+  let activities (list (list my-home "rest"))
 
   if has-internally-visible-symptoms? or is-believing-to-be-infected?
-  [ set activities add-activity-descriptor-with-transport my-hospital treatment-motive activities ]
+  [ set activities lput activity-descriptor my-hospital treatment-motive activities ]
 
   if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
     [
       if is-child? [
-        set activities add-activity-descriptor-with-transport my-school "mandatory" activities
+        set activities (lput (activity-descriptor my-school  "mandatory") activities)
           ]
       if is-student?
       [
-        set activities add-activity-descriptor-with-transport my-university "learning" activities
+        set activities (lput (activity-descriptor my-university  "learning") activities)
       ]
 
       if is-worker? [
         if is-allowed-to-work-from-home? and I-know-of-working-from-home? [
-          set activities add-activity-descriptor-with-transport my-home work-motive activities
+          set activities (lput (activity-descriptor
+            my-home
+            work-motive)
+            activities)
         ]
-        set activities add-activity-descriptor-with-transport my-work work-motive activities
+        
+        set activities (lput (activity-descriptor
+          my-work
+          work-motive)
+          activities)
       ]
   ]
   
   if slice-of-the-day = "evening" or not working-day? or age = "retired"
   [
     if age != "young" and slice-of-the-day != "night" [
-      set activities add-activity-descriptor-with-transport one-of my-essential-shops "essential shopping" activities
+      set activities lput (activity-descriptor one-of my-essential-shops "essential shopping") activities
     ]
 
-    set activities add-activity-descriptor-with-transport my-public-leisure "relaxing" activities
+    set activities lput (activity-descriptor my-public-leisure "relaxing" ) activities
     if age != "young" and slice-of-the-day != "night" [
-      set activities add-activity-descriptor-with-transport my-non-essential-shop "shopping" activities
+      set activities lput (activity-descriptor my-non-essential-shop "shopping") activities
     ]
-    set activities add-activity-descriptor-with-transport my-private-leisure "relaxing" activities
+    set activities lput (activity-descriptor my-private-leisure "relaxing") activities
 
   ]
 
-  set activities add-activity-descriptor-with-transport my-hospital "get-tested" activities
+  set activities lput (list my-hospital "get-tested") activities
   set activities filter [ i -> [is-accessible?] of first i] activities
 
   ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
@@ -73,10 +80,10 @@ to-report my-available-activity-descriptors
   if any? people-that-depend-on-me with [ (current-person-I-depend-on = nobody or current-person-I-depend-on = myself)
     and is-currently-in-sitation-of-active-dependence?]
   [
+
     ask people-that-depend-on-me [ set current-person-I-depend-on myself]
     set activities filter [ i -> can-be-done-with-a-dependable-person? i] activities
   ]
-  
   let ret []
   foreach activities [ activity ->
     set ret fput (lput false activity) ret
@@ -93,26 +100,11 @@ to-report my-available-activity-descriptors
   report ret
 end
 
-to-report add-activity-descriptor-with-transport [gp mo activities]
-  if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
-  ifelse gp != current-activity [
-    set activities lput (list gp mo public-transportation-method) activities
-    if not is-child? [
-      set activities lput (list gp mo shared-car-transportation-method) activities
-    ]
-    ifelse do-I-need-motorized-transport gp [
-      if do-I-own-a-car? [set activities lput (list gp mo solo-transportation-method) activities]
-    ]
-    [set activities lput (list gp mo solo-transportation-method) activities]
-    report activities
-  ]
-  [ report lput (list gp mo stay-here-transportation-method) activities
-  ] 
-end
 
 to-report is-currently-in-sitation-of-active-dependence?
   report is-child? and closed-schools?
 end
+
 
 
 to select-activity
@@ -120,14 +112,13 @@ to select-activity
   
   ;;select if migration takes over and people move around
   if (migration? and random-float 1 < probability-going-abroad) [
-    set c-a (list away-gathering-point travelling-motive solo-transportation-method false)
+    set c-a (list away-gathering-point travelling-motive false)
   ]
   
   let loc location-of c-a
   select-activity-wtf? loc
   set current-activity loc
   set current-motivation motive-of c-a
-  set current-means-of-transport method-of-transportation-of c-a
   set is-I-apply-social-distancing? social-distancing-of c-a
   if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
   if log-violating-quarantine? [ process-quarantine-violation-event]
@@ -174,16 +165,12 @@ end
 
 to update-memory
   let network-activities new-counter
-  let network-means-of-transport-list new-counter
   if count my-network > 0 [
     ask my-network [
       set network-activities add-to-counter network-activities (list [gathering-type] of current-activity current-motivation)
-      set network-means-of-transport-list add-to-counter network-means-of-transport-list current-means-of-transport
     ]
-    
+  
     let network-activity counter-max-value network-activities
-    set network-activity lput (counter-max-value network-means-of-transport-list) network-activity
-
     ifelse working-day? [
       set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
       if length what-my-network-did-week-day > 4 [
@@ -195,26 +182,12 @@ to update-memory
         set what-my-network-did-weekend but-first what-my-network-did-weekend
       ]
     ]
-    
     set did-my-network-socially-distance? 2 * count (my-network with [is-I-apply-social-distancing?]) >= count my-network
     let quarantine-network my-network with [is-officially-asked-to-quarantine?]
     ifelse any? quarantine-network [
       set did-my-network-quarantine? 2 * count (quarantine-network with [is-in-quarantine?]) >= count quarantine-network
     ] [
       set did-my-network-quarantine? false
-    ]
-  ]
-  
-  ;;transport memory
-  ifelse working-day? [
-    set what-transport-I-used-week-day lput current-means-of-transport what-transport-I-used-week-day
-    if length what-transport-I-used-week-day > 4 [
-      set what-transport-I-used-week-day but-first what-transport-I-used-week-day
-    ]
-  ] [
-    set what-transport-I-used-weekend lput current-means-of-transport what-transport-I-used-weekend
-    if length what-transport-I-used-weekend > 4 [
-      set what-transport-I-used-weekend but-first what-transport-I-used-weekend
     ]
   ]
 end

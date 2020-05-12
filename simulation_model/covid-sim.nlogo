@@ -844,20 +844,20 @@ count houses-hosting-multiple-generations
 11
 
 TEXTBOX
-3314
-751
-3469
-791
+3423
+958
+3578
+998
 Migration model
 16
 35.0
 1
 
 SLIDER
-3341
-789
-3615
-822
+3450
+996
+3724
+1029
 probability-infection-when-abroad
 probability-infection-when-abroad
 0
@@ -869,10 +869,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3626
-831
-3923
-864
+3735
+1038
+4032
+1071
 probability-getting-back-when-abroad
 probability-getting-back-when-abroad
 0
@@ -884,10 +884,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-3490
-749
-3602
-782
+3599
+956
+3711
+989
 migration?
 migration?
 1
@@ -895,12 +895,12 @@ migration?
 -1000
 
 SLIDER
-3629
-785
-3873
-818
-density-travelling-propagation
-density-travelling-propagation
+3689
+732
+3933
+765
+density-walking-outside
+density-walking-outside
 0
 1
 0.05
@@ -1068,7 +1068,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.432
+0.27
 0.01
 1
 NIL
@@ -1239,8 +1239,6 @@ PENS
 "hospital" 1.0 0 -13840069 true "" "plot hospital-amount-of-capital"
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-capital"
 "school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
-"public-transport" 1.0 0 -13791810 true "" "plot public-transport-amount-of-capital"
-"shared-cars" 1.0 0 -6459832 true "" "plot shared-cars-amount-of-capital"
 
 PLOT
 1097
@@ -1262,10 +1260,10 @@ PENS
 "government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
-551
-1471
-762
-1504
+549
+1373
+760
+1406
 ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
@@ -1277,10 +1275,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-551
-1508
-763
-1541
+549
+1410
+761
+1443
 ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
@@ -1292,10 +1290,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-551
-1547
-763
-1580
+549
+1449
+761
+1482
 ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
@@ -1307,10 +1305,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-551
-1585
-763
-1618
+549
+1487
+761
+1520
 ratio-tax-on-workers
 ratio-tax-on-workers
 0
@@ -1322,10 +1320,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-554
-1452
-752
-1480
+552
+1354
+750
+1382
 Taxes charged by the government
 11
 25.0
@@ -1489,10 +1487,10 @@ NIL
 HORIZONTAL
 
 PLOT
-12
-1555
-523
-1705
+13
+1524
+524
+1674
 Accumulated amount of goods in stock per type of business
 NIL
 NIL
@@ -1509,10 +1507,10 @@ PENS
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-goods-in-stock"
 
 SLIDER
-552
-1682
-761
-1715
+548
+1547
+757
+1580
 goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
@@ -1524,10 +1522,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-552
-1719
-761
-1752
+548
+1584
+757
+1617
 unit-price-of-goods
 unit-price-of-goods
 0.1
@@ -1654,13 +1652,13 @@ Density factors:\nRelative proximity between individuals within an activity type
 1
 
 TEXTBOX
-3272
-1045
-3433
-1073
-Transport Model
-14
-35.0
+3689
+683
+3944
+738
+Density settings influence risk of becoming sick when travelling locally (is related with contagion model)
+11
+65.0
 1
 
 TEXTBOX
@@ -1736,10 +1734,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3341
-829
-3616
-862
+3450
+1036
+3725
+1069
 probability-going-abroad
 probability-going-abroad
 0
@@ -1774,9 +1772,9 @@ NIL
 
 SWITCH
 787
-1584
+1529
 987
-1617
+1562
 government-pays-wages?
 government-pays-wages?
 1
@@ -1785,9 +1783,9 @@ government-pays-wages?
 
 SLIDER
 787
-1624
+1569
 1058
-1657
+1602
 ratio-of-wage-paid-by-the-government
 ratio-of-wage-paid-by-the-government
 0
@@ -1800,9 +1798,9 @@ HORIZONTAL
 
 INPUTBOX
 787
-1664
+1609
 986
-1724
+1669
 government-initial-reserve-of-capital
 10000.0
 1
@@ -1810,10 +1808,10 @@ government-initial-reserve-of-capital
 Number
 
 SLIDER
-552
-1759
-770
-1792
+548
+1624
+766
+1657
 max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
@@ -1981,7 +1979,7 @@ PLOT
 1480
 1824
 1891
-1997
+1974
 Number of gathering points out of capital
 NIL
 NIL
@@ -1999,14 +1997,12 @@ PENS
 "hospital" 1.0 0 -13840069 true "" "plot #hospitals-out-of-capital"
 "workplace" 1.0 0 -2674135 true "" "plot #workplaces-out-of-capital"
 "school" 1.0 0 -8630108 true "" "plot #schools-out-of-capital"
-"public-transport" 1.0 0 -13791810 true "" "plot #public-transport-out-of-capital"
-"shared-cars" 1.0 0 -6459832 true "" "plot #shared-cars-out-of-capital"
 
 PLOT
-12
-1718
-521
-1882
+13
+1687
+522
+1851
 Activities
 NIL
 NIL
@@ -2217,9 +2213,9 @@ count people with [is-I-apply-social-distancing? = true]
 
 PLOT
 545
-1810
+1704
 1044
-1960
+1854
 Number of workers actually working at each gathering point
 NIL
 NIL
@@ -2237,8 +2233,6 @@ PENS
 "hospital" 1.0 0 -13840069 true "" "plot #workers-working-at-hospital"
 "workplace" 1.0 0 -2674135 true "" "plot #workers-working-at-workplace"
 "school" 1.0 0 -8630108 true "" "plot #workers-working-at-school"
-"public-transport" 1.0 0 -13791810 true "" "plot #workers-working-at-public-transport"
-"shared-cars" 1.0 0 -6459832 true "" "plot #workers-working-at-shared-cars"
 
 SLIDER
 550
@@ -2331,85 +2325,141 @@ NIL
 HORIZONTAL
 
 SLIDER
-3249
-1215
-3503
-1248
-ratio-motorized-transport-to-work
-ratio-motorized-transport-to-work
+3448
+592
+3702
+625
+ratio-worker-public-transport
+ratio-worker-public-transport
 0
 1
-0.618
+0.4
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3250
-1135
-3504
-1168
-ratio-motorized-transport-to-school
-ratio-motorized-transport-to-school
+3718
+593
+3936
+626
+ratio-worker-shared-car
+ratio-worker-shared-car
 0
 1
-0.194
+0.15
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3428
-1094
-3676
-1127
-ratio-workers-and-retired-owning-cars
-ratio-workers-and-retired-owning-cars
+3446
+515
+3700
+548
+ratio-children-public-transport
+ratio-children-public-transport
 0
 1
-0.478
+0.75
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3250
-1174
-3503
-1207
-ratio-motorized-transport-to-university
-ratio-motorized-transport-to-university
+3715
+513
+3933
+546
+ratio-children-shared-car
+ratio-children-shared-car
 0
 1
-0.304
+0.0
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3251
-1255
-3505
-1288
-ratio-motorized-transport-to-hospital
-ratio-motorized-transport-to-hospital
+3715
+552
+3933
+585
+ratio-student-shared-car
+ratio-student-shared-car
 0
 1
-1.0
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3718
+632
+3936
+665
+ratio-retired-shared-car
+ratio-retired-shared-car
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3446
+553
+3700
+586
+ratio-student-public-transport
+ratio-student-public-transport
+0
+1
+0.6
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3448
+633
+3701
+666
+ratio-retired-public-transport
+ratio-retired-public-transport
+0
+1
+0.2
 0.01
 1
 NIL
 HORIZONTAL
 
 INPUTBOX
-3924
-1359
-4051
-1419
+3315
+688
+3471
+748
+#bus-per-timeslot
+30.0
+1
+0
+Number
+
+INPUTBOX
+3312
+755
+3468
+815
 #max-people-per-bus
 20.0
 1
@@ -2417,10 +2467,10 @@ INPUTBOX
 Number
 
 MONITOR
-3752
-1344
-3917
-1389
+3475
+765
+3670
+810
 #people-staying-out-queuing
 count people with [stayed-out-queuing-for-bus?]
 17
@@ -2428,10 +2478,10 @@ count people with [stayed-out-queuing-for-bus?]
 11
 
 SLIDER
-3815
-1175
-4046
-1208
+3689
+775
+3936
+808
 density-factor-queuing
 density-factor-queuing
 0
@@ -2443,10 +2493,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3814
-1215
-4045
-1248
+3692
+818
+3936
+851
 density-factor-public-transports
 density-factor-public-transports
 0
@@ -2458,25 +2508,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-3815
-1254
-4045
-1287
+3695
+858
+3942
+891
 density-factor-shared-cars
 density-factor-shared-cars
 0
 1
-0.5
+0.8
 0.01
 1
 NIL
 HORIZONTAL
 
 MONITOR
-3754
-1393
-3916
-1438
+3476
+698
+3665
+743
 NIL
 #people-denied-bus
 17
@@ -2650,7 +2700,7 @@ survival-multiplier
 survival-multiplier
 0
 3
-2.1
+2.5
 0.1
 1
 NIL
@@ -2680,6 +2730,21 @@ Country-Specific Features Model: Culture, Values, Needs
 16
 83.0
 1
+
+SLIDER
+3732
+999
+4040
+1032
+owning-solo-transportation-probability
+owning-solo-transportation-probability
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
 
 SLIDER
 1729
@@ -2977,10 +3042,10 @@ NIL
 1
 
 PLOT
-1659
-2048
-2235
-2244
+1673
+1989
+2249
+2185
 Macro Economic Model - Capital Flow
 NIL
 NIL
@@ -3012,41 +3077,11 @@ Agent social distancing settings
 83.0
 1
 
-SLIDER
-550
-1354
-737
-1387
-public-transport-costs
-public-transport-costs
-0
-1
-0.0
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-550
-1393
-735
-1426
-car-sharing-costs
-car-sharing-costs
-0.1
-10
-1.5
-0.1
-1
-NIL
-HORIZONTAL
-
 PLOT
-1466
-2251
-1924
-2401
+1480
+2192
+1938
+2342
 Macro Economic Model - International Sector
 NIL
 NIL
@@ -3061,10 +3096,10 @@ PENS
 "international-sector" 1.0 0 -14835848 true "" "plot total-capital-international-sector"
 
 SWITCH
-1455
-2086
-1649
-2119
+1469
+2027
+1663
+2060
 close-services-luxury?
 close-services-luxury?
 1
@@ -3111,36 +3146,6 @@ PENS
 "worker" 1.0 0 -13345367 true "" "histogram [my-amount-of-capital] of workers"
 "retired" 1.0 0 -955883 true "" "histogram [my-amount-of-capital] of retireds"
 "student" 1.0 0 -13840069 true "" "histogram [my-amount-of-capital] of students"
-
-SLIDER
-1384
-943
-1547
-976
-density-factor-public-transport
-density-factor-public-transport
-0
-1
-0.5
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1385
-912
-1547
-945
-density-factor-shared-cars
-density-factor-shared-cars
-0
-1
-0.5
-0.01
-1
-NIL
-HORIZONTAL
 
 PLOT
 1098
@@ -3217,10 +3222,10 @@ NIL
 11
 
 SLIDER
-1429
-2196
-1649
-2229
+1443
+2137
+1663
+2170
 government-sector-subsidy-ratio
 government-sector-subsidy-ratio
 0
@@ -3232,10 +3237,10 @@ NIL
 HORIZONTAL
 
 PLOT
-1931
-2251
-2366
-2401
+1945
+2192
+2380
+2342
 Macro Economic Model - Central Bank
 NIL
 NIL
@@ -3251,10 +3256,10 @@ PENS
 "total-credit" 1.0 0 -13345367 true "" "plot sum [total-credit] of central-banks"
 
 PLOT
-2248
-2048
-2787
-2242
+2262
+1989
+2801
+2183
 Macro Economic Model - Debt
 NIL
 NIL
@@ -3276,10 +3281,10 @@ PENS
 "households-sector" 1.0 0 -6459832 true "" "plot total-debt-households-sector"
 
 PLOT
-2375
-2251
-2787
-2401
+2389
+2192
+2801
+2342
 Macro Economic Model - Government Debt
 NIL
 NIL
@@ -3294,10 +3299,10 @@ PENS
 "debt" 1.0 0 -16777216 true "" "plot total-debt-government-sector"
 
 SLIDER
-1344
-2122
-1649
-2155
+1358
+2063
+1663
+2096
 services-luxury-ratio-of-expenditures-when-closed
 services-luxury-ratio-of-expenditures-when-closed
 0
@@ -3309,10 +3314,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1348
-2158
-1649
-2191
+1362
+2099
+1663
+2132
 services-luxury-ratio-of-income-when-closed
 services-luxury-ratio-of-income-when-closed
 0
@@ -3376,10 +3381,10 @@ count people with [has-mobile-phone?] / count people
 11
 
 SLIDER
-1455
-2048
-1649
-2081
+1469
+1989
+1663
+2022
 interest-rate-by-tick
 interest-rate-by-tick
 0
@@ -3389,47 +3394,6 @@ interest-rate-by-tick
 1
 NIL
 HORIZONTAL
-
-SLIDER
-938
-680
-1187
-713
-probability-public-transport-personel
-probability-public-transport-personel
-0
-1
-0.02
-0.001
-1
-NIL
-HORIZONTAL
-
-SLIDER
-939
-643
-1187
-676
-probability-shared-cars-personel
-probability-shared-cars-personel
-0
-1
-0.02
-0.001
-1
-NIL
-HORIZONTAL
-
-MONITOR
-905
-2002
-1050
-2047
-NIL
-#public-transport-workers
-17
-1
-11
 
 CHOOSER
 1734
@@ -3535,17 +3499,6 @@ count should-be-isolators
 1
 11
 
-MONITOR
-3752
-1295
-3918
-1340
-NIL
-#users-in-buses
-17
-1
-11
-
 SWITCH
 2233
 1423
@@ -3613,66 +3566,6 @@ is-infected-and-their-families-requested-to-stay-at-home?
 0
 1
 -1000
-
-SLIDER
-3512
-1136
-3805
-1169
-ratio-motorized-transport-to-my-non-essential-shop
-ratio-motorized-transport-to-my-non-essential-shop
-0
-1
-0.464
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-3514
-1216
-3806
-1249
-ratio-motorized-transport-to-essential-shops
-ratio-motorized-transport-to-essential-shops
-0
-1
-0.464
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-3517
-1254
-3807
-1287
-ratio-motorized-transport-to-public-leisure
-ratio-motorized-transport-to-public-leisure
-0
-1
-0.49
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-3514
-1176
-3806
-1209
-ratio-motorized-transport-to-private-leisure
-ratio-motorized-transport-to-private-leisure
-0
-1
-0.49
-0.01
-1
-NIL
-HORIZONTAL
 
 SWITCH
 2232
@@ -3785,10 +3678,10 @@ count people-having-ever-been-recorded-as-positive-in-the-app
 11
 
 CHOOSER
-2849
-767
-3120
-812
+2852
+743
+3123
+788
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
@@ -3870,56 +3763,15 @@ log-preferred-activity-decision?
 1
 -1000
 
-PLOT
-3249
-1293
-3748
-1502
-users of transport
-NIL
-NIL
-0.0
-100.0
-0.0
-300.0
-true
-true
-"" ""
-PENS
-"total bus users" 1.0 0 -11221820 true "" "plot #users-in-buses"
-"total shared cars users" 1.0 0 -10899396 true "" "plot count people with [current-means-of-transport = \"shared-cars\"]"
-
-CHOOSER
-3252
-1082
-3415
-1127
-Transport-parameters-of
-Transport-parameters-of
-"Custom" "Belgium" "Canada" "Germany" "United Kingdom" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-8
-
-MONITOR
-906
-2055
-1050
-2100
-NIL
-#shared-cars-workers
-17
+TEXTBOX
+3579
+477
+3767
+500
+Transport Model
+16
+65.0
 1
-11
-
-INPUTBOX
-3923
-1294
-4051
-1354
-#bus-per-timeslot
-100.0
-1
-0
-Number
 
 SWITCH
 550
@@ -4097,21 +3949,6 @@ keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 -1000
 
 SLIDER
-551
-1623
-763
-1656
-ratio-tax-on-shared-cars
-ratio-tax-on-shared-cars
-0
-1
-0.4
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
 3223
 130
 3456
@@ -4142,22 +3979,7 @@ NIL
 HORIZONTAL
 
 SLIDER
-785
-1520
-983
-1553
-ratio-public-transport-subsidy
-ratio-public-transport-subsidy
-0
-1
-0.07
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-3223
+3224
 212
 3566
 245
@@ -4234,21 +4056,6 @@ ratio-parents-subsidy
 1
 NIL
 VERTICAL
-
-SLIDER
-3814
-1136
-4046
-1169
-density-walking-outside
-density-walking-outside
-0
-1
-0.05
-0.01
-1
-NIL
-HORIZONTAL
 
 SLIDER
 549

@@ -19,21 +19,9 @@ people-own [
   my-essential-shops
   
   ;;transportation model
-  current-means-of-transport
+  my-means-of-transportation-I-currently-use
+  can-I-perform-solo-transportation?
   stayed-out-queuing-for-bus?
-  do-I-own-a-car?
-  my-transport-number
-  
-  transport-to-my-school
-  transport-to-my-university
-  transport-to-my-work
-  transport-to-my-hospital
-  transport-to-my-non-essential-shop
-  transport-to-my-essential-shops
-  transport-to-my-public-leisure
-  transport-to-my-private-leisure
-  transport-to-my-home
-  cost-of-essential-transport
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
@@ -57,14 +45,12 @@ people-own [
   ; Optional measures information
   I-know-of-social-distancing?
   I-know-of-working-from-home?
-  ; Memory of the network's actions and the transport use
-  ;;outdated?: The memory is a list with a max lenght of 28 (for all the ticks in a week). New events get added to the end, so the first event should always be what most people in your network did one week ago
+  ; Memory of the network's actions
+  ; The memory is a list with a max lenght of 28 (for all the ticks in a week). New events get added to the end, so the first event should always be what most people in your network did one week ago
   what-my-network-did-week-day
   what-my-network-did-weekend
   did-my-network-socially-distance?
   did-my-network-quarantine?
-  what-transport-I-used-week-day
-  what-transport-I-used-weekend
   
   ;"needs" are a central driver in decision-making (e.g. eating, belonging to groups, physical security).
   ;"needs" are a relevant concept for accounting for the reasons that can push an agent for violating guidelines, in spite of generally complying to them

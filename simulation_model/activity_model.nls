@@ -26,9 +26,9 @@ to execute-activity-effect
 
 end
 
-to-report activity-descriptor [gp mo mt]
+to-report activity-descriptor [gp mo]
   if not is-gathering-point? gp [error (sentence gp mo "should be a gathering point")]
-  report (list gp mo mt)
+  report (list gp mo)
 end
 
 to-report is-forced-to-be-here?
@@ -38,17 +38,8 @@ end
 
 
 to update-resources-based-on-current-activity
-  
   if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
   if current-activity = 0 [error "failed to select an activity"]
-  
-  if current-means-of-transport = public-transportation-method [
-    perform-transaction self one-of public-transport (list "nothing") (list "payment" public-transport-costs)
-  ]
-  
-  if current-means-of-transport = shared-car-transportation-method [
-    perform-transaction self one-of shared-cars (list "nothing") (list "payment" car-sharing-costs)
-  ]
 
   if current-motivation = follow-person-in-charge-motive [stop]
 
@@ -167,14 +158,6 @@ to-report #workers-working-at-school
   report count workers with [is-working? and [gathering-type] of my-work = "school"]
 end
 
-to-report #workers-working-at-public-transport
-  report count workers with [is-working? and [gathering-type] of my-work = "public-transport"]
-end
-
-to-report #workers-working-at-shared-cars
-  report count workers with [is-working? and [gathering-type] of my-work = "shared-cars"]
-end
-
 to-report follow-person-in-charge-motive
   report "follow person in charge"
 end
@@ -258,10 +241,6 @@ to-report amount-of-rations-I-buy-when-going-to-essential-shops
 end
 
 to-report social-distancing-of [ad]
-  report item 3 ad
-end
-
-to-report method-of-transportation-of [ad]
   report item 2 ad
 end
 
@@ -340,16 +319,15 @@ to perform-people-activities
     [
       set current-activity [current-activity] of current-person-I-depend-on
       set current-motivation follow-person-in-charge-motive
-      
     ]
   ]
 
   travelling-to-activity-phase
 
   ask people [
-    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation current-means-of-transport)]
+    if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]
     execute-activity-effect
-    update-needs-for-playing (list current-activity current-motivation current-means-of-transport is-I-apply-social-distancing?)
+    update-needs-for-playing (list current-activity current-motivation is-I-apply-social-distancing?)
   ]
   animate-walk-to-goal
 

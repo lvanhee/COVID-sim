@@ -33,11 +33,3 @@ end
 to-report non-essential-shop-gathering-type
   report "non-essential-shop"
 end
-
-to-report public-transport-gathering-type
-  report "public-transport"
-end
-
-to-report shared-cars-gathering-type
-  report "shared-cars"
-end
