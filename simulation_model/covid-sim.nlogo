@@ -2533,17 +2533,6 @@ NIL
 1
 11
 
-MONITOR
-2130
-320
-2355
-365
-NIL
-#people-infected-in-general-travel
-17
-1
-11
-
 BUTTON
 10
 248
@@ -3698,17 +3687,6 @@ NIL
 1
 11
 
-MONITOR
-2132
-375
-2364
-420
-NIL
-#infected-by-asymptomatic-people
-17
-1
-11
-
 SWITCH
 2545
 832
@@ -3813,8 +3791,8 @@ clear-log-on-setup?
 PLOT
 1778
 193
-2106
-431
+2118
+369
 contacts
 NIL
 NIL
@@ -3839,33 +3817,11 @@ PENS
 "priv-trans" 1.0 0 -13791810 true "" " plot #contacts-in-shared-cars"
 "queuing" 1.0 0 -13345367 true "" "plot  #contacts-in-queuing"
 
-MONITOR
-2125
-267
-2357
-312
-NIL
-#people-infected-in-workplaces
-17
-1
-11
-
-MONITOR
-2129
-434
-2404
-479
-#people-infected-in-non-essential-shops
-#people-infected-in-non-essential-shops
-17
-1
-11
-
 PLOT
-1775
-626
-2112
-866
+1777
+547
+2111
+722
 #people infected in
 NIL
 NIL
@@ -3891,10 +3847,10 @@ PENS
 "queuing" 1.0 0 -13345367 true "" "plot #people-infected-in-queuing"
 
 PLOT
-1776
-438
-2108
-618
+1778
+369
+2110
+549
 infection per age
 NIL
 NIL
@@ -5187,7 +5143,7 @@ setup</setup>
   <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="1500"/>
+    <timeLimit steps="500"/>
     <metric>#infected</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
@@ -5515,9 +5471,6 @@ setup</setup>
       <value value="0.08"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-working-from-home-recommended?">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="when-is-tracing-app-active?">

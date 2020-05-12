@@ -37,6 +37,9 @@ to-report ratio-personnel-here
 end
 
 
+to-report is-away?
+  report current-activity = away-gathering-point
+end
 
 to-report proximity-factor
   if gathering-type = hospital-gathering-type [report density-factor-hospitals]

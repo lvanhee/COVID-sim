@@ -19,7 +19,7 @@ to reset-economy-measurements
   ;;weird, shouldn't people expected to be pain only when they plan on working?
   ;;e.g. lower pay when working from home; or no/less pay when staying at home taking care of a child? (holiday leave)
   ask people [
-    if working-day? and member? slice-of-the-day ["afternoon" "evening"] [
+    if is-working-day-for-me? and member? slice-of-the-day ["afternoon" "evening"] [
       set my-expected-income my-current-income
     ]
   ]
@@ -39,7 +39,7 @@ to perform-payment-of-fixed-costs
   [
     if not is-accessible?
     [
-      if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
+      if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
       [
         ask hired-workers
         [

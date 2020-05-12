@@ -384,7 +384,7 @@ to-report SUE-autonomy [ad]
     set sd-modifier (1 - social-distance-profile)
   ]
 
-  if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
+  if is-working-day-for-me? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
       ifelse [gathering-type] of gp = "school"
       [ report  0.2 * sd-modifier ]
@@ -533,7 +533,7 @@ end
 
 to-report SUE-conformity [ad]
   if not any? my-network [report 1]
-  let relevant-memory ifelse-value working-day? [what-my-network-did-week-day] [what-my-network-did-weekend]
+  let relevant-memory ifelse-value is-working-day-for-me? [what-my-network-did-week-day] [what-my-network-did-weekend]
   if length relevant-memory >= 4 [
     report conformity-increase ad (first relevant-memory)
   ]
@@ -542,7 +542,7 @@ end
 
 to-report SUA-conformity [ad]
   if not any? my-network [report 1]
-  let relevant-memory ifelse-value working-day? [what-my-network-did-week-day] [what-my-network-did-weekend]
+  let relevant-memory ifelse-value is-working-day-for-me? [what-my-network-did-week-day] [what-my-network-did-weekend]
   report conformity-increase ad (last relevant-memory)
 end
 

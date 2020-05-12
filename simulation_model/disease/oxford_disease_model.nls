@@ -82,7 +82,7 @@ to-report tau-hosp
 end
 
 to-report tau-hosp-rec
-  let mean-val ((2.5 + 4) + 8) / 2 
+  let mean-val ((2.5 + 4) / 2 ) + 8
   let variance-val 3.60555
   report round (random-gamma (mean-val * mean-val / variance-val) (1 / (variance-val / mean-val)))  * #ticks-per-day
 
