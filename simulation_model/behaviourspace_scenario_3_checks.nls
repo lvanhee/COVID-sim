@@ -3,11 +3,20 @@ to-report behaviourspace-scenario-3-global-check
 end
 
 to-report behaviourspace-scenario-3-comparison-0-10-lower-peak
-  report bounded-linear-map 1 1.16 0 1 (behaviourspace-scenario-3-peak-no-testing / behaviourspace-scenario-3-peak-part-testing)
+  let no-test behaviourspace-scenario-3-peak-no-testing
+  let part-test behaviourspace-scenario-3-peak-part-testing
+  let fitness bounded-linear-map 1 1.16 0 1 (no-test / part-test)
+  print (word "Inf. peak - no test=" no-test ", inf. peak - part test=" part-test ", fitness=" fitness)
+  report fitness
 end
 
 to-report behaviourspace-scenario-3-comparison-10-100-lower-peak
-  report bounded-linear-map 1 1.16 0 1 (behaviourspace-scenario-3-peak-part-testing / behaviourspace-scenario-3-peak-full-testing)
+  let part-test behaviourspace-scenario-3-peak-part-testing
+  let full-test behaviourspace-scenario-3-peak-full-testing
+  let fitness bounded-linear-map 1 1.16 0 1 (part-test / full-test)
+  print (word "Inf. peak - part test=" part-test ", inf. peak - full test=" full-test ", fitness=" fitness)
+  report fitness
+  
 end
   
 to-report behaviourspace-scenario-3-peak-no-testing
