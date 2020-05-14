@@ -101,6 +101,7 @@ to disable-all-measures
   set is-psychorigidly-staying-at-home-when-quarantining? false
   set ratio-self-quarantining-when-symptomatic 0
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
+  set is-working-from-home-recommended? false
   
   disable-global-quarantine-measure
   disable-tracing-app-measure

@@ -9,8 +9,15 @@ end
 
 
 to-report is-working-day-for-me?
-  if is-worker? and [is-shop?] of my-work [report is-shops-open-today?]
-  report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
+  if is-gathering-point? self [ ifelse is-shop? [report is-shops-open-today?] [report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")]]
+  
+  if is-person? self 
+  [
+    if is-worker? [report [is-working-day-for-me?] of my-work]
+    report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
+  ]
+  
+  error (sentence "wrong user of this function" self [age] of self)
 end
 
 to-report is-shops-open-today?
@@ -27,10 +34,14 @@ to-report is-currently-in-sitation-of-active-dependence?
   report is-child? and closed-schools?
 end
 
+to-report should-I-stay-home?
+  if is-hard-lockdown-active? [report true]
+  if is-officially-asked-to-quarantine? [report true]
+  report false
+end
 
 
-
-to-report is-allowed-to-work-from-home?
+to-report is-technically-feasible-to-work-from-home?
   if not is-worker? [error "not a worker"]
   report member? [gathering-type] of my-work ["workplace" "university"]
   ;link-neighbors with [gathering-type = "workplace"]

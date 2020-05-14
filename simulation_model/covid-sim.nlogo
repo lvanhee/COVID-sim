@@ -122,7 +122,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.4
+0.15
 0.01
 1
 NIL
@@ -169,7 +169,7 @@ INPUTBOX
 918
 865
 #schools-gp
-12.0
+3.0
 1
 0
 Number
@@ -180,7 +180,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-40.0
+2.0
 1
 0
 Number
@@ -191,7 +191,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-40.0
+10.0
 1
 0
 Number
@@ -212,7 +212,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-4.0
+1.0
 1
 0
 Number
@@ -223,7 +223,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-40.0
+10.0
 1
 0
 Number
@@ -399,7 +399,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-20.0
+5.0
 1
 0
 Number
@@ -440,7 +440,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-40.0
+10.0
 1
 0
 Number
@@ -451,7 +451,7 @@ INPUTBOX
 832
 865
 #hospital-gp
-4.0
+1.0
 1
 0
 Number
@@ -480,7 +480,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -510,7 +510,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -690,10 +690,10 @@ terminal-to-death
 Number
 
 SLIDER
-1400
-393
-1645
-426
+1402
+353
+1647
+386
 probability-unavoidable-death
 probability-unavoidable-death
 0
@@ -720,10 +720,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1402
-309
-1671
-342
+1403
+288
+1672
+321
 probability-recorvery-if-treated
 probability-recorvery-if-treated
 0
@@ -735,10 +735,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1402
-232
-1755
-265
+1403
+222
+1756
+255
 probability-self-recovery-symptoms-old
 probability-self-recovery-symptoms-old
 0
@@ -751,9 +751,9 @@ HORIZONTAL
 
 SLIDER
 1402
-352
+320
 1675
-385
+353
 probability-recorvery-if-treated-old
 probability-recorvery-if-treated-old
 0
@@ -765,10 +765,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1399
-433
-1662
-466
+1402
+385
+1665
+418
 probability-unavoidable-death-old
 probability-unavoidable-death-old
 0
@@ -1068,7 +1068,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.419
 0.01
 1
 NIL
@@ -1146,7 +1146,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.295
 0.01
 1
 NIL
@@ -1161,7 +1161,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.27
 0.01
 1
 NIL
@@ -1176,17 +1176,17 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.016
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1402
-269
-1756
-302
+1403
+255
+1757
+288
 factor-reduction-probability-transmission-young
 factor-reduction-probability-transmission-young
 0
@@ -1313,7 +1313,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.41
+0.37
 0.01
 1
 NIL
@@ -1348,7 +1348,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.21
+0.04
 0.01
 1
 NIL
@@ -1378,7 +1378,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.34
+0.73
 0.01
 1
 NIL
@@ -1393,7 +1393,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.34
+0.24
 0.01
 1
 NIL
@@ -1422,7 +1422,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+12
 
 SLIDER
 2548
@@ -1480,7 +1480,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-2.2
+2.8
 0.1
 1
 NIL
@@ -1530,7 +1530,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.7
+2.5
 0.1
 1
 NIL
@@ -1555,7 +1555,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-14
+1
 
 MONITOR
 762
@@ -1870,13 +1870,13 @@ HORIZONTAL
 SLIDER
 2612
 1213
-3051
+2966
 1246
-probably-contagion-mitigation-from-social-distancing
-probably-contagion-mitigation-from-social-distancing
+social-distancing-density-factor
+social-distancing-density-factor
 0
 1
-0.08
+0.5
 0.01
 1
 NIL
@@ -1893,10 +1893,10 @@ Social distancing
 1
 
 SLIDER
-2613
-1178
-3048
-1211
+2612
+1181
+2966
+1214
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
@@ -1908,10 +1908,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2615
-1253
-2867
-1298
+2612
+1246
+2798
+1291
 NIL
 is-social-distancing-measure-active?
 17
@@ -2032,7 +2032,7 @@ workers-wages
 workers-wages
 0
 30
-10.0
+9.0
 0.5
 1
 NIL
@@ -2059,7 +2059,7 @@ INPUTBOX
 662
 558
 #households
-391.0
+100.0
 1
 0
 Number
@@ -2081,7 +2081,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-2000.0
+3.0
 1
 0
 Number
@@ -2201,10 +2201,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2875
-1253
-3032
-1298
+2808
+1245
+2965
+1290
 #social-distancing
 count people with [is-I-apply-social-distancing? = true]
 17
@@ -2243,7 +2243,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-2.2
+2.68
 0.1
 1
 NIL
@@ -2450,7 +2450,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-30.0
+10.0
 1
 0
 Number
@@ -2659,7 +2659,7 @@ value-std-dev
 value-std-dev
 0
 10
-10.0
+5.0
 1
 1
 NIL
@@ -3395,10 +3395,10 @@ disease-fsm-model
 1
 
 MONITOR
-2044
-18
-2129
-63
+1696
+647
+1781
+692
 NIL
 r0
 17
@@ -3495,7 +3495,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-0
+1
 1
 -1000
 
@@ -3539,7 +3539,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3552,7 +3552,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -3563,7 +3563,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3606,7 +3606,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3631,7 +3631,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+1
 
 SWITCH
 1719
@@ -3900,7 +3900,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-0
+1
 1
 -1000
 
@@ -3970,10 +3970,10 @@ contagion-model
 0
 
 PLOT
-1400
-485
-1729
-635
+1571
+481
+1779
+601
 avg-infectiousity per person
 NIL
 NIL
@@ -3988,10 +3988,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "ifelse not any? people with [is-infected?] [plot 0]\n[plot mean [oxford-contagion-factor-between self (one-of people) (one-of gathering-points)] of people with [is-infected?]]"
 
 MONITOR
-1393
-654
-1741
-699
+1570
+601
+1778
+646
 NIL
 count people with [is-officially-asked-to-quarantine?]
 17
@@ -4027,6 +4027,27 @@ amount-of-rations-I-buy-when-going-to-shops
 1
 NIL
 HORIZONTAL
+
+TEXTBOX
+1326
+215
+1401
+271
+ASSOCC\nincremental\nmodel\n(deprecated)
+11
+0.0
+1
+
+SWITCH
+2592
+1078
+2774
+1111
+is-working-from-home-recommended?
+is-working-from-home-recommended?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -73,7 +73,7 @@ to-report contextual-contagion-modificators
 end
 
 to-report social-distancing-risk-mitigation-factor
-  ifelse is-I-apply-social-distancing? [report probably-contagion-mitigation-from-social-distancing]
+  ifelse is-I-apply-social-distancing? [report social-distancing-density-factor]
   [report 1]
 end
 
@@ -128,7 +128,7 @@ to apply-risk-of-contamination [infector context]
 end
 
 to-report risks-of-contamination [infector susceptible context]
-  if contagion-model = "oxford" [report oxford-contagion-factor-between infector susceptible context]
+  if contagion-model = "oxford" [report (oxford-contagion-factor-between infector susceptible context) * social-distancing-risk-mitigation-factor]
   
   error (sentence "not implemented for" contagion-model)
 end

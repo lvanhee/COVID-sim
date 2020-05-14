@@ -22,7 +22,7 @@ to-report my-available-activity-descriptors
       ]
 
       if is-worker? [
-        if is-allowed-to-work-from-home? and I-know-of-working-from-home? [
+        if is-technically-feasible-to-work-from-home? and I-know-of-working-from-home? [
           set activities (lput (activity-descriptor
             my-home
             work-motive)

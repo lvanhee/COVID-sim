@@ -223,6 +223,7 @@ to scenario-1-setup
   if preset-scenario = "scenario-1-work-at-home-only"
   [
     set #days-trigger-non-essential-business-closing-measure 0
+    set is-working-from-home-recommended? true
     stop
   ]
   
