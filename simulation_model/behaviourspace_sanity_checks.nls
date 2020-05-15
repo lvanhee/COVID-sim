@@ -18,6 +18,12 @@ to-report behaviourspace-satisfaction-casualties
   report bounded-linear-map 0 0.1 0 1 behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-casualties-behaviourspace-variable-name
 end
 
+; If people are recommended to work from homw, there should be more people working from home
+to-report behaviourspace-soft-working-from-home-check
+  let no-measures-workers behaviourspace-load-variable no-measures-behaviourspace-experiment-name ratio-working-at-work-behaviourspace-variable-name
+  let soft-home-workers behaviourspace-load-variable soft-working-from-home-behaviourspace-experiment-name ratio-working-at-work-behaviourspace-variable-name
+  report bounded-linear-map 1 2 0 1 (no-measures-workers / soft-home-workers)
+end
 
 to-report check-r0-works
   set preset-scenario "default-scenario" load-scenario-specific-parameter-settings

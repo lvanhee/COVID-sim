@@ -713,7 +713,7 @@ probability-self-recovery-symptoms
 probability-self-recovery-symptoms
 0
 1
-0.6
+0.75
 0.01
 1
 NIL
@@ -4045,7 +4045,7 @@ SWITCH
 1111
 is-working-from-home-recommended?
 is-working-from-home-recommended?
-1
+0
 1
 -1000
 
