@@ -5995,9 +5995,6 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-public-transports">
       <value value="0.5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="influence-of-comorbidity-on-value-system">
-      <value value="0.5"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
       <value value="7"/>
     </enumeratedValueSet>
@@ -6017,9 +6014,6 @@ setup</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-retired-shared-car">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="strength-of-link-between-agent-values-and-wealth">
       <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
@@ -6568,9 +6562,6 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-public-transports">
       <value value="0.5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="influence-of-comorbidity-on-value-system">
-      <value value="0.5"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
       <value value="7"/>
     </enumeratedValueSet>
@@ -6590,9 +6581,6 @@ setup</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-retired-shared-car">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="strength-of-link-between-agent-values-and-wealth">
       <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
@@ -7141,9 +7129,6 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-public-transports">
       <value value="0.5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="influence-of-comorbidity-on-value-system">
-      <value value="0.5"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
       <value value="7"/>
     </enumeratedValueSet>
@@ -7163,9 +7148,6 @@ setup</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-retired-shared-car">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="strength-of-link-between-agent-values-and-wealth">
       <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
@@ -7714,9 +7696,6 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-public-transports">
       <value value="0.5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="influence-of-comorbidity-on-value-system">
-      <value value="0.5"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
       <value value="7"/>
     </enumeratedValueSet>
@@ -7736,9 +7715,6 @@ setup</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-retired-shared-car">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="strength-of-link-between-agent-values-and-wealth">
       <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
