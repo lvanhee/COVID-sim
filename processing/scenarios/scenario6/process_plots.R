@@ -39,6 +39,7 @@ if (export_pdf) {
 last_tick <- max(df$X.step.)
 
 
+###Number of infector per infected per age group
 
 foreach(r = splitted_by_app_user_ratio_df) %do%
   {
@@ -60,6 +61,9 @@ foreach(r = splitted_by_app_user_ratio_df) %do%
     Sys.sleep(1)
     
   }
+
+
+###Number contactor per contacted per age group
 
 foreach(r = splitted_by_app_user_ratio_df) %do%
   {
@@ -114,7 +118,7 @@ foreach(i = splitted_by_ratio_anxiety_df) %do%
 
 
 
-
+### Infections per GP
 list_of_y_variables_to_compare <-
   c("X.people.infected.in.hospitals",
     "X.people.infected.in.homes",
@@ -123,7 +127,10 @@ list_of_y_variables_to_compare <-
     "X.people.infected.in.private.leisure",
     "X.people.infected.in.schools",
     "X.people.infected.in.universities",
-    "X.people.infected.in.essential.shops")
+    "X.people.infected.in.essential.shops",
+    "X.people.infected.in.pubtrans",
+    "X.people.infected.in.queuing",
+    "X.people.infected.in.shared.cars")
 
 name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
                                           "app_user_ratio")
@@ -138,6 +145,7 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
       df = i))
     Sys.sleep(1)
   }
+
 
 list_of_y_variables_to_compare <-
   c("X.contacts.in.hospitals",
@@ -713,6 +721,8 @@ foreach(i = splitted_by_ratio_anxiety_df) %do%
 
 
 
+### Number of people infected per gathering point
+
 list_of_y_variables_to_compare <-
   c("X.people.infected.in.hospitals",
     "X.people.infected.in.homes",
@@ -721,7 +731,11 @@ list_of_y_variables_to_compare <-
     "X.people.infected.in.private.leisure",
     "X.people.infected.in.schools",
     "X.people.infected.in.universities",
-    "X.people.infected.in.essential.shops")
+    "X.people.infected.in.essential.shops",
+    "X.people.infected.in.pubtrans",
+    "X.people.infected.in.shared.cars",
+    "X.people.infected.in.queuing")
+
 
 name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
                                           "app_user_ratio")

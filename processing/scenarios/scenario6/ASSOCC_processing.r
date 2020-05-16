@@ -140,7 +140,32 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
                             y=!!sym(list_of_y_variables_to_compare[11]),
                             colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))  }
   if(length(list_of_y_variables_to_compare) >= 12)
-  {stop("Not defined for more than 9 lines:")}
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[12]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))  }
+  if(length(list_of_y_variables_to_compare) >= 13)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[13]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13])))  }
+  if(length(list_of_y_variables_to_compare) >= 14)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[14]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14])))  }
+  if(length(list_of_y_variables_to_compare) >= 15)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[15]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15])))  }
+  if(length(list_of_y_variables_to_compare) >= 16)
+  {
+    p<-p +  geom_smooth(aes(x=!!val_x,
+                            y=!!sym(list_of_y_variables_to_compare[16]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16])))  }
+   if(length(list_of_y_variables_to_compare) >= 17)
+  {stop(paste("Not defined for more than",length(list_of_y_variables_to_compare), "lines"))}
   
   p<-p+assocc_processing.get_title(x_var_name, y_var_name, name_independent_variables_to_display,
                                    df, cumulative)
