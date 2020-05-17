@@ -9,9 +9,9 @@ globals [
   current-day
   #dead-people
   #dead-retired
-  #dead-worker
-  #dead-student
-  #dead-youth
+  #dead-workers
+  #dead-students
+  #dead-young
   away-gathering-point
   #who-became-sick-while-travelling-locally
   import-scenario-name
