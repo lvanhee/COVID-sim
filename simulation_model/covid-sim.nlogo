@@ -7958,7 +7958,7 @@ setup</setup>
     <timeLimit steps="600"/>
     <metric>count people with [is-infected? and is-worker?]</metric>
     <metric>count people with [is-infected? and is-student?]</metric>
-    <metric>count people with [is-infected? and is-youth?]</metric>
+    <metric>count people with [is-infected? and is-young?]</metric>
     <metric>count people with [is-infected? and is-student?]</metric>
     <metric>count people with [is-infected?]</metric>
     <metric>#dead-people</metric>
@@ -8376,7 +8376,6 @@ setup</setup>
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="when-is-daily-testing-applied?">
-      <value value="&quot;never&quot;"/>
       <value value="&quot;always&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
