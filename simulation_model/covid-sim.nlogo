@@ -8,6 +8,9 @@ globals [
   is-lockdown-active?
   current-day
   #dead-people
+  #dead-young
+  #dead-students
+  #dead-workers
   #dead-retired
   away-gathering-point
   #who-became-sick-while-travelling-locally
