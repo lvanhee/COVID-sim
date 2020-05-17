@@ -7956,10 +7956,10 @@ setup</setup>
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="600"/>
-    <metric>count people with [is-infected? and is-worker?]</metric>
-    <metric>count people with [is-infected? and is-student?]</metric>
-    <metric>count people with [is-infected? and is-young?]</metric>
-    <metric>count people with [is-infected? and is-student?]</metric>
+    <metric>count people with [is-infected? and age = "worker"]</metric>
+    <metric>count people with [is-infected? and age = "student"]</metric>
+    <metric>count people with [is-infected? and age = "young"]</metric>
+    <metric>count people with [is-infected? and age = "retired"]</metric>
     <metric>count people with [is-infected?]</metric>
     <metric>#dead-people</metric>
     <metric>#dead-retired</metric>
