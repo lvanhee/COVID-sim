@@ -12,9 +12,6 @@ globals [
   #dead-students
   #dead-workers
   #dead-retired
-  #dead-worker
-  #dead-student
-  #dead-youth
   away-gathering-point
   #who-became-sick-while-travelling-locally
   import-scenario-name
