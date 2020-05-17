@@ -61,6 +61,7 @@ globals
   #hospitalizations-retired-this-tick
   
   number-of-people-per-age-having-ever-reached-severe-table
+  contamination-network-table
 ]
 
 to-report ratio-infected
@@ -125,8 +126,7 @@ to reset-metrics
   ;;reset age-group-to-age-group-#contacts-table
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#contacts-table (list x y) 0]]
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#infections-last-tick-table (list x y) 0]]
-  
-  
+    
 end
 
 to increment-age-inection-information-metrics [infected infector]
@@ -174,6 +174,17 @@ to-report ratio-age-group-to-age-group-#infections [infector-age infected-age]
   report table:get age-group-to-age-group-#infections-last-tick-table (list infector-age infected-age) / #initial-people-with-age infected-age
 end
 
+to add-to-contagion-tree [infector infectee context]
+  if contamination-network-table = 0 [set contamination-network-table table:make] 
+  let key infector
+  ifelse infector != nobody 
+  [set key [who] of infector]
+  [set key "nobody"]
+  
+  if not table:has-key? contamination-network-table key [table:put contamination-network-table key (list)]
+  table:put contamination-network-table key lput (list [who] of infectee ticks context)  table:get contamination-network-table key
+end
+
 
 to increment-contagion-metrics-from [context infected infector]
   increment-age-inection-information-metrics infected infector
@@ -201,10 +212,11 @@ to increment-contagion-metrics-from [context infected infector]
   error (sentence "unimplemented for" context)
 end
 
-to increment-age-per-gathering-type-global-metrics [ts context]
+to increment-#contacts-per-gathering-type-global-metrics [ts context]
   let #contacts-now (count ts * (count ts - 1)) / 2
   if is-gathering-point? context [
     let gt [gathering-type] of context
+    
     if gt = hospital-gathering-type [set #contacts-in-hospitals #contacts-in-hospitals + #contacts-now stop]
     if gt = workplace-gathering-type [set #contacts-in-workplaces  #contacts-in-workplaces + #contacts-now stop]
     if gt = home-gathering-type [set #contacts-in-homes #contacts-in-homes + #contacts-now stop]
@@ -224,7 +236,7 @@ end
 
 to  increment-contacts-due-to-group-gathering-global-metrics [ts context]
   
-  increment-age-per-gathering-type-global-metrics ts context
+  increment-#contacts-per-gathering-type-global-metrics ts context
   
   ask ts [
     ask other ts [

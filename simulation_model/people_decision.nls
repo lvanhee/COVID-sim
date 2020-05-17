@@ -1,4 +1,4 @@
-__includes ["need_management.nls" "country_specific_features/cultural_model.nls" "decision/quarantining.nls"]
+__includes ["need_management.nls" "country_specific_features/cultural_model.nls" "decision/quarantining.nls" "decision/select_activity.nls"]
 
 ;reports a string, which can be related to a gathering point and a concrete activity
 to-report my-preferred-available-activity-descriptor 
@@ -7,132 +7,41 @@ to-report my-preferred-available-activity-descriptor
   ;report reduce [[x y] -> ifelse-value global-prevalence-of x > global-prevalence-of y [x] [y]] my-available-activity-descriptors
 end
 
-to-report is-away?
-  report current-activity = away-gathering-point
+
+to-report is-working-day-for-me?
+  if is-gathering-point? self [ ifelse is-shop? [report is-shops-open-today?] [report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")]]
+  
+  if is-person? self 
+  [
+    if is-worker? [report [is-working-day-for-me?] of my-work]
+    report not (day-of-the-week = "saturday" or day-of-the-week = "sunday")
+  ]
+  
+  error (sentence "wrong user of this function" self [age] of self)
 end
 
+to-report is-shops-open-today?
+  report not (day-of-the-week = "sunday")
+end
 
 to-report travelling-reason
   report travelling-motive
 end
 
-;;here one should also include caring for children.
-;;Now it's highjacking the decision process
-to-report my-available-activity-descriptors
-  if migration? and is-away?
-  [
-    if (not (random-float 1 < probability-getting-back-when-abroad)) [
-      report (list (list away-gathering-point travelling-reason false))
-    ]
-  ]
-  
-
-  let activities (list (list my-home "rest"))
-
-  if has-internally-visible-symptoms? or is-believing-to-be-infected?
-  [ set activities lput activity-descriptor my-hospital treatment-motive activities ]
-
-  if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and working-day?
-    [
-      if is-child? [
-        set activities (lput (activity-descriptor my-school  "mandatory") activities)
-          ]
-      if is-student?
-      [
-        set activities (lput (activity-descriptor my-university  "learning") activities)
-      ]
-
-      if is-worker? [
-        if is-allowed-to-work-from-home? and I-know-of-working-from-home? [
-          set activities (lput (activity-descriptor
-            my-home
-            work-motive)
-            activities)
-        ]
-        
-        set activities (lput (activity-descriptor
-          my-work
-          work-motive)
-          activities)
-      ]
-  ]
-  
-  if slice-of-the-day = "evening" or not working-day? or age = "retired"
-  [
-    if age != "young" and slice-of-the-day != "night" [
-      set activities lput (activity-descriptor one-of my-essential-shops "essential shopping") activities
-    ]
-
-    set activities lput (activity-descriptor my-public-leisure "relaxing" ) activities
-    if age != "young" and slice-of-the-day != "night" [
-      set activities lput (activity-descriptor my-non-essential-shop "shopping") activities
-    ]
-    set activities lput (activity-descriptor my-private-leisure "relaxing") activities
-
-  ]
-
-  set activities lput (list my-hospital "get-tested") activities
-  set activities filter [ i -> [is-accessible?] of first i] activities
-
-  ;show [gathering-type] of (turtle-set map [ad -> first ad] activities)
-
-
-  if any? people-that-depend-on-me with [ (current-person-I-depend-on = nobody or current-person-I-depend-on = myself)
-    and is-currently-in-sitation-of-active-dependence?]
-  [
-
-    ask people-that-depend-on-me [ set current-person-I-depend-on myself]
-    set activities filter [ i -> can-be-done-with-a-dependable-person? i] activities
-  ]
-  let ret []
-  foreach activities [ activity ->
-    set ret fput (lput false activity) ret
-    if I-know-of-social-distancing? [
-      set ret fput (lput true activity) ret
-    ]
-  ]
-  
-  if is-officially-asked-to-quarantine? and is-psychorigidly-staying-at-home-when-quarantining?
-  [
-    set ret filter [[x] -> location-of x = my-home] ret
-  ]
-
-  report ret
-end
 
 
 to-report is-currently-in-sitation-of-active-dependence?
   report is-child? and closed-schools?
 end
 
-
-
-to select-activity
-  let c-a my-preferred-available-activity-descriptor
-  
-  ;;select if migration takes over and people move around
-  if (migration? and random-float 1 < probability-going-abroad) [
-    set c-a (list away-gathering-point travelling-motive false)
-  ]
-  
-  let loc location-of c-a
-  select-activity-wtf? loc
-  set current-activity loc
-  set current-motivation motive-of c-a
-  set is-I-apply-social-distancing? social-distancing-of c-a
-  if current-activity != away-gathering-point and current-motivation = travelling-motive [error "wrong place while travelling"]
-  if log-violating-quarantine? [ process-quarantine-violation-event]
+to-report should-I-stay-home?
+  if is-hard-lockdown-active? [report true]
+  if is-officially-asked-to-quarantine? [report true]
+  report false
 end
 
-;;this function is the main bottleneck of the whole application!
-;;it draws 0.2ms per call 
-to select-activity-wtf? [loc]
-  
- ; set is-moving-outside-for-reaching-current-activity? not (current-activity = location-of c-a)
-  set is-moving-outside-for-reaching-current-activity? not (current-activity = loc)
-end
 
-to-report is-allowed-to-work-from-home?
+to-report is-technically-feasible-to-work-from-home?
   if not is-worker? [error "not a worker"]
   report member? [gathering-type] of my-work ["workplace" "university"]
   ;link-neighbors with [gathering-type = "workplace"]
@@ -171,7 +80,7 @@ to update-memory
     ]
   
     let network-activity counter-max-value network-activities
-    ifelse working-day? [
+    ifelse is-working-day-for-me? [
       set what-my-network-did-week-day lput network-activity what-my-network-did-week-day
       if length what-my-network-did-week-day > 4 [
         set what-my-network-did-week-day but-first what-my-network-did-week-day

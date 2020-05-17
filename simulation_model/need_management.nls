@@ -91,7 +91,7 @@ to decay-satisfaction-level
   set sleep-satisfaction-level sleep-satisfaction-level * 0.8 
   if sleep-satisfaction-level < 0 [set sleep-satisfaction-level 0]
 
-  if age != "young" [
+  if age != young-age [
   set luxury-satisfaction-level luxury-satisfaction-level * 0.98
   if luxury-satisfaction-level < 0 [set luxury-satisfaction-level 0]
   ]
@@ -227,11 +227,7 @@ to-report SUA-risk-avoidance [ad]
   report risk-avoidance-increase ad count people with [current-activity = gp]
 end
 
-to-report should-I-stay-home?
-  if is-hard-lockdown-active? [report true]
-  if is-officially-asked-to-quarantine? [report true]
-  report false
-end
+
 
 to-report SUE-compliance [ad]
   let gp location-of ad
@@ -252,20 +248,25 @@ to-report SUE-compliance [ad]
     [ set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1 ]
     [ set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.1 ]
   ]
-
-  if (motive = work-motive) and is-I-have-contractual-obligations?
+  
+  if is-I-have-contractual-obligations?
   [
-;    show "do your work bonus"
-    if (not should-I-stay-home? and gp != my-home) [
-      set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2
-      if gp = current-activity [
-        set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2
-      ]
+    if motive = work-motive
+    [
+      let is-compliant-to-work-at-home should-I-stay-home? or (is-working-from-home-recommended? and is-technically-feasible-to-work-from-home?)
+      ;;
+      if (gp = my-home and is-compliant-to-work-at-home)
+      [set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.2]
+      if (gp = my-work and not is-compliant-to-work-at-home)
+      [set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.2]
+      if (gp != my-work and gp != my-home)
+      [error "working but not from home nor workplace"]
     ]
-    set bonus-compliance-to-obligation  bonus-compliance-to-obligation + 0.1
-  ]
-  if is-I-have-contractual-obligations? and motive != work-motive [
-    set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
+    
+    ;;blame workers skipping work
+    if motive != work-motive [
+      set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
+    ]
   ]
 
   ; Make kids go to school
@@ -384,7 +385,7 @@ to-report SUE-autonomy [ad]
     set sd-modifier (1 - social-distance-profile)
   ]
 
-  if working-day? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
+  if is-working-day-for-me? and (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") [
     if age = "young" [
       ifelse [gathering-type] of gp = "school"
       [ report  0.2 * sd-modifier ]
@@ -533,7 +534,7 @@ end
 
 to-report SUE-conformity [ad]
   if not any? my-network [report 1]
-  let relevant-memory ifelse-value working-day? [what-my-network-did-week-day] [what-my-network-did-weekend]
+  let relevant-memory ifelse-value is-working-day-for-me? [what-my-network-did-week-day] [what-my-network-did-weekend]
   if length relevant-memory >= 4 [
     report conformity-increase ad (first relevant-memory)
   ]
@@ -542,7 +543,7 @@ end
 
 to-report SUA-conformity [ad]
   if not any? my-network [report 1]
-  let relevant-memory ifelse-value working-day? [what-my-network-did-week-day] [what-my-network-did-weekend]
+  let relevant-memory ifelse-value is-working-day-for-me? [what-my-network-did-week-day] [what-my-network-did-weekend]
   report conformity-increase ad (last relevant-memory)
 end
 

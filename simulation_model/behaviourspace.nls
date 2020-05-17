@@ -40,6 +40,10 @@ to-report ratio-breaking-isolation-behaviourspace-variable-name
   report "ratio-breaking-isolation"
 end
 
+to-report ratio-working-at-work-behaviourspace-variable-name
+  report "working-at-work"
+end
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;EXPERIMENT NAMES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to-report mostly-elderly-household-behaviourspace-experiment-name
@@ -106,6 +110,10 @@ to-report no-food-delivery-behaviourspace-experiment-name
   report "no-food-delivery"
 end
 
+to-report soft-working-from-home-behaviourspace-experiment-name
+  report "recommend-working-from-home"
+end
+
 ;;;;;;;;;;;;;;;;;;;;;;EXPERIMENTS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to run-scenario-1
@@ -123,12 +131,15 @@ to run-no-measures-experiment
   let total-#-nonessentialshoppers-in-first-weekend 0
   let total-#-publicleisure-in-first-weekend 0
   let total-number-peak-infected-people -1
+  let total-number-workers-at-work -1
+  let #workers count workers
 
   while [any? people with [is-contagious?]] [
     go
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-nonessentialshoppers-in-first-weekend total-#-nonessentialshoppers-in-first-weekend + count people-at-non-essential-shops]
     if (member? day-of-the-week ["saturday" "sunday"]) and (ticks < 28) [set total-#-publicleisure-in-first-weekend total-#-publicleisure-in-first-weekend + count people with [is-at-public-leisure-place?]]
     if count people with [is-infected?] > total-number-peak-infected-people [set total-number-peak-infected-people count people with [is-infected?]]
+    if count workers with [is-at-work?] > total-number-workers-at-work [ set total-number-workers-at-work count workers with [is-at-work?] ]
   ]
 
   ;;saving all variables that can be relevant for later processing
@@ -138,6 +149,7 @@ to run-no-measures-experiment
   save-on-file no-measures-behaviourspace-experiment-name #-nonessentialshoppers-in-first-weekend-variable-name total-#-nonessentialshoppers-in-first-weekend
   save-on-file no-measures-behaviourspace-experiment-name #-publicleisure-in-first-weekend-variable-name total-#-publicleisure-in-first-weekend
   save-on-file no-measures-behaviourspace-experiment-name peak-infected-behaviourspace-variable-name total-number-peak-infected-people
+  save-on-file no-measures-behaviourspace-experiment-name ratio-working-at-work-behaviourspace-variable-name (total-number-workers-at-work / #workers)
 end
 
 
@@ -313,6 +325,7 @@ to execute-and-save [experiment-name]
     load-baseline-parameter-settings
     disable-all-measures
     set ratio-population-randomly-tested-daily 0
+    set when-is-daily-testing-applied? "always"
     setup
     
     let total-number-peak-infected-people -1
@@ -332,6 +345,7 @@ to execute-and-save [experiment-name]
     load-baseline-parameter-settings
     disable-all-measures
     set ratio-population-randomly-tested-daily 0.1
+    set when-is-daily-testing-applied? "always"
     setup
     
     let total-number-peak-infected-people -1
@@ -352,6 +366,7 @@ to execute-and-save [experiment-name]
     load-baseline-parameter-settings
     disable-all-measures
     set ratio-population-randomly-tested-daily 1
+    set when-is-daily-testing-applied? "always"
     setup
     
     let total-number-peak-infected-people -1
@@ -518,14 +533,38 @@ to execute-and-save [experiment-name]
     run-food-delivery-experiment experiment-name true
     stop
   ]
+  
+  if experiment-name = soft-working-from-home-behaviourspace-experiment-name
+  [
+    disable-all-measures
+    set is-working-from-home-recommended? true
+    setup
+    
+    let total-number-workers-at-work -1
+    let #workers count workers
+  
+    while [any? people with [is-contagious?]] [
+      go
+      if count workers with [is-at-work?] > total-number-workers-at-work [ set total-number-workers-at-work count workers with [is-at-work?] ]
+    ]
+    
+    save-on-file experiment-name ratio-working-at-work-behaviourspace-variable-name (total-number-workers-at-work / #workers)
+    stop
+  ]
+  
   error (sentence "unimplemented for:" experiment-name)
 end
 
-;this function is tailored for computing an overall "quality score" regarding all the features
 to-report behaviourspace-global-fitness-value
   ;;could be improved by repeating this experiment multiple times, or with different random seeds
   
   if file-exists? behaviourspace-tmp-file-location [file-delete behaviourspace-tmp-file-location]
- 
-  report behaviourspace-satisfaction-scenario-1 * 0.2 + sanity-checks * 0.8
+  
+  ;let f-sc-1 behaviourspace-satisfaction-scenario-1
+  let f-sc-3 behaviourspace-scenario-3-global-check
+  let f-sanity sanity-checks
+  
+  print(word "Fitness results: sc-1= -" ", sc-3="  f-sc-3  ", sanity=" sanity-checks)
+  
+  report f-sc-3 * 0.4 + f-sanity * 0.6
 end

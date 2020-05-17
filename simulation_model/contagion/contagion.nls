@@ -1,7 +1,6 @@
 __includes ["contagion/oxford_contagion_factor.nls" "contagion/assocc_contagion_factors.nls"]
   ;;this contagion model should be revised by making contacts explicit and making contagion as a side-effect of contacts
 
-directed-link-breed [contagion-links contagion-link]
 
 to spread-contagion
   spread-by-travelling
@@ -35,12 +34,16 @@ end
 to spread-by-activity-proximity
   ask gathering-points with [not (self = away-gathering-point) and any? current-gatherers]
   [
+
     spread-within-a-set-of-people current-gatherers self
   ]
 end
 
 
 to spread-within-a-set-of-people [ts context]
+  
+  
+    
   if log? and log-contamination? [
     log-file-print (word "contacts(" ticks "," ts ","  context "," [age] of ts ")")]
   let #contacts-now (count ts * ((count ts) - 1)) / 2
@@ -70,7 +73,7 @@ to-report contextual-contagion-modificators
 end
 
 to-report social-distancing-risk-mitigation-factor
-  ifelse is-I-apply-social-distancing? [report probably-contagion-mitigation-from-social-distancing]
+  ifelse is-I-apply-social-distancing? [report social-distancing-density-factor]
   [report 1]
 end
 
@@ -125,7 +128,7 @@ to apply-risk-of-contamination [infector context]
 end
 
 to-report risks-of-contamination [infector susceptible context]
-  if contagion-model = "oxford" [report oxford-contagion-factor-between infector susceptible context]
+  if contagion-model = "oxford" [report (oxford-contagion-factor-between infector susceptible context) * social-distancing-risk-mitigation-factor]
   
   error (sentence "not implemented for" contagion-model)
 end
@@ -176,7 +179,9 @@ to contaminate [infector context]
     if any? first-infected-people with [self = infector] [set #infected-by-first-infected-people  #infected-by-first-infected-people + 1]
     if [not is-contagious?] of infector [error "assertion error"]
     ask infector [set number-of-people-I-infected number-of-people-I-infected + 1]
-    create-contagion-link-from infector [hide-link]]
+  ]
+  
+  add-to-contagion-tree infector self context
   set-contaminated-disease-status
 end
 
@@ -198,7 +203,7 @@ to-report r0
 end
 
 to export-contagion-graph-to-graphviz
- export-to-graphviz [[] -> out-contagion-link-neighbors]
+  export-to-graphviz-util [ [] -> ifelse-value (not table:has-key? contamination-network-table who) [(turtle-set)] [(turtle-set map [x -> turtle first x] table:get contamination-network-table who)]]
 end
 
 to-report infection-rate-of [context]

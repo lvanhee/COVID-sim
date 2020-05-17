@@ -149,18 +149,7 @@ to scenario-6-setup
   set #beds-in-hospital 2000
   
   set disease-fsm-model "oxford"
-  set propagation-risk 0.4
-  set factor-reduction-probability-transmission-young 0.69
-  set infection-to-asymptomatic-contagiousness 2 * 4
-  set asympomatic-contagiousness-to-symptomatic-contagiousness 4 * 4
-  set symptomatic-to-critical-or-heal 7
-  set critical-to-terminal 2
-  set terminal-to-death 7
   
-  set probability-self-recovery-symptoms 0.60
-  set probability-self-recovery-symptoms-old 0.10
-  set probability-recorvery-if-treated 0.10
-  set probability-recorvery-if-treated-old 0.60
   set probability-unavoidable-death 0.1
   set probability-unavoidable-death-old 0.2
   set probability-hospital-personel 0.03
@@ -186,6 +175,7 @@ to scenario-3-setup
   [
     load-baseline-parameter-settings
     set ratio-population-randomly-tested-daily 0.2
+	set when-is-daily-testing-applied? "always"
     stop
   ]
   
@@ -193,18 +183,21 @@ to scenario-3-setup
     [
       load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 0.6
+	  set when-is-tracing-app-active? "always"
       stop
   ]
   if preset-scenario = "scenario-3-app-test-80"
     [
       load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 0.8
+	  set when-is-tracing-app-active? "always"
       stop
   ]
   if preset-scenario = "scenario-3-app-test-100"
     [
       load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 1
+	  set when-is-tracing-app-active? "always"
       stop
   ]
 end
@@ -230,6 +223,7 @@ to scenario-1-setup
   if preset-scenario = "scenario-1-work-at-home-only"
   [
     set #days-trigger-non-essential-business-closing-measure 0
+    set is-working-from-home-recommended? true
     stop
   ]
   
