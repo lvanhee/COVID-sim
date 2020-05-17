@@ -9,6 +9,10 @@ assocc_processing.get_display_name <- function(a)
     "ratio app-users"
   else if(strcmp(a,"X.people.infected.in.essential.shops"))
     "#infected ess-shops"
+  else if(strcmp(a,"X.people.infected.in.queuing"))
+    "#infected queuing"
+  else if(strcmp(a,"X.people.infected.in.shared.cars"))
+    "#infected shared cars"
   else if(strcmp(a,"infector"))
     "infector"
   else if(strcmp(a,"infectee"))
@@ -21,6 +25,8 @@ assocc_processing.get_display_name <- function(a)
     "#infected public leisure"
   else if(strcmp(a,"X.people.infected.in.private.leisure"))
     "#infected private leisure"
+  else if(strcmp(a,"X.people.infected.in.pubtrans"))
+    "#infected public transport"
   else if(strcmp(a,"X.people.infected.in.schools"))
     "#infected schools"
   else if(strcmp(a,"X.people.infected.in.universities"))
