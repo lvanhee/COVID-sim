@@ -342,6 +342,7 @@ to load-scaled-gathering-point-distribution [#hld]
   set #essential-shops-gp floor (#hld / 20)
   set #non-essential-shops-gp floor (#hld / 10)
   set #households #hld
+  set #bus-per-timeslot floor (#hld / 5)
 end
 
 to load-closed-schools-and-uni-measures
