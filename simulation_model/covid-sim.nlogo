@@ -1896,10 +1896,10 @@ Social distancing
 1
 
 SLIDER
-2612
-1181
-2966
-1214
+2614
+1176
+2968
+1209
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
@@ -1912,9 +1912,9 @@ HORIZONTAL
 
 MONITOR
 2612
-1246
+1250
 2798
-1291
+1295
 NIL
 is-social-distancing-measure-active?
 17
@@ -2205,9 +2205,9 @@ HORIZONTAL
 
 MONITOR
 2808
-1245
+1249
 2965
-1290
+1294
 #social-distancing
 count people with [is-I-apply-social-distancing? = true]
 17
@@ -4012,13 +4012,13 @@ ASSOCC\nincremental\nmodel\n(deprecated)
 1
 
 SWITCH
-2592
-1078
-2774
-1111
+2282
+1226
+2557
+1259
 is-working-from-home-recommended?
 is-working-from-home-recommended?
-0
+1
 1
 -1000
 
@@ -5684,7 +5684,7 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S7_1_3-no-public-measures" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S7_1_4-no-public-measures" repetitions="10" runMetricsEveryStep="true">
     <setup>load-scenario-7-cultural-model
 setup</setup>
     <go>go</go>
@@ -5698,6 +5698,7 @@ setup</setup>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
     <metric>mean [social-distance-profile] of people</metric>
+    <metric>standard-deviation [social-distance-profile] of people</metric>
     <metric>count people with [I-know-of-social-distancing?]</metric>
     <metric>count people with [is-I-apply-social-distancing?]</metric>
     <metric>uncertainty-avoidance</metric>
@@ -5718,6 +5719,8 @@ setup</setup>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
     <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
     <metric>#contacts-last-tick</metric>
+    <metric>when-has-2%-infected-threshold-first-been-met?</metric>
+    <metric>when-has-5%-infected-threshold-first-been-met?</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
     <metric>#people-infected-in-homes</metric>
@@ -5751,6 +5754,7 @@ setup</setup>
     <metric>#cumulative-students-infector</metric>
     <metric>#cumulative-workers-infector</metric>
     <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-infected</metric>
     <metric>ratio-infected-youngs</metric>
     <metric>ratio-infected-students</metric>
     <metric>ratio-infected-workers</metric>
@@ -6251,7 +6255,7 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S7_1_3-only-social-distancing" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S7_1_4-only-social-distancing" repetitions="10" runMetricsEveryStep="true">
     <setup>load-scenario-7-cultural-model
 setup</setup>
     <go>go</go>
@@ -6265,6 +6269,7 @@ setup</setup>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
     <metric>mean [social-distance-profile] of people</metric>
+    <metric>standard-deviation [social-distance-profile] of people</metric>
     <metric>count people with [I-know-of-social-distancing?]</metric>
     <metric>count people with [is-I-apply-social-distancing?]</metric>
     <metric>uncertainty-avoidance</metric>
@@ -6285,6 +6290,8 @@ setup</setup>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
     <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
     <metric>#contacts-last-tick</metric>
+    <metric>when-has-2%-infected-threshold-first-been-met?</metric>
+    <metric>when-has-5%-infected-threshold-first-been-met?</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
     <metric>#people-infected-in-homes</metric>
@@ -6318,6 +6325,7 @@ setup</setup>
     <metric>#cumulative-students-infector</metric>
     <metric>#cumulative-workers-infector</metric>
     <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-infected</metric>
     <metric>ratio-infected-youngs</metric>
     <metric>ratio-infected-students</metric>
     <metric>ratio-infected-workers</metric>
@@ -6818,7 +6826,7 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S7_1_3-social-distancing-lockdown" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S7_1_4-social-distancing-lockdown" repetitions="10" runMetricsEveryStep="true">
     <setup>load-scenario-7-cultural-model
 setup</setup>
     <go>go</go>
@@ -6832,6 +6840,7 @@ setup</setup>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
     <metric>mean [social-distance-profile] of people</metric>
+    <metric>standard-deviation [social-distance-profile] of people</metric>
     <metric>count people with [I-know-of-social-distancing?]</metric>
     <metric>count people with [is-I-apply-social-distancing?]</metric>
     <metric>uncertainty-avoidance</metric>
@@ -6852,6 +6861,8 @@ setup</setup>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
     <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
     <metric>#contacts-last-tick</metric>
+    <metric>when-has-2%-infected-threshold-first-been-met?</metric>
+    <metric>when-has-5%-infected-threshold-first-been-met?</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
     <metric>#people-infected-in-homes</metric>
@@ -6885,6 +6896,7 @@ setup</setup>
     <metric>#cumulative-students-infector</metric>
     <metric>#cumulative-workers-infector</metric>
     <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-infected</metric>
     <metric>ratio-infected-youngs</metric>
     <metric>ratio-infected-students</metric>
     <metric>ratio-infected-workers</metric>
@@ -7385,7 +7397,7 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S7_1_3-social-distancing-tracking-tracing-testing-isolating" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S7_1_4-social-distancing-tracking-tracing-testing-isolating" repetitions="10" runMetricsEveryStep="true">
     <setup>load-scenario-7-cultural-model
 setup</setup>
     <go>go</go>
@@ -7399,6 +7411,7 @@ setup</setup>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
     <metric>mean [social-distance-profile] of people</metric>
+    <metric>standard-deviation [social-distance-profile] of people</metric>
     <metric>count people with [I-know-of-social-distancing?]</metric>
     <metric>count people with [is-I-apply-social-distancing?]</metric>
     <metric>uncertainty-avoidance</metric>
@@ -7419,6 +7432,8 @@ setup</setup>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
     <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
     <metric>#contacts-last-tick</metric>
+    <metric>when-has-2%-infected-threshold-first-been-met?</metric>
+    <metric>when-has-5%-infected-threshold-first-been-met?</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
     <metric>#people-infected-in-homes</metric>
@@ -7452,6 +7467,7 @@ setup</setup>
     <metric>#cumulative-students-infector</metric>
     <metric>#cumulative-workers-infector</metric>
     <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-infected</metric>
     <metric>ratio-infected-youngs</metric>
     <metric>ratio-infected-students</metric>
     <metric>ratio-infected-workers</metric>

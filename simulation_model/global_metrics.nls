@@ -3,6 +3,7 @@ globals
   #infected-times-ticks
   #delivered-supply-proposed-this-tick
   when-has-2%-infected-threshold-first-been-met?
+  when-has-5%-infected-threshold-first-been-met?
   #contacts-last-tick
   
   first-infected-people
@@ -97,6 +98,10 @@ to update-metrics
   
   if ratio-infected > 0.02 and when-has-2%-infected-threshold-first-been-met? = "never"
   [set when-has-2%-infected-threshold-first-been-met? ticks]
+
+  if ratio-infected > 0.05 and when-has-5%-infected-threshold-first-been-met? = "never"
+  [set when-has-5%-infected-threshold-first-been-met? ticks]
+
 end
 
 to reset-metrics
@@ -129,7 +134,7 @@ to reset-metrics
     
 end
 
-to increment-age-inection-information-metrics [infected infector]
+to increment-age-infection-information-metrics [infected infector]
   if [age = young-age] of infected [set #cumulative-youngs-infected #cumulative-youngs-infected + 1]
   if [age = student-age] of infected [set #cumulative-students-infected #cumulative-students-infected + 1]
   if [age = worker-age] of infected [set #cumulative-workers-infected #cumulative-workers-infected + 1]
@@ -187,7 +192,7 @@ end
 
 
 to increment-contagion-metrics-from [context infected infector]
-  increment-age-inection-information-metrics infected infector
+  increment-age-infection-information-metrics infected infector
   
   let key (list [age] of infector [age] of infected)
   table:put age-group-to-age-group-#infections-last-tick-table key table:get age-group-to-age-group-#infections-last-tick-table key + 1  
