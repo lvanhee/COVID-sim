@@ -41,7 +41,7 @@ end
 
 
 to apply-active-measures
-  if slide-of-the-day = "morning" [ ; Reset the available tests
+  if slice-of-the-day = "morning" [ ; Reset the available tests
     set #tests-done-today 0
   ]
   perform-daily-testing-public-measure
