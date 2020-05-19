@@ -41,6 +41,7 @@ end
 
 
 to apply-active-measures
+  set #tests-done-today 0
   perform-daily-testing-public-measure
   update-global-quarantine-measure
   update-tracing-app-public-measure
