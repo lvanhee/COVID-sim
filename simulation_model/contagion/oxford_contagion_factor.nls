@@ -3,7 +3,7 @@ to-report oxford-contagion-factor-between [infector susceptible context]
   
   let I-a-s average-expected-number-of-interactions-for-age [age] of susceptible
   let integral gamma-interal (t / 4) ((t + 1) / 4)
-  let R 5.75
+  let R 5.75 * 3
   let s-a-s infection-scale-factor-per-age [age] of susceptible
   let a-s-i relative-infection-rate-of-infection-status [infection-status] of infector
   let B-n infection-rate-of context

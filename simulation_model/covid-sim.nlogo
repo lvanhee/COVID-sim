@@ -2209,7 +2209,7 @@ MONITOR
 2965
 1294
 #social-distancing
-count people with [is-I-apply-social-distancing? = true]
+count people with [is-I-apply-social-distancing?]
 17
 1
 11
@@ -5137,7 +5137,7 @@ setup</setup>
   <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="500"/>
+    <timeLimit steps="1500"/>
     <metric>#infected</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
@@ -5461,7 +5461,7 @@ setup</setup>
     <enumeratedValueSet variable="make-social-distance-profile-value-based?">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
+    <enumeratedValueSet variable="social-distancing-density-factor">
       <value value="0.08"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">

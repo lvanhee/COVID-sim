@@ -47,7 +47,7 @@ assocc_processing.plot <- function(xDataName,
 
 
 assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
-                                                         y_var_name,
+                                                         y_display_var_name,
                                                          list_of_y_variables_to_compare,
                                                          name_independent_variables_to_display,
                                                          df,
@@ -167,7 +167,7 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
    if(length(list_of_y_variables_to_compare) >= 17)
   {stop(paste("Not defined for more than",length(list_of_y_variables_to_compare), "lines"))}
   
-  p<-p+assocc_processing.get_title(x_var_name, y_var_name, name_independent_variables_to_display,
+  p<-p+assocc_processing.get_title(x_var_name, y_display_var_name, name_independent_variables_to_display,
                                    df, cumulative)
   p
 }
@@ -933,12 +933,32 @@ assocc_processing.init_and_prepare_data <- function(workdirec)
   df <- loadData(filesPath, filesNames)
   
   
+  input_variable <- list(df$ratio.of.people.using.the.tracking.app,
+                      df$X.random.seed
+                      )
   
-  # REMOVE INVALID RUNS ---------------------------------------------------------------
-  #runs that have a lower amount of maximum infected are seen as invalid and are therefore removed
-  #specify the minimum number of infected people for a run to be considered as valid (5 person by default)
-  # the next will fail if the number of infected is not in the data as -> count.people.with..is.infected..
-  df <- cleanData(df, 1)
+  tmp_df <- split(df, input_variable)
+  
+  for (i in length(tmp_df):1) {
+    if(NROW(tmp_df[[i]]) == 0)tmp_df <- tmp_df[-i]
+  }
+  
+  ######################################## safety check # of infected at tick 300
+  for (i in length(tmp_df):1) {
+    current_df <- tmp_df[[i]]
+    line <- current_df[current_df$X.step.==500,]
+    if(line$X.infected == 0)
+    {
+      print(paste("removing run", line$X.run.number., "due to no more infected at tick 300"))
+      tmp_df[-i]
+    }
+    
+    
+  }
+  
+  tmp_df <- unsplit(tmp_df, input_variable)
+  
+  temp<-filter(tmp_df, species == "Human")
   # REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------
   
   #Loop through dataframe and identify variables that do NOT vary (i.e. that are FIXED)
