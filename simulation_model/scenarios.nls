@@ -190,7 +190,6 @@ to scenario-3-setup
     [
       load-baseline-parameter-settings
       set ratio-of-people-using-the-tracking-app 0.8
-	  set when-is-tracing-app-active? "always"
       stop
   ]
   if preset-scenario = "scenario-3-app-test-100"
@@ -356,17 +355,6 @@ to load-all-closed-measures
 end
 
 to load-default-transport-model
-  set ratio-children-public-transport 0.75
-  set ratio-student-public-transport 0.6
-  set ratio-worker-public-transport 0.4
-  set ratio-retired-public-transport 0.2
-  
-  set ratio-children-shared-car 0
-  set ratio-student-shared-car .1
-  set ratio-worker-shared-car .15
-  set ratio-retired-shared-car .5
-  
-  set #bus-per-timeslot 10
   set #max-people-per-bus 20
   
   set density-walking-outside 0.05
@@ -380,7 +368,6 @@ to load-default-migration-model
   set probability-infection-when-abroad 0.0
   set probability-going-abroad 0
   set probability-getting-back-when-abroad 0
-  set owning-solo-transportation-probability 1
 end
 
 to load-default-social-network-model
