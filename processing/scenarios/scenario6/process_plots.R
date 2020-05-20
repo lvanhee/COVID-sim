@@ -63,7 +63,6 @@ foreach(r = splitted_by_app_user_ratio_df) %do%
     
   }
 
-
 ###Number contactor per contacted per age group
 
 foreach(r = splitted_by_app_user_ratio_df) %do%
@@ -87,11 +86,12 @@ foreach(r = splitted_by_app_user_ratio_df) %do%
     Sys.sleep(1)
   }
 
+
+
 foreach(i = splitted_by_ratio_anxiety_df) %do% 
   {
-    
     input_variables_to_display = 
-      list ("ratio.of.anxiety.avoidance.tracing.app.users")
+      list ()
     
     xDataName = "X.step."
     yDataName = "X.infected"
@@ -135,8 +135,7 @@ list_of_y_variables_to_compare <-
     "X.people.infected.in.queuing",
     "X.people.infected.in.shared.cars")
 
-name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
-                                          "app_user_ratio")
+name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.app")
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
@@ -145,10 +144,9 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
       y_display_var_name="X.infected",
       list_of_y_variables_to_compare,
       name_independent_variables_to_display = name_independent_variables_to_display,
-      df = i))
+      local_df = i))
     Sys.sleep(1)
   }
-
 
 list_of_y_variables_to_compare <-
   c("X.contacts.in.hospitals",
@@ -164,8 +162,7 @@ list_of_y_variables_to_compare <-
     "X.contacts.in.queuing",
     "X.contacts.in.shared.cars")
 
-name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
-                                          "ratio.of.people.using.the.tracking.app")
+name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.app")
 
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
@@ -173,7 +170,7 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
                                                        y_display_var_name="X.contacts.last.tick",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
+                                                       local_df = i))
     Sys.sleep(1)
   }
 
@@ -198,7 +195,7 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
                                                        y_display_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
+                                                       local_df = i))
     Sys.sleep(1)
   }
 
@@ -212,7 +209,7 @@ list_of_y_variables_to_compare <-
     "X.hospitalizations.youngs.this.tick")
 
 
-
+#X11()
 foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
   {
     
@@ -220,7 +217,7 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
                                                        y_display_var_name="#hospitalizations",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i, cumulative = TRUE))
+                                                       local_df = i, cumulative = TRUE))
     Sys.sleep(1)
   }
 
@@ -237,7 +234,7 @@ foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
                                                        y_display_var_name="#hospitalizations",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       df = i))
+                                                       local_df = i))
     Sys.sleep(1)
   }
 
