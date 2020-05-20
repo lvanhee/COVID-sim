@@ -15,6 +15,8 @@ assocc_processing.get_display_name <- function(a)
     "#infected shared cars"
   else if(strcmp(a,"infector"))
     "infector"
+  else if(strcmp(a,"#hospitalizations"))
+    "#hospitalizations"
   else if(strcmp(a,"infectee"))
     "infectee"
   else if(strcmp(a,"X.people.infected.in.non.essential.shops"))

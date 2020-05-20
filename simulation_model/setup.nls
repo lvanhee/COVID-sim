@@ -31,6 +31,7 @@ to setup
   set list-of-dead-people []
   set was-social-distancing-enforced? false
   set when-has-2%-infected-threshold-first-been-met? "never"
+  set when-has-5%-infected-threshold-first-been-met? "never"
   set start-tick-of-global-quarantine "never"
 
 
@@ -233,8 +234,8 @@ to setup-person [current-home l-age]
     set has-done-shopping false
     set stayed-out-queuing-for-bus? false
 
-    set I-know-of-social-distancing? true
-    set I-know-of-working-from-home? true
+    set I-know-of-social-distancing? false
+    set I-know-of-working-from-home? false
     set what-my-network-did-week-day []
     set what-my-network-did-weekend []
     set what-transport-I-used-week-day []
