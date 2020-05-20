@@ -432,6 +432,16 @@ to perform-government-actions
       perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
     ]
   ]
+  
+  ask gathering-points with [gathering-type = "shared-cars"]
+  [
+    if current-profit > 0
+    [
+      let tax-amount current-profit * ratio-tax-on-shared-cars
+      set taxes-collected taxes-collected + tax-amount
+      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
+    ]
+  ]
 
   ask people with [age = "worker"]
   [
@@ -450,6 +460,7 @@ to perform-government-actions
   let retirees-subsidy taxes-collected * ratio-retirees-subsidy
   let students-subsidy taxes-collected * ratio-students-subsidy
   let parents-subsidy taxes-collected * ratio-parents-subsidy
+  let public-transport-subsidy taxes-collected * ratio-public-transport-subsidy
   
   let n-of-schools count gathering-points with [gathering-type = "school"]
   ask gathering-points with [gathering-type = "school"]
@@ -469,6 +480,13 @@ to perform-government-actions
   ask gathering-points with [gathering-type = "university"]
   [
     let subsidy university-subsidy / n-of-universities
+    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
+  ]
+  
+  let n-of-public-transport count gathering-points with [gathering-type = "public-transport"]
+  ask gathering-points with [gathering-type = "public-transport"]
+  [
+    let subsidy public-transport-subsidy / n-of-public-transport
     perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
   ]
 
@@ -538,6 +556,14 @@ end
 
 to-report #schools-out-of-capital
   report count gathering-points with [gathering-type = "school" and amount-of-capital <= 0]
+end
+
+to-report #public-transport-out-of-capital
+  report count gathering-points with [gathering-type = "public-transport" and amount-of-capital <= 0]
+end
+
+to-report #shared-cars-out-of-capital
+  report count gathering-points with [gathering-type = "shared-cars" and amount-of-capital <= 0]
 end
 
 to-report velocity-of-money-in-total-system
