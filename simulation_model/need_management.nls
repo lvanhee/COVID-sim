@@ -188,7 +188,7 @@ end
 to-report risk-avoidance-increase [ad others]
   let gp location-of ad
   let motive motive-of ad
-  let result 0.1
+  let result 0.2
 
   ifelse is-believing-to-be-infected? or has-internally-visible-symptoms? [
     if any-free-bed-in-hospital? and is-get-healed-to-hospital-descriptor? ad [
@@ -200,11 +200,12 @@ to-report risk-avoidance-increase [ad others]
     set result -0.1
   ] [
     if gp != my-home [
-      if others = 0 [set result 0.2 ]
-      if others < 5 [set result 0.1 ]
-      if others < 10 [set result 0.05 ]
-      ifelse others < 20 [set result 0]
-      [set result -0.1]
+      ifelse others = 0 [set result 0.2 ]
+      [ ifelse others < 5 [set result 0.1 ]
+        [ ifelse others < 10 [set result 0.05 ]
+          [ ifelse others < 20 [set result 0]
+            [set result -0.1]
+      ]]]
       if might-I-be-contagious? [
         set result result - 0.1
       ]

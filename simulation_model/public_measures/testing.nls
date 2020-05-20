@@ -31,12 +31,12 @@ to perform-daily-testing-public-measure
       (ratio-population-randomly-tested-daily * count people)
       #still-available-tests))
 
-    ask n-of #people-to-test people-to-test [
+    ask up-to-n-of #people-to-test people-to-test [
      set #tests-used-by-daily-testing #tests-used-by-daily-testing + 1 
       perform-test
     ]
 
-    ask n-of (ratio-population-daily-immunity-testing * count people) people [
+    ask up-to-n-of (ratio-population-daily-immunity-testing * count people) people [
       perform-immunity-test
     ]
   ]
