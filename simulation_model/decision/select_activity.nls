@@ -92,11 +92,6 @@ to-report add-activity-descriptor-with-transport [gp mo activities]
   ] 
 end
 
-to-report is-currently-in-sitation-of-active-dependence?
-  report is-child? and closed-schools?
-end
-
-
 to select-activity
   let c-a my-preferred-available-activity-descriptor
   
