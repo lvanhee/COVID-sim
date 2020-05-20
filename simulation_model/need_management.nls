@@ -238,13 +238,6 @@ to-report SUA-risk-avoidance [ad]
   report risk-avoidance-increase ad count people with [current-activity = gp] number-of-others-on-transport mt
 end
 
-
-to-report should-I-stay-home?
-  if is-hard-lockdown-active? [report true]
-  if is-officially-asked-to-quarantine? [report true]
-  report false
-end
-
 to-report SUE-compliance [ad]
   let gp location-of ad
   let motive motive-of ad
