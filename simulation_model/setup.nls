@@ -34,6 +34,7 @@ to setup
 
   setup-activities
   create-all-households
+  setup-gathering-point-capacities
   setup-person-values-and-needs
   setup-social-networks
   setup-app-users
@@ -230,6 +231,7 @@ to setup-person [current-home l-age]
     set last-day-observed-symptoms nobody ;should raise an error if used before being initialized
     set has-done-shopping false
     set stayed-out-queuing-for-bus? false
+    set is-activity-successful? true
 
     set I-know-of-social-distancing? false
     set I-know-of-working-from-home? false
@@ -362,10 +364,10 @@ to setup-activities
     set private-leisure-points (turtle-set private-leisure-points self)
     set hired-workers (turtle-set)
     set gathering-type "private-leisure" set shape "square" set color red + 3 set xcor 8 * max-pxcor / 10 set ycor max-pycor * count gathering-points with [gathering-type = "private-leisure"] / (#private-leisure-gp + 1)]
+
   
-  ask gathering-points [set hired-workers (turtle-set)]
-
-
+  ask gathering-points [set hired-workers (turtle-set)] 
+  
   ask gathering-points with [gathering-type = "school"] [set amount-of-capital 100]
   ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]
   ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200 set stock-of-goods 100]
@@ -373,6 +375,7 @@ to setup-activities
   ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
   ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital 1000]
   setup-activity-animate-positions
+ 
 
   if migration?
   [
@@ -385,6 +388,18 @@ to setup-activities
   ]
 
   ask gathering-points with [gathering-type = 0] [error (sentence "ill defined " self)]
+end
+
+to setup-gathering-point-capacities
+  ask gathering-points [
+    set capacity disabled-capacity
+  ]
+  ask private-leisure-points [
+    set capacity count gatherers
+  ]
+  ask non-essential-shops [
+    set capacity count gatherers
+  ]
 end
 
 to setup-activity-animate-positions

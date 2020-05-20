@@ -34,6 +34,7 @@ __includes ["need_definition.nls"]
 
 to update-needs-for-playing [current-activity-descriptor]
   decay-satisfaction-level
+  if not is-activity-successful? [stop]
 
   set belonging-satisfaction-level clamp 0 1 (belonging-satisfaction-level + SDA-belonging current-activity-descriptor)
  

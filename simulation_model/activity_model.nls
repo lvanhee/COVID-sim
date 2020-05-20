@@ -10,6 +10,8 @@ to execute-activity-effect
   [
     try-acquire-a-bed-in-hospital
   ]
+  
+  if not is-activity-successful? [stop]
 
   update-resources-based-on-current-activity
 
@@ -22,7 +24,6 @@ to execute-activity-effect
   ;[ set epistemic-infection-status  infection-status ]
 
   update-belief-based-on-current-activity
-
 
 end
 
@@ -309,7 +310,7 @@ to perform-people-activities
       ]
     ]
   ]
-
+  
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error "wrong place while travelling"]
     select-activity
@@ -323,6 +324,25 @@ to perform-people-activities
   ]
 
   travelling-to-activity-phase
+  
+  ask people with [[capacity = disabled-capacity] of current-activity] [
+    set is-activity-successful? true
+  ]
+  
+  ask gathering-points with [capacity != disabled-capacity] [
+    ;error "why?"
+    ;ask gatherers [show myself show current-activity]
+    let all-people (gatherers with [current-activity != myself])
+    ifelse count all-people > current-capacity [
+      let succesful-people n-of current-capacity all-people
+      ask succesful-people [set is-activity-successful? true]
+      ask all-people with [not member? self succesful-people] [
+        set is-activity-successful? false
+      ]
+    ] [
+      ask all-people [ set is-activity-successful? true ]
+    ]
+  ]
 
   ask people [
     if not is-being-away? current-activity and current-motivation = travelling-motive [error (sentence "wrong place while travelling" current-activity current-motivation)]

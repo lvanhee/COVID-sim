@@ -23,6 +23,8 @@ gathering-points-own [gathering-type
   stock-of-goods
   
   cached-number-of-participants
+  capacity
+  
 ]
 
 
@@ -214,6 +216,15 @@ to-report current-gatherers
   let w hired-workers
   if not is-turtle-set? w [set w (turtle-set)]
   report (turtle-set in-gathering-link-neighbors w) with [current-activity = myself]
+end
+
+to-report disabled-capacity
+  report "disabled-capacity"
+end
+
+to-report current-capacity
+  if capacity = disabled-capacity [report capacity]
+  report capacity
 end
 
 to-report empty-houses
