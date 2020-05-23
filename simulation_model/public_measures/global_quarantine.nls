@@ -25,3 +25,7 @@ to-report end-tick-of-global-quarantine
   if start-tick-of-global-quarantine = "never" [report "never"]
   report start-tick-of-global-quarantine + duration-global-quarantine
 end
+
+to-report is-global-quarantine-active?
+  report end-tick-of-global-quarantine != "never" and end-tick-of-global-quarantine >= ticks
+end

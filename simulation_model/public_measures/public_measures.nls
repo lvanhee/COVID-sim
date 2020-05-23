@@ -1,4 +1,4 @@
-__includes["public_measures/global_quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls"]
+__includes["public_measures/global_quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls" "public_measures/school_closing.nls"]
 
 globals [
   was-social-distancing-enforced?
@@ -29,14 +29,6 @@ to-report closed-non-essential?
   #days-trigger-non-essential-business-closing-measure <= current-day
 end
 
-
-to-report closed-schools?
-  report (is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick?)
-  or
-  ratio-infected > ratio-omniscious-infected-that-trigger-school-closing-measure
-  or
-  #days-trigger-school-closing-measure <= current-day
-end
 
 
 

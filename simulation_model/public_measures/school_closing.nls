@@ -1,0 +1,9 @@
+to-report closed-schools?
+  report (is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick?)
+  or
+  ratio-infected > ratio-omniscious-infected-that-trigger-school-closing-measure
+  or
+  #days-trigger-school-closing-measure <= current-day
+  or 
+  (is-closed-during-global-quarantine? and is-global-quarantine-active?)
+end
