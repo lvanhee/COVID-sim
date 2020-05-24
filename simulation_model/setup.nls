@@ -46,6 +46,7 @@ to setup
     ask first-infected-people [contaminate nobody ("setup")]
     set #first-infected-people count first-infected-people
   ]
+  setup-phasing-out
 
   update-display
 
@@ -75,6 +76,8 @@ to setup-global-metrics
   
   set age-group-to-age-group-#contacts-table table:make
   set age-group-to-age-group-#infections-last-tick-table table:make
+  set #infected-people-per-ticks (list)
+  set  #hospitalized-per-tick (list)
   reset-metrics
   
 end

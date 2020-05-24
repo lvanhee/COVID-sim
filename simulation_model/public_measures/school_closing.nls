@@ -1,4 +1,6 @@
 to-report closed-schools?
+  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-schools-after-phase [report false]
+  
   report (is-closing-school-when-any-reported-case-measure? and is-someone-officially-sick?)
   or
   ratio-infected > ratio-omniscious-infected-that-trigger-school-closing-measure

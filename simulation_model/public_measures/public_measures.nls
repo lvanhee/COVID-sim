@@ -1,4 +1,4 @@
-__includes["public_measures/global_quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls" "public_measures/school_closing.nls"]
+__includes["public_measures/global_quarantine.nls" "public_measures/tracing_app.nls" "public_measures/testing.nls" "public_measures/school_closing.nls" "public_measures/phasing_out.nls"]
 
 globals [
   was-social-distancing-enforced?
@@ -44,7 +44,11 @@ to apply-active-measures
     set was-social-distancing-enforced? is-social-distancing-measure-active?
     inform-people-of-measures
   ]
+  
+  check-phasing-out
 end
+
+
 
 to-report #still-available-tests
   report #available-tests - #tests-done-today

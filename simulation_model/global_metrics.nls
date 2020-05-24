@@ -63,6 +63,8 @@ globals
   
   number-of-people-per-age-having-ever-reached-severe-table
   contamination-network-table
+  #infected-people-per-ticks
+  #hospitalized-per-tick
 ]
 
 to-report ratio-infected
@@ -131,7 +133,9 @@ to reset-metrics
   ;;reset age-group-to-age-group-#contacts-table
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#contacts-table (list x y) 0]]
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#infections-last-tick-table (list x y) 0]]
-    
+  
+  set #infected-people-per-ticks lput #infected #infected-people-per-ticks
+  set  #hospitalized-per-tick lput #taken-hospital-beds   #hospitalized-per-tick    
 end
 
 to increment-age-infection-information-metrics [infected infector]

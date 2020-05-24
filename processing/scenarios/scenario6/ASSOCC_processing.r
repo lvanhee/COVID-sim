@@ -1099,16 +1099,15 @@ assocc_processing.init_and_prepare_data <- function(workdirec)
   ######################################## safety check # of infected at tick 300
   for (i in length(tmp_df):1) {
     current_df <- tmp_df[[i]]
-    line <- current_df[current_df$X.step.==500,]
+    line <- current_df[current_df$X.step.==300,]
     if(line$X.infected == 0)
     {
-      print(paste("removing run", line$X.run.number., "due to no more infected at tick 300"))
+      print(paste("removing run", line$ratio.of.people.using.the.tracking.app, line$X.random.seed, "due to no more infected at tick 300"))
       tmp_df[-i]
     }
     
     
   }
-  
   tmp_df <- unsplit(tmp_df, input_variable)
   
   # REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------

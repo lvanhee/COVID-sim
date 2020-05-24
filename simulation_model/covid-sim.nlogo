@@ -1042,9 +1042,9 @@ with-infected?
 
 MONITOR
 1871
-1172
+1210
 2092
-1217
+1255
 NIL
 closed-schools?
 17
@@ -1052,10 +1052,10 @@ closed-schools?
 11
 
 SWITCH
-1871
-1108
-2093
-1141
+1870
+1102
+2092
+1135
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1078,10 +1078,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1871
-1015
-2093
-1048
+1870
+1009
+2092
+1042
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1093,10 +1093,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1871
-1047
-2094
-1108
+1870
+1041
+2093
+1102
 #days-trigger-school-closing-measure
 10000.0
 1
@@ -1605,10 +1605,10 @@ count retireds
 11
 
 TEXTBOX
-1940
-988
-2023
-1006
+1939
+982
+2022
+1000
 Closing schools\n
 11
 105.0
@@ -4022,36 +4022,67 @@ is-working-from-home-recommended?
 1
 -1000
 
-TEXTBOX
-2271
-1615
-2322
-1633
-Trigger 1
-11
-0.0
+CHOOSER
+2479
+1609
+2614
+1654
+condition-phasing-out
+condition-phasing-out
+"35 days of quarantine" "#infected has decreased since 5 days ago" "hospital not overrun & #hospitalizations has decreased since 5 days ago"
 1
 
-CHOOSER
-2331
-1607
-2516
-1652
-condition-1
-condition-1
-"global-quarantining-over"
-0
-
 SWITCH
-1871
-1140
-2093
-1173
+1870
+1134
+2092
+1167
 is-closed-during-global-quarantine?
 is-closed-during-global-quarantine?
 1
 1
 -1000
+
+TEXTBOX
+2351
+1570
+2501
+1588
+Conditions for phasing out
+11
+105.0
+1
+
+MONITOR
+2625
+1609
+2834
+1654
+NIL
+current-governmental-model-phase
+17
+1
+11
+
+CHOOSER
+2333
+1609
+2479
+1654
+condition-for-acknowledging-the-crisis
+condition-for-acknowledging-the-crisis
+"ratio infected>2%"
+0
+
+CHOOSER
+1870
+1165
+2092
+1210
+force-reopening-of-schools-after-phase
+force-reopening-of-schools-after-phase
+"never" "phase-1"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?

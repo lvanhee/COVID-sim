@@ -1,0 +1,49 @@
+globals [current-governmental-model-phase]
+
+to setup-phasing-out
+  set current-governmental-model-phase crisis-not-acknowledged-phasing-out-state
+end
+
+to check-phasing-out
+  if current-governmental-model-phase = crisis-not-acknowledged-phasing-out-state
+  [
+    
+   if condition-for-acknowledging-the-crisis = "ratio infected>2%" and ratio-infected > 0.02
+    [
+      set current-governmental-model-phase ongoing-crisis-governmental-model-phase
+      stop 
+    ]
+    ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
+  ]
+    
+  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase
+  [
+    if (condition-phasing-out = "35 days of quarantine" and is-number? start-tick-of-global-quarantine and (ticks - start-tick-of-global-quarantine) > 35 * #ticks-per-day) 
+    or (condition-phasing-out = "#infected has decreased since 5 days ago" and (item (ticks - 5 * #ticks-per-day) #infected-people-per-ticks) > (item (ticks - 1) #infected-people-per-ticks))
+    or (condition-phasing-out = "hospital not overrun & #hospitalizations has decreased since 5 days ago" and (item (ticks - 5 * #ticks-per-day) #hospitalized-per-tick) > (item (ticks - 1) #hospitalized-per-tick))
+    
+    [
+      set current-governmental-model-phase phase-1-phasing-out-state
+      stop
+    ]
+    ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
+  ]
+  
+end
+
+to-report phase-1-phasing-out-state
+  report "phase-1"
+end
+
+to-report ongoing-crisis-governmental-model-phase
+  report "ongoing crisis"
+end
+
+to-report crisis-not-acknowledged-phasing-out-state
+  report "crisis-not-acknowledged"
+end
+
+to-report is-equal-to-or-posterior-to-governmental-phase? [phase]
+  if phase = "never" [report false]
+  if phase =  phase-1-phasing-out-state [report current-governmental-model-phase = phase-1-phasing-out-state]  
+end
