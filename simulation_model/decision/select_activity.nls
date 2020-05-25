@@ -42,11 +42,12 @@ to-report my-available-activity-descriptors
       set activities lput (activity-descriptor one-of my-essential-shops "essential shopping") activities
     ]
 
+    set activities lput (activity-descriptor my-private-leisure "relaxing") activities
     set activities lput (activity-descriptor my-public-leisure "relaxing" ) activities
     if age != "young" and slice-of-the-day != "night" and is-shops-open-today? [
       set activities lput (activity-descriptor my-non-essential-shop "shopping") activities
     ]
-    set activities lput (activity-descriptor my-private-leisure "relaxing") activities
+    
 
   ]
 

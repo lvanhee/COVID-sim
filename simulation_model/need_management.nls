@@ -86,14 +86,14 @@ to decay-satisfaction-level
   set conformity-satisfaction-level conformity-satisfaction-level * conformity-decay
   if conformity-satisfaction-level < 0 [set conformity-satisfaction-level 0]
 
-  set leisure-satisfaction-level leisure-satisfaction-level * 0.95
+  set leisure-satisfaction-level leisure-satisfaction-level * 0.98
   if leisure-satisfaction-level < 0 [set leisure-satisfaction-level 0]
   
   set sleep-satisfaction-level sleep-satisfaction-level * 0.8 
   if sleep-satisfaction-level < 0 [set sleep-satisfaction-level 0]
 
   if age != young-age [
-  set luxury-satisfaction-level luxury-satisfaction-level * 0.98
+  set luxury-satisfaction-level luxury-satisfaction-level * 0.99
   if luxury-satisfaction-level < 0 [set luxury-satisfaction-level 0]
   ]
 end
@@ -105,7 +105,7 @@ to-report SUE-belonging [ad]
   let gp location-of ad
   let motive motive-of ad
 
-  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure" "work"]
+  if gp != my-work and not member? ([gathering-type] of gp) (list home-gathering-type private-leisure-gathering-type public-leisure-gathering-type university-gathering-type school-gathering-type non-essential-shop-gathering-type)
   [ report 0 ]
   let number [expected-number-of-other-participants] of gp
   let base 0
@@ -154,7 +154,7 @@ to-report SUA-belonging [ad]
   let motive motive-of ad
 
   ; Only your home, and public and private leisure places satisfy belonging needs
-  if not member? ([gathering-type] of gp) ["home" "private-leisure" "public-leisure" "work"]
+  if gp != my-work and not member? ([gathering-type] of gp) (list home-gathering-type private-leisure-gathering-type public-leisure-gathering-type university-gathering-type school-gathering-type non-essential-shop-gathering-type)
   [ report 0 ]
   let number count people with [current-activity = gp]
   let base 0
@@ -201,9 +201,9 @@ to-report risk-avoidance-increase [ad others]
   ] [
     if gp != my-home [
       ifelse others = 0 [set result 0.2 ]
-      [ ifelse others < 5 [set result 0.1 ]
-        [ ifelse others < 10 [set result 0.05 ]
-          [ ifelse others < 20 [set result 0]
+      [ ifelse others < 10 [set result 0.1 ]
+        [ ifelse others < 20 [set result 0.05 ]
+          [ ifelse others < 40 [set result 0]
             [set result -0.1]
       ]]]
       if might-I-be-contagious? [
@@ -344,7 +344,7 @@ to-report SUE-sleep [ad]
     if slice-of-the-day = "night" [
       report ifelse-value has-internally-visible-symptoms? [ 0.6 ] [ 0.8 ]
     ]
-    report ifelse-value has-internally-visible-symptoms? [ 0.05 ] [ 0.1 ]
+    report ifelse-value has-internally-visible-symptoms? [ 0.025 ] [ 0.05 ]
   ]
   if is-currently-being-treated-at-hospital? and is-get-healed-to-hospital-descriptor? ad [
     if slice-of-the-day = "night" [

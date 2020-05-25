@@ -416,7 +416,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.3
+0.5
 0.01
 1
 NIL
@@ -431,7 +431,7 @@ density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
 1
-0.6
+0.84
 0.01
 1
 NIL
@@ -613,7 +613,7 @@ SWITCH
 222
 log?
 log?
-1
+0
 1
 -1000
 
@@ -1036,7 +1036,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -2018,8 +2018,8 @@ true
 "" ""
 PENS
 "@Work" 1.0 0 -14070903 true "" "plot count people with [is-at-work?]"
-"@Pu-Leisure" 1.0 0 -5298144 true "" "plot count people with [is-at-public-leisure-place?]"
-"@Pr-Leisure" 1.0 0 -3844592 true "" "plot count people with [is-at-private-leisure-place?]"
+"@Pu-Leisure" 1.0 0 -2674135 true "" "plot count people with [is-at-public-leisure-place?]"
+"@Pr-Leisure" 1.0 0 -955883 true "" "plot count people with [is-at-private-leisure-place?]"
 "@Home" 1.0 0 -14439633 true "" "plot count people with [is-at-home?]"
 "@Univ" 1.0 0 -4079321 true "" "plot count people with [is-at-university?]"
 "Treated" 1.0 0 -7500403 true "" "plot count people with [current-motivation = treatment-motive]"
@@ -2952,7 +2952,7 @@ productivity-at-home
 productivity-at-home
 0
 2
-1.0
+1.1
 0.1
 1
 NIL
@@ -4039,7 +4039,7 @@ SWITCH
 1167
 is-closed-during-global-quarantine?
 is-closed-during-global-quarantine?
-1
+0
 1
 -1000
 
