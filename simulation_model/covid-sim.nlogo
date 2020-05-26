@@ -1092,7 +1092,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -1118,7 +1118,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -1910,7 +1910,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4035,8 +4035,8 @@ CHOOSER
 1699
 condition-phasing-out
 condition-phasing-out
-"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap"
-1
+"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "percentage deceased" "new infections percentage of average"
+0
 
 SWITCH
 1596
@@ -4119,7 +4119,7 @@ acknowledgement-ratio
 acknowledgement-ratio
 0
 1
-0.05
+0.15
 0.01
 1
 NIL
@@ -4134,7 +4134,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4160,7 +4160,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4186,7 +4186,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4252,7 +4252,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4403,7 +4403,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4438,7 +4438,7 @@ minimum-days-between-phases
 minimum-days-between-phases
 0
 50
-21.0
+31.0
 1
 1
 NIL
@@ -4463,7 +4463,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -4478,8 +4478,23 @@ day-gap-for-phasing-out-condition
 day-gap-for-phasing-out-condition
 0
 50
-5.0
+21.0
 1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2778
+1658
+2992
+1691
+next-phase-condition-percentage
+next-phase-condition-percentage
+0
+1
+0.5
+0.01
 1
 NIL
 HORIZONTAL

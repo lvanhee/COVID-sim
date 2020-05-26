@@ -65,6 +65,9 @@ globals
   contamination-network-table
   #infected-people-per-ticks
   #hospitalized-per-tick
+  
+  #newly-infected-this-tick
+  #newly-infected-per-ticks
 ]
 
 to-report ratio-infected
@@ -89,6 +92,14 @@ end
 to-report ratio-infected-retireds
   if #retireds-at-start > 0 [report #cumulative-retireds-infected / #retireds-at-start]
   report 0
+end
+
+to-report ratio-immune
+  report count people with [is-immune?] / count people
+end
+
+to-report ratio-deceased
+  report #dead-people / #people-at-start
 end
 
 to-report total-amount-of-capital-in-the-system
@@ -135,7 +146,9 @@ to reset-metrics
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#infections-last-tick-table (list x y) 0]]
   
   set #infected-people-per-ticks lput #infected #infected-people-per-ticks
-  set  #hospitalized-per-tick lput #taken-hospital-beds   #hospitalized-per-tick    
+  set  #hospitalized-per-tick lput #taken-hospital-beds   #hospitalized-per-tick  
+  set #newly-infected-per-ticks lput #newly-infected-this-tick #newly-infected-per-ticks 
+  set #newly-infected-this-tick 0
 end
 
 to increment-age-infection-information-metrics [infected infector]

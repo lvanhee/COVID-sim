@@ -113,6 +113,7 @@ to set-infection-status [infection]
   if not is-infected? and is-infected-infection-status? infection
   [
     set #infected #infected + 1
+    set #newly-infected-this-tick #newly-infected-this-tick + 1
   ]
   
   if not is-severe-infection-state? infection-state and is-severe-infection-state? infection

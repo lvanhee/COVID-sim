@@ -49,7 +49,7 @@ to check-phasing-out
     ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
   ]
 
-  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase [
+  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase and current-day - day-of-last-phase-shift >= minimum-days-between-phases [
     if can-go-to-next-phase? [
       set current-governmental-model-phase phase-1-phasing-out-state
       set day-of-last-phase-shift current-day
@@ -70,10 +70,26 @@ end
 to-report can-go-to-next-phase?
   if condition-phasing-out = "35 days of quarantine"
   [report is-number? start-tick-of-global-quarantine and (ticks - start-tick-of-global-quarantine) > 35 * #ticks-per-day]
+
   if condition-phasing-out = "#infected has decreased in day gap"
   [report (item (ticks - day-gap-for-phasing-out-condition * #ticks-per-day) #infected-people-per-ticks) > (item (ticks - 1) #infected-people-per-ticks) ]
+
   if condition-phasing-out = "hospital not overrun & #hospitalizations has decreased in day gap"
   [report (item (ticks - day-gap-for-phasing-out-condition * #ticks-per-day) #hospitalized-per-tick) > (item (ticks - 1) #hospitalized-per-tick)]
+
+  if condition-phasing-out = "percentage immune"
+  [report ratio-immune > next-phase-condition-percentage]
+
+  if condition-phasing-out = "percentage deceased"
+  [report ratio-deceased > next-phase-condition-percentage]
+
+  if condition-phasing-out = "new infections percentage of average over day gap" [
+    let #newly-infected-comparison-period sublist #newly-infected-per-ticks (max (list (length #newly-infected-per-ticks - day-gap-for-phasing-out-condition * #ticks-per-day) 0)) (length #newly-infected-per-ticks)
+    let #newly-infected-per-day sum-ticks-to-days #newly-infected-comparison-period
+    let average-new-infections mean (but-last #newly-infected-per-day)
+    report ((last #newly-infected-per-day) / average-new-infections) < next-phase-condition-percentage
+  ]
+
   error (word "Unrecognized phasing out condition: " condition-phasing-out)
 end
 

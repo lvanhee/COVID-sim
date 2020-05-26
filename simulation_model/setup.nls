@@ -78,6 +78,7 @@ to setup-global-metrics
   set age-group-to-age-group-#infections-last-tick-table table:make
   set #infected-people-per-ticks (list)
   set  #hospitalized-per-tick (list)
+  set #newly-infected-per-ticks (list)
   reset-metrics
   
 end
