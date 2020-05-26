@@ -542,9 +542,9 @@ HORIZONTAL
 
 SWITCH
 1828
-1097
+1109
 2098
-1130
+1142
 close-workplaces?
 close-workplaces?
 1
@@ -1048,9 +1048,9 @@ with-infected?
 
 MONITOR
 1597
-1207
+1219
 1818
-1252
+1264
 NIL
 closed-schools?
 17
@@ -1059,9 +1059,9 @@ closed-schools?
 
 SWITCH
 1596
-1099
+1111
 1818
-1132
+1144
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1085,9 +1085,9 @@ HORIZONTAL
 
 SLIDER
 1596
-1006
+1018
 1818
-1039
+1051
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1100,9 +1100,9 @@ HORIZONTAL
 
 INPUTBOX
 1596
-1038
+1050
 1819
-1099
+1111
 #days-trigger-school-closing-measure
 10000.0
 1
@@ -1136,10 +1136,10 @@ INPUTBOX
 Number
 
 MONITOR
-2383
-1211
-2581
-1256
+2379
+1218
+2577
+1263
 NIL
 closed-non-essential?
 17
@@ -1611,10 +1611,10 @@ count retireds
 11
 
 TEXTBOX
-1665
-979
-1764
-997
+1663
+1000
+1762
+1018
 Closing schools\n
 11
 105.0
@@ -1622,19 +1622,19 @@ Closing schools\n
 
 TEXTBOX
 1902
-987
+999
 2052
-1005
+1017
 Closing workplaces
 11
 105.0
 1
 
 TEXTBOX
-2639
-995
-2789
-1013
+2630
+1000
+2780
+1018
 Closing universities
 11
 105.0
@@ -1877,10 +1877,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3035
-1129
-3389
-1162
+3033
+1131
+3387
+1164
 social-distancing-density-factor
 social-distancing-density-factor
 0
@@ -1892,20 +1892,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-3179
-1074
-3329
-1092
+3161
+1076
+3311
+1094
 Social distancing
 11
 105.0
 1
 
 SLIDER
-3037
-1092
-3391
-1125
+3035
+1094
+3389
+1127
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
@@ -1917,10 +1917,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3036
-1213
-3222
-1258
+3034
+1215
+3220
+1260
 NIL
 is-social-distancing-measure-active?
 17
@@ -2210,10 +2210,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3232
-1212
-3389
-1257
+3230
+1214
+3387
+1259
 #social-distancing
 count people with [is-I-apply-social-distancing?]
 17
@@ -3622,9 +3622,9 @@ NIL
 HORIZONTAL
 
 MONITOR
-3254
+3253
 1023
-3407
+3405
 1068
 NIL
 is-hard-lockdown-active?
@@ -4019,9 +4019,9 @@ ASSOCC\nincremental\nmodel\n(deprecated)
 
 SWITCH
 2100
-1097
+1109
 2374
-1130
+1142
 recommend-working-from-home?
 recommend-working-from-home?
 1
@@ -4040,9 +4040,9 @@ condition-phasing-out
 
 SWITCH
 1596
-1131
+1143
 1818
-1164
+1176
 is-closed-during-global-quarantine?
 is-closed-during-global-quarantine?
 0
@@ -4082,9 +4082,9 @@ condition-for-acknowledging-the-crisis
 
 CHOOSER
 1596
-1162
+1174
 1818
-1207
+1219
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1"
@@ -4092,19 +4092,19 @@ force-reopening-of-schools-after-phase
 
 CHOOSER
 1823
-1161
+1173
 2097
-1206
+1218
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
 "never" "phase-1" "phase-2"
 1
 
 CHOOSER
-2583
-1166
-2805
-1211
+2579
+1173
+2801
+1218
 force-reopening-of-universities-after-phase
 force-reopening-of-universities-after-phase
 "never" "phase-1" "phase-2"
@@ -4127,9 +4127,9 @@ HORIZONTAL
 
 SLIDER
 1830
-1006
+1018
 2099
-1039
+1051
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
@@ -4141,10 +4141,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1825
-1209
-2097
-1254
+1824
+1218
+2096
+1263
 NIL
 closed-workplaces?
 17
@@ -4167,10 +4167,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2584
-1211
-2805
-1256
+2580
+1218
+2801
+1263
 NIL
 closed-universities?
 17
@@ -4193,30 +4193,30 @@ NIL
 HORIZONTAL
 
 CHOOSER
-2811
-1120
-3028
-1165
+2806
+1126
+3023
+1171
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2"
 1
 
 CHOOSER
-2811
-1167
-3028
-1212
+2806
+1173
+3023
+1218
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2"
 2
 
 MONITOR
-2811
-1213
-3027
-1258
+2806
+1219
+3022
+1264
 NIL
 closed-private-leisure?
 17
@@ -4224,10 +4224,10 @@ closed-private-leisure?
 11
 
 CHOOSER
-2380
-1166
-2581
-1211
+2376
+1173
+2577
+1218
 force-reopening-of-non-essential-after-phase
 force-reopening-of-non-essential-after-phase
 "never" "phase-1" "phase-2"
@@ -4235,19 +4235,19 @@ force-reopening-of-non-essential-after-phase
 
 CHOOSER
 2098
-1161
+1173
 2370
-1206
+1218
 force-release-recommendation-working-from-home-after-phase
 force-release-recommendation-working-from-home-after-phase
 "never" "phase-1" "phase-2"
 2
 
 SLIDER
-2104
-1008
-2371
-1041
+2103
+1018
+2370
+1051
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
@@ -4276,10 +4276,10 @@ NIL
 1
 
 CHOOSER
-3036
-1166
-3391
-1211
+3034
+1168
+3389
+1213
 force-releasing-of-social-distancing-measure-after-phase
 force-releasing-of-social-distancing-measure-after-phase
 "never" "phase-1" "phase-2"
@@ -4337,6 +4337,62 @@ Awareness of Measures
 11
 105.0
 1
+
+SLIDER
+2812
+1061
+3032
+1094
+ratio-capacity-partial-opening-private-leisure
+ratio-capacity-partial-opening-private-leisure
+0
+1
+0.5
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+2137
+1002
+2355
+1030
+Recommending working from home
+11
+105.0
+1
+
+TEXTBOX
+2402
+998
+2578
+1026
+Closing non-essential shops
+11
+105.0
+1
+
+TEXTBOX
+2855
+1004
+3005
+1022
+Closing private leisure
+11
+105.0
+1
+
+MONITOR
+2098
+1220
+2369
+1265
+NIL
+is-working-from-home-recommended?
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
