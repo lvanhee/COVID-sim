@@ -80,9 +80,6 @@ to-report can-go-to-next-phase?
   if condition-phasing-out = "percentage immune"
   [report ratio-immune > next-phase-condition-percentage]
 
-  if condition-phasing-out = "percentage deceased"
-  [report ratio-deceased > next-phase-condition-percentage]
-
   if condition-phasing-out = "new infections percentage of average over day gap" [
     let #newly-infected-comparison-period sublist #newly-infected-per-ticks (max (list (length #newly-infected-per-ticks - day-gap-for-phasing-out-condition * #ticks-per-day) 0)) (length #newly-infected-per-ticks)
     let #newly-infected-per-day sum-ticks-to-days #newly-infected-comparison-period
