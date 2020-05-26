@@ -33,6 +33,7 @@ to go
   apply-active-measures
   update-metrics
 
+  if OVERRIDE-ECONOMY?[ FIX-ECONOMY]
   ; Tick goes at the end of the go procedure for better plot updating
   tick
 end
@@ -45,6 +46,7 @@ to go-profile
   export-profiling
 end
 
+
 to startup
   setup
 end
@@ -54,6 +56,10 @@ to-report epistemic-accuracy if #infected = 0 [report 1] report count people wit
 to-report epistemic-false-positive-error-ratio report count people with [is-believing-to-be-infected? and not is-infected?] / count people end
 
 to-report epistemic-error-of-ignored-immunity-ratio report count people with [not is-believing-to-be-immune? and not is-immune?] / count people end
+
+to FIX-ECONOMY
+  ask people with [my-amount-of-capital < 20] [set my-amount-of-capital 20]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 115
@@ -416,7 +422,7 @@ density-factor-essential-shops
 density-factor-essential-shops
 0
 1
-0.5
+0.3
 0.01
 1
 NIL
@@ -431,7 +437,7 @@ density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
 1
-0.84
+0.6
 0.01
 1
 NIL
@@ -613,7 +619,7 @@ SWITCH
 222
 log?
 log?
-0
+1
 1
 -1000
 
@@ -1036,7 +1042,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1827,9 +1833,9 @@ HORIZONTAL
 
 SLIDER
 784
-1192
+1203
 1054
-1225
+1236
 starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
@@ -1842,9 +1848,9 @@ HORIZONTAL
 
 SLIDER
 784
-1229
+1236
 1055
-1262
+1269
 starting-amount-of-capital-retired
 starting-amount-of-capital-retired
 0
@@ -2945,14 +2951,14 @@ HORIZONTAL
 
 SLIDER
 784
-1150
+1171
 956
-1183
+1204
 productivity-at-home
 productivity-at-home
 0
 2
-1.1
+1.0
 0.1
 1
 NIL
@@ -4029,8 +4035,8 @@ CHOOSER
 1654
 condition-phasing-out
 condition-phasing-out
-"35 days of quarantine" "#infected has decreased since 5 days ago" "hospital not overrun & #hospitalizations has decreased since 5 days ago"
-1
+"35 days of quarantine" "#infected has decreased since 5 days ago" "hospital not overrun & #hospitalizations has decreased since 5 days ago" "never"
+3
 
 SWITCH
 1870
@@ -4071,8 +4077,8 @@ CHOOSER
 1654
 condition-for-acknowledging-the-crisis
 condition-for-acknowledging-the-crisis
-"ratio infected>2%"
-0
+"ratio infected>2%" "never"
+1
 
 CHOOSER
 1870
@@ -4083,6 +4089,27 @@ force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1"
 0
+
+SWITCH
+691
+1111
+873
+1144
+OVERRIDE-ECONOMY?
+OVERRIDE-ECONOMY?
+0
+1
+-1000
+
+TEXTBOX
+884
+1114
+1346
+1226
+Solution for overriding the now-deprecated/unmaintained economy model.\nAt the start of each tick, people with less than 20 get 20$, so they don't end-up starving.
+11
+15.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

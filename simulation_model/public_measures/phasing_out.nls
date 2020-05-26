@@ -19,8 +19,8 @@ to check-phasing-out
   if current-governmental-model-phase = ongoing-crisis-governmental-model-phase
   [
     if (condition-phasing-out = "35 days of quarantine" and is-number? start-tick-of-global-quarantine and (ticks - start-tick-of-global-quarantine) > 35 * #ticks-per-day) 
-    or (condition-phasing-out = "#infected has decreased since 5 days ago" and (item (ticks - 5 * #ticks-per-day) #infected-people-per-ticks) > (item (ticks - 1) #infected-people-per-ticks))
-    or (condition-phasing-out = "hospital not overrun & #hospitalizations has decreased since 5 days ago" and (item (ticks - 5 * #ticks-per-day) #hospitalized-per-tick) > (item (ticks - 1) #hospitalized-per-tick))
+    or (condition-phasing-out = "#infected has decreased since 5 days ago" and ticks > 5 * #ticks-per-day and (item (ticks - 5 * #ticks-per-day) #infected-people-per-ticks) > (item (ticks - 1) #infected-people-per-ticks))
+    or (condition-phasing-out = "hospital not overrun & #hospitalizations has decreased since 5 days ago" and ticks > 5 * #ticks-per-day and (item (ticks - 5 * #ticks-per-day) #hospitalized-per-tick) > (item (ticks - 1) #hospitalized-per-tick))
     
     [
       set current-governmental-model-phase phase-1-phasing-out-state

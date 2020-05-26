@@ -25,7 +25,7 @@ splitted_by_ratio_anxiety_df <- split(df, df$ratio.of.anxiety.avoidance.tracing.
 splitted_by_app_user_ratio_df <- split(df, df$ratio.of.people.using.the.tracking.app)
 splitted_by_ratio_anxiety_and_ratio_users_df <- split(df, list(df$ratio.of.anxiety.avoidance.tracing.app.users, df$ratio.of.people.using.the.tracking.app))
 
-
+X11()
 
 # PLOTTING -----------------------------------------------------
 
