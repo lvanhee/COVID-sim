@@ -537,7 +537,7 @@ to execute-and-save [experiment-name]
   if experiment-name = soft-working-from-home-behaviourspace-experiment-name
   [
     disable-all-measures
-    set is-working-from-home-recommended? true
+    set recommend-working-from-home? true
     setup
     
     let total-number-workers-at-work -1

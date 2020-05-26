@@ -4,11 +4,38 @@ to setup-phasing-out
   set current-governmental-model-phase crisis-not-acknowledged-phasing-out-state
 end
 
+to setup-measures-for-phasing-out
+  if condition-for-acknowledging-the-crisis = "ratio infected>acknowledgement-ratio" [
+    ; We need to make sure that the measures that we want to loosen also actually trigger, because otherwise the system will not actually work
+    if force-reopening-of-schools-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
+    ]
+    if force-reopening-of-non-essential-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-non-essential-closing-measure acknowledgement-ratio
+    ]
+    if force-reopening-of-workplaces-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
+    ]
+    if force-release-recommendation-working-from-home-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
+    ]
+    if force-reopening-of-universities-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
+    ]
+    if force-full-reopening-of-private-leisure-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
+    ]
+    if force-releasing-of-social-distancing-measure-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
+    ]
+  ]
+end
+
 to check-phasing-out
   if current-governmental-model-phase = crisis-not-acknowledged-phasing-out-state
   [
     
-   if condition-for-acknowledging-the-crisis = "ratio infected>2%" and ratio-infected > 0.02
+   if condition-for-acknowledging-the-crisis = "ratio infected>acknowledgement-ratio" and ratio-infected > acknowledgement-ratio
     [
       set current-governmental-model-phase ongoing-crisis-governmental-model-phase
       stop 
@@ -35,6 +62,10 @@ to-report phase-1-phasing-out-state
   report "phase-1"
 end
 
+to-report phase-2-phasing-out-state
+  report "phase-2"
+end
+
 to-report ongoing-crisis-governmental-model-phase
   report "ongoing crisis"
 end
@@ -43,7 +74,25 @@ to-report crisis-not-acknowledged-phasing-out-state
   report "crisis-not-acknowledged"
 end
 
+to-report crisis-is-acknowledged?
+  report current-governmental-model-phase != "crisis-not-acknowledged"
+end
+
 to-report is-equal-to-or-posterior-to-governmental-phase? [phase]
   if phase = "never" [report false]
-  if phase =  phase-1-phasing-out-state [report current-governmental-model-phase = phase-1-phasing-out-state]  
+  if phase =  phase-1-phasing-out-state [report current-governmental-model-phase = phase-1-phasing-out-state or is-equal-to-or-posterior-to-governmental-phase? phase-2-phasing-out-state]  
+  if phase = phase-2-phasing-out-state [report current-governmental-model-phase = phase-2-phasing-out-state]
+  report false
+end
+
+to disable-phasing-out-measure
+  set condition-for-acknowledging-the-crisis "never"
+  set force-reopening-of-schools-after-phase "never"
+  set force-reopening-of-non-essential-after-phase "never"
+  set force-reopening-of-workplaces-after-phase "never"
+  set force-release-recommendation-working-from-home-after-phase "never"
+  set force-reopening-of-universities-after-phase "never"
+  set force-partial-reopening-of-private-leisure-after-phase "never"
+  set force-full-reopening-of-private-leisure-after-phase "never"
+  set force-releasing-of-social-distancing-measure-after-phase "never"
 end

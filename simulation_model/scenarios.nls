@@ -223,7 +223,7 @@ to scenario-1-setup
   if preset-scenario = "scenario-1-work-at-home-only"
   [
     set #days-trigger-non-essential-business-closing-measure 0
-    set is-working-from-home-recommended? true
+    set recommend-working-from-home? true
     stop
   ]
   
@@ -349,13 +349,13 @@ end
 
 to load-closed-schools-and-uni-measures
   set #days-trigger-school-closing-measure 0
-  set closed-universities? true
+  set close-universities? true
 end
 
 to load-all-closed-measures
   set #days-trigger-non-essential-business-closing-measure 0
   set #days-trigger-school-closing-measure 0
-  set closed-universities? true
+  set close-universities? true
 end
 
 to load-default-transport-model

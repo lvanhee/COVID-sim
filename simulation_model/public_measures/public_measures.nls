@@ -24,13 +24,38 @@ to-report is-hard-lockdown-active?
 end
 
 to-report closed-non-essential?
+  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-workplaces-after-phase [report false]
   report ratio-infected > ratio-omniscious-infected-that-trigger-non-essential-closing-measure
   or
   #days-trigger-non-essential-business-closing-measure <= current-day
 end
 
+to-report closed-workplaces?
+  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-workplaces-after-phase [report false]
+  report close-workplaces?
+  or ratio-infected > ratio-omniscious-infected-that-trigger-workplace-closing-measure
+end
 
+to-report is-working-from-home-recommended?
+  if is-equal-to-or-posterior-to-governmental-phase? force-release-recommendation-working-from-home-after-phase [report false]
+  report recommend-working-from-home?
+  or ratio-infected > ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
+end
 
+to-report closed-universities?
+  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-universities-after-phase [report false]
+  report close-universities?
+  or ratio-infected > ratio-omniscious-infected-that-trigger-university-closing-measure
+end
+
+to-report closed-private-leisure?
+  if is-equal-to-or-posterior-to-governmental-phase? force-full-reopening-of-private-leisure-after-phase [report false]
+  report ratio-infected > ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
+end
+
+to-report private-leisure-partially-open?
+  report is-equal-to-or-posterior-to-governmental-phase? force-partial-reopening-of-private-leisure-after-phase
+end
 
 to apply-active-measures
   if slice-of-the-day = "morning" [ ; Reset the available tests
@@ -55,6 +80,7 @@ to-report #still-available-tests
 end
 
 to-report is-social-distancing-measure-active?
+  if is-equal-to-or-posterior-to-governmental-phase? force-releasing-of-social-distancing-measure-after-phase [report false]
   report ratio-omniscious-infected-that-trigger-social-distancing-measure < ratio-infected
 end
 
@@ -75,12 +101,16 @@ to disable-all-measures
   set ratio-omniscious-infected-that-trigger-school-closing-measure 1
   set ratio-omniscious-infected-that-trigger-social-distancing-measure 1
   set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-workplace-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-university-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure 1
+  set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure 1
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
   set global-confinement-measures "none"
-  set closed-universities? false
-  set closed-workplaces? false
+  set close-universities? false
+  set close-workplaces? false
   ; Disable testing
   set ratio-population-randomly-tested-daily 0
   set ratio-population-daily-immunity-testing 0
@@ -100,9 +130,10 @@ to disable-all-measures
   set is-psychorigidly-staying-at-home-when-quarantining? false
   set ratio-self-quarantining-when-symptomatic 0
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
-  set is-working-from-home-recommended? false
+  set recommend-working-from-home? false
   
   disable-global-quarantine-measure
   disable-tracing-app-measure
   disable-daily-testing-measure
+  disable-phasing-out-measure
 end
