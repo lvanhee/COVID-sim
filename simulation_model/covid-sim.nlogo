@@ -4340,9 +4340,9 @@ Awareness of Measures
 
 SLIDER
 2812
-1061
+1055
 3032
-1094
+1088
 ratio-capacity-partial-opening-private-leisure
 ratio-capacity-partial-opening-private-leisure
 0

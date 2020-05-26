@@ -49,12 +49,16 @@ to-report closed-universities?
 end
 
 to-report closed-private-leisure?
+  report private-leisure-not-fully-open? and not private-leisure-only-partially-open?
+end
+
+to-report private-leisure-not-fully-open?
   if is-equal-to-or-posterior-to-governmental-phase? force-full-reopening-of-private-leisure-after-phase [report false]
   report ratio-infected > ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 end
 
-to-report private-leisure-partially-open?
-  report is-equal-to-or-posterior-to-governmental-phase? force-partial-reopening-of-private-leisure-after-phase
+to-report private-leisure-only-partially-open?
+  report private-leisure-not-fully-open? and is-equal-to-or-posterior-to-governmental-phase? force-partial-reopening-of-private-leisure-after-phase
 end
 
 to apply-active-measures

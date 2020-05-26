@@ -225,6 +225,9 @@ end
 
 to-report current-capacity
   if capacity = disabled-capacity [report capacity]
+  if is-private-leisure? and private-leisure-only-partially-open? [
+    report floor (capacity * ratio-capacity-partial-opening-private-leisure)
+  ]
   report capacity
 end
 
