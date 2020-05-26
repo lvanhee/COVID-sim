@@ -131,7 +131,7 @@ propagation-risk
 propagation-risk
 0
 1
-0.4
+0.15
 0.01
 1
 NIL
@@ -178,7 +178,7 @@ INPUTBOX
 918
 865
 #schools-gp
-12.0
+13.0
 1
 0
 Number
@@ -189,7 +189,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-40.0
+8.0
 1
 0
 Number
@@ -338,10 +338,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-1933
-925
-2241
-971
+1639
+855
+1947
+901
 Measures (Interventions) Model
 16
 105.0
@@ -489,7 +489,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -519,7 +519,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -1077,7 +1077,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.419
 0.01
 1
 NIL
@@ -1092,7 +1092,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1118,7 +1118,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1155,7 +1155,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.295
 0.01
 1
 NIL
@@ -1170,7 +1170,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.27
 0.01
 1
 NIL
@@ -1185,7 +1185,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.016
 0.01
 1
 NIL
@@ -1322,7 +1322,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.41
+0.37
 0.01
 1
 NIL
@@ -1357,7 +1357,7 @@ ratio-hospital-subsidy
 ratio-hospital-subsidy
 0
 1
-0.21
+0.04
 0.01
 1
 NIL
@@ -1387,7 +1387,7 @@ ratio-retirees-subsidy
 ratio-retirees-subsidy
 0
 1
-0.34
+0.73
 0.01
 1
 NIL
@@ -1402,7 +1402,7 @@ ratio-students-subsidy
 ratio-students-subsidy
 0
 1
-0.34
+0.24
 0.01
 1
 NIL
@@ -1431,13 +1431,13 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+12
 
 SLIDER
-2216
-663
-2503
-696
+2119
+700
+2406
+733
 ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
@@ -1449,10 +1449,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-2214
-737
-2504
-770
+2117
+774
+2407
+807
 test-workplace-of-confirmed-people?
 test-workplace-of-confirmed-people?
 1
@@ -1460,10 +1460,10 @@ test-workplace-of-confirmed-people?
 -1000
 
 SWITCH
-2214
-700
-2503
-733
+2117
+737
+2406
+770
 test-home-of-confirmed-people?
 test-home-of-confirmed-people?
 1
@@ -1471,10 +1471,10 @@ test-home-of-confirmed-people?
 -1000
 
 TEXTBOX
-2330
-633
-2480
-651
+2233
+670
+2383
+688
 Testing
 11
 105.0
@@ -1489,7 +1489,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-2.2
+2.8
 0.1
 1
 NIL
@@ -1539,7 +1539,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.7
+2.5
 0.1
 1
 NIL
@@ -1563,8 +1563,8 @@ CHOOSER
 134
 preset-scenario
 preset-scenario
-"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-14
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-exit-strategies"
+19
 
 MONITOR
 762
@@ -1671,20 +1671,20 @@ Density settings influence risk of becoming sick when travelling locally (is rel
 1
 
 TEXTBOX
-2524
-815
-2699
-846
+2427
+852
+2602
+883
 All people at home are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2523
-855
-2705
-884
+2426
+892
+2608
+921
 All people at work are tested if one is confirmed sick.
 9
 105.0
@@ -1885,7 +1885,7 @@ social-distancing-density-factor
 social-distancing-density-factor
 0
 1
-0.08
+0.09
 0.01
 1
 NIL
@@ -1910,7 +1910,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -2041,7 +2041,7 @@ workers-wages
 workers-wages
 0
 30
-10.0
+9.0
 0.5
 1
 NIL
@@ -2068,7 +2068,7 @@ INPUTBOX
 662
 558
 #households
-391.0
+400.0
 1
 0
 Number
@@ -2090,7 +2090,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-2000.0
+13.0
 1
 0
 Number
@@ -2252,7 +2252,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-2.2
+2.68
 0.1
 1
 NIL
@@ -2304,10 +2304,10 @@ hospital-effectiveness
 11
 
 SLIDER
-2214
-920
-2508
-953
+2117
+957
+2411
+990
 ratio-population-daily-immunity-testing
 ratio-population-daily-immunity-testing
 0
@@ -2459,7 +2459,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-30.0
+80.0
 1
 0
 Number
@@ -2668,7 +2668,7 @@ value-std-dev
 value-std-dev
 0
 10
-10.0
+5.0
 1
 1
 NIL
@@ -2753,17 +2753,17 @@ ratio-of-people-using-the-tracking-app
 ratio-of-people-using-the-tracking-app
 0
 1
-1.0
+0.0
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-3206
-1768
-3432
-1801
+1598
+958
+1824
+991
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -2797,10 +2797,10 @@ INPUTBOX
 Number
 
 MONITOR
-2524
-898
-2652
-943
+2427
+935
+2555
+980
 NIL
 #tests-performed
 17
@@ -2842,10 +2842,10 @@ NIL
 1
 
 BUTTON
-3206
-1724
-3429
-1759
+1598
+914
+1821
+949
 NIL
 inform-people-of-measures
 NIL
@@ -3415,10 +3415,10 @@ r0
 11
 
 INPUTBOX
-2673
-888
-2791
-949
+2576
+925
+2694
+986
 #available-tests
 10000.0
 1
@@ -3426,10 +3426,10 @@ INPUTBOX
 Number
 
 SWITCH
-2214
-775
-2505
-808
+2117
+812
+2408
+845
 prioritize-testing-health-care?
 prioritize-testing-health-care?
 1
@@ -3454,10 +3454,10 @@ NIL
 1
 
 SWITCH
-2214
-845
-2506
-878
+2117
+882
+2409
+915
 do-not-test-youth?
 do-not-test-youth?
 0
@@ -3465,10 +3465,10 @@ do-not-test-youth?
 -1000
 
 SWITCH
-2214
-883
-2508
-916
+2117
+920
+2411
+953
 only-test-retirees-with-extra-tests?
 only-test-retirees-with-extra-tests?
 1
@@ -3548,7 +3548,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3615,7 +3615,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3640,7 +3640,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+1
 
 SWITCH
 1719
@@ -3676,20 +3676,20 @@ count people-having-ever-been-recorded-as-positive-in-the-app
 11
 
 CHOOSER
-2520
-720
-2791
-765
+2423
+757
+2694
+802
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
 1
 
 MONITOR
-2520
-665
-2692
-710
+2423
+702
+2595
+747
 NIL
 #tests-used-by-daily-testing
 17
@@ -3697,10 +3697,10 @@ NIL
 11
 
 SWITCH
-2213
-809
-2505
-842
+2116
+846
+2408
+879
 prioritize-testing-education?
 prioritize-testing-education?
 1
@@ -4031,12 +4031,12 @@ recommend-working-from-home?
 CHOOSER
 2333
 1654
-2479
+2569
 1699
 condition-phasing-out
 condition-phasing-out
-"35 days of quarantine" "#infected has decreased since 5 days ago" "hospital not overrun & #hospitalizations has decreased since 5 days ago" "never"
-3
+"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap"
+1
 
 SWITCH
 1596
@@ -4060,10 +4060,10 @@ Conditions for phasing out
 1
 
 MONITOR
-2493
-1654
-2701
-1699
+2335
+1736
+2569
+1781
 NIL
 current-governmental-model-phase
 17
@@ -4077,8 +4077,8 @@ CHOOSER
 1654
 condition-for-acknowledging-the-crisis
 condition-for-acknowledging-the-crisis
-"ratio infected>acknowledgement-ratio"
-0
+"never" "ratio infected>acknowledgement-ratio"
+1
 
 CHOOSER
 1596
@@ -4119,7 +4119,7 @@ acknowledgement-ratio
 acknowledgement-ratio
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4134,7 +4134,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4160,7 +4160,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4186,7 +4186,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4252,7 +4252,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4403,7 +4403,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-1.0
+0.05
 0.01
 1
 NIL
@@ -4427,7 +4427,62 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2"
+2
+
+SLIDER
+2335
+1701
+2568
+1734
+minimum-days-between-phases
+minimum-days-between-phases
 0
+50
+21.0
+1
+1
+NIL
+HORIZONTAL
+
+CHOOSER
+3316
+861
+3566
+906
+force-full-bus-capacity-after-phase
+force-full-bus-capacity-after-phase
+"never" "phase-1" "phase-2"
+2
+
+SLIDER
+3316
+825
+3672
+858
+ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
+ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
+0
+1
+0.05
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2574
+1658
+2776
+1691
+day-gap-for-phasing-out-condition
+day-gap-for-phasing-out-condition
+0
+50
+5.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

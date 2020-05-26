@@ -53,7 +53,14 @@ to travelling-to-activity-phase
 end
 
 to-report max-total-bus-flow-at-current-timestep
-  report #bus-per-timeslot * #max-people-per-bus
+  report #bus-per-timeslot * current-bus-capacity
+end
+
+to-report current-bus-capacity
+  if is-equal-to-or-posterior-to-governmental-phase? force-full-bus-capacity-after-phase [report #max-people-per-bus]
+  if ratio-omniscious-infected-that-triggers-half-capacity-busses-measure > ratio-infected
+  [report floor (#max-people-per-bus / 2) ]
+  report #max-people-per-bus
 end
 
 to-report stay-here-transportation-method

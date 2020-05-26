@@ -30,7 +30,7 @@ to load-test-scenario
   ]
 end
 
-to load-scenario-specifics    
+to load-scenario-specifics
   if preset-scenario = "default-scenario" [stop]  
   
   if preset-scenario = "uninfected-scandinavia"
@@ -105,6 +105,11 @@ to load-scenario-specifics
   
   if preset-scenario = "scenario-7-cultural-model" [
     load-scenario-7-cultural-model
+    stop
+  ]
+  
+  if preset-scenario = "scenario-12-exit-strategies" [
+    load-scenario-12-exit-strategies
     stop
   ]
   
@@ -235,15 +240,15 @@ to scenario-1-setup
 end
 
 to-report is-scenario-1? [s]
-  report starts-with? s "scenario-1"
+  report starts-with? s "scenario-1-"
 end
 
 to-report is-scenario-6? [s]
-  report starts-with? s "scenario-6"
+  report starts-with? s "scenario-6-"
 end
 
 to-report is-scenario-3? [s]
-  report starts-with? s "scenario-3"
+  report starts-with? s "scenario-3-"
 end
   
 to scenario-9-setup
@@ -282,6 +287,29 @@ to load-scenario-7-cultural-model
   ;'load-country-specific-settings' will be manipulated within behaviorspace
   set household-profiles load-country-specific-settings
   set migration? false
+end
+
+to load-scenario-12-exit-strategies
+  load-number-of-gathering-points-based-on-number-of-households 400
+  set migration? false
+  set food-delivered-to-isolators? true
+  set condition-for-acknowledging-the-crisis "ratio infected>acknowledgement-ratio"
+  ;;; Phase 1
+  set force-reopening-of-schools-after-phase phase-1-phasing-out-state
+  set force-reopening-of-non-essential-after-phase phase-1-phasing-out-state
+  set force-reopening-of-workplaces-after-phase phase-1-phasing-out-state
+  set force-reopening-of-universities-after-phase phase-1-phasing-out-state
+  set force-partial-reopening-of-private-leisure-after-phase phase-1-phasing-out-state
+  
+  ;;; Phase 2
+  set force-release-recommendation-working-from-home-after-phase phase-2-phasing-out-state
+  set force-full-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
+  set force-releasing-of-social-distancing-measure-after-phase phase-2-phasing-out-state
+  set force-releasing-retirees-from-isolation-after-phase phase-2-phasing-out-state
+  set force-full-bus-capacity-after-phase phase-2-phasing-out-state
+  
+  set acknowledgement-ratio 0.02
+  setup-measures-for-phasing-out
 end
 
 

@@ -1,4 +1,7 @@
-globals [current-governmental-model-phase]
+globals [
+  current-governmental-model-phase
+  day-of-last-phase-shift
+]
 
 to setup-phasing-out
   set current-governmental-model-phase crisis-not-acknowledged-phasing-out-state
@@ -31,34 +34,47 @@ to setup-measures-for-phasing-out
     if force-releasing-retirees-from-isolation-after-phase != "never" [
       set ratio-omniscious-infected-that-triggers-retirees-in-isolation acknowledgement-ratio
     ]
+    if force-releasing-retirees-from-isolation-after-phase != "never" [
+      set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
+    ]
   ]
 end
 
 to check-phasing-out
-  if current-governmental-model-phase = crisis-not-acknowledged-phasing-out-state
-  [
-    
-   if condition-for-acknowledging-the-crisis = "ratio infected>acknowledgement-ratio" and ratio-infected > acknowledgement-ratio
-    [
+  if current-governmental-model-phase = crisis-not-acknowledged-phasing-out-state [
+   if condition-for-acknowledging-the-crisis = "ratio infected>acknowledgement-ratio" and ratio-infected > acknowledgement-ratio [
       set current-governmental-model-phase ongoing-crisis-governmental-model-phase
-      stop 
-    ]
-    ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
-  ]
-    
-  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase
-  [
-    if (condition-phasing-out = "35 days of quarantine" and is-number? start-tick-of-global-quarantine and (ticks - start-tick-of-global-quarantine) > 35 * #ticks-per-day) 
-    or (condition-phasing-out = "#infected has decreased since 5 days ago" and ticks > 5 * #ticks-per-day and (item (ticks - 5 * #ticks-per-day) #infected-people-per-ticks) > (item (ticks - 1) #infected-people-per-ticks))
-    or (condition-phasing-out = "hospital not overrun & #hospitalizations has decreased since 5 days ago" and ticks > 5 * #ticks-per-day and (item (ticks - 5 * #ticks-per-day) #hospitalized-per-tick) > (item (ticks - 1) #hospitalized-per-tick))
-    
-    [
-      set current-governmental-model-phase phase-1-phasing-out-state
       stop
     ]
     ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
   ]
-  
+
+  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase [
+    if can-go-to-next-phase? [
+      set current-governmental-model-phase phase-1-phasing-out-state
+      set day-of-last-phase-shift current-day
+      stop
+    ]
+    ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
+  ]
+
+  if current-governmental-model-phase = phase-1-phasing-out-state and current-day - day-of-last-phase-shift >= minimum-days-between-phases [
+    if can-go-to-next-phase? [
+      set current-governmental-model-phase phase-2-phasing-out-state
+      set day-of-last-phase-shift current-day
+      stop
+    ]
+  ]
+end
+
+to-report can-go-to-next-phase?
+  if condition-phasing-out = "35 days of quarantine"
+  [report is-number? start-tick-of-global-quarantine and (ticks - start-tick-of-global-quarantine) > 35 * #ticks-per-day]
+  if condition-phasing-out = "#infected has decreased in day gap"
+  [report (item (ticks - day-gap-for-phasing-out-condition * #ticks-per-day) #infected-people-per-ticks) > (item (ticks - 1) #infected-people-per-ticks) ]
+  if condition-phasing-out = "hospital not overrun & #hospitalizations has decreased in day gap"
+  [report (item (ticks - day-gap-for-phasing-out-condition * #ticks-per-day) #hospitalized-per-tick) > (item (ticks - 1) #hospitalized-per-tick)]
+  error (word "Unrecognized phasing out condition: " condition-phasing-out)
 end
 
 to-report phase-1-phasing-out-state
@@ -83,7 +99,7 @@ end
 
 to-report is-equal-to-or-posterior-to-governmental-phase? [phase]
   if phase = "never" [report false]
-  if phase =  phase-1-phasing-out-state [report current-governmental-model-phase = phase-1-phasing-out-state or is-equal-to-or-posterior-to-governmental-phase? phase-2-phasing-out-state]  
+  if phase = phase-1-phasing-out-state [report current-governmental-model-phase = phase-1-phasing-out-state or is-equal-to-or-posterior-to-governmental-phase? phase-2-phasing-out-state]
   if phase = phase-2-phasing-out-state [report current-governmental-model-phase = phase-2-phasing-out-state]
   report false
 end
@@ -99,4 +115,5 @@ to disable-phasing-out-measure
   set force-full-reopening-of-private-leisure-after-phase "never"
   set force-releasing-of-social-distancing-measure-after-phase "never"
   set force-releasing-retirees-from-isolation-after-phase "never"
+  set force-full-bus-capacity-after-phase "never"
 end

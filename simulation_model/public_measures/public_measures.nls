@@ -110,6 +110,7 @@ to disable-all-measures
   set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure 1
   set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure 1
   set ratio-omniscious-infected-that-triggers-retirees-in-isolation 1
+  set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure 1
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
