@@ -1,5 +1,8 @@
 to-report is-officially-asked-to-quarantine?
-  report #days-I-should-remain-in-self-quarantining > 0 or is-believing-to-be-infected? or [home-in-isolation?] of my-home
+  report #days-I-should-remain-in-self-quarantining > 0 
+  or is-believing-to-be-infected? 
+  or [home-in-isolation?] of my-home
+  or (is-retired? and should-retirees-isolate?)
 end
 
 to update-quarantining-decisions
@@ -37,4 +40,9 @@ end
 
 to process-quarantine-violation-event
     if is-violating-quarantine?[log-file-print (word "violating_quarantine(" ticks "," day-of-the-week "," who "," age "," [who] of current-activity "," [gathering-type] of current-activity "," current-motivation ")")]
+end
+
+to-report should-retirees-isolate?
+  if is-equal-to-or-posterior-to-governmental-phase? force-releasing-retirees-from-isolation-after-phase [report false]
+  report ratio-infected > ratio-omniscious-infected-that-triggers-retirees-in-isolation
 end

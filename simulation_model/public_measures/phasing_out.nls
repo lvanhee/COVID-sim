@@ -28,6 +28,9 @@ to setup-measures-for-phasing-out
     if force-releasing-of-social-distancing-measure-after-phase != "never" [
       set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
     ]
+    if force-releasing-retirees-from-isolation-after-phase != "never" [
+      set ratio-omniscious-infected-that-triggers-retirees-in-isolation acknowledgement-ratio
+    ]
   ]
 end
 
@@ -95,4 +98,5 @@ to disable-phasing-out-measure
   set force-partial-reopening-of-private-leisure-after-phase "never"
   set force-full-reopening-of-private-leisure-after-phase "never"
   set force-releasing-of-social-distancing-measure-after-phase "never"
+  set force-releasing-retirees-from-isolation-after-phase "never"
 end

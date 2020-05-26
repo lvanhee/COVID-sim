@@ -3476,10 +3476,10 @@ only-test-retirees-with-extra-tests?
 -1000
 
 MONITOR
-2827
-1485
-2974
-1530
+3125
+1477
+3272
+1522
 #Violating quarantine
 count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
 17
@@ -3487,10 +3487,10 @@ count should-be-isolators with [current-activity != my-home and current-activity
 11
 
 MONITOR
-2973
-1485
-3122
-1530
+3271
+1477
+3420
+1522
 #Quarantiners
 count should-be-isolators
 17
@@ -3509,10 +3509,10 @@ food-delivered-to-isolators?
 -1000
 
 PLOT
-2828
-1336
-3206
-1486
+3126
+1328
+3504
+1478
 Quarantining & isolation
 time
 #people
@@ -3561,7 +3561,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -3572,7 +3572,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3881,10 +3881,10 @@ PENS
 "S-R" 1.0 0 -11033397 true "" "plot #cumulative-retireds-infector"
 
 MONITOR
-2826
-1538
-3185
-1583
+3125
+1520
+3484
+1565
 NIL
 ratio-quarantiners-currently-complying-to-quarantine
 17
@@ -4393,6 +4393,41 @@ is-working-from-home-recommended?
 17
 1
 11
+
+SLIDER
+2808
+1332
+3021
+1365
+ratio-omniscious-infected-that-triggers-retirees-in-isolation
+ratio-omniscious-infected-that-triggers-retirees-in-isolation
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+2828
+1313
+2978
+1331
+Retirees in isolation
+11
+105.0
+1
+
+CHOOSER
+2809
+1368
+3020
+1413
+force-releasing-retirees-from-isolation-after-phase
+force-releasing-retirees-from-isolation-after-phase
+"never" "phase-1" "phase-2"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?

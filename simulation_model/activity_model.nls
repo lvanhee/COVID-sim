@@ -336,8 +336,6 @@ to perform-people-activities
   ]
   
   ask gathering-points with [capacity != disabled-capacity] [
-    ;error "why?"
-    ;ask gatherers [show myself show current-activity]
     let all-people (gatherers with [current-activity != myself])
     ifelse count all-people > current-capacity [
       let succesful-people n-of current-capacity all-people

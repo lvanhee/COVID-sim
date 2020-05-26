@@ -97,7 +97,7 @@ to inform-people-of-measures
 end
 
 to-report should-be-isolators
-  report people with [any? ([gatherers] of my-home) with [is-believing-to-be-infected?]]
+  report people with [is-officially-asked-to-quarantine?]
 end
 
 to disable-all-measures
@@ -109,6 +109,7 @@ to disable-all-measures
   set ratio-omniscious-infected-that-trigger-university-closing-measure 1
   set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure 1
   set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure 1
+  set ratio-omniscious-infected-that-triggers-retirees-in-isolation 1
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
