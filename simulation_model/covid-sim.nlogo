@@ -1092,7 +1092,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -1118,7 +1118,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -1910,7 +1910,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -4035,8 +4035,8 @@ CHOOSER
 1699
 condition-phasing-out
 condition-phasing-out
-"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "new infections percentage of average"
-0
+"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "new infections percentage of average over day gap"
+4
 
 SWITCH
 1596
@@ -4119,7 +4119,7 @@ acknowledgement-ratio
 acknowledgement-ratio
 0
 1
-0.15
+0.02
 0.01
 1
 NIL
@@ -4134,7 +4134,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -4160,7 +4160,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -4186,7 +4186,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -4252,7 +4252,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -4403,7 +4403,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
@@ -4463,7 +4463,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-0.1
+0.02
 0.01
 1
 NIL
