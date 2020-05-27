@@ -298,12 +298,12 @@ to load-scenario-12-exit-strategies
   set force-reopening-of-schools-after-phase phase-1-phasing-out-state
   set force-reopening-of-non-essential-after-phase phase-1-phasing-out-state
   set force-reopening-of-workplaces-after-phase phase-1-phasing-out-state
-  set force-reopening-of-universities-after-phase phase-1-phasing-out-state
   set force-partial-reopening-of-private-leisure-after-phase phase-1-phasing-out-state
   
   ;;; Phase 2
   set force-release-recommendation-working-from-home-after-phase phase-2-phasing-out-state
   set force-full-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
+  set force-reopening-of-universities-after-phase phase-2-phasing-out-state
   set force-releasing-of-social-distancing-measure-after-phase phase-2-phasing-out-state
   set force-releasing-retirees-from-isolation-after-phase phase-2-phasing-out-state
   set force-full-bus-capacity-after-phase phase-2-phasing-out-state
