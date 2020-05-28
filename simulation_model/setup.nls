@@ -236,8 +236,8 @@ to setup-person [current-home l-age]
     set stayed-out-queuing-for-bus? false
     set is-activity-successful? true
 
-    set I-know-of-social-distancing? false
-    set I-know-of-working-from-home? false
+    set I-know-of-social-distancing? ifelse-value Aware-of-social-distancing-at-start-of-simulation? [true] [false]
+    set I-know-of-working-from-home? ifelse-value Aware-of-working-at-home-at-start-of-simulation? [true] [false]
     set what-my-network-did-week-day []
     set what-my-network-did-weekend []
     set did-my-network-socially-distance? false

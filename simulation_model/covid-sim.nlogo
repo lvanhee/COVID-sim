@@ -338,20 +338,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2240
-842
-2548
-888
+1933
+925
+2241
+971
 Measures (Interventions) Model
 16
 105.0
 1
 
 CHOOSER
-2822
-1023
-3037
-1068
+2242
+1072
+2457
+1117
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
@@ -541,10 +541,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-2283
+1962
+1102
+2232
 1135
-2553
-1168
 closed-workplaces?
 closed-workplaces?
 1
@@ -552,10 +552,10 @@ closed-workplaces?
 -1000
 
 SWITCH
-2583
-1022
-2805
-1055
+2240
+1001
+2462
+1034
 closed-universities?
 closed-universities?
 1
@@ -1047,10 +1047,10 @@ with-infected?
 -1000
 
 MONITOR
-1871
-1210
-2092
-1255
+1731
+1204
+1952
+1249
 NIL
 closed-schools?
 17
@@ -1058,10 +1058,10 @@ closed-schools?
 11
 
 SWITCH
-1870
-1102
-2092
-1135
+1730
+1096
+1952
+1129
 is-closing-school-when-any-reported-case-measure?
 is-closing-school-when-any-reported-case-measure?
 1
@@ -1084,10 +1084,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1870
-1009
-2092
-1042
+1730
+1003
+1952
+1036
 ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
@@ -1099,10 +1099,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-1870
-1041
-2093
-1102
+1730
+1035
+1953
+1096
 #days-trigger-school-closing-measure
 10000.0
 1
@@ -1110,10 +1110,10 @@ INPUTBOX
 Number
 
 SLIDER
-2283
+1962
+1002
+2230
 1035
-2551
-1068
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
@@ -1125,10 +1125,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-2283
-1067
-2552
-1128
+1962
+1034
+2231
+1095
 #days-trigger-non-essential-business-closing-measure
 10000.0
 1
@@ -1136,10 +1136,10 @@ INPUTBOX
 Number
 
 MONITOR
-2283
-1175
-2556
-1220
+1962
+1142
+2235
+1187
 NIL
 closed-non-essential?
 17
@@ -1434,10 +1434,10 @@ household-profiles
 0
 
 SLIDER
-2548
-686
-2835
-719
+2216
+663
+2503
+696
 ratio-population-randomly-tested-daily
 ratio-population-randomly-tested-daily
 0
@@ -1449,10 +1449,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-2546
-760
-2836
-793
+2214
+737
+2504
+770
 test-workplace-of-confirmed-people?
 test-workplace-of-confirmed-people?
 1
@@ -1460,10 +1460,10 @@ test-workplace-of-confirmed-people?
 -1000
 
 SWITCH
-2546
-723
-2835
-756
+2214
+700
+2503
+733
 test-home-of-confirmed-people?
 test-home-of-confirmed-people?
 1
@@ -1471,10 +1471,10 @@ test-home-of-confirmed-people?
 -1000
 
 TEXTBOX
-2662
-656
-2812
-674
+2330
+633
+2480
+651
 Testing
 11
 105.0
@@ -1611,30 +1611,30 @@ count retireds
 11
 
 TEXTBOX
-1939
-982
-2022
-1000
+1799
+976
+1882
+994
 Closing schools\n
 11
 105.0
 1
 
 TEXTBOX
-2363
-1009
-2513
-1027
+2042
+976
+2192
+994
 Closing workplaces
 11
 105.0
 1
 
 TEXTBOX
-2653
-998
-2803
-1016
+2310
+977
+2460
+995
 Closing universities
 11
 105.0
@@ -1671,30 +1671,30 @@ Density settings influence risk of becoming sick when travelling locally (is rel
 1
 
 TEXTBOX
-2856
-838
-3031
-869
+2524
+815
+2699
+846
 All people at home are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2855
-878
-3037
-907
+2523
+855
+2705
+884
 All people at work are tested if one is confirmed sick.
 9
 105.0
 1
 
 TEXTBOX
-2843
-998
-3038
-1026
+2263
+1047
+2458
+1075
 General Lockdown Measures
 11
 105.0
@@ -1877,10 +1877,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2612
-1213
-2966
-1246
+2479
+1046
+2833
+1079
 social-distancing-density-factor
 social-distancing-density-factor
 0
@@ -1892,35 +1892,35 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-2765
-1150
-2915
-1168
+2632
+983
+2782
+1001
 Social distancing
 11
 105.0
 1
 
 SLIDER
-2614
-1176
-2968
-1209
+2481
+1009
+2835
+1042
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-1.0
+0.05
 0.01
 1
 NIL
 HORIZONTAL
 
 MONITOR
-2612
-1250
-2798
-1295
+2479
+1083
+2665
+1128
 NIL
 is-social-distancing-measure-active?
 17
@@ -2210,10 +2210,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2808
-1249
-2965
-1294
+2675
+1082
+2832
+1127
 #social-distancing
 count people with [is-I-apply-social-distancing?]
 17
@@ -2304,10 +2304,10 @@ hospital-effectiveness
 11
 
 SLIDER
-2546
-943
-2840
-976
+2214
+920
+2508
+953
 ratio-population-daily-immunity-testing
 ratio-population-daily-immunity-testing
 0
@@ -2760,10 +2760,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2199
-945
-2425
-978
+2856
+1052
+3082
+1085
 percentage-news-watchers
 percentage-news-watchers
 0
@@ -2797,10 +2797,10 @@ INPUTBOX
 Number
 
 MONITOR
-2856
-921
-2984
-966
+2524
+898
+2652
+943
 NIL
 #tests-performed
 17
@@ -2842,10 +2842,10 @@ NIL
 1
 
 BUTTON
-2199
-901
-2422
-936
+2856
+1008
+3079
+1043
 NIL
 inform-people-of-measures
 NIL
@@ -3415,10 +3415,10 @@ r0
 11
 
 INPUTBOX
-3005
-911
-3123
-972
+2673
+888
+2791
+949
 #available-tests
 10000.0
 1
@@ -3426,10 +3426,10 @@ INPUTBOX
 Number
 
 SWITCH
-2546
-798
-2837
-831
+2214
+775
+2505
+808
 prioritize-testing-health-care?
 prioritize-testing-health-care?
 1
@@ -3454,10 +3454,10 @@ NIL
 1
 
 SWITCH
-2546
-868
-2838
-901
+2214
+845
+2506
+878
 do-not-test-youth?
 do-not-test-youth?
 0
@@ -3465,10 +3465,10 @@ do-not-test-youth?
 -1000
 
 SWITCH
-2546
-906
-2840
-939
+2214
+883
+2508
+916
 only-test-retirees-with-extra-tests?
 only-test-retirees-with-extra-tests?
 1
@@ -3622,10 +3622,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2822
-1078
-3035
-1123
+2242
+1127
+2455
+1172
 NIL
 is-hard-lockdown-active?
 17
@@ -3676,20 +3676,20 @@ count people-having-ever-been-recorded-as-positive-in-the-app
 11
 
 CHOOSER
-2852
-743
-3123
-788
+2520
+720
+2791
+765
 when-is-daily-testing-applied?
 when-is-daily-testing-applied?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
 1
 
 MONITOR
-2852
-688
-3024
-733
+2520
+665
+2692
+710
 NIL
 #tests-used-by-daily-testing
 17
@@ -3697,10 +3697,10 @@ NIL
 11
 
 SWITCH
-2545
-832
-2837
-865
+2213
+809
+2505
+842
 prioritize-testing-education?
 prioritize-testing-education?
 1
@@ -3881,10 +3881,10 @@ PENS
 "S-R" 1.0 0 -11033397 true "" "plot #cumulative-retireds-infector"
 
 MONITOR
-2827
-1528
-3186
-1573
+2826
+1538
+3185
+1583
 NIL
 ratio-quarantiners-currently-complying-to-quarantine
 17
@@ -4018,10 +4018,10 @@ ASSOCC\nincremental\nmodel\n(deprecated)
 1
 
 SWITCH
-2282
+1961
+1193
+2236
 1226
-2557
-1259
 is-working-from-home-recommended?
 is-working-from-home-recommended?
 1
@@ -4029,20 +4029,20 @@ is-working-from-home-recommended?
 -1000
 
 CHOOSER
-2479
-1609
-2614
-1654
+2374
+1553
+2509
+1598
 condition-phasing-out
 condition-phasing-out
 "35 days of quarantine" "#infected has decreased since 5 days ago" "hospital not overrun & #hospitalizations has decreased since 5 days ago" "never"
 3
 
 SWITCH
-1870
-1134
-2092
-1167
+1730
+1128
+1952
+1161
 is-closed-during-global-quarantine?
 is-closed-during-global-quarantine?
 0
@@ -4050,20 +4050,20 @@ is-closed-during-global-quarantine?
 -1000
 
 TEXTBOX
-2351
-1570
-2501
-1588
+2246
+1514
+2396
+1532
 Conditions for phasing out
 11
 105.0
 1
 
 MONITOR
-2625
-1609
-2834
-1654
+2520
+1553
+2729
+1598
 NIL
 current-governmental-model-phase
 17
@@ -4071,20 +4071,20 @@ current-governmental-model-phase
 11
 
 CHOOSER
-2333
-1609
-2479
-1654
+2228
+1553
+2374
+1598
 condition-for-acknowledging-the-crisis
 condition-for-acknowledging-the-crisis
 "ratio infected>2%" "never"
 1
 
 CHOOSER
-1870
-1165
-2092
-1210
+1730
+1159
+1952
+1204
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1"
@@ -4109,6 +4109,38 @@ TEXTBOX
 Solution for overriding the now-deprecated/unmaintained economy model.\nAt the start of each tick, people with less than 20 get 20$, so they don't end-up starving.
 11
 15.0
+1
+
+SWITCH
+2856
+1097
+3189
+1130
+Aware-of-working-at-home-at-start-of-simulation?
+Aware-of-working-at-home-at-start-of-simulation?
+0
+1
+-1000
+
+SWITCH
+2856
+1129
+3186
+1162
+Aware-of-social-distancing-at-start-of-simulation?
+Aware-of-social-distancing-at-start-of-simulation?
+0
+1
+-1000
+
+TEXTBOX
+2864
+981
+3014
+999
+Awareness of Measures
+11
+105.0
 1
 
 @#$#@#$#@

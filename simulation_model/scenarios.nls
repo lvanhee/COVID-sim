@@ -315,6 +315,8 @@ end
 
 to load-default-intervention-measures-settings
   set percentage-news-watchers 0.75
+  set Aware-of-working-at-home-at-start-of-simulation? true
+  set Aware-of-social-distancing-at-start-of-simulation? true
   ;by default: disable all measures aimed at minimizing the spread & mortality of the coronavirus
   disable-all-measures
 end
