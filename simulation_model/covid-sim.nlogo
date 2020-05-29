@@ -1042,7 +1042,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1092,7 +1092,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -1118,7 +1118,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -1277,7 +1277,7 @@ ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
 1
-0.4
+0.52
 0.01
 1
 NIL
@@ -1292,7 +1292,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.8
+0.52
 0.01
 1
 NIL
@@ -1307,7 +1307,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.6
+0.55
 0.01
 1
 NIL
@@ -1459,7 +1459,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-4.5
+2.8
 0.1
 1
 NIL
@@ -1509,7 +1509,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.6
+2.5
 0.1
 1
 NIL
@@ -1522,7 +1522,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -1880,7 +1880,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -2222,7 +2222,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-5.0
+2.68
 0.1
 1
 NIL
@@ -3430,7 +3430,7 @@ SWITCH
 915
 do-not-test-youth?
 do-not-test-youth?
-0
+1
 1
 -1000
 
@@ -3684,7 +3684,7 @@ SWITCH
 1405
 is-psychorigidly-staying-at-home-when-quarantining?
 is-psychorigidly-staying-at-home-when-quarantining?
-0
+1
 1
 -1000
 
@@ -3879,7 +3879,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-0
+1
 1
 -1000
 
@@ -3946,21 +3946,6 @@ count people with [is-officially-asked-to-quarantine?]
 17
 1
 11
-
-SLIDER
-1032
-1318
-1065
-1469
-ratio-parents-subsidy
-ratio-parents-subsidy
-0
-1
-0.1
-0.01
-1
-NIL
-VERTICAL
 
 SLIDER
 549
@@ -4058,7 +4043,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1"
-0
+1
 
 CHOOSER
 1823
@@ -4104,7 +4089,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4130,7 +4115,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4225,7 +4210,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4249,7 +4234,7 @@ CHOOSER
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2"
-0
+2
 
 MONITOR
 2806
@@ -4280,7 +4265,7 @@ CHOOSER
 force-release-recommendation-working-from-home-after-phase
 force-release-recommendation-working-from-home-after-phase
 "never" "phase-1" "phase-2"
-2
+0
 
 SLIDER
 2103
@@ -4386,7 +4371,7 @@ ratio-capacity-partial-opening-private-leisure
 ratio-capacity-partial-opening-private-leisure
 0
 1
-0.52
+0.5
 0.01
 1
 NIL
@@ -4442,7 +4427,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4466,7 +4451,7 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2"
-0
+2
 
 SLIDER
 2335
@@ -4502,7 +4487,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -9496,8 +9481,8 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-parents-subsidy">
-      <value value="0.1"/>
+    <enumeratedValueSet variable="parent-individual-subsidy-per-child-per-tick">
+      <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
       <value value="0"/>
@@ -9517,8 +9502,8 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="ratio-retired-with-phones">
       <value value="1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retirees-subsidy">
-      <value value="0.73"/>
+    <enumeratedValueSet variable="retirees-tick-subsidy">
+      <value value="2.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-school-subsidy">
       <value value="0.03"/>
@@ -9535,8 +9520,8 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="ratio-student-shared-car">
       <value value="0.1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-students-subsidy">
-      <value value="0.24"/>
+    <enumeratedValueSet variable="students-tick-subsidy">
+      <value value="1.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-tax-on-essential-shops">
       <value value="0.52"/>
