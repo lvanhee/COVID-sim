@@ -49,7 +49,7 @@ to check-phasing-out
     ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
   ]
 
-  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase and current-day - day-of-last-phase-shift >= minimum-days-between-phases [
+  if current-governmental-model-phase = ongoing-crisis-governmental-model-phase and current-day - day-of-last-phase-shift > minimum-days-between-phases [
     if can-go-to-next-phase? [
       set current-governmental-model-phase phase-1-phasing-out-state
       set day-of-last-phase-shift current-day
@@ -58,7 +58,7 @@ to check-phasing-out
     ;error (sentence "not implemented for" current-governmental-model-phase condition-phasing-out)
   ]
 
-  if current-governmental-model-phase = phase-1-phasing-out-state and current-day - day-of-last-phase-shift >= minimum-days-between-phases [
+  if current-governmental-model-phase = phase-1-phasing-out-state and current-day - day-of-last-phase-shift > minimum-days-between-phases [
     if can-go-to-next-phase? [
       set current-governmental-model-phase phase-2-phasing-out-state
       set day-of-last-phase-shift current-day
