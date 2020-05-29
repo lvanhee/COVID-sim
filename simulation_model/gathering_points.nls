@@ -279,45 +279,6 @@ to-report  is-someone-officially-sick?
 end
 
 
-to-report gathering-points-total-amount-of-capital
-  report sum [amount-of-capital] of gathering-points
-end
-
-to-report essential-shop-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "essential-shop"]
-end
-
-to-report non-essential-shop-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "non-essential-shop"]
-end
-
-to-report university-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "university"]
-end
-
-to-report hospital-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "hospital"]
-end
-
-to-report school-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "school"]
-end
-
-to-report workplace-amount-of-capital
-  report sum [amount-of-capital] of gathering-points with [gathering-type = "workplace"]
-end
-
-to-report essential-shop-amount-of-goods-in-stock
-  report sum [stock-of-goods] of gathering-points with [gathering-type = "essential-shop"]
-end
-
-to-report non-essential-shop-amount-of-goods-in-stock
-  report sum [stock-of-goods] of gathering-points with [gathering-type = "non-essential-shop"]
-end
-
-to-report workplace-amount-of-goods-in-stock
-  report sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
-end
 
 to-report is-leisure-point?
   report is-public-leisure? or is-private-leisure?
@@ -365,4 +326,8 @@ end
 
 to-report homes-in-isolation
   report homes with [home-in-isolation?]
+end
+
+to-report my-housemates
+  report [gatherers] of my-home
 end

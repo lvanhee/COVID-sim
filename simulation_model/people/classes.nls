@@ -1,3 +1,11 @@
 to-report youngs
   report people with [is-young?]
 end
+
+to-report is-parent?
+  report is-worker? and any? my-housemates with [is-young?]
+end
+
+to-report parents
+  report people with [is-parent?]
+end

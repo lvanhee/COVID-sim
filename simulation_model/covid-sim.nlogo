@@ -1,5 +1,5 @@
 extensions [profiler table]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "behaviourspace.nls" "utils/all_utils.nls"]
+__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls"]
 breed [people person]
 
 globals [
@@ -976,7 +976,7 @@ count people with [[gathering-type] of current-activity = \"hospital\"]
 PLOT
 10
 834
-518
+517
 1153
 Average need satisfaction
 time
@@ -1042,7 +1042,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1277,7 +1277,7 @@ ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
 1
-0.52
+0.4
 0.01
 1
 NIL
@@ -1292,7 +1292,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.52
+0.8
 0.01
 1
 NIL
@@ -1307,7 +1307,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.55
+0.6
 0.01
 1
 NIL
@@ -1373,36 +1373,6 @@ ratio-university-subsidy
 0
 1
 0.03
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-784
-1444
-957
-1477
-ratio-retirees-subsidy
-ratio-retirees-subsidy
-0
-1
-0.73
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-785
-1482
-957
-1515
-ratio-students-subsidy
-ratio-students-subsidy
-0
-1
-0.24
 0.01
 1
 NIL
@@ -1489,7 +1459,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-2.8
+4.5
 0.1
 1
 NIL
@@ -1539,7 +1509,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-2.5
+1.6
 0.1
 1
 NIL
@@ -1780,10 +1750,10 @@ NIL
 11
 
 SWITCH
-787
-1529
-987
-1562
+790
+1558
+990
+1591
 government-pays-wages?
 government-pays-wages?
 1
@@ -1791,10 +1761,10 @@ government-pays-wages?
 -1000
 
 SLIDER
-787
-1569
-1058
-1602
+790
+1598
+1061
+1631
 ratio-of-wage-paid-by-the-government
 ratio-of-wage-paid-by-the-government
 0
@@ -1806,10 +1776,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-787
-1609
-986
-1669
+790
+1631
+989
+1691
 government-initial-reserve-of-capital
 10000.0
 1
@@ -1910,7 +1880,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -2252,7 +2222,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-2.68
+5.0
 0.1
 1
 NIL
@@ -2660,10 +2630,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3459
-90
-3582
-123
+3464
+254
+3619
+287
 value-std-dev
 value-std-dev
 0
@@ -3909,7 +3879,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-1
+0
 1
 -1000
 
@@ -3978,10 +3948,10 @@ count people with [is-officially-asked-to-quarantine?]
 11
 
 SLIDER
-967
-1330
-1000
-1481
+1032
+1318
+1065
+1469
 ratio-parents-subsidy
 ratio-parents-subsidy
 0
@@ -4088,7 +4058,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1"
-1
+0
 
 CHOOSER
 1823
@@ -4176,6 +4146,75 @@ closed-universities?
 17
 1
 11
+
+INPUTBOX
+782
+1437
+877
+1497
+retirees-tick-subsidy
+2.5
+1
+0
+Number
+
+INPUTBOX
+876
+1437
+1031
+1497
+students-tick-subsidy
+1.5
+1
+0
+Number
+
+INPUTBOX
+805
+1496
+1024
+1556
+parent-individual-subsidy-per-child-per-tick
+2.0
+1
+0
+Number
+
+TEXTBOX
+3285
+183
+3473
+206
+Cultural tightness settings
+11
+83.0
+1
+
+SWITCH
+3284
+212
+3542
+245
+activate-intra-cultural-variation?
+activate-intra-cultural-variation?
+1
+1
+-1000
+
+SLIDER
+3283
+254
+3456
+287
+cultural_tightness
+cultural_tightness
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 SLIDER
 2812
@@ -4307,10 +4346,10 @@ Solution for overriding the now-deprecated/unmaintained economy model.\nAt the s
 1
 
 SWITCH
-2845
-1731
-3178
-1764
+1828
+920
+2081
+953
 Aware-of-working-at-home-at-start-of-simulation?
 Aware-of-working-at-home-at-start-of-simulation?
 0
@@ -4318,10 +4357,10 @@ Aware-of-working-at-home-at-start-of-simulation?
 -1000
 
 SWITCH
-2845
-1763
-3175
-1796
+1828
+952
+2080
+985
 Aware-of-social-distancing-at-start-of-simulation?
 Aware-of-social-distancing-at-start-of-simulation?
 0
@@ -4329,10 +4368,10 @@ Aware-of-social-distancing-at-start-of-simulation?
 -1000
 
 TEXTBOX
-3230
-1698
-3380
-1716
+1856
+897
+2006
+915
 Awareness of Measures
 11
 105.0

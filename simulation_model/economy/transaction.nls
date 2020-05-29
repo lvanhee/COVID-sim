@@ -1,0 +1,203 @@
+to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
+
+  let a2-to-a1-completed? false
+  let a1-to-a2-completed? false
+  
+  if is-cash-transfer? value-a1-to-a2
+  [
+    perform-cash-transfer a1 a2 (cash-value-of value-a1-to-a2)
+    set a1-to-a2-completed? true
+  ]
+  
+  if is-cash-transfer? value-a2-to-a1
+  [
+    perform-cash-transfer a2 a1 (cash-value-of value-a2-to-a1)
+    set a2-to-a1-completed? true
+  ]
+  
+  if  is-enjoy-luxury-good? value-a2-to-a1
+  [
+    ask a2 [set stock-of-goods stock-of-goods - last value-a2-to-a1]
+    ;no action for a1
+     set a2-to-a1-completed? true
+  ]
+  
+  ;;work performance could be related to another part of the model; but let's save it here for now & simplicity
+  if is-work-counterpart? value-a1-to-a2
+  [
+    perform-the-effect-of-working a1 a2 
+    set a1-to-a2-completed? true
+  ]
+  
+  if is-work-counterpart? value-a2-to-a1
+  [
+    perform-the-effect-of-working a2 a1  
+    set a2-to-a1-completed? true
+  ]
+    
+  if is-deliver-counterpart? value-a1-to-a2 [
+ ;   show (sentence a1 a2 value-a2-to-a1 value-a1-to-a2)
+    deliver-goods-from-to a1 a2 amount-to-deliver-for value-a1-to-a2  set a1-to-a2-completed? true]
+  if is-deliver-counterpart? value-a2-to-a1 [
+ ;   show (sentence a1 a2 value-a2-to-a1 value-a1-to-a2)
+    deliver-goods-from-to a2 a1 amount-to-deliver-for value-a2-to-a1  set a2-to-a1-completed? true]
+    
+  if is-loan-counterpart? value-a1-to-a2
+  [
+    perform-loan-transfer a1 a2 (loan-value-of value-a1-to-a2)
+    set a1-to-a2-completed? true
+  ]
+  
+  if is-loan-counterpart? value-a2-to-a1
+  [
+    perform-loan-transfer a2 a1 (loan-value-of value-a2-to-a1)
+    set a2-to-a1-completed? true
+  ]
+  
+  if is-nothing? value-a1-to-a2 [set a1-to-a2-completed? true]
+  if is-nothing? value-a2-to-a1 [set a2-to-a1-completed? true]
+  
+  if a1-to-a2-completed? and a2-to-a1-completed? [stop]
+  
+  if is-gathering-point? a2 [show [gathering-type] of a2]
+  error (sentence "not implemented" a1 a2 value-a2-to-a1 value-a1-to-a2)
+end
+
+to deliver-goods-from-to [a1 a2 amount-to-deliver]  
+  ask a1 [
+    if is-gathering-point? self [set stock-of-goods stock-of-goods - amount-to-deliver stop] 
+    error "not implemented" ]
+  ask a2 [
+    if is-gathering-point? self [set stock-of-goods stock-of-goods + amount-to-deliver stop]
+    if is-person? a2 [ask my-home [set available-food-rations available-food-rations + amount-to-deliver] stop]
+    error "not implemented" ]
+end
+
+
+
+to-report cash-value-of [counterpart]
+  report last counterpart
+end
+
+to-report amount-to-deliver-for [counterpart]
+  report last counterpart
+end
+
+to-report loan-value-of [counterpart]
+  report last counterpart
+end
+
+to-report is-cash-transfer? [value]
+  if value = "work" [report false]
+  if is-work-counterpart? value [report false]
+  if is-deliver-counterpart? value [report false]
+  if is-nothing? value [report false]
+  if is-salary-counterpart? value [report true]
+  if is-subsidy-counterpart? value [report true]
+  if is-payment-counterpart? value [report true]
+  if is-tax-counterpart? value [report true]
+  if is-trade-counterpart? value [report true]
+  if is-loan-counterpart? value [report false]
+  if is-enjoy-luxury-good? value [report false]
+  error (sentence "unimplemented for:" value)
+end
+
+to-report is-salary-counterpart? [v]
+  report first v = "salary"
+end
+
+to-report is-work-counterpart? [v]
+  report first v = "work"
+end
+
+to-report is-subsidy-counterpart? [v]
+  report first v = "subsidy"
+end
+
+to-report is-payment-counterpart? [v]
+  report first v = "payment"
+end
+
+to-report is-tax-counterpart? [v]
+  report first v = "tax"
+end
+
+to-report is-trade-counterpart? [v]
+  report first v = "trade"
+end
+
+to-report is-loan-counterpart? [v]
+  report first v = "loan"
+end
+
+to-report salary-value-from [v]
+  report last v
+end
+
+to-report is-government? [v]
+  report v = "government"
+end
+
+to-report is-nothing? [v]
+  report first v = "nothing"
+end
+
+to-report to-monetary-counterpart [val]
+  report (list "payment" val)
+end
+
+to-report to-deliver-counterpart [val]
+  report (list "deliver" val)
+end
+
+
+to-report to-subsidy-counterpart [val]
+  report (list "subsidy" val)
+end
+
+to-report no-counterpart
+  report (list "nothing")
+end
+
+
+to-report is-deliver-counterpart? [counterpart]
+  report first counterpart = "deliver"
+end
+
+to perform-cash-transfer [a1 a2 amount]
+  ;from a1 to a2
+  
+  ifelse is-government? a1
+  [
+    
+    set government-reserve-of-capital government-reserve-of-capital - amount
+    ask a2 [increase-capital-by amount]
+  ]
+  [
+    ifelse is-government? a2
+    [
+      if amount < 0 [error "no-one takes from the governement!"]
+ ;     show (sentence "receiving fund" a1 amount)
+      ask a1 [increase-capital-by (- amount)]
+      set government-reserve-of-capital government-reserve-of-capital + amount
+    ]
+    [
+      ask a1 [increase-capital-by (- amount)]
+      ask a2 [increase-capital-by amount]
+    ]
+  ]
+  
+  set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick + abs amount
+end
+
+to pay-taxes-to-the-governement [val]
+  perform-transaction "government" self (list "tax" val) (list "nothing")
+end
+
+to-report to-enjoy-luxury-good [#goods]
+  report (list "enjoy-luxury" #goods)
+end
+
+to-report is-enjoy-luxury-good? [l]
+  report first l = "enjoy-luxury"
+end

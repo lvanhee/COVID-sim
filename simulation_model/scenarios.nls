@@ -477,13 +477,16 @@ to load-default-economic-parameters
   set ratio-school-subsidy 0.03
   set ratio-hospital-subsidy 0.04
   set ratio-university-subsidy 0.03
-  set ratio-retirees-subsidy 0.73
-  set ratio-students-subsidy 0.24
-  set ratio-parents-subsidy 0.1
   
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8
   set government-initial-reserve-of-capital 10000
+  
+  error "work in progress"
+  set retirees-tick-subsidy 3
+  set students-tick-subsidy 1.5
+  set parent-individual-subsidy-per-child-per-tick 2
+ 
 end
 
 to load-default-household-profiles

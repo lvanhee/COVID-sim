@@ -87,11 +87,11 @@ to update-resources-based-on-current-activity
 
     set amount-of-rations-to-buy min (list amount-of-rations-to-buy available-goods-in-my-essential-shop)
 
-    let amount-spent amount-of-rations-to-buy * price-of-rations-in-essential-shops
+    let amount-spent amount-of-rations-to-buy * price-of-rations-in-essential-shops * my-wealth-price-increase-factor
 
-    perform-transaction self current-activity (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent)
+    perform-transaction self current-activity (to-deliver-counterpart amount-of-rations-to-buy) (to-monetary-counterpart amount-spent)
     
-    ;show (sentence "buying food:" self current-activity  amount-of-rations-I-buy-when-going-to-essential-shops (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent))
+  ;  show (sentence "buying food:" self current-activity  amount-of-rations-I-buy-when-going-to-essential-shops (to-deliver-counterpart amount-of-rations-to-buy) (to-monetary-counterpart amount-spent) essential-shop-amount-of-capital)
 
     stop
   ]
@@ -110,7 +110,7 @@ to update-resources-based-on-current-activity
       set amount-of-last-luxury-items-bought amount-of-rations-to-buy
       let amount-spent amount-of-rations-to-buy * price-of-rations-in-non-essential-shops
 
-      perform-transaction self current-activity (list "purchase" amount-of-rations-to-buy) (list "payment" amount-spent)
+      perform-transaction self current-activity (to-enjoy-luxury-good amount-of-rations-to-buy) (to-monetary-counterpart amount-spent)
     ]
     stop
   ]

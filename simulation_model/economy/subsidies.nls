@@ -1,0 +1,17 @@
+to allocate-personal-subsidies
+  ask people
+  [
+    perform-transaction self "government" (list "subsidy" my-subsidy) (list "nothing")
+  ]   
+end
+
+to-report my-subsidy
+  if is-retired? [ report retirees-tick-subsidy]
+  if is-student? [ report students-tick-subsidy]
+  if is-parent? [
+    let #parents count my-housemates with [is-worker?]
+    let #children count my-housemates with [is-young?]
+    report parent-individual-subsidy-per-child-per-tick * #children / #parents
+  ]
+  report 0
+end

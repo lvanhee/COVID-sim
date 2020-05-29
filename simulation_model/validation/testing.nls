@@ -1,4 +1,10 @@
-__includes ["behaviourspace_sanity_checks.nls" "behaviourspace_scenario_1_checks.nls" "behaviourspace_scenario_2_checks.nls" "behaviourspace_scenario_3_checks.nls" "behaviourspace_scenario_9_checks.nls" "behaviourspace_utils.nls" "validation/scenario4.nls"]
+__includes ["validation/sanity.nls" 
+  "validation/behaviourspace_scenario_1_checks.nls" 
+  "validation/behaviourspace_scenario_2_checks.nls" 
+  "validation/behaviourspace_scenario_3_checks.nls"
+  "validation/behaviourspace_scenario_9_checks.nls" 
+  "validation/behaviourspace_utils.nls"
+  "validation/scenario4.nls"]
 
 ;;change counts to non-essential + public leisure (or count seperate and sum up later) as closing non-essential will make them go to public leisure
 ;; add work-from-home scenario
