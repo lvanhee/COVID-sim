@@ -2630,10 +2630,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-3459
-90
-3582
-123
+3464
+254
+3619
+288
 value-std-dev
 value-std-dev
 0
@@ -4084,8 +4084,8 @@ Solution for overriding the now-deprecated/unmaintained economy model.\nAt the s
 SWITCH
 2856
 1097
-3189
-1130
+3221
+1131
 Aware-of-working-at-home-at-start-of-simulation?
 Aware-of-working-at-home-at-start-of-simulation?
 0
@@ -4095,8 +4095,8 @@ Aware-of-working-at-home-at-start-of-simulation?
 SWITCH
 2856
 1129
-3186
-1162
+3220
+1163
 Aware-of-social-distancing-at-start-of-simulation?
 Aware-of-social-distancing-at-start-of-simulation?
 0
@@ -4145,6 +4145,42 @@ parent-individual-subsidy-per-child-per-tick
 1
 0
 Number
+
+TEXTBOX
+3285
+183
+3473
+206
+Cultural tightness settings
+11
+83.0
+1
+
+SWITCH
+3284
+212
+3542
+246
+activate-intra-cultural-variation?
+activate-intra-cultural-variation?
+1
+1
+-1000
+
+SLIDER
+3283
+254
+3456
+288
+cultural_tightness
+cultural_tightness
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
