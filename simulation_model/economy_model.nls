@@ -1,4 +1,4 @@
-__includes ["macro_economic_model.nls"]
+__includes ["macro_economic_model.nls" "economy/subsidies.nls" "economy/stock_management.nls" "economy/transaction.nls"]
 
 globals[
   government-reserve-of-capital
@@ -28,7 +28,7 @@ to reset-economy-measurements
 end
 
 to run-economic-cycle
-  run-macro-economics
+;  run-macro-economics
   perform-payment-of-fixed-costs
   perform-trades-between-gathering-points
   perform-government-actions
@@ -62,12 +62,28 @@ to perform-payment-of-fixed-costs
   ]
 end
 
+to-report bankrupt-businesses
+  report businesses with [is-bankrupt?]
+end
+
+to-report is-bankrupt?
+  report amount-of-capital = 0
+end
+
+
+to-report businesses
+  report (turtle-set essential-shops non-essential-shops workplaces)
+end
+
 to perform-trades-between-gathering-points
   
-  let total-amount-of-goods-available-in-workplaces sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
+  let total-amount-of-goods-available-in-workplaces sum [stock-of-goods] of workplaces
   let virtual-total-amount-of-goods-available-in-workplaces total-amount-of-goods-available-in-workplaces
   let virtual-total-amount-of-goods-available-in-workplaces-converted-to-capital virtual-total-amount-of-goods-available-in-workplaces * unit-price-of-goods
   let actual-amount-of-stocks-bought 0
+  
+  
+  refresh-stocks-of-essential-shops
   
   ;essential-shop
   let total-capital-available-in-essential-shops-to-buy-goods 0
@@ -149,49 +165,39 @@ to perform-trades-between-gathering-points
   ]
 end
 
-to-report is-salary-value? [v]
-  report first v = "salary"
+to perform-the-effect-of-working [workr place]  
+  ifelse is-person? workr and is-gathering-point? place
+    [
+      if [is-workplace?] of place
+      [
+        let goods-produced goods-produced-by-work-performed
+        
+        if [is-at-home?] of workr
+        [
+          set goods-produced goods-produced * productivity-at-home
+        ]
+        
+        ask place [set stock-of-goods stock-of-goods + goods-produced 
+          if stock-of-goods >  my-max-stock-of-goods
+          [
+            ;;overstock => export = make profit & give money to the state + instant disappear
+            let excedent stock-of-goods - my-max-stock-of-goods
+            let export-value-decay-factor 0.5
+            let price-sold unit-price-of-goods * excedent * export-value-decay-factor
+            let vat export-value-decay-factor * 0.2
+            ask place [set amount-of-capital amount-of-capital + price-sold]
+            pay-taxes-to-the-governement vat
+            set stock-of-goods my-max-stock-of-goods
+          ]
+        ]
+        set goods-production-of-total-system goods-production-of-total-system + goods-produced
+      ]
+  ]
+  [error (sentence workr place)]
 end
 
-to-report is-work-value? [v]
-  report first v = "work"
-end
 
-to-report is-purchase-value? [v]
-  report first v = "purchase"
-end
 
-to-report is-subsidy-value? [v]
-  report first v = "subsidy"
-end
-
-to-report is-payment-value? [v]
-  report first v = "payment"
-end
-
-to-report is-tax-value? [v]
-  report first v = "tax"
-end
-
-to-report is-trade-value? [v]
-  report first v = "trade"
-end
-
-to-report is-loan-value? [v]
-  report first v = "loan"
-end
-
-to-report salary-value-from [v]
-  report last v
-end
-
-to-report is-government? [v]
-  report v = "government"
-end
-
-to-report is-nothing? [v]
-  report first v = "nothing"
-end
 
 to increase-capital-by [val]
   
@@ -232,28 +238,6 @@ to increase-debt-by [val]
   ]
 end
 
-to perform-cash-transfer [a1 a2 amount]
-  ;from a1 to a2
-  
-  ifelse is-government? a1
-  [
-    set government-reserve-of-capital government-reserve-of-capital - amount
-    ask a2 [increase-capital-by amount]
-  ]
-  [
-    ifelse is-government? a2
-    [
-      ask a1 [increase-capital-by (- amount)]
-      set government-reserve-of-capital government-reserve-of-capital + amount
-    ]
-    [
-      ask a1 [increase-capital-by (- amount)]
-      ask a2 [increase-capital-by amount]
-    ]
-  ]
-  
-  set total-amount-of-transaction-for-this-tick total-amount-of-transaction-for-this-tick + abs amount
-end
 
 to perform-loan-transfer [a1 a2 amount]
   ;amount > 0: a1 grants a loan, a2 get a loan
@@ -266,238 +250,59 @@ to perform-loan-transfer [a1 a2 amount]
   ask a2 [increase-debt-by amount]
 end
 
-to-report is-cash-transfer? [value]
-  if value = "work" [report false]
-  if is-work-value? value [report false]
-  if is-purchase-value? value [report false]
-  if is-nothing? value [report false]
-  if is-salary-value? value [report true]
-  if is-subsidy-value? value [report true]
-  if is-payment-value? value [report true]
-  if is-tax-value? value [report true]
-  if is-trade-value? value [report true]
-  if is-loan-value? value [report false]
-  error (sentence "unimplemented for:" value)
+
+to-report my-tax-ratio
+  if is-essential-shop? [report ratio-tax-on-essential-shops]
+  if is-non-essential-shop? [report ratio-tax-on-non-essential-shops]
+  if is-workplace? [report ratio-tax-on-workplaces]
 end
 
-to-report cash-value-of [v]
-  report last v
+to-report taxable-economic-actors
+  report businesses
 end
-
-to-report purchase-amount-of [v]
-  report last v
-end
-
-to-report loan-value-of [v]
-  report last v
-end
-
-to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
-
-  let a2-to-a1-completed? false
-  let a1-to-a2-completed? false
-  
-  if is-cash-transfer? value-a1-to-a2
-  [
-    perform-cash-transfer a1 a2 (cash-value-of value-a1-to-a2)
-    set a1-to-a2-completed? true
-  ]
-  
-  if is-cash-transfer? value-a2-to-a1
-  [
-    perform-cash-transfer a2 a1 (cash-value-of value-a2-to-a1)
-    set a2-to-a1-completed? true
-  ]
-  
-  ;;work performance could be related to another part of the model; but let's save it here for now & simplicity
-  if is-work-value? value-a1-to-a2
-  [
-    if is-person? a1 and is-gathering-point? a2
-    [
-      if [is-workplace?] of a2
-      [
-        let goods-produced goods-produced-by-work-performed
-        
-        if [is-at-home?] of a1
-        [
-          set goods-produced goods-produced * productivity-at-home
-        ]
-        
-        ask a2 [set stock-of-goods stock-of-goods + goods-produced]
-        set goods-production-of-total-system goods-production-of-total-system + goods-produced
-      ]
-      set a1-to-a2-completed? true
-    ]
-  ]
-  
-  if is-work-value? value-a2-to-a1
-  [
-    if is-person? a2 and is-gathering-point? a1
-    [
-      if [is-workplace?] of a1
-      [
-        let goods-produced goods-produced-by-work-performed
-        
-        if [is-at-home?] of a2
-        [
-          set goods-produced goods-produced * productivity-at-home
-        ]
-        
-        ask a1 [set stock-of-goods stock-of-goods + goods-produced]
-        set goods-production-of-total-system goods-production-of-total-system + goods-produced
-      ]
-      set a2-to-a1-completed? true
-    ]
-  ]
-  
-  if is-purchase-value? value-a1-to-a2
-  [
-    let purchase-amount purchase-amount-of value-a1-to-a2
-    if is-person? a2 and is-gathering-point? a1
-    [
-      ask a1 [set stock-of-goods stock-of-goods - purchase-amount]
-      if [is-essential-shop?] of a1
-      [
-        ask a2 [ask my-home [set available-food-rations available-food-rations + purchase-amount]]
-      ]
-      set a1-to-a2-completed? true
-    ]
-  ]
-  
-  if is-purchase-value? value-a2-to-a1
-  [
-    let purchase-amount purchase-amount-of value-a2-to-a1
-    if is-person? a1 and is-gathering-point? a2
-    [
-      ask a2 [set stock-of-goods stock-of-goods - purchase-amount]
-      if [is-essential-shop?] of a2
-      [
-        ask a1 [ask my-home [set available-food-rations available-food-rations + purchase-amount]]
-      ]
-      set a2-to-a1-completed? true
-    ]
-  ]
-  
-  if is-loan-value? value-a1-to-a2
-  [
-    perform-loan-transfer a1 a2 (loan-value-of value-a1-to-a2)
-    set a1-to-a2-completed? true
-  ]
-  
-  if is-loan-value? value-a2-to-a1
-  [
-    perform-loan-transfer a2 a1 (loan-value-of value-a2-to-a1)
-    set a2-to-a1-completed? true
-  ]
-  
-  if is-nothing? value-a1-to-a2 [set a1-to-a2-completed? true]
-  if is-nothing? value-a2-to-a1 [set a2-to-a1-completed? true]
-  
-  if a1-to-a2-completed? and a2-to-a1-completed? [stop]
-  
-  if is-gathering-point? a2 [show [gathering-type] of a2]
-  error (sentence "not implemented" a1 a2 value-a2-to-a1 value-a1-to-a2)
-end
-
 to perform-government-actions
   ;collect taxes
-  let taxes-collected 0
-
-  ask essential-shops
-  [
-    if current-profit > 0
-    [
-      let tax-amount current-profit * ratio-tax-on-essential-shops
-      set taxes-collected taxes-collected + tax-amount
-      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
-    ]
-  ]
-
-  ask non-essential-shops
-  [
-    if current-profit > 0
-    [
-      let tax-amount current-profit * ratio-tax-on-non-essential-shops
-      set taxes-collected taxes-collected + tax-amount
-      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
-    ]
-  ]
-
-  ask gathering-points with [gathering-type = "workplace"]
-  [
-    if current-profit > 0
-    [
-      let tax-amount current-profit * ratio-tax-on-workplaces
-      set taxes-collected taxes-collected + tax-amount
-      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
-    ]
-  ]
-
-  ask people with [age = "worker"]
-  [
-    if my-current-income > 0
-    [
-      let tax-amount my-current-income * ratio-tax-on-workers
-      set taxes-collected taxes-collected + tax-amount
-      perform-transaction "government" self (list "tax" tax-amount) (list "nothing")
-    ]
-  ]
-
-  ;redistribution
-  let school-subsidy taxes-collected * ratio-school-subsidy
-  let hospital-subsidy taxes-collected * ratio-hospital-subsidy
-  let university-subsidy taxes-collected * ratio-university-subsidy
-  let retirees-subsidy taxes-collected * ratio-retirees-subsidy
-  let students-subsidy taxes-collected * ratio-students-subsidy
-  let parents-subsidy taxes-collected * ratio-parents-subsidy
   
-  let n-of-schools count gathering-points with [gathering-type = "school"]
-  ask gathering-points with [gathering-type = "school"]
+  ;;not good, taxes are about income, not profit
+  ask taxable-economic-actors with [current-profit > 0]
   [
-    let subsidy school-subsidy / n-of-schools
-    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
-  ]
-
-  let n-of-hospitals count gathering-points with [gathering-type = "hospital"]
-  ask gathering-points with [gathering-type = "hospital"]
-  [
-    let subsidy hospital-subsidy / n-of-hospitals
-    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
-  ]
-
-  let n-of-universities count gathering-points with [gathering-type = "university"]
-  ask gathering-points with [gathering-type = "university"]
-  [
-    let subsidy university-subsidy / n-of-universities
-    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
-  ]
-
-  let n-of-retirees count people with [age = "retired"]
-  ask people with [age = "retired"]
-  [
-    let subsidy retirees-subsidy / n-of-retirees
-    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
-  ]
-
-  let n-of-students count people with [age = "student"]
-  ask people with [age = "student"]
-  [
-    let subsidy students-subsidy / n-of-students
-    perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
+    let tax-amount current-profit * my-tax-ratio
+    pay-taxes-to-the-governement tax-amount 
   ]
   
-  ;parents subsidy
-  let n-of-children count people with [age = "young"]
-  ask people with [age = "young"]
+  ;;not good, taxes are about income, not profit
+  ask workers with [my-current-income > 0]
   [
-    let subsidy parents-subsidy / n-of-children
-    let n-of-my-parents count my-relatives with [age = "worker"]
-    set subsidy subsidy / n-of-my-parents
-    ask my-relatives with [age = "worker"]
-    [
-      perform-transaction self "government" (list "subsidy" subsidy) (list "nothing")
-    ]
+      let tax-amount my-current-income * ratio-tax-on-workers  
+      pay-taxes-to-the-governement tax-amount 
   ]
+  
+
+  allocate-personal-subsidies
+  
+  ask economic-activities-funded-by-the-government 
+  [
+    let missing-money my-default-available-liquidities - amount-of-capital
+    perform-transaction self "government" (to-subsidy-counterpart  missing-money) no-counterpart
+  ]
+end
+
+to-report my-wealth-price-increase-factor
+  let default-wealth-for-scaling 70
+  let minimum-for-survival default-wealth-for-scaling / 3
+  let res (my-amount-of-capital + minimum-for-survival) / default-wealth-for-scaling
+  
+  report res
+;if you have no money, you pay "half of the price" of what a normal person would get
+  ; if you get 70, you pay a bit more than average
+end
+
+to-report my-default-available-liquidities
+  report 1000
+end
+
+to-report economic-activities-funded-by-the-government 
+  report (turtle-set schools hospitals universities)
 end
 
 to-report #adult-people-out-of-capital
@@ -546,4 +351,44 @@ end
 
 to-report is-in-poverty?
   report price-of-rations-in-essential-shops * days-of-rations-bought > my-amount-of-capital
+end
+
+to-report gathering-points-total-amount-of-capital
+  report sum [amount-of-capital] of gathering-points
+end
+
+to-report essential-shop-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "essential-shop"]
+end
+
+to-report non-essential-shop-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "non-essential-shop"]
+end
+
+to-report university-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "university"]
+end
+
+to-report hospital-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "hospital"]
+end
+
+to-report school-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "school"]
+end
+
+to-report workplace-amount-of-capital
+  report sum [amount-of-capital] of gathering-points with [gathering-type = "workplace"]
+end
+
+to-report essential-shop-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "essential-shop"]
+end
+
+to-report non-essential-shop-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "non-essential-shop"]
+end
+
+to-report workplace-amount-of-goods-in-stock
+  report sum [stock-of-goods] of gathering-points with [gathering-type = "workplace"]
 end

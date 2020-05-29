@@ -3,15 +3,35 @@ to-report scenario-4-fitness [post-parameters-pre-setup-update]
 end
 
 to-report scenario-4-no-pandemic-fitness [post-parameters-pre-setup-update]
-  set preset-scenario "default-scenario"
+  ;set preset-scenario "default-scenario"
   set with-infected? false
   let #times-someone-with-food-safety<0.1 0
-  let duration-trial 500
+  let duration-trial 1500
+  set government-initial-reserve-of-capital 10000
   
   run post-parameters-pre-setup-update
   setup
-  repeat duration-trial [ go if any? people with [food-safety-satisfaction-level < 1] [set #times-someone-with-food-safety<0.1 #times-someone-with-food-safety<0.1 + (1 / duration-trial)]]
- 
- report 1 - #times-someone-with-food-safety<0.1 
+  repeat duration-trial [
+    go 
+    if any? people with [food-safety-satisfaction-level < .1] [
+      set #times-someone-with-food-safety<0.1 #times-someone-with-food-safety<0.1 + (1 / duration-trial)
+    ]
+    show (sentence "starving" count people with [food-safety-satisfaction-level < .1] "stocks of e-s" essential-shop-amount-of-goods-in-stock "capital e-s" essential-shop-amount-of-capital "capital w"  workplace-amount-of-capital)
+    if count people with [food-safety-satisfaction-level < .1] / count people > 0.1 [
+      error 
+      (sentence "too many people get their needs deprived in spite of being in a non-crisis scenario. Studs: " count students with [food-safety-satisfaction-level < .1]     
+        "workers:" count workers with [food-safety-satisfaction-level < .1] 
+        "par:" count parents with [food-safety-satisfaction-level < .1]          "ret:" count retireds with [food-safety-satisfaction-level < .1] )
+      
+    ]
+    
+    if  essential-shop-amount-of-capital < 100 [ error "capital of essential shops fall too low in a non-crisis scenario"]
+    
+    if essential-shop-amount-of-goods-in-stock < 100 [error "goods in stock for essential shops is depleted in spite of a non-crisis scenario"]
+    if government-reserve-of-capital < 0 [error "government capital should remain positive in non-crisis scenario"]
+  ]
+  
+  
+  report 1 - #times-someone-with-food-safety<0.1 
   
 end

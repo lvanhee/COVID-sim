@@ -371,15 +371,9 @@ to setup-activities
   
   ask gathering-points [set hired-workers (turtle-set)] 
   
-  ask gathering-points with [gathering-type = "school"] [set amount-of-capital 100]
-  ask gathering-points with [gathering-type = "university"] [set amount-of-capital 100]
-  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital 200 set stock-of-goods 100]
-  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
-  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital 100 set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
-  ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital 1000]
   setup-activity-animate-positions
- 
-
+ setup-economy
+  
   if migration?
   [
     create-gathering-points 1
@@ -389,8 +383,17 @@ to setup-activities
       set shape "airplane"
     ]
   ]
-
+  
   ask gathering-points with [gathering-type = 0] [error (sentence "ill defined " self)]
+end
+
+to setup-economy
+  ask gathering-points with [gathering-type = "school"] [set amount-of-capital my-default-available-liquidities]
+  ask gathering-points with [gathering-type = "university"] [set amount-of-capital my-default-available-liquidities]
+  ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital my-default-available-liquidities set stock-of-goods my-max-stock-of-goods]
+  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital my-default-available-liquidities set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
+  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital my-default-available-liquidities set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
+  ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital my-default-available-liquidities]
 end
 
 to setup-gathering-point-capacities

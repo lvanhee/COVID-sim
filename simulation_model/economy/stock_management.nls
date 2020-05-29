@@ -1,0 +1,19 @@
+to refresh-stocks-of-essential-shops
+  ask essential-shops with [not is-bankrupt? and max-stock-of-goods-in-a-shop - stock-of-goods > 0 ] [
+    let to-buy max-stock-of-goods-in-a-shop - stock-of-goods
+    
+    ;;get to one of the retailers and refill as much as possible
+    
+    let retailer one-of workplaces with [stock-of-goods > 0]
+    
+    let amount-of-goods-to-trade min (list to-buy [stock-of-goods] of retailer)
+    
+    let total-cost unit-price-of-goods * amount-of-goods-to-trade
+    
+    perform-transaction self retailer (to-deliver-counterpart amount-of-goods-to-trade) (to-monetary-counterpart total-cost)
+  ]
+end
+
+to-report my-max-stock-of-goods
+  report 500
+end
