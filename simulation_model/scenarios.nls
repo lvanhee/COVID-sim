@@ -499,15 +499,11 @@ to load-population-profile-based-on-current-preset-profile
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data.csv file" household-profiles)]
   file-close
   
-  set ratio-adults-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list  
-  set ratio-retired-couple-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list
-  set ratio-family-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list
-  set ratio-multi-generational-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list
-  
+  set ratio-adults-homes item 0 country-specific-data-list
+  set ratio-retired-couple-homes item 1 country-specific-data-list
+  set ratio-family-homes item 2 country-specific-data-list
+  set ratio-multi-generational-homes item 3 country-specific-data-list
+   
 
 end
 
