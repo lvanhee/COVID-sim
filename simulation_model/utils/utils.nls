@@ -42,16 +42,6 @@ to-report clamp-soft [number]
   report exp(-5 * exp(-4 * number))
 end
 
-
-to export-profiling
-  profiler:stop
-  let _fname "report.log"
-  carefully [file-delete _fname] []
-  file-open _fname
-  file-print profiler:report
-  file-close
-end
-
 to ask-user-for-export-file
     set import-scenario-name user-new-file
 end

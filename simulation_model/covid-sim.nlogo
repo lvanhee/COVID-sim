@@ -1,4 +1,4 @@
-extensions [profiler table]
+extensions [table]
 __includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls"]
 breed [people person]
 
@@ -37,15 +37,6 @@ to go
   ; Tick goes at the end of the go procedure for better plot updating
   tick
 end
-
-to go-profile
-  profiler:reset
-  profiler:start
-
-  repeat 10 [go]
-  export-profiling
-end
-
 
 to startup
   setup
