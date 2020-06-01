@@ -3357,7 +3357,7 @@ interest-rate-by-tick
 interest-rate-by-tick
 0
 0.01
-0.001
+0.0011
 0.0001
 1
 NIL
@@ -8976,6 +8976,7 @@ setup</setup>
   </experiment>
   <experiment name="S12-Frank_1" repetitions="10" runMetricsEveryStep="true">
     <setup>setup
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -9616,6 +9617,7 @@ setup-measures-for-phasing-out</setup>
   </experiment>
   <experiment name="S12-Frank_2" repetitions="10" runMetricsEveryStep="true">
     <setup>setup
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -10256,6 +10258,7 @@ setup-measures-for-phasing-out</setup>
   </experiment>
   <experiment name="S12-Frank_3" repetitions="10" runMetricsEveryStep="true">
     <setup>setup
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -10899,7 +10902,7 @@ setup-measures-for-phasing-out</setup>
 set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -11543,7 +11546,7 @@ setup-measures-for-phasing-out</setup>
 set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -12187,7 +12190,7 @@ setup-measures-for-phasing-out</setup>
 set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -12833,7 +12836,7 @@ set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledge
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -13479,7 +13482,7 @@ set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledge
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -14125,7 +14128,7 @@ set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledge
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -14769,7 +14772,7 @@ setup-measures-for-phasing-out</setup>
 set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -15413,7 +15416,7 @@ setup-measures-for-phasing-out</setup>
 set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
@@ -16057,7 +16060,7 @@ setup-measures-for-phasing-out</setup>
 set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
 set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
-if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases + 1]
+if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases - 1]
 setup-measures-for-phasing-out</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
