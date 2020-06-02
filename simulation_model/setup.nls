@@ -84,20 +84,29 @@ to setup-global-metrics
 end
 
 to setup-complying-to-quarantining-when-asked-value-based
+ 
   
-  ask max-n-of (ratio-self-quarantining-when-symptomatic * count people) people [
+  ifelse is-decision-to-quarantine-value-based?
+  [ ask people [ if random-float 1  < ratio-self-quarantining-when-symptomatic [
+    set decide-to-quarantine-when-symptomatic-when-asked? true
+    ]
+    if random-float 1  < ratio-self-quarantining-when-symptomatic [
+      set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? true
+    ]
+    ]
+  ]
+  [ ask max-n-of (ratio-self-quarantining-when-symptomatic * count people) people [
     importance-weight-risk-avoidance +
     importance-weight-compliance] [
     set decide-to-quarantine-when-symptomatic-when-asked? true
     ]
-  
-  ask max-n-of (ratio-self-quarantining-when-a-family-member-is-symptomatic * count people) people [
-    importance-weight-risk-avoidance +
-    importance-weight-compliance] [
-    set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? true
+    ask max-n-of (ratio-self-quarantining-when-a-family-member-is-symptomatic * count people) people [
+      importance-weight-risk-avoidance +
+      importance-weight-compliance] [
+      set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? true
     ]
-
-  
+  ]
+    
 end
 
 
