@@ -84,6 +84,7 @@ to-report can-go-to-next-phase?
     let #newly-infected-comparison-period sublist #newly-infected-per-ticks (max (list (length #newly-infected-per-ticks - day-gap-for-phasing-out-condition * #ticks-per-day) 0)) (length #newly-infected-per-ticks)
     let #newly-infected-per-day sum-ticks-to-days #newly-infected-comparison-period
     let average-new-infections mean (but-last #newly-infected-per-day)
+    if average-new-infections = 0 [ report last #newly-infected-per-day <= 0 ]
     report ((last #newly-infected-per-day) / average-new-infections) < next-phase-condition-percentage
   ]
 
