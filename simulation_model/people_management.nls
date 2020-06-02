@@ -31,6 +31,9 @@ people-own [
   is-user-of-tracking-app?
   has-mobile-phone?
   
+  decide-to-quarantine-when-family-member-is-symptomatic-when-asked?
+  decide-to-quarantine-when-symptomatic-when-asked?
+  
   has-been-tested-infected?
   last-test-tick
 

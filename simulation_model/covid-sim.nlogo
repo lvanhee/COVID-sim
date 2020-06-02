@@ -1042,7 +1042,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1077,7 +1077,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.371
 0.01
 1
 NIL
@@ -1155,7 +1155,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.278
 0.01
 1
 NIL
@@ -1170,7 +1170,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.315
 0.01
 1
 NIL
@@ -1185,7 +1185,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.036
 0.01
 1
 NIL
@@ -1401,7 +1401,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+1
 
 SLIDER
 2216
@@ -2633,7 +2633,7 @@ SLIDER
 3464
 254
 3619
-288
+287
 value-std-dev
 value-std-dev
 0
@@ -3040,7 +3040,7 @@ TEXTBOX
 365
 3095
 395
-Agent social distancing settings
+Agent social distancing and quarantining settings
 11
 83.0
 1
@@ -3157,9 +3157,9 @@ Tracing (smartphone app)
 1
 
 SWITCH
-2819
+2818
 385
-3143
+3072
 418
 make-social-distance-profile-value-based?
 make-social-distance-profile-value-based?
@@ -3446,10 +3446,10 @@ only-test-retirees-with-extra-tests?
 -1000
 
 MONITOR
-2827
-1485
-2974
-1530
+3099
+1476
+3246
+1521
 #Violating quarantine
 count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]
 17
@@ -3457,10 +3457,10 @@ count should-be-isolators with [current-activity != my-home and current-activity
 11
 
 MONITOR
-2973
-1485
-3122
-1530
+3245
+1476
+3394
+1521
 #Quarantiners
 count should-be-isolators
 17
@@ -3468,10 +3468,10 @@ count should-be-isolators
 11
 
 SWITCH
-2233
-1423
-2471
-1456
+2232
+1425
+2470
+1458
 food-delivered-to-isolators?
 food-delivered-to-isolators?
 0
@@ -3479,10 +3479,10 @@ food-delivered-to-isolators?
 -1000
 
 PLOT
-2828
-1336
-3206
-1486
+3100
+1327
+3478
+1477
 Quarantining & isolation
 time
 #people
@@ -3500,20 +3500,20 @@ PENS
 "sick quarantiners" 1.0 0 -13791810 true "" "plot count people with [is-officially-asked-to-quarantine? and is-believing-to-be-infected?]"
 
 TEXTBOX
-2512
-1308
-2662
-1329
+2514
+1310
+2664
+1331
 Self-isolation
 11
 105.0
 1
 
 SLIDER
-2485
-1455
-2803
-1488
+2487
+1457
+2805
+1490
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
@@ -3525,10 +3525,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-2485
-1329
-2799
-1362
+2487
+1331
+2801
+1364
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
 0
@@ -3536,10 +3536,10 @@ is-infected-and-their-families-requested-to-stay-at-home?
 -1000
 
 SWITCH
-2232
-1329
-2476
-1362
+2231
+1331
+2475
+1364
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 0
@@ -3547,10 +3547,10 @@ all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 -1000
 
 MONITOR
-2233
-1369
-2475
-1414
+2232
+1371
+2474
+1416
 NIL
 start-tick-of-global-quarantine
 17
@@ -3577,10 +3577,10 @@ PENS
 "#available-beds" 1.0 0 -10899396 true "" "plot #beds-available-for-admission"
 
 SLIDER
-2485
-1415
-2800
-1448
+2487
+1417
+2802
+1450
 ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
@@ -3678,21 +3678,21 @@ prioritize-testing-education?
 -1000
 
 SWITCH
-2485
-1372
-2798
-1405
+2487
+1374
+2800
+1407
 is-psychorigidly-staying-at-home-when-quarantining?
 is-psychorigidly-staying-at-home-when-quarantining?
-1
+0
 1
 -1000
 
 TEXTBOX
-2290
-1304
-2440
-1322
+2289
+1306
+2439
+1324
 Global quarantine
 11
 105.0
@@ -3851,10 +3851,10 @@ PENS
 "S-R" 1.0 0 -11033397 true "" "plot #cumulative-retireds-infector"
 
 MONITOR
-2826
-1538
-3185
-1583
+3098
+1529
+3457
+1574
 NIL
 ratio-quarantiners-currently-complying-to-quarantine
 17
@@ -3873,10 +3873,10 @@ log-violating-quarantine?
 -1000
 
 SWITCH
-2233
-1456
-2471
-1489
+2232
+1458
+2470
+1491
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 0
@@ -4085,7 +4085,7 @@ SWITCH
 2856
 1097
 3221
-1131
+1130
 Aware-of-working-at-home-at-start-of-simulation?
 Aware-of-working-at-home-at-start-of-simulation?
 0
@@ -4096,7 +4096,7 @@ SWITCH
 2856
 1129
 3220
-1163
+1162
 Aware-of-social-distancing-at-start-of-simulation?
 Aware-of-social-distancing-at-start-of-simulation?
 0
@@ -4160,7 +4160,7 @@ SWITCH
 3284
 212
 3542
-246
+245
 activate-intra-cultural-variation?
 activate-intra-cultural-variation?
 1
@@ -4171,16 +4171,27 @@ SLIDER
 3283
 254
 3456
-288
+287
 cultural_tightness
 cultural_tightness
 0
 100
-50.0
+40.77832974
 1
 1
 NIL
 HORIZONTAL
+
+SWITCH
+3078
+385
+3313
+418
+is-decision-to-quarantine-value-based?
+is-decision-to-quarantine-value-based?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
