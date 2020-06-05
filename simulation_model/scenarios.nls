@@ -1,7 +1,7 @@
 to load-scenario-specific-parameter-settings
   load-scenario
   load-population-profile-based-on-current-preset-profile
-  load-nations-hofstede-dimension-scores
+  load-nations-cultural-profile-settings
 end
 
 to load-scenario
@@ -306,7 +306,7 @@ to load-baseline-parameter-settings
   load-default-contagion-model
   load-default-transport-model
   load-default-economic-parameters
-  load-default-agent-values-and-needs-parameters
+  load-default-culture-values-and-needs-parameter-settings
   load-default-social-network-model
   load-default-worker-distribution-settings
   load-default-intervention-measures-settings
@@ -503,22 +503,31 @@ to load-population-profile-based-on-current-preset-profile
   set ratio-retired-couple-homes item 1 country-specific-data-list
   set ratio-family-homes item 2 country-specific-data-list
   set ratio-multi-generational-homes item 3 country-specific-data-list
-   
-
+  
 end
 
-to load-default-agent-values-and-needs-parameters
+to load-default-culture-values-and-needs-parameter-settings
+  ; Culture
+  set sync-cultural-and-demographic-settings? true
   ; Values
   set value-system-calibration-factor 25
-  set value-std-dev 5
+  set value-std-dev 10
+  set min-value-std-dev 5
+  set max-value-std-dev 15
+  set cultural-tightness 50
+  set cultural-tightness-function-modifier 0.1
+  set activate-intra-cultural-variation? true
+  set hofstede-schwartz-mapping-mode "theoretical"
+  set influence-of-age-on-value-system 5
   ; Needs
   set survival-multiplier 2.5
   set maslow-multiplier 0
   set weight-survival-needs 0.5
   set financial-stability-learning-rate 0.05
-  ; Social distancing variables
+  ; Social distancing & quarantining (self-isolation) variables
   set make-social-distance-profile-value-based? true
   set mean-social-distance-profile 0.5
   set std-dev-social-distance-profile 0.1
+  set is-decision-to-quarantine-value-based? true
 end
 
