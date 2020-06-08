@@ -36,6 +36,7 @@ to setup
   create-all-households
   setup-gathering-point-capacities
   setup-person-values-and-needs
+  setup-quality-of-life-indicator
   setup-social-networks
   setup-app-users
   setup-complying-to-quarantining-when-asked-value-based
@@ -54,6 +55,7 @@ to setup
   ask links[hide-link]
 
   set is-lockdown-active? false
+  set is-soft-lockdown-active? false
   set list-of-buses (list)
   set list-of-shared-cars (list)
   
@@ -274,7 +276,9 @@ to setup-person [current-home l-age]
     
     set #days-I-should-remain-in-self-quarantining 0
     set  events-to-process (list)
+    set quality-of-life-last-day (list)
   ]
+    
 end
 
 

@@ -29,6 +29,18 @@ to-report closed-non-essential?
   #days-trigger-non-essential-business-closing-measure <= current-day
 end
 
+to-report is-soft-lockdown-active-5-2?
+   if global-confinement-measures = "soft-lockdown-5-2" [
+    if (ratio-infected > 0.05 or (is-soft-lockdown-active? and ratio-infected > 0.02 ))
+    [
+      set is-soft-lockdown-active? true
+      report true
+    ]
+    if ratio-infected <= 0.02 [set is-soft-lockdown-active? false]
+    report false
+  ]
+  report false
+end
 
 
 

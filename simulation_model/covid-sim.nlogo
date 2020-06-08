@@ -6,6 +6,7 @@ globals [
   slice-of-the-day
   day-of-the-week
   is-lockdown-active?
+  is-soft-lockdown-active?
   current-day
   #dead-people
   #dead-retired
@@ -178,7 +179,7 @@ INPUTBOX
 918
 865
 #schools-gp
-3.0
+13.0
 1
 0
 Number
@@ -189,7 +190,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-2.0
+8.0
 1
 0
 Number
@@ -200,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-10.0
+40.0
 1
 0
 Number
@@ -221,7 +222,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-1.0
+4.0
 1
 0
 Number
@@ -232,7 +233,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-10.0
+40.0
 1
 0
 Number
@@ -354,8 +355,8 @@ CHOOSER
 1117
 global-confinement-measures
 global-confinement-measures
-"none" "total-lockdown" "lockdown-10-5"
-0
+"none" "total-lockdown" "lockdown-10-5" "soft-lockdown-5-2"
+3
 
 PLOT
 10
@@ -379,6 +380,7 @@ PENS
 "workersWorking@work" 1.0 0 -6459832 true "" "plot count workers with [is-working-at-work?] / count workers"
 "working@home" 1.0 0 -1184463 true "" "plot count workers with [is-working-at-home?] / count workers"
 "kids@home" 1.0 0 -10899396 true "" "plot count children with [is-at-home?] / count children"
+"Soft-lockdown" 1.0 0 -14070903 true "" "plot ifelse-value is-soft-lockdown-active? [1] [0]"
 
 MONITOR
 1189
@@ -408,7 +410,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-5.0
+20.0
 1
 0
 Number
@@ -449,7 +451,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-10.0
+40.0
 1
 0
 Number
@@ -460,7 +462,7 @@ INPUTBOX
 832
 865
 #hospital-gp
-1.0
+4.0
 1
 0
 Number
@@ -489,7 +491,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -519,7 +521,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -1077,7 +1079,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.419
+0.457
 0.01
 1
 NIL
@@ -1155,7 +1157,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.295
+0.291
 0.01
 1
 NIL
@@ -1170,7 +1172,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.27
+0.234
 0.01
 1
 NIL
@@ -1185,7 +1187,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.016
+0.018
 0.01
 1
 NIL
@@ -1401,7 +1403,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-12
+3
 
 SLIDER
 2216
@@ -2038,7 +2040,7 @@ INPUTBOX
 662
 558
 #households
-100.0
+400.0
 1
 0
 Number
@@ -2060,7 +2062,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-3.0
+13.0
 1
 0
 Number
@@ -2429,7 +2431,7 @@ INPUTBOX
 3480
 914
 #bus-per-timeslot
-10.0
+80.0
 1
 0
 Number
@@ -2537,7 +2539,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-10
+3
 
 SLIDER
 2812
@@ -2548,7 +2550,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-86.0
+65.0
 1
 1
 NIL
@@ -2563,7 +2565,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-51.0
+67.0
 1
 1
 NIL
@@ -2578,7 +2580,7 @@ power-distance
 power-distance
 0
 100
-57.0
+35.0
 1
 1
 NIL
@@ -2593,7 +2595,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-44.0
+40.0
 1
 1
 NIL
@@ -2608,7 +2610,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-42.0
+66.0
 1
 1
 NIL
@@ -2623,7 +2625,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-48.0
+83.0
 1
 1
 NIL
@@ -2638,7 +2640,7 @@ value-std-dev
 value-std-dev
 1
 20
-9.45
+8.4
 1
 1
 NIL
@@ -3131,10 +3133,10 @@ true
 true
 "" ""
 PENS
-"Mean" 1.0 0 -13840069 true "" "plot mean [quality-of-life-indicator] of people"
-"Median" 1.0 0 -14454117 true "" "plot median [quality-of-life-indicator] of people"
-"Min" 1.0 0 -2674135 true "" "plot min [quality-of-life-indicator] of people"
-"Max" 1.0 0 -1184463 true "" "plot max [quality-of-life-indicator] of people"
+"Mean" 1.0 0 -13840069 true "" "plot mean [change-of-quality-of-life-indicator-compared-to-setup] of people"
+"Median" 1.0 0 -14454117 true "" "plot median [change-of-quality-of-life-indicator-compared-to-setup] of people"
+"Min" 1.0 0 -2674135 true "" "plot min [change-of-quality-of-life-indicator-compared-to-setup] of people"
+"Max" 1.0 0 -1184463 true "" "plot max [change-of-quality-of-life-indicator-compared-to-setup] of people"
 
 TEXTBOX
 22
@@ -3474,7 +3476,7 @@ SWITCH
 1458
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-0
+1
 1
 -1000
 
@@ -3518,7 +3520,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3531,7 +3533,7 @@ SWITCH
 1364
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -3542,7 +3544,7 @@ SWITCH
 1364
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3585,7 +3587,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3610,7 +3612,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+1
 
 SWITCH
 1719
@@ -3684,7 +3686,7 @@ SWITCH
 1407
 is-psychorigidly-staying-at-home-when-quarantining?
 is-psychorigidly-staying-at-home-when-quarantining?
-0
+1
 1
 -1000
 
@@ -3879,7 +3881,7 @@ SWITCH
 1491
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-0
+1
 1
 -1000
 
@@ -4067,7 +4069,7 @@ SWITCH
 1205
 OVERRIDE-ECONOMY?
 OVERRIDE-ECONOMY?
-1
+0
 1
 -1000
 
@@ -4119,7 +4121,7 @@ INPUTBOX
 878
 1509
 retirees-tick-subsidy
-2.5
+3.0
 1
 0
 Number
@@ -4163,7 +4165,7 @@ SWITCH
 245
 activate-intra-cultural-variation?
 activate-intra-cultural-variation?
-1
+0
 1
 -1000
 
@@ -4176,7 +4178,7 @@ cultural-tightness
 cultural-tightness
 0
 100
-37.0
+44.0
 1
 1
 NIL
@@ -4202,7 +4204,7 @@ cultural-tightness-function-modifier
 cultural-tightness-function-modifier
 0
 0.2
-0.15
+0.1
 1
 1
 NIL
@@ -4242,7 +4244,7 @@ CHOOSER
 2814
 135
 3059
-181
+180
 hofstede-schwartz-mapping-mode
 hofstede-schwartz-mapping-mode
 "theoretical" "empirical" "empirical & theoretical" "old settings"

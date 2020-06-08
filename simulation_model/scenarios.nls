@@ -454,7 +454,7 @@ to load-default-economic-parameters
   set ratio-of-wage-paid-by-the-government 0.8
   set government-initial-reserve-of-capital 10000
   
-  error "work in progress"
+  ;error "work in progress"
   set retirees-tick-subsidy 3
   set students-tick-subsidy 1.5
   set parent-individual-subsidy-per-child-per-tick 2

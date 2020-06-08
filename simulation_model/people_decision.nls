@@ -37,6 +37,7 @@ end
 to-report should-I-stay-home?
   if is-hard-lockdown-active? [report true]
   if is-officially-asked-to-quarantine? [report true]
+  if is-soft-lockdown-active-5-2? [report true]
   report false
 end
 

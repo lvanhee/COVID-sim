@@ -137,6 +137,9 @@ people-own [
   luxury-satisfaction-level
   autonomy-satisfaction-level
   
+  quality-of-life-last-day
+  quality-of-life-indicator-at-start
+  
   ;Variables for BELONGING needs
   social-distance-profile
   is-I-apply-social-distancing?
