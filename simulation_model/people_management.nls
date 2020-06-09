@@ -7,7 +7,7 @@ people-own [
   time-when-infected
   epistemic-infection-status
   
-  ;;
+  ;;activity model
   is-activity-successful?
   current-activity
   is-moving-outside-for-reaching-current-activity?
@@ -27,6 +27,7 @@ people-own [
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
   
+  ;; tracking, tracing, testing, isolating variables
   list-of-people-met-per-day-as-recorded-by-the-tracking-app
   is-user-of-tracking-app?
   has-mobile-phone?
@@ -39,11 +40,8 @@ people-own [
 
   ;;infection model
   infection-state
-
   current-person-I-depend-on
-
   has-been-tested-immune?
-  
   am-I-experiencing-fake-symptoms?
   
   ; Optional measures information
