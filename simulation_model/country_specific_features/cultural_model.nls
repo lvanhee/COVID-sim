@@ -251,6 +251,9 @@ to set-values-based-on-culture
   let mean_POW 0
   let mean_ACH 0
 
+  let max_val max-random-value-generator
+  let min_val min-random-value-generator
+
   if hofstede-schwartz-mapping-mode = "old settings" [
     set mean_HED (IDV_pos + IVR_pos) / 2
     set mean_STM (IDV_pos + UAI_neg + PDI_neg ) / 3
@@ -278,10 +281,10 @@ to set-values-based-on-culture
   if hofstede-schwartz-mapping-mode = "empirical" [
     set mean_HED (IDV_neg + UAI_pos + IVR_pos) / 2
     ;cap range of random value drawn between 40 and 60
-    set mean_STM 60 - random 20
-    set mean_SD 60 - random 20
+    set mean_STM max_val - random min_val
+    set mean_SD max_val - random min_val
     set mean_UNI IVR_pos
-    set mean_BEN 60 - random 20
+    set mean_BEN max_val - random min_val
     set mean_CT (PDI_pos + LTO_neg) / 2
     set mean_SEC (MAS_pos + UAI_pos) / 2
     set mean_POW IVR_neg
@@ -290,10 +293,10 @@ to set-values-based-on-culture
   
   if hofstede-schwartz-mapping-mode = "empirical & theoretical" [
     set mean_HED IVR_pos
-    set mean_STM 60 - random 20
+    set mean_STM max_val - random min_val
     set mean_SD IDV_pos
-    set mean_UNI 60 - random 20
-    set mean_BEN 60 - random 20
+    set mean_UNI max_val - random min_val
+    set mean_BEN max_val - random min_val
     set mean_CT (PDI_pos + IDV_neg + LTO_neg + IVR_neg) / 4
     set mean_SEC UAI_pos
     set mean_POW (PDI_pos + MAS_pos) / 2

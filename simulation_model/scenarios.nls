@@ -274,7 +274,7 @@ end
 
 
 to load-scenario-7-cultural-model  
-  ;overwrite some of the baseline settings according to what we judge as proper for the cultural scenario
+  ;overwrite some of the baseline settings according to what we judge as proper for executing the cultural model scenarios
  
   ;General settings
   set static-seed? false
@@ -282,7 +282,9 @@ to load-scenario-7-cultural-model
   load-number-of-gathering-points-based-on-number-of-households #households
   set migration? false
   set OVERRIDE-ECONOMY? true
-  
+  set Aware-of-working-at-home-at-start-of-simulation? false
+  set Aware-of-social-distancing-at-start-of-simulation? false
+
   if cultural-model-experimentation = "no-policy-measures" [
     stop 
   ]
@@ -566,19 +568,21 @@ end
 
 to load-default-culture-values-and-needs-parameter-settings
   ; General cultural model settings
-  if cultural-model-experimentation = "custom settings" [
+  if cultural-model-experimentation = "default-cultural-model-settings" [
     set load-country-specific-settings "Custom"
+    set hofstede-schwartz-mapping-mode "theoretical"
   ]
-  ; Sync cultural profiel with other country-based settings
+  ; Sync cultural profile with other country-based settings
   set sync-cultural-and-demographic-settings? true
   ; Values
   set value-system-calibration-factor 20
   set min-value-std-dev 5
   set max-value-std-dev 15
+  set max-random-value-generator 60
+  set min-random-value-generator 20
   set cultural-tightness 50
   set cultural-tightness-function-modifier 0.1
   set activate-intra-cultural-variation? true
-  set hofstede-schwartz-mapping-mode "theoretical"
   set influence-of-age-on-value-system 5
   ; Needs
   set survival-multiplier 2.5
