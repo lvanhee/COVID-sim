@@ -9,6 +9,10 @@
 ; ... (i.e. values placed closer to one another in the circumplex correlate positively, while values placed further apart in the circumplex correlate negatively)
 ;load-nations-cultural-profile-settings: calibrate Hofstede dimensions based on a nation's Hofstede dimension scorecard
 
+globals [
+  value-std-dev 
+]
+
 to setup-person-values-and-needs
   load-nations-cultural-profile-settings
   calibrate-agent-value-systems

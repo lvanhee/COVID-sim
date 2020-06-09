@@ -89,7 +89,8 @@ to setup-complying-to-quarantining-when-asked-value-based
  
   
   ifelse is-decision-to-quarantine-value-based?
-  [ ask max-n-of (ratio-self-quarantining-when-symptomatic * count people) people [
+  [ 
+    ask max-n-of (ratio-self-quarantining-when-symptomatic * count people) people [
     importance-weight-risk-avoidance +
     importance-weight-compliance] [
     set decide-to-quarantine-when-symptomatic-when-asked? true
@@ -100,7 +101,8 @@ to setup-complying-to-quarantining-when-asked-value-based
       set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? true
     ]
   ]
-    [ ask people [ if random-float 1  < ratio-self-quarantining-when-symptomatic [
+  [ 
+    ask people [ if random-float 1  < ratio-self-quarantining-when-symptomatic [
     set decide-to-quarantine-when-symptomatic-when-asked? true
     ]
     if random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic [
