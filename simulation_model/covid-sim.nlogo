@@ -6510,7 +6510,6 @@ load-scenario-specific-parameter-settings</setup>
     <metric>count people with [is-user-of-tracking-app?]</metric>
     <metric>count people with [has-mobile-phone?]</metric>
     <metric>cultural-tightness</metric>
-    <metric>value-std-dev</metric>
     <metric>uncertainty-avoidance</metric>
     <metric>power-distance</metric>
     <metric>masculinity-vs-femininity</metric>
@@ -6619,7 +6618,8 @@ load-scenario-specific-parameter-settings</setup>
     <metric>mean [leisure-satisfaction-level] of people</metric>
     <metric>mean [luxury-satisfaction-level] of people</metric>
     <metric>mean [autonomy-satisfaction-level] of people</metric>
-    <metric>mean [quality-of-life-last-day] of people</metric>
+    <metric>mean [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
+    <metric>standard-deviation [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
     <enumeratedValueSet variable="preset-scenario">
       <value value="&quot;scenario-7-cultural-model&quot;"/>
     </enumeratedValueSet>
@@ -6768,7 +6768,8 @@ load-scenario-specific-parameter-settings</setup>
     <metric>mean [leisure-satisfaction-level] of people</metric>
     <metric>mean [luxury-satisfaction-level] of people</metric>
     <metric>mean [autonomy-satisfaction-level] of people</metric>
-    <metric>mean [quality-of-life-last-day] of people</metric>
+    <metric>mean [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
+    <metric>standard-deviation [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
     <enumeratedValueSet variable="preset-scenario">
       <value value="&quot;scenario-7-cultural-model&quot;"/>
     </enumeratedValueSet>
@@ -6917,7 +6918,8 @@ load-scenario-specific-parameter-settings</setup>
     <metric>mean [leisure-satisfaction-level] of people</metric>
     <metric>mean [luxury-satisfaction-level] of people</metric>
     <metric>mean [autonomy-satisfaction-level] of people</metric>
-    <metric>mean [quality-of-life-last-day] of people</metric>
+    <metric>mean [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
+    <metric>standard-deviation [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
     <enumeratedValueSet variable="preset-scenario">
       <value value="&quot;scenario-7-cultural-model&quot;"/>
     </enumeratedValueSet>
@@ -7066,7 +7068,8 @@ load-scenario-specific-parameter-settings</setup>
     <metric>mean [leisure-satisfaction-level] of people</metric>
     <metric>mean [luxury-satisfaction-level] of people</metric>
     <metric>mean [autonomy-satisfaction-level] of people</metric>
-    <metric>mean [quality-of-life-last-day] of people</metric>
+    <metric>mean [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
+    <metric>standard-deviation [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
     <enumeratedValueSet variable="preset-scenario">
       <value value="&quot;scenario-7-cultural-model&quot;"/>
     </enumeratedValueSet>
@@ -7215,7 +7218,8 @@ load-scenario-specific-parameter-settings</setup>
     <metric>mean [leisure-satisfaction-level] of people</metric>
     <metric>mean [luxury-satisfaction-level] of people</metric>
     <metric>mean [autonomy-satisfaction-level] of people</metric>
-    <metric>mean [quality-of-life-last-day] of people</metric>
+    <metric>mean [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
+    <metric>standard-deviation [change-of-quality-of-life-indicator-compared-to-setup] of people</metric>
     <enumeratedValueSet variable="preset-scenario">
       <value value="&quot;scenario-7-cultural-model&quot;"/>
     </enumeratedValueSet>
