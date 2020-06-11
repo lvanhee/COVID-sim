@@ -98,8 +98,10 @@ to set-immune
   if is-infected?
   [
     set #infected #infected - 1
+    add-my-Rnaught-to-Rnaught-list 
   ]
-    set infection-state immune-infection-status
+  set infection-state immune-infection-status
+   
 end
 
 to-report infected-asymptomatic-status

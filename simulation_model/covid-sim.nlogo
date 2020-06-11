@@ -1079,7 +1079,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.344
+0.432
 0.01
 1
 NIL
@@ -1157,7 +1157,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.309
+0.272
 0.01
 1
 NIL
@@ -1172,7 +1172,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.298
+0.276
 0.01
 1
 NIL
@@ -1187,7 +1187,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.049
+0.02
 0.01
 1
 NIL
@@ -1403,7 +1403,7 @@ CHOOSER
 household-profiles
 household-profiles
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+8
 
 SLIDER
 2216
@@ -1882,7 +1882,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -2539,7 +2539,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+8
 
 SLIDER
 2817
@@ -2550,7 +2550,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+53.0
 1
 1
 NIL
@@ -2565,7 +2565,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+80.0
 1
 1
 NIL
@@ -2580,7 +2580,7 @@ power-distance
 power-distance
 0
 100
-50.0
+38.0
 1
 1
 NIL
@@ -2595,7 +2595,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+68.0
 1
 1
 NIL
@@ -2610,7 +2610,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+14.0
 1
 1
 NIL
@@ -2625,7 +2625,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+67.0
 1
 1
 NIL
@@ -3660,7 +3660,7 @@ SWITCH
 842
 prioritize-testing-education?
 prioritize-testing-education?
-1
+0
 1
 -1000
 
@@ -4163,7 +4163,7 @@ cultural-tightness
 cultural-tightness
 0
 100
-49.0
+30.0
 1
 1
 NIL
@@ -4233,7 +4233,7 @@ CHOOSER
 hofstede-schwartz-mapping-mode
 hofstede-schwartz-mapping-mode
 "theoretical" "empirical" "empirical & theoretical" "old settings"
-0
+2
 
 SWITCH
 3044
@@ -4254,7 +4254,7 @@ CHOOSER
 cultural-model-experimentation
 cultural-model-experimentation
 "default-cultural-model-settings" "no-policy-measures" "only-social-distancing" "social-distancing-soft-lockdown" "social-distancing-hard-lockdown" "social-distancing-tracking-tracing-testing-isolating"
-1
+2
 
 TEXTBOX
 2820
@@ -4317,6 +4317,61 @@ min-random-value-generator
 1
 NIL
 HORIZONTAL
+
+SLIDER
+2236
+1617
+2681
+1650
+#days-agent'-R-naught-remains-in-Rnaught-after-moment-of-recovery
+#days-agent'-R-naught-remains-in-Rnaught-after-moment-of-recovery
+0
+14
+7.0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+1782
+755
+2116
+905
+R-Naught of people recovered within last week
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"R-Naught" 1.0 0 -16777216 true "" "plot R-naught"
+
+MONITOR
+1565
+707
+1773
+752
+#Consecutive ticks R-Naught is < 1
+consecutive-ticks-R-naught-is-<-one
+17
+1
+11
+
+MONITOR
+1565
+754
+1773
+799
+# Consecutive ticks R naught >= 1
+consecutive-ticks-R-naught-is->=-one
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
