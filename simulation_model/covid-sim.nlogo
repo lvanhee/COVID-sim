@@ -3981,8 +3981,8 @@ CHOOSER
 1699
 condition-phasing-out
 condition-phasing-out
-"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "new infections percentage of average over day gap"
-4
+"35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "new infections percentage of average over day gap" "only look at days since last phase"
+5
 
 SWITCH
 1398

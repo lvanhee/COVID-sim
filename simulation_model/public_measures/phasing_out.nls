@@ -77,6 +77,8 @@ to check-phasing-out
 end
 
 to-report can-go-to-next-phase?
+  if condition-phasing-out = "only look at days since last phase" [report true]
+  
   if condition-phasing-out = "35 days of quarantine"
   [report is-number? start-tick-of-global-quarantine and (ticks - start-tick-of-global-quarantine) > 35 * #ticks-per-day]
 
