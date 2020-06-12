@@ -66,6 +66,14 @@ to check-phasing-out
       stop
     ]
   ]
+  
+  if current-governmental-model-phase = phase-2-phasing-out-state and current-day - day-of-last-phase-shift > minimum-days-between-phases [
+    if can-go-to-next-phase? [
+      set current-governmental-model-phase phase-3-phasing-out-state
+      set day-of-last-phase-shift current-day
+      stop
+    ]
+  ]
 end
 
 to-report can-go-to-next-phase?
@@ -100,6 +108,10 @@ to-report phase-2-phasing-out-state
   report "phase-2"
 end
 
+to-report phase-3-phasing-out-state
+  report "phase-3"
+end
+
 to-report ongoing-crisis-governmental-model-phase
   report "ongoing crisis"
 end
@@ -115,7 +127,8 @@ end
 to-report is-equal-to-or-posterior-to-governmental-phase? [phase]
   if phase = "never" [report false]
   if phase = phase-1-phasing-out-state [report current-governmental-model-phase = phase-1-phasing-out-state or is-equal-to-or-posterior-to-governmental-phase? phase-2-phasing-out-state]
-  if phase = phase-2-phasing-out-state [report current-governmental-model-phase = phase-2-phasing-out-state]
+  if phase = phase-2-phasing-out-state [report current-governmental-model-phase = phase-2-phasing-out-state or is-equal-to-or-posterior-to-governmental-phase? phase-3-phasing-out-state]
+  if phase = phase-3-phasing-out-state [report current-governmental-model-phase = phase-3-phasing-out-state]
   report false
 end
 

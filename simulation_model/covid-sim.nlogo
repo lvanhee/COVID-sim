@@ -1146,7 +1146,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.295
+0.28
 0.01
 1
 NIL
@@ -3266,7 +3266,7 @@ services-luxury-ratio-of-expenditures-when-closed
 services-luxury-ratio-of-expenditures-when-closed
 0
 1
-0.16
+0.15
 0.01
 1
 NIL
@@ -3982,7 +3982,7 @@ CHOOSER
 condition-phasing-out
 condition-phasing-out
 "35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "new infections percentage of average over day gap"
-2
+4
 
 SWITCH
 1596
@@ -4033,7 +4033,7 @@ CHOOSER
 1219
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 CHOOSER
@@ -4043,7 +4043,7 @@ CHOOSER
 1218
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 CHOOSER
@@ -4053,7 +4053,7 @@ CHOOSER
 1218
 force-reopening-of-universities-after-phase
 force-reopening-of-universities-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 SLIDER
@@ -4214,7 +4214,7 @@ CHOOSER
 1171
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 CHOOSER
@@ -4224,7 +4224,7 @@ CHOOSER
 1218
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 MONITOR
@@ -4245,7 +4245,7 @@ CHOOSER
 1218
 force-reopening-of-non-essential-after-phase
 force-reopening-of-non-essential-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 CHOOSER
@@ -4255,7 +4255,7 @@ CHOOSER
 1218
 force-release-recommendation-working-from-home-after-phase
 force-release-recommendation-working-from-home-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 SLIDER
@@ -4297,7 +4297,7 @@ CHOOSER
 1213
 force-releasing-of-social-distancing-measure-after-phase
 force-releasing-of-social-distancing-measure-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 SWITCH
@@ -4441,7 +4441,7 @@ CHOOSER
 1413
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 SLIDER
@@ -4466,7 +4466,7 @@ CHOOSER
 906
 force-full-bus-capacity-after-phase
 force-full-bus-capacity-after-phase
-"never" "phase-1" "phase-2"
+"never" "phase-1" "phase-2" "phase-3"
 0
 
 SLIDER
