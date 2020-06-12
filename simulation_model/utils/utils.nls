@@ -72,6 +72,10 @@ to-report starts-with? [string start]
    report  length string > length start and substring string 0 length start = start
 end
 
+to-report ends-with? [string ends]
+  report length string > length ends and substring string (length string - length ends) (length string) = ends
+end
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Counter "datastructure" ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

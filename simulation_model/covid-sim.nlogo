@@ -1083,7 +1083,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -1109,7 +1109,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -1513,7 +1513,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1524,7 +1524,7 @@ CHOOSER
 134
 preset-scenario
 preset-scenario
-"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-exit-strategies"
+"default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-baseline" "scenario-12-business" "scenario-12-leisure" "scenario-12-public-services"
 19
 
 MONITOR
@@ -1871,7 +1871,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -3068,7 +3068,7 @@ close-services-luxury?
 PLOT
 1895
 1663
-2235
+2224
 1813
 Number of adult people in poverty
 NIL
@@ -3266,7 +3266,7 @@ services-luxury-ratio-of-expenditures-when-closed
 services-luxury-ratio-of-expenditures-when-closed
 0
 1
-0.2
+0.16
 0.01
 1
 NIL
@@ -3421,7 +3421,7 @@ SWITCH
 915
 do-not-test-youth?
 do-not-test-youth?
-1
+0
 1
 -1000
 
@@ -3465,7 +3465,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-0
+1
 1
 -1000
 
@@ -3728,7 +3728,7 @@ SWITCH
 302
 log-setup?
 log-setup?
-1
+0
 1
 -1000
 
@@ -4034,7 +4034,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1" "phase-2"
-2
+0
 
 CHOOSER
 1823
@@ -4044,7 +4044,7 @@ CHOOSER
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
 "never" "phase-1" "phase-2"
-1
+0
 
 CHOOSER
 2579
@@ -4080,7 +4080,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -4106,7 +4106,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -4129,7 +4129,7 @@ INPUTBOX
 877
 1497
 retirees-tick-subsidy
-2.5
+3.0
 1
 0
 Number
@@ -4201,7 +4201,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -4215,7 +4215,7 @@ CHOOSER
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2"
-2
+0
 
 CHOOSER
 2806
@@ -4246,7 +4246,7 @@ CHOOSER
 force-reopening-of-non-essential-after-phase
 force-reopening-of-non-essential-after-phase
 "never" "phase-1" "phase-2"
-1
+0
 
 CHOOSER
 2098
@@ -4256,7 +4256,7 @@ CHOOSER
 force-release-recommendation-working-from-home-after-phase
 force-release-recommendation-working-from-home-after-phase
 "never" "phase-1" "phase-2"
-2
+0
 
 SLIDER
 2103
@@ -4267,7 +4267,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -4307,7 +4307,7 @@ SWITCH
 1144
 OVERRIDE-ECONOMY?
 OVERRIDE-ECONOMY?
-0
+1
 1
 -1000
 
@@ -4418,7 +4418,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -4442,7 +4442,7 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2"
-2
+0
 
 SLIDER
 2335
@@ -4453,7 +4453,7 @@ minimum-days-between-phases
 minimum-days-between-phases
 0
 50
-14.0
+31.0
 1
 1
 NIL
@@ -4467,7 +4467,7 @@ CHOOSER
 force-full-bus-capacity-after-phase
 force-full-bus-capacity-after-phase
 "never" "phase-1" "phase-2"
-2
+0
 
 SLIDER
 3316
@@ -4478,7 +4478,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -4493,7 +4493,7 @@ day-gap-for-phasing-out-condition
 day-gap-for-phasing-out-condition
 0
 50
-15.0
+21.0
 1
 1
 NIL

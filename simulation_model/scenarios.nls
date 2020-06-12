@@ -108,8 +108,10 @@ to load-scenario-specifics
     stop
   ]
   
-  if preset-scenario = "scenario-12-exit-strategies" [
-    load-scenario-12-exit-strategies
+  if is-scenario-12? preset-scenario [
+    load-scenario-12-baseline
+    load-scenario-12-specifics
+    setup-measures-for-phasing-out
     stop
   ]
   
@@ -250,6 +252,10 @@ end
 to-report is-scenario-3? [s]
   report starts-with? s "scenario-3-"
 end
+
+to-report is-scenario-12? [s]
+  report starts-with? s "scenario-12-"
+end
   
 to scenario-9-setup
   load-baseline-parameter-settings
@@ -289,27 +295,87 @@ to load-scenario-7-cultural-model
   set migration? false
 end
 
-to load-scenario-12-exit-strategies
+to load-scenario-12-baseline
   load-number-of-gathering-points-based-on-number-of-households 400
   set migration? false
-  set food-delivered-to-isolators? true
+  set food-delivered-to-isolators? false
   set condition-for-acknowledging-the-crisis "ratio infected>acknowledgement-ratio"
-  ;;; Phase 1
-  set force-reopening-of-schools-after-phase phase-1-phasing-out-state
-  set force-reopening-of-non-essential-after-phase phase-1-phasing-out-state
-  set force-reopening-of-workplaces-after-phase phase-1-phasing-out-state
-  set force-partial-reopening-of-private-leisure-after-phase phase-1-phasing-out-state
-  
-  ;;; Phase 2
-  set force-release-recommendation-working-from-home-after-phase phase-2-phasing-out-state
-  set force-full-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
-  set force-reopening-of-universities-after-phase phase-2-phasing-out-state
-  set force-releasing-of-social-distancing-measure-after-phase phase-2-phasing-out-state
-  set force-releasing-retirees-from-isolation-after-phase phase-2-phasing-out-state
-  set force-full-bus-capacity-after-phase phase-2-phasing-out-state
-  
   set acknowledgement-ratio 0.02
-  setup-measures-for-phasing-out
+end
+
+to load-scenario-12-specifics
+  let specific-preset substring preset-scenario (length "scenario-12-") length preset-scenario
+  show specific-preset
+  if specific-preset = "baseline" [ stop ]
+  if specific-preset = "business" [
+    ;;; Phase 1
+    set force-reopening-of-non-essential-after-phase phase-1-phasing-out-state
+    set force-reopening-of-workplaces-after-phase    phase-1-phasing-out-state
+    
+    ;;; Phase 2
+    set force-reopening-of-schools-after-phase                     phase-2-phasing-out-state
+    set force-partial-reopening-of-private-leisure-after-phase     phase-2-phasing-out-state
+    set force-release-recommendation-working-from-home-after-phase phase-2-phasing-out-state
+    set force-releasing-retirees-from-isolation-after-phase        phase-2-phasing-out-state
+    set force-full-bus-capacity-after-phase                        phase-2-phasing-out-state
+    
+    ;;; Never
+    set force-full-reopening-of-private-leisure-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
+    set force-reopening-of-universities-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
+    set force-releasing-of-social-distancing-measure-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
+
+    stop
+  ]
+  if specific-preset = "leisure" [
+    ;;; Phase 1
+    set force-reopening-of-non-essential-after-phase           phase-1-phasing-out-state
+    set force-partial-reopening-of-private-leisure-after-phase phase-1-phasing-out-state
+    
+    ;;; Phase 2
+    set force-releasing-retirees-from-isolation-after-phase phase-2-phasing-out-state
+    set force-full-bus-capacity-after-phase                 phase-2-phasing-out-state
+    set force-full-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
+    
+    ;;; Never
+    set force-reopening-of-schools-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
+    set force-reopening-of-workplaces-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
+    set force-release-recommendation-working-from-home-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
+    set force-reopening-of-universities-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
+    set force-releasing-of-social-distancing-measure-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
+
+    stop
+  ]
+  if specific-preset = "public-services" [
+    ;;; Phase 1
+    set force-reopening-of-non-essential-after-phase            phase-1-phasing-out-state
+    set force-partial-reopening-of-private-leisure-after-phase  phase-1-phasing-out-state
+    set force-releasing-retirees-from-isolation-after-phase     phase-1-phasing-out-state
+    
+    ;;; Phase 2
+    set force-full-bus-capacity-after-phase                 phase-2-phasing-out-state
+    set force-full-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
+    set force-reopening-of-schools-after-phase              phase-2-phasing-out-state
+    set force-reopening-of-workplaces-after-phase           phase-2-phasing-out-state
+    
+    ;;; Never
+    set force-release-recommendation-working-from-home-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
+    set force-reopening-of-universities-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
+    set force-releasing-of-social-distancing-measure-after-phase "never"
+    set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
+
+    stop
+  ]
+  error (sentence "No specifics defined for" preset-scenario)
 end
 
 
@@ -482,7 +548,7 @@ to load-default-economic-parameters
   set ratio-of-wage-paid-by-the-government 0.8
   set government-initial-reserve-of-capital 10000
   
-  error "work in progress"
+  ;error "work in progress"
   set retirees-tick-subsidy 3
   set students-tick-subsidy 1.5
   set parent-individual-subsidy-per-child-per-tick 2
