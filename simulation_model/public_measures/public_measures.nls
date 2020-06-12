@@ -61,6 +61,11 @@ to-report private-leisure-only-partially-open?
   report private-leisure-not-fully-open? and is-equal-to-or-posterior-to-governmental-phase? force-partial-reopening-of-private-leisure-after-phase
 end
 
+to-report closed-public-leisure?
+  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-public-leisure-after-phase [report false]
+  report ratio-infected > ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
+end
+
 to apply-active-measures
   if slice-of-the-day = "morning" [ ; Reset the available tests
     set #tests-done-today 0
@@ -111,6 +116,7 @@ to disable-all-measures
   set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure 1
   set ratio-omniscious-infected-that-triggers-retirees-in-isolation 1
   set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure 1
+  set ratio-omniscious-infected-that-trigger-public-leisure-closing-measure 1
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false

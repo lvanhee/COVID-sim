@@ -144,4 +144,5 @@ to disable-phasing-out-measure
   set force-releasing-of-social-distancing-measure-after-phase "never"
   set force-releasing-retirees-from-isolation-after-phase "never"
   set force-full-bus-capacity-after-phase "never"
+  set force-reopening-of-public-leisure-after-phase "never"
 end
