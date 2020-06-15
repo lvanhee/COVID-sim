@@ -428,7 +428,7 @@ density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
 1
-0.59
+0.6
 0.01
 1
 NIL
@@ -1083,7 +1083,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -1109,7 +1109,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -1146,7 +1146,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.28
+0.295
 0.01
 1
 NIL
@@ -1525,7 +1525,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-baseline" "scenario-12-business" "scenario-12-leisure" "scenario-12-public-services"
-19
+22
 
 MONITOR
 762
@@ -1871,7 +1871,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -3970,7 +3970,7 @@ SWITCH
 1137
 recommend-working-from-home?
 recommend-working-from-home?
-0
+1
 1
 -1000
 
@@ -4034,7 +4034,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 CHOOSER
 1625
@@ -4044,7 +4044,7 @@ CHOOSER
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 CHOOSER
 2381
@@ -4080,7 +4080,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.99
+0.02
 0.01
 1
 NIL
@@ -4106,7 +4106,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4201,7 +4201,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4215,7 +4215,7 @@ CHOOSER
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+1
 
 CHOOSER
 2608
@@ -4225,7 +4225,7 @@ CHOOSER
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 MONITOR
 2608
@@ -4246,7 +4246,7 @@ CHOOSER
 force-reopening-of-non-essential-after-phase
 force-reopening-of-non-essential-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+1
 
 CHOOSER
 1900
@@ -4267,7 +4267,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4418,7 +4418,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.99
+0.02
 0.01
 1
 NIL
@@ -4442,7 +4442,7 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+1
 
 SLIDER
 2335
@@ -4467,7 +4467,7 @@ CHOOSER
 force-full-bus-capacity-after-phase
 force-full-bus-capacity-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 SLIDER
 3316
@@ -4478,7 +4478,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4584,6 +4584,17 @@ ratio-omniscious-infected-that-trigger-migration-closing-measure
 1
 NIL
 HORIZONTAL
+
+SWITCH
+2783
+1611
+2955
+1644
+phase-snap-back?
+phase-snap-back?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

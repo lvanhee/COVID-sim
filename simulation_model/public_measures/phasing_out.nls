@@ -47,7 +47,7 @@ to setup-measures-for-phasing-out
 end
 
 to check-phasing-out
-  if current-governmental-model-phase = crisis-not-acknowledged-phasing-out-state [
+  if current-governmental-model-phase = crisis-not-acknowledged-phasing-out-state or (phase-snap-back? and current-governmental-model-phase != ongoing-crisis-governmental-model-phase) [
    if condition-for-acknowledging-the-crisis = "ratio infected>acknowledgement-ratio" and ratio-infected > acknowledgement-ratio [
       set current-governmental-model-phase ongoing-crisis-governmental-model-phase
       set day-of-last-phase-shift current-day
