@@ -4319,12 +4319,12 @@ NIL
 HORIZONTAL
 
 SLIDER
-2236
-1617
-2681
-1650
-#days-agent'-R-naught-remains-in-Rnaught-after-moment-of-recovery
-#days-agent'-R-naught-remains-in-Rnaught-after-moment-of-recovery
+1779
+875
+2279
+908
+#days-agent'-R-naught-remains-in-population-Rnaught-after-moment-of-recovery
+#days-agent'-R-naught-remains-in-population-Rnaught-after-moment-of-recovery
 0
 14
 7.0
@@ -4335,16 +4335,16 @@ HORIZONTAL
 
 PLOT
 1782
-755
+749
 2116
-905
+869
 R-Naught of people recovered within last week
 NIL
 NIL
 0.0
 10.0
 0.0
-10.0
+5.0
 true
 true
 "" ""

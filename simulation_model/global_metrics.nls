@@ -287,7 +287,7 @@ to-report age-group-to-age-group-#contacts [infector-age infected-age]
 end
 
 to add-my-Rnaught-to-Rnaught-list
-  set R-naught-list fput (list number-of-people-I-infected (ticks + (#days-agent'-R-naught-remains-in-Rnaught-after-moment-of-recovery * #ticks-per-day))) R-naught-list
+  set R-naught-list fput (list number-of-people-I-infected (ticks + (#days-agent'-R-naught-remains-in-population-Rnaught-after-moment-of-recovery * #ticks-per-day))) R-naught-list
   
 end
 
