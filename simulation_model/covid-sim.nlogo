@@ -428,7 +428,7 @@ density-factor-non-essential-shops
 density-factor-non-essential-shops
 0
 1
-0.6
+0.59
 0.01
 1
 NIL
@@ -3970,7 +3970,7 @@ SWITCH
 1137
 recommend-working-from-home?
 recommend-working-from-home?
-1
+0
 1
 -1000
 
@@ -4080,7 +4080,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-1.0
+0.99
 0.01
 1
 NIL
@@ -4418,7 +4418,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-1.0
+0.99
 0.01
 1
 NIL
@@ -4559,6 +4559,31 @@ Closing public leisure
 11
 105.0
 1
+
+CHOOSER
+3450
+1078
+3692
+1123
+force-reopening-of-migration-after-phase
+force-reopening-of-migration-after-phase
+"never" "phase-1" "phase-2" "phase-3"
+0
+
+SLIDER
+3697
+1079
+4030
+1112
+ratio-omniscious-infected-that-trigger-migration-closing-measure
+ratio-omniscious-infected-that-trigger-migration-closing-measure
+0
+1
+1.0
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

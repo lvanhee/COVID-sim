@@ -1,7 +1,7 @@
 ;;here one should also include caring for children.
 ;;Now it's highjacking the decision process
 to-report my-available-activity-descriptors
-  if migration? and is-away?
+  if migration-allowed? and is-away?
   [
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
       report (list (list away-gathering-point travelling-reason false))

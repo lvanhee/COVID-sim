@@ -34,8 +34,14 @@ to setup-measures-for-phasing-out
     if force-releasing-retirees-from-isolation-after-phase != "never" [
       set ratio-omniscious-infected-that-triggers-retirees-in-isolation acknowledgement-ratio
     ]
-    if force-releasing-retirees-from-isolation-after-phase != "never" [
+    if force-full-bus-capacity-after-phase != "never" [
       set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
+    ]
+    if force-reopening-of-public-leisure-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-public-leisure-closing-measure acknowledgement-ratio
+    ]
+    if force-reopening-of-migration-after-phase != "never" [
+      set ratio-omniscious-infected-that-trigger-migration-closing-measure acknowledgement-ratio
     ]
   ]
 end
@@ -147,4 +153,5 @@ to disable-phasing-out-measure
   set force-releasing-retirees-from-isolation-after-phase "never"
   set force-full-bus-capacity-after-phase "never"
   set force-reopening-of-public-leisure-after-phase "never"
+  set force-reopening-of-migration-after-phase "never"
 end
