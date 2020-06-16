@@ -1525,7 +1525,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-baseline" "scenario-12-business" "scenario-12-leisure" "scenario-12-public-services"
-22
+21
 
 MONITOR
 762
@@ -3859,7 +3859,7 @@ SWITCH
 222
 log-violating-quarantine?
 log-violating-quarantine?
-1
+0
 1
 -1000
 
@@ -4034,7 +4034,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 CHOOSER
 1625
@@ -4044,7 +4044,7 @@ CHOOSER
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 CHOOSER
 2381
@@ -4442,7 +4442,7 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+3
 
 SLIDER
 2335
@@ -4467,7 +4467,7 @@ CHOOSER
 force-full-bus-capacity-after-phase
 force-full-bus-capacity-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 SLIDER
 3316
@@ -4533,7 +4533,7 @@ CHOOSER
 force-reopening-of-public-leisure-after-phase
 force-reopening-of-public-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+1
 
 SLIDER
 2838
@@ -4544,7 +4544,7 @@ ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
@@ -4568,7 +4568,7 @@ CHOOSER
 force-reopening-of-migration-after-phase
 force-reopening-of-migration-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 SLIDER
 3697
@@ -4579,7 +4579,7 @@ ratio-omniscious-infected-that-trigger-migration-closing-measure
 ratio-omniscious-infected-that-trigger-migration-closing-measure
 0
 1
-1.0
+0.02
 0.01
 1
 NIL
