@@ -24,7 +24,7 @@ to-report is-hard-lockdown-active?
 end
 
 to-report closed-non-essential?
-  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-workplaces-after-phase [report false]
+  if is-equal-to-or-posterior-to-governmental-phase? force-reopening-of-non-essential-after-phase [report false]
   report ratio-infected > ratio-omniscious-infected-that-trigger-non-essential-closing-measure
   or
   #days-trigger-non-essential-business-closing-measure <= current-day
