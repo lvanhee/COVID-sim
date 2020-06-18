@@ -179,7 +179,7 @@ INPUTBOX
 918
 865
 #schools-gp
-13.0
+3.0
 1
 0
 Number
@@ -190,7 +190,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-8.0
+2.0
 1
 0
 Number
@@ -201,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-40.0
+10.0
 1
 0
 Number
@@ -222,7 +222,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-4.0
+1.0
 1
 0
 Number
@@ -233,7 +233,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-40.0
+10.0
 1
 0
 Number
@@ -410,7 +410,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-20.0
+5.0
 1
 0
 Number
@@ -451,7 +451,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-40.0
+10.0
 1
 0
 Number
@@ -462,7 +462,7 @@ INPUTBOX
 832
 865
 #hospital-gp
-4.0
+1.0
 1
 0
 Number
@@ -1079,7 +1079,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.432
+0.419
 0.01
 1
 NIL
@@ -1157,7 +1157,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.272
+0.295
 0.01
 1
 NIL
@@ -1172,7 +1172,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.276
+0.27
 0.01
 1
 NIL
@@ -1187,7 +1187,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.02
+0.016
 0.01
 1
 NIL
@@ -1403,7 +1403,7 @@ CHOOSER
 household-profiles
 household-profiles
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-8
+12
 
 SLIDER
 2216
@@ -1524,7 +1524,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1536,7 +1536,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "none" "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-19
+2
 
 MONITOR
 762
@@ -1882,7 +1882,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.02
+1.0
 0.01
 1
 NIL
@@ -2040,7 +2040,7 @@ INPUTBOX
 662
 558
 #households
-400.0
+100.0
 1
 0
 Number
@@ -2062,7 +2062,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-13.0
+3.0
 1
 0
 Number
@@ -2431,7 +2431,7 @@ INPUTBOX
 3480
 914
 #bus-per-timeslot
-80.0
+10.0
 1
 0
 Number
@@ -2539,7 +2539,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-8
+12
 
 SLIDER
 2817
@@ -2550,7 +2550,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-53.0
+29.0
 1
 1
 NIL
@@ -2565,7 +2565,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-80.0
+71.0
 1
 1
 NIL
@@ -2580,7 +2580,7 @@ power-distance
 power-distance
 0
 100
-38.0
+31.0
 1
 1
 NIL
@@ -2595,7 +2595,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-68.0
+78.0
 1
 1
 NIL
@@ -2610,7 +2610,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-14.0
+5.0
 1
 1
 NIL
@@ -2625,7 +2625,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-67.0
+53.0
 1
 1
 NIL
@@ -3660,7 +3660,7 @@ SWITCH
 842
 prioritize-testing-education?
 prioritize-testing-education?
-0
+1
 1
 -1000
 
@@ -4075,7 +4075,7 @@ SWITCH
 1130
 Aware-of-working-at-home-at-start-of-simulation?
 Aware-of-working-at-home-at-start-of-simulation?
-1
+0
 1
 -1000
 
@@ -4086,7 +4086,7 @@ SWITCH
 1162
 Aware-of-social-distancing-at-start-of-simulation?
 Aware-of-social-distancing-at-start-of-simulation?
-1
+0
 1
 -1000
 
@@ -4163,7 +4163,7 @@ cultural-tightness
 cultural-tightness
 0
 100
-30.0
+27.0
 1
 1
 NIL
@@ -4233,7 +4233,7 @@ CHOOSER
 hofstede-schwartz-mapping-mode
 hofstede-schwartz-mapping-mode
 "theoretical" "empirical" "empirical & theoretical" "old settings"
-2
+0
 
 SWITCH
 3044
@@ -4242,7 +4242,7 @@ SWITCH
 88
 sync-cultural-and-demographic-settings?
 sync-cultural-and-demographic-settings?
-0
+1
 1
 -1000
 
@@ -4254,7 +4254,7 @@ CHOOSER
 cultural-model-experimentation
 cultural-model-experimentation
 "default-cultural-model-settings" "no-policy-measures" "only-social-distancing" "social-distancing-soft-lockdown" "social-distancing-hard-lockdown" "social-distancing-tracking-tracing-testing-isolating"
-2
+0
 
 TEXTBOX
 2820
@@ -4318,60 +4318,15 @@ min-random-value-generator
 NIL
 HORIZONTAL
 
-SLIDER
-1779
-875
-2279
-908
-#days-agent'-R-naught-remains-in-population-Rnaught-after-moment-of-recovery
-#days-agent'-R-naught-remains-in-population-Rnaught-after-moment-of-recovery
-0
-14
-7.0
-1
-1
-NIL
-HORIZONTAL
-
-PLOT
-1782
-749
-2116
-869
-R-Naught of people recovered within last week
-NIL
-NIL
-0.0
-10.0
-0.0
-5.0
-true
-true
-"" ""
-PENS
-"R-Naught" 1.0 0 -16777216 true "" "plot R-naught"
-
-MONITOR
-1565
-707
-1773
-752
-#Consecutive ticks R-Naught is < 1
-consecutive-ticks-R-naught-is-<-one
-17
-1
+TEXTBOX
+3433
+98
+3708
+156
+Note that selecting a cultural model experimentation setting only makes sense if you have loaded scenario #7 as \"preset-scenario\"
 11
-
-MONITOR
-1565
-754
-1773
-799
-# Consecutive ticks R naught >= 1
-consecutive-ticks-R-naught-is->=-one
-17
+83.0
 1
-11
 
 @#$#@#$#@
 ## WHAT IS IT?
