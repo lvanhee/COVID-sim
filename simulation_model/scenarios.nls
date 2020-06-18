@@ -303,7 +303,8 @@ to load-scenario-12-baseline
   set probability-getting-back-when-abroad 0.12
   set food-delivered-to-isolators? false
   set condition-for-acknowledging-the-crisis "ratio infected>acknowledgement-ratio"
-  set acknowledgement-ratio 0.02
+  set acknowledgement-ratio 0.05
+  set only-setup-loosened-measures? false
 end
 
 to load-scenario-12-specifics
@@ -326,13 +327,9 @@ to load-scenario-12-specifics
     
     ;;; Never
     set force-full-reopening-of-private-leisure-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
     set force-reopening-of-universities-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
     set force-releasing-of-social-distancing-measure-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
     set force-full-bus-capacity-after-phase "never"
-    set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
 
     stop
   ]
@@ -351,17 +348,11 @@ to load-scenario-12-specifics
     
     ;;; Never
     set force-reopening-of-schools-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
     set force-reopening-of-workplaces-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
     set force-release-recommendation-working-from-home-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
     set force-reopening-of-universities-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
     set force-releasing-of-social-distancing-measure-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
     set force-full-bus-capacity-after-phase "never"
-    set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
 
     stop
   ]
@@ -369,7 +360,7 @@ to load-scenario-12-specifics
     ;;; Phase 1
     set force-reopening-of-non-essential-after-phase            phase-1-phasing-out-state
     set force-releasing-retirees-from-isolation-after-phase     phase-1-phasing-out-state
-    set force-full-bus-capacity-after-phase                 phase-1-phasing-out-state
+    set force-full-bus-capacity-after-phase                     phase-1-phasing-out-state
     
     ;;; Phase 2
     set force-partial-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
@@ -383,11 +374,8 @@ to load-scenario-12-specifics
     
     ;;; Never
     set force-release-recommendation-working-from-home-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
     set force-releasing-of-social-distancing-measure-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
     set force-full-reopening-of-private-leisure-after-phase "never"
-    set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
 
     stop
   ]

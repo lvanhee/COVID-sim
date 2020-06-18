@@ -1083,7 +1083,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1109,7 +1109,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1513,7 +1513,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1525,7 +1525,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-baseline" "scenario-12-business" "scenario-12-leisure" "scenario-12-public-services"
-20
+21
 
 MONITOR
 762
@@ -1871,7 +1871,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -3421,7 +3421,7 @@ SWITCH
 915
 do-not-test-youth?
 do-not-test-youth?
-1
+0
 1
 -1000
 
@@ -4034,7 +4034,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 CHOOSER
 1625
@@ -4044,7 +4044,7 @@ CHOOSER
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+0
 
 CHOOSER
 2381
@@ -4080,7 +4080,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4106,7 +4106,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4201,7 +4201,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4215,7 +4215,7 @@ CHOOSER
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+1
 
 CHOOSER
 2608
@@ -4225,7 +4225,7 @@ CHOOSER
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 MONITOR
 2608
@@ -4256,7 +4256,7 @@ CHOOSER
 force-release-recommendation-working-from-home-after-phase
 force-release-recommendation-working-from-home-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 SLIDER
 1905
@@ -4267,17 +4267,17 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
 HORIZONTAL
 
 BUTTON
-2150
-1611
-2330
-1644
+2147
+1575
+2333
+1608
 Set phasing out triggers
 setup-measures-for-phasing-out
 NIL
@@ -4418,7 +4418,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4478,7 +4478,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4533,7 +4533,7 @@ CHOOSER
 force-reopening-of-public-leisure-after-phase
 force-reopening-of-public-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-3
+1
 
 SLIDER
 2838
@@ -4544,7 +4544,7 @@ ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4568,7 +4568,7 @@ CHOOSER
 force-reopening-of-migration-after-phase
 force-reopening-of-migration-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+2
 
 SLIDER
 3697
@@ -4579,7 +4579,7 @@ ratio-omniscious-infected-that-trigger-migration-closing-measure
 ratio-omniscious-infected-that-trigger-migration-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4592,6 +4592,17 @@ SWITCH
 1644
 phase-snap-back?
 phase-snap-back?
+1
+1
+-1000
+
+SWITCH
+2147
+1610
+2333
+1643
+only-setup-loosened-measures?
+only-setup-loosened-measures?
 1
 1
 -1000

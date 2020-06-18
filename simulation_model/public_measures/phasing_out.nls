@@ -10,38 +10,57 @@ end
 to setup-measures-for-phasing-out
   if condition-for-acknowledging-the-crisis = "ratio infected>acknowledgement-ratio" [
     ; We need to make sure that the measures that we want to loosen also actually trigger, because otherwise the system will not actually work
-    if force-reopening-of-schools-after-phase != "never" [
+    ifelse not only-setup-loosened-measures? [
+      ; Schools & University
       set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
-    ]
-    if force-reopening-of-non-essential-after-phase != "never" [
-      set ratio-omniscious-infected-that-trigger-non-essential-closing-measure acknowledgement-ratio
-    ]
-    if force-reopening-of-workplaces-after-phase != "never" [
-      set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
-    ]
-    if force-release-recommendation-working-from-home-after-phase != "never" [
-      set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
-    ]
-    if force-reopening-of-universities-after-phase != "never" [
       set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
-    ]
-    if force-full-reopening-of-private-leisure-after-phase != "never" [
+      ; Shops and workplaces
+      set ratio-omniscious-infected-that-trigger-non-essential-closing-measure acknowledgement-ratio
+      set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
+      set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
+      ; Leisure places
       set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
-    ]
-    if force-releasing-of-social-distancing-measure-after-phase != "never" [
-      set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
-    ]
-    if force-releasing-retirees-from-isolation-after-phase != "never" [
-      set ratio-omniscious-infected-that-triggers-retirees-in-isolation acknowledgement-ratio
-    ]
-    if force-full-bus-capacity-after-phase != "never" [
-      set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
-    ]
-    if force-reopening-of-public-leisure-after-phase != "never" [
       set ratio-omniscious-infected-that-trigger-public-leisure-closing-measure acknowledgement-ratio
-    ]
-    if force-reopening-of-migration-after-phase != "never" [
+      ; Travel
+      set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
       set ratio-omniscious-infected-that-trigger-migration-closing-measure acknowledgement-ratio
+      ; Misc
+      set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
+      set ratio-omniscious-infected-that-triggers-retirees-in-isolation acknowledgement-ratio
+    ] [
+      if force-reopening-of-schools-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-school-closing-measure acknowledgement-ratio
+      ]
+      if force-reopening-of-non-essential-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-non-essential-closing-measure acknowledgement-ratio
+      ]
+      if force-reopening-of-workplaces-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-workplace-closing-measure acknowledgement-ratio
+      ]
+      if force-release-recommendation-working-from-home-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure acknowledgement-ratio
+      ]
+      if force-reopening-of-universities-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-university-closing-measure acknowledgement-ratio
+      ]
+      if force-full-reopening-of-private-leisure-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-private-leisure-closing-measure acknowledgement-ratio
+      ]
+      if force-releasing-of-social-distancing-measure-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-social-distancing-measure acknowledgement-ratio
+      ]
+      if force-releasing-retirees-from-isolation-after-phase != "never" [
+        set ratio-omniscious-infected-that-triggers-retirees-in-isolation acknowledgement-ratio
+      ]
+      if force-full-bus-capacity-after-phase != "never" [
+        set ratio-omniscious-infected-that-triggers-half-capacity-busses-measure acknowledgement-ratio
+      ]
+      if force-reopening-of-public-leisure-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-public-leisure-closing-measure acknowledgement-ratio
+      ]
+      if force-reopening-of-migration-after-phase != "never" [
+        set ratio-omniscious-infected-that-trigger-migration-closing-measure acknowledgement-ratio
+      ]
     ]
   ]
 end
@@ -154,4 +173,5 @@ to disable-phasing-out-measure
   set force-full-bus-capacity-after-phase "never"
   set force-reopening-of-public-leisure-after-phase "never"
   set force-reopening-of-migration-after-phase "never"
+  set only-setup-loosened-measures? true
 end
