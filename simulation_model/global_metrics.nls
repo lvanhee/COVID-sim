@@ -65,11 +65,6 @@ globals
   contamination-network-table
   #infected-people-per-ticks
   #hospitalized-per-tick
-  
-  R-naught-list
-  consecutive-ticks-R-naught-is-<-one
-  consecutive-ticks-R-naught-is->=-one
-  
 ]
 
 to-report ratio-infected
@@ -108,8 +103,6 @@ to update-metrics
 
   if ratio-infected > 0.05 and when-has-5%-infected-threshold-first-been-met? = "never"
   [set when-has-5%-infected-threshold-first-been-met? ticks]
-  
-  update-number-of-consecutive-days-R-naught-is-higher-or-lower-than-one  
 
 end
 
@@ -257,9 +250,13 @@ to  increment-contacts-due-to-group-gathering-global-metrics [ts context]
   ask ts [
     ask other ts [
       let key (list [age] of myself age)
+      ;if age = young-age and [age] of myself = young-age [show "hey!"]
       table:put age-group-to-age-group-#contacts-table key table:get age-group-to-age-group-#contacts-table key + 1
     ]
-  ] 
+  ]
+  
+  
+ 
 end
 
 to-report ratio-quarantiners-currently-complying-to-quarantine
@@ -285,33 +282,3 @@ end
 to-report age-group-to-age-group-#contacts [infector-age infected-age]
   report table:get age-group-to-age-group-#contacts-table (list infector-age infected-age)
 end
-
-to add-my-Rnaught-to-Rnaught-list
-  set R-naught-list fput (list number-of-people-I-infected (ticks + (#days-agent'-R-naught-remains-in-population-Rnaught-after-moment-of-recovery * #ticks-per-day))) R-naught-list
-  
-end
-
-to-report R-naught
-  let Reproduction-number []
-  let mean-reproduction-number 0
-  set R-Naught-list filter [x -> item 1 x > ticks] R-Naught-list
-  foreach R-Naught-list [x -> set Reproduction-number fput (item 0 x) Reproduction-number]
-  
-  
- ifelse empty? Reproduction-number [ set mean-reproduction-number 0] [set mean-reproduction-number mean Reproduction-number]
-  
-  report mean-reproduction-number
-  
-end
-
-to update-number-of-consecutive-days-R-naught-is-higher-or-lower-than-one
-  ifelse R-Naught < 1
-  [set consecutive-ticks-R-naught-is-<-one consecutive-ticks-R-naught-is-<-one + 1
-  set consecutive-ticks-R-naught-is->=-one 0 ] 
-  [set consecutive-ticks-R-naught-is->=-one consecutive-ticks-R-naught-is->=-one + 1
-  set consecutive-ticks-R-naught-is-<-one 0 ]  
-end
-
-
-
-

@@ -278,6 +278,7 @@ to load-scenario-7-cultural-model
  
   ;General settings
   set static-seed? false
+  set sync-cultural-and-demographic-settings? true
   set #households 400
   load-number-of-gathering-points-based-on-number-of-households #households
   set migration? false
@@ -522,7 +523,8 @@ to load-default-economic-parameters
 end
 
 to load-default-household-profiles
-  set household-profiles "Custom"
+  ;by default, the country that is loaded into ASSOCC is Sweden, remove this if you want to simulate a different country
+  set household-profiles "Sweden"
   load-population-profile-based-on-current-preset-profile
 end
 
@@ -568,12 +570,12 @@ end
 
 to load-default-culture-values-and-needs-parameter-settings
   ; General cultural model settings
-  if cultural-model-experimentation = "default-cultural-model-settings" [
-    set load-country-specific-settings "Custom"
-    set hofstede-schwartz-mapping-mode "theoretical"
-  ]
+  set cultural-model-experimentation "default-cultural-model-settings"
+  ;by default, the country that is loaded into ASSOCC is Sweden, remove this if you want to simulate a different country
+  set load-country-specific-settings "Sweden"
+  set hofstede-schwartz-mapping-mode "theoretical"
   ; Sync cultural profile with other country-based settings
-  set sync-cultural-and-demographic-settings? true
+  set sync-cultural-and-demographic-settings? false
   ; Values
   set value-system-calibration-factor 20
   set min-value-std-dev 5
