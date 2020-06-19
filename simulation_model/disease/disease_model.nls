@@ -225,7 +225,7 @@ to kill-person
   if age = retired-age [ set #dead-retired #dead-retired + 1]
   if age = young-age [set #dead-young #dead-young + 1]
   if age = worker-age [set #dead-workers #dead-workers + 1]
-  if age = student-age [set #dead-students #dead-students + 1] 
+  if age = student-age [set #dead-students #dead-students + 1]
   die
   end
 

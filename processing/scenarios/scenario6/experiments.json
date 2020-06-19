@@ -1,0 +1,147 @@
+ {
+    "name": "Experiment Example",
+    "author": "Loïs Vanhée",
+    
+    "variables": 
+	{
+			"input-variables":[
+			{
+				"name": "ticks",
+				"range": "[0 1 1500]",
+				"_comment":"Will generate a variable ticks with 201 values from 0 to 200"
+			},
+			{
+				"name": "ratio-of-people-using-the-tracking-app",
+				"range":"{0 0.6 0.8 1}"
+			},
+			{
+				"name": "#random-seed",
+				"range":"[1 1 30]"
+			},
+			{
+				"name": "is-tracking-app-testing-recursive?",
+				"range":"{true}"
+			}],
+			
+			"output-variables":[
+			{"name":"#infected"},
+			{"name":"count people with [epistemic-infection-status = \"infected\"]"},
+			{"name":"#admissions-last-tick"},
+			{"name":"#taken-hospital-beds"},
+			{"name":"#denied-requests-for-hospital-beds"},
+			{"name":"#dead-people"},
+			{"name":"#tests-performed"},
+			{"name":"r0"},
+			{"name":"count officially-quarantiners"},
+			{"name":"count should-be-isolators"},
+			{"name":"count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]"},
+			{"name":"#contacts-last-tick"},
+			{"name":"#people-infected-in-hospitals"},
+			{"name":"#people-infected-in-workplaces"},
+			{"name":"#people-infected-in-homes"},
+			{"name":"#people-infected-in-public-leisure"},
+			{"name":"#people-infected-in-private-leisure"},
+			{"name":"#people-infected-in-schools"},
+			{"name":"#people-infected-in-universities"},
+			{"name":"#people-infected-in-essential-shops"},
+			{"name":"#people-infected-in-non-essential-shops"},
+			{"name":"#people-infected-in-pubtrans"},
+			{"name":"#people-infected-in-shared-cars"},
+			{"name":"#people-infected-in-queuing"},
+			{"name":"#contacts-in-pubtrans"},
+			{"name":"#contacts-in-shared-cars"},
+			{"name":"#contacts-in-queuing"},
+			{"name":"#contacts-in-pubtrans"},
+			{"name":"#contacts-in-hospitals"},
+			{"name":"#contacts-in-workplaces"},
+			{"name":"#contacts-in-homes"},
+			{"name":"#contacts-in-public-leisure"},
+			{"name":"#contacts-in-private-leisure"},
+			{"name":"#contacts-in-schools"},
+			{"name":"#contacts-in-universities"},
+			{"name":"#contacts-in-essential-shops"},
+			{"name":"#contacts-in-non-essential-shops"},
+			{"name":"#cumulative-youngs-infected"},
+			{"name":"#cumulative-students-infected"},
+			{"name":"#cumulative-workers-infected"},
+			{"name":"#cumulative-retireds-infected"},
+			{"name":"#cumulative-youngs-infector"},
+			{"name":"#cumulative-students-infector"},
+			{"name":"#cumulative-workers-infector"},
+			{"name":"#cumulative-retireds-infector"},
+			{"name":"ratio-quarantiners-currently-complying-to-quarantine"},
+			{"name":"ratio-infected-youngs"},
+			{"name":"ratio-infected-students"},
+			{"name":"ratio-infected-workers"},
+			{"name":"ratio-infected-retireds"},
+			{"name":"#hospitalizations-youngs-this-tick"},
+			{"name":"#hospitalizations-students-this-tick"},
+			{"name":"#hospitalizations-workers-this-tick"},
+			{"name":"#hospitalizations-retired-this-tick"},
+			{"name":"ratio-age-group-to-age-group-#infections young-age young-age"},
+			{"name":"ratio-age-group-to-age-group-#infections young-age student-age"},
+			{"name":"ratio-age-group-to-age-group-#infections young-age worker-age"},
+			{"name":"ratio-age-group-to-age-group-#infections young-age retired-age"},
+			{"name":"ratio-age-group-to-age-group-#infections student-age young-age"},
+			{"name":"ratio-age-group-to-age-group-#infections student-age student-age"},
+			{"name":"ratio-age-group-to-age-group-#infections student-age worker-age"},
+			{"name":"ratio-age-group-to-age-group-#infections student-age retired-age"},
+			{"name":"ratio-age-group-to-age-group-#infections worker-age young-age"},
+			{"name":"ratio-age-group-to-age-group-#infections worker-age student-age"},
+			{"name":"ratio-age-group-to-age-group-#infections worker-age worker-age"},
+			{"name":"ratio-age-group-to-age-group-#infections worker-age retired-age"},
+			{"name":"ratio-age-group-to-age-group-#infections retired-age young-age"},
+			{"name":"ratio-age-group-to-age-group-#infections retired-age student-age"},
+			{"name":"ratio-age-group-to-age-group-#infections retired-age worker-age"},
+			{"name":"ratio-age-group-to-age-group-#infections retired-age retired-age"},
+			{"name":"age-group-to-age-group-#contacts young-age young-age"},
+			{"name":"age-group-to-age-group-#contacts young-age student-age"},
+			{"name":"age-group-to-age-group-#contacts young-age worker-age"},
+			{"name":"age-group-to-age-group-#contacts young-age retired-age"},
+			{"name":"age-group-to-age-group-#contacts student-age young-age"},
+			{"name":"age-group-to-age-group-#contacts student-age student-age"},
+			{"name":"age-group-to-age-group-#contacts student-age worker-age"},
+			{"name":"age-group-to-age-group-#contacts student-age retired-age"},
+			{"name":"age-group-to-age-group-#contacts worker-age young-age"},
+			{"name":"age-group-to-age-group-#contacts worker-age student-age"},
+			{"name":"age-group-to-age-group-#contacts worker-age worker-age"},
+			{"name":"age-group-to-age-group-#contacts worker-age retired-age"},
+			{"name":"age-group-to-age-group-#contacts retired-age young-age"},
+			{"name":"age-group-to-age-group-#contacts retired-age student-age"},
+			{"name":"age-group-to-age-group-#contacts retired-age worker-age"},
+			{"name":"age-group-to-age-group-#contacts retired-age retired-age"},
+			{"name":"#youngs-at-start"},
+			{"name":"#students-at-start"},
+			{"name":"#workers-at-start"},
+			{"name":"#retireds-at-start"}
+			]
+	},
+	
+	"executor": 
+	{
+		"type" : "netlogo",
+		"presetup-variables":"{ratio-of-people-using-the-tracking-app #random-seed is-tracking-app-testing-recursive?}",
+		"file": "C:/Users/loisv/git/COVID-sim/simulation_model/covid-sim.nlogo",
+		"setup": "set preset-scenario \"scenario-6-default\" load-scenario-specific-parameter-settings setup",
+		"go": "go",
+		"multi-experiment":"parallel-executors",
+		"experiment-executor":"netlogo-executor",
+		"_comment":"as ticks is an input variable, the executer will apply multiple ticks in a row"
+	},
+	
+	"output":
+	{
+		"goal":"draw",
+		"type":"csv",
+		"sort-by":"ticks",
+		"x":"ticks",
+		"y":"ratio-infected",
+		"plot":"preset-scenario",
+		"_comment":"all experiments having the same value for ratio-testing should be in the same file. Filenames will all contain ratio-testing=X in their name. This should generate 11 files, all containing 201 lines indicating the current tick and the #infected",
+		"folder":"C:/Users/loisv/git/COVID-sim3/processing/"
+		
+	}
+	
+    
+    
+} 

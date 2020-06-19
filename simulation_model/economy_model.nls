@@ -280,7 +280,7 @@ to perform-government-actions
 
   allocate-personal-subsidies
   
-  ask economic-activities-funded-by-the-government 
+  ask economic-activities-funded-by-the-government with [ my-default-available-liquidities > amount-of-capital]
   [
     let missing-money my-default-available-liquidities - amount-of-capital
     perform-transaction self "government" (to-subsidy-counterpart  missing-money) no-counterpart

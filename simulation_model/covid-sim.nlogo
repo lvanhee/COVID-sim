@@ -1726,7 +1726,7 @@ INPUTBOX
 989
 1691
 government-initial-reserve-of-capital
-20000.0
+100000.0
 1
 0
 Number
@@ -2824,7 +2824,7 @@ INPUTBOX
 914
 87
 #random-seed
-7.0
+25.0
 1
 0
 Number
@@ -3440,7 +3440,7 @@ true
 "" ""
 PENS
 "breaking isolation" 1.0 0 -2674135 true "" "plot count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]"
-"of. quarantiners" 1.0 0 -11085214 true "" "plot count people with [is-officially-asked-to-quarantine?]"
+"of. quarantiners" 1.0 0 -11085214 true "" "plot count officially-quarantiners"
 "online supplying" 1.0 0 -7171555 true "" "plot  #delivered-supply-proposed-this-tick"
 "sick quarantiners" 1.0 0 -13791810 true "" "plot count people with [is-officially-asked-to-quarantine? and is-believing-to-be-infected?]"
 
@@ -3562,8 +3562,8 @@ SWITCH
 1425
 2041
 1458
-is-tracking-app-testing-immediately-recursive?
-is-tracking-app-testing-immediately-recursive?
+is-tracking-app-testing-recursive?
+is-tracking-app-testing-recursive?
 0
 1
 -1000
@@ -4075,6 +4075,28 @@ parent-individual-subsidy-per-child-per-tick
 1
 0
 Number
+
+SWITCH
+662
+268
+812
+301
+log-transactions?
+log-transactions?
+1
+1
+-1000
+
+SWITCH
+1635
+1570
+2146
+1603
+is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
+is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
+0
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -5202,6 +5224,7 @@ load-scenario-specific-parameter-settings</setup>
     <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
+    <metric>count officially-quarantiners</metric>
     <metric>count should-be-isolators</metric>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
     <metric>#contacts-last-tick</metric>
@@ -5289,9 +5312,13 @@ load-scenario-specific-parameter-settings</setup>
     <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
       <value value="0"/>
       <value value="0.6"/>
+      <value value="0.8"/>
       <value value="1"/>
     </enumeratedValueSet>
-    <steppedValueSet variable="#random-seed" first="1" step="1" last="10"/>
+    <steppedValueSet variable="#random-seed" first="1" step="1" last="30"/>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
+      <value value="true"/>
+    </enumeratedValueSet>
   </experiment>
   <experiment name="S7_1_4-no-public-measures" repetitions="10" runMetricsEveryStep="true">
     <setup>load-scenario-7-cultural-model

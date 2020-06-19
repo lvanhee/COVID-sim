@@ -331,7 +331,7 @@ to perform-people-activities
 
   travelling-to-activity-phase
   
-  ask people with [[capacity = disabled-capacity] of current-activity] [
+  ask people with [[capacity = disabled-capacity] of current-activity or not [is-operating?] of current-activity] [
     set is-activity-successful? true
   ]
   
@@ -361,4 +361,9 @@ end
 
 to-report is-get-healed-to-hospital-descriptor? [d]
   report [is-hospital?] of location-of d and motive-of d = treatment-motive
+end
+
+;;loose definition, to be tightened if needed
+to-report is-operating?
+  report any? hired-workers
 end

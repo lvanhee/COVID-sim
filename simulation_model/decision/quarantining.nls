@@ -23,8 +23,8 @@ to quarantining-reaction-when-someone-from-household-is-infected
   [include-time-for-quarantining 14 * #ticks-per-day]
 end
 
-to-report quarantiners-wannabe ; people asked to quarantine? 
-  report people with [ is-officially-asked-to-quarantine? ]
+to-report officially-quarantiners
+  report people with [is-officially-asked-to-quarantine?]
 end
 
 to-report is-in-quarantine?

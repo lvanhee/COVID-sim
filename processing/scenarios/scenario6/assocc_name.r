@@ -1,8 +1,25 @@
 assocc_processing.get_display_name <- function(a)
 {
-    
-  if(strcmp(a,""))
+  if(is.vector(a) &&!is.string(a))
+  {
+    res <- ""
+    foreach(i=a)%do%
+      {
+        translation <- assocc_processing.get_display_name(i)
+        if(res =="") res <- translation
+        else  res <- paste(res, translation,sep=", ")
+      }
+    res
+  }
+  else if(strcmp(a,"nb.days")){"#days"}
+  else if(strcmp(a,""))
     ""
+  else if(strcmp(a,"count.should.be.isolators"))
+    "# theoretical isolators"
+  else if(strcmp(a,"count.officially.quarantiners"))
+    "#officially quarantiners"
+  else if(strcmp(a,"is.tracking.app.testing.recursive."))
+    "Recursive App?"
   else if(strcmp(a,"ratio.of.anxiety.avoidance.tracing.app.users"))
     "Anx.Avoid.App"
   else if(strcmp(a,"app_user_ratio")||strcmp(a,"ratio.of.people.using.the.tracking.app")) 

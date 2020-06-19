@@ -282,3 +282,8 @@ end
 to-report age-group-to-age-group-#contacts [infector-age infected-age]
   report table:get age-group-to-age-group-#contacts-table (list infector-age infected-age)
 end
+
+to-report peak-number-of-infected
+  report max #infected-people-per-ticks
+end
+

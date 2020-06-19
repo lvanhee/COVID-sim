@@ -106,3 +106,4 @@ to disable-all-measures
   disable-tracing-app-measure
   disable-daily-testing-measure
 end
+
