@@ -103,7 +103,7 @@ foreach(i = splitted_df_merged_by_run_number_and_ratio_app_user) %do%
     input_variables_to_display = 
       list ()
     
-    xDataName = "nb.days"
+    xDataName = "X.step."
     yDataName = "X.infected"
     linesVarName = c("ratio.of.people.using.the.tracking.app", "is.tracking.app.testing.recursive.")
     local_df = i
@@ -159,7 +159,7 @@ name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.ap
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
     print(assocc_processing.plotCompareAlongDifferentY(
-      x_var_name="nb.days",
+      x_var_name="X.step.",
       y_display_var_name="X.infected",
       list_of_y_variables_to_compare,
       name_independent_variables_to_display = name_independent_variables_to_display,
@@ -183,7 +183,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
                                                        y_display_var_name="X.contacts.last.tick",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -206,7 +206,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
                                                        y_display_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -225,8 +225,8 @@ list_of_y_variables_to_compare <-
 #X11()
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
+    #probably a bug with the number of days for cumulative. too late for me to care
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
                                                        y_display_var_name="#hospitalizations",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -243,7 +243,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
                                                        y_display_var_name="#hospitalizations",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -334,7 +334,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="nb.days",
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
                                                               y_var_name="#infections",
                                                               list_of_y_variables_to_compare,
                                                               name_independent_variables_to_display = name_independent_variables_to_display,
@@ -364,7 +364,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name"nb.days",
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
                                                               y_var_name="number of contacts",
                                                               list_of_y_variables_to_compare,
                                                               name_independent_variables_to_display = name_independent_variables_to_display,

@@ -10,7 +10,7 @@ assocc_processing.plot <- function(xDataName,
   #level_order <- factor(local_df[[xDataName]])
   
   #here it should mention explicitly the kind of factoring, I guess...
-  local_df <- arrange(local_df, nb.days)
+  
   
   vars_to_remember <- c(xDataName, yDataName, linesVarName, "X.run.number.")
   a <- local_df[c(xDataName, yDataName,"X.run.number.")]
@@ -52,6 +52,7 @@ assocc_processing.plot <- function(xDataName,
   if(!firstRound) if(! firstRound)paste(title_string,",", sep="")
   title_string <- paste(title_string,"N=",number_occurrences,")", sep ="")
 
+  local_df <- arrange(local_df, nb.days)
   
   p <- 
   ggplot(data=local_df, aes(x=!!sym(xDataName), y=!!sym(yDataName),
