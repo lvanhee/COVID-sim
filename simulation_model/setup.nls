@@ -36,8 +36,10 @@ to setup
   create-all-households
   setup-gathering-point-capacities
   setup-person-values-and-needs
+  setup-quality-of-life-indicator
   setup-social-networks
   setup-app-users
+  setup-complying-to-quarantining-when-asked-value-based
   setup-economic-model
 
 
@@ -53,6 +55,7 @@ to setup
   ask links[hide-link]
 
   set is-lockdown-active? false
+  set is-soft-lockdown-active? false
   set list-of-buses (list)
   set list-of-shared-cars (list)
   
@@ -81,6 +84,35 @@ to setup-global-metrics
   reset-metrics
   
 end
+
+to setup-complying-to-quarantining-when-asked-value-based
+ 
+  
+  ifelse is-decision-to-quarantine-value-based?
+  [ 
+    ask max-n-of (ratio-self-quarantining-when-symptomatic * count people) people [
+    importance-weight-risk-avoidance +
+    importance-weight-compliance] [
+    set decide-to-quarantine-when-symptomatic-when-asked? true
+    ]
+    ask max-n-of (ratio-self-quarantining-when-a-family-member-is-symptomatic * count people) people [
+      importance-weight-risk-avoidance +
+      importance-weight-compliance] [
+      set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? true
+    ]
+  ]
+  [ 
+    ask people [ if random-float 1  < ratio-self-quarantining-when-symptomatic [
+    set decide-to-quarantine-when-symptomatic-when-asked? true
+    ]
+    if random-float 1  < ratio-self-quarantining-when-a-family-member-is-symptomatic [
+      set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? true
+    ]
+    ]
+  ]
+    
+end
+
 
 to setup-app-users
   ask people [
@@ -235,6 +267,8 @@ to setup-person [current-home l-age]
     set has-done-shopping false
     set stayed-out-queuing-for-bus? false
     set is-activity-successful? true
+    set decide-to-quarantine-when-family-member-is-symptomatic-when-asked? false
+    set decide-to-quarantine-when-symptomatic-when-asked? false
 
     set I-know-of-social-distancing? ifelse-value Aware-of-social-distancing-at-start-of-simulation? [true] [false]
     set I-know-of-working-from-home? ifelse-value Aware-of-working-at-home-at-start-of-simulation? [true] [false]
@@ -244,7 +278,9 @@ to setup-person [current-home l-age]
     
     set #days-I-should-remain-in-self-quarantining 0
     set  events-to-process (list)
+    set quality-of-life-last-day (list)
   ]
+    
 end
 
 

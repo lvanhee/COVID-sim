@@ -29,6 +29,18 @@ to-report closed-non-essential?
   #days-trigger-non-essential-business-closing-measure <= current-day
 end
 
+to-report is-soft-lockdown-active-5-2?
+   if global-confinement-measures = "soft-lockdown-5-2" [
+    if (ratio-infected > 0.05 or (is-soft-lockdown-active? and ratio-infected > 0.02 ))
+    [
+      set is-soft-lockdown-active? true
+      report true
+    ]
+    if ratio-infected <= 0.02 [set is-soft-lockdown-active? false]
+    report false
+  ]
+  report false
+end
 
 
 
@@ -78,6 +90,8 @@ to disable-all-measures
   set #days-trigger-school-closing-measure 10000
   set #days-trigger-non-essential-business-closing-measure 10000
   set is-closing-school-when-any-reported-case-measure? false
+  set close-schools-during-global-quarantine? false
+  set force-reopening-of-schools-after-phase "never"
   set global-confinement-measures "none"
   set closed-universities? false
   set closed-workplaces? false
@@ -94,14 +108,19 @@ to disable-all-measures
   set when-is-daily-testing-applied? "never"
   ; Disable tracing (Smartphone App)
   set ratio-of-people-using-the-tracking-app 0
-  ; Disable isolation
+  ; Disable self-isolation (quarantining)
   set is-infected-and-their-families-requested-to-stay-at-home? false
   set food-delivered-to-isolators? false
   set is-psychorigidly-staying-at-home-when-quarantining? false
   set ratio-self-quarantining-when-symptomatic 0
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
   set is-working-from-home-recommended? false
-  
+  ; disable phasing of policy measures
+  set condition-for-acknowledging-the-crisis "never"
+  set condition-phasing-out "never"
+
+
+
   disable-global-quarantine-measure
   disable-tracing-app-measure
   disable-daily-testing-measure
