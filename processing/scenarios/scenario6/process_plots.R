@@ -4,7 +4,7 @@ rm(list=ls())
 args <- commandArgs(trailingOnly=TRUE)
 #args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
 #args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
-args <- "C:/Users/loisv/git/COVID-sim/processing/scenarios/scenario6"
+args <- "C:/Users/loisv/Desktop/git/COVID-sim2/COVID-sim/processing/scenarios/scenario6"
 #args <- "/Users/christiankammler/Documents/R/COVID-sim/processing/scenarios/scenario6"
 #args <-"D:/absoluteNewCVOID/COVID-sim/processing/scenarios/scenario6"
 if (length(args)==0) {
@@ -18,20 +18,32 @@ if(substr(workdirec, nchar(workdirec)-1+1, nchar(workdirec)) != '/')
   workdirec <- paste(workdirec,"/", sep="")
 
 source(paste(workdirec,"ASSOCC_processing.r", sep=""))
+input_variables <- list("ratio.of.people.using.the.tracking.app","is.tracking.app.testing.recursive.")
 
-splitted_df<-assocc_processing.init_and_prepare_data(workdirec)
+non_splitted_df<-assocc_processing.init_and_prepare_data(workdirec)
 
-non_splitted_df <- do.call(rbind.data.frame, splitted_df)
-input_variables <- list(non_splitted_df$ratio.of.people.using.the.tracking.app,
-                        non_splitted_df$is.tracking.app.testing.recursive.
-)
 
-splitted_df_merged_by_run_number <- split(non_splitted_df, input_variables)
+non_splitted_df$days = non_splitted_df$X.step. / 4
+nb_people <- 1000
+non_splitted_df$ratio_infected = non_splitted_df$X.infected / nb_people
+non_splitted_df$ratio_infected_at_hospitals = non_splitted_df$X.people.infected.in.hospitals / nb_people
+non_splitted_df$ratio_infected_at_home = non_splitted_df$X.people.infected.in.homes / nb_people
+non_splitted_df$ratio_infected_at_NE_shops = non_splitted_df$X.people.infected.in.non.essential.shops / nb_people
+non_splitted_df$ratio_infected_at_E_shops = non_splitted_df$X.people.infected.in.essential.shops / nb_people
+non_splitted_df$ratio_infected_at_pub_leisure = non_splitted_df$X.people.infected.in.public.leisure / nb_people
+non_splitted_df$ratio_infected_at_priv_leisure = non_splitted_df$X.people.infected.in.private.leisure / nb_people
+non_splitted_df$ratio_infected_at_school = non_splitted_df$X.people.infected.in.schools / nb_people
+non_splitted_df$ratio_infected_at_university = non_splitted_df$X.people.infected.in.universities / nb_people
+non_splitted_df$ratio_infected_at_pub_trans = non_splitted_df$X.people.infected.in.pubtrans / nb_people
+non_splitted_df$ratio_infected_at_shared_cars = non_splitted_df$X.people.infected.in.shared.cars / nb_people
+non_splitted_df$ratio_infected_at_queues = non_splitted_df$X.people.infected.in.queuing / nb_people
+non_splitted_df$ratio_infected_at_work = non_splitted_df$X.people.infected.in.workplaces/ nb_people
+
+splitted_df_merged_by_run_number <- split(non_splitted_df, non_splitted_df$ratio.of.people.using.the.tracking.app,non_splitted_df$is.tracking.app.testing.recursive.)
 splitted_df_merged_by_run_number_and_testing_recursive <- split(non_splitted_df, non_splitted_df$ratio.of.people.using.the.tracking.app)
 splitted_df_merged_by_run_number_and_ratio_app_user <- split(non_splitted_df, non_splitted_df$is.tracking.app.testing.recursive.)
 
-#  df <- tmp_df
-#   df
+
 
 
 #X11()
@@ -43,6 +55,43 @@ export_pdf = TRUE;
 if (export_pdf) {
   pdf(file=paste("s6plots",Sys.Date(),".pdf", sep=""), width=9, height=6);
 }
+foreach(i = list(non_splitted_df)) %do% 
+  {
+    input_variables_to_display = 
+      list ()
+    
+    xDataName = "nb.days"
+    yDataName = "ratio_infected"
+    linesVarName = "ratio.of.people.using.the.tracking.app"
+    local_df = i
+    
+    print(assocc_processing.plot(
+      xDataName = xDataName,
+      yDataName = yDataName,
+      linesVarName = linesVarName,
+      input_variables_to_display = input_variables_to_display,
+      local_df = i,
+      title_string = "Infection ratio over time depending on the app usage ratio",
+      print_shadows = FALSE
+    ))
+    Sys.sleep(1)
+    
+    print(assocc_processing.plot(
+      xDataName = xDataName,
+      yDataName = "ratio.quarantiners.currently.complying.to.quarantine",
+      linesVarName = linesVarName,
+      input_variables_to_display = input_variables_to_display,
+      title_string = "Quarantiner compliance ratio over time depending on the app udage ratio",
+      local_df = i
+    ))
+    Sys.sleep(1)
+  }
+
+
+
+
+last_tick <- max(non_splitted_df$days)
+
 
 ###Number of infector per infected per age group
 
@@ -67,7 +116,6 @@ foreach(r = splitted_df_merged_by_run_number) %do%
       title_constants= title_constants
     ))
     Sys.sleep(1)
-    
   }
 
   ###Number contactor per contacted per age group
@@ -98,71 +146,33 @@ foreach(r = splitted_df_merged_by_run_number) %do%
 
 #X11()
 
-foreach(i = splitted_df_merged_by_run_number_and_ratio_app_user) %do% 
-  {
-    input_variables_to_display = 
-      list ()
-    
-    xDataName = "X.step."
-    yDataName = "X.infected"
-    linesVarName = c("ratio.of.people.using.the.tracking.app", "is.tracking.app.testing.recursive.")
-    local_df = i
-    
-    print(assocc_processing.plot(
-      xDataName = xDataName,
-      yDataName = yDataName,
-      linesVarName = linesVarName,
-      input_variables_to_display = input_variables_to_display,
-      local_df = i
-    ))
-    Sys.sleep(1)
-    
-    print(assocc_processing.plot(
-      xDataName = xDataName,
-      yDataName = "ratio.quarantiners.currently.complying.to.quarantine",
-      linesVarName = linesVarName,
-      input_variables_to_display = input_variables_to_display,
-      local_df = i
-    ))
-    Sys.sleep(1)
-    
-    print(assocc_processing.plot(
-      xDataName = xDataName,
-      yDataName = "count.officially.quarantiners",
-      linesVarName = linesVarName,
-      input_variables_to_display = input_variables_to_display,
-      local_df = i
-    ))
-    Sys.sleep(1)
-  }
-
-
-
-
 ### Number of people infected per gathering point
 
 list_of_y_variables_to_compare <-
-  c("X.people.infected.in.hospitals",
-    "X.people.infected.in.homes",
-    "X.people.infected.in.non.essential.shops",
-    "X.people.infected.in.public.leisure",
-    "X.people.infected.in.private.leisure",
-    "X.people.infected.in.schools",
-    "X.people.infected.in.universities",
-    "X.people.infected.in.essential.shops",
-    "X.people.infected.in.pubtrans",
-    "X.people.infected.in.queuing",
-    "X.people.infected.in.shared.cars")
+  c("ratio_infected_at_hospitals",
+    "ratio_infected_at_home",
+    "ratio_infected_at_E_shops",
+    "ratio_infected_at_NE_shops",
+    "ratio_infected_at_pub_leisure",
+    "ratio_infected_at_priv_leisure",
+    "ratio_infected_at_school",
+    "ratio_infected_at_university",
+    "ratio_infected_at_pub_trans",
+    "ratio_infected_at_shared_cars",
+    "ratio_infected_at_queues",
+    "ratio_infected_at_work")
 
 name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.app", "is.tracking.app.testing.recursive.")
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
     print(assocc_processing.plotCompareAlongDifferentY(
-      x_var_name="X.step.",
-      y_display_var_name="X.infected",
+      x_var_name="days",
+      y_display_var_name="ratio_infected",
       list_of_y_variables_to_compare,
       name_independent_variables_to_display = name_independent_variables_to_display,
+      title_string = paste("Infection ratio over time depending on where infections occur for an app usage of",i$ratio.of.people.using.the.tracking.app[1]),
+      lines_display_string = "Origin",
       local_df = i))
     Sys.sleep(1)
   }
@@ -180,13 +190,16 @@ list_of_y_variables_to_compare <-
     "X.contacts.in.pubtrans",
     "X.contacts.in.queuing",
     "X.contacts.in.shared.cars")
+name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.app")
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
                                                        y_display_var_name="X.contacts.last.tick",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       lines_display_string = "Origin of contact",,
+                                                       title_string = paste("Number of contacts over time per type of gathering point for an app usage of",i$ratio.of.people.using.the.tracking.app[1]),
                                                        local_df = i))
     Sys.sleep(1)
   }
@@ -203,17 +216,22 @@ list_of_y_variables_to_compare <-
     "X.cumulative.retireds.infected",
     "X.cumulative.retireds.infector")
 
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "ratio.of.people.using.the.tracking.app")
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
                                                        y_display_var_name="X.infected",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       lines_display_string = "Ages",
+                                                       title_string = paste("Number of infectors and infectees over per age for an app usage of",i$ratio.of.people.using.the.tracking.app[1]),
                                                        local_df = i))
     Sys.sleep(1)
   }
 
+name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.app")
 
 list_of_y_variables_to_compare <-
   c("X.hospitalizations.retired.this.tick",
@@ -225,10 +243,14 @@ list_of_y_variables_to_compare <-
 #X11()
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    #probably a bug with the number of days for cumulative. too late for me to care
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+    
+    title_string = 
+      paste("Number of hospitalizations per age over time for an app-usage ratio of ",i$ratio.of.people.using.the.tracking.app[1],sep = "")
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="days",
                                                        y_display_var_name="#hospitalizations",
+                                                       lines_display_string = "Age group",
                                                        list_of_y_variables_to_compare,
+                                                       title_string = title_string,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
                                                        local_df = i, cumulative = TRUE))
     Sys.sleep(1)
@@ -243,7 +265,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+    print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
                                                        y_display_var_name="#hospitalizations",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -258,7 +280,7 @@ foreach(i = splitted_df_merged_by_run_number) %do%
 # 
 # foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
 #   {
-#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
 #                                                        y_var_name="X.infected",
 #                                                        list_of_y_variables_to_compare,
 #                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -272,7 +294,7 @@ foreach(i = splitted_df_merged_by_run_number) %do%
 # 
 # foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
 #   {
-#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
 #                                                        y_var_name="X.infected",
 #                                                        list_of_y_variables_to_compare,
 #                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -286,7 +308,7 @@ foreach(i = splitted_df_merged_by_run_number) %do%
 # 
 # foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
 #   {
-#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
 #                                                        y_var_name="X.infected",
 #                                                        list_of_y_variables_to_compare,
 #                                                        name_independent_variables_to_display = name_independent_variables_to_display,
@@ -300,13 +322,15 @@ foreach(i = splitted_df_merged_by_run_number) %do%
 # 
 # foreach(i = splitted_by_ratio_anxiety_and_ratio_users_df) %do%
 #   {
-#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="X.step.",
+#     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
 #                                                        y_var_name="X.infected",
 #                                                        list_of_y_variables_to_compare,
 #                                                        name_independent_variables_to_display = name_independent_variables_to_display,
 #                                                        df = i))
 #     Sys.sleep(1)
 #   }
+name_independent_variables_to_display = c("ratio.of.anxiety.avoidance.tracing.app.users",
+                                          "ratio.of.people.using.the.tracking.app")
 
 
 list_of_y_variables_to_compare <-
@@ -334,7 +358,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="nb.days",
                                                               y_var_name="#infections",
                                                               list_of_y_variables_to_compare,
                                                               name_independent_variables_to_display = name_independent_variables_to_display,
@@ -364,7 +388,7 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="X.step.",
+    print(assocc_processing.plotCompareAlongDifferentY_matrix(x_var_name="nb.days",
                                                               y_var_name="number of contacts",
                                                               list_of_y_variables_to_compare,
                                                               name_independent_variables_to_display = name_independent_variables_to_display,

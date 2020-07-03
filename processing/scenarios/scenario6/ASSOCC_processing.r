@@ -3,18 +3,15 @@ assocc_processing.plot <- function(xDataName,
                                    linesVarName,
                                    input_variables_to_display,
                                    local_df,
-                                   with_shadows = FALSE
+                                   title_string = "",
+                                   print_shadows = FALSE
 ) 
 {
-  #local_df <- factor(local_df, xDataName)
-  #level_order <- factor(local_df[[xDataName]])
-  
-  #here it should mention explicitly the kind of factoring, I guess...
   
   
-  vars_to_remember <- c(xDataName, yDataName, linesVarName, "X.run.number.")
-  a <- local_df[c(xDataName, yDataName,"X.run.number.")]
-  number_occurrences <- length(table(local_df$X.run.number.))
+  vars_to_remember <- c(xDataName, yDataName, linesVarName, "X.random.seed")
+  a <- local_df[c(xDataName, yDataName,"X.random.seed")]
+  number_occurrences <- length(table(local_df$X.random.seed))
 #  local_df[[linesVarName]] <- as.factor(local_df[[linesVarName]])
   
   foreach(id = linesVarName)%do%
@@ -25,6 +22,15 @@ assocc_processing.plot <- function(xDataName,
   xData = local_df[[xDataName]]
   yData = local_df[[yDataName]]
   
+#  local_df$grp <- as.factor(local_df$grp)
+  
+  means <- local_df %>% 
+    group_by(local_df[xDataName], grp) %>% 
+    summarise(mean = mean(!!sym(yDataName), na.rm = TRUE))
+  
+  
+  
+  number_of_repetitions<-length(table(i$X.random.seed))
   
   firstRound <- TRUE
   parametersString <- ""
@@ -46,31 +52,40 @@ assocc_processing.plot <- function(xDataName,
     }
   linesData <- local_df$grp
   
+  if(title_string == "")
+  {  
 
   title_string <- paste(assocc_processing.get_display_name(yDataName)," depending on  ", assocc_processing.get_display_name(linesVarName), " (",
         parametersString, sep="")
   if(!firstRound) if(! firstRound)paste(title_string,",", sep="")
-  title_string <- paste(title_string,"N=",number_occurrences,")", sep ="")
+  title_string <- paste(title_string,"N=",number_of_repetitions,")", sep ="")
 
   local_df <- arrange(local_df, nb.days)
+  }
   
   p <- 
-  ggplot(data=local_df, aes(x=!!sym(xDataName), y=!!sym(yDataName),
-                            group = X.run.number., colour=grp))
-  if(with_shadows)
-  {
-    p<- p + geom_line(alpha = 0.2)
-  }
-  p <- p + 
-    stat_summary(size = 1,
-                      fun=mean, 
-                      geom="line",group=1)+
-    xlab(xDataName) +
+  ggplot(data=local_df,  aes(x=!!sym(xDataName),
+                             colour=grp))
+  if(print_shadows)
+    p <- p + geom_line(alpha = 0.2, aes(group = X.random.seed, y=!!sym(yDataName)))
+  
+  
+  p <- p + geom_line(data = means,size = 1,aes(y=mean))
+
+  
+  lines_display_string <- assocc_processing.get_display_name(linesVarName)
+  
+  p<- p +
+    xlab(assocc_processing.get_display_name(xDataName)) +
     ylab(assocc_processing.get_display_name(yDataName)) + 
     labs(title=title_string,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
-         colours = assocc_processing.get_display_name(linesVarName))
+         colours = lines_display_string)+
+    scale_linetype_discrete(lines_display_string) +
+    scale_shape_discrete(lines_display_string) +
+    scale_colour_discrete(lines_display_string)
 }
+
 
 
 assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
@@ -78,12 +93,14 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
                                                          list_of_y_variables_to_compare,
                                                          name_independent_variables_to_display,
                                                          local_df,
+                                                         title_string = "",
                                                          cumulative=FALSE,
-                                                         with_shadows = FALSE) 
+                                                         with_shadows = FALSE,
+                                                         lines_display_string = "variables") 
 {
   if(cumulative)
   {
-    list_of_point_identifier <- c("X.run.number.", "X.step.",  "X.random.seed")
+    list_of_point_identifier <- c("X.run.number.", "days",  "X.random.seed")
     list_of_variables_to_save <- c(list_of_point_identifier, list_of_y_variables_to_compare)
     list_of_all_variables_to_remember <- c(list_of_variables_to_save, name_independent_variables_to_display)
     df_tmp <- local_df[list_of_variables_to_save]
@@ -95,13 +112,13 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
         df_tmp_local_cumulative <- 
           df_tmp_local %>% 
           group_by(!!sym("X.run.number.")) %>% 
-          arrange(!!sym("X.step.")) %>% 
+          arrange(!!sym("days")) %>% 
           mutate(cs = cumsum(!!sym(name))
           )
         df_tmp_local_cumulative[[name]]<-df_tmp_local_cumulative$cs
         df_tmp_local_cumulative = subset(df_tmp_local_cumulative, select = -cs )
         to_del <- c(name)
-       # print(paste("to delete:", to_del)
+        # print(paste("to delete:", to_del)
         df_tmp <- df_tmp[,!(names(df_tmp) %in% to_del)]
         df_tmp <- merge(df_tmp,df_tmp_local_cumulative,by=list_of_point_identifier)
       }
@@ -120,251 +137,266 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
       p<-p +  geom_line(
         #position = "stack",
         alpha = 0.2,aes(x=!!val_x, 
-                            y=!!sym(list_of_y_variables_to_compare[1]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))  
+                        y=!!sym(list_of_y_variables_to_compare[1]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))  
     
     #for a cleaner alternative way, see: https://drsimonj.svbtle.com/plotting-individual-observations-and-group-means-with-ggplot2
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[1]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])),
-                     fun=mean, 
-                   #position = "stack",
-                     geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[1]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])),
+                        fun=mean, 
+                        #position = "stack",
+                        geom="line",group=1)
     
     
-    } 
+  } 
   if(length(list_of_y_variables_to_compare) >= 2)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,
-      aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[2]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
+      p<-p +  geom_line(
+        alpha = 0.2,
+        aes(x=!!val_x,
+            y=!!sym(list_of_y_variables_to_compare[2]),
+            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[2]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])),
-      fun=mean, 
-      #position = position,
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[2]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])),
+                        fun=mean, 
+                        #position = position,
+                        geom="line",group=1)
   }
   if(length(list_of_y_variables_to_compare) >= 3)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[3]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3]))) 
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[3]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3]))) 
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[3]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3])),
-      fun=mean, 
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[3]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3])),
+                        fun=mean, 
+                        geom="line",group=1)
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 4)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[4]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[4]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[4]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[4]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 5)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[5]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))  
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[5]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))  
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[5]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])),
-      fun=mean, 
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[5]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])),
+                        fun=mean, 
+                        geom="line",group=1)
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 6)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[6]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))  
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[6]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))  
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[6]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])),
-      fun=mean, 
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[6]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])),
+                        fun=mean, 
+                        geom="line",group=1)
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 7)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
                             y=!!sym(list_of_y_variables_to_compare[7]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[7]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[7]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 8)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[8]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[8]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[8]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[8]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 9)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[9]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9]))) 
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[9]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9]))) 
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[9]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])),
-      fun=mean, 
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[9]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])),
+                        fun=mean, 
+                        geom="line",group=1)
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 10)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[10]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[10]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[10]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[10]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 11)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[11]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[11]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[11]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[11]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 12)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[12]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[12]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[12]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[12]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 13)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[13]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13]))) 
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[13]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13]))) 
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[13]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[13]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 14)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[14]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14]))) 
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[14]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14]))) 
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[14]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[14]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14])),
+                        fun=mean, 
+                        geom="line",group=1)
+  }
   if(length(list_of_y_variables_to_compare) >= 15)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[15]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15]))) 
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[15]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15]))) 
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[15]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15])),
-      fun=mean, 
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[15]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15])),
+                        fun=mean, 
+                        geom="line",group=1)
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 16)
   {
     if(position != "stack" && with_shadows)
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[16]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16]))) 
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,
+                        y=!!sym(list_of_y_variables_to_compare[16]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16]))) 
     
     p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[16]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16])),
-      fun=mean, 
-      geom="line",group=1)
+                        aes(x=!!val_x, 
+                            y=!!sym(list_of_y_variables_to_compare[16]),
+                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16])),
+                        fun=mean, 
+                        geom="line",group=1)
     
-    }
-   if(length(list_of_y_variables_to_compare) >= 17)
+  }
+  if(length(list_of_y_variables_to_compare) >= 17)
   {stop(paste("Not defined for more than",length(list_of_y_variables_to_compare), "lines"))}
   
-  p<-p+assocc_processing.get_title(x_var_name, y_display_var_name, name_independent_variables_to_display,
-                                   df = local_df, cumulative)
+  if(title_string == "")
+    title_string = assocc_processing.get_title(x_var_name, y_display_var_name, name_independent_variables_to_display,
+                                               local_df, cumulative)
+  colours_name = lines_display_string
+  
+  p<-p+
+    labs(
+      title =  title_string,
+      caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
+      colours = colours_name,
+      colour = "variables"
+    )   +
+    xlab(assocc_processing.get_display_name(x_var_name)) +
+    ylab(assocc_processing.get_display_name(y_display_var_name)) + 
+    scale_linetype_discrete(lines_display_string) +
+    scale_shape_discrete(lines_display_string) +
+    scale_colour_discrete(lines_display_string)
   p
 }
 
@@ -1027,13 +1059,9 @@ assocc_processing.get_title <- function(
   
   foreach(name = name_independent_variables_to_display) %do% 
     {
-      table_of_occurrences_of_name <- table(unlist(df[[name]]))
-      if(size(table_of_occurrences_of_name) > 1)
-        table_of_occurrences_of_name <- table(droplevels(unlist(df[[name]])))
-      
-      number_of_different_occurrences_of_name <- size(table_of_occurrences_of_name)
-      if(number_of_different_occurrences_of_name > 1)
-        stop(paste("Wrong number of occurrences for",name), names(table_of_occurrences_of_name))
+      number_occurrences <- length(table(df[[name]][1]))
+      if(number_occurrences > 1)
+        stop(paste("Wrong number of occurrences for",name))
       value_of_occurrence <- names(table(df[[name]][1]))[1]
       if(firstRound){firstRound = FALSE}
       else
@@ -1053,17 +1081,8 @@ assocc_processing.get_title <- function(
                 ")"
                 , sep ="")
   
-  colours_name <- assocc_processing.get_display_name(a = name)
+  text
   
-  labs(
-    title =  text
-    ,
-    caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
-    colours = colours_name,
-    colour = "variables",
-    x=x_var_name, 
-    y=y_var_name
-  )
 }
 
 
@@ -1141,27 +1160,75 @@ assocc_processing.init_and_prepare_data <- function(workdirec)
                       df$is.tracking.app.testing.recursive.
                       )
   
-  tmp_df <- split(df, input_variable)
+  #########################################
+  #THIS CODE SPLITS REMOVE FORBIDDEN VALUES AND UNSPIT BUT THE UNSPIT CAUSES SOME WRONG INDEXING,
+  #WHICH JAMS THE REST AFTERWARDS
+  #########################################
+  # tmp_df <- split(df, input_variable)
+  # 
+  # for (i in length(tmp_df):1) {
+  #   if(NROW(tmp_df[[i]]) == 0)tmp_df <- tmp_df[-i]
+  # }
+  # 
+  # ######################################## safety check # of infected at tick 400
+  # for (i in length(tmp_df):1) {
+  #   current_df <- tmp_df[[i]]
+  #   line <- current_df[current_df$X.step.==400,]
+  #   if(line$X.infected == 0)
+  #   {
+  #     print(paste("removing run", line$ratio.of.people.using.the.tracking.app, line$X.random.seed, "due to no more infected at tick 400"))
+  #     tmp_df <- tmp_df[-i]
+  #   }    
+  # }
+  # 
+  # tmp_df <- do.call(rbind.data.frame, tmp_df)
+  # df <- tmp_df
+  # 
+  # df2 = unlist(tmp_df,input_variable)
   
-  for (i in length(tmp_df):1) {
-    if(NROW(tmp_df[[i]]) == 0)tmp_df <- tmp_df[-i]
-  }
+  #########################################
   
-  ######################################## safety check # of infected at tick 400
-  for (i in length(tmp_df):1) {
-    current_df <- tmp_df[[i]]
-    line <- current_df[current_df$X.step.==400,]
-    if(line$X.infected == 0)
-    {
-      print(paste("removing run", line$ratio.of.people.using.the.tracking.app, line$X.random.seed, "due to no more infected at tick 400"))
-      tmp_df <- tmp_df[-i]
-    }
-  }
+  # REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------
   
-  tmp_df
+  #Loop through dataframe and identify variables that do NOT vary (i.e. that are FIXED)
+  #Unfixed variables are either independent or dependent and therefore relevant to include in the analysis
+  #df <- removeVariables(df)
+  #it did break some cases where some variable always remain set to 0
   
-#  tmp_df <- do.call(rbind.data.frame, tmp_df)
-#  df <- tmp_df
-#   df
+  # RENAME VARIABLES ---------------------------------------------------------------
+  #printColumnNames(df)
+  
+  ### MANUAL INPUT: specify new (easy-to-work-with) variable names ###
+  df
+  
+  # TRANSFORM DATAFRAME -----------------------------------------------------
+  ##Seems to work without... Weird! I believe this is to be atuned for specific plots rather
+  ##than making it needed to go through
+  
+  #transform wide dataframe into long format dataframe (in order to make it ggplot compatible)
+  ### MANUAL INPUT: make sure that you specify which variables are to be considered as metrics (i.e. dependent variables)
+  #As can be seen in clean_df, the dependent variables are (by default) called "infected", "aware_of_infected" and "tests_performed" ...
+  #...therefore the dataframe transformation revolves around pivoting infected:tests_performed 
+  #df_long <- gather(clean_df, variable, measurement, infected:tests_performed)
+  
+  # SPECIFY VARIABLE MEASUREMENT SCALES -----------------------------------------------------
+  ### MANUAL INPUT: in order for ggplot and plotly to work, one must specify the following: ###
+  #-> continuous decimal (floating) variables as 'numeric'
+  #-> continuous integer variables as 'integer'
+  #-> discrete (or categorical) variables as 'factor'
+  
+  #print an overview of variables and their measurement scales
+  #str(df_long)
+  #transform 'measurement' variable to numeric (as to avoid ggplot errors)
+  #df_long$measurement <- as.numeric(df_long$measurement)
+  #round 'measurement' variable to 4 decimals
+  #df_long$measurement <- round(df_long$measurement, 4)
+  #convert categorical variables to factors (as to avoid ggplot errors)
+  #df_long$run_number <- as.factor(df_long$run_number)
+  #df_long$app_user_ratio <- as.factor(df_long$app_user_ratio)
+  #df_long$variable <- as.factor(df_long$variable)
+  #perform some small checks to see whether everything is OK
+  #str(df_long)
+  
 }
 
