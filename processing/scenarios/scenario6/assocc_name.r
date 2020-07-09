@@ -18,6 +18,8 @@ assocc_processing.get_display_name <- function(a)
   else if(strcmp(a,"days"))
     "Days"
   else if(strcmp(a,"nb.days")){"#days"}
+  else if(strcmp(a,"X.tests.performed"))
+    "# tests performed"
   else if(strcmp(a,""))
     ""
   else if(strcmp(a,"count.should.be.isolators"))

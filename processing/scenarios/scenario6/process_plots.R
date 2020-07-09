@@ -46,7 +46,7 @@ splitted_df_merged_by_run_number_and_ratio_app_user <- split(non_splitted_df, no
 
 
 
-#X11()
+
 
 # PLOTTING -----------------------------------------------------
 
@@ -60,13 +60,13 @@ foreach(i = list(non_splitted_df)) %do%
     input_variables_to_display = 
       list ()
     
-    xDataName = "nb.days"
+    x_var_name = "nb.days"
     yDataName = "ratio_infected"
     linesVarName = "ratio.of.people.using.the.tracking.app"
     local_df = i
     
     print(assocc_processing.plot(
-      xDataName = xDataName,
+      x_var_name = x_var_name,
       yDataName = yDataName,
       linesVarName = linesVarName,
       input_variables_to_display = input_variables_to_display,
@@ -75,21 +75,28 @@ foreach(i = list(non_splitted_df)) %do%
       print_shadows = FALSE
     ))
     Sys.sleep(1)
-    
+
     print(assocc_processing.plot(
-      xDataName = xDataName,
+      x_var_name = x_var_name,
       yDataName = "ratio.quarantiners.currently.complying.to.quarantine",
       linesVarName = linesVarName,
       input_variables_to_display = input_variables_to_display,
-      title_string = "Quarantiner compliance ratio over time depending on the app udage ratio",
+      title_string = "Quarantiner compliance ratio over time depending on the app usage ratio",
+      local_df = i,
+      smoothen_curve = TRUE
+    ))
+    Sys.sleep(1)
+    
+    print(assocc_processing.plot(
+      x_var_name = x_var_name,
+      yDataName = "X.tests.performed",
+      linesVarName = linesVarName,
+      input_variables_to_display = input_variables_to_display,
+      title_string = "Number of tests depending on the app usage ratio",
       local_df = i
     ))
     Sys.sleep(1)
   }
-
-
-
-
 last_tick <- max(non_splitted_df$days)
 
 
@@ -167,7 +174,7 @@ name_independent_variables_to_display = c("ratio.of.people.using.the.tracking.ap
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
     print(assocc_processing.plotCompareAlongDifferentY(
-      x_var_name="days",
+      x_var_name="nb.days",
       y_display_var_name="ratio_infected",
       list_of_y_variables_to_compare,
       name_independent_variables_to_display = name_independent_variables_to_display,
@@ -198,8 +205,9 @@ foreach(i = splitted_df_merged_by_run_number) %do%
                                                        y_display_var_name="X.contacts.last.tick",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
-                                                       lines_display_string = "Origin of contact",,
-                                                       title_string = paste("Number of contacts over time per type of gathering point for an app usage of",i$ratio.of.people.using.the.tracking.app[1]),
+                                                       lines_display_string = "Origin of contact",
+                                                       title_string = paste("Number of contacts over time per type of gathering point for an app usage of",i$ratio.of.people.using.the.tracking.app[1],"(smoothened)"),
+                                                       smoothen_curve = TRUE,
                                                        local_df = i))
     Sys.sleep(1)
   }
@@ -245,7 +253,7 @@ foreach(i = splitted_df_merged_by_run_number) %do%
   {
     
     title_string = 
-      paste("Number of hospitalizations per age over time for an app-usage ratio of ",i$ratio.of.people.using.the.tracking.app[1],sep = "")
+      paste("Hospital admissions per age over time for an app-usage ratio of",i$ratio.of.people.using.the.tracking.app[1],"(cumulative)",sep = " ")
     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="days",
                                                        y_display_var_name="#hospitalizations",
                                                        lines_display_string = "Age group",
@@ -265,10 +273,14 @@ list_of_y_variables_to_compare <-
 
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
+    title_string = 
+      paste("Hospital admissions per age over time for an app-usage ratio of",i$ratio.of.people.using.the.tracking.app[1],"(smoothened)",sep = " " )
     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="nb.days",
                                                        y_display_var_name="#hospitalizations",
                                                        list_of_y_variables_to_compare,
                                                        name_independent_variables_to_display = name_independent_variables_to_display,
+                                                       title_string = title_string,
+                                                       smoothen_curve = TRUE,
                                                        local_df = i))
     Sys.sleep(1)
   }
@@ -430,7 +442,7 @@ assocc_processing.plot_stacked_bar_chart(non_splitted_df)
 #     fillVarName = "app user ratio"
 #     number_of_repetitions <- length(table(i$X.random.seed))
 #     
-#     assocc_processing.plot(xData = xData, xDataName = xDataName,
+#     assocc_processing.plot(xData = xData, x_var_name = x_var_name,
 #                            yvar, yvarName,
 #                            linesData = fillVar,
 #                            linesDataName = fillVarName,
