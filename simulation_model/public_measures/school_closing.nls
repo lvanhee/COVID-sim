@@ -7,5 +7,5 @@ to-report closed-schools?
   or
   #days-trigger-school-closing-measure <= current-day
   or 
-  (close-schools-during-global-quarantine? and is-global-quarantine-active?)
+  (is-closed-during-global-quarantine? and is-global-quarantine-active?)
 end

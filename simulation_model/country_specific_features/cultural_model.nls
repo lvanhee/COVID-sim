@@ -7,14 +7,10 @@
 ;set-values-based-on-culture; agent value systems are calibrated on the basis of the settings of the Hofstede cultural dimensions (see ASSOCC model interface)
 ;increase-logical-consistency-of-agent-value-systems; agent value systems are structured according to the Schwartz circumplex value model ...
 ; ... (i.e. values placed closer to one another in the circumplex correlate positively, while values placed further apart in the circumplex correlate negatively)
-;load-nations-cultural-profile-settings: calibrate Hofstede dimensions based on a nation's Hofstede dimension scorecard
-
-globals [
-  value-std-dev 
-]
+;load-nations-hofstede-dimension-scores: calibrate Hofstede dimensions based on a nation's Hofstede dimension scorecard
 
 to setup-person-values-and-needs
-  load-nations-cultural-profile-settings
+  load-nations-hofstede-dimension-scores
   calibrate-agent-value-systems
   calibrate-importance-weights-of-needs
   set-initial-need-satisfaction-levels
@@ -25,21 +21,6 @@ to calibrate-agent-value-systems
   set-values-based-on-culture
   recalibrate-value-system-according-to-age-group-of-agent
   increase-logical-consistency-of-agent-value-systems
-  
-  ;Round values to 3 decimals to make internal checks more easily executable
-  ;Define floor as 0.01 in order to avoid potential problems with division by 0 throughout the model
-  ask people [
-    set importance-given-to-hedonism-value precision (clamp 0.01 100 importance-given-to-hedonism-value) 3
-    set importance-given-to-stimulation-value precision (clamp 0.01 100 importance-given-to-stimulation-value) 3
-    set importance-given-to-self-direction-value precision (clamp 0.01 100 importance-given-to-self-direction-value) 3
-    set importance-given-to-universalism-value precision (clamp 0.01 100 importance-given-to-universalism-value) 3
-    set importance-given-to-benevolence-value precision (clamp 0.01 100 importance-given-to-benevolence-value) 3
-    set importance-given-to-conformity-tradition-value precision (clamp 0.01 100 importance-given-to-conformity-tradition-value) 3
-    set importance-given-to-security-value precision (clamp 0.01 100 importance-given-to-security-value) 3
-    set importance-given-to-power-value precision (clamp 0.01 100 importance-given-to-power-value) 3
-    set importance-given-to-achievement-value precision (clamp 0.01 100 importance-given-to-achievement-value) 3
-  ]
-  
 end
 
 to set-initial-need-satisfaction-levels
@@ -123,6 +104,9 @@ to recalibrate-value-system-according-to-age-group-of-agent
       POW_coeff
       ACH_coeff)
 
+    ;internal checks:
+    ;show word "my age is: " age
+
     let value_system (list
       importance-given-to-hedonism-value
       importance-given-to-stimulation-value
@@ -133,6 +117,9 @@ to recalibrate-value-system-according-to-age-group-of-agent
       importance-given-to-security-value
       importance-given-to-power-value
       importance-given-to-achievement-value)
+
+    ;internal checks:
+    ;show word "non-updated value system: " value_system
     
     let weight 0
     let recalibrated_value_system []
@@ -141,6 +128,9 @@ to recalibrate-value-system-according-to-age-group-of-agent
     if age = "worker" [set weight 1 * influence-of-age-on-value-system]
     if age = "retired" [set weight 0 * influence-of-age-on-value-system]
     set recalibrated_value_system (map [ [c v] -> clamp 0 100 (v - (c * weight)) ] coeffs value_system)
+    
+    ;internal checks:
+    ;show word "calibrated value system: " recalibrated_value_system
     
     set importance-given-to-hedonism-value item 0 recalibrated_value_system
     set importance-given-to-stimulation-value item 1 recalibrated_value_system
@@ -225,8 +215,6 @@ end
 
 to set-values-based-on-culture
 
-  ;;; HOFSTEDE - SCHWARTZ MAPPING ;;;
-  
   let UAI_pos uncertainty-avoidance
   let PDI_pos power-distance
   let MAS_pos masculinity-vs-femininity
@@ -240,124 +228,31 @@ to set-values-based-on-culture
   let IDV_neg 100 - individualism-vs-collectivism
   let IVR_neg 100 - indulgence-vs-restraint
   let LTO_neg 100 - long-vs-short-termism
-  
-  let mean_HED 0
-  let mean_STM 0
-  let mean_SD 0
-  let mean_UNI 0
-  let mean_BEN 0
-  let mean_CT 0
-  let mean_SEC 0
-  let mean_POW 0
-  let mean_ACH 0
 
-  let max_val max-random-value-generator
-  let min_val min-random-value-generator
-
-  if hofstede-schwartz-mapping-mode = "old settings" [
-    set mean_HED (IDV_pos + IVR_pos) / 2
-    set mean_STM (IDV_pos + UAI_neg + PDI_neg ) / 3
-    set mean_SD (IDV_pos + UAI_neg + PDI_neg ) / 3
-    set mean_UNI (IDV_neg + UAI_neg + MAS_neg) / 3
-    set mean_BEN (IDV_neg + UAI_neg + MAS_neg) / 3
-    set mean_CT (IDV_neg + UAI_pos + PDI_pos + IVR_neg) / 4
-    set mean_SEC (IDV_neg + UAI_pos + PDI_pos) / 3
-    set mean_POW (IDV_pos + UAI_pos + MAS_pos) / 3
-    set mean_ACH (IDV_pos + MAS_pos) / 2
-  ]
-  
-  if hofstede-schwartz-mapping-mode = "theoretical" [
-    set mean_HED IVR_pos
-    set mean_STM UAI_neg
-    set mean_SD IDV_pos
-    set mean_UNI (PDI_neg + MAS_neg) / 2
-    set mean_BEN MAS_neg
-    set mean_CT (PDI_pos + IDV_neg + LTO_neg + IVR_neg) / 4
-    set mean_SEC UAI_pos
-    set mean_POW (PDI_pos + MAS_pos) / 2
-    set mean_ACH MAS_pos
-  ]
-  
-  if hofstede-schwartz-mapping-mode = "empirical" [
-    set mean_HED (IDV_neg + UAI_pos + IVR_pos) / 2
-    ;cap range of random value drawn between 40 and 60
-    set mean_STM max_val - random min_val
-    set mean_SD max_val - random min_val
-    set mean_UNI IVR_pos
-    set mean_BEN max_val - random min_val
-    set mean_CT (PDI_pos + LTO_neg) / 2
-    set mean_SEC (MAS_pos + UAI_pos) / 2
-    set mean_POW IVR_neg
-    set mean_ACH (IDV_neg + MAS_pos + LTO_neg) / 3
-  ]
-  
-  if hofstede-schwartz-mapping-mode = "empirical & theoretical" [
-    set mean_HED IVR_pos
-    set mean_STM max_val - random min_val
-    set mean_SD IDV_pos
-    set mean_UNI max_val - random min_val
-    set mean_BEN max_val - random min_val
-    set mean_CT (PDI_pos + IDV_neg + LTO_neg + IVR_neg) / 4
-    set mean_SEC UAI_pos
-    set mean_POW (PDI_pos + MAS_pos) / 2
-    set mean_ACH MAS_pos
-  ]
-  
-  ;;; CULTURAL TIGHTNESS MAPPING ;;;
-
-  let max_CLT 100
-  let CLT cultural-tightness / (max_CLT / max-value-std-dev)
-  let SD clamp min-value-std-dev max-value-std-dev (max-value-std-dev - CLT)
-  ;calibrate value-std-dev according to country's tightness score
-  set value-std-dev SD
-
-  ;alpha determines output (y) for central value (i.e. x = 50)
-  let alpha 50
-  ;beta determines degree to which the logistic function distorts extreme values (i.e. values close to 0 or to 1) of the input (Vraw)
-  ;NOTE: beta is dependent on magnitude of SD -> High values for SD will lead to a stronger distortion of extreme values for Vraw
-  let max-beta 5.5
-  let beta (0.01 * max-beta) - (value-std-dev * (0.01 * cultural-tightness-function-modifier))
-  let product alpha * beta
-
-  ;Vraw is computed on the basis of Hofstede dims
-  ;Vfinal is the mean that is used to calibrate the agent's value system
-  ;If Vraw is extreme (i.e. smaller than 10 or greater than 90), it will be transformed into a number that lies closer to alpha (alpha=50)
-  let Vraw (list
-    mean_HED
-    mean_STM
-    mean_SD
-    mean_UNI
-    mean_BEN
-    mean_CT
-    mean_SEC
-    mean_POW
-    mean_ACH)
-
-  let max_value_level 100
-  let Vfinal []
-
-  ;loop through agent value system and transform the 'extreme' means (i.e. those that are smaller than 10 or higher than 90)
-  foreach Vraw [
-    vmean -> if vmean <= 10 or vmean >= 90 [
-      ;for values that hold 'extreme' levels, apply the logistic function in order pull extreme means closer to alpha (alpha = 50)
-      ;beta modulates the strength of the pull towards alpha; beta is dependent upon SD which is related to cultural tightness
-      set vmean (max_value_level / (1 + e ^ (product - (vmean * beta))))
-    ]
-    ;add vmeans to Vfinal
-    set Vfinal lput vmean Vfinal
-  ]
+  let mean_HED (IDV_pos + IVR_pos) / 2
+  let mean_STM (IDV_pos + UAI_neg + PDI_neg ) / 3
+  let mean_SD (IDV_pos + UAI_neg + PDI_neg ) / 3
+  let mean_UNI (IDV_neg + UAI_neg + MAS_neg) / 3
+  let mean_BEN (IDV_neg + UAI_neg + MAS_neg) / 3
+  let mean_CT (IDV_neg + UAI_pos + PDI_pos + IVR_neg) / 4
+  let mean_SEC (IDV_neg + UAI_pos + PDI_pos) / 3
+  let mean_POW (IDV_pos + UAI_pos + MAS_pos) / 3
+  let mean_ACH (IDV_pos + MAS_pos) / 2
 
   ask people [
-    set importance-given-to-hedonism-value clamp 0.01 100 (random-normal (item 0 Vfinal) value-std-dev)
-    set importance-given-to-stimulation-value clamp 0.01 100 (random-normal (item 1 Vfinal) value-std-dev)
-    set importance-given-to-self-direction-value clamp 0.01 100 (random-normal (item 2 Vfinal) value-std-dev)
-    set importance-given-to-universalism-value clamp 0.01 100 (random-normal (item 3 Vfinal) value-std-dev)
-    set importance-given-to-benevolence-value clamp 0.01 100 (random-normal (item 4 Vfinal) value-std-dev)
-    set importance-given-to-conformity-tradition-value clamp 0.01 100 (random-normal (item 5 Vfinal) value-std-dev)
-    set importance-given-to-security-value clamp 0.01 100 (random-normal (item 6 Vfinal) value-std-dev)
-    set importance-given-to-power-value clamp 0.01 100 (random-normal (item 7 Vfinal) value-std-dev)
-    set importance-given-to-achievement-value clamp 0.01 100 (random-normal (item 8 Vfinal) value-std-dev)
+    set importance-given-to-hedonism-value clamp 0 100 random-normal mean_HED value-std-dev
+    set importance-given-to-stimulation-value clamp 0 100 random-normal mean_STM value-std-dev
+    set importance-given-to-self-direction-value clamp 0 100 random-normal mean_SD value-std-dev
+    set importance-given-to-universalism-value clamp 0 100 random-normal mean_UNI value-std-dev
+    set importance-given-to-benevolence-value clamp 0 100 random-normal mean_BEN value-std-dev
+    set importance-given-to-conformity-tradition-value clamp 0 100 random-normal mean_CT value-std-dev
+    set importance-given-to-security-value clamp 0 100 random-normal mean_SEC value-std-dev
+    set importance-given-to-power-value clamp 0 100 random-normal mean_POW value-std-dev
+    set importance-given-to-achievement-value clamp 0 100 random-normal mean_ACH value-std-dev
+
   ]
+
+  increase-logical-consistency-of-agent-value-systems
 
 end
 
@@ -452,7 +347,7 @@ to increase-logical-consistency-of-agent-value-systems
 end
 
 ;scores taken from https://www.hofstede-insights.com/product/compare-countries/
-to load-nations-cultural-profile-settings
+to load-nations-hofstede-dimension-scores
 
   if load-country-specific-settings = "Custom" [
     set power-distance power-distance
@@ -461,7 +356,6 @@ to load-nations-cultural-profile-settings
     set uncertainty-avoidance uncertainty-avoidance
     set long-vs-short-termism long-vs-short-termism
     set indulgence-vs-restraint indulgence-vs-restraint
-    set cultural-tightness cultural-tightness
     stop
   ]
   
@@ -488,22 +382,20 @@ to load-nations-cultural-profile-settings
   ]
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" load-country-specific-settings)]
   file-close
-  
-  if sync-cultural-and-demographic-settings? [
-    set household-profiles load-country-specific-settings
-    set ratio-adults-homes item 0 country-specific-data-list
-    set ratio-retired-couple-homes item 1 country-specific-data-list
-    set ratio-family-homes item 2 country-specific-data-list
-    set ratio-multi-generational-homes item 3 country-specific-data-list
-  ]
-  
-  set power-distance item 4 country-specific-data-list
-  set individualism-vs-collectivism item 5 country-specific-data-list
-  set masculinity-vs-femininity item 6 country-specific-data-list
-  set uncertainty-avoidance item 7 country-specific-data-list
-  set long-vs-short-termism item 8 country-specific-data-list
-  set indulgence-vs-restraint item 9 country-specific-data-list
-  set cultural-tightness round item 10 country-specific-data-list
+  set country-specific-data-list sublist country-specific-data-list 4 10
+  set power-distance first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set individualism-vs-collectivism first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set masculinity-vs-femininity first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set uncertainty-avoidance first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set long-vs-short-termism first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set indulgence-vs-restraint first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list  
+    
   
 end
 
