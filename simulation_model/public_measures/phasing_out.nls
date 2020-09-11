@@ -123,6 +123,12 @@ to-report can-go-to-next-phase?
     if average-new-infections = 0 [ report last #newly-infected-per-day <= 0 ]
     report ((last #newly-infected-per-day) / average-new-infections) < next-phase-condition-percentage
   ]
+  
+  if condition-phasing-out = "new infections under limit" [
+    let #newly-infected-comparison-period sublist #newly-infected-per-ticks (max (list (length #newly-infected-per-ticks - day-gap-for-phasing-out-condition * #ticks-per-day) 0)) (length #newly-infected-per-ticks)
+    let #newly-infected-over-period sum #newly-infected-comparison-period
+    report #newly-infected-over-period <= next-phase-new-infection-limit
+  ]
 
   error (word "Unrecognized phasing out condition: " condition-phasing-out)
 end
