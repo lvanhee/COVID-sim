@@ -1,43 +1,45 @@
 assocc_processing.plot <- function(x_var_name,
-                                   yDataName,
-                                   linesVarName,
+                                   y_var_name,
+                                   
+                                   #line names should be input parameters to be compared against each other
+                                   #a list can be provided (e.g. "ratio app user" and "recursive")
+                                   lines_var_names, 
                                    input_variables_to_display,
                                    local_df,
                                    title_string = "",
                                    print_shadows = FALSE,
-                                   smoothen_curve = FALSE
+                                   smoothen_curve = FALSE,
+                                   export_to_csv_file = TRUE
 ) 
 {
-  
-  
-  vars_to_remember <- c(x_var_name, yDataName, linesVarName, "X.random.seed")
-  a <- local_df[c(x_var_name, yDataName,"X.random.seed")]
-  number_occurrences <- length(table(local_df$X.random.seed))
-#  local_df[[linesVarName]] <- as.factor(local_df[[linesVarName]])
-  
-  foreach(id = linesVarName)%do%
-    {
-      a$grp <- paste(a$grp,local_df[,id])
-    }
-  local_df <- a
+  ##preprocessing data
+  #throw away variables that are not used out of the original dataframe, for greater readibility
+  vars_to_remember <- c(x_var_name, y_var_name, lines_var_names, "X.random.seed")
+  tmp_dataframe <- local_df[c(x_var_name, y_var_name,"X.random.seed")]
+
+  #in case of multiple line variables, the multiple line variable columns must be fused into unique column called "line_name"
+  #for instance "ratio app user = 0.8" and "recursive = true" should be fused in "line_name=0.8, true"
+  foreach(id = lines_var_names)%do% {tmp_dataframe$line_name <- paste(tmp_dataframe$line_name,local_df[,id])}
+  local_df <- tmp_dataframe
   xData = local_df[[x_var_name]]
-  yData = local_df[[yDataName]]
+  yData = local_df[[y_var_name]]
   
-#  local_df$grp <- as.factor(local_df$grp)
-  
+  #generate a dataframe for the averages (e.g. fusing the random seeds)
   means <- local_df %>% 
-    group_by(local_df[x_var_name], grp) %>% 
-    summarise(mean = mean(!!sym(yDataName), na.rm = TRUE))
+    group_by(local_df[x_var_name], line_name) %>% 
+    summarise(mean = mean(!!sym(y_var_name), na.rm = TRUE))
   
+  colnames(means)[names(means)=='mean'] <- y_var_name
+  colnames(means)[names(means)=='grp'] <- "line_name"
   
-  
+  ##some checking and preparing automatic title generation (automating the writing of the title)
+  #a bit dirty, should be left out to a subprocedure
   number_of_repetitions<-length(table(i$X.random.seed))
   
   firstRound <- TRUE
   parametersString <- ""
   foreach(name = input_variables_to_display) %do% 
     {
-      
       number_occurrences <- length(table(local_df[[name]][1]))
       if(number_occurrences > 1)
         stop(paste("Wrong number of occurrences for",name))
@@ -51,12 +53,11 @@ assocc_processing.plot <- function(x_var_name,
       if(! firstRound)paste(parametersString,",", sep="")
       parametersString <- paste(parametersString,value_of_occurrence, sep = "")
     }
-  linesData <- local_df$grp
-  
+
   if(title_string == "")
   {  
 
-  title_string <- paste(assocc_processing.get_display_name(yDataName)," depending on  ", assocc_processing.get_display_name(linesVarName), " (",
+  title_string <- paste(assocc_processing.get_display_name(y_var_name)," depending on  ", assocc_processing.get_display_name(lines_var_names), " (",
         parametersString, sep="")
   if(!firstRound) if(! firstRound)paste(title_string,",", sep="")
   title_string <- paste(title_string,"N=",number_of_repetitions,")", sep ="")
@@ -64,24 +65,28 @@ assocc_processing.plot <- function(x_var_name,
   local_df <- arrange(local_df, nb.days)
   }
   
-  p <- 
-    local_df %>% 
-    dplyr::sample_frac(1) %>% 
-  ggplot(aes(x=!!sym(x_var_name),
-                             colour=grp))
+  ##actual plotting
+  #plot according to a given x variable
+  p <- ggplot(local_df, aes(x=!!sym(x_var_name),colour=line_name))
+  
+  #plot the shadows
+  #--seems to be broken due to the data manipulation cleanup we did for spitting out CSV files
+  #but no-one seems to care about this function anymore, so me neither
+  #I guess it is about sorting things around such that it is adequately grouped
   if(print_shadows)
-    p <- p + geom_line(alpha = 0.2, aes(group = X.random.seed, y=!!sym(yDataName)))
+    p <- p + geom_line(alpha = 0.2, aes(group = X.random.seed, y=!!sym(y_var_name)))
   
+  #plot the averaged curves
   if(smoothen_curve) p <- p + 
-    geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,aes(y=mean))
-  else p <- p + geom_line(data = means,size = 1,aes(y=mean))
+    geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,aes(y=means[[y_var_name]]))
+  else p <- p + geom_line(data = means,size = 1,aes(y=means[[y_var_name]]))
 
+  lines_display_string <- assocc_processing.get_display_name(lines_var_names)
   
-  lines_display_string <- assocc_processing.get_display_name(linesVarName)
-  
+  #fixing the cosmetics of the plot (line names, line colors, title)
   p<- p +
     xlab(assocc_processing.get_display_name(x_var_name)) +
-    ylab(assocc_processing.get_display_name(yDataName)) + 
+    ylab(assocc_processing.get_display_name(y_var_name)) + 
     labs(title=title_string,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
          colours = lines_display_string)+
@@ -89,9 +94,15 @@ assocc_processing.plot <- function(x_var_name,
     scale_shape_discrete(lines_display_string) +
     scale_colour_discrete(lines_display_string) +
   scale_color_viridis_d(lines_display_string, end = 0.9)
+  
+  ##spit out the data in CSV file
+  if(export_to_csv_file)
+  {
+    write.csv(local_df,paste(title_string," (raw).csv",sep = ""), row.names = TRUE)
+    write.csv(means,paste(title_string," (averaged).csv",sep = ""), row.names = TRUE)
+  }
+  p
 }
-
-
 
 assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
                                                          y_display_var_name,

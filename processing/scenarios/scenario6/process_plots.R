@@ -4,7 +4,7 @@ rm(list=ls())
 args <- commandArgs(trailingOnly=TRUE)
 #args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
 #args <- "C:/Users/Fabian/Documents/GitHub/COVID-sim/processing/scenarios/scenario6"
-args <- "C:/Users/loisv/Desktop/git/COVID-sim2/COVID-sim/processing/scenarios/scenario6"
+args <- "C:/Users/loisv/Desktop/git/github_0912/COVID-sim/processing/scenarios/scenario6"
 #args <- "/Users/christiankammler/Documents/R/COVID-sim/processing/scenarios/scenario6"
 #args <-"D:/absoluteNewCVOID/COVID-sim/processing/scenarios/scenario6"
 if (length(args)==0) {
@@ -55,20 +55,21 @@ export_pdf = TRUE;
 if (export_pdf) {
   pdf(file=paste("s6plots",Sys.Date(),".pdf", sep=""), width=9, height=6);
 }
+
 foreach(i = list(non_splitted_df)) %do% 
   {
     input_variables_to_display = 
       list ()
     
     x_var_name = "nb.days"
-    yDataName = "ratio_infected"
-    linesVarName = "ratio.of.people.using.the.tracking.app"
+    y_var_name = "ratio_infected"
+    lines_var_names = "ratio.of.people.using.the.tracking.app"
     local_df = i
     
     print(assocc_processing.plot(
       x_var_name = x_var_name,
-      yDataName = yDataName,
-      linesVarName = linesVarName,
+      y_var_name = y_var_name,
+      lines_var_names = lines_var_names,
       input_variables_to_display = input_variables_to_display,
       local_df = i,
       title_string = "Infection ratio over time depending on the app usage ratio",
@@ -78,8 +79,8 @@ foreach(i = list(non_splitted_df)) %do%
 
     print(assocc_processing.plot(
       x_var_name = x_var_name,
-      yDataName = "ratio.quarantiners.currently.complying.to.quarantine",
-      linesVarName = linesVarName,
+      y_var_name = "ratio.quarantiners.currently.complying.to.quarantine",
+      lines_var_names = lines_var_names,
       input_variables_to_display = input_variables_to_display,
       title_string = "Quarantiner compliance ratio over time depending on the app usage ratio",
       local_df = i,
@@ -89,16 +90,14 @@ foreach(i = list(non_splitted_df)) %do%
     
     print(assocc_processing.plot(
       x_var_name = x_var_name,
-      yDataName = "X.tests.performed",
-      linesVarName = linesVarName,
+      y_var_name = "X.tests.performed",
+      lines_var_names = lines_var_names,
       input_variables_to_display = input_variables_to_display,
       title_string = "Number of tests depending on the app usage ratio",
       local_df = i
     ))
     Sys.sleep(1)
   }
-last_tick <- max(non_splitted_df$days)
-
 
 ###Number of infector per infected per age group
 
