@@ -140,12 +140,12 @@ to scenario-6-setup
   set load-country-specific-settings "Great Britain"
   set #hospital-gp 4
   set #schools-gp 12
-  set #universities-gp 40
-  set #workplaces-gp 40
+  set #universities-gp 4
+  set #workplaces-gp 25
   set #public-leisure-gp 4
   set #private-leisure-gp 40
-  set #essential-shops-gp 20
-  set #non-essential-shops-gp 40
+  set #essential-shops-gp 10
+  set #non-essential-shops-gp 10
   set #beds-in-hospital 2000
   
   set disease-fsm-model "oxford"

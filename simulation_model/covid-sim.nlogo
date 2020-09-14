@@ -190,7 +190,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-40.0
+4.0
 1
 0
 Number
@@ -201,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-40.0
+25.0
 1
 0
 Number
@@ -409,7 +409,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-20.0
+10.0
 1
 0
 Number
@@ -450,7 +450,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-40.0
+10.0
 1
 0
 Number
