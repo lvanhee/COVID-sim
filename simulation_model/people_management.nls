@@ -23,6 +23,7 @@ people-own [
   my-means-of-transportation-I-currently-use
   can-I-perform-solo-transportation?
   stayed-out-queuing-for-bus?
+  #people-I-travelled-with
   
   is-currently-allocated-a-bed-in-hospital?
   ;set-default-shape turtles "circle"
