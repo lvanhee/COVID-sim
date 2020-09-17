@@ -20,7 +20,7 @@ to setup-agent-inspector
     
     if file-exists? inspector-file [ file-delete inspector-file ]
     file-open inspector-file
-    file-print "who, age, time, day, health, location, others-at-location, mode-of-transport, queued"
+    file-print "who, age, time, day, health, location, people-at-location, mode-of-transport, people-in-transport, queued"
     file-close
   ]
 end
@@ -44,7 +44,8 @@ to inspect-agent
     day-of-the-week ","
     infection-status ","
     [gathering-type] of current-activity ","
-    [count current-gatherers] of current-activity ","
+    ([count current-gatherers] of current-activity) ","
     my-means-of-transportation-I-currently-use ","
+    #people-in-my-transport ","
     stayed-out-queuing-for-bus?)
 end
