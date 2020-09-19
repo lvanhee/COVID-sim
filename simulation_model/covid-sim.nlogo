@@ -1,5 +1,5 @@
 extensions [profiler table]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls"]
+__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls" "inspector.nls"]
 breed [people person]
 
 globals [
@@ -29,6 +29,7 @@ to go
   perform-people-activities
   run-economic-cycle
   update-display
+  inspect-agents
   increment-time
   apply-active-measures
   update-metrics
@@ -189,7 +190,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-40.0
+4.0
 1
 0
 Number
@@ -200,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-40.0
+25.0
 1
 0
 Number
@@ -408,7 +409,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-20.0
+10.0
 1
 0
 Number
@@ -449,7 +450,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-40.0
+10.0
 1
 0
 Number
@@ -4094,6 +4095,17 @@ SWITCH
 1603
 is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
 is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
+0
+1
+-1000
+
+SWITCH
+832
+277
+984
+310
+inspect-to-file?
+inspect-to-file?
 0
 1
 -1000

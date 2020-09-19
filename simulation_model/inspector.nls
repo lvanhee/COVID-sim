@@ -1,0 +1,51 @@
+globals [
+  inspector-file
+  inspected-youth
+  inspected-student
+  inspected-worker
+  inspected-retiree
+]
+
+to setup-agent-inspector
+  set inspector-file "inspector"
+  if behaviorspace-experiment-name != "" [
+    set inspector-file (word inspector-file "_" behaviorspace-experiment-name)
+  ]
+  set inspector-file (word inspector-file "_run" behaviorspace-run-number ".csv")
+  if inspect-to-file? [
+    set inspected-youth one-of youngs
+    set inspected-student one-of students
+    set inspected-worker one-of workers
+    set inspected-retiree one-of retireds
+    
+    if file-exists? inspector-file [ file-delete inspector-file ]
+    file-open inspector-file
+    file-print "who, age, time, day, health, location, people-at-location, mode-of-transport, people-in-transport, queued"
+    file-close
+  ]
+end
+
+to inspect-agents
+  if inspect-to-file? [
+    file-open inspector-file
+    ask inspected-youth   [ inspect-agent ]
+    ask inspected-student [ inspect-agent ]
+    ask inspected-worker  [ inspect-agent ]
+    ask inspected-retiree [ inspect-agent ]
+    file-close
+  ]
+end
+
+to inspect-agent
+  file-print (word
+    who ","
+    age ","
+    slice-of-the-day ","
+    day-of-the-week ","
+    infection-status ","
+    [gathering-type] of current-activity ","
+    ([count current-gatherers] of current-activity) ","
+    my-means-of-transportation-I-currently-use ","
+    #people-in-my-transport ","
+    stayed-out-queuing-for-bus?)
+end
