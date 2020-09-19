@@ -32,6 +32,8 @@ assocc_processing.plot <- function(x_var_name,
   colnames(means)[names(means)=='mean'] <- y_var_name
   colnames(means)[names(means)=='grp'] <- "line_name"
   
+  local_df <- arrange(local_df, nb.days)
+  
   ##some checking and preparing automatic title generation (automating the writing of the title)
   #a bit dirty, should be left out to a subprocedure
   number_of_repetitions<-length(table(i$X.random.seed))
@@ -54,15 +56,13 @@ assocc_processing.plot <- function(x_var_name,
       parametersString <- paste(parametersString,value_of_occurrence, sep = "")
     }
 
+  ##automatic generation of the title string
   if(title_string == "")
   {  
-
   title_string <- paste(assocc_processing.get_display_name(y_var_name)," depending on  ", assocc_processing.get_display_name(lines_var_names), " (",
         parametersString, sep="")
   if(!firstRound) if(! firstRound)paste(title_string,",", sep="")
   title_string <- paste(title_string,"N=",number_of_repetitions,")", sep ="")
-
-  local_df <- arrange(local_df, nb.days)
   }
   
   ##actual plotting
@@ -104,16 +104,13 @@ assocc_processing.plot <- function(x_var_name,
   p
 }
 
-assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
-                                                         y_display_var_name,
-                                                         list_of_y_variables_to_compare,
-                                                         name_independent_variables_to_display,
-                                                         local_df,
-                                                         title_string = "",
-                                                         cumulative=FALSE,
-                                                         with_shadows = FALSE,
-                                                         smoothen_curve = FALSE,
-                                                         lines_display_string = "variables") 
+prepare_plot_along_different_Y <- function(
+  cumulative,
+  x_var_name,
+  list_of_y_variables_to_compare,
+  name_independent_variables_to_display,
+  local_df
+)
 {
   if(cumulative)
   {
@@ -142,6 +139,48 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
     #local_df <- df_tmp[ , -which(names(df_tmp) %in% list_of_y_variables_to_compare)]
     local_df <- df_tmp
   }
+  
+  vars_to_remember <- c(x_var_name, list_of_y_variables_to_compare, "X.random.seed")
+  local_df <- local_df[vars_to_remember]
+  local_df
+}
+
+average_df_over <- function(
+  local_df,
+  variable_to_keep_distinct,
+  variables_to_maintain_and_fuse
+)
+{
+  means <- local_df %>% 
+    group_by(default_x_var_name=c(local_df[[x_var_name]])) %>% 
+    summarise_at(variables_to_maintain_and_fuse, mean, na.rm = TRUE)
+  
+  means[x_var_name] = means$default_x_var_name
+  means = means[ , -which(names(means) %in% c("default_x_var_name"))]
+  means
+}
+
+assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
+                                                         y_display_var_name,
+                                                         list_of_y_variables_to_compare,
+                                                         name_independent_variables_to_display,
+                                                         local_df,
+                                                         title_string = "",
+                                                         cumulative=FALSE,
+                                                         with_shadows = FALSE,
+                                                         smoothen_curve = FALSE,
+                                                         lines_display_string = "variables",
+                                                         export_to_csv_file = TRUE) 
+{
+  local_df = prepare_plot_along_different_Y(
+    cumulative, 
+    x_var_name,
+    list_of_y_variables_to_compare,
+    name_independent_variables_to_display,
+    local_df
+    )
+  
+  all_the_means_altogether = average_df_over(local_df, x_var_name, list_of_y_variables_to_compare)
   val_x <- sym(x_var_name) 
   
   p <- ggplot(local_df, aes(x=x_var_name))
@@ -454,6 +493,14 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
     scale_linetype_discrete(lines_display_string) +
     scale_shape_discrete(lines_display_string) +
     scale_colour_discrete(lines_display_string)
+  
+  ##spit out the data in CSV file
+  if(export_to_csv_file)
+  {
+    write.csv(local_df,paste(title_string," (raw).csv",sep = ""), row.names = TRUE)
+    write.csv(all_the_means_altogether,paste(title_string," (averaged).csv",sep = ""), row.names = TRUE)
+  }
+  
   p
 }
 

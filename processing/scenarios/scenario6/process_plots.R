@@ -43,19 +43,11 @@ splitted_df_merged_by_run_number <- split(non_splitted_df, non_splitted_df$ratio
 splitted_df_merged_by_run_number_and_testing_recursive <- split(non_splitted_df, non_splitted_df$ratio.of.people.using.the.tracking.app)
 splitted_df_merged_by_run_number_and_ratio_app_user <- split(non_splitted_df, non_splitted_df$is.tracking.app.testing.recursive.)
 
-
-
-
-
-
 # PLOTTING -----------------------------------------------------
 
+pdf(file=paste("s6plots",Sys.Date(),".pdf", sep=""), width=9, height=6);
 
-export_pdf = TRUE;
-if (export_pdf) {
-  pdf(file=paste("s6plots",Sys.Date(),".pdf", sep=""), width=9, height=6);
-}
-
+#X11()
 foreach(i = list(non_splitted_df)) %do% 
   {
     input_variables_to_display = 
@@ -175,7 +167,7 @@ foreach(i = splitted_df_merged_by_run_number) %do%
     print(assocc_processing.plotCompareAlongDifferentY(
       x_var_name="nb.days",
       y_display_var_name="ratio_infected",
-      list_of_y_variables_to_compare,
+      list_of_y_variables_to_compare = list_of_y_variables_to_compare,
       name_independent_variables_to_display = name_independent_variables_to_display,
       title_string = paste("Infection ratio over time depending on where infections occur for an app usage of",i$ratio.of.people.using.the.tracking.app[1]),
       lines_display_string = "Origin",
@@ -250,7 +242,7 @@ list_of_y_variables_to_compare <-
 #X11()
 foreach(i = splitted_df_merged_by_run_number) %do%
   {
-    
+    ###For some reason the cumulation is now broken... I do not really get why and I do not want to fiddle with this now
     title_string = 
       paste("Hospital admissions per age over time for an app-usage ratio of",i$ratio.of.people.using.the.tracking.app[1],"(cumulative)",sep = " ")
     print(assocc_processing.plotCompareAlongDifferentY(x_var_name="days",
@@ -407,9 +399,7 @@ foreach(i = splitted_df_merged_by_run_number) %do%
     Sys.sleep(1)
   }
 
-if (export_pdf) {
   dev.off();
-}
 
 assocc_processing.plot_stacked_bar_chart(non_splitted_df)
 
