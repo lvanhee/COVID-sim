@@ -142,8 +142,10 @@ to scenario-6-setup
   set #schools-gp 12
   set #universities-gp 4
   set #workplaces-gp 25
-  set #public-leisure-gp 4
-  set #private-leisure-gp 40
+  set #public-leisure-gp 20
+  set density-factor-public-leisure 0.1
+  set #private-leisure-gp 60
+  set density-factor-private-leisure 0.1
   set #essential-shops-gp 10
   set #non-essential-shops-gp 10
   set #beds-in-hospital 2000
