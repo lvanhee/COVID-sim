@@ -222,7 +222,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-4.0
+20.0
 1
 0
 Number
@@ -233,7 +233,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-40.0
+60.0
 1
 0
 Number
@@ -302,7 +302,7 @@ density-factor-public-leisure
 density-factor-public-leisure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -317,7 +317,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.2
+0.3
 0.01
 1
 NIL
@@ -620,7 +620,7 @@ SWITCH
 222
 log?
 log?
-1
+0
 1
 -1000
 
@@ -1043,7 +1043,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -3714,10 +3714,10 @@ clear-log-on-setup?
 -1000
 
 PLOT
-1778
-193
-2118
-369
+7
+1852
+518
+2077
 contacts
 NIL
 NIL
@@ -3735,11 +3735,11 @@ PENS
 "pub-lei" 1.0 0 -955883 true "" "plot  #contacts-in-public-leisure"
 "pri-lei" 1.0 0 -6459832 true "" "plot  #contacts-in-private-leisure"
 "schools" 1.0 0 -1184463 true "" "plot  #contacts-in-schools"
-"univ" 1.0 0 -10899396 true "" " plot #contacts-in-universities"
+"univ" 1.0 0 -13210332 true "" " plot #contacts-in-universities"
 "e-shops" 1.0 0 -13840069 true "" "plot  #contacts-in-essential-shops"
-"ne-shops" 1.0 0 -14835848 true "" " plot #contacts-in-non-essential-shops"
+"ne-shops" 1.0 0 -8630108 true "" " plot #contacts-in-non-essential-shops"
 "pub-trans" 1.0 0 -11221820 true "" "plot  #contacts-in-pubtrans"
-"priv-trans" 1.0 0 -13791810 true "" " plot #contacts-in-shared-cars"
+"priv-trans" 1.0 0 -2064490 true "" " plot #contacts-in-shared-cars"
 "queuing" 1.0 0 -13345367 true "" "plot  #contacts-in-queuing"
 
 PLOT
