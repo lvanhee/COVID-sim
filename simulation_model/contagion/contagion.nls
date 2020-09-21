@@ -52,7 +52,7 @@ to spread-within-a-set-of-people [ts context]
       log-file-print (word "contacts(" ticks "," ts ","  context-str "," [age] of ts ")")
     ]
     
-    let #contacts-now (count ts * ((count ts) - 1)) / 2
+    let #contacts-now (count ts * ((count ts) - 1))
     set #contacts-last-tick #contacts-last-tick + #contacts-now
     
  
