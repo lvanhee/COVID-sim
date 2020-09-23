@@ -27,11 +27,23 @@ end
 
 to inspect-agents
   if inspect-to-file? [
+    if inspected-youth = nobody and any? youngs [ set inspected-youth one-of youngs ]
+    if inspected-student = nobody and any? students [ set inspected-student one-of students ]
+    if inspected-worker = nobody and any? workers [ set inspected-worker one-of workers ]
+    if inspected-retiree = nobody and any? retireds [ set inspected-retiree one-of retireds ]
     file-open inspector-file
-    ask inspected-youth   [ inspect-agent ]
-    ask inspected-student [ inspect-agent ]
-    ask inspected-worker  [ inspect-agent ]
-    ask inspected-retiree [ inspect-agent ]
+    if inspected-youth != nobody [
+      ask inspected-youth   [ inspect-agent ]
+    ]
+    if inspected-student != nobody [
+      ask inspected-student [ inspect-agent ]
+    ]
+    if inspected-worker != nobody [
+      ask inspected-worker  [ inspect-agent ]
+    ]
+    if inspected-retiree != nobody [
+      ask inspected-retiree [ inspect-agent ]
+    ]
     file-close
   ]
 end
