@@ -44,12 +44,25 @@ to perform-testing-from-tracing-app-public-measure
   let people-initiating-tests (turtle-set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive)
   set people-having-reported-last-round-to-tracking-app-that-they-have-been-tested-positive (list)
   
-  let people-to-test (turtle-set [people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?]] of people-initiating-tests)
-  ask people-to-test [perform-test 
+  let people-in-contact-with-tested-positive (turtle-set [people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?]] of people-initiating-tests)
+  
+  ask people-initiating-tests [ask [gatherers] of my-home [include-time-for-quarantining 14]]
+  
+  if is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?[
+    ask people-in-contact-with-tested-positive [include-time-for-quarantining 14]
+  ]
+  
+  let people-to-test (turtle-set)
+  if is-tracking-app-testing-recursive? 
+  [
+    set people-to-test (turtle-set [people-recorded-by-my-recording-app with [last-test-tick < ticks and not has-been-tested-infected?]] of people-initiating-tests)
+  ]
+  
+  ask people-to-test [
+    perform-test 
     set #tests-performed-by-tracking-app #tests-performed-by-tracking-app + 1]
   
-  if is-tracking-app-testing-immediately-recursive? and any? people-to-test [perform-testing-from-tracing-app-public-measure]
-  
+  if is-tracking-app-testing-recursive? and any? people-to-test [perform-testing-from-tracing-app-public-measure]
 end
   
 

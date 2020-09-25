@@ -1,4 +1,3 @@
-
 to-report health-satisfaction-level
   ;;constant value set to average
   ;;survival needs often revolve around short-term temporality (e.g. stopping to breath)
@@ -80,16 +79,9 @@ to-report SDE-self-esteem [ad]
   
 end
 
-to setup-quality-of-life-indicator
-  ask people [
-    set quality-of-life-indicator-at-start calculate-quality-of-life-indicator ]
-end
-
-
-
-to-report calculate-quality-of-life-indicator
-  ifelse age != "young" [
-  report sum (list 
+to-report quality-of-life-indicator
+  
+  let quality-of-life (list 
       ;Survival needs
     (food-safety-satisfaction-level * importance-weight-food-safety) 
     (financial-survival-satisfaction-level * importance-weight-financial-survival)
@@ -106,40 +98,6 @@ to-report calculate-quality-of-life-indicator
     (autonomy-satisfaction-level * importance-weight-autonomy) 
     (luxury-satisfaction-level * importance-weight-luxury) 
     (leisure-satisfaction-level * importance-weight-leisure))
-  ]
-  [
-    report sum (list 
-      ;Survival needs
-    (sleep-satisfaction-level * importance-weight-sleep) 
-    (health-satisfaction-level * importance-weight-health) 
-    (conformity-satisfaction-level * importance-weight-conformity)
-    ;Safety needs
-    (compliance-satisfaction-level * importance-weight-compliance) 
-    (risk-avoidance-satisfaction-level * importance-weight-risk-avoidance) 
-    ;Belonging needs
-    (belonging-satisfaction-level * importance-weight-belonging-subneed)
-    ;Esteem needs
-    (autonomy-satisfaction-level * importance-weight-autonomy) 
-    (leisure-satisfaction-level * importance-weight-leisure))
-  ]
   
-  
-
+  report sum quality-of-life
 end
-
-to-report mean-quality-of-life-indicator-of-last-day
-    
-  set quality-of-life-last-day lput calculate-quality-of-life-indicator quality-of-life-last-day
-  if length quality-of-life-last-day > 4 [
-    set quality-of-life-last-day but-first quality-of-life-last-day ]
-  
-  report mean quality-of-life-last-day
-end
-
-to-report change-of-quality-of-life-indicator-compared-to-setup
-  report  mean-quality-of-life-indicator-of-last-day / quality-of-life-indicator-at-start 
-  
-end
-
-
-

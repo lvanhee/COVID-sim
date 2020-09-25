@@ -1,55 +1,112 @@
-country;Adult ;Retired Couples;Family;Multi Generational;Power distance;Individualism vs. Collectivism;Masculinity vs. Femininity;Uncertainty avoidance;Long-term orientation vs. short-term orientation ;Indulgence vs. Restraint;Cultural Tightness Score;ratio-workers-and-retired-owning-cars;Motorized work;Motorized-Essential-shopping;Motorized-Non-essential-shopping;Motorized-School;Motorized-University;Motorized-Private Leisure;Motorized-Public Leisure;Motorized-Hospital
-Argentina;x;x;x;x;49;46;56;86;20;62;37.39565943;x;x;x;x;x;x;x;x;x
-Australia;x;x;x;x;38;90;61;51;21;71;35.77235772;x;x;x;x;x;x;x;x;x
-Austria;x;x;x;x;11;55;79;70;60;63;46.00621632;x;x;x;x;x;x;x;x;x
-Bangladesh;x;x;x;x;80;20;55;60;47;20;94.49081803;x;x;x;x;x;x;x;x;x
-Belgium;0.278;0.315;0.371;0.036;65;75;54;94;82;57;22.76422764;0.511;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Brazil;x;x;x;x;69;38;49;76;44;59;28.45528455;x;x;x;x;x;x;x;x;x
-Bulgaria;x;x;x;x;70;30;40;85;69;16;49.58263773;x;x;x;x;x;x;x;x;x
-Canada;0.44;0.23;0.31;0.02;39;80;52;48;36;68;29.38230384;x;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Chile;x;x;x;x;63;23;28;86;31;68;27.54590985;x;x;x;x;x;x;x;x;x
-China;x;x;x;x;80;20;66;30;87;24;64.22764228;x;x;x;x;x;x;x;x;x
-Czech Rep;x;x;x;x;57;58;57;74;70;29;50.25041736;x;x;x;x;x;x;x;x;x
-Denmark;0.298;0.251;0.434;0.017;18;74;16;23;35;70;45.32554257;x;x;x;x;x;x;x;x;x
-Estonia;x;x;x;x;40;60;30;60;82;16;37.44723591;x;x;x;x;x;x;x;x;x
-Finland;x;x;x;x;33;63;26;59;38;57;37.8130217;x;x;x;x;x;x;x;x;x
-France;0.302;0.3;0.375;0.023;68;71;43;86;63;48;34.04047396;0.478;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Germany;0.291;0.234;0.457;0.018;35;67;66;65;83;40;43.85595233;0.567;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Great Britain;0.292;0.312;0.36;0.036;35;89;66;35;51;69;40.77832974;0.473;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Greece;x;x;x;x;60;35;57;112;45;50;41.52143817;x;x;x;x;x;x;x;x;x
-Hong Kong;x;x;x;x;68;25;57;29;61;17;51.2195122;x;x;x;x;x;x;x;x;x
-Hungary;x;x;x;x;46;80;88;82;58;31;43.92551271;x;x;x;x;x;x;x;x;x
-India;x;x;x;x;77;48;56;40;51;26;76.47671594;x;x;x;x;x;x;x;x;x
-Indonesia;x;x;x;x;78;14;46;48;62;38;97.41235392;x;x;x;x;x;x;x;x;x
-Iran;x;x;x;x;58;41;43;59;14;40;73.70617696;x;x;x;x;x;x;x;x;x
-Ireland;x;x;x;x;28;70;68;35;24;65;40.56761269;x;x;x;x;x;x;x;x;x
-Italy;0.309;0.298;0.344;0.049;50;76;70;75;61;30;49.34511449;0.646;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Japan;x;x;x;x;54;46;95;92;88;42;66.88756328;x;x;x;x;x;x;x;x;x
-Korea South;0.352;0.431;0.163;0.054;60;18;39;85;100;29;82.26142487;0.364;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Latvia;x;x;x;x;44;70;9;63;69;13;64.3572621;x;x;x;x;x;x;x;x;x
-Lithuania;x;x;x;x;42;60;19;65;82;16;54.59098497;x;x;x;x;x;x;x;x;x
-Luxembourg;x;x;x;x;40;60;50;70;64;56;4.924874791;x;x;x;x;x;x;x;x;x
-Malaysia;x;x;x;x;104;26;50;36;41;57;95.93495935;x;x;x;x;x;x;x;x;x
-Malta;x;x;x;x;56;59;47;96;47;66;76.5442404;x;x;x;x;x;x;x;x;x
-Mexico;x;x;x;x;81;30;69;82;24;97;48.09133108;x;x;x;x;x;x;x;x;x
-Morocco;x;x;x;x;70;46;53;68;14;25;100;x;x;x;x;x;x;x;x;x
-Netherlands;0.272;0.276;0.432;0.02;38;80;14;53;67;68;30.48475101;0.494;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-New Zealand;x;x;x;x;22;79;58;49;33;75;31.70731707;x;x;x;x;x;x;x;x;x
-Norway;0.253;0.256;0.473;0.018;31;69;8;50;35;55;77.23577236;0.516;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Pakistan;x;x;x;x;55;14;50;70;50;0;100;x;x;x;x;x;x;x;x;x
-Peru;x;x;x;x;64;16;42;87;25;46;56.34390651;x;x;x;x;x;x;x;x;x
-Philippines;x;x;x;x;94;32;64;44;27;42;73.70617696;x;x;x;x;x;x;x;x;x
-Poland;x;x;x;x;68;60;64;93;38;29;56.52713873;x;x;x;x;x;x;x;x;x
-Portugal;x;x;x;x;63;27;31;104;28;33;45.22985464;x;x;x;x;x;x;x;x;x
-Romania;x;x;x;x;90;30;42;90;52;20;64.60767947;x;x;x;x;x;x;x;x;x
-Russia;x;x;x;x;93;39;36;95;81;20;52.25375626;x;x;x;x;x;x;x;x;x
-Serbia;x;x;x;x;86;25;43;92;52;28;48.41402337;x;x;x;x;x;x;x;x;x
-Singapore;0.586;0.191;0.128;0.095;74;20;48;8;72;46;69.23802544;0.157;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Slovak Rep;x;x;x;x;104;52;110;51;77;28;50.75125209;x;x;x;x;x;x;x;x;x
-Slovenia;x;x;x;x;71;27;19;88;49;48;54.0066778;x;x;x;x;x;x;x;x;x
-Spain;0.258;0.336;0.347;0.059;57;51;42;86;48;44;36.93452502;0.513;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Sweden;0.295;0.27;0.419;0.016;31;71;5;29;53;78;26.62771285;0.476;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Turkey;x;x;x;x;66;37;45;85;46;49;82.1813456;x;x;x;x;x;x;x;x;x
-U.S.A.;0.404;0.259;0.315;0.022;40;91;62;46;26;68;46.52469563;x;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
-Venezuela;x;x;x;x;81;12;73;76;16;100;30.08130081;x;x;x;x;x;x;x;x;x
-Vietnam;x;x;x;x;70;20;40;30;57;35;70.03338898;x;x;x;x;x;x;x;x;x
+country;Adult ;Retired Couples;Family;Multi Generational;Power distance;Individualism vs. Collectivism;Masculinity vs. Femininity;Uncertainty avoidance;Long-term orientation vs. short-term orientation ;Indulgence vs. Restraint;ratio-workers-and-retired-owning-cars;Motorized work;Motorized-Essential-shopping;Motorized-Non-essential-shopping;Motorized-School;Motorized-University;Motorized-Private Leisure;Motorized-Public Leisure;Motorized-Hospital
+Africa East;x;x;x;x;64;27;41;52;32;40;x;x;x;x;x;x;x;x;x
+Africa West;x;x;x;x;77;20;46;54;9;78;x;x;x;x;x;x;x;x;x
+Albania;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;61;15;x;x;x;x;x;x;x;x;x
+Algeria;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;26;32;x;x;x;x;x;x;x;x;x
+Andorra;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;#NULL!;65;x;x;x;x;x;x;x;x;x
+Arab countries;x;x;x;x;80;38;53;68;23;34;x;x;x;x;x;x;x;x;x
+Argentina;x;x;x;x;49;46;56;86;20;62;x;x;x;x;x;x;x;x;x
+Armenia;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;61;#NULL!;x;x;x;x;x;x;x;x;x
+Australia;x;x;x;x;38;90;61;51;21;71;x;x;x;x;x;x;x;x;x
+Austria;x;x;x;x;11;55;79;70;60;63;x;x;x;x;x;x;x;x;x
+Azerbaijan;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;61;22;x;x;x;x;x;x;x;x;x
+Bangladesh;x;x;x;x;80;20;55;60;47;20;x;x;x;x;x;x;x;x;x
+Belarus;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;81;15;x;x;x;x;x;x;x;x;x
+Belgium;0.278;0.315;0.371;0.036;65;75;54;94;82;57;0.511;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Belgium French;x;x;x;x;67;72;60;93;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Belgium Netherl;x;x;x;x;61;78;43;97;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Bosnia;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;70;44;x;x;x;x;x;x;x;x;x
+Brazil;x;x;x;x;69;38;49;76;44;59;x;x;x;x;x;x;x;x;x
+Bulgaria;x;x;x;x;70;30;40;85;69;16;x;x;x;x;x;x;x;x;x
+Burkina Faso;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;27;18;x;x;x;x;x;x;x;x;x
+Canada;0.44;0.23;0.31;0.02;39;80;52;48;36;68;x;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Canada French;x;x;x;x;54;73;45;60;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Chile;x;x;x;x;63;23;28;86;31;68;x;x;x;x;x;x;x;x;x
+China;x;x;x;x;80;20;66;30;87;24;x;x;x;x;x;x;x;x;x
+Colombia;x;x;x;x;67;13;64;80;13;83;x;x;x;x;x;x;x;x;x
+Costa Rica;x;x;x;x;35;15;21;86;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Croatia;x;x;x;x;73;33;40;80;58;33;x;x;x;x;x;x;x;x;x
+Cyprus;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;#NULL!;70;x;x;x;x;x;x;x;x;x
+Czech Rep;x;x;x;x;57;58;57;74;70;29;x;x;x;x;x;x;x;x;x
+Denmark;0.298;0.251;0.434;0.017;18;74;16;23;35;70;x;x;x;x;x;x;x;x;x
+Dominican Rep;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;13;54;x;x;x;x;x;x;x;x;x
+Ecuador;x;x;x;x;78;8;63;67;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Egypt;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;7;4;x;x;x;x;x;x;x;x;x
+Ethiopia;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;#NULL!;46;x;x;x;x;x;x;x;x;x
+El Salvador;x;x;x;x;66;19;40;94;20;89;x;x;x;x;x;x;x;x;x
+Estonia;x;x;x;x;40;60;30;60;82;16;x;x;x;x;x;x;x;x;x
+Finland;x;x;x;x;33;63;26;59;38;57;x;x;x;x;x;x;x;x;x
+France;0.302;0.3;0.375;0.023;68;71;43;86;63;48;0.478;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Georgia;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;38;32;x;x;x;x;x;x;x;x;x
+Germany;0.291;0.234;0.457;0.018;35;67;66;65;83;40;0.567;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Germany East;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;78;34;x;x;x;x;x;x;x;x;x
+Ghana;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;4;72;x;x;x;x;x;x;x;x;x
+Great Britain;0.292;0.312;0.36;0.036;35;89;66;35;51;69;0.473;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Greece;x;x;x;x;60;35;57;112;45;50;x;x;x;x;x;x;x;x;x
+Guatemala;x;x;x;x;95;6;37;101;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Hong Kong;x;x;x;x;68;25;57;29;61;17;x;x;x;x;x;x;x;x;x
+Hungary;x;x;x;x;46;80;88;82;58;31;x;x;x;x;x;x;x;x;x
+Iceland;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;28;67;x;x;x;x;x;x;x;x;x
+India;x;x;x;x;77;48;56;40;51;26;x;x;x;x;x;x;x;x;x
+Indonesia;x;x;x;x;78;14;46;48;62;38;x;x;x;x;x;x;x;x;x
+Iran;x;x;x;x;58;41;43;59;14;40;x;x;x;x;x;x;x;x;x
+Iraq;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;25;17;x;x;x;x;x;x;x;x;x
+Ireland;x;x;x;x;28;70;68;35;24;65;x;x;x;x;x;x;x;x;x
+Israel;x;x;x;x;13;54;47;81;38;#NULL!;x;x;x;x;x;x;x;x;x
+Italy;0.309;0.298;0.344;0.049;50;76;70;75;61;30;0.646;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Jamaica;x;x;x;x;45;39;68;13;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Japan;x;x;x;x;54;46;95;92;88;42;x;x;x;x;x;x;x;x;x
+Jordan;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;16;43;x;x;x;x;x;x;x;x;x
+Korea South;0.352;0.431;0.163;0.054;60;18;39;85;100;29;0.364;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Kyrgyz Rep;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;66;39;x;x;x;x;x;x;x;x;x
+Latvia;x;x;x;x;44;70;9;63;69;13;x;x;x;x;x;x;x;x;x
+Lithuania;x;x;x;x;42;60;19;65;82;16;x;x;x;x;x;x;x;x;x
+Luxembourg;x;x;x;x;40;60;50;70;64;56;x;x;x;x;x;x;x;x;x
+Macedonia Rep;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;62;35;x;x;x;x;x;x;x;x;x
+Malaysia;x;x;x;x;104;26;50;36;41;57;x;x;x;x;x;x;x;x;x
+Mali;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;20;43;x;x;x;x;x;x;x;x;x
+Malta;x;x;x;x;56;59;47;96;47;66;x;x;x;x;x;x;x;x;x
+Mexico;x;x;x;x;81;30;69;82;24;97;x;x;x;x;x;x;x;x;x
+Moldova;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;71;19;x;x;x;x;x;x;x;x;x
+Montenegro;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;75;20;x;x;x;x;x;x;x;x;x
+Morocco;x;x;x;x;70;46;53;68;14;25;x;x;x;x;x;x;x;x;x
+Netherlands;0.272;0.276;0.432;0.02;38;80;14;53;67;68;0.494;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+New Zealand;x;x;x;x;22;79;58;49;33;75;x;x;x;x;x;x;x;x;x
+Nigeria;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;13;84;x;x;x;x;x;x;x;x;x
+Norway;0.253;0.256;0.473;0.018;31;69;8;50;35;55;0.516;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Pakistan;x;x;x;x;55;14;50;70;50;0;x;x;x;x;x;x;x;x;x
+Panama;x;x;x;x;95;11;44;86;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Peru;x;x;x;x;64;16;42;87;25;46;x;x;x;x;x;x;x;x;x
+Philippines;x;x;x;x;94;32;64;44;27;42;x;x;x;x;x;x;x;x;x
+Poland;x;x;x;x;68;60;64;93;38;29;x;x;x;x;x;x;x;x;x
+Portugal;x;x;x;x;63;27;31;104;28;33;x;x;x;x;x;x;x;x;x
+Puerto Rico;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;0;90;x;x;x;x;x;x;x;x;x
+Romania;x;x;x;x;90;30;42;90;52;20;x;x;x;x;x;x;x;x;x
+Russia;x;x;x;x;93;39;36;95;81;20;x;x;x;x;x;x;x;x;x
+Rwanda;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;18;37;x;x;x;x;x;x;x;x;x
+Saudi Arabia;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;36;52;x;x;x;x;x;x;x;x;x
+Serbia;x;x;x;x;86;25;43;92;52;28;x;x;x;x;x;x;x;x;x
+Singapore;0.586;0.191;0.128;0.095;74;20;48;8;72;46;0.157;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Slovak Rep;x;x;x;x;104;52;110;51;77;28;x;x;x;x;x;x;x;x;x
+Slovenia;x;x;x;x;71;27;19;88;49;48;x;x;x;x;x;x;x;x;x
+South Africa;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;34;63;x;x;x;x;x;x;x;x;x
+South Africa white;x;x;x;x;49;65;63;49;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Spain;0.258;0.336;0.347;0.059;57;51;42;86;48;44;0.513;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Suriname;x;x;x;x;85;47;37;92;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Sweden;0.295;0.27;0.419;0.016;31;71;5;29;53;78;0.476;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Switzerland;x;x;x;x;34;68;70;58;74;66;x;x;x;x;x;x;x;x;x
+Switzerland French;x;x;x;x;70;64;58;70;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Switzerland German;x;x;x;x;26;69;72;56;#NULL!;#NULL!;x;x;x;x;x;x;x;x;x
+Taiwan;x;x;x;x;58;17;45;69;93;49;x;x;x;x;x;x;x;x;x
+Tanzania;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;34;38;x;x;x;x;x;x;x;x;x
+Thailand;x;x;x;x;64;20;34;64;32;45;x;x;x;x;x;x;x;x;x
+Trinidad and Tobago;x;x;x;x;47;16;58;55;13;80;x;x;x;x;x;x;x;x;x
+Turkey;x;x;x;x;66;37;45;85;46;49;x;x;x;x;x;x;x;x;x
+U.S.A.;0.404;0.259;0.315;0.022;40;91;62;46;26;68;x;0.618;0.464;0.464;0.194;0.304;0.49;0.49;1
+Uganda;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;24;52;x;x;x;x;x;x;x;x;x
+Ukraine;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;86;14;x;x;x;x;x;x;x;x;x
+Uruguay;x;x;x;x;61;36;38;100;26;53;x;x;x;x;x;x;x;x;x
+Venezuela;x;x;x;x;81;12;73;76;16;100;x;x;x;x;x;x;x;x;x
+Vietnam;x;x;x;x;70;20;40;30;57;35;x;x;x;x;x;x;x;x;x
+Zambia;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;30;42;x;x;x;x;x;x;x;x;x
+Zimbabwe;x;x;x;x;#NULL!;#NULL!;#NULL!;#NULL!;15;28;x;x;x;x;x;x;x;x;x

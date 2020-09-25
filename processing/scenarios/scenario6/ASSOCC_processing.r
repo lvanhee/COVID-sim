@@ -1,22 +1,47 @@
-assocc_processing.plot <- function(xDataName,
-                                   yDataName,
-                                   linesVarName,
+assocc_processing.plot <- function(x_var_name,
+                                   y_var_name,
+                                   
+                                   #line names should be input parameters to be compared against each other
+                                   #a list can be provided (e.g. "ratio app user" and "recursive")
+                                   lines_var_names, 
                                    input_variables_to_display,
-                                   local_df
+                                   local_df,
+                                   title_string = "",
+                                   print_shadows = FALSE,
+                                   smoothen_curve = FALSE,
+                                   export_to_csv_file = TRUE
 ) 
 {
-  local_df[[linesVarName]] <- as.factor(local_df[[linesVarName]])
+  ##preprocessing data
+  #throw away variables that are not used out of the original dataframe, for greater readibility
+  vars_to_remember <- c(x_var_name, y_var_name, lines_var_names, "X.random.seed")
+  tmp_dataframe <- local_df[c(x_var_name, y_var_name,"X.random.seed")]
+
+  #in case of multiple line variables, the multiple line variable columns must be fused into unique column called "line_name"
+  #for instance "ratio app user = 0.8" and "recursive = true" should be fused in "line_name=0.8, true"
+  foreach(id = lines_var_names)%do% {tmp_dataframe$line_name <- paste(tmp_dataframe$line_name,local_df[,id])}
+  local_df <- tmp_dataframe
+  xData = local_df[[x_var_name]]
+  yData = local_df[[y_var_name]]
   
-  xData = local_df[[xDataName]]
-  yData = local_df[[yDataName]]
+  #generate a dataframe for the averages (e.g. fusing the random seeds)
+  means <- local_df %>% 
+    group_by(local_df[x_var_name], line_name) %>% 
+    summarise(mean = mean(!!sym(y_var_name), na.rm = TRUE))
   
+  colnames(means)[names(means)=='mean'] <- y_var_name
+  colnames(means)[names(means)=='grp'] <- "line_name"
+  
+  local_df <- arrange(local_df, nb.days)
+  
+  ##some checking and preparing automatic title generation (automating the writing of the title)
+  #a bit dirty, should be left out to a subprocedure
   number_of_repetitions<-length(table(i$X.random.seed))
   
   firstRound <- TRUE
   parametersString <- ""
   foreach(name = input_variables_to_display) %do% 
     {
-      
       number_occurrences <- length(table(local_df[[name]][1]))
       if(number_occurrences > 1)
         stop(paste("Wrong number of occurrences for",name))
@@ -30,42 +55,69 @@ assocc_processing.plot <- function(xDataName,
       if(! firstRound)paste(parametersString,",", sep="")
       parametersString <- paste(parametersString,value_of_occurrence, sep = "")
     }
-  linesData <- local_df[[linesVarName]]
-  
-  
-  title_string <- paste(assocc_processing.get_display_name(yDataName)," depending on  ", assocc_processing.get_display_name(linesVarName), " (",
+
+  ##automatic generation of the title string
+  if(title_string == "")
+  {  
+  title_string <- paste(assocc_processing.get_display_name(y_var_name)," depending on  ", assocc_processing.get_display_name(lines_var_names), " (",
         parametersString, sep="")
   if(!firstRound) if(! firstRound)paste(title_string,",", sep="")
   title_string <- paste(title_string,"N=",number_of_repetitions,")", sep ="")
+  }
   
-  p <- 
-  ggplot(data=local_df, aes(x=!!sym(xDataName), y=!!sym(yDataName),
-                            group = X.run.number., colour=!!sym(linesVarName)))+
-    geom_line(alpha = 0.2)+
-    stat_summary(size = 1,
-                      fun=mean, 
-                      geom="line",group=1)+
-    xlab(xDataName) +
-    ylab(assocc_processing.get_display_name(yDataName)) + 
+  ##actual plotting
+  #plot according to a given x variable
+  p <- ggplot(local_df, aes(x=!!sym(x_var_name),colour=line_name))
+  
+  #plot the shadows
+  #--seems to be broken due to the data manipulation cleanup we did for spitting out CSV files
+  #but no-one seems to care about this function anymore, so me neither
+  #I guess it is about sorting things around such that it is adequately grouped
+  if(print_shadows)
+    p <- p + geom_line(alpha = 0.2, aes(group = X.random.seed, y=!!sym(y_var_name)))
+  
+  #plot the averaged curves
+  if(smoothen_curve) p <- p + 
+    geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,aes(y=means[[y_var_name]]))
+  else p <- p + geom_line(data = means,size = 1,aes(y=means[[y_var_name]]))
+
+  lines_display_string <- assocc_processing.get_display_name(lines_var_names)
+  
+  #fixing the cosmetics of the plot (line names, line colors, title)
+  p<- p +
+    xlab(assocc_processing.get_display_name(x_var_name)) +
+    ylab(assocc_processing.get_display_name(y_var_name)) + 
     labs(title=title_string,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
-         colours = assocc_processing.get_display_name(linesVarName))
+         colours = lines_display_string)+
+    scale_linetype_discrete(lines_display_string) +
+    scale_shape_discrete(lines_display_string) +
+    scale_colour_discrete(lines_display_string) +
+  scale_color_viridis_d(lines_display_string, end = 0.9)
+  
+  ##spit out the data in CSV file
+  if(export_to_csv_file)
+  {
+    write.csv(local_df,paste(title_string," (raw).csv",sep = ""), row.names = TRUE)
+    write.csv(means,paste(title_string," (averaged).csv",sep = ""), row.names = TRUE)
+  }
+  p
 }
 
-
-assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
-                                                         y_display_var_name,
-                                                         list_of_y_variables_to_compare,
-                                                         name_independent_variables_to_display,
-                                                         local_df,
-                                                         cumulative=FALSE) 
+prepare_plot_along_different_Y <- function(
+  cumulative,
+  x_var_name,
+  list_of_y_variables_to_compare,
+  name_independent_variables_to_display,
+  local_df
+)
 {
   if(cumulative)
   {
-    list_of_point_identifier <- c("X.run.number.", "X.step.",  "X.random.seed")
+    list_of_point_identifier <- c("X.run.number.", x_var_name,  "X.random.seed")
     list_of_variables_to_save <- c(list_of_point_identifier, list_of_y_variables_to_compare)
     list_of_all_variables_to_remember <- c(list_of_variables_to_save, name_independent_variables_to_display)
-    df_tmp <- local_df[list_of_variables_to_save]
+    df_tmp <- local_df[list_of_variables_to_save] 
     df_res <- local_df[list_of_all_variables_to_remember]
     foreach(name = list_of_y_variables_to_compare) %do% 
       {
@@ -74,254 +126,381 @@ assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
         df_tmp_local_cumulative <- 
           df_tmp_local %>% 
           group_by(!!sym("X.run.number.")) %>% 
-          arrange(!!sym("X.step.")) %>% 
+          arrange(!!sym(x_var_name)) %>% 
           mutate(cs = cumsum(!!sym(name))
           )
         df_tmp_local_cumulative[[name]]<-df_tmp_local_cumulative$cs
         df_tmp_local_cumulative = subset(df_tmp_local_cumulative, select = -cs )
         to_del <- c(name)
-       # print(paste("to delete:", to_del)
+        # print(paste("to delete:", to_del)
         df_tmp <- df_tmp[,!(names(df_tmp) %in% to_del)]
         df_tmp <- merge(df_tmp,df_tmp_local_cumulative,by=list_of_point_identifier)
       }
     #local_df <- df_tmp[ , -which(names(df_tmp) %in% list_of_y_variables_to_compare)]
     local_df <- df_tmp
   }
+  
+  vars_to_remember <- c(x_var_name, list_of_y_variables_to_compare, "X.random.seed")
+  local_df <- local_df[vars_to_remember]
+  local_df
+}
+
+average_df_over <- function(
+  local_df,
+  variable_to_keep_distinct,
+  variables_to_maintain_and_fuse
+)
+{
+  means <- local_df %>% 
+    group_by(default_x_var_name=c(local_df[[x_var_name]])) %>% 
+    summarise_at(variables_to_maintain_and_fuse, mean, na.rm = TRUE)
+  
+  means[x_var_name] = means$default_x_var_name
+  means = means[ , -which(names(means) %in% c("default_x_var_name"))]
+  means
+}
+
+assocc_processing.plotCompareAlongDifferentY <- function(x_var_name,
+                                                         y_display_var_name,
+                                                         list_of_y_variables_to_compare,
+                                                         name_independent_variables_to_display,
+                                                         local_df,
+                                                         title_string = "",
+                                                         cumulative=FALSE,
+                                                         with_shadows = FALSE,
+                                                         smoothen_curve = FALSE,
+                                                         lines_display_string = "variables",
+                                                         export_to_csv_file = TRUE) 
+{
+  local_df = prepare_plot_along_different_Y(
+    cumulative, 
+    x_var_name,
+    list_of_y_variables_to_compare,
+    name_independent_variables_to_display,
+    local_df
+    )
+  
+  all_the_means_altogether = average_df_over(local_df, x_var_name, list_of_y_variables_to_compare)
   val_x <- sym(x_var_name) 
   
-  p <- ggplot(local_df, aes(group = X.random.seed))
+  p <- ggplot(local_df, aes(x=x_var_name))
+  
+  position <- "identity"
   
   if(length(list_of_y_variables_to_compare) >= 1)
   {
-    p<-p +  geom_line(alpha = 0.2,aes(x=!!val_x, 
-                            y=!!sym(list_of_y_variables_to_compare[1]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))  
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[1]), na.rm = TRUE))
     
-    #for a cleaner alternative way, see: https://drsimonj.svbtle.com/plotting-individual-observations-and-group-means-with-ggplot2
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[1]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])),
-                     fun=mean, 
-                     geom="line",group=1)
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        #position = "stack",
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed, 
+                        y=!!sym(list_of_y_variables_to_compare[1]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))  
+    
+    if(smoothen_curve) #p = p + 
+        p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                    aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))
+    else p<-p + geom_line(data = means,size=1,aes(x=!!sym(x_var_name), y=mean, 
+                                           colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[1])))
+    
+
     
     
-    }
+  } 
   if(length(list_of_y_variables_to_compare) >= 2)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,
-      aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[2]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[2]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])),
-      fun=mean, 
-      geom="line",group=1)
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[2]), na.rm = TRUE))
+    
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,
+        aes(x=!!val_x,group = X.random.seed,
+            y=!!sym(list_of_y_variables_to_compare[2]),
+            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[2])))
   }
   if(length(list_of_y_variables_to_compare) >= 3)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[3]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3]))) 
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[3]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[3]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3]))) 
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[3]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3])),
-      fun=mean, 
-      geom="line",group=1)
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[3])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[3])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[3])))
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 4)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[4]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[4]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[4]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[4]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))
+    
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[4])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = 
+                                             assocc_processing.get_display_name(list_of_y_variables_to_compare[4])))
+  }
   if(length(list_of_y_variables_to_compare) >= 5)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[5]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))  
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[5]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[5]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))  
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[5]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])),
-      fun=mean, 
-      geom="line",group=1)
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[5])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[5])))
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 6)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[6]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))  
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[6]), na.rm = TRUE))
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[6]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])),
-      fun=mean, 
-      geom="line",group=1)
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[6]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))  
     
-    }
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[6])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[6])))
+    
+  }
   if(length(list_of_y_variables_to_compare) >= 7)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[7]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
                             y=!!sym(list_of_y_variables_to_compare[7]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[7]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))
+
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[7])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[7])))
+  }
   if(length(list_of_y_variables_to_compare) >= 8)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[8]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[8]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[8]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[8]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))
+    
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[8])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[8])))
+  }
   if(length(list_of_y_variables_to_compare) >= 9)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[9]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9]))) 
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[9]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[9]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9]))) 
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[9]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])),
-      fun=mean, 
-      geom="line",group=1)
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[9])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[9])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[9])))
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 10)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[10]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[10]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[10]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[10]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[10])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[10])))
+  }
   if(length(list_of_y_variables_to_compare) >= 11)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[11]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[11]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[11]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[11]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))
+    
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[11])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[11])))
+  }
   if(length(list_of_y_variables_to_compare) >= 12)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[12]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[12]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[12]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[12]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[12])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[12])))
+  }
   if(length(list_of_y_variables_to_compare) >= 13)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[13]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13]))) 
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[13]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[13]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[13]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13]))) 
+    
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[13])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[13])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[13])))
+  }
   if(length(list_of_y_variables_to_compare) >= 14)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[14]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14]))) 
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[14]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14])),
-      fun=mean, 
-      geom="line",group=1)
-    }
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[14]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[14]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14]))) 
+    
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[14])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[14])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[14])))
+  }
   if(length(list_of_y_variables_to_compare) >= 15)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[15]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15]))) 
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[15]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[15]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15]))) 
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[15]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15])),
-      fun=mean, 
-      geom="line",group=1)
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[15])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[15])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[15])))
     
-    }
+  }
   if(length(list_of_y_variables_to_compare) >= 16)
   {
-    p<-p +  geom_line(
-      alpha = 0.2,aes(x=!!val_x,
-                            y=!!sym(list_of_y_variables_to_compare[16]),
-                            colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16]))) 
+    means <- local_df %>% 
+      group_by(local_df[x_var_name]) %>% 
+      summarise(mean = mean(!!sym(list_of_y_variables_to_compare[16]), na.rm = TRUE))
+    if(position != "stack" && with_shadows)
+      p<-p +  geom_line(
+        alpha = 0.2,aes(x=!!val_x,group = X.random.seed,
+                        y=!!sym(list_of_y_variables_to_compare[16]),
+                        colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16]))) 
     
-    p<-p + stat_summary(size = 1,
-      aes(x=!!val_x, 
-          y=!!sym(list_of_y_variables_to_compare[16]),
-          colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16])),
-      fun=mean, 
-      geom="line",group=1)
+    colour = colour=assocc_processing.get_display_name(list_of_y_variables_to_compare[16])
+    if(smoothen_curve) #p = p + 
+      p = p + geom_smooth(data=means, method="loess", size=1, span = 0.25, se=FALSE, fullrange=FALSE, level=0.95,
+                          aes(x=!!sym(x_var_name),y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[16])))
+    else p<-p + geom_line(data = means, size=1,aes(x=!!sym(x_var_name), y=mean, colour = assocc_processing.get_display_name(list_of_y_variables_to_compare[16])))
     
-    }
-   if(length(list_of_y_variables_to_compare) >= 17)
+  }
+  if(length(list_of_y_variables_to_compare) >= 17)
   {stop(paste("Not defined for more than",length(list_of_y_variables_to_compare), "lines"))}
   
-  p<-p+assocc_processing.get_title(x_var_name, y_display_var_name, name_independent_variables_to_display,
-                                   local_df, cumulative)
+  if(title_string == "")
+    title_string = assocc_processing.get_title(x_var_name, y_display_var_name, name_independent_variables_to_display,
+                                               local_df, cumulative)
+  colours_name = lines_display_string
+  
+  p<-p+
+    labs(
+      title =  title_string,
+      caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
+      colours = colours_name,
+      colour = "variables"
+    )   +
+    xlab(assocc_processing.get_display_name(x_var_name)) +
+    ylab(assocc_processing.get_display_name(y_display_var_name)) + 
+    scale_linetype_discrete(lines_display_string) +
+    scale_shape_discrete(lines_display_string) +
+    scale_colour_discrete(lines_display_string)
+  
+  ##spit out the data in CSV file
+  if(export_to_csv_file)
+  {
+    write.csv(local_df,paste(title_string," (raw).csv",sep = ""), row.names = TRUE)
+    write.csv(all_the_means_altogether,paste(title_string," (averaged).csv",sep = ""), row.names = TRUE)
+  }
+  
   p
 }
 
@@ -1006,17 +1185,8 @@ assocc_processing.get_title <- function(
                 ")"
                 , sep ="")
   
-  colours_name <- assocc_processing.get_display_name(a = name)
+  text
   
-  labs(
-    title =  text
-    ,
-    caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
-    colours = colours_name,
-    colour = "variables",
-    x=x_var_name, 
-    y=y_var_name
-  )
 }
 
 
@@ -1056,6 +1226,7 @@ assocc_processing.init_and_prepare_data <- function(workdirec)
   #install.packages("dplyr")
   #install.packages("sets")
   
+   
   #then load relevant libraries
   library(ggplot2)
   library(plotly)
@@ -1065,6 +1236,7 @@ assocc_processing.init_and_prepare_data <- function(workdirec)
   library(ggpubr)
   library(dplyr)
   library(reshape2)
+  library(assertthat)
   #library(sets)
   
   ### MANUAL INPUT: specify and set working directory ###
@@ -1084,34 +1256,41 @@ assocc_processing.init_and_prepare_data <- function(workdirec)
   # READ DATA ---------------------------------------------------------------
   
   df <- loadData(filesPath, filesNames)
+  df$nb.days = df$X.step. / 4
   
   
   input_variable <- list(df$ratio.of.people.using.the.tracking.app,
-                      df$X.random.seed
+                      df$X.random.seed,
+                      df$is.tracking.app.testing.recursive.
                       )
   
-  tmp_df <- split(df, input_variable)
+  #########################################
+  #THIS CODE SPLITS REMOVE FORBIDDEN VALUES AND UNSPIT BUT THE UNSPIT CAUSES SOME WRONG INDEXING,
+  #WHICH JAMS THE REST AFTERWARDS
+  #########################################
+  # tmp_df <- split(df, input_variable)
+  # 
+  # for (i in length(tmp_df):1) {
+  #   if(NROW(tmp_df[[i]]) == 0)tmp_df <- tmp_df[-i]
+  # }
+  # 
+  # ######################################## safety check # of infected at tick 400
+  # for (i in length(tmp_df):1) {
+  #   current_df <- tmp_df[[i]]
+  #   line <- current_df[current_df$X.step.==400,]
+  #   if(line$X.infected == 0)
+  #   {
+  #     print(paste("removing run", line$ratio.of.people.using.the.tracking.app, line$X.random.seed, "due to no more infected at tick 400"))
+  #     tmp_df <- tmp_df[-i]
+  #   }    
+  # }
+  # 
+  # tmp_df <- do.call(rbind.data.frame, tmp_df)
+  # df <- tmp_df
+  # 
+  # df2 = unlist(tmp_df,input_variable)
   
-  for (i in length(tmp_df):1) {
-    if(NROW(tmp_df[[i]]) == 0)tmp_df <- tmp_df[-i]
-  }
-  
-  ######################################## safety check # of infected at tick 400
-  for (i in length(tmp_df):1) {
-    current_df <- tmp_df[[i]]
-    line <- current_df[current_df$X.step.==400,]
-    if(line$X.infected == 0)
-    {
-      print(paste("removing run", line$ratio.of.people.using.the.tracking.app, line$X.random.seed, "due to no more infected at tick 400"))
-      tmp_df <- tmp_df[-i]
-    }
-    
-    
-  }
-  
-  tmp_df <- do.call(rbind.data.frame, tmp_df)
-  df <- tmp_df
-  
+  #########################################
   
   # REMOVE IRRELEVANT VARIABLES ---------------------------------------------------------------
   

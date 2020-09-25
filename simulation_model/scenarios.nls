@@ -1,6 +1,7 @@
 to load-scenario-specific-parameter-settings
   load-scenario
-  load-nations-cultural-profile-settings
+  load-population-profile-based-on-current-preset-profile
+  load-nations-hofstede-dimension-scores
 end
 
 to load-scenario
@@ -139,12 +140,14 @@ to scenario-6-setup
   set load-country-specific-settings "Great Britain"
   set #hospital-gp 4
   set #schools-gp 12
-  set #universities-gp 40
-  set #workplaces-gp 40
-  set #public-leisure-gp 4
-  set #private-leisure-gp 40
-  set #essential-shops-gp 20
-  set #non-essential-shops-gp 40
+  set #universities-gp 4
+  set #workplaces-gp 25
+  set #public-leisure-gp 20
+  set density-factor-public-leisure 0.1
+  set #private-leisure-gp 60
+  set density-factor-private-leisure 0.3
+  set #essential-shops-gp 10
+  set #non-essential-shops-gp 10
   set #beds-in-hospital 2000
   
   set disease-fsm-model "oxford"
@@ -274,61 +277,13 @@ end
 
 
 to load-scenario-7-cultural-model  
-  ;overwrite some of the baseline settings according to what we judge as proper for executing the cultural model scenarios
- 
-  ;General settings
-  set static-seed? false
-  set sync-cultural-and-demographic-settings? true
+  ;overwrite some of the baseline settings according to what we judge as proper for the cultural scenario
   set #households 400
   load-number-of-gathering-points-based-on-number-of-households #households
+  ;Country specified in cultural setting must be the same for calibrating household profiles
+  ;'load-country-specific-settings' will be manipulated within behaviorspace
+  set household-profiles load-country-specific-settings
   set migration? false
-  set OVERRIDE-ECONOMY? true
-  set Aware-of-working-at-home-at-start-of-simulation? false
-  set Aware-of-social-distancing-at-start-of-simulation? false
-
-  if cultural-model-experimentation = "no-policy-measures" [
-    stop 
-  ]
-  
-  if cultural-model-experimentation = "only-social-distancing" [
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure 0.02 
-  ]
-  
-  if cultural-model-experimentation = "social-distancing-soft-lockdown" [
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure 0.02
-    set global-confinement-measures "soft-lockdown-5-2"
-    set is-working-from-home-recommended? true
-  ]
-  
-  if cultural-model-experimentation = "social-distancing-hard-lockdown" [
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure 0.02
-    set global-confinement-measures "lockdown-10-5"
-    set ratio-omniscious-infected-that-trigger-school-closing-measure 0.05
-    set ratio-omniscious-infected-that-trigger-non-essential-closing-measure 0.05
-    set is-working-from-home-recommended? true
-  ]
-  
-  if cultural-model-experimentation = "social-distancing-tracking-tracing-testing-isolating" [
-    set ratio-omniscious-infected-that-trigger-social-distancing-measure 0.02
-    set when-is-tracing-app-active? "always"
-    set is-tracking-app-testing-immediately-recursive? true
-    set ratio-of-people-using-the-tracking-app 0.5
-    set when-is-daily-testing-applied? "always"
-    set only-test-retirees-with-extra-tests? true
-    set test-home-of-confirmed-people? true
-    set test-workplace-of-confirmed-people? true
-    set prioritize-testing-health-care? true
-    set prioritize-testing-education? true
-    set ratio-population-daily-immunity-testing 0.25
-    set ratio-population-randomly-tested-daily 0.5
-    set is-infected-and-their-families-requested-to-stay-at-home? true
-    set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
-    set is-working-from-home-recommended? true
-    set keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure? true
-    set ratio-self-quarantining-when-symptomatic 0.75
-    set ratio-self-quarantining-when-a-family-member-is-symptomatic 0.75
-  ]
-  
 end
 
 
@@ -344,9 +299,6 @@ to load-baseline-parameter-settings
   set log? false
   set log-contamination? false
   set log-preferred-activity-decision? false
-  set log-violating-quarantine? false
-  set clear-log-on-setup? true
-  set log-setup? false
 
   ;load default settings for each submodel
   load-default-household-profiles
@@ -356,7 +308,7 @@ to load-baseline-parameter-settings
   load-default-contagion-model
   load-default-transport-model
   load-default-economic-parameters
-  load-default-culture-values-and-needs-parameter-settings
+  load-default-agent-values-and-needs-parameters
   load-default-social-network-model
   load-default-worker-distribution-settings
   load-default-intervention-measures-settings
@@ -367,13 +319,6 @@ to load-default-intervention-measures-settings
   set percentage-news-watchers 0.75
   set Aware-of-working-at-home-at-start-of-simulation? true
   set Aware-of-social-distancing-at-start-of-simulation? true
-
-  set social-distancing-density-factor 0.08
-  set food-delivered-to-isolators? true
-  set ratio-of-anxiety-avoidance-tracing-app-users 1
-  set ratio-young-with-phones 1
-  set ratio-retired-with-phones 1
-
   ;by default: disable all measures aimed at minimizing the spread & mortality of the coronavirus
   disable-all-measures
 end
@@ -462,10 +407,8 @@ to load-default-city-layout-model
 end
 
 to load-default-disease-model
-  set disease-fsm-model "oxford"
   set with-infected? true
   set propagation-risk 0.15
-  set daily-risk-believe-experiencing-fake-symptoms 0
   set critical-to-terminal 2
   set probability-recorvery-if-treated-old 0.6
   set probability-unavoidable-death-old 0.2
@@ -473,12 +416,10 @@ to load-default-disease-model
   set probability-unavoidable-death 0.1
   set probability-recorvery-if-treated 0.1
   set probability-self-recovery-symptoms 0.6
-  set factor-reduction-probability-transmission-young 0.69
 end
 
 
 to load-default-contagion-model
-  set contagion-model "oxford"
   set density-factor-hospitals 0.80
   set density-factor-essential-shops 0.30
   set density-factor-non-essential-shops 0.60
@@ -493,44 +434,40 @@ end
 to load-default-economic-parameters
   set productivity-at-home 1
   set workers-wages 9
-  set price-of-rations-in-essential-shops 2.8
-  set price-of-rations-in-non-essential-shops 2.68
+  set price-of-rations-in-essential-shops 3
+  set price-of-rations-in-non-essential-shops 4.5
   set days-of-rations-bought 3
-  set ratio-tax-on-essential-shops 0.52
-  set ratio-tax-on-non-essential-shops 0.52
-  set ratio-tax-on-workplaces 0.55
-  set ratio-tax-on-workers 0.37
+  set ratio-tax-on-essential-shops 0.76
+  set ratio-tax-on-non-essential-shops 0.76
+  set ratio-tax-on-workplaces 0.60
+  set ratio-tax-on-workers 0.42
   set goods-produced-by-work-performed 12
-  set unit-price-of-goods 2.5
+  set unit-price-of-goods 1.6
   set max-stock-of-goods-in-a-shop 500
   set starting-amount-of-capital-workers 75
-  set starting-amount-of-capital-retired 40
+  set starting-amount-of-capital-retired 40 
   set starting-amount-of-capital-students 30
   
-  set ratio-school-subsidy 0.03
-  set ratio-hospital-subsidy 0.04
-  set ratio-university-subsidy 0.03
+
   
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8
-  set government-initial-reserve-of-capital 10000
+  set government-initial-reserve-of-capital 100000
   
-  ;error "work in progress"
-  set retirees-tick-subsidy 3
+  set retirees-tick-subsidy 2
   set students-tick-subsidy 1.5
-  set parent-individual-subsidy-per-child-per-tick 2
+  set parent-individual-subsidy-per-child-per-tick 2.5
  
 end
 
 to load-default-household-profiles
-  ;by default, the country that is loaded into ASSOCC is Sweden, remove this if you want to simulate a different country
   set household-profiles "Sweden"
   load-population-profile-based-on-current-preset-profile
 end
 
 to load-population-profile-based-on-current-preset-profile
   
-  if household-profiles = "Custom" [
+  if household-profiles = "custom" [
     set ratio-adults-homes ratio-adults-homes
     set ratio-retired-couple-homes ratio-retired-couple-homes
     set ratio-family-homes ratio-family-homes
@@ -561,40 +498,30 @@ to load-population-profile-based-on-current-preset-profile
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data.csv file" household-profiles)]
   file-close
   
-  set ratio-adults-homes item 0 country-specific-data-list
-  set ratio-retired-couple-homes item 1 country-specific-data-list
-  set ratio-family-homes item 2 country-specific-data-list
-  set ratio-multi-generational-homes item 3 country-specific-data-list
+  set ratio-adults-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list  
+  set ratio-retired-couple-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set ratio-family-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
+  set ratio-multi-generational-homes first country-specific-data-list
+  set country-specific-data-list but-first country-specific-data-list
   
+
 end
 
-to load-default-culture-values-and-needs-parameter-settings
-  ; General cultural model settings
-  set cultural-model-experimentation "default-cultural-model-settings"
-  ;by default, the country that is loaded into ASSOCC is Sweden, remove this if you want to simulate a different country
-  set load-country-specific-settings "Sweden"
-  set hofstede-schwartz-mapping-mode "theoretical"
-  ; Sync cultural profile with other country-based settings
-  set sync-cultural-and-demographic-settings? false
+to load-default-agent-values-and-needs-parameters
   ; Values
-  set value-system-calibration-factor 20
-  set min-value-std-dev 5
-  set max-value-std-dev 15
-  set max-random-value-generator 60
-  set min-random-value-generator 20
-  set cultural-tightness 50
-  set cultural-tightness-function-modifier 0.1
-  set activate-intra-cultural-variation? true
-  set influence-of-age-on-value-system 5
+  set value-system-calibration-factor 25
+  set value-std-dev 5
   ; Needs
   set survival-multiplier 2.5
   set maslow-multiplier 0
   set weight-survival-needs 0.5
   set financial-stability-learning-rate 0.05
-  ; Social distancing & quarantining (self-isolation) variables
+  ; Social distancing variables
   set make-social-distance-profile-value-based? true
   set mean-social-distance-profile 0.5
   set std-dev-social-distance-profile 0.1
-  set is-decision-to-quarantine-value-based? true
 end
 

@@ -10,3 +10,4 @@ tmp_*.csv
 *.Rhistory
 *.csv
 *.pdf
+*.RData
