@@ -179,7 +179,7 @@ INPUTBOX
 918
 865
 #schools-gp
-12.0
+3.0
 1
 0
 Number
@@ -190,7 +190,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-4.0
+1.0
 1
 0
 Number
@@ -201,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-25.0
+7.0
 1
 0
 Number
@@ -222,7 +222,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-20.0
+5.0
 1
 0
 Number
@@ -233,7 +233,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-60.0
+14.0
 1
 0
 Number
@@ -409,7 +409,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-10.0
+3.0
 1
 0
 Number
@@ -450,7 +450,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-10.0
+3.0
 1
 0
 Number
@@ -461,7 +461,7 @@ INPUTBOX
 832
 865
 #hospital-gp
-4.0
+1.0
 1
 0
 Number
@@ -490,7 +490,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -520,7 +520,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -620,7 +620,7 @@ SWITCH
 222
 log?
 log?
-0
+1
 1
 -1000
 
@@ -1043,7 +1043,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1078,7 +1078,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.27
+0.419
 0.01
 1
 NIL
@@ -1156,7 +1156,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.38
+0.295
 0.01
 1
 NIL
@@ -1171,7 +1171,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.35
+0.27
 0.01
 1
 NIL
@@ -1186,7 +1186,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.01
+0.016
 0.01
 1
 NIL
@@ -1347,7 +1347,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-0
+12
 
 SLIDER
 2216
@@ -1480,7 +1480,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-14
+1
 
 MONITOR
 762
@@ -1984,7 +1984,7 @@ INPUTBOX
 662
 558
 #households
-391.0
+100.0
 1
 0
 Number
@@ -2006,7 +2006,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-2000.0
+3.0
 1
 0
 Number
@@ -2375,7 +2375,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-30.0
+10.0
 1
 0
 Number
@@ -2483,7 +2483,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-4
+6
 
 SLIDER
 2815
@@ -2494,7 +2494,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-35.0
+75.0
 1
 1
 NIL
@@ -2509,7 +2509,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-89.0
+76.0
 1
 1
 NIL
@@ -2524,7 +2524,7 @@ power-distance
 power-distance
 0
 100
-35.0
+50.0
 1
 1
 NIL
@@ -2539,7 +2539,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-69.0
+30.0
 1
 1
 NIL
@@ -2554,7 +2554,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-66.0
+70.0
 1
 1
 NIL
@@ -2569,7 +2569,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-51.0
+61.0
 1
 1
 NIL
@@ -3420,7 +3420,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-0
+1
 1
 -1000
 
@@ -3464,7 +3464,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3477,7 +3477,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -3488,7 +3488,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3531,7 +3531,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3556,7 +3556,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+1
 
 SWITCH
 1719
@@ -3825,7 +3825,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-0
+1
 1
 -1000
 
@@ -4106,7 +4106,7 @@ SWITCH
 310
 inspect-to-file?
 inspect-to-file?
-0
+1
 1
 -1000
 

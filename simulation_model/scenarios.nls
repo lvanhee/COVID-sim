@@ -206,7 +206,7 @@ end
 
 to scenario-1-setup
   set probability-hospital-personel 0.04
-  set probability-school-personel 0.03 
+  set probability-school-personel 0.03
   set probability-university-personel 0.03
   set probability-shopkeeper 0.04
   
@@ -337,16 +337,16 @@ to load-number-of-gathering-points-based-on-number-of-households [#hld]
 end
 
 to load-scaled-gathering-point-distribution [#hld]
-  set #hospital-gp floor (#hld / 100)
-  set #schools-gp floor (#hld / 30)
-  set #universities-gp floor (#hld / 50)
-  set #workplaces-gp floor (#hld / 10)
-  set #public-leisure-gp floor (#hld / 100)
-  set #private-leisure-gp floor (#hld / 10)
-  set #essential-shops-gp floor (#hld / 20)
-  set #non-essential-shops-gp floor (#hld / 10)
+  set #hospital-gp round (#hld / 100)
+  set #schools-gp round (#hld / 30)
+  set #universities-gp round (#hld / 100)
+  set #workplaces-gp round (#hld / 15)
+  set #public-leisure-gp round (#hld / 20)
+  set #private-leisure-gp round (#hld / 7)
+  set #essential-shops-gp round (#hld / 40)
+  set #non-essential-shops-gp round (#hld / 40)
   set #households #hld
-  set #bus-per-timeslot floor (#hld / 5)
+  set #bus-per-timeslot round (#hld / 13)
 end
 
 to load-closed-schools-and-uni-measures
@@ -423,11 +423,11 @@ to load-default-contagion-model
   set density-factor-hospitals 0.80
   set density-factor-essential-shops 0.30
   set density-factor-non-essential-shops 0.60
-  set density-factor-public-leisure 0.05
+  set density-factor-public-leisure 0.10
   set density-factor-workplaces 0.20
   set density-factor-universities 0.20
   set density-factor-homes 1.00
-  set density-factor-private-leisure 0.20
+  set density-factor-private-leisure 0.30
   set density-factor-schools 1.00
 end
 
