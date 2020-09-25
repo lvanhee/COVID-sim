@@ -132,12 +132,9 @@ to load-scenario-4-economic-parameters
 end
 
 to scenario-6-setup
-  set ratio-adults-homes 0.38
-  set ratio-family-homes 0.27
-  set ratio-retired-couple-homes 0.35
-  set ratio-multi-generational-homes 0.01
   set #households 391
   set load-country-specific-settings "Great Britain"
+  set household-profiles "Great Britain"
   set #hospital-gp 4
   set #schools-gp 12
   set #universities-gp 4
@@ -156,7 +153,6 @@ to scenario-6-setup
   set probability-unavoidable-death-old 0.2
   set probability-hospital-personel 0.03
   set probability-university-personel 0.04
-  set household-profiles "custom"
   
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0.8
   set is-infected-and-their-families-requested-to-stay-at-home? true
@@ -252,6 +248,8 @@ to scenario-9-setup
   load-baseline-parameter-settings
   ;Set households and gathering points
   load-number-of-gathering-points-based-on-number-of-households 345
+  set load-country-specific-settings "Italy"
+  set household-profiles "Italy"
   set #universities-gp 1
   set #schools-gp 2
   set migration? false
