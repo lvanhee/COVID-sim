@@ -250,8 +250,8 @@ to scenario-9-setup
   load-number-of-gathering-points-based-on-number-of-households 345
   set load-country-specific-settings "Italy"
   set household-profiles "Italy"
-  set #universities-gp 1
-  set #schools-gp 2
+  ; set #universities-gp 1
+  ; set #schools-gp 2
   set migration? false
   set probability-hospital-personel 0.026
   set probability-school-personel 0.028
