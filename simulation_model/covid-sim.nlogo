@@ -4759,9 +4759,7 @@ setup</setup>
     </enumeratedValueSet>
   </experiment>
   <experiment name="smart-testing" repetitions="3" sequentialRunOrder="false" runMetricsEveryStep="true">
-    <setup>set preset-scenario "scenario-9-smart-testing"
-load-scenario-specific-parameter-settings
-setup</setup>
+    <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
     <metric>#infected</metric>
