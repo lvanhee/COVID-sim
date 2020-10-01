@@ -41,14 +41,20 @@ end
 
 
 to spread-within-a-set-of-people [ts context]
+  if count ts < 2 [stop]
   
-  
-    
   if log? and log-contamination? [
-    log-file-print (word "contacts(" ticks "," ts ","  context "," [age] of ts ")")]
-  let #contacts-now (count ts * ((count ts) - 1)) / 2
-  set #contacts-last-tick #contacts-last-tick + #contacts-now
-  
+    let context-str context
+    if is-gathering-point? context [ set context-str (word "gathering-point(" [who] of context "," [gathering-type] of context ")")]
+      print (sentence "contacts(" ticks "," ts ","  context-str "," [age] of ts ")")
+      
+      
+      log-file-print (word "contacts(" ticks "," ts ","  context-str "," [age] of ts ")")
+    ]
+    
+    let #contacts-now (count ts * ((count ts) - 1))
+    set #contacts-last-tick #contacts-last-tick + #contacts-now
+    
  
   process-contacts-within-group-event ts context
   

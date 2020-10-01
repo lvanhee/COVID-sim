@@ -8,14 +8,17 @@ to travelling-to-activity-phase
   
   move-on-display
 
-  
-  ask people [set stayed-out-queuing-for-bus? false ]
+  ; Reset parameters
+  ask people [
+    set stayed-out-queuing-for-bus? false 
+    set #people-in-my-transport 1 ; Needs to be one, since for solo transport there is one other. It is set to 0 for no transport
+  ]
   
   let bus-users (turtle-set)
   let shared-car-users (turtle-set)
   
   ask people [
-    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method stop]
+    if not is-moving-outside-for-reaching-current-activity? [set my-means-of-transportation-I-currently-use stay-here-transportation-method set #people-in-my-transport 0 stop]
     set my-means-of-transportation-I-currently-use random-means-of-transportation
     if my-means-of-transportation-I-currently-use = public-transportation-method [set bus-users (turtle-set bus-users self)]
     if my-means-of-transportation-I-currently-use = shared-car-transportation-method [set shared-car-users (turtle-set shared-car-users self)]
@@ -49,6 +52,17 @@ to travelling-to-activity-phase
   ]
   if any? ongoing-set [set  list-of-shared-cars lput ongoing-set list-of-shared-cars]
   
+  foreach list-of-buses [bus ->
+    ask bus [
+      set #people-in-my-transport count bus
+    ]
+  ]
+  
+  foreach list-of-shared-cars [car ->
+    ask car [
+      set #people-in-my-transport count car
+    ]
+  ]
   
 end
 

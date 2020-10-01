@@ -1,5 +1,5 @@
 extensions [table]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls"]
+__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls" "inspector.nls"]
 breed [people person]
 
 globals [
@@ -3608,8 +3608,8 @@ SWITCH
 1425
 2041
 1458
-is-tracking-app-testing-immediately-recursive?
-is-tracking-app-testing-immediately-recursive?
+is-tracking-app-testing-recursive?
+is-tracking-app-testing-recursive?
 0
 1
 -1000
@@ -4621,6 +4621,39 @@ next-phase-new-infection-limit
 1
 NIL
 HORIZONTAL
+
+SWITCH
+836
+277
+988
+310
+inspect-to-file?
+inspect-to-file?
+1
+1
+-1000
+
+SWITCH
+1802
+1541
+2398
+1574
+is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
+is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
+1
+1
+-1000
+
+SWITCH
+667
+272
+833
+305
+log-transactions?
+log-transactions?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

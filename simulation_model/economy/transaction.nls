@@ -1,5 +1,10 @@
 to perform-transaction [a1 a2 value-a2-to-a1 value-a1-to-a2]
-
+  if log? and log-transactions? [
+    let valA1 0 
+    if is-person? a1 [ set valA1 my-amount-of-capital]
+    if is-gathering-point?  a1 [set valA1 amount-of-capital]
+    log-file-print (word "transaction(" ticks "," a1 "," a2 "," value-a2-to-a1 "," value-a1-to-a2 ",capital(a1," valA1 "))")]
+  
   let a2-to-a1-completed? false
   let a1-to-a2-completed? false
   

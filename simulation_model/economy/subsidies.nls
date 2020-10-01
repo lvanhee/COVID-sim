@@ -1,5 +1,5 @@
 to allocate-personal-subsidies
-  ask people
+  ask people with [my-subsidy > 0]
   [
     perform-transaction self "government" (list "subsidy" my-subsidy) (list "nothing")
   ]   

@@ -42,8 +42,8 @@ to set-initial-need-satisfaction-levels
     set belonging-satisfaction-level random-float 0.5 + 0.5
 
     ;SELF-ESTEEM:
-    set leisure-satisfaction-level random-float 0.1 + 0.9
-    set luxury-satisfaction-level random-float 0.3 + 0.7
+    set leisure-satisfaction-level random-float 0.2 + 0.8
+    set luxury-satisfaction-level random-float 0.5 + 0.5
     set autonomy-satisfaction-level 0.95
   ]
 end
@@ -249,6 +249,7 @@ to set-values-based-on-culture
     set importance-given-to-security-value clamp 0 100 random-normal mean_SEC value-std-dev
     set importance-given-to-power-value clamp 0 100 random-normal mean_POW value-std-dev
     set importance-given-to-achievement-value clamp 0 100 random-normal mean_ACH value-std-dev
+
   ]
 
   increase-logical-consistency-of-agent-value-systems
@@ -381,7 +382,6 @@ to load-nations-hofstede-dimension-scores
   ]
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data file" load-country-specific-settings)]
   file-close
-  
   set country-specific-data-list sublist country-specific-data-list 4 10
   set power-distance first country-specific-data-list
   set country-specific-data-list but-first country-specific-data-list
@@ -396,6 +396,7 @@ to load-nations-hofstede-dimension-scores
   set indulgence-vs-restraint first country-specific-data-list
   set country-specific-data-list but-first country-specific-data-list  
     
+  
 end
 
 ;the computational procedure within this reporter is based on Heidari et al. (2018)

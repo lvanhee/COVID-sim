@@ -6,27 +6,30 @@ to update-epistemic-status
     set epistemic-infection-status "dead"
     stop
   ]
-  ifelse not has-internally-visible-symptoms? and not am-I-experiencing-fake-symptoms? [
-    if epistemic-infection-status = "infected" and last-day-observed-symptoms < current-day - 3
+  
+   if epistemic-infection-status = "infected" and last-day-observed-symptoms < current-day - 3
     [
       set epistemic-infection-status had-symptoms-long-ago-infection-status
     ]
-  ]
+  
+  if has-internally-visible-symptoms? or am-I-experiencing-fake-symptoms?
   [
-    let knew-was-infected epistemic-infection-status = "infected"
-    set-believed-to-be-infected
-   
-    if not knew-was-infected and is-user-of-tracking-app? [perform-test]
+    ;;newly discovered to be infected
+      let knew-was-infected epistemic-infection-status = "infected"
+      set-believed-to-be-infected
+      
+      if not knew-was-infected and is-user-of-tracking-app? [perform-test]
+      
+      if not knew-was-infected and test-home-of-confirmed-people?
+      [
+        ; show "test"
+        ask [gatherers] of my-home [perform-test]
+      ]
+      if not knew-was-infected and test-workplace-of-confirmed-people? and has-a-work?
+      [
+        ask my-colleagues [perform-test]
+      ]
     
-    if not knew-was-infected and test-home-of-confirmed-people?
-    [
-     ; show "test"
-      ask [gatherers] of my-home [perform-test]
-    ]
-    if not knew-was-infected and test-workplace-of-confirmed-people? and has-a-work?
-    [
-      ask my-colleagues [perform-test]
-    ]
   ]
 end
 

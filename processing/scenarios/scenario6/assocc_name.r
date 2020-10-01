@@ -1,12 +1,37 @@
 assocc_processing.get_display_name <- function(a)
 {
-    
-  if(strcmp(a,""))
+  if(is.vector(a) &&!is.string(a))
+  {
+    res <- ""
+    foreach(i=a)%do%
+      {
+        translation <- assocc_processing.get_display_name(i)
+        if(res =="") res <- translation
+        else  res <- paste(res, translation,sep=", ")
+      }
+    res
+  }
+  else   if(strcmp(a,"")) {""} else 
+    if(startsWith(a,"ratio_infected_at_")) gsub('_'," ",substring(a,19))
+  else if(strcmp(a,"ratio_infected"))
+    "Infection ratio"
+  else if(strcmp(a,"days"))
+    "Days"
+  else if(strcmp(a,"nb.days")){"#days"}
+  else if(strcmp(a,"X.tests.performed"))
+    "# tests performed"
+  else if(strcmp(a,""))
     ""
+  else if(strcmp(a,"count.should.be.isolators"))
+    "# theoretical isolators"
+  else if(strcmp(a,"count.officially.quarantiners"))
+    "#officially quarantiners"
+  else if(strcmp(a,"is.tracking.app.testing.recursive."))
+    "Recursive App?"
   else if(strcmp(a,"ratio.of.anxiety.avoidance.tracing.app.users"))
     "Anx.Avoid.App"
   else if(strcmp(a,"app_user_ratio")||strcmp(a,"ratio.of.people.using.the.tracking.app")) 
-    "ratio app-users"
+    "App-usage ratio"
   else if(strcmp(a,"X.people.infected.in.essential.shops"))
     "#infected ess-shops"
   else if(strcmp(a,"X.people.infected.in.queuing"))
@@ -36,29 +61,29 @@ assocc_processing.get_display_name <- function(a)
   else if(strcmp(a,"people.infected.in.hospitals") ||strcmp(a,"X.people.infected.in.hospitals"))
     "#infected hospitals"
   else if(strcmp(a,"X.contacts.in.essential.shops"))
-    "#contacts ess-shops"
+    "E shops"
   else if(strcmp(a,"X.contacts.in.non.essential.shops"))
-    "#contacts n.ess-shops"
+    "NE shops"
   else if(strcmp(a,"X.contacts.in.homes"))
-    "#contacts homes"
+    "homes"
   else if(strcmp(a,"X.contacts.in.workplaces"))
-    "#contacts workplaces"
+    "workplaces"
   else if(strcmp(a,"X.contacts.in.public.leisure"))
-    "#contacts public leisure"
+    "pub leisure"
   else if(strcmp(a,"X.contacts.in.private.leisure"))
-    "#contacts private leisure"
+    "private leisure"
   else if(strcmp(a,"X.contacts.in.pubtrans"))
-    "#contacts public transport"
+    "pub trans"
   else if(strcmp(a,"X.contacts.in.shared.cars"))
-    "#contacts shared cars"
+    "shared cars"
   else if(strcmp(a,"X.contacts.in.queuing"))
-    "#contacts queuing"
+    "queues"
   else if(strcmp(a,"X.contacts.in.schools"))
-    "#contacts schools"
+    "schools"
   else if(strcmp(a,"X.contacts.in.universities"))
-    "#contacts universities"
+    "universities"
   else if(strcmp(a,"contacts.in.hospitals") ||strcmp(a,"X.contacts.in.hospitals"))
-    "#contacts hospitals"
+    "hospitals"
   else if(strcmp(a,"X.young.infected")||strcmp(a,"X.cumulative.youngs.infected") )
     "#young infected"
   else if(strcmp(a,"X.young.infector")||strcmp(a,"X.cumulative.youngs.infector"))
@@ -80,13 +105,13 @@ assocc_processing.get_display_name <- function(a)
   else if(strcmp(a,"ratio.quarantiners.currently.complying.to.quarantine"))
     "ratio compliant quarantiners"
   else if(strcmp(a,"X.hospitalizations.retired.this.tick"))
-    "newly hospitalized retired" 
+    "retired" 
   else if(strcmp(a,"X.hospitalizations.students.this.tick"))
-    "newly hospitalized students" 
+    "students" 
   else if(strcmp(a,"X.hospitalizations.workers.this.tick"))
-    "newly hospitalized workers" 
+    "workers" 
   else if(strcmp(a,"X.hospitalizations.youngs.this.tick"))
-    "newly hospitalized youngs" 
+    "youngs" 
   else if(strcmp(a,"X.step."))
     "ticks"
   else if(strcmp(a,"X.newly.retired.infected"))
@@ -99,6 +124,8 @@ assocc_processing.get_display_name <- function(a)
     "newly infected youngs" 
   else if(strcmp(a,"X.cumulative.retireds.infected"))
     "cumulative infected retireds" 
+  else if(strcmp(a,"X.cumulative.students.infected"))
+    "cumulative infected students" 
   else if(strcmp(a,"X.cumulative.students.infected"))
     "cumulative infected students" 
   else if(strcmp(a,"X.cumulative.workers.infected"))
@@ -122,7 +149,7 @@ assocc_processing.get_display_name <- function(a)
   else if(strcmp(a,"ratio.young.contaminated.by.retireds"))
     "by retireds" 
   else if(strcmp(a,"X.contacts.last.tick"))
-    "contacts per tick"
+    "Contacts per tick"
   else if(strcmp(a,"ratio.workers.contaminated.by.young"))
     "by young" 
   else if(strcmp(a,"ratio.workers.contaminated.by.workers"))

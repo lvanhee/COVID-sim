@@ -25,6 +25,27 @@ to-report behaviourspace-soft-working-from-home-check
   report bounded-linear-map 1 2 0 1 (no-measures-workers / soft-home-workers)
 end
 
+to-report check-infection-works [setup-params]
+  
+
+  
+  run setup-params
+  set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
+  setup repeat 200 [go]
+  if count people with [is-susceptible?] / count people > 0.1 [error "too many susceptible remaining in spite of no close down"]
+  
+
+  report 1
+end
+
+to-report check-quarantine-stops-the-propagation [setup-params]
+  run setup-params
+  set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
+  setup while [not has-been-through-global-quarantine?] [go if ticks > 500 [error "global quarantine never reached or never ended"]]
+  if count people with [is-susceptible?] / count people < 0.6 [error "The quarantine failed to prevent a large part of the population from getting sick"]  
+  if peak-number-of-infected * 0.95 < count people with [is-infected?] [error "the quarantine failed to stop the disease to keep growing"]
+  report 1
+end
 to-report check-r0-works
   set preset-scenario "default-scenario" load-scenario-specific-parameter-settings
   set propagation-risk 0

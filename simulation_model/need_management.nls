@@ -86,7 +86,7 @@ to decay-satisfaction-level
   set conformity-satisfaction-level conformity-satisfaction-level * conformity-decay
   if conformity-satisfaction-level < 0 [set conformity-satisfaction-level 0]
 
-  set leisure-satisfaction-level leisure-satisfaction-level * 0.98
+  set leisure-satisfaction-level leisure-satisfaction-level * 0.99
   if leisure-satisfaction-level < 0 [set leisure-satisfaction-level 0]
   
   set sleep-satisfaction-level sleep-satisfaction-level * 0.8 
@@ -289,18 +289,9 @@ to-report SUE-compliance [ad]
     set bonus-compliance-to-obligation bonus-compliance-to-obligation - 0.2
   ]
 
-  if (not should-I-stay-home?) and member? motive ["relaxing" "shopping"] [
-    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
-  ]
-
-  if not should-I-stay-home? and age = "retired" and slice-of-the-day = "morning" and [gathering-type] of gp = "relaxing" [
-    ; Make retired agents do something relaxing every morning
-    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
-  ]
-
   ; A passive bonus for compliance in case there is no lockdown
   if not is-hard-lockdown-active? [
-    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.1
+    set bonus-compliance-to-obligation bonus-compliance-to-obligation + 0.15
   ]
 
   if is-currently-being-treated-at-hospital? and [is-hospital?] of gp [
@@ -328,7 +319,7 @@ to-report SUE-leisure [ad]
   let motive motive-of ad
 
   if motive = "relaxing" [
-    report 0.4
+    report 0.6
   ]
   if gp = my-home and motive = "rest" [
     report 0.1

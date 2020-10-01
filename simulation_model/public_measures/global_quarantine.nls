@@ -29,3 +29,9 @@ end
 to-report is-global-quarantine-active?
   report end-tick-of-global-quarantine != "never" and end-tick-of-global-quarantine >= ticks
 end
+
+to-report has-been-through-global-quarantine?
+  if end-tick-of-global-quarantine = "never" [report false]
+  report end-tick-of-global-quarantine < ticks
+end
+

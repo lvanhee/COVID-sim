@@ -6,7 +6,7 @@ end
 
 to load-scenario
   if preset-scenario = "none" [stop]
- 
+
   if is-test-scenario? preset-scenario
   [
     load-test-scenario
@@ -22,7 +22,7 @@ to-report is-test-scenario? [s]
   report s = "kidsland" or s = "one-family"
 end
 
-to load-test-scenario  
+to load-test-scenario
   if preset-scenario = "one-family"
   [
     set #households 1
@@ -31,8 +31,8 @@ to load-test-scenario
 end
 
 to load-scenario-specifics
-  if preset-scenario = "default-scenario" [stop]  
-  
+  if preset-scenario = "default-scenario" [stop]
+
   if preset-scenario = "uninfected-scandinavia"
   [
     load-default-household-profiles
@@ -40,81 +40,81 @@ to load-scenario-specifics
     set probability-infection-when-abroad 0
     stop
   ]
-  
+
   if is-scenario-1? preset-scenario
   [
     scenario-1-setup
     stop
   ]
-  
+
   if is-scenario-3? preset-scenario
   [
     scenario-3-setup
     stop
   ]
-  
+
   if preset-scenario = "economic-scenario-1-baseline"
   [
     load-scenario-1-baseline-economic-parameters
     stop
   ]
-  
+
   if preset-scenario = "economic-scenario-2-infections"
   [
     load-scenario-1-baseline-economic-parameters
     load-scenario-2-economic-parameters
     stop
   ]
-  
+
   if preset-scenario = "economic-scenario-3-lockdown"
   [
     load-scenario-1-baseline-economic-parameters
     load-scenario-3-economic-parameters
     stop
   ]
-  
+
   if preset-scenario = "economic-scenario-4-wages"
   [
     load-scenario-1-baseline-economic-parameters
     load-scenario-4-economic-parameters
     stop
   ]
-  
+
   if preset-scenario = "no-action-scandinavia-2.5K"
   [
     load-default-household-profiles
     load-number-of-gathering-points-based-on-number-of-households 1000
     stop
   ]
-  
+
   if preset-scenario = "app-test-scenario-5-1K"
   [
     load-number-of-gathering-points-based-on-number-of-households (1000 / 2.5)
     stop
   ]
-  
-  if is-scenario-6? preset-scenario [ 
-    scenario-6-setup stop 
+
+  if is-scenario-6? preset-scenario [
+    scenario-6-setup stop
   ]
-  
+
   if preset-scenario = "scenario-9-smart-testing"
   [
     scenario-9-setup
     stop
   ]
-  
+
   if preset-scenario = "scenario-7-cultural-model" [
     load-scenario-7-cultural-model
     stop
   ]
-  
+
   if is-scenario-12? preset-scenario [
     load-scenario-12-baseline
     load-scenario-12-specifics
     setup-measures-for-phasing-out
     stop
   ]
-  
+
   error "ERROR: scenario-specific calibration of model parameters failed"
 end
 
@@ -139,42 +139,40 @@ to load-scenario-4-economic-parameters
 end
 
 to scenario-6-setup
-  set ratio-adults-homes 0.38
-  set ratio-family-homes 0.27
-  set ratio-retired-couple-homes 0.35
-  set ratio-multi-generational-homes 0.01
   set #households 391
   set load-country-specific-settings "Great Britain"
+  set household-profiles "Great Britain"
   set #hospital-gp 4
   set #schools-gp 12
-  set #universities-gp 40
-  set #workplaces-gp 40
-  set #public-leisure-gp 4
-  set #private-leisure-gp 40
-  set #essential-shops-gp 20
-  set #non-essential-shops-gp 40
+  set #universities-gp 4
+  set #workplaces-gp 25
+  set #public-leisure-gp 20
+  set density-factor-public-leisure 0.1
+  set #private-leisure-gp 60
+  set density-factor-private-leisure 0.3
+  set #essential-shops-gp 10
+  set #non-essential-shops-gp 10
   set #beds-in-hospital 2000
-  
+
   set disease-fsm-model "oxford"
-  
+
   set probability-unavoidable-death 0.1
   set probability-unavoidable-death-old 0.2
   set probability-hospital-personel 0.03
   set probability-university-personel 0.04
-  set household-profiles "custom"
-  
+
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0.8
   set is-infected-and-their-families-requested-to-stay-at-home? true
   set food-delivered-to-isolators? true
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? true
   set ratio-self-quarantining-when-symptomatic 0.8
-  
+
   set migration? false
   set when-is-tracing-app-active? "7-days-before-end-of-global-quarantine"
   set #bus-per-timeslot 30
   set #days-recording-tracing 7
   set keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure? true
-  
+
 end
 
 to scenario-3-setup
@@ -185,7 +183,7 @@ to scenario-3-setup
 	set when-is-daily-testing-applied? "always"
     stop
   ]
-  
+
   if preset-scenario = "scenario-3-app-test-60"
     [
       load-baseline-parameter-settings
@@ -211,29 +209,29 @@ end
 
 to scenario-1-setup
   set probability-hospital-personel 0.04
-  set probability-school-personel 0.03 
+  set probability-school-personel 0.03
   set probability-university-personel 0.03
   set probability-shopkeeper 0.04
-  
+
   if preset-scenario = "scenario-1-zero-action-scandinavia"
     [
       load-default-household-profiles
       stop
   ]
-    
+
   if preset-scenario = "scenario-1-closing-schools-and-uni"
   [
     load-closed-schools-and-uni-measures
     stop
   ]
-  
+
   if preset-scenario = "scenario-1-work-at-home-only"
   [
     set #days-trigger-non-essential-business-closing-measure 0
     set recommend-working-from-home? true
     stop
   ]
-  
+
   if preset-scenario = "scenario-1-closing-all"
   [
     load-all-closed-measures
@@ -256,13 +254,15 @@ end
 to-report is-scenario-12? [s]
   report starts-with? s "scenario-12-"
 end
-  
+
 to scenario-9-setup
   load-baseline-parameter-settings
   ;Set households and gathering points
   load-number-of-gathering-points-based-on-number-of-households 345
-  set #universities-gp 1
-  set #schools-gp 2
+  set load-country-specific-settings "Italy"
+  set household-profiles "Italy"
+  ; set #universities-gp 1
+  ; set #schools-gp 2
   set migration? false
   set probability-hospital-personel 0.026
   set probability-school-personel 0.028
@@ -285,7 +285,7 @@ to load-scenario-minimal
 end
 
 
-to load-scenario-7-cultural-model  
+to load-scenario-7-cultural-model
   ;overwrite some of the baseline settings according to what we judge as proper for the cultural scenario
   set #households 400
   load-number-of-gathering-points-based-on-number-of-households #households
@@ -315,16 +315,16 @@ to load-scenario-12-specifics
     set force-reopening-of-non-essential-after-phase phase-1-phasing-out-state
     set force-reopening-of-workplaces-after-phase    phase-1-phasing-out-state
     set force-reopening-of-migration-after-phase     phase-1-phasing-out-state
-    
+
     ;;; Phase 2
     set force-reopening-of-schools-after-phase                     phase-2-phasing-out-state
     set force-partial-reopening-of-private-leisure-after-phase     phase-2-phasing-out-state
     set force-release-recommendation-working-from-home-after-phase phase-2-phasing-out-state
-    
-    ;;; Phase 3 
+
+    ;;; Phase 3
     set force-releasing-retirees-from-isolation-after-phase phase-3-phasing-out-state
     set force-reopening-of-public-leisure-after-phase       phase-3-phasing-out-state
-    
+
     ;;; Never
     set force-full-reopening-of-private-leisure-after-phase "never"
     set force-reopening-of-universities-after-phase "never"
@@ -338,14 +338,14 @@ to load-scenario-12-specifics
     set force-reopening-of-non-essential-after-phase           phase-1-phasing-out-state
     set force-partial-reopening-of-private-leisure-after-phase phase-1-phasing-out-state
     set force-reopening-of-public-leisure-after-phase          phase-1-phasing-out-state
-    
+
     ;;; Phase 2
     set force-full-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
     set force-reopening-of-migration-after-phase            phase-2-phasing-out-state
-    
+
     ;;; Phase 3
     set force-releasing-retirees-from-isolation-after-phase phase-3-phasing-out-state
-    
+
     ;;; Never
     set force-reopening-of-schools-after-phase "never"
     set force-reopening-of-workplaces-after-phase "never"
@@ -361,17 +361,17 @@ to load-scenario-12-specifics
     set force-reopening-of-non-essential-after-phase            phase-1-phasing-out-state
     set force-releasing-retirees-from-isolation-after-phase     phase-1-phasing-out-state
     set force-full-bus-capacity-after-phase                     phase-1-phasing-out-state
-    
+
     ;;; Phase 2
     set force-partial-reopening-of-private-leisure-after-phase phase-2-phasing-out-state
     set force-reopening-of-schools-after-phase                 phase-2-phasing-out-state
     set force-reopening-of-workplaces-after-phase              phase-2-phasing-out-state
     set force-reopening-of-public-leisure-after-phase          phase-2-phasing-out-state
-    
+
     ;;; Phase 3
     set force-reopening-of-universities-after-phase phase-3-phasing-out-state
     set force-reopening-of-migration-after-phase    phase-3-phasing-out-state
-    
+
     ;;; Never
     set force-release-recommendation-working-from-home-after-phase "never"
     set force-releasing-of-social-distancing-measure-after-phase "never"
@@ -408,7 +408,7 @@ to load-baseline-parameter-settings
   load-default-social-network-model
   load-default-worker-distribution-settings
   load-default-intervention-measures-settings
-  
+
 end
 
 to load-default-intervention-measures-settings
@@ -422,7 +422,7 @@ end
 ;How are these probabilities determined!?
 to load-default-worker-distribution-settings
   set probability-hospital-personel 0.04
-  set probability-school-personel 0.03 
+  set probability-school-personel 0.03
   set probability-university-personel 0.03
   set probability-shopkeeper 0.04
 end
@@ -433,16 +433,16 @@ to load-number-of-gathering-points-based-on-number-of-households [#hld]
 end
 
 to load-scaled-gathering-point-distribution [#hld]
-  set #hospital-gp floor (#hld / 100)
-  set #schools-gp floor (#hld / 30)
-  set #universities-gp floor (#hld / 50)
-  set #workplaces-gp floor (#hld / 10)
-  set #public-leisure-gp floor (#hld / 100)
-  set #private-leisure-gp floor (#hld / 10)
-  set #essential-shops-gp floor (#hld / 20)
-  set #non-essential-shops-gp floor (#hld / 10)
+  set #hospital-gp round (#hld / 100)
+  set #schools-gp round (#hld / 30)
+  set #universities-gp round (#hld / 100)
+  set #workplaces-gp round (#hld / 15)
+  set #public-leisure-gp round (#hld / 20)
+  set #private-leisure-gp round (#hld / 7)
+  set #essential-shops-gp round (#hld / 40)
+  set #non-essential-shops-gp round (#hld / 40)
   set #households #hld
-  set #bus-per-timeslot floor (#hld / 5)
+  set #bus-per-timeslot round (#hld / 13)
 end
 
 to load-closed-schools-and-uni-measures
@@ -461,15 +461,15 @@ to load-default-transport-model
   set ratio-student-public-transport 0.6
   set ratio-worker-public-transport 0.4
   set ratio-retired-public-transport 0.2
-  
+
   set ratio-children-shared-car 0
   set ratio-student-shared-car .1
   set ratio-worker-shared-car .15
   set ratio-retired-shared-car .5
-  
+
   set #bus-per-timeslot 10
   set #max-people-per-bus 20
-  
+
   set density-walking-outside 0.05
   set density-factor-queuing 0.6
   set density-factor-public-transports 0.5
@@ -519,44 +519,41 @@ to load-default-contagion-model
   set density-factor-hospitals 0.80
   set density-factor-essential-shops 0.30
   set density-factor-non-essential-shops 0.60
-  set density-factor-public-leisure 0.05
+  set density-factor-public-leisure 0.10
   set density-factor-workplaces 0.20
   set density-factor-universities 0.20
   set density-factor-homes 1.00
-  set density-factor-private-leisure 0.20
+  set density-factor-private-leisure 0.30
   set density-factor-schools 1.00
 end
 
 to load-default-economic-parameters
   set productivity-at-home 1
   set workers-wages 9
-  set price-of-rations-in-essential-shops 2.8
-  set price-of-rations-in-non-essential-shops 2.68
+  set price-of-rations-in-essential-shops 3
+  set price-of-rations-in-non-essential-shops 4.5
   set days-of-rations-bought 3
-  set ratio-tax-on-essential-shops 0.52
-  set ratio-tax-on-non-essential-shops 0.52
-  set ratio-tax-on-workplaces 0.55
-  set ratio-tax-on-workers 0.37
+  set ratio-tax-on-essential-shops 0.76
+  set ratio-tax-on-non-essential-shops 0.76
+  set ratio-tax-on-workplaces 0.60
+  set ratio-tax-on-workers 0.42
   set goods-produced-by-work-performed 12
-  set unit-price-of-goods 2.5
+  set unit-price-of-goods 1.6
   set max-stock-of-goods-in-a-shop 500
   set starting-amount-of-capital-workers 75
   set starting-amount-of-capital-retired 40
   set starting-amount-of-capital-students 30
-  
-  set ratio-school-subsidy 0.03
-  set ratio-hospital-subsidy 0.04
-  set ratio-university-subsidy 0.03
-  
+
+
+
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8
-  set government-initial-reserve-of-capital 10000
-  
-  ;error "work in progress"
-  set retirees-tick-subsidy 3
+  set government-initial-reserve-of-capital 100000
+
+  set retirees-tick-subsidy 2
   set students-tick-subsidy 1.5
-  set parent-individual-subsidy-per-child-per-tick 2
- 
+  set parent-individual-subsidy-per-child-per-tick 2.5
+
 end
 
 to load-default-household-profiles
@@ -565,7 +562,7 @@ to load-default-household-profiles
 end
 
 to load-population-profile-based-on-current-preset-profile
-  
+
   if household-profiles = "custom" [
     set ratio-adults-homes ratio-adults-homes
     set ratio-retired-couple-homes ratio-retired-couple-homes
@@ -573,39 +570,39 @@ to load-population-profile-based-on-current-preset-profile
     set ratio-multi-generational-homes ratio-multi-generational-homes
     stop
   ]
-  
+
  let country-specific-data-list []
     file-open "country-specific-data.csv"
-  
+
 
   while [not file-at-end? ] [
     let csv file-read-line
-    set csv word csv ";"  ; add comma for loop termination 
+    set csv word csv ";"  ; add comma for loop termination
 
-    let mylist []  ; list of values 
-    while [not empty? csv] 
+    let mylist []  ; list of values
+    while [not empty? csv]
     [
-      let $x position ";" csv 
-      let $item substring csv 0 $x  ; extract item 
-      carefully [set $item read-from-string $item][] ; convert if number 
-      set mylist lput $item mylist  ; append to list 
-      set csv substring csv ($x + 1) length csv  ; remove item and comma 
-    ] 
+      let $x position ";" csv
+      let $item substring csv 0 $x  ; extract item
+      carefully [set $item read-from-string $item][] ; convert if number
+      set mylist lput $item mylist  ; append to list
+      set csv substring csv ($x + 1) length csv  ; remove item and comma
+    ]
     if first mylist = household-profiles [
       set country-specific-data-list but-first mylist ]
   ]
   if empty? country-specific-data-list [error (sentence "Country is not in country-specific-data.csv file" household-profiles)]
   file-close
-  
+
   set ratio-adults-homes first country-specific-data-list
-  set country-specific-data-list but-first country-specific-data-list  
+  set country-specific-data-list but-first country-specific-data-list
   set ratio-retired-couple-homes first country-specific-data-list
   set country-specific-data-list but-first country-specific-data-list
   set ratio-family-homes first country-specific-data-list
   set country-specific-data-list but-first country-specific-data-list
   set ratio-multi-generational-homes first country-specific-data-list
   set country-specific-data-list but-first country-specific-data-list
-  
+
 
 end
 
