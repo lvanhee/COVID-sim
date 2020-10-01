@@ -180,7 +180,7 @@ INPUTBOX
 1009
 865
 #universities-gp
-8.0
+4.0
 1
 0
 Number
@@ -191,7 +191,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-40.0
+27.0
 1
 0
 Number
@@ -212,7 +212,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-4.0
+20.0
 1
 0
 Number
@@ -223,7 +223,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-40.0
+57.0
 1
 0
 Number
@@ -399,7 +399,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-20.0
+10.0
 1
 0
 Number
@@ -440,7 +440,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-40.0
+10.0
 1
 0
 Number
@@ -1513,7 +1513,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -1525,7 +1525,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-baseline" "scenario-12-business" "scenario-12-leisure" "scenario-12-public-services"
-22
+21
 
 MONITOR
 762
@@ -1786,7 +1786,7 @@ max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
 1000
-500.0
+1000.0
 10
 1
 NIL
@@ -2420,7 +2420,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-80.0
+62.0
 1
 0
 Number
@@ -3266,7 +3266,7 @@ services-luxury-ratio-of-expenditures-when-closed
 services-luxury-ratio-of-expenditures-when-closed
 0
 1
-0.14
+0.15
 0.01
 1
 NIL
@@ -3982,7 +3982,7 @@ CHOOSER
 condition-phasing-out
 condition-phasing-out
 "35 days of quarantine" "#infected has decreased in day gap" "hospital not overrun & #hospitalizations has decreased in day gap" "percentage immune" "new infections percentage of average over day gap" "only look at days since last phase" "new infections under limit"
-6
+4
 
 SWITCH
 1398
@@ -4034,7 +4034,7 @@ CHOOSER
 force-reopening-of-schools-after-phase
 force-reopening-of-schools-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 CHOOSER
 1625
@@ -4044,7 +4044,7 @@ CHOOSER
 force-reopening-of-workplaces-after-phase
 force-reopening-of-workplaces-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 CHOOSER
 2381
@@ -4054,7 +4054,7 @@ CHOOSER
 force-reopening-of-universities-after-phase
 force-reopening-of-universities-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-3
+0
 
 SLIDER
 2572
@@ -4215,7 +4215,7 @@ CHOOSER
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+1
 
 CHOOSER
 2608
@@ -4225,7 +4225,7 @@ CHOOSER
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-0
+2
 
 MONITOR
 2608
@@ -4442,7 +4442,7 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+3
 
 SLIDER
 2335
@@ -4453,7 +4453,7 @@ minimum-days-between-phases
 minimum-days-between-phases
 0
 50
-31.0
+15.0
 1
 1
 NIL
@@ -4467,7 +4467,7 @@ CHOOSER
 force-full-bus-capacity-after-phase
 force-full-bus-capacity-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+0
 
 SLIDER
 3316
@@ -4493,7 +4493,7 @@ day-gap-for-phasing-out-condition
 day-gap-for-phasing-out-condition
 0
 50
-3.0
+15.0
 1
 1
 NIL
@@ -4533,7 +4533,7 @@ CHOOSER
 force-reopening-of-public-leisure-after-phase
 force-reopening-of-public-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+1
 
 SLIDER
 2838
@@ -4568,7 +4568,7 @@ CHOOSER
 force-reopening-of-migration-after-phase
 force-reopening-of-migration-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-3
+2
 
 SLIDER
 3697
@@ -4634,10 +4634,10 @@ inspect-to-file?
 -1000
 
 SWITCH
-1802
-1541
-2398
-1574
+1632
+1543
+2043
+1576
 is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
 is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
 1
@@ -9106,7 +9106,7 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_1" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_1" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -9287,7 +9287,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -9299,7 +9299,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -9311,13 +9311,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -9326,10 +9326,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -9481,7 +9481,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -9776,7 +9779,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_2" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_2" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -9957,7 +9960,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -9969,7 +9972,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -9981,13 +9984,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -9996,10 +9999,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -10151,7 +10154,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -10446,7 +10452,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_3" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_3" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -10627,7 +10633,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -10639,7 +10645,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -10651,13 +10657,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -10666,10 +10672,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -10821,7 +10827,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -11116,7 +11125,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_4" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_4" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -11297,7 +11306,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -11309,7 +11318,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -11321,13 +11330,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -11336,10 +11345,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -11491,7 +11500,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -11786,7 +11798,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_5" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_5" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -11967,7 +11979,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -11979,7 +11991,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -11991,13 +12003,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -12006,10 +12018,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -12161,7 +12173,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -12456,7 +12471,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_1" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_1" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -12637,7 +12652,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12649,7 +12664,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -12661,13 +12676,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -12676,10 +12691,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -12831,7 +12846,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -13126,7 +13144,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_2" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_2" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -13307,7 +13325,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -13319,7 +13337,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -13331,13 +13349,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -13346,10 +13364,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -13501,7 +13519,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -13796,7 +13817,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_3" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_3" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -13977,7 +13998,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -13989,7 +14010,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -14001,13 +14022,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -14016,10 +14037,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -14171,7 +14192,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -14466,7 +14490,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_4" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_4" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -14647,7 +14671,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -14659,7 +14683,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -14671,13 +14695,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -14686,10 +14710,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -14841,7 +14865,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -15136,7 +15163,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_5" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_5" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -15317,7 +15344,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -15329,7 +15356,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -15341,13 +15368,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -15356,10 +15383,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -15511,7 +15538,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -15806,7 +15836,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_1" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_1" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -15987,7 +16017,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -15999,7 +16029,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -16011,13 +16041,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -16026,10 +16056,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -16181,7 +16211,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -16476,7 +16509,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_2" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_2" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -16657,7 +16690,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -16669,7 +16702,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -16681,13 +16714,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -16696,10 +16729,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -16851,7 +16884,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -17146,7 +17182,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_3" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_3" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -17327,7 +17363,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -17339,7 +17375,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -17351,13 +17387,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -17366,10 +17402,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -17521,7 +17557,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -17816,7 +17855,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_4" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_4" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -17997,7 +18036,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18009,7 +18048,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -18021,13 +18060,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -18036,10 +18075,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -18191,7 +18230,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -18486,7 +18528,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_5" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_5" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -18667,7 +18709,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18679,7 +18721,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -18691,13 +18733,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -18706,10 +18748,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -18861,7 +18903,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -19156,7 +19201,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_6" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_6" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -19337,7 +19382,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -19349,7 +19394,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -19361,13 +19406,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -19376,10 +19421,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -19531,7 +19576,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -19826,7 +19874,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_7" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_7" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -20007,7 +20055,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20019,7 +20067,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -20031,13 +20079,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -20046,10 +20094,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -20201,7 +20249,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -20496,7 +20547,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_8" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_8" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -20677,7 +20728,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20689,7 +20740,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -20701,13 +20752,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -20716,10 +20767,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -20871,7 +20922,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -21166,7 +21220,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Leisure_9" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Leisure_9" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -21347,7 +21401,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -21359,7 +21413,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -21371,13 +21425,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -21386,10 +21440,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -21541,7 +21595,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -21836,7 +21893,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_6" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_6" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -22017,7 +22074,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -22029,7 +22086,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -22041,13 +22098,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -22056,10 +22113,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -22211,7 +22268,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -22506,7 +22566,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_7" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_7" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -22687,7 +22747,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -22699,7 +22759,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -22711,13 +22771,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -22726,10 +22786,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -22881,7 +22941,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -23176,7 +23239,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_8" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_8" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -23357,7 +23420,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -23369,7 +23432,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -23381,13 +23444,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -23396,10 +23459,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -23551,7 +23614,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -23846,7 +23912,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-Business_9" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-Business_9" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -24027,7 +24093,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -24039,7 +24105,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -24051,13 +24117,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -24066,10 +24132,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -24221,7 +24287,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -24516,7 +24585,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_6" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_6" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -24697,7 +24766,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -24709,7 +24778,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -24721,13 +24790,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -24736,10 +24805,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -24891,7 +24960,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -25186,7 +25258,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_7" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_7" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -25367,7 +25439,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -25379,7 +25451,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -25391,13 +25463,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -25406,10 +25478,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -25561,7 +25633,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -25856,7 +25931,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_8" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_8" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -26037,7 +26112,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -26049,7 +26124,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -26061,13 +26136,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -26076,10 +26151,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -26231,7 +26306,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
@@ -26526,7 +26604,7 @@ setup-measures-for-phasing-out</setup>
       <value value="9"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="S12-PublicServices_9" repetitions="10" runMetricsEveryStep="true">
+  <experiment name="S12-PublicServices_9" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
 setup-measures-for-phasing-out</setup>
@@ -26707,7 +26785,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="80"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -26719,7 +26797,7 @@ setup-measures-for-phasing-out</setup>
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#hospital-gp">
       <value value="4"/>
@@ -26731,13 +26809,13 @@ setup-measures-for-phasing-out</setup>
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
+      <value value="57"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
       <value value="4"/>
@@ -26746,10 +26824,10 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="8"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
       <value value="true"/>
@@ -26901,7 +26979,10 @@ setup-measures-for-phasing-out</setup>
     <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
