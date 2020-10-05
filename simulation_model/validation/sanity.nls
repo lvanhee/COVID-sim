@@ -26,15 +26,10 @@ to-report behaviourspace-soft-working-from-home-check
 end
 
 to-report check-infection-works [setup-params]
-  
-
-  
   run setup-params
   set all-self-isolate-for-35-days-when-first-hitting-2%-infected? false
   setup repeat 200 [go]
   if count people with [is-susceptible?] / count people > 0.1 [error "too many susceptible remaining in spite of no close down"]
-  
-
   report 1
 end
 
@@ -63,4 +58,52 @@ to-report check-r0-works
   ifelse r0-no-spread < r0-0.05 and
   r0-0.05 < r0-0.1 [report 1]
   [report 0]
+end
+
+to-report check-linear-growth-of-contacts-when-size-increase-no-infection
+  set preset-scenario "default-scenario" load-scenario-specific-parameter-settings
+  set #random-seed 0
+  let household-number-list n-values 5 [ i -> 100 * (i + 1)]
+  let contact-number table:make
+  
+  repeat 5
+  [
+    set #random-seed #random-seed + 1
+    foreach household-number-list
+    [
+      x ->
+      rescale-households-and-gathering-points-based-on-the-number-of-households x
+      
+      setup set with-infected? false
+      ask people [set-immune]
+      repeat 200 [go]
+      if not table:has-key? contact-number x [table:put contact-number x (list)]
+      
+      table:put contact-number x lput total-contacts-cumulated-over-time (table:get contact-number x)
+      print contact-number
+    ]  
+  ]
+  
+  foreach (table:keys contact-number)
+  [
+   x ->
+    let avg mean (table:get contact-number x)
+    table:put contact-number x avg
+  ]
+  print contact-number
+  
+  let average-contact-per-person table:make
+  foreach (table:keys contact-number)
+  [
+   x ->
+    table:put average-contact-per-person x (table:get contact-number x / x)
+  ]
+  
+  let mean-contact-per-person mean table:values average-contact-per-person
+  show (sentence "mean" mean-contact-per-person)
+  
+  let relative-distance-to-mean-list map  [x -> abs (x - mean-contact-per-person) / mean-contact-per-person] table:values average-contact-per-person
+  show (sentence "relative distance" relative-distance-to-mean-list)
+  
+  report 1 - max relative-distance-to-mean-list
 end

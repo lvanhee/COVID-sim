@@ -1,5 +1,5 @@
 extensions [profiler table]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls" "inspector.nls"]
+__includes ["setup/setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls" "inspector.nls"]
 breed [people person]
 
 globals [

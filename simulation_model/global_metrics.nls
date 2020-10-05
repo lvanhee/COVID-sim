@@ -25,6 +25,7 @@ globals
   #people-infected-in-non-essential-shops
   
   age-group-to-age-group-#contacts-table
+  age-group-to-age-group-cumulated-#contacts-table
   age-group-to-age-group-#infections-last-tick-table
   
   #contacts-in-pubtrans
@@ -50,6 +51,7 @@ globals
   #cumulative-students-infector
   #cumulative-workers-infector
   #cumulative-retireds-infector
+  
   
   #youngs-at-start
   #students-at-start
@@ -108,7 +110,7 @@ end
 
 to reset-metrics
   set #admissions-last-tick 0 
-  set  #delivered-supply-proposed-this-tick 0
+  set #delivered-supply-proposed-this-tick 0
   set #contacts-last-tick 0
   
   set #contacts-in-pubtrans 0
@@ -136,6 +138,10 @@ to reset-metrics
   
   set #infected-people-per-ticks lput #infected #infected-people-per-ticks
   set  #hospitalized-per-tick lput #taken-hospital-beds   #hospitalized-per-tick    
+end
+
+to-report total-contacts-cumulated-over-time
+  report reduce + (table:values age-group-to-age-group-cumulated-#contacts-table)
 end
 
 to increment-age-infection-information-metrics [infected infector]
@@ -252,6 +258,8 @@ to  increment-contacts-due-to-group-gathering-global-metrics [ts context]
       let key (list [age] of myself age)
       ;if age = young-age and [age] of myself = young-age [show "hey!"]
       table:put age-group-to-age-group-#contacts-table key table:get age-group-to-age-group-#contacts-table key + 1
+      if not table:has-key? age-group-to-age-group-cumulated-#contacts-table key [ table:put age-group-to-age-group-cumulated-#contacts-table key 0]
+      table:put age-group-to-age-group-cumulated-#contacts-table key table:get age-group-to-age-group-cumulated-#contacts-table key + 1
     ]
   ]
   

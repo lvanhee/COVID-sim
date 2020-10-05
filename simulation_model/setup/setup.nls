@@ -1,4 +1,4 @@
-__includes ["scenarios.nls"]
+__includes ["scenarios.nls" "setup/household-configuration.nls"]
 
 globals[#min-workers-in-adults-homes
   #min-students-in-adults-homes
@@ -11,7 +11,6 @@ globals[#min-workers-in-adults-homes
   #min-young-in-multi-generational-homes
   #min-retirees-in-multi-generational-homes
   distribution-control-variable
-  
 ]
 to setup
   clear-all
@@ -65,6 +64,7 @@ to setup
 end
 
 to setup-global-metrics
+  
   set number-of-people-per-age-having-ever-reached-severe-table table:make
   table:put number-of-people-per-age-having-ever-reached-severe-table young-age 0
   table:put number-of-people-per-age-having-ever-reached-severe-table student-age 0
@@ -78,6 +78,7 @@ to setup-global-metrics
   
   set age-group-to-age-group-#contacts-table table:make
   set age-group-to-age-group-#infections-last-tick-table table:make
+  set age-group-to-age-group-cumulated-#contacts-table table:make
   set #infected-people-per-ticks (list)
   set  #hospitalized-per-tick (list)
   reset-metrics
