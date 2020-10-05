@@ -293,7 +293,7 @@ end
 to load-baseline-parameter-settings
   ;set general simulation settings to their default states
   set static-seed? true
-  set #households 100
+  set #households 350
   set log? false
   set log-contamination? false
   set log-preferred-activity-decision? false
