@@ -112,7 +112,7 @@ to load-scenario-specifics
 end
 
 to load-scenario-1-baseline-economic-parameters
-  set #non-essential-shops-gp 5
+  ;set #non-essential-shops-gp 5
   set with-infected? false
 end
 
@@ -122,12 +122,12 @@ end
 
 to load-scenario-3-economic-parameters
   set with-infected? true
-  set global-confinement-measures "total-lockdown"
+  set global-confinement-measures "lockdown-10-5"
 end
 
 to load-scenario-4-economic-parameters
   set with-infected? true
-  set global-confinement-measures "total-lockdown"
+  set global-confinement-measures "lockdown-10-5"
   set government-pays-wages? true
 end
 
@@ -369,7 +369,7 @@ to load-default-transport-model
   set ratio-worker-shared-car .15
   set ratio-retired-shared-car .5
   
-  set #bus-per-timeslot 10
+  ;set #bus-per-timeslot 10
   set #max-people-per-bus 20
   
   set density-walking-outside 0.05

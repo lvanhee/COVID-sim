@@ -356,7 +356,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+2
 
 PLOT
 10
@@ -450,7 +450,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-5.0
+9.0
 1
 0
 Number
@@ -1251,10 +1251,10 @@ PENS
 "school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
 
 PLOT
-1097
-1504
-1559
-1654
+1098
+1503
+1560
+1653
 Total amount of capital available in the system
 NIL
 NIL
@@ -1480,7 +1480,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-10
+12
 
 MONITOR
 762
@@ -1702,7 +1702,7 @@ SWITCH
 1591
 government-pays-wages?
 government-pays-wages?
-1
+0
 1
 -1000
 
@@ -2141,7 +2141,7 @@ PLOT
 1704
 1044
 1854
-Number of workers actually working at each gathering point
+Number of workers actually working for each gathering point
 NIL
 NIL
 0.0
@@ -2375,7 +2375,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-10.0
+27.0
 1
 0
 Number
@@ -2483,7 +2483,7 @@ CHOOSER
 load-country-specific-settings
 load-country-specific-settings
 "Custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-6
+4
 
 SLIDER
 2815
@@ -2494,7 +2494,7 @@ uncertainty-avoidance
 uncertainty-avoidance
 0
 100
-75.0
+35.0
 1
 1
 NIL
@@ -2509,7 +2509,7 @@ individualism-vs-collectivism
 individualism-vs-collectivism
 0
 100
-76.0
+89.0
 1
 1
 NIL
@@ -2524,7 +2524,7 @@ power-distance
 power-distance
 0
 100
-50.0
+35.0
 1
 1
 NIL
@@ -2539,7 +2539,7 @@ indulgence-vs-restraint
 indulgence-vs-restraint
 0
 100
-30.0
+69.0
 1
 1
 NIL
@@ -2554,7 +2554,7 @@ masculinity-vs-femininity
 masculinity-vs-femininity
 0
 100
-70.0
+66.0
 1
 1
 NIL
@@ -2569,7 +2569,7 @@ long-vs-short-termism
 long-vs-short-termism
 0
 100
-61.0
+51.0
 1
 1
 NIL
@@ -3683,7 +3683,7 @@ SWITCH
 302
 log-setup?
 log-setup?
-1
+0
 1
 -1000
 
@@ -4084,7 +4084,7 @@ SWITCH
 301
 log-transactions?
 log-transactions?
-1
+0
 1
 -1000
 
