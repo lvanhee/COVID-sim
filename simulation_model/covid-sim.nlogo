@@ -201,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-23.0
+25.0
 1
 0
 Number
@@ -222,7 +222,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-18.0
+20.0
 1
 0
 Number
@@ -233,7 +233,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-50.0
+60.0
 1
 0
 Number
@@ -356,7 +356,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-2
+0
 
 PLOT
 10
@@ -409,7 +409,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-9.0
+10.0
 1
 0
 Number
@@ -450,7 +450,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-9.0
+10.0
 1
 0
 Number
@@ -490,7 +490,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -520,7 +520,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -1078,7 +1078,7 @@ ratio-family-homes
 ratio-family-homes
 0
 1
-0.419
+0.36
 0.01
 1
 NIL
@@ -1156,7 +1156,7 @@ ratio-adults-homes
 ratio-adults-homes
 0
 1
-0.295
+0.292
 0.01
 1
 NIL
@@ -1171,7 +1171,7 @@ ratio-retired-couple-homes
 ratio-retired-couple-homes
 0
 1
-0.27
+0.312
 0.01
 1
 NIL
@@ -1186,7 +1186,7 @@ ratio-multi-generational-homes
 ratio-multi-generational-homes
 0
 1
-0.016
+0.036
 0.01
 1
 NIL
@@ -1347,7 +1347,7 @@ CHOOSER
 household-profiles
 household-profiles
 "custom" "Belgium" "Canada" "Germany" "Great Britain" "France" "Italy" "Korea South" "Netherlands" "Norway" "Spain" "Singapore" "Sweden" "U.S.A."
-12
+4
 
 SLIDER
 2216
@@ -1480,7 +1480,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-12
+14
 
 MONITOR
 762
@@ -1702,7 +1702,7 @@ SWITCH
 1591
 government-pays-wages?
 government-pays-wages?
-0
+1
 1
 -1000
 
@@ -1984,7 +1984,7 @@ INPUTBOX
 662
 558
 #households
-350.0
+391.0
 1
 0
 Number
@@ -2006,7 +2006,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-11.0
+1000.0
 1
 0
 Number
@@ -2375,7 +2375,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-27.0
+30.0
 1
 0
 Number
@@ -2825,7 +2825,7 @@ INPUTBOX
 914
 87
 #random-seed
-25.0
+3.0
 1
 0
 Number
@@ -3420,7 +3420,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-1
+0
 1
 -1000
 
@@ -3464,7 +3464,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3477,7 +3477,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-1
+0
 1
 -1000
 
@@ -3488,7 +3488,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
@@ -3531,7 +3531,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.0
+0.8
 0.01
 1
 NIL
@@ -3556,7 +3556,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-1
+2
 
 SWITCH
 1719
@@ -3825,7 +3825,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-1
+0
 1
 -1000
 

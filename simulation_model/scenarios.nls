@@ -145,7 +145,7 @@ to scenario-6-setup
   set density-factor-private-leisure 0.3
   set #essential-shops-gp 10
   set #non-essential-shops-gp 10
-  set #beds-in-hospital 2000
+  set #beds-in-hospital 1000
   
   set disease-fsm-model "oxford"
   
@@ -443,7 +443,7 @@ to load-default-economic-parameters
 end
 
 to load-default-household-profiles
-  set household-profiles "Sweden"
+  set household-profiles "Great Britain"
   load-population-profile-based-on-current-preset-profile
 end
 

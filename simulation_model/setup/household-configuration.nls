@@ -18,5 +18,5 @@ end
 
 to rescale-households-and-gathering-points-based-on-the-number-of-households [#hld]
   set #households #hld
-  load-scaled-gathering-point-distribution #hld
+  load-number-of-gathering-points-based-on-number-of-households #hld
 end
