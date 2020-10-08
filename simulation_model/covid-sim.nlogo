@@ -4941,7 +4941,7 @@ setup</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="4"/>
+      <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
@@ -8943,7 +8943,7 @@ setup</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="4"/>
+      <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
