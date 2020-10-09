@@ -4852,6 +4852,7 @@ setup</setup>
     <metric>#students-at-start</metric>
     <metric>#workers-at-start</metric>
     <metric>#retireds-at-start</metric>
+    <metric>hospital-effectiveness</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
       <value value="false"/>
@@ -8854,6 +8855,7 @@ setup</setup>
     <metric>#students-at-start</metric>
     <metric>#workers-at-start</metric>
     <metric>#retireds-at-start</metric>
+    <metric>hospital-effectiveness</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
       <value value="false"/>
