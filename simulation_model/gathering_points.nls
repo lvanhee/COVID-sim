@@ -204,6 +204,7 @@ to-report is-open-during-lockdown?
   
   report (sentence "unimplemented for:" [gathering-type] of self)
 end
+
 to-report is-university?
   report gathering-type = "university"
 end

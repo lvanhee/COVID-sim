@@ -37,6 +37,7 @@ end
 to perform-payment-of-fixed-costs
   ask non-essential-shops
   [
+    ; If the shop is closed, the workers cannot go there to get payed. Therefore, this code makes sure that in those cases, they get payed
     if not is-accessible?
     [
       if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
