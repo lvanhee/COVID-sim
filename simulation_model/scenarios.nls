@@ -424,6 +424,7 @@ to load-default-economic-parameters
   set ratio-tax-on-workplaces 0.60
   set ratio-tax-on-workers 0.42
   set goods-produced-by-work-performed 12
+  set export-value-decay-factor 0
   set unit-price-of-goods 1.6
   set max-stock-of-goods-in-a-shop 500
   set starting-amount-of-capital-workers 75

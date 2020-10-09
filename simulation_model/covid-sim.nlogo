@@ -201,7 +201,7 @@ INPUTBOX
 1101
 865
 #workplaces-gp
-25.0
+23.0
 1
 0
 Number
@@ -222,7 +222,7 @@ INPUTBOX
 1214
 865
 #public-leisure-gp
-20.0
+18.0
 1
 0
 Number
@@ -233,7 +233,7 @@ INPUTBOX
 1334
 865
 #private-leisure-gp
-60.0
+50.0
 1
 0
 Number
@@ -356,7 +356,7 @@ CHOOSER
 global-confinement-measures
 global-confinement-measures
 "none" "total-lockdown" "lockdown-10-5"
-0
+2
 
 PLOT
 10
@@ -409,7 +409,7 @@ INPUTBOX
 1451
 865
 #essential-shops-gp
-10.0
+9.0
 1
 0
 Number
@@ -450,7 +450,7 @@ INPUTBOX
 1578
 865
 #non-essential-shops-gp
-10.0
+9.0
 1
 0
 Number
@@ -490,7 +490,7 @@ probability-hospital-personel
 probability-hospital-personel
 0
 1
-0.03
+0.04
 0.01
 1
 NIL
@@ -520,7 +520,7 @@ probability-university-personel
 probability-university-personel
 0
 1
-0.04
+0.03
 0.01
 1
 NIL
@@ -1270,70 +1270,70 @@ PENS
 "government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
-549
-1373
+548
+1409
+759
+1442
+ratio-tax-on-essential-shops
+ratio-tax-on-essential-shops
+0
+1
+0.8
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+548
+1446
 760
-1406
-ratio-tax-on-essential-shops
-ratio-tax-on-essential-shops
-0
-1
-0.76
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-549
-1410
-761
-1443
+1479
 ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.76
+0.85
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-549
-1449
-761
-1482
+548
+1485
+760
+1518
 ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.6
+0.7
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-549
-1487
-761
-1520
+548
+1523
+760
+1556
 ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.42
+0.5
 0.01
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-552
-1354
-750
-1372
+551
+1390
+749
+1408
 Taxes charged by the government
 11
 25.0
@@ -1405,7 +1405,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-3.0
+4.0
 0.1
 1
 NIL
@@ -1432,30 +1432,30 @@ PENS
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-goods-in-stock"
 
 SLIDER
-548
-1547
-757
-1580
+547
+1568
+756
+1601
 goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
 50
-12.0
+20.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-548
-1584
-757
-1617
+547
+1605
+756
+1638
 unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.6
+3.0
 0.1
 1
 NIL
@@ -1480,7 +1480,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-14
+11
 
 MONITOR
 762
@@ -1733,10 +1733,10 @@ government-initial-reserve-of-capital
 Number
 
 SLIDER
-548
-1624
-766
-1657
+549
+1351
+777
+1384
 max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
@@ -1957,7 +1957,7 @@ workers-wages
 workers-wages
 0
 30
-9.0
+25.0
 0.5
 1
 NIL
@@ -1984,7 +1984,7 @@ INPUTBOX
 662
 558
 #households
-391.0
+350.0
 1
 0
 Number
@@ -2006,7 +2006,7 @@ INPUTBOX
 2443
 102
 #beds-in-hospital
-1000.0
+11.0
 1
 0
 Number
@@ -2168,7 +2168,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-4.5
+6.0
 0.1
 1
 NIL
@@ -2375,7 +2375,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-30.0
+27.0
 1
 0
 Number
@@ -2825,7 +2825,7 @@ INPUTBOX
 914
 87
 #random-seed
-3.0
+25.0
 1
 0
 Number
@@ -3420,7 +3420,7 @@ SWITCH
 1456
 food-delivered-to-isolators?
 food-delivered-to-isolators?
-0
+1
 1
 -1000
 
@@ -3464,7 +3464,7 @@ ratio-self-quarantining-when-a-family-member-is-symptomatic
 ratio-self-quarantining-when-a-family-member-is-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3477,7 +3477,7 @@ SWITCH
 1362
 is-infected-and-their-families-requested-to-stay-at-home?
 is-infected-and-their-families-requested-to-stay-at-home?
-0
+1
 1
 -1000
 
@@ -3488,7 +3488,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-0
+1
 1
 -1000
 
@@ -3531,7 +3531,7 @@ ratio-self-quarantining-when-symptomatic
 ratio-self-quarantining-when-symptomatic
 0
 1
-0.8
+0.0
 0.01
 1
 NIL
@@ -3556,7 +3556,7 @@ CHOOSER
 when-is-tracing-app-active?
 when-is-tracing-app-active?
 "always" "never" "7-days-before-end-of-global-quarantine" "at-end-of-global-quarantine"
-2
+1
 
 SWITCH
 1719
@@ -3825,7 +3825,7 @@ SWITCH
 1489
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
 keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?
-0
+1
 1
 -1000
 
@@ -4006,7 +4006,7 @@ TEXTBOX
 884
 1114
 1346
-1226
+1158
 Solution for overriding the now-deprecated/unmaintained economy model.\nAt the start of each tick, people with less than 20 get 20$, so they don't end-up starving.
 11
 15.0
@@ -4109,6 +4109,31 @@ inspect-to-file?
 1
 1
 -1000
+
+SLIDER
+547
+1640
+739
+1673
+export-value-decay-factor
+export-value-decay-factor
+0
+1
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+549
+1677
+745
+1716
+Set to 0 to destroy goods instead of selling outside the system
+10
+25.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -193,7 +193,6 @@ to export-surplus-if-any
           [
             ;;overstock => export = make profit & give money to the state + instant disappear
             let excedent stock-of-goods - my-max-stock-of-goods
-            let export-value-decay-factor 0.5
             let price-sold unit-price-of-goods * excedent * export-value-decay-factor
             let vat export-value-decay-factor * 0.2
             set amount-of-capital amount-of-capital + price-sold
