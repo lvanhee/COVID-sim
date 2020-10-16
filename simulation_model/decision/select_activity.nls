@@ -1,7 +1,7 @@
 ;;here one should also include caring for children.
 ;;Now it's highjacking the decision process
 to-report my-available-activity-descriptors
-  if migration-allowed? and is-away?
+  if is-away?
   [
     if (not (random-float 1 < probability-getting-back-when-abroad)) [
       report (list (list away-gathering-point travelling-reason false))
@@ -84,7 +84,7 @@ to select-activity
   let c-a my-preferred-available-activity-descriptor
   
   ;;select if migration takes over and people move around
-  if (migration? and random-float 1 < probability-going-abroad) [
+  if (migration-allowed? and random-float 1 < probability-going-abroad) [
     set c-a (list away-gathering-point travelling-motive false)
   ]
   
