@@ -23,6 +23,7 @@ globals
   #people-infected-in-universities
   #people-infected-in-essential-shops
   #people-infected-in-non-essential-shops
+  #people-infected-in-away-travel
   
   age-group-to-age-group-#contacts-table
   age-group-to-age-group-#infections-last-tick-table
@@ -40,6 +41,7 @@ globals
   #contacts-in-universities
   #contacts-in-essential-shops
   #contacts-in-non-essential-shops
+  #contacts-in-away-travel
   
   #cumulative-youngs-infected
   #cumulative-students-infected
@@ -143,7 +145,9 @@ to reset-metrics
   
   ;;reset age-group-to-age-group-#contacts-table
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#contacts-table (list x y) 0]]
+  foreach all-ages [ [x] -> table:put age-group-to-age-group-#contacts-table (list "nobody" x) 0]
   foreach all-ages [ [x] -> foreach all-ages [ [y] -> table:put age-group-to-age-group-#infections-last-tick-table (list x y) 0]]
+  foreach all-ages [ [x] -> table:put age-group-to-age-group-#infections-last-tick-table (list "nobody" x) 0]
   
   set #infected-people-per-ticks lput #infected #infected-people-per-ticks
   set  #hospitalized-per-tick lput #taken-hospital-beds   #hospitalized-per-tick  
@@ -157,10 +161,12 @@ to increment-age-infection-information-metrics [infected infector]
   if [age = worker-age] of infected [set #cumulative-workers-infected #cumulative-workers-infected + 1]
   if [age = retired-age] of infected [set #cumulative-retireds-infected #cumulative-retireds-infected + 1]
   
+  if infector != nobody [
   if [age = young-age] of infector [set #cumulative-youngs-infector #cumulative-youngs-infector + 1]
   if [age = student-age] of infector [set #cumulative-students-infector #cumulative-students-infector + 1]
   if [age = worker-age] of infector [set #cumulative-workers-infector #cumulative-workers-infector + 1]
-  if [age = retired-age] of infector [set #cumulative-retireds-infector #cumulative-retireds-infector + 1]  
+  if [age = retired-age] of infector [set #cumulative-retireds-infector #cumulative-retireds-infector + 1] 
+  ] 
 end
 
 to increment-hospitalizations-global-metrics
@@ -210,8 +216,13 @@ end
 
 to increment-contagion-metrics-from [context infected infector]
   increment-age-infection-information-metrics infected infector
+  let key []
   
-  let key (list [age] of infector [age] of infected)
+  ifelse infector != nobody [
+    set key (list [age] of infector [age] of infected)
+  ] [
+    set key (list "nobody" [age] of infected)
+  ]
   table:put age-group-to-age-group-#infections-last-tick-table key table:get age-group-to-age-group-#infections-last-tick-table key + 1  
   
     if is-gathering-point? context [
@@ -231,6 +242,7 @@ to increment-contagion-metrics-from [context infected infector]
   if context = "queue-waiting-for-bus" [set #people-infected-in-queuing #people-infected-in-queuing + 1 stop]
   if context = "cars" [set #people-infected-in-shared-cars #people-infected-in-shared-cars + 1 stop]
   if context = "travelling outside" [set #people-infected-in-general-travel #people-infected-in-general-travel + 1 stop]
+  if context = "away" [set #people-infected-in-away-travel #people-infected-in-away-travel + 1 stop]
   error (sentence "unimplemented for" context)
 end
 
@@ -253,6 +265,7 @@ to increment-#contacts-per-gathering-type-global-metrics [ts context]
   if context = "queue-waiting-for-bus" [set #contacts-in-queuing #contacts-in-queuing + #contacts-now stop]
   if context = "cars" [set #contacts-in-shared-cars #contacts-in-shared-cars + #contacts-now stop]
   if context = "travelling outside" [set #contacts-in-general-travel #contacts-in-general-travel + #contacts-now stop]
+  if context = "away" [set #contacts-in-away-travel #contacts-in-away-travel + 1 stop]
   error (sentence "unimplemented for" context)
 end
 
