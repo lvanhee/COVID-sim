@@ -117,6 +117,7 @@ end
 to apply-risk-of-contamination-when-away
   if random-float 1 < probability-infection-when-abroad * contextual-contagion-modificators and infection-status = healthy-infection-status
   [
+    increment-contagion-metrics-from "away" self nobody
     contaminate nobody "away"
   ]
 end
