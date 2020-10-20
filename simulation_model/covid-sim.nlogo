@@ -9126,7 +9126,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -9142,6 +9144,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -9799,7 +9802,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -9815,6 +9820,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -10472,7 +10478,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -10488,6 +10496,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -11145,7 +11154,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -11161,6 +11172,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -11818,7 +11830,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -11834,6 +11848,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -12491,7 +12506,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -12507,6 +12524,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -13164,7 +13182,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -13180,6 +13200,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -13837,7 +13858,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -13853,6 +13876,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -14510,7 +14534,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -14526,6 +14552,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -15183,7 +15210,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -15199,6 +15228,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -15856,7 +15886,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -15872,6 +15904,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -16529,7 +16562,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -16545,6 +16580,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -17202,7 +17238,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -17218,6 +17256,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -17875,7 +17914,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -17891,6 +17932,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -18548,7 +18590,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -18564,6 +18608,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -19221,7 +19266,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -19237,6 +19284,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -19894,7 +19942,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -19910,6 +19960,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -20567,7 +20618,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -20583,6 +20636,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -21240,7 +21294,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -21256,6 +21312,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -21913,7 +21970,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -21929,6 +21988,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -22586,7 +22646,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -22602,6 +22664,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -23259,7 +23322,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -23275,6 +23340,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -23932,7 +23998,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -23948,6 +24016,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -24605,7 +24674,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -24621,6 +24692,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -25278,7 +25350,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -25294,6 +25368,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -25951,7 +26026,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -25967,6 +26044,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
@@ -26624,7 +26702,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "workplace"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "university"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "hospital"]</metric>
-    <metric>count people with [member? "leisure" [gathering-type] of current-activity]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "private-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "public-leisure"]</metric>
+    <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
     <metric>#contacts-last-tick</metric>
@@ -26640,6 +26720,7 @@ setup-measures-for-phasing-out</setup>
     <metric>#people-infected-in-pubtrans</metric>
     <metric>#people-infected-in-shared-cars</metric>
     <metric>#people-infected-in-queuing</metric>
+    <metric>#people-infected-in-away-travel</metric>
     <metric>#contacts-in-pubtrans</metric>
     <metric>#contacts-in-shared-cars</metric>
     <metric>#contacts-in-queuing</metric>
