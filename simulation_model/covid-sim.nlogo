@@ -1083,7 +1083,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -1109,7 +1109,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -1871,7 +1871,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4065,7 +4065,7 @@ acknowledgement-ratio
 acknowledgement-ratio
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4080,7 +4080,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4106,7 +4106,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4201,7 +4201,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4267,7 +4267,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4418,7 +4418,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4478,7 +4478,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4544,7 +4544,7 @@ ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -4579,7 +4579,7 @@ ratio-omniscious-infected-that-trigger-migration-closing-measure
 ratio-omniscious-infected-that-trigger-migration-closing-measure
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -9131,6 +9131,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -9807,6 +9810,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -10483,6 +10489,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -11159,6 +11168,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -11835,6 +11847,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -12511,6 +12526,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -13187,6 +13205,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -13863,6 +13884,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -14539,6 +14563,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -15215,6 +15242,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -15891,6 +15921,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -16567,6 +16600,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -17243,6 +17279,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -17919,6 +17958,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -18595,6 +18637,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -19271,6 +19316,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -19947,6 +19995,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -20623,6 +20674,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -21299,6 +21353,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -21975,6 +22032,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -22651,6 +22711,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -23327,6 +23390,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -24003,6 +24069,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -24679,6 +24748,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -25355,6 +25427,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -26031,6 +26106,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
@@ -26707,6 +26785,9 @@ setup-measures-for-phasing-out</setup>
     <metric>count people with [[gathering-type] of current-activity = "away"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "essential-shop"]</metric>
     <metric>count people with [[gathering-type] of current-activity = "non-essential-shop"]</metric>
+    <metric>count people with [stayed-out-queuing-for-bus?]</metric>
+    <metric>sum map count list-of-buses</metric>
+    <metric>sum map count list-of-shared-cars</metric>
     <metric>#contacts-last-tick</metric>
     <metric>#people-infected-in-hospitals</metric>
     <metric>#people-infected-in-workplaces</metric>
