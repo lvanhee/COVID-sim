@@ -298,7 +298,7 @@ end
 to load-scenario-12-baseline
   load-number-of-gathering-points-based-on-number-of-households 400
   set migration? true
-  set probability-going-abroad 0.03
+  set probability-going-abroad 0.003
   set probability-infection-when-abroad 0.02
   set probability-getting-back-when-abroad 0.12
   set food-delivered-to-isolators? false

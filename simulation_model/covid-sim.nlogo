@@ -9581,7 +9581,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -10260,7 +10260,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -10939,7 +10939,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -11618,7 +11618,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -12297,7 +12297,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -12976,7 +12976,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -13655,7 +13655,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -14334,7 +14334,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -15013,7 +15013,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -15692,7 +15692,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -16371,7 +16371,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -17050,7 +17050,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -17729,7 +17729,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -18408,7 +18408,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -19087,7 +19087,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -19766,7 +19766,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -20445,7 +20445,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -21124,7 +21124,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -21803,7 +21803,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -22482,7 +22482,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -23161,7 +23161,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -23840,7 +23840,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -24519,7 +24519,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -25198,7 +25198,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -25877,7 +25877,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -26556,7 +26556,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
@@ -27235,7 +27235,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0.03"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-hospital-personel">
       <value value="0.04"/>
