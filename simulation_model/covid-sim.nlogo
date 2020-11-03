@@ -292,7 +292,7 @@ density-factor-public-leisure
 density-factor-public-leisure
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -307,7 +307,7 @@ density-factor-private-leisure
 density-factor-private-leisure
 0
 1
-0.2
+0.3
 0.01
 1
 NIL
@@ -1083,7 +1083,7 @@ ratio-omniscious-infected-that-trigger-school-closing-measure
 ratio-omniscious-infected-that-trigger-school-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1109,7 +1109,7 @@ ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 ratio-omniscious-infected-that-trigger-non-essential-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -1268,7 +1268,7 @@ ratio-tax-on-essential-shops
 ratio-tax-on-essential-shops
 0
 1
-0.52
+0.76
 0.01
 1
 NIL
@@ -1283,7 +1283,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.52
+0.76
 0.01
 1
 NIL
@@ -1298,7 +1298,7 @@ ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
 1
-0.55
+0.6
 0.01
 1
 NIL
@@ -1313,7 +1313,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.37
+0.42
 0.01
 1
 NIL
@@ -1450,7 +1450,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-2.8
+3.0
 0.1
 1
 NIL
@@ -1500,7 +1500,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-2.5
+1.6
 0.1
 1
 NIL
@@ -1513,7 +1513,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-1
+0
 1
 -1000
 
@@ -1525,7 +1525,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model" "scenario-12-baseline" "scenario-12-business" "scenario-12-leisure" "scenario-12-public-services"
-21
+19
 
 MONITOR
 762
@@ -1712,7 +1712,7 @@ probability-going-abroad
 probability-going-abroad
 0
 1
-0.03
+0.003
 0.01
 1
 NIL
@@ -1772,7 +1772,7 @@ INPUTBOX
 989
 1691
 government-initial-reserve-of-capital
-10000.0
+100000.0
 1
 0
 Number
@@ -1786,7 +1786,7 @@ max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
 1000
-1000.0
+500.0
 10
 1
 NIL
@@ -1871,7 +1871,7 @@ ratio-omniscious-infected-that-trigger-social-distancing-measure
 ratio-omniscious-infected-that-trigger-social-distancing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -2213,7 +2213,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-2.68
+4.5
 0.1
 1
 NIL
@@ -2420,7 +2420,7 @@ INPUTBOX
 3471
 748
 #bus-per-timeslot
-62.0
+31.0
 1
 0
 Number
@@ -4065,7 +4065,7 @@ acknowledgement-ratio
 acknowledgement-ratio
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4080,7 +4080,7 @@ ratio-omniscious-infected-that-trigger-workplace-closing-measure
 ratio-omniscious-infected-that-trigger-workplace-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4106,7 +4106,7 @@ ratio-omniscious-infected-that-trigger-university-closing-measure
 ratio-omniscious-infected-that-trigger-university-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4129,7 +4129,7 @@ INPUTBOX
 877
 1497
 retirees-tick-subsidy
-3.0
+2.0
 1
 0
 Number
@@ -4151,7 +4151,7 @@ INPUTBOX
 1024
 1556
 parent-individual-subsidy-per-child-per-tick
-2.0
+2.5
 1
 0
 Number
@@ -4201,7 +4201,7 @@ ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-private-leisure-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4215,7 +4215,7 @@ CHOOSER
 force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+0
 
 CHOOSER
 2608
@@ -4225,7 +4225,7 @@ CHOOSER
 force-full-reopening-of-private-leisure-after-phase
 force-full-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 MONITOR
 2608
@@ -4246,7 +4246,7 @@ CHOOSER
 force-reopening-of-non-essential-after-phase
 force-reopening-of-non-essential-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+0
 
 CHOOSER
 1900
@@ -4267,7 +4267,7 @@ ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 ratio-omniscious-infected-that-trigger-recommendation-working-from-home-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4418,7 +4418,7 @@ ratio-omniscious-infected-that-triggers-retirees-in-isolation
 ratio-omniscious-infected-that-triggers-retirees-in-isolation
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4442,7 +4442,7 @@ CHOOSER
 force-releasing-retirees-from-isolation-after-phase
 force-releasing-retirees-from-isolation-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-3
+0
 
 SLIDER
 2335
@@ -4478,7 +4478,7 @@ ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 ratio-omniscious-infected-that-triggers-half-capacity-busses-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4533,7 +4533,7 @@ CHOOSER
 force-reopening-of-public-leisure-after-phase
 force-reopening-of-public-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-1
+0
 
 SLIDER
 2838
@@ -4544,7 +4544,7 @@ ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 ratio-omniscious-infected-that-trigger-public-leisure-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -4568,7 +4568,7 @@ CHOOSER
 force-reopening-of-migration-after-phase
 force-reopening-of-migration-after-phase
 "never" "phase-1" "phase-2" "phase-3"
-2
+0
 
 SLIDER
 3697
@@ -4579,7 +4579,7 @@ ratio-omniscious-infected-that-trigger-migration-closing-measure
 ratio-omniscious-infected-that-trigger-migration-closing-measure
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -9293,7 +9293,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -9972,7 +9972,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -10651,7 +10651,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -11330,7 +11330,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12009,7 +12009,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12688,7 +12688,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -13367,7 +13367,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -14046,7 +14046,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -14725,7 +14725,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -15404,7 +15404,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -16083,7 +16083,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -16762,7 +16762,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -17441,7 +17441,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18120,7 +18120,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18799,7 +18799,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -19478,7 +19478,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20157,7 +20157,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20836,7 +20836,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -21515,7 +21515,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -22194,7 +22194,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -22873,7 +22873,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -23552,7 +23552,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -24231,7 +24231,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -24910,7 +24910,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -25589,7 +25589,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -26268,7 +26268,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -26947,7 +26947,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
