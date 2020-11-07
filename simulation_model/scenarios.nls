@@ -414,20 +414,20 @@ to load-default-contagion-model
 end
 
 to load-default-economic-parameters
-  set productivity-at-home 1
-  set workers-wages 9
-  set price-of-rations-in-essential-shops 3
-  set price-of-rations-in-non-essential-shops 4.5
+  set productivity-at-home 0.5
+  set workers-wages 12
+  set price-of-rations-in-essential-shops 2.8
+  set price-of-rations-in-non-essential-shops 4.0
   set days-of-rations-bought 3
   set ratio-tax-on-essential-shops 0.76
-  set ratio-tax-on-non-essential-shops 0.76
+  set ratio-tax-on-non-essential-shops 0.85
   set ratio-tax-on-workplaces 0.60
   set ratio-tax-on-workers 0.42
   set goods-produced-by-work-performed 12
-  set export-value-decay-factor 0
-  set unit-price-of-goods 1.6
+  set export-value-decay-factor 0.1
+  set unit-price-of-goods 3.0
   set max-stock-of-goods-in-a-shop 500
-  set starting-amount-of-capital-workers 75
+  set starting-amount-of-capital-workers 60
   set starting-amount-of-capital-retired 40 
   set starting-amount-of-capital-students 30
   
@@ -437,8 +437,9 @@ to load-default-economic-parameters
   set ratio-of-wage-paid-by-the-government 0.8
   set government-initial-reserve-of-capital 100000
   
-  set retirees-tick-subsidy 2
-  set students-tick-subsidy 1.5
+
+  set students-tick-subsidy 3
+  set retirees-tick-subsidy 3.5
   set parent-individual-subsidy-per-child-per-tick 2.5
  
 end

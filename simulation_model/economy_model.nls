@@ -34,17 +34,9 @@ to run-economic-cycle
   perform-government-actions
 end
 
-to perform-payment-of-fixed-costs
-  ask non-essential-shops
-  [
-    ; If the shop is closed, the workers cannot go there to get payed. Therefore, this code makes sure that in those cases, they get payed
-    if not is-accessible?
-    [
-      if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
-      [
-        ask hired-workers
-        [
-          let amount-to-earn workers-wages
+; from the perspective of agents, so get instead of pay.
+to get-salary
+ let amount-to-earn workers-wages
           
           let amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
           perform-transaction self my-work (list "salary" amount-earned) (list "nothing")
@@ -57,10 +49,37 @@ to perform-payment-of-fixed-costs
               perform-transaction self "government" (list "subsidy" worker-subsidy) (list "nothing")
             ]
           ]
+end
+
+to perform-payment-of-fixed-costs
+  ask non-essential-shops
+  [
+    if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
+    [
+      ; If the shop is closed, the workers cannot go there to get payed. Therefore, this code makes sure that in those cases, they get payed
+      ifelse not is-accessible?
+      [
+        
+        ask hired-workers
+        [
+          get-salary
         ]
+      ]
+      ;else, check all agents that are sick and pay them
+      [
+        ask hired-workers with [is-believing-to-be-infected? and not is-working?] [get-salary]
       ]
     ]
   ]
+  
+  ask essential-shops
+  [
+    if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
+    [
+      ask hired-workers with [is-believing-to-be-infected? and not is-working?] [get-salary]
+    ]
+  ]
+  
 end
 
 to-report bankrupt-businesses
@@ -83,8 +102,8 @@ to perform-trades-between-gathering-points
   let virtual-total-amount-of-goods-available-in-workplaces-converted-to-capital virtual-total-amount-of-goods-available-in-workplaces * unit-price-of-goods
   let actual-amount-of-stocks-bought 0
   
-  
-  refresh-stocks-of-essential-shops
+  ;Depricated?
+  ;refresh-stocks-of-essential-shops
   
   ;essential-shop
   let total-capital-available-in-essential-shops-to-buy-goods 0
@@ -291,17 +310,22 @@ to perform-government-actions
 end
 
 to-report my-wealth-price-increase-factor
+
   let default-wealth-for-scaling 70
   let minimum-for-survival default-wealth-for-scaling / 3
   let res (my-amount-of-capital + minimum-for-survival) / default-wealth-for-scaling
+  ;let res (my-amount-of-capital + 23) / 70
+
   
-  report res
+  ;report res
+  ;Hack to fix way too high price increases, 2 is still arbitrairy but should be better.
+  report min (list res 2)
 ;if you have no money, you pay "half of the price" of what a normal person would get
   ; if you get 70, you pay a bit more than average
 end
 
 to-report my-default-available-liquidities
-  report 1000
+  report 250
 end
 
 to-report economic-activities-funded-by-the-government 

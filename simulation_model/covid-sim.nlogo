@@ -1043,7 +1043,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-1
+0
 1
 -1000
 
@@ -1293,7 +1293,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.76
+0.85
 0.01
 1
 NIL
@@ -1323,7 +1323,7 @@ ratio-tax-on-workers
 ratio-tax-on-workers
 0
 1
-0.42
+0.43
 0.01
 1
 NIL
@@ -1405,7 +1405,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-3.0
+2.8
 0.1
 1
 NIL
@@ -1455,7 +1455,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.6
+3.0
 0.1
 1
 NIL
@@ -1480,7 +1480,7 @@ CHOOSER
 preset-scenario
 preset-scenario
 "default-scenario" "scenario-1-zero-action-scandinavia" "scenario-1-closing-schools-and-uni" "scenario-1-work-at-home-only" "scenario-1-closing-all" "scenario-3-random-test-20" "scenario-3-app-test-60" "scenario-3-app-test-80" "scenario-3-app-test-100" "economic-scenario-1-baseline" "economic-scenario-2-infections" "economic-scenario-3-lockdown" "economic-scenario-4-wages" "app-test-scenario-5-1K" "scenario-6-default" "no-action-scandinavia-2.5K" "one-family" "scenario-9-smart-testing" "scenario-7-cultural-model"
-9
+10
 
 MONITOR
 762
@@ -1756,7 +1756,7 @@ starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
 100
-75.0
+60.0
 1
 1
 NIL
@@ -1957,7 +1957,7 @@ workers-wages
 workers-wages
 0
 30
-9.0
+12.0
 0.5
 1
 NIL
@@ -2168,7 +2168,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-4.5
+4.0
 0.1
 1
 NIL
@@ -2874,7 +2874,7 @@ productivity-at-home
 productivity-at-home
 0
 2
-1.0
+0.5
 0.1
 1
 NIL
@@ -4050,7 +4050,7 @@ INPUTBOX
 1008
 1444
 retirees-tick-subsidy
-2.0
+3.5
 1
 0
 Number
@@ -4061,7 +4061,7 @@ INPUTBOX
 1008
 1385
 students-tick-subsidy
-1.5
+3.0
 1
 0
 Number
@@ -4119,7 +4119,7 @@ export-value-decay-factor
 export-value-decay-factor
 0
 1
-0.0
+0.1
 0.01
 1
 NIL
@@ -5315,7 +5315,7 @@ setup</setup>
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#available-tests">
-      <value value="58"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#schools-gp">
       <value value="12"/>
@@ -8812,7 +8812,7 @@ setup</setup>
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#available-tests">
-      <value value="58"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#schools-gp">
       <value value="12"/>
