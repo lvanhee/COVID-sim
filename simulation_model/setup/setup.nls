@@ -394,8 +394,8 @@ to setup-economy
   ask gathering-points with [gathering-type = "school"] [set amount-of-capital my-default-available-liquidities]
   ask gathering-points with [gathering-type = "university"] [set amount-of-capital my-default-available-liquidities]
   ask gathering-points with [gathering-type = "workplace"] [set amount-of-capital my-default-available-liquidities set stock-of-goods my-max-stock-of-goods]
-  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital my-default-available-liquidities set max-amount-of-capital-to-retain amount-of-capital set stock-of-goods max-stock-of-goods-in-a-shop]
-  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital my-default-available-liquidities set max-amount-of-capital-to-retain 0 set stock-of-goods max-stock-of-goods-in-a-shop]
+  ask gathering-points with [gathering-type = "essential-shop"] [set amount-of-capital my-default-available-liquidities set stock-of-goods max-stock-of-goods-in-a-shop]
+  ask gathering-points with [gathering-type = "non-essential-shop"] [set amount-of-capital my-default-available-liquidities set stock-of-goods max-stock-of-goods-in-a-shop]
   ask gathering-points with [gathering-type = "hospital"] [set amount-of-capital my-default-available-liquidities]
 end
 

@@ -17,7 +17,6 @@ gathering-points-own [gathering-type
   
   amount-of-capital
   current-profit
-  max-amount-of-capital-to-retain
   
   hired-workers
   stock-of-goods
@@ -38,6 +37,10 @@ to-report ratio-personnel-here
   report count hired-workers with [current-activity = myself and current-motivation = work-motive] / count hired-workers
 end
 
+;keep enough cash to pay people for 2 ticks
+to-report max-amount-of-capital-to-retain
+  report count hired-workers * workers-wages * 2
+end
 
 to-report is-away?
   report current-activity = away-gathering-point
