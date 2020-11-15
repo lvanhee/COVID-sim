@@ -1293,7 +1293,7 @@ ratio-tax-on-non-essential-shops
 ratio-tax-on-non-essential-shops
 0
 1
-0.76
+0.85
 0.01
 1
 NIL
@@ -1405,7 +1405,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-3.0
+2.8
 0.1
 1
 NIL
@@ -1455,7 +1455,7 @@ unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.6
+2.9
 0.1
 1
 NIL
@@ -1756,7 +1756,7 @@ starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
 100
-75.0
+60.0
 1
 1
 NIL
@@ -1771,7 +1771,7 @@ starting-amount-of-capital-retired
 starting-amount-of-capital-retired
 0
 100
-40.0
+50.0
 1
 1
 NIL
@@ -1786,7 +1786,7 @@ starting-amount-of-capital-students
 starting-amount-of-capital-students
 0
 100
-30.0
+45.0
 1
 1
 NIL
@@ -1957,7 +1957,7 @@ workers-wages
 workers-wages
 0
 30
-9.0
+12.5
 0.5
 1
 NIL
@@ -2168,7 +2168,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-4.5
+4.0
 0.1
 1
 NIL
@@ -2874,7 +2874,7 @@ productivity-at-home
 productivity-at-home
 0
 2
-1.0
+0.5
 0.1
 1
 NIL
@@ -4050,7 +4050,7 @@ INPUTBOX
 1008
 1444
 retirees-tick-subsidy
-2.0
+3.5
 1
 0
 Number
@@ -4061,7 +4061,7 @@ INPUTBOX
 1008
 1385
 students-tick-subsidy
-1.5
+3.0
 1
 0
 Number
@@ -4119,7 +4119,7 @@ export-value-decay-factor
 export-value-decay-factor
 0
 1
-0.0
+0.1
 0.01
 1
 NIL
@@ -4134,6 +4134,26 @@ Set to 0 to destroy goods instead of selling outside the system
 10
 25.0
 1
+
+PLOT
+2243
+1662
+2604
+1812
+standard-deviation-in-captial
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"Workers" 1.0 0 -16777216 true "" "plot standard-deviation [my-amount-of-capital] of workers"
+"Students" 1.0 0 -7500403 true "" "plot standard-deviation [my-amount-of-capital] of students"
+"Retired" 1.0 0 -2674135 true "" "plot standard-deviation [my-amount-of-capital] of retireds"
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -8883,12 +8903,14 @@ setup</setup>
 setup</setup>
     <go>go</go>
     <timeLimit steps="800"/>
-    <metric>#infected</metric>
+    <metric>count people with [infection-status = "healthy"]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
+    <metric>count people with [is-infected?]</metric>
+    <metric>count people with [infection-status = "immune"]</metric>
+    <metric>count people with [infection-status = "healthy" or infection-status = "immune"]</metric>
     <metric>#admissions-last-tick</metric>
     <metric>#taken-hospital-beds</metric>
     <metric>#denied-requests-for-hospital-beds</metric>
-    <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
     <metric>count officially-quarantiners</metric>
@@ -8937,38 +8959,19 @@ setup</setup>
     <metric>#hospitalizations-students-this-tick</metric>
     <metric>#hospitalizations-workers-this-tick</metric>
     <metric>#hospitalizations-retired-this-tick</metric>
-    <metric>ratio-age-group-to-age-group-#infections young-age young-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections young-age student-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections young-age worker-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections young-age retired-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections student-age young-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections student-age student-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections student-age worker-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections student-age retired-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections worker-age young-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections worker-age student-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections worker-age worker-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections worker-age retired-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections retired-age young-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections retired-age student-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections retired-age worker-age</metric>
-    <metric>ratio-age-group-to-age-group-#infections retired-age retired-age</metric>
-    <metric>age-group-to-age-group-#contacts young-age young-age</metric>
-    <metric>age-group-to-age-group-#contacts young-age student-age</metric>
-    <metric>age-group-to-age-group-#contacts young-age worker-age</metric>
-    <metric>age-group-to-age-group-#contacts young-age retired-age</metric>
-    <metric>age-group-to-age-group-#contacts student-age young-age</metric>
-    <metric>age-group-to-age-group-#contacts student-age student-age</metric>
-    <metric>age-group-to-age-group-#contacts student-age worker-age</metric>
-    <metric>age-group-to-age-group-#contacts student-age retired-age</metric>
-    <metric>age-group-to-age-group-#contacts worker-age young-age</metric>
-    <metric>age-group-to-age-group-#contacts worker-age student-age</metric>
-    <metric>age-group-to-age-group-#contacts worker-age worker-age</metric>
-    <metric>age-group-to-age-group-#contacts worker-age retired-age</metric>
-    <metric>age-group-to-age-group-#contacts retired-age young-age</metric>
-    <metric>age-group-to-age-group-#contacts retired-age student-age</metric>
-    <metric>age-group-to-age-group-#contacts retired-age worker-age</metric>
-    <metric>age-group-to-age-group-#contacts retired-age retired-age</metric>
+    <metric>ifelse-value is-lockdown-active? [1] [0]</metric>
+    <metric>mean [belonging-satisfaction-level] of people</metric>
+    <metric>mean [risk-avoidance-satisfaction-level] of people</metric>
+    <metric>mean [autonomy-satisfaction-level] of people</metric>
+    <metric>mean [luxury-satisfaction-level] of people with [not is-child?]</metric>
+    <metric>mean [health-satisfaction-level] of people</metric>
+    <metric>mean [sleep-satisfaction-level] of people</metric>
+    <metric>mean [compliance-satisfaction-level] of people</metric>
+    <metric>mean [financial-stability-satisfaction-level] of people with [not is-child?]</metric>
+    <metric>mean [food-safety-satisfaction-level] of people</metric>
+    <metric>mean [leisure-satisfaction-level] of people</metric>
+    <metric>mean [financial-survival-satisfaction-level] of people with [not is-child?]</metric>
+    <metric>mean [conformity-satisfaction-level] of people</metric>
     <metric>#youngs-at-start</metric>
     <metric>#students-at-start</metric>
     <metric>#workers-at-start</metric>
@@ -8976,7 +8979,49 @@ setup</setup>
     <metric>workers-average-amount-of-capital</metric>
     <metric>retirees-average-amount-of-capital</metric>
     <metric>students-average-amount-of-capital</metric>
-    <steppedValueSet variable="#random-seed" first="1" step="1" last="7"/>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
+    <steppedValueSet variable="#random-seed" first="25" step="3" last="43"/>
     <enumeratedValueSet variable="preset-scenario">
       <value value="&quot;economic-scenario-1-baseline&quot;"/>
       <value value="&quot;economic-scenario-2-infections&quot;"/>
