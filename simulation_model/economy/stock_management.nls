@@ -5,13 +5,14 @@ to refresh-stocks-of-essential-shops
     ;;get to one of the retailers and refill as much as possible
     
     let retailer one-of workplaces with [stock-of-goods > 0]
+    if retailer != nobody [
     
-    let amount-of-goods-to-trade min (list to-buy [stock-of-goods] of retailer)
-    
-    let total-cost unit-price-of-goods * amount-of-goods-to-trade
-    
-    perform-transaction self retailer (to-deliver-counterpart amount-of-goods-to-trade) (to-monetary-counterpart total-cost)
-  ]
+      let amount-of-goods-to-trade min (list to-buy [stock-of-goods] of retailer)
+      
+      let total-cost unit-price-of-goods * amount-of-goods-to-trade
+      
+      perform-transaction self retailer (to-deliver-counterpart amount-of-goods-to-trade) (to-monetary-counterpart total-cost)
+  ]]
 end
 
 to-report my-max-stock-of-goods
