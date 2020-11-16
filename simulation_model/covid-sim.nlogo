@@ -5335,7 +5335,7 @@ setup</setup>
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#available-tests">
-      <value value="50"/>
+      <value value="58"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#schools-gp">
       <value value="12"/>
@@ -8832,7 +8832,7 @@ setup</setup>
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#available-tests">
-      <value value="50"/>
+      <value value="58"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#schools-gp">
       <value value="12"/>
