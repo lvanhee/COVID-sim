@@ -8902,7 +8902,7 @@ setup</setup>
     <setup>load-scenario-specific-parameter-settings
 setup</setup>
     <go>go</go>
-    <timeLimit steps="800"/>
+    <timeLimit steps="400"/>
     <metric>count people with [infection-status = "healthy"]</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>count people with [is-infected?]</metric>
@@ -8912,7 +8912,6 @@ setup</setup>
     <metric>#taken-hospital-beds</metric>
     <metric>#denied-requests-for-hospital-beds</metric>
     <metric>#tests-performed</metric>
-    <metric>r0</metric>
     <metric>count officially-quarantiners</metric>
     <metric>count should-be-isolators</metric>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
