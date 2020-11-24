@@ -34,16 +34,9 @@ to run-economic-cycle
   perform-government-actions
 end
 
-to perform-payment-of-fixed-costs
-  ask non-essential-shops
-  [
-    if not is-accessible?
-    [
-      if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
-      [
-        ask hired-workers
-        [
-          let amount-to-earn workers-wages
+; from the perspective of agents, so get instead of pay.
+to get-salary
+ let amount-to-earn workers-wages
           
           let amount-earned min (list amount-to-earn max (list [amount-of-capital] of my-work 0))
           perform-transaction self my-work (list "salary" amount-earned) (list "nothing")
@@ -56,10 +49,37 @@ to perform-payment-of-fixed-costs
               perform-transaction self "government" (list "subsidy" worker-subsidy) (list "nothing")
             ]
           ]
+end
+
+to perform-payment-of-fixed-costs
+  ask non-essential-shops
+  [
+    if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
+    [
+      ; If the shop is closed, the workers cannot go there to get payed. Therefore, this code makes sure that in those cases, they get payed
+      ifelse not is-accessible?
+      [
+        
+        ask hired-workers
+        [
+          get-salary
         ]
+      ]
+      ;else, check all agents that are sick and pay them
+      [
+        ask hired-workers with [is-believing-to-be-infected? and not is-working?] [get-salary]
       ]
     ]
   ]
+  
+  ask essential-shops
+  [
+    if (slice-of-the-day = "morning" or slice-of-the-day = "afternoon") and is-working-day-for-me?
+    [
+      ask hired-workers with [is-believing-to-be-infected? and not is-working?] [get-salary]
+    ]
+  ]
+  
 end
 
 to-report bankrupt-businesses
@@ -82,8 +102,8 @@ to perform-trades-between-gathering-points
   let virtual-total-amount-of-goods-available-in-workplaces-converted-to-capital virtual-total-amount-of-goods-available-in-workplaces * unit-price-of-goods
   let actual-amount-of-stocks-bought 0
   
-  
-  refresh-stocks-of-essential-shops
+  ;Depricated?
+  ;refresh-stocks-of-essential-shops
   
   ;essential-shop
   let total-capital-available-in-essential-shops-to-buy-goods 0
@@ -155,7 +175,7 @@ to perform-trades-between-gathering-points
   
   if total-capital-spent-by-all-shops > 0
   [
-    ask gathering-points with [gathering-type = "workplace"]
+    ask workplaces
     [
       let capital-income stock-of-goods / total-amount-of-goods-available-in-workplaces * total-capital-spent-by-all-shops
       set amount-of-capital amount-of-capital + capital-income
@@ -177,18 +197,9 @@ to perform-the-effect-of-working [workr place]
           set goods-produced goods-produced * productivity-at-home
         ]
         
-        ask place [set stock-of-goods stock-of-goods + goods-produced 
-          if stock-of-goods >  my-max-stock-of-goods
-          [
-            ;;overstock => export = make profit & give money to the state + instant disappear
-            let excedent stock-of-goods - my-max-stock-of-goods
-            let export-value-decay-factor 0.5
-            let price-sold unit-price-of-goods * excedent * export-value-decay-factor
-            let vat export-value-decay-factor * 0.2
-            ask place [set amount-of-capital amount-of-capital + price-sold]
-            pay-taxes-to-the-governement vat
-            set stock-of-goods my-max-stock-of-goods
-          ]
+        ask place [
+          set stock-of-goods stock-of-goods + goods-produced 
+          export-surplus-if-any
         ]
         set goods-production-of-total-system goods-production-of-total-system + goods-produced
       ]
@@ -197,7 +208,18 @@ to perform-the-effect-of-working [workr place]
 end
 
 
-
+to export-surplus-if-any
+  if stock-of-goods >  my-max-stock-of-goods
+          [
+            ;;overstock => export = make profit & give money to the state + instant disappear
+            let excedent stock-of-goods - my-max-stock-of-goods
+            let price-sold unit-price-of-goods * excedent * export-value-decay-factor
+            let vat export-value-decay-factor * 0.2
+            set amount-of-capital amount-of-capital + price-sold
+            pay-taxes-to-the-governement vat
+            set stock-of-goods my-max-stock-of-goods
+  ]
+end
 
 to increase-capital-by [val]
   
@@ -288,17 +310,22 @@ to perform-government-actions
 end
 
 to-report my-wealth-price-increase-factor
+
   let default-wealth-for-scaling 70
   let minimum-for-survival default-wealth-for-scaling / 3
   let res (my-amount-of-capital + minimum-for-survival) / default-wealth-for-scaling
+  ;let res (my-amount-of-capital + 23) / 70
+
   
-  report res
+  ;report res
+  ;Hack to fix way too high price increases, 2 is still arbitrairy but should be better.
+  report min (list res 2)
 ;if you have no money, you pay "half of the price" of what a normal person would get
   ; if you get 70, you pay a bit more than average
 end
 
 to-report my-default-available-liquidities
-  report 1000
+  report 250
 end
 
 to-report economic-activities-funded-by-the-government 

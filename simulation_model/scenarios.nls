@@ -119,7 +119,7 @@ to load-scenario-specifics
 end
 
 to load-scenario-1-baseline-economic-parameters
-  set #non-essential-shops-gp 5
+  ;set #non-essential-shops-gp 5
   set with-infected? false
 end
 
@@ -129,12 +129,12 @@ end
 
 to load-scenario-3-economic-parameters
   set with-infected? true
-  set global-confinement-measures "total-lockdown"
+  set global-confinement-measures "lockdown-10-5"
 end
 
 to load-scenario-4-economic-parameters
   set with-infected? true
-  set global-confinement-measures "total-lockdown"
+  set global-confinement-measures "lockdown-10-5"
   set government-pays-wages? true
 end
 
@@ -152,7 +152,7 @@ to scenario-6-setup
   set density-factor-private-leisure 0.3
   set #essential-shops-gp 10
   set #non-essential-shops-gp 10
-  set #beds-in-hospital 2000
+  set #beds-in-hospital 1000
 
   set disease-fsm-model "oxford"
 
@@ -261,7 +261,7 @@ to scenario-9-setup
   load-number-of-gathering-points-based-on-number-of-households 345
   set load-country-specific-settings "Italy"
   set household-profiles "Italy"
-  ; set #universities-gp 1
+  set #universities-gp 2
   ; set #schools-gp 2
   set migration? false
   set probability-hospital-personel 0.026
@@ -391,7 +391,7 @@ end
 to load-baseline-parameter-settings
   ;set general simulation settings to their default states
   set static-seed? true
-  set #households 100
+  set #households 350
   set log? false
   set log-contamination? false
   set log-preferred-activity-decision? false
@@ -427,23 +427,7 @@ to load-default-worker-distribution-settings
   set probability-shopkeeper 0.04
 end
 
-to load-number-of-gathering-points-based-on-number-of-households [#hld]
-  set #beds-in-hospital floor (#hld / 30)
-  load-scaled-gathering-point-distribution #hld
-end
 
-to load-scaled-gathering-point-distribution [#hld]
-  set #hospital-gp round (#hld / 100)
-  set #schools-gp round (#hld / 30)
-  set #universities-gp round (#hld / 100)
-  set #workplaces-gp round (#hld / 15)
-  set #public-leisure-gp round (#hld / 20)
-  set #private-leisure-gp round (#hld / 7)
-  set #essential-shops-gp round (#hld / 40)
-  set #non-essential-shops-gp round (#hld / 40)
-  set #households #hld
-  set #bus-per-timeslot round (#hld / 13)
-end
 
 to load-closed-schools-and-uni-measures
   set #days-trigger-school-closing-measure 0
@@ -467,7 +451,7 @@ to load-default-transport-model
   set ratio-worker-shared-car .15
   set ratio-retired-shared-car .5
 
-  set #bus-per-timeslot 10
+  ;set #bus-per-timeslot 10
   set #max-people-per-bus 20
 
   set density-walking-outside 0.05
@@ -528,36 +512,38 @@ to load-default-contagion-model
 end
 
 to load-default-economic-parameters
-  set productivity-at-home 1
-  set workers-wages 9
-  set price-of-rations-in-essential-shops 3
-  set price-of-rations-in-non-essential-shops 4.5
+  set productivity-at-home 0.5
+  set workers-wages 12.5
+  set price-of-rations-in-essential-shops 2.8
   set days-of-rations-bought 3
+  set price-of-rations-in-non-essential-shops 4.0
+
   set ratio-tax-on-essential-shops 0.76
-  set ratio-tax-on-non-essential-shops 0.76
+  set ratio-tax-on-non-essential-shops 0.85
   set ratio-tax-on-workplaces 0.60
   set ratio-tax-on-workers 0.42
+
   set goods-produced-by-work-performed 12
-  set unit-price-of-goods 1.6
+  set unit-price-of-goods 2.9
+  set export-value-decay-factor 0.1
   set max-stock-of-goods-in-a-shop 500
-  set starting-amount-of-capital-workers 75
-  set starting-amount-of-capital-retired 40
-  set starting-amount-of-capital-students 30
 
-
+  set starting-amount-of-capital-workers 60
+  set starting-amount-of-capital-retired 50
+  set starting-amount-of-capital-students 45
 
   set government-pays-wages? false
   set ratio-of-wage-paid-by-the-government 0.8
   set government-initial-reserve-of-capital 100000
 
-  set retirees-tick-subsidy 2
-  set students-tick-subsidy 1.5
+  set students-tick-subsidy 3
+  set retirees-tick-subsidy 3.5
   set parent-individual-subsidy-per-child-per-tick 2.5
 
 end
 
 to load-default-household-profiles
-  set household-profiles "Sweden"
+  set household-profiles "Great Britain"
   load-population-profile-based-on-current-preset-profile
 end
 

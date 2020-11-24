@@ -1,5 +1,6 @@
 extensions [table]
-__includes ["setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls" "inspector.nls"]
+__includes ["setup/setup.nls" "people_management.nls" "global_metrics.nls" "environment_dynamics.nls" "animation.nls" "validation/testing.nls" "utils/all_utils.nls" "inspector.nls"]
+
 breed [people person]
 
 globals [
@@ -1033,7 +1034,7 @@ SWITCH
 108
 with-infected?
 with-infected?
-0
+1
 1
 -1000
 
@@ -1241,10 +1242,10 @@ PENS
 "school" 1.0 0 -6917194 true "" "plot school-amount-of-capital"
 
 PLOT
-1097
-1504
-1559
-1654
+1098
+1503
+1560
+1653
 Total amount of capital available in the system
 NIL
 NIL
@@ -1260,40 +1261,40 @@ PENS
 "government-reserve" 1.0 0 -13345367 true "" "plot government-reserve-of-capital"
 
 SLIDER
-549
-1373
+548
+1409
+759
+1442
+ratio-tax-on-essential-shops
+ratio-tax-on-essential-shops
+0
+1
+0.76
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+548
+1446
 760
-1406
-ratio-tax-on-essential-shops
-ratio-tax-on-essential-shops
+1479
+ratio-tax-on-non-essential-shops
+ratio-tax-on-non-essential-shops
 0
 1
-0.76
+0.85
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-549
-1410
-761
-1443
-ratio-tax-on-non-essential-shops
-ratio-tax-on-non-essential-shops
-0
-1
-0.76
-0.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-549
-1449
-761
-1482
+548
+1485
+760
+1518
 ratio-tax-on-workplaces
 ratio-tax-on-workplaces
 0
@@ -1305,10 +1306,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-549
-1487
-761
-1520
+548
+1523
+760
+1556
 ratio-tax-on-workers
 ratio-tax-on-workers
 0
@@ -1450,7 +1451,7 @@ price-of-rations-in-essential-shops
 price-of-rations-in-essential-shops
 0.5
 10
-3.0
+2.8
 0.1
 1
 NIL
@@ -1477,10 +1478,10 @@ PENS
 "workplace" 1.0 0 -2674135 true "" "plot workplace-amount-of-goods-in-stock"
 
 SLIDER
-548
-1547
-757
-1580
+547
+1568
+756
+1601
 goods-produced-by-work-performed
 goods-produced-by-work-performed
 1
@@ -1492,15 +1493,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-548
-1584
-757
-1617
+547
+1605
+756
+1638
 unit-price-of-goods
 unit-price-of-goods
 0.1
 5
-1.6
+2.9
 0.1
 1
 NIL
@@ -1778,10 +1779,10 @@ government-initial-reserve-of-capital
 Number
 
 SLIDER
-548
-1624
-766
-1657
+549
+1351
+777
+1384
 max-stock-of-goods-in-a-shop
 max-stock-of-goods-in-a-shop
 0
@@ -1801,7 +1802,7 @@ starting-amount-of-capital-workers
 starting-amount-of-capital-workers
 0
 100
-75.0
+60.0
 1
 1
 NIL
@@ -1816,7 +1817,7 @@ starting-amount-of-capital-retired
 starting-amount-of-capital-retired
 0
 100
-40.0
+50.0
 1
 1
 NIL
@@ -1831,7 +1832,7 @@ starting-amount-of-capital-students
 starting-amount-of-capital-students
 0
 100
-30.0
+45.0
 1
 1
 NIL
@@ -2002,7 +2003,7 @@ workers-wages
 workers-wages
 0
 30
-9.0
+12.5
 0.5
 1
 NIL
@@ -2186,7 +2187,7 @@ PLOT
 1704
 1044
 1854
-Number of workers actually working at each gathering point
+Number of workers actually working for each gathering point
 NIL
 NIL
 0.0
@@ -2213,7 +2214,7 @@ price-of-rations-in-non-essential-shops
 price-of-rations-in-non-essential-shops
 0.5
 10
-4.5
+4.0
 0.1
 1
 NIL
@@ -2919,7 +2920,7 @@ productivity-at-home
 productivity-at-home
 0
 2
-1.0
+0.5
 0.1
 1
 NIL
@@ -4129,7 +4130,7 @@ INPUTBOX
 877
 1497
 retirees-tick-subsidy
-2.0
+3.5
 1
 0
 Number
@@ -4140,7 +4141,7 @@ INPUTBOX
 1031
 1497
 students-tick-subsidy
-1.5
+3.0
 1
 0
 Number
@@ -4173,6 +4174,17 @@ SWITCH
 245
 activate-intra-cultural-variation?
 activate-intra-cultural-variation?
+1
+1
+-1000
+
+SWITCH
+662
+268
+812
+301
+log-transactions?
+log-transactions?
 1
 1
 -1000
@@ -4216,6 +4228,51 @@ force-partial-reopening-of-private-leisure-after-phase
 force-partial-reopening-of-private-leisure-after-phase
 "never" "phase-1" "phase-2" "phase-3"
 0
+
+SLIDER
+547
+1640
+739
+1673
+export-value-decay-factor
+export-value-decay-factor
+0
+1
+0.1
+0.01
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+549
+1677
+745
+1716
+Set to 0 to destroy goods instead of selling outside the system
+10
+25.0
+1
+
+PLOT
+2231
+1822
+2592
+1972
+standard-deviation-in-captial
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"Workers" 1.0 0 -16777216 true "" "plot standard-deviation [my-amount-of-capital] of workers"
+"Students" 1.0 0 -7500403 true "" "plot standard-deviation [my-amount-of-capital] of students"
+"Retired" 1.0 0 -2674135 true "" "plot standard-deviation [my-amount-of-capital] of retireds"
 
 CHOOSER
 2608
@@ -4640,17 +4697,6 @@ SWITCH
 1576
 is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
 is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?
-1
-1
--1000
-
-SWITCH
-667
-272
-833
-305
-log-transactions?
-log-transactions?
 1
 1
 -1000
@@ -5303,54 +5349,110 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="smart-testing" repetitions="30" runMetricsEveryStep="true">
+  <experiment name="smart-testing-family-isolation" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="600"/>
-    <metric>count people with [is-infected?]</metric>
+    <timeLimit steps="1500"/>
+    <metric>#infected</metric>
+    <metric>count people with [epistemic-infection-status = "infected"]</metric>
+    <metric>#admissions-last-tick</metric>
+    <metric>#taken-hospital-beds</metric>
+    <metric>#denied-requests-for-hospital-beds</metric>
     <metric>#dead-people</metric>
-    <metric>count people with [is-officially-asked-to-quarantine?]</metric>
-    <metric>count people with [is-officially-asked-to-quarantine? and not is-in-quarantine?]</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
-    <metric>#taken-hospital-beds</metric>
-    <metric>#beds-available-for-admission</metric>
+    <metric>count officially-quarantiners</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>#contacts-last-tick</metric>
+    <metric>#people-infected-in-hospitals</metric>
+    <metric>#people-infected-in-workplaces</metric>
+    <metric>#people-infected-in-homes</metric>
+    <metric>#people-infected-in-public-leisure</metric>
+    <metric>#people-infected-in-private-leisure</metric>
+    <metric>#people-infected-in-schools</metric>
+    <metric>#people-infected-in-universities</metric>
+    <metric>#people-infected-in-essential-shops</metric>
+    <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#people-infected-in-pubtrans</metric>
+    <metric>#people-infected-in-shared-cars</metric>
+    <metric>#people-infected-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-shared-cars</metric>
+    <metric>#contacts-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-hospitals</metric>
+    <metric>#contacts-in-workplaces</metric>
+    <metric>#contacts-in-homes</metric>
+    <metric>#contacts-in-public-leisure</metric>
+    <metric>#contacts-in-private-leisure</metric>
+    <metric>#contacts-in-schools</metric>
+    <metric>#contacts-in-universities</metric>
+    <metric>#contacts-in-essential-shops</metric>
+    <metric>#contacts-in-non-essential-shops</metric>
+    <metric>#cumulative-youngs-infected</metric>
+    <metric>#cumulative-students-infected</metric>
+    <metric>#cumulative-workers-infected</metric>
+    <metric>#cumulative-retireds-infected</metric>
+    <metric>#cumulative-youngs-infector</metric>
+    <metric>#cumulative-students-infector</metric>
+    <metric>#cumulative-workers-infector</metric>
+    <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <metric>ratio-infected-youngs</metric>
+    <metric>ratio-infected-students</metric>
+    <metric>ratio-infected-workers</metric>
+    <metric>ratio-infected-retireds</metric>
+    <metric>#hospitalizations-youngs-this-tick</metric>
+    <metric>#hospitalizations-students-this-tick</metric>
+    <metric>#hospitalizations-workers-this-tick</metric>
+    <metric>#hospitalizations-retired-this-tick</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age retired-age</metric>
+    <metric>#youngs-at-start</metric>
+    <metric>#students-at-start</metric>
+    <metric>#workers-at-start</metric>
+    <metric>#retireds-at-start</metric>
     <metric>hospital-effectiveness</metric>
     <enumeratedValueSet variable="prioritize-testing-education?">
       <value value="true"/>
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="prioritize-testing-health-care?">
-      <value value="true"/>
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
-      <value value="true"/>
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="when-is-daily-testing-applied?">
-      <value value="&quot;always&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="food-delivered-to-isolators?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="do-not-test-youth?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#available-tests">
-      <value value="50"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-recording-tracking">
-      <value value="14"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
-      <value value="2.2"/>
+      <value value="4.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#max-people-per-bus">
       <value value="20"/>
@@ -5361,23 +5463,38 @@ setup</setup>
     <enumeratedValueSet variable="goods-produced-by-work-performed">
       <value value="12"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="preset-scenario">
-      <value value="&quot;scenario-9-smart-testing&quot;"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
       <value value="500"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="log-transactions?">
+      <value value="false"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="density-factor-private-leisure">
-      <value value="0.2"/>
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="retirees-tick-subsidy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="critical-to-terminal">
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-getting-back-when-abroad">
-      <value value="0.13"/>
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="with-infected?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="financial-stability-learning-rate">
+      <value value="0.05"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="indulgence-vs-restraint">
       <value value="30"/>
@@ -5385,17 +5502,11 @@ setup</setup>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="load-country-specific-settings">
-      <value value="&quot;Italy&quot;"/>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.76"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
       <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
-      <value value="0.52"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-school-subsidy">
-      <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="value-system-calibration-factor">
       <value value="25"/>
@@ -5403,11 +5514,14 @@ setup</setup>
     <enumeratedValueSet variable="probability-self-recovery-symptoms">
       <value value="0.6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-multi-generational-homes">
-      <value value="0.049"/>
+    <enumeratedValueSet variable="force-reopening-of-schools-after-phase">
+      <value value="&quot;never&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#households">
-      <value value="345"/>
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.049"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="global-confinement-measures">
       <value value="&quot;none&quot;"/>
@@ -5416,22 +5530,25 @@ setup</setup>
       <value value="0.8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="density-factor-public-leisure">
-      <value value="0.05"/>
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#universities-gp">
-      <value value="1"/>
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
+      <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="std-dev-social-distance-profile">
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="value-std-dev">
-      <value value="10"/>
+      <value value="5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="close-services-luxury?">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#workplaces-gp">
-      <value value="34"/>
+      <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="individualism-vs-collectivism">
       <value value="76"/>
@@ -5445,26 +5562,29 @@ setup</setup>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
       <value value="40"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="clear-log-on-setup?">
+      <value value="true"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
       <value value="8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-family-homes">
       <value value="0.344"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-hospital-personel">
-      <value value="0.026"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="debug?">
-      <value value="false"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="government-sector-subsidy-ratio">
       <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.026"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="weight-survival-needs">
       <value value="0.5"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
+      <value value="true"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="10"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="migration?">
       <value value="false"/>
@@ -5476,37 +5596,58 @@ setup</setup>
       <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="price-of-rations-in-essential-shops">
-      <value value="2.2"/>
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="social-distancing-density-factor">
+      <value value="0.08"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="terminal-to-death">
       <value value="7"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="condition-for-acknowledging-the-crisis">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
       <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="percentage-news-watchers">
-      <value value="0.76"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
-      <value value="false"/>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="condition-phasing-out">
+      <value value="&quot;never&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-tax-on-workplaces">
-      <value value="0.55"/>
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="owning-solo-transportation-probability">
       <value value="1"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="log-setup?">
+      <value value="false"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-children-public-transport">
       <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closed-during-global-quarantine?">
+      <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-unavoidable-death-old">
       <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="long-vs-short-termism">
       <value value="61"/>
@@ -5515,7 +5656,7 @@ setup</setup>
       <value value="&quot;oxford&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="mean-social-distance-profile">
-      <value value="0.29"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
       <value value="30"/>
@@ -5523,11 +5664,14 @@ setup</setup>
     <enumeratedValueSet variable="ratio-retired-with-phones">
       <value value="1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retirees-subsidy">
-      <value value="0.34"/>
+    <enumeratedValueSet variable="contagion-model">
+      <value value="&quot;oxford&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-users">
-      <value value="0"/>
+    <enumeratedValueSet variable="density-factor-public-transports">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
+      <value value="6"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
       <value value="75"/>
@@ -5538,23 +5682,40 @@ setup</setup>
     <enumeratedValueSet variable="productivity-at-home">
       <value value="1"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Aware-of-working-at-home-at-start-of-simulation?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="true"/>
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="10"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-retired-shared-car">
       <value value="0.5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="17"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#hospital-gp">
-      <value value="3"/>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="false"/>
+      <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-worker-public-transport">
       <value value="0.4"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="inspect-to-file?">
+      <value value="false"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="make-social-distance-profile-value-based?">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="probably-contagion-mitigation-from-social-distancing">
-      <value value="0.08"/>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="is-working-from-home-recommended?">
       <value value="false"/>
@@ -5562,17 +5723,17 @@ setup</setup>
     <enumeratedValueSet variable="when-is-tracing-app-active?">
       <value value="&quot;never&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
-      <value value="0.2"/>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="household-profiles">
       <value value="&quot;Italy&quot;"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
       <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="interest-rate-by-tick">
-      <value value="0.001"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
       <value value="0"/>
@@ -5580,20 +5741,20 @@ setup</setup>
     <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
       <value value="16"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="students-tick-subsidy">
+      <value value="1.5"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
       <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-student-shared-car">
-      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-students-subsidy">
-      <value value="0.34"/>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-hospital">
-      <value value="0.8"/>
+    <enumeratedValueSet variable="log-violating-quarantine?">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
       <value value="1"/>
@@ -5602,7 +5763,7 @@ setup</setup>
       <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="34"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days-of-rations-bought">
       <value value="3"/>
@@ -5616,32 +5777,42 @@ setup</setup>
     <enumeratedValueSet variable="probability-unavoidable-death">
       <value value="0.1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-hospital-subsidy">
-      <value value="0.21"/>
+    <enumeratedValueSet variable="density-factor-hospitals">
+      <value value="0.8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
-      <value value="1"/>
+      <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-shopkeeper">
       <value value="0.04"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="workers-wages">
-      <value value="10"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="density-factor-essential-shops">
       <value value="0.3"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-in-shared-cars">
-      <value value="0.8"/>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="OVERRIDE-ECONOMY?">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-school-personel">
       <value value="0.028"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-workplaces">
-      <value value="0.2"/>
+    <enumeratedValueSet variable="parent-individual-subsidy-per-child-per-tick">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+      <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-worker-shared-car">
       <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-queuing">
+      <value value="0.6"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-young-with-phones">
       <value value="1"/>
@@ -5649,17 +5820,17 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-universities">
       <value value="0.2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="probability-infection-when-abroad">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-university-subsidy">
-      <value value="0.03"/>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#beds-in-hospital">
-      <value value="2000"/>
+      <value value="11"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
       <value value="0.1"/>
@@ -5670,20 +5841,20 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-non-essential-shops">
       <value value="0.6"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="load-country-specific-settings">
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="peer-group-friend-links">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-tax-on-essential-shops">
-      <value value="0.52"/>
+      <value value="0.76"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-children-shared-car">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="productivity-factor-when-not-at-work">
-      <value value="0.79"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="unit-price-of-goods">
-      <value value="1.7"/>
+      <value value="1.6"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="network-generation-method">
       <value value="&quot;value-similarity&quot;"/>
@@ -5694,8 +5865,11 @@ setup</setup>
     <enumeratedValueSet variable="density-factor-homes">
       <value value="1"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;always&quot;"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="3"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-recorvery-if-treated-old">
       <value value="0.6"/>
@@ -5704,19 +5878,19 @@ setup</setup>
       <value value="0.15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#random-seed">
-      <value value="1"/>
+      <value value="25"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-travelling-propagation">
-      <value value="0.05"/>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="58"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#schools-gp">
-      <value value="2"/>
+      <value value="12"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="closed-universities?">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="government-initial-reserve-of-capital">
-      <value value="10000"/>
+      <value value="100000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="government-pays-wages?">
       <value value="false"/>
@@ -5725,7 +5899,10 @@ setup</setup>
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-tax-on-workers">
-      <value value="0.41"/>
+      <value value="0.42"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-walking-outside">
+      <value value="0.05"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="animate?">
       <value value="false"/>
@@ -5745,20 +5922,23 @@ setup</setup>
     <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
       <value value="10000"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="7"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="test-home-of-confirmed-people?">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="34"/>
+      <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-retired-public-transport">
       <value value="0.2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-when-queuing">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-in-public-transport">
-      <value value="0.5"/>
+    <enumeratedValueSet variable="influence-of-age-on-value-system">
+      <value value="5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="probability-university-personel">
       <value value="0.005"/>
@@ -5768,7 +5948,9 @@ setup</setup>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S6" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
+    <setup>setup
+set preset-scenario "scenario-6-default"
+load-scenario-specific-parameter-settings</setup>
     <go>go</go>
     <timeLimit steps="1500"/>
     <metric>#infected</metric>
@@ -5779,6 +5961,7 @@ setup</setup>
     <metric>#dead-people</metric>
     <metric>#tests-performed</metric>
     <metric>r0</metric>
+    <metric>count officially-quarantiners</metric>
     <metric>count should-be-isolators</metric>
     <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
     <metric>#contacts-last-tick</metric>
@@ -5866,455 +6049,12 @@ setup</setup>
     <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
       <value value="0"/>
       <value value="0.6"/>
-      <value value="1"/>
-    </enumeratedValueSet>
-    <steppedValueSet variable="#random-seed" first="1" step="1" last="10"/>
-    <enumeratedValueSet variable="prioritize-testing-education?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
-      <value value="2.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#max-people-per-bus">
-      <value value="20"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
-      <value value="0.69"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="goods-produced-by-work-performed">
-      <value value="12"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="preset-scenario">
-      <value value="&quot;scenario-6-default&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
-      <value value="500"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-private-leisure">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="log-preferred-activity-decision?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-getting-back-when-abroad">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="critical-to-terminal">
-      <value value="2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="log?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="with-infected?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="indulgence-vs-restraint">
-      <value value="69"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="static-seed?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="load-country-specific-settings">
-      <value value="&quot;Great Britain&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
-      <value value="0.52"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-school-subsidy">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="value-system-calibration-factor">
-      <value value="25"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-self-recovery-symptoms">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-multi-generational-homes">
-      <value value="0.01"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#households">
-      <value value="391"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="global-confinement-measures">
-      <value value="&quot;none&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
       <value value="0.8"/>
+      <value value="1"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-public-leisure">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#universities-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="std-dev-social-distance-profile">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="value-std-dev">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="close-services-luxury?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#workplaces-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="individualism-vs-collectivism">
-      <value value="89"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-student-public-transport">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="uncertainty-avoidance">
-      <value value="35"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="clear-log-on-setup?">
+    <steppedValueSet variable="#random-seed" first="1" step="1" last="30"/>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
       <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
-      <value value="8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-family-homes">
-      <value value="0.27"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-hospital-personel">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-sector-subsidy-ratio">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="weight-survival-needs">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="30"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="migration?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="masculinity-vs-femininity">
-      <value value="66"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
-      <value value="2.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="terminal-to-death">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="percentage-news-watchers">
-      <value value="0.75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-tracking-app-testing-immediately-recursive?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-workplaces">
-      <value value="0.55"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="food-delivered-to-isolators?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="owning-solo-transportation-probability">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="log-setup?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-children-public-transport">
-      <value value="0.75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="survival-multiplier">
-      <value value="2.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-unavoidable-death-old">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="long-vs-short-termism">
-      <value value="51"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="disease-fsm-model">
-      <value value="&quot;oxford&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="mean-social-distance-profile">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-with-phones">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retirees-subsidy">
-      <value value="0.34"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="prioritize-testing-health-care?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-shared-car">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#essential-shops-gp">
-      <value value="20"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="do-not-test-youth?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#hospital-gp">
-      <value value="4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-worker-public-transport">
-      <value value="0.4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="social-distancing-density-factor">
-      <value value="0.08"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="when-is-tracing-app-active?">
-      <value value="&quot;7-days-before-end-of-global-quarantine&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="household-profiles">
-      <value value="&quot;custom&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="interest-rate-by-tick">
-      <value value="0.001"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
-      <value value="16"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-student-shared-car">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-students-subsidy">
-      <value value="0.34"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-hospitals">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="maslow-multiplier">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#private-leisure-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="days-of-rations-bought">
-      <value value="3"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-schools">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-adults-homes">
-      <value value="0.38"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-unavoidable-death">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-hospital-subsidy">
-      <value value="0.21"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-shopkeeper">
-      <value value="0.04"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="workers-wages">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-essential-shops">
-      <value value="0.3"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-shared-cars">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-school-personel">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-workplaces">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-worker-shared-car">
-      <value value="0.15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-young-with-phones">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-universities">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-university-subsidy">
-      <value value="0.03"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-infection-when-abroad">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-going-abroad">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="log-contamination?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#beds-in-hospital">
-      <value value="2000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="power-distance">
-      <value value="35"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-non-essential-shops">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="peer-group-friend-links">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
-      <value value="0.52"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-children-shared-car">
-      <value value="0"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="unit-price-of-goods">
-      <value value="1.7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="network-generation-method">
-      <value value="&quot;value-similarity&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-homes">
-      <value value="1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="when-is-daily-testing-applied?">
-      <value value="&quot;never&quot;"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#public-leisure-gp">
-      <value value="4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="propagation-risk">
-      <value value="0.4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-walking-outside">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#available-tests">
-      <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#schools-gp">
-      <value value="12"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="closed-universities?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-initial-reserve-of-capital">
-      <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-pays-wages?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
-      <value value="0.8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-tax-on-workers">
-      <value value="0.41"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="animate?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-recorvery-if-treated">
-      <value value="0.1"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-couple-homes">
-      <value value="0.35"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
-      <value value="0.14"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="closed-workplaces?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
-      <value value="10000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-recording-tracing">
-      <value value="7"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="test-home-of-confirmed-people?">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#non-essential-shops-gp">
-      <value value="40"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="ratio-retired-public-transport">
-      <value value="0.2"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-queuing">
-      <value value="0.6"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="density-factor-public-transports">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="probability-university-personel">
-      <value value="0.04"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
-      <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S7_1_4-no-public-measures" repetitions="10" runMetricsEveryStep="true">
@@ -9106,6 +8846,1330 @@ setup</setup>
       <value value="10000"/>
     </enumeratedValueSet>
   </experiment>
+  <experiment name="smart-testing-no-family-isolation" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1500"/>
+    <metric>#infected</metric>
+    <metric>count people with [epistemic-infection-status = "infected"]</metric>
+    <metric>#admissions-last-tick</metric>
+    <metric>#taken-hospital-beds</metric>
+    <metric>#denied-requests-for-hospital-beds</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count officially-quarantiners</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>#contacts-last-tick</metric>
+    <metric>#people-infected-in-hospitals</metric>
+    <metric>#people-infected-in-workplaces</metric>
+    <metric>#people-infected-in-homes</metric>
+    <metric>#people-infected-in-public-leisure</metric>
+    <metric>#people-infected-in-private-leisure</metric>
+    <metric>#people-infected-in-schools</metric>
+    <metric>#people-infected-in-universities</metric>
+    <metric>#people-infected-in-essential-shops</metric>
+    <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#people-infected-in-pubtrans</metric>
+    <metric>#people-infected-in-shared-cars</metric>
+    <metric>#people-infected-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-shared-cars</metric>
+    <metric>#contacts-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-hospitals</metric>
+    <metric>#contacts-in-workplaces</metric>
+    <metric>#contacts-in-homes</metric>
+    <metric>#contacts-in-public-leisure</metric>
+    <metric>#contacts-in-private-leisure</metric>
+    <metric>#contacts-in-schools</metric>
+    <metric>#contacts-in-universities</metric>
+    <metric>#contacts-in-essential-shops</metric>
+    <metric>#contacts-in-non-essential-shops</metric>
+    <metric>#cumulative-youngs-infected</metric>
+    <metric>#cumulative-students-infected</metric>
+    <metric>#cumulative-workers-infected</metric>
+    <metric>#cumulative-retireds-infected</metric>
+    <metric>#cumulative-youngs-infector</metric>
+    <metric>#cumulative-students-infector</metric>
+    <metric>#cumulative-workers-infector</metric>
+    <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <metric>ratio-infected-youngs</metric>
+    <metric>ratio-infected-students</metric>
+    <metric>ratio-infected-workers</metric>
+    <metric>ratio-infected-retireds</metric>
+    <metric>#hospitalizations-youngs-this-tick</metric>
+    <metric>#hospitalizations-students-this-tick</metric>
+    <metric>#hospitalizations-workers-this-tick</metric>
+    <metric>#hospitalizations-retired-this-tick</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age retired-age</metric>
+    <metric>#youngs-at-start</metric>
+    <metric>#students-at-start</metric>
+    <metric>#workers-at-start</metric>
+    <metric>#retireds-at-start</metric>
+    <metric>hospital-effectiveness</metric>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="true"/>
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="4.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-transactions?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="retirees-tick-subsidy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="financial-stability-learning-rate">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.76"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="force-reopening-of-schools-after-phase">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.049"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="76"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="clear-log-on-setup?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.344"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.026"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="27"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="social-distancing-density-factor">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="condition-for-acknowledging-the-crisis">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="condition-phasing-out">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-setup?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closed-during-global-quarantine?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="61"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagion-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-transports">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
+      <value value="6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Aware-of-working-at-home-at-start-of-simulation?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="true"/>
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="false"/>
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="inspect-to-file?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="students-tick-subsidy">
+      <value value="1.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-violating-quarantine?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.309"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospitals">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="OVERRIDE-ECONOMY?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.028"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="parent-individual-subsidy-per-child-per-tick">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="11"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="load-country-specific-settings">
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.76"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;always&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="58"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="100000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.42"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-walking-outside">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.298"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="influence-of-age-on-value-system">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.005"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="economy" repetitions="1" runMetricsEveryStep="true">
+    <setup>load-scenario-specific-parameter-settings
+setup</setup>
+    <go>go</go>
+    <timeLimit steps="800"/>
+    <metric>count people with [infection-status = "healthy"]</metric>
+    <metric>count people with [epistemic-infection-status = "infected"]</metric>
+    <metric>count people with [is-infected?]</metric>
+    <metric>count people with [infection-status = "immune"]</metric>
+    <metric>count people with [infection-status = "healthy" or infection-status = "immune"]</metric>
+    <metric>#admissions-last-tick</metric>
+    <metric>#taken-hospital-beds</metric>
+    <metric>#denied-requests-for-hospital-beds</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count officially-quarantiners</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>#contacts-last-tick</metric>
+    <metric>#people-infected-in-hospitals</metric>
+    <metric>#people-infected-in-workplaces</metric>
+    <metric>#people-infected-in-homes</metric>
+    <metric>#people-infected-in-public-leisure</metric>
+    <metric>#people-infected-in-private-leisure</metric>
+    <metric>#people-infected-in-schools</metric>
+    <metric>#people-infected-in-universities</metric>
+    <metric>#people-infected-in-essential-shops</metric>
+    <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#people-infected-in-pubtrans</metric>
+    <metric>#people-infected-in-shared-cars</metric>
+    <metric>#people-infected-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-shared-cars</metric>
+    <metric>#contacts-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-hospitals</metric>
+    <metric>#contacts-in-workplaces</metric>
+    <metric>#contacts-in-homes</metric>
+    <metric>#contacts-in-public-leisure</metric>
+    <metric>#contacts-in-private-leisure</metric>
+    <metric>#contacts-in-schools</metric>
+    <metric>#contacts-in-universities</metric>
+    <metric>#contacts-in-essential-shops</metric>
+    <metric>#contacts-in-non-essential-shops</metric>
+    <metric>#cumulative-youngs-infected</metric>
+    <metric>#cumulative-students-infected</metric>
+    <metric>#cumulative-workers-infected</metric>
+    <metric>#cumulative-retireds-infected</metric>
+    <metric>#cumulative-youngs-infector</metric>
+    <metric>#cumulative-students-infector</metric>
+    <metric>#cumulative-workers-infector</metric>
+    <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <metric>ratio-infected-youngs</metric>
+    <metric>ratio-infected-students</metric>
+    <metric>ratio-infected-workers</metric>
+    <metric>ratio-infected-retireds</metric>
+    <metric>#hospitalizations-youngs-this-tick</metric>
+    <metric>#hospitalizations-students-this-tick</metric>
+    <metric>#hospitalizations-workers-this-tick</metric>
+    <metric>#hospitalizations-retired-this-tick</metric>
+    <metric>ifelse-value is-lockdown-active? [1] [0]</metric>
+    <metric>mean [belonging-satisfaction-level] of people</metric>
+    <metric>mean [risk-avoidance-satisfaction-level] of people</metric>
+    <metric>mean [autonomy-satisfaction-level] of people</metric>
+    <metric>mean [luxury-satisfaction-level] of people with [not is-child?]</metric>
+    <metric>mean [health-satisfaction-level] of people</metric>
+    <metric>mean [sleep-satisfaction-level] of people</metric>
+    <metric>mean [compliance-satisfaction-level] of people</metric>
+    <metric>mean [financial-stability-satisfaction-level] of people with [not is-child?]</metric>
+    <metric>mean [food-safety-satisfaction-level] of people</metric>
+    <metric>mean [leisure-satisfaction-level] of people</metric>
+    <metric>mean [financial-survival-satisfaction-level] of people with [not is-child?]</metric>
+    <metric>mean [conformity-satisfaction-level] of people</metric>
+    <metric>#youngs-at-start</metric>
+    <metric>#students-at-start</metric>
+    <metric>#workers-at-start</metric>
+    <metric>#retireds-at-start</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
+    <steppedValueSet variable="#random-seed" first="25" step="3" last="43"/>
+    <enumeratedValueSet variable="preset-scenario">
+      <value value="&quot;economic-scenario-1-baseline&quot;"/>
+      <value value="&quot;economic-scenario-2-infections&quot;"/>
+      <value value="&quot;economic-scenario-3-lockdown&quot;"/>
+      <value value="&quot;economic-scenario-4-wages&quot;"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="smart-testing-no-testing" repetitions="12" sequentialRunOrder="false" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1500"/>
+    <metric>#infected</metric>
+    <metric>count people with [epistemic-infection-status = "infected"]</metric>
+    <metric>#admissions-last-tick</metric>
+    <metric>#taken-hospital-beds</metric>
+    <metric>#denied-requests-for-hospital-beds</metric>
+    <metric>#dead-people</metric>
+    <metric>#tests-performed</metric>
+    <metric>r0</metric>
+    <metric>count officially-quarantiners</metric>
+    <metric>count should-be-isolators</metric>
+    <metric>count should-be-isolators with [current-activity != my-home and current-activity != my-hospital and current-activity != away-gathering-point]</metric>
+    <metric>#contacts-last-tick</metric>
+    <metric>#people-infected-in-hospitals</metric>
+    <metric>#people-infected-in-workplaces</metric>
+    <metric>#people-infected-in-homes</metric>
+    <metric>#people-infected-in-public-leisure</metric>
+    <metric>#people-infected-in-private-leisure</metric>
+    <metric>#people-infected-in-schools</metric>
+    <metric>#people-infected-in-universities</metric>
+    <metric>#people-infected-in-essential-shops</metric>
+    <metric>#people-infected-in-non-essential-shops</metric>
+    <metric>#people-infected-in-pubtrans</metric>
+    <metric>#people-infected-in-shared-cars</metric>
+    <metric>#people-infected-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-shared-cars</metric>
+    <metric>#contacts-in-queuing</metric>
+    <metric>#contacts-in-pubtrans</metric>
+    <metric>#contacts-in-hospitals</metric>
+    <metric>#contacts-in-workplaces</metric>
+    <metric>#contacts-in-homes</metric>
+    <metric>#contacts-in-public-leisure</metric>
+    <metric>#contacts-in-private-leisure</metric>
+    <metric>#contacts-in-schools</metric>
+    <metric>#contacts-in-universities</metric>
+    <metric>#contacts-in-essential-shops</metric>
+    <metric>#contacts-in-non-essential-shops</metric>
+    <metric>#cumulative-youngs-infected</metric>
+    <metric>#cumulative-students-infected</metric>
+    <metric>#cumulative-workers-infected</metric>
+    <metric>#cumulative-retireds-infected</metric>
+    <metric>#cumulative-youngs-infector</metric>
+    <metric>#cumulative-students-infector</metric>
+    <metric>#cumulative-workers-infector</metric>
+    <metric>#cumulative-retireds-infector</metric>
+    <metric>ratio-quarantiners-currently-complying-to-quarantine</metric>
+    <metric>ratio-infected-youngs</metric>
+    <metric>ratio-infected-students</metric>
+    <metric>ratio-infected-workers</metric>
+    <metric>ratio-infected-retireds</metric>
+    <metric>#hospitalizations-youngs-this-tick</metric>
+    <metric>#hospitalizations-students-this-tick</metric>
+    <metric>#hospitalizations-workers-this-tick</metric>
+    <metric>#hospitalizations-retired-this-tick</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections young-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections student-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections worker-age retired-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age young-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age student-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age worker-age</metric>
+    <metric>ratio-age-group-to-age-group-#infections retired-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts young-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts student-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts worker-age retired-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age young-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age student-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age worker-age</metric>
+    <metric>age-group-to-age-group-#contacts retired-age retired-age</metric>
+    <metric>#youngs-at-start</metric>
+    <metric>#students-at-start</metric>
+    <metric>#workers-at-start</metric>
+    <metric>#retireds-at-start</metric>
+    <metric>hospital-effectiveness</metric>
+    <enumeratedValueSet variable="prioritize-testing-education?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-non-essential-shops">
+      <value value="4.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-quarantining-for-14-days-people-in-contact-with-a-sick-person-track-and-trace?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#max-people-per-bus">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
+      <value value="0.69"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="goods-produced-by-work-performed">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-stock-of-goods-in-a-shop">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-transactions?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-private-leisure">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="retirees-tick-subsidy">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-preferred-activity-decision?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="critical-to-terminal">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-getting-back-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-infected-and-their-families-requested-to-stay-at-home?">
+      <value value="true"/>
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="with-infected?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="financial-stability-learning-rate">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="indulgence-vs-restraint">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="static-seed?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-non-essential-shops">
+      <value value="0.76"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="all-self-isolate-for-35-days-when-first-hitting-2%-infected?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-system-calibration-factor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="force-reopening-of-schools-after-phase">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#households">
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-multi-generational-homes">
+      <value value="0.049"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-confinement-measures">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-wage-paid-by-the-government">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-leisure">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#universities-gp">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-tracking-app-testing-recursive?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="std-dev-social-distance-profile">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="value-std-dev">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="close-services-luxury?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#workplaces-gp">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="individualism-vs-collectivism">
+      <value value="76"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-public-transport">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="uncertainty-avoidance">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-retired">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="clear-log-on-setup?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="infection-to-asymptomatic-contagiousness">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-family-homes">
+      <value value="0.344"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-sector-subsidy-ratio">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-hospital-personel">
+      <value value="0.026"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="weight-survival-needs">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Aware-of-social-distancing-at-start-of-simulation?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#bus-per-timeslot">
+      <value value="27"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="migration?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="masculinity-vs-femininity">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-income-when-closed">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-of-rations-in-essential-shops">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="social-distancing-density-factor">
+      <value value="0.08"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="terminal-to-death">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="condition-for-acknowledging-the-crisis">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-people-using-the-tracking-app">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closing-school-when-any-reported-case-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-news-watchers">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-shared-cars">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="condition-phasing-out">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workplaces">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="food-delivered-to-isolators?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="owning-solo-transportation-probability">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-setup?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-public-transport">
+      <value value="0.75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-closed-during-global-quarantine?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="survival-multiplier">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death-old">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-randomly-tested-daily">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="long-vs-short-termism">
+      <value value="61"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="disease-fsm-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mean-social-distance-profile">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-students">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagion-model">
+      <value value="&quot;oxford&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-public-transports">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="amount-of-rations-I-buy-when-going-to-shops">
+      <value value="6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starting-amount-of-capital-workers">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="daily-risk-believe-experiencing-fake-symptoms">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="productivity-at-home">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="keep-retired-quarantined-forever-if-global-quarantine-is-fired-global-measure?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Aware-of-working-at-home-at-start-of-simulation?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prioritize-testing-health-care?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#essential-shops-gp">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-shared-car">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="do-not-test-youth?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-public-transport">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#hospital-gp">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="inspect-to-file?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="make-social-distance-profile-value-based?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-psychorigidly-staying-at-home-when-quarantining?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="is-working-from-home-recommended?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-tracing-app-active?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="interest-rate-by-tick">
+      <value value="0.001"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="household-profiles">
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-non-essential-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-population-daily-immunity-testing">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asympomatic-contagiousness-to-symptomatic-contagiousness">
+      <value value="16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="students-tick-subsidy">
+      <value value="1.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-school-closing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-workplace-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-student-shared-car">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-violating-quarantine?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-social-distancing-measure">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maslow-multiplier">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#private-leisure-gp">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="days-of-rations-bought">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-schools">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-adults-homes">
+      <value value="0.309"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-unavoidable-death">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-hospitals">
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-symptomatic">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-shopkeeper">
+      <value value="0.04"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-essential-shops">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="workers-wages">
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="OVERRIDE-ECONOMY?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-school-personel">
+      <value value="0.028"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="parent-individual-subsidy-per-child-per-tick">
+      <value value="2.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="only-test-retirees-with-extra-tests?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-worker-shared-car">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-workplaces">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-queuing">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-young-with-phones">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-universities">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-infection-when-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-going-abroad">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="log-contamination?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#beds-in-hospital">
+      <value value="11"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-self-recovery-symptoms-old">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="power-distance">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-non-essential-shops">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="load-country-specific-settings">
+      <value value="&quot;Italy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="peer-group-friend-links">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-essential-shops">
+      <value value="0.76"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-children-shared-car">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="unit-price-of-goods">
+      <value value="1.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="network-generation-method">
+      <value value="&quot;value-similarity&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symptomatic-to-critical-or-heal">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-factor-homes">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="when-is-daily-testing-applied?">
+      <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#public-leisure-gp">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated-old">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="propagation-risk">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#random-seed">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#available-tests">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#schools-gp">
+      <value value="12"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-universities?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-reserve-of-capital">
+      <value value="100000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-pays-wages?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-self-quarantining-when-a-family-member-is-symptomatic">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-tax-on-workers">
+      <value value="0.42"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-walking-outside">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animate?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-recorvery-if-treated">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-couple-homes">
+      <value value="0.298"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percentage-of-agents-with-random-link">
+      <value value="0.14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="closed-workplaces?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-non-essential-business-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-of-anxiety-avoidance-tracing-app-users">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-recording-tracing">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="test-home-of-confirmed-people?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#non-essential-shops-gp">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ratio-retired-public-transport">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="influence-of-age-on-value-system">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="probability-university-personel">
+      <value value="0.005"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="#days-trigger-school-closing-measure">
+      <value value="10000"/>
+    </enumeratedValueSet>
+  </experiment>
   <experiment name="S12-Leisure_1" repetitions="6" runMetricsEveryStep="true">
     <setup>setup
 if day-gap-for-phasing-out-condition &gt; minimum-days-between-phases [ set day-gap-for-phasing-out-condition minimum-days-between-phases]
@@ -9223,6 +10287,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -9293,7 +10402,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -9432,6 +10541,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -9617,7 +10729,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -9713,7 +10825,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -9725,13 +10837,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -9740,7 +10852,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -9782,7 +10894,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_2" repetitions="6" runMetricsEveryStep="true">
@@ -9902,6 +11014,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -9972,7 +11129,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -10111,6 +11268,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -10296,7 +11456,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -10392,7 +11552,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -10404,13 +11564,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -10419,7 +11579,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -10461,7 +11621,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_3" repetitions="6" runMetricsEveryStep="true">
@@ -10581,6 +11741,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -10651,7 +11856,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -10790,6 +11995,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -10975,7 +12183,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -11071,7 +12279,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -11083,13 +12291,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -11098,7 +12306,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -11140,7 +12348,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_4" repetitions="6" runMetricsEveryStep="true">
@@ -11260,6 +12468,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -11330,7 +12583,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -11469,6 +12722,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -11654,7 +12910,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -11750,7 +13006,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -11762,13 +13018,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -11777,7 +13033,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -11819,7 +13075,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_5" repetitions="6" runMetricsEveryStep="true">
@@ -11939,6 +13195,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -12009,7 +13310,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12148,6 +13449,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -12333,7 +13637,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -12429,7 +13733,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -12441,13 +13745,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -12456,7 +13760,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -12498,7 +13802,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_1" repetitions="6" runMetricsEveryStep="true">
@@ -12618,6 +13922,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -12688,7 +14037,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12827,6 +14176,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -13012,7 +14364,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -13108,7 +14460,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -13120,13 +14472,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -13135,7 +14487,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -13177,7 +14529,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_2" repetitions="6" runMetricsEveryStep="true">
@@ -13297,6 +14649,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -13367,7 +14764,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -13506,6 +14903,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -13691,7 +15091,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -13787,7 +15187,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -13799,13 +15199,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -13814,7 +15214,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -13856,7 +15256,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_3" repetitions="6" runMetricsEveryStep="true">
@@ -13976,6 +15376,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -14046,7 +15491,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -14185,6 +15630,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -14370,7 +15818,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -14466,7 +15914,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -14478,13 +15926,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -14493,7 +15941,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -14535,7 +15983,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_4" repetitions="6" runMetricsEveryStep="true">
@@ -14655,6 +16103,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -14725,7 +16218,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -14864,6 +16357,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -15049,7 +16545,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -15145,7 +16641,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -15157,13 +16653,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -15172,7 +16668,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -15214,7 +16710,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_5" repetitions="6" runMetricsEveryStep="true">
@@ -15334,6 +16830,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -15404,7 +16945,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -15543,6 +17084,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -15728,7 +17272,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -15824,7 +17368,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -15836,13 +17380,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -15851,7 +17395,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -15893,7 +17437,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_1" repetitions="6" runMetricsEveryStep="true">
@@ -16013,6 +17557,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -16083,7 +17672,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -16222,6 +17811,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -16407,7 +17999,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -16503,7 +18095,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -16515,13 +18107,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -16530,7 +18122,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -16572,7 +18164,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_2" repetitions="6" runMetricsEveryStep="true">
@@ -16692,6 +18284,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -16762,7 +18399,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -16901,6 +18538,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -17086,7 +18726,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -17182,7 +18822,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -17194,13 +18834,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -17209,7 +18849,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -17251,7 +18891,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_3" repetitions="6" runMetricsEveryStep="true">
@@ -17371,6 +19011,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -17441,7 +19126,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -17580,6 +19265,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -17765,7 +19453,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -17861,7 +19549,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -17873,13 +19561,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -17888,7 +19576,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -17930,7 +19618,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_4" repetitions="6" runMetricsEveryStep="true">
@@ -18050,6 +19738,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -18120,7 +19853,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18259,6 +19992,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -18444,7 +20180,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -18540,7 +20276,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -18552,13 +20288,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -18567,7 +20303,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -18609,7 +20345,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_5" repetitions="6" runMetricsEveryStep="true">
@@ -18729,6 +20465,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -18799,7 +20580,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18938,6 +20719,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -19123,7 +20907,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -19219,7 +21003,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -19231,13 +21015,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -19246,7 +21030,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -19288,7 +21072,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_6" repetitions="6" runMetricsEveryStep="true">
@@ -19408,6 +21192,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -19478,7 +21307,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -19617,6 +21446,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -19802,7 +21634,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -19898,7 +21730,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -19910,13 +21742,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -19925,7 +21757,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -19967,7 +21799,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_7" repetitions="6" runMetricsEveryStep="true">
@@ -20087,6 +21919,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -20157,7 +22034,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20296,6 +22173,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -20481,7 +22361,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -20577,7 +22457,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -20589,13 +22469,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -20604,7 +22484,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -20646,7 +22526,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_8" repetitions="6" runMetricsEveryStep="true">
@@ -20766,6 +22646,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -20836,7 +22761,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20975,6 +22900,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -21160,7 +23088,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -21256,7 +23184,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -21268,13 +23196,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -21283,7 +23211,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -21325,7 +23253,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Leisure_9" repetitions="6" runMetricsEveryStep="true">
@@ -21445,6 +23373,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -21515,7 +23488,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -21654,6 +23627,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -21839,7 +23815,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -21935,7 +23911,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -21947,13 +23923,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -21962,7 +23938,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -22004,7 +23980,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_6" repetitions="6" runMetricsEveryStep="true">
@@ -22124,6 +24100,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -22194,7 +24215,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -22333,6 +24354,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -22518,7 +24542,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -22614,7 +24638,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -22626,13 +24650,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -22641,7 +24665,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -22683,7 +24707,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_7" repetitions="6" runMetricsEveryStep="true">
@@ -22803,6 +24827,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -22873,7 +24942,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -23012,6 +25081,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -23197,7 +25269,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -23293,7 +25365,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -23305,13 +25377,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -23320,7 +25392,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -23362,7 +25434,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_8" repetitions="6" runMetricsEveryStep="true">
@@ -23482,6 +25554,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -23552,7 +25669,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -23691,6 +25808,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -23876,7 +25996,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -23972,7 +26092,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -23984,13 +26104,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -23999,7 +26119,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -24041,7 +26161,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-Business_9" repetitions="6" runMetricsEveryStep="true">
@@ -24161,6 +26281,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -24231,7 +26396,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -24370,6 +26535,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -24555,7 +26723,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -24651,7 +26819,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -24663,13 +26831,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -24678,7 +26846,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -24720,7 +26888,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_6" repetitions="6" runMetricsEveryStep="true">
@@ -24840,6 +27008,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -24910,7 +27123,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -25049,6 +27262,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -25234,7 +27450,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -25330,7 +27546,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -25342,13 +27558,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -25357,7 +27573,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -25399,7 +27615,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_7" repetitions="6" runMetricsEveryStep="true">
@@ -25519,6 +27735,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -25589,7 +27850,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -25728,6 +27989,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -25913,7 +28177,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -26009,7 +28273,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -26021,13 +28285,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -26036,7 +28300,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -26078,7 +28342,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_8" repetitions="6" runMetricsEveryStep="true">
@@ -26198,6 +28462,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -26268,7 +28577,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -26407,6 +28716,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -26592,7 +28904,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -26688,7 +29000,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -26700,13 +29012,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -26715,7 +29027,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -26757,7 +29069,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="S12-PublicServices_9" repetitions="6" runMetricsEveryStep="true">
@@ -26877,6 +29189,51 @@ setup-measures-for-phasing-out</setup>
     <metric>ratio-omniscious-infected-that-triggers-half-capacity-busses-measure</metric>
     <metric>ratio-omniscious-infected-that-triggers-retirees-in-isolation</metric>
     <metric>#newly-infected-this-tick</metric>
+    <metric>workers-average-amount-of-capital</metric>
+    <metric>retirees-average-amount-of-capital</metric>
+    <metric>students-average-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-capital</metric>
+    <metric>non-essential-shop-amount-of-capital</metric>
+    <metric>university-amount-of-capital</metric>
+    <metric>hospital-amount-of-capital</metric>
+    <metric>essential-shop-amount-of-goods-in-stock</metric>
+    <metric>non-essential-shop-amount-of-goods-in-stock</metric>
+    <metric>workplace-amount-of-goods-in-stock</metric>
+    <metric>count people with [is-at-work?]</metric>
+    <metric>count people with [is-at-public-leisure-place?]</metric>
+    <metric>count people with [is-at-private-leisure-place?]</metric>
+    <metric>count people with [is-at-home?]</metric>
+    <metric>count people with [is-at-university?]</metric>
+    <metric>count people with [current-motivation = treatment-motive]</metric>
+    <metric>count people-at-essential-shops</metric>
+    <metric>count people-at-non-essential-shops</metric>
+    <metric>#workers-working-at-essential-shop</metric>
+    <metric>#workers-working-at-non-essential-shop</metric>
+    <metric>#workers-working-at-university</metric>
+    <metric>#workers-working-at-hospital</metric>
+    <metric>#workers-working-at-workplace</metric>
+    <metric>#workers-working-at-school</metric>
+    <metric>total-amount-of-capital-in-the-system</metric>
+    <metric>government-reserve-of-capital</metric>
+    <metric>velocity-of-money-in-total-system</metric>
+    <metric>goods-production-of-total-system</metric>
+    <metric>#adult-people-out-of-capital</metric>
+    <metric>#workers-out-of-capital</metric>
+    <metric>#retired-out-of-capital</metric>
+    <metric>#students-out-of-capital</metric>
+    <metric>#essential-shops-out-of-capital</metric>
+    <metric>#non-essential-shops-out-of-capital</metric>
+    <metric>#universities-out-of-capital</metric>
+    <metric>#hospitals-out-of-capital</metric>
+    <metric>#workplaces-out-of-capital</metric>
+    <metric>#schools-out-of-capital</metric>
+    <metric>count people with [not is-young? and is-in-poverty?]</metric>
+    <metric>count workers with [is-in-poverty?]</metric>
+    <metric>count retireds with [is-in-poverty?]</metric>
+    <metric>count students with [is-in-poverty?]</metric>
+    <metric>standard-deviation [my-amount-of-capital] of workers</metric>
+    <metric>standard-deviation [my-amount-of-capital] of students</metric>
+    <metric>standard-deviation [my-amount-of-capital] of retireds</metric>
     <metric>current-governmental-model-phase</metric>
     <enumeratedValueSet variable="acknowledgement-ratio">
       <value value="0.02"/>
@@ -26947,7 +29304,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="31"/>
+      <value value="62"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -27086,6 +29443,9 @@ setup-measures-for-phasing-out</setup>
     </enumeratedValueSet>
     <enumeratedValueSet variable="do-not-test-youth?">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="export-value-decay-factor">
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="factor-reduction-probability-transmission-young">
       <value value="0.69"/>
@@ -27271,7 +29631,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="1"/>
+      <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -27367,7 +29727,7 @@ setup-measures-for-phasing-out</setup>
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="retirees-tick-subsidy">
-      <value value="3"/>
+      <value value="3.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="services-luxury-ratio-of-expenditures-when-closed">
       <value value="0.15"/>
@@ -27379,13 +29739,13 @@ setup-measures-for-phasing-out</setup>
       <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-retired">
-      <value value="40"/>
+      <value value="50"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-students">
-      <value value="30"/>
+      <value value="45"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="starting-amount-of-capital-workers">
-      <value value="75"/>
+      <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
       <value value="false"/>
@@ -27394,7 +29754,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="students-tick-subsidy">
-      <value value="1.5"/>
+      <value value="3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="survival-multiplier">
       <value value="2.5"/>
@@ -27436,7 +29796,7 @@ setup-measures-for-phasing-out</setup>
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="workers-wages">
-      <value value="9"/>
+      <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
