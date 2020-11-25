@@ -10402,7 +10402,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -10729,7 +10729,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -11129,7 +11129,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -11456,7 +11456,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -11856,7 +11856,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12183,7 +12183,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -12583,7 +12583,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -12910,7 +12910,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -13310,7 +13310,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -13637,7 +13637,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -14037,7 +14037,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -14364,7 +14364,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -14764,7 +14764,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -15091,7 +15091,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -15491,7 +15491,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -15818,7 +15818,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -16218,7 +16218,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -16545,7 +16545,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -16945,7 +16945,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -17272,7 +17272,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -17672,7 +17672,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -17999,7 +17999,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -18399,7 +18399,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -18726,7 +18726,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -19126,7 +19126,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -19453,7 +19453,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -19853,7 +19853,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20180,7 +20180,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -20580,7 +20580,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -20907,7 +20907,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -21307,7 +21307,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -21634,7 +21634,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -22034,7 +22034,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -22361,7 +22361,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -22761,7 +22761,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -23088,7 +23088,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -23488,7 +23488,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -23815,7 +23815,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -24215,7 +24215,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -24542,7 +24542,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -24942,7 +24942,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -25269,7 +25269,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -25669,7 +25669,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -25996,7 +25996,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -26396,7 +26396,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -26723,7 +26723,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -27123,7 +27123,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -27450,7 +27450,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -27850,7 +27850,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -28177,7 +28177,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -28577,7 +28577,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -28904,7 +28904,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
@@ -29304,7 +29304,7 @@ setup-measures-for-phasing-out</setup>
       <value value="13"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#bus-per-timeslot">
-      <value value="62"/>
+      <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="#days-recording-tracing">
       <value value="7"/>
@@ -29631,7 +29631,7 @@ setup-measures-for-phasing-out</setup>
       <value value="0.03"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="productivity-at-home">
-      <value value="0.5"/>
+      <value value="0.75"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="propagation-risk">
       <value value="0.15"/>
