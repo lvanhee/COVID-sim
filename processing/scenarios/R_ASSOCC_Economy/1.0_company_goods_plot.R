@@ -125,7 +125,7 @@ plot_ggplot_smooth <- function(data_to_plot, type_of_people) {
     xlab("Ticks") +
     ylab("goods") + 
     labs(title=paste("Average", type_of_people, "goods in stock", sep = " "),
-         subtitle=paste("Average goods in stock at", type_of_people, "(smoothed + uncertainty)", sep = " "), 
+         subtitle=paste("Average goods in stock at", type_of_people, "(smoothed + uncertainty (std. dev.))", sep = " "), 
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
     gl_plot_guides + gl_plot_theme
 }

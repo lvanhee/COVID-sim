@@ -92,7 +92,7 @@ plot_ggplot_smooth_uncertainty <- function(data_to_plot) {
     xlab("Ticks") +
     ylab("Infected") + 
     labs(title="Infected numbers",
-         subtitle="Total number of people infected (smoothed with uncertainty)", 
+         subtitle="Total number of people infected (smoothed with uncertainty (std. dev.))", 
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
     gl_plot_guides + gl_plot_theme
 }
