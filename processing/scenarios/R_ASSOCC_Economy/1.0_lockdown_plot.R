@@ -11,8 +11,6 @@ plotEcoLockdown <- function(df_economy, output_dir, one_plot) {
   #-------------------------------------------------------------
   print(paste(name, " performing data manipulation", sep=""))
   
-  # CONTACTS PER GATHERING POINT PER APP USAGE SCENARIO ----------------------------
-  
   df_lockdown <- df_economy %>% group_by(tick, preset_scenario) %>% 
       summarise(tick, preset_scenario, lockdown = mean(ifelse_value_is_lockdown_active_1_0))
 
