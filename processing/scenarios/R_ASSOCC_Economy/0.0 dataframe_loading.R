@@ -136,6 +136,9 @@ plotAllPlots <- function() {
   source("1.0_people_capital_plot.r")
   plotEcoPeopleCapital(df_economy, output_dir, one_plot)
   
+  source("1.0_people_capital_std_plot.r")
+  plotEcoPeopleStdCapital(df_economy, output_dir, one_plot)
+  
   source("1.0_company_capital_plot.r")
   plotEcoCompanyCapital(df_economy, output_dir, one_plot)
   
@@ -144,6 +147,23 @@ plotAllPlots <- function() {
   
   source("1.0_velocity_plot.r")
   plotEcoVelocity(df_economy, output_dir, one_plot)
+  
+  source("1.0_capital_in_system_plot.r")
+  plotEcoSystemCapital(df_economy, output_dir, one_plot)
+  
+  source("1.0_goods_produced_in_system_plot.r")
+  plotEcoSystemGoodsProd(df_economy, output_dir, one_plot)
+  
+  source("1.0_government_capital_plot.r")
+  plotEcoGovernmentCapital(df_economy, output_dir, one_plot)
+  
+  #QoL
+  
+  #Activities
+  
+  #Working
+  source("1.0_Workers_Working_for_plot.r")
+  plotEcoPeopleWokringFor(df_economy, output_dir, one_plot)
   
   # source("S6_infected_compliance_tests.r")
   # plotS6InfectedComplianceTests(df_economy, p_independent_variable, output_dir, one_plot)

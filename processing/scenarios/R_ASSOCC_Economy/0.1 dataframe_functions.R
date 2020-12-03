@@ -165,6 +165,13 @@ dmfConvertTicksToDay <- function(p_tick_vector) {
   return(v_days)
 }
 
+dmfConvertDaysToWeek <- function(p_day_vector) {
+  
+  days_per_week = 7
+  v_weeks <- floor(p_day_vector / days_per_week)
+  return(v_weeks)
+}
+
 # This function is a bit of a quick fix, it just checks the first row and sums everything
 dmfGetTotalAmountOfPeople <- function(p_df) {
   
