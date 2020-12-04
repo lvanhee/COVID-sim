@@ -226,6 +226,7 @@ to kill-person
   if age = young-age [set #dead-young #dead-young + 1]
   if age = worker-age [set #dead-workers #dead-workers + 1]
   if age = student-age [set #dead-students #dead-students + 1]
+  if is-currently-allocated-a-bed-in-hospital? [ release-bed-in-hospital ]
   die
   end
 
