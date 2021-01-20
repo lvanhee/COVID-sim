@@ -9673,7 +9673,7 @@ setup</setup>
   <experiment name="curfew-test-no-quarantine" repetitions="14" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="1500"/>
+    <timeLimit steps="1000"/>
     <metric>#infected</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
@@ -10279,10 +10279,10 @@ setup</setup>
       <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="curfew-test-after-quarantine" repetitions="14" runMetricsEveryStep="true">
+  <experiment name="curfew-test-after-quarantine" repetitions="7" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="1500"/>
+    <timeLimit steps="1000"/>
     <metric>#infected</metric>
     <metric>count people with [epistemic-infection-status = "infected"]</metric>
     <metric>#admissions-last-tick</metric>
