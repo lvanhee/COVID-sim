@@ -23,6 +23,13 @@ to-report is-hard-lockdown-active?
   report false
 end
 
+to-report is-curfew-active?
+  if force-curfew-active? [report true]
+  if (ratio-infected >= ratio-omniscious-infected-that-trigger-curfew) [report true]
+  if trigger-curfew-when = "after-quarantine" and has-been-through-global-quarantine? [report true]
+  report false
+end
+
 to-report closed-non-essential?
   report ratio-infected > ratio-omniscious-infected-that-trigger-non-essential-closing-measure
   or
@@ -101,6 +108,10 @@ to disable-all-measures
   set ratio-self-quarantining-when-symptomatic 0
   set ratio-self-quarantining-when-a-family-member-is-symptomatic 0
   set is-working-from-home-recommended? false
+  ; Disable curfew
+  set force-curfew-active? false
+  set ratio-omniscious-infected-that-trigger-curfew 1
+  set trigger-curfew-when "never"
   
   disable-global-quarantine-measure
   disable-tracing-app-measure

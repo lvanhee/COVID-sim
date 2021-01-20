@@ -197,6 +197,9 @@ to-report is-accessible?
   if is-school? and closed-schools? [report false]  
   if is-university? and closed-universities? [report false]
   if is-non-essential-shop? and closed-non-essential? [report false]
+  if is-curfew-active? and (is-evening? or is-night?) [
+    report is-open-during-curfew?
+  ]
   report true
 end
 
@@ -204,6 +207,14 @@ to-report is-open-during-lockdown?
   if is-workplace? or is-school? or is-university? or is-non-essential-shop? or is-public-leisure?
   or is-private-leisure? [report false]
   if is-essential-shop? or is-hospital? or is-home? [report true]
+  
+  report (sentence "unimplemented for:" [gathering-type] of self)
+end
+
+to-report is-open-during-curfew?
+  if is-workplace? or is-school? or is-university? or is-non-essential-shop? or is-essential-shop? or is-private-leisure? [report false]
+  if is-hospital? or is-home? [report true]
+  if is-public-leisure? [report true] ; So the agents have somewhere to go so they can break curfew
   
   report (sentence "unimplemented for:" [gathering-type] of self)
 end

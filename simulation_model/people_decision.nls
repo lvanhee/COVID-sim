@@ -37,6 +37,7 @@ end
 to-report should-I-stay-home?
   if is-hard-lockdown-active? [report true]
   if is-officially-asked-to-quarantine? [report true]
+  if is-curfew-active? and (is-evening? or is-night?) [report true]
   report false
 end
 
