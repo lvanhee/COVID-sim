@@ -91,7 +91,7 @@ plot_ggplot <- function(data_to_plot, app_use) {
     )) +
     xlab("Days") +
     ylab("Cumulative agents infected") +
-    labs(title=paste("Cummulative agents infected per gathering point - app usage ratio:", app_use),
+    labs(title=paste("Cummulative agents infected per gathering point - curfew type:", app_use),
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
     gl_plot_guides + gl_plot_theme
 }

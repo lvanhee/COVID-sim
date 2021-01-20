@@ -51,7 +51,7 @@ plot_ggplot <- function(data_to_plot) {
     geom_line(aes(col=as.factor(curfew_type))) +
     xlab("Days") +
     ylab("Cumulative number of infections") + 
-    labs(title="Cumulative Infections depending on the app usage ratio",
+    labs(title="Cumulative Infections depending on the curfew type",
          fill="Proportion of App Users",
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
     scale_colour_brewer(palette = "Spectral", name="Curfew type") +

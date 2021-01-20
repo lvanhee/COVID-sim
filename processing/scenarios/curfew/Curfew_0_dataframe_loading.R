@@ -49,7 +49,7 @@ filesPath <- "data/"
 
 ### MANUAL INPUT: specify filenames ###
 
-dataFilePattern <- "curfew_2021-01-20_1127.*.csv"
+dataFilePattern <- "curfew_2021-01-20_112729.*.csv"
 filesNames   <- list.files(path=filesPath, pattern=dataFilePattern)
 
 #=============================================================
@@ -113,7 +113,8 @@ print("Please check if names_compare has the right names")
 
 df_scenario6 <- mutate(df_scenario6, 
                         curfew_type = case_when(
-                          ratio_omniscious_infected_that_trigger_curfew == 0.02 ~ "Curfew starts at 2% infected, no lockdown",
+                          ratio_omniscious_infected_that_trigger_curfew == 0.02 ~ 
+                            "Curfew starts at 2% infected, no lockdown",
                           trigger_curfew_when == "35-days-after-start-lockdown" & lockdown_duration == 35 ~ 
                             paste("Lockdown for", lockdown_duration, "days (starting at 2% infected) followed by curfew", sep=" "),
                           trigger_curfew_when == "35-days-after-start-lockdown" & lockdown_duration == 56 ~ 

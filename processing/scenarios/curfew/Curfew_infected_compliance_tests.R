@@ -29,26 +29,26 @@ plotCurfewInfectedComplianceTests <- function(df_scenario6, output_dir, one_plot
   # Infected
   plots_data_infected <- gather(df_data, variable, measurement, infected)
   dmfPdfOpen(output_dir, "curfew_infected")
-  print(plot_ggplot_tick(plots_data_infected, "Agents infected depending on the app usage ratio", "Number of infected"))
+  print(plot_ggplot_tick(plots_data_infected, "Agents infected depending on the curfew type", "Number of infected"))
   dmfPdfClose()
   
   # Epistemic infected
   plots_data_epistemic_infected <- gather(df_data, variable, measurement, believe_infected)
   dmfPdfOpen(output_dir, "curfew_infected_epistemic")
-  print(plot_ggplot_tick(plots_data_epistemic_infected, "Agents believing being infected depending on the app usage ratio",
+  print(plot_ggplot_tick(plots_data_epistemic_infected, "Agents believing being infected depending on the curfew type",
                          "Number of agents believing they are infected"))
   dmfPdfClose()
   
   # Ratio quarantine 
   plots_data_ratio_quarantine <- gather(df_data, variable, measurement, ratio_quarantiners_complying)
   dmfPdfOpen(output_dir, "curfew_quarantiners_complying")
-  print(plot_ggplot_tick(plots_data_ratio_quarantine, "Ratio agents in quarantine depending on the app usage ratio",
+  print(plot_ggplot_tick(plots_data_ratio_quarantine, "Ratio agents in quarantine depending on the curfew type",
                          "Ratio of people complying to quarantine"))
   dmfPdfClose()
   
   # Ratio quarantine smoothed
   dmfPdfOpen(output_dir, "curfew_quarantiners_complying_smooth")
-  print(plot_ggplot_tick_smooth(plots_data_ratio_quarantine, "Ratio agents in quarantine depending on the app usage ratio (Smoothed)",
+  print(plot_ggplot_tick_smooth(plots_data_ratio_quarantine, "Ratio agents in quarantine depending on the curfew type (Smoothed)",
                                 "Ratio of people complying to quarantine"))
   dmfPdfClose()
 }
