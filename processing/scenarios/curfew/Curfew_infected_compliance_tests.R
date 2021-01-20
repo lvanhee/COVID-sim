@@ -66,7 +66,8 @@ plot_ggplot_tick <- function(data_to_plot, p_title = "None", p_y_lab = "None") {
     labs(title=p_title,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
          x="Ticks", y=p_y_lab) +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme +
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }
 
 
@@ -80,7 +81,8 @@ plot_ggplot_tick_smooth <- function(data_to_plot, p_title = "None", p_y_lab = "N
     labs(title=p_title,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
          x="Ticks", y=p_y_lab) +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme +
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }
 
 plot_ggplot_day <- function(data_to_plot, p_title = "None", p_y_lab = "None") {
@@ -93,7 +95,8 @@ plot_ggplot_day <- function(data_to_plot, p_title = "None", p_y_lab = "None") {
     labs(title=p_title,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
          x="Days", y=p_y_lab) +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme +
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }
 
 plot_ggplot_day_smooth <- function(data_to_plot, p_title = "None", p_y_lab = "None") {
@@ -106,5 +109,6 @@ plot_ggplot_day_smooth <- function(data_to_plot, p_title = "None", p_y_lab = "No
     labs(title=p_title,
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)",
          x="Days", y=p_y_lab) +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme +
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }

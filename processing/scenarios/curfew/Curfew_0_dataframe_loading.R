@@ -45,12 +45,12 @@ source("Curfew_1_dataframe_functions.r")
 
 ### MANUAL INPUT: Optionally specify filepath (i.e. where the behaviorspace csv is situated) ###
 #NOTE: if csv files are placed in the workdirec, then leave filesPath unchanged
-filesPath <- ""
+filesPath <- "data/"
 
 ### MANUAL INPUT: specify filenames ###
 
-dataFileName <- c("data/curfew_2021-01-20_11266754_00.csv", "data/curfew_2021-01-20_11266759_00.csv")
-filesNames   <- dataFileName
+dataFilePattern <- "curfew_2021-01-20_1127.*.csv"
+filesNames   <- list.files(path=filesPath, pattern=dataFilePattern)
 
 #=============================================================
 #========================= LOAD DATA =========================
@@ -113,11 +113,22 @@ print("Please check if names_compare has the right names")
 
 df_scenario6 <- mutate(df_scenario6, 
                         curfew_type = case_when(
-                          ratio_omniscious_infected_that_trigger_curfew == 0.02 ~ "2% infected",
-                          trigger_curfew_when == "after-quarantine" ~ "Following quarantine",
-                          all_self_isolate_for_35_days_when_first_hitting_2_infected == "true" ~ "No curfew, only lockdown",
-                          TRUE ~ "No curfew"
+                          ratio_omniscious_infected_that_trigger_curfew == 0.02 ~ "Curfew starts at 2% infected, no lockdown",
+                          trigger_curfew_when == "35-days-after-start-lockdown" & lockdown_duration == 35 ~ 
+                            paste("Lockdown for", lockdown_duration, "days (starting at 2% infected) followed by curfew", sep=" "),
+                          trigger_curfew_when == "35-days-after-start-lockdown" & lockdown_duration == 56 ~ 
+                            "Lockdown for 35 days (starting at 2% infected) followed by lockdown plus curfew for 21 days",
+                          all_self_isolate_for_35_days_when_first_hitting_2_infected == "true" ~ 
+                            paste("Lockdown for", lockdown_duration, "days (starting at 2% infected)", sep=" "),
+                          TRUE ~ "No restrictions"
                         ))
+df_scenario6$curfew_type <- factor(df_scenario6$curfew_type,
+                                   levels = c("No restrictions", 
+                                              "Lockdown for 35 days (starting at 2% infected)", 
+                                              "Lockdown for 56 days (starting at 2% infected)", 
+                                              "Curfew starts at 2% infected, no lockdown",
+                                              "Lockdown for 35 days (starting at 2% infected) followed by curfew",
+                                              "Lockdown for 35 days (starting at 2% infected) followed by lockdown plus curfew for 21 days"))
 
 #=============================================================
 #========================== !PLOTS! ==========================

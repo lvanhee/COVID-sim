@@ -97,7 +97,8 @@ plot_ggplot <- function(data_to_plot) {
     ylab("Average contacts per agent") + 
     labs(title=paste("Number of contacts average per agent per day"), 
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme + 
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }
 
 plot_ggplot_smooth <- function(data_to_plot) {
@@ -111,5 +112,6 @@ plot_ggplot_smooth <- function(data_to_plot) {
     ylab("Average contacts per agent") + 
     labs(title=paste("Number of contacts average per agent per day (smoothed)"),
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme +
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }

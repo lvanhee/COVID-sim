@@ -55,5 +55,6 @@ plot_ggplot <- function(data_to_plot) {
          fill="Proportion of App Users",
          caption="Agent-based Social Simulation of Corona Crisis (ASSOCC)") +
     scale_colour_brewer(palette = "Spectral", name="Curfew type") +
-    gl_plot_guides + gl_plot_theme
+    gl_plot_guides + gl_plot_theme +
+    theme(legend.position = "bottom", legend.direction = "vertical")
 }
