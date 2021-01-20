@@ -1468,7 +1468,7 @@ SWITCH
 80
 static-seed?
 static-seed?
-0
+1
 1
 -1000
 
@@ -3488,7 +3488,7 @@ SWITCH
 1362
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
 all-self-isolate-for-35-days-when-first-hitting-2%-infected?
-1
+0
 1
 -1000
 
@@ -4182,14 +4182,25 @@ NIL
 HORIZONTAL
 
 CHOOSER
-1534
-1168
-1689
-1213
+1530
+1159
+1730
+1204
 trigger-curfew-when
 trigger-curfew-when
-"never" "after-quarantine"
-0
+"never" "after-lockdown" "from-start-lockdown-to-end-lockdown-plus-21-days"
+2
+
+MONITOR
+1623
+1202
+1731
+1247
+NIL
+is-curfew-active?
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -10363,7 +10374,8 @@ setup</setup>
     <metric>#workers-at-start</metric>
     <metric>#retireds-at-start</metric>
     <enumeratedValueSet variable="trigger-curfew-when">
-      <value value="&quot;after-quarantine&quot;"/>
+      <value value="&quot;from-start-lockdown-to-end-lockdown-plus-21-days&quot;"/>
+      <value value="&quot;after-lockdown&quot;"/>
       <value value="&quot;never&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-curfew">

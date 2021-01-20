@@ -26,7 +26,8 @@ end
 to-report is-curfew-active?
   if force-curfew-active? [report true]
   if (ratio-infected >= ratio-omniscious-infected-that-trigger-curfew) [report true]
-  if trigger-curfew-when = "after-quarantine" and has-been-through-global-quarantine? [report true]
+  if trigger-curfew-when = "after-lockdown" and has-been-through-global-quarantine? [report true]
+  if trigger-curfew-when = "from-start-lockdown-to-end-lockdown-plus-21-days" [report is-global-quarantine-active? or (has-been-through-global-quarantine? and ticks < end-tick-of-global-quarantine + 21 * #ticks-per-day)]
   report false
 end
 
