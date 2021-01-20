@@ -10364,6 +10364,7 @@ setup</setup>
     <metric>#retireds-at-start</metric>
     <enumeratedValueSet variable="trigger-curfew-when">
       <value value="&quot;after-quarantine&quot;"/>
+      <value value="&quot;never&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-curfew">
       <value value="1"/>
