@@ -49,3 +49,19 @@ end
 to-report #ticks-per-day
   report 4
 end
+
+to-report is-morning?
+  report slice-of-the-day = "morning"
+end
+
+to-report is-afternoon?
+  report slice-of-the-day = "afternoon"
+end
+
+to-report is-evening?
+  report slice-of-the-day = "evening"
+end
+
+to-report is-night?
+  report slice-of-the-day = "night"
+end
