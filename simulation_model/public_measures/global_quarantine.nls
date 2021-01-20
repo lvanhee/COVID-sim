@@ -18,7 +18,7 @@ to disable-global-quarantine-measure
 end
 
 to-report duration-global-quarantine
-  report 35 * #ticks-per-day
+  report lockdown-duration * #ticks-per-day
 end
 
 to-report end-tick-of-global-quarantine

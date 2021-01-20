@@ -4182,13 +4182,13 @@ NIL
 HORIZONTAL
 
 CHOOSER
-1530
+1519
 1159
-1730
+1731
 1204
 trigger-curfew-when
 trigger-curfew-when
-"never" "after-lockdown" "from-start-lockdown-to-end-lockdown-plus-21-days"
+"never" "after-lockdown" "35-days-after-start-lockdown"
 2
 
 MONITOR
@@ -4201,6 +4201,17 @@ is-curfew-active?
 17
 1
 11
+
+INPUTBOX
+2267
+1238
+2422
+1298
+lockdown-duration
+56.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -10374,9 +10385,12 @@ setup</setup>
     <metric>#workers-at-start</metric>
     <metric>#retireds-at-start</metric>
     <enumeratedValueSet variable="trigger-curfew-when">
-      <value value="&quot;from-start-lockdown-to-end-lockdown-plus-21-days&quot;"/>
-      <value value="&quot;after-lockdown&quot;"/>
+      <value value="&quot;35-days-after-start-lockdown&quot;"/>
       <value value="&quot;never&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lockdown-duration">
+      <value value="35"/>
+      <value value="56"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ratio-omniscious-infected-that-trigger-curfew">
       <value value="1"/>
