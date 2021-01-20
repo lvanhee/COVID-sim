@@ -10217,7 +10217,7 @@ setup</setup>
       <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
-      <value value="true"/>
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="std-dev-social-distance-profile">
       <value value="0.1"/>
@@ -10825,7 +10825,7 @@ setup</setup>
       <value value="60"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="static-seed?">
-      <value value="true"/>
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="std-dev-social-distance-profile">
       <value value="0.1"/>
