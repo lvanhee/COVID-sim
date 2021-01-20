@@ -4189,7 +4189,7 @@ CHOOSER
 trigger-curfew-when
 trigger-curfew-when
 "never" "after-lockdown" "35-days-after-start-lockdown"
-2
+1
 
 MONITOR
 1623
@@ -10290,7 +10290,7 @@ setup</setup>
       <value value="12.5"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="curfew-test-after-quarantine" repetitions="7" runMetricsEveryStep="true">
+  <experiment name="curfew-test-after-quarantine" repetitions="4" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
@@ -10386,6 +10386,7 @@ setup</setup>
     <metric>#retireds-at-start</metric>
     <enumeratedValueSet variable="trigger-curfew-when">
       <value value="&quot;35-days-after-start-lockdown&quot;"/>
+      <value value="&quot;after-lockdown&quot;"/>
       <value value="&quot;never&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="lockdown-duration">
